@@ -1,0 +1,32 @@
+OKAY, PROBLEM SOLVED. THIS IS THE FINAL ARCHITECTURE FOR THE NPC SCHEDULE.
+
+The schedule that is created in scr_schedules should only be used if there is no file to be loaded 
+(only use the initial schedule if this is a new game). After a new game is begun, the schedule will become
+a variable belonging to the player, which will be saved and loaded.
+
+The schedule will be rearranged each day within the initialize_day function.
+
+Each npc will have a number of different routines.
+
+Each routine type ID will pertain to a list of location IDs, a list of travelMethods and also
+a grid of coordinate lists.
+
+This routine will be randomly selected at the turn of each day, and used to 
+build the schedule that is then saved to the file.
+
+If an NPC is in the standard state, they will continue down their path of coordinates for the timeblock,
+if an NPC is in any other state, they will become paused
+
+---------
+
+Most of the functionality described above is now ready. The following is a list of unsolved issues with
+this architecture.
+
+
+--How will I manage NPCs changing rooms in the middle of a timeblock?
+
+--How will the paths be stored?
+
+--How will the routines be stored?
+
+--The build_daily_schedule function must still be completed.

@@ -1,0 +1,34 @@
+THIS WILL BE A COMPREHENSIVE LIST OF THE QUESTLINES IN SPRITES CHAPTER 1.
+
+-HONORING THE FORGOTTEN CHAMPION
+	TRIGGER: After learning the truth about Ms Bosicat and the end of the Second Alcompian War, you feel compelled to help bring her heroics to light and potentially restore 
+	some of the pride she lost after that battle.
+	
+	PROCESS: Friends of Boss will share tips if you can prove your worth. Sprites at The Pit tell you about Ellevere's Journal. A descendant of Ellevere's will give you access 
+	under the pretense that you have the strength to defend Ellevere's honor once some of the accusations she makes in her journal are made public. (Beat her in a match)
+	
+	RESOLVE: Once Ellevere's secret journals are openly published, a committee moves to erect a statue of Boss' old form in Golden Square. At the unveiling, Bosicat makes a flippant
+	remark and states that it wasn't recognition she cared about, she just wants patterns and behaviors that ultimately lead to the Second Alcompian War to stop. After the quest is
+	completed, Boss comes to town more frequently and even appears on the roster of a few NPCs. The next time you talk with Ms Bosicat, she'll thank you for helping bring such a nuanced
+	issue to the public. She'll remark that it's different for the generations that grew up after that war. After this conversation, she'll create a talisman for you. A similar conversation
+	awaits to be had with each friend of her's who hangs out in The Pit.
+
+-WELCOME TO THE CPMB
+	TRIGGER: If you speak to Gembo while he is at work, he'll apologize if he's ever seen you in public and been rude to you. "I just uhhhh.. don't like humans none. I know it's a real crap attitude
+	but uhh.. frankly, y'know uh... shove it. Anyway, if you wanna do some good for yer city here and all that, good on ya. We're open every day from 6 am until 7 pm, come by and we can get you started
+	doing some basic work, givin' back to the sprites that make life so freakin' sweet here in Alcompas."
+
+	PROCESS: If you go to the CPMB building during their hours of operation, Gembo will take you out to do some simple canvassing. While you're out, his friend Scritchy will appear and tell you both that
+	there's an unincorporated sprite going on a rampage near the training fields. Gembo will make it state that it's the responsibility of the CPMB to help suppress the situation and also ensure that the
+	unincorporated sprite isn't mistreated by the SAB or House Stalwarden. You all transport to the training fields, where one of your old instructors tells you that they'll assist you if necessary, but that
+	they want to see how you handle it without any help. If you lose, your instructor will step in and suppress the sprite. After being defeated by either you or your instructor, the sprite will flee to 
+	Landsplit Wood. Some members of the SAB will try to pursue, but your instructor will intervene and state that calming down this sprite and exlaining the situation to them is more within Gembo's jurisdiction
+	than theirs.
+
+	RESOLVE: The next time you speak to Gembo, he'll thank you for helping out and say that he wants to show you something. This will trigger a cutscene where Gembo takes you to a kitchen that makes meals for sprites
+	who don't have enough influence to maintain their material form. Gembo will explain to you that some sprites must do this because they aren't receiving enough worship to survive here otherwise. He'll call over Scritchy
+	and the newly incorporated sprite that you fought with in the training fields. He'll then suggest that they each create a talisman for you, so that you can help them gain some influence through Cosmic Sparring. Scritchy
+	will tell you "I might not look like the toughest, but I've got some tricks up my sleeve!" and the newly incorporated sprite will tell you "When we fought, I could feel through your will that you were doing all you could 
+	not to hurt me. That warmth was a big reason why I was able to calm down and get my bearings so easily. Thank you." After they both give you their talismans, Gembo will say "That last bit is why I brought you here. Y'know, 
+	humans might not be my thing, but I guess some of you ain't half bad. Here's my talisman, too. Give me a call if you need help with any of yer uh.. heroics and whatnot".
+

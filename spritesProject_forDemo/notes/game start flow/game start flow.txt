@@ -1,0 +1,51 @@
+To create the room transition functions, I think it would be best to start by creating a working title screen room,
+as well as a working main menu. This will allow me to figure out the flow of the game upon opening it.
+
+Room transitions can of course be done using the UI and also by playing the game (e.g., you can click a button to open a menu or
+you can walk through a door). So, I am going to first create the button parent object and some button art. This will allow me
+to make the title screen and main menu and will give me a good idea of how to nest the transition animation and the room change
+and how to write that process so that everything cleans up and changes in the correct/optimal order.
+
+Here is my rough plan in pseudocode:
+
+-GAME TURNS ON
+-INIT ROOM WITH GAME OBJECT
+-TRANSITION TO EACH SPLASHSCREEN
+-TRANSITION TO TITLE SCREEN
+-CREATE INTRO OBJECT
+-IF A BUTTON IS PRESSED OR IF THE INTRO ENDS:
+	-DELETE INTRO OBJECT
+	-CREATE TITLE SCREEN OBJECT
+-CREATE FILE CHECK OBJECT
+-IF FILE CHECK OBJECT EXISTS:
+	-IF SAVE FILE DETECTED:
+		-LOAD ALL FILES AND SAVE A LIST OF THEIR NAMES
+		-DELETE FILE CHECK OBJECT
+	-ELSE:
+		-CREATE NEWGAME/DOWNLOADFILE PROMPT
+		-IF USER SELECTS NEWGAME:
+			-DELETE NEWGAME/DOWNLOADFILE PROMPT
+			-TRANSITION TO NEW GAME ROOM
+		-ELSE:
+			-DELETE NEWGAME/DOWNLOADFILE PROMPT
+			-CREATE FILE RETRIEVE OBJECT
+-ELSE:
+	-IF USER PRESSES START:
+		TRANSITION TO FILE SELECTION MENU
+
+
+HERE IS HOW SAVE FILES WILL WORK:
+
+each copy of the game will be allowed to store 5 save files. You can create files by starting new games. During the tutorial, the
+player will be given their SoulStone by one of their professors. At this time, the user will be allowed to create a save file and send it
+to the online database for the first time, after prompting them to create a username and password for the in-game device. Of course,
+there must also be a check at this point to ensure that the username is available. If the user is playing offline at the time, the professor
+will tell you that the device is having trouble connecting to the soulgrid at the time, and that you should create a username and password later on
+when you're able to get "online". When a file is being played, if there is internet connection and no username and password, it will prompt you to
+create them before playing any more.
+
+HERE IS HOW THE FILE SELECTION MENU WILL WORK:
+
+when the game does the initial file check, it will load each available file (if any), but before moving to the next load, it will add the name of that
+file's character as well as their appearance string so that the selection menu can display each character beside his/her/their name. The list will be in order
+so that when item n is chosen, file n is loaded.

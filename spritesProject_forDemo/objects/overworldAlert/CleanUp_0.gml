@@ -1,0 +1,3 @@
+/// @desc
+
+global.overworld = true;

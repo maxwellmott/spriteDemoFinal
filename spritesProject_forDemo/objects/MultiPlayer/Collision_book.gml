@@ -1,0 +1,1 @@
+DataToSendOtherPlayer.Contact=1;

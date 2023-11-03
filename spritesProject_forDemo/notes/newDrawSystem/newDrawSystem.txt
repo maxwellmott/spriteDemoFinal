@@ -1,0 +1,7 @@
+So after checking out different ways of drawing shadows, I realized that I really need to switch over to using surfaces.
+
+Here is an in-depth description of how the new system should work:
+
+	at game start and during each transition, an object should be created (maybe called humanSpriteManager) that will check the 
+	target location, get a list of every npc that might come into the room. There should be a single function to build human
+	sprites (human_build_sprite()) that can be called for the player 
