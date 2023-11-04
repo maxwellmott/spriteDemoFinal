@@ -365,6 +365,7 @@
     {"id":{"name":"rm_battleScene","path":"rooms/rm_battleScene/rm_battleScene.yy",},},
   ],
   "RoomOrderNodes": [
+    {"roomId":{"name":"rm_DEBUG","path":"rooms/rm_DEBUG/rm_DEBUG.yy",},},
     {"roomId":{"name":"scalingRoom","path":"rooms/scalingRoom/scalingRoom.yy",},},
     {"roomId":{"name":"rm_gameStart","path":"rooms/rm_gameStart/rm_gameStart.yy",},},
     {"roomId":{"name":"rm_overworld","path":"rooms/rm_overworld/rm_overworld.yy",},},
@@ -376,7 +377,6 @@
     {"roomId":{"name":"rm_optionsMenu","path":"rooms/rm_optionsMenu/rm_optionsMenu.yy",},},
     {"roomId":{"name":"rm_titleScreen","path":"rooms/rm_titleScreen/rm_titleScreen.yy",},},
     {"roomId":{"name":"rm_dayChange","path":"rooms/rm_dayChange/rm_dayChange.yy",},},
-    {"roomId":{"name":"rm_DEBUG","path":"rooms/rm_DEBUG/rm_DEBUG.yy",},},
   ],
   "templateType": null,
   "TextureGroups": [

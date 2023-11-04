@@ -219,6 +219,23 @@ function decode_map(_map, _target) {
 	}
 }
 
+function convert_grid_to_map(_grid, _target) {
+	var g = _grid;	var t = _target;
+	
+	var height = ds_grid_height(g);
+	
+	var i = 0;	repeat (height) {
+		var key		= g[# 0, i];
+		var token	= g[# 1, i];
+		
+		ds_map_add(t, key, token);
+		
+		i++;
+	}
+	
+	ds_grid_destroy(g);
+}
+
 function draw_structs(_list) {
 	// use a repeat to do the draw method for each struct
 	var i = 0;
