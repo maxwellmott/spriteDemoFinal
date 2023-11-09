@@ -37,7 +37,7 @@ function encode_list(_list) {
 function encode_grid(_grid) {	 
 	// set the parseChar depending on whether there were commas present
 	
-	var newRowChar		= "|";
+	var newRowChar		= "`";
 	var newColumnChar	= "_";
 	
 	// repeat for all columns
@@ -143,7 +143,7 @@ function decode_list(_list, _target) {
 
 function decode_grid(_grid, _target) {
 	
-	var newRowChar		= "|";
+	var newRowChar		= "`";
 	var newColumnChar	= "_";
 	
 	// count grid rows and columns
@@ -244,31 +244,6 @@ function draw_structs(_list) {
 		struct.method_draw();						// execute draw method
 		i++;										// increment i
 	}
-}
-
-function construct_scenery(_list, _target) {
-	// decode the overworld object list
-	var str		= _list;
-	var list	= ds_list_create();
-	var target	= _target;
-	
-	decode_list(str, list);
-
-	// use the dummy list to create each struct (use a repeat here)
-	var i = 0; 
-	repeat (ds_list_size(list)) {
-		var structParams = ds_list_create();
-		decode_list(list[|i], structParams);
-		
-		var struct = new scenery(structParams[|0], structParams[|1], structParams[|2], structParams[|3]);
-		target[|i] = struct;
-		
-		ds_list_destroy(structParams);
-		i++;
-	}
-
-	// delete the list
-	ds_list_destroy(list);
 }
 
 function struct_step(_list) {

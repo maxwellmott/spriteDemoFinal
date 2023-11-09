@@ -12,7 +12,7 @@ tm_collidables	= -1;
 // initialize time for new game
 seconds = 0;
 minutes = 58;
-hours	= 23;
+hours	= 12;
 day		= 14;
 weekday	= weekdays.famelsun;
 season	= seasons.daysOfBones;
@@ -20,6 +20,9 @@ year	= 512;
 
 // initialize currentDoor
 currentDoor = noone;
+
+// initialize currentLiterature
+currentLiterature = noone;
 
 // initialize name
 name = "";

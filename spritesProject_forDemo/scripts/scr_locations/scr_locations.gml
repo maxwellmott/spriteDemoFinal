@@ -28,6 +28,7 @@ enum locationParams {
 	toSouth,
 	toWest,
 	npcList,
+	literatureList,
 	height	
 }
 
@@ -182,6 +183,15 @@ var miriabramExtNPCs	= ds_list_create();
 
 #endregion
 
+#region PREPARE LITERATURE LISTS
+var miriabramExtLiterature = ds_list_create();
+
+//			list name				x			y			ID
+ds_list_add(miriabramExtLiterature,	"400,"+		"304,"+		string(literatureIDs.inhumanEntities)+",",
+			miriabramExtLiterature,	"416,"+		"400,"+		string(literatureIDs.inhumanEntities)+",");
+
+#endregion
+
 #region PREPARE LOCATION GRID
 // get all text from a csv file
 var textGrid = load_csv("locations_english.csv");
@@ -197,8 +207,8 @@ function master_grid_add_location(_ID) {
 	}
 }
 
-// add all locations		ID								NAME											DESCRIPTION										TILE COL COUNT	TILE ROW COUNT	OBJECT STRING							COLLIDABLE TILESET				GROUND TILESET				WATER TILESET				UPPER STORY TILESET				COLLISION MAP									GROUND TILEMAP								WATER TILEMAP								UPPER STORY TILES						TO NORTH		TO EAST		TO SOUTH		TO WEST			NPCS
-master_grid_add_location(	locations.miriabramExt,			textGrid[# 1, locations.miriabramExt],			textGrid[# 2, locations.miriabramExt],			25,				25,				encode_list(miriabramExtList),			tlst_collidablesExt,			tlst_groundExt,				tlst_waterExt,				tlst_upstairsExt,				encode_list(miriabramExt_collidables),			encode_list(miriabramExt_groundTiles),		encode_list(miriabramExt_waterTiles),		encode_list(miriabramExt_upperStory),	noone,			noone,		noone,			noone,			noone);
+// add all locations		ID								NAME											DESCRIPTION										TILE COL COUNT	TILE ROW COUNT	OBJECT STRING							COLLIDABLE TILESET				GROUND TILESET				WATER TILESET				UPPER STORY TILESET				COLLISION MAP									GROUND TILEMAP								WATER TILEMAP								UPPER STORY TILES						TO NORTH		TO EAST		TO SOUTH		TO WEST			NPCS	LITERATURE	
+master_grid_add_location(	locations.miriabramExt,			textGrid[# 1, locations.miriabramExt],			textGrid[# 2, locations.miriabramExt],			25,				25,				encode_list(miriabramExtList),			tlst_collidablesExt,			tlst_groundExt,				tlst_waterExt,				tlst_upstairsExt,				encode_list(miriabramExt_collidables),			encode_list(miriabramExt_groundTiles),		encode_list(miriabramExt_waterTiles),		encode_list(miriabramExt_upperStory),	noone,			noone,		noone,			noone,			noone,	encode_list(miriabramExtLiterature));
 
 #endregion
 
@@ -208,4 +218,3 @@ global.allLocations = encode_grid(global.locationGrid);
 // delete the grids
 ds_grid_destroy(global.locationGrid);
 ds_grid_destroy(textGrid);
-

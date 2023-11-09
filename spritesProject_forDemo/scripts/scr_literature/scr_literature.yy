@@ -1,7 +1,7 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "scr_books",
+  "name": "scr_literature",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {

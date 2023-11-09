@@ -188,6 +188,11 @@ function get_interactable() {
 	
 	// talk to NPC
 	
+	// read literature
+	if (place_meeting(pointerX, pointerY, literature)) return interactions.read;
+	
+	// check bookcase
+	
 	// if nothing, return noone
 	return noone;
 }
@@ -204,7 +209,7 @@ function interact() {
 		
 			case interactions.talk:			/*@TODO run function to talk to NPC*/								break;
 			
-			case interactions.read:			/*@TODO run function to read book*/									break;
+			case interactions.read:			read_literature();													break;
 	}
 }
 

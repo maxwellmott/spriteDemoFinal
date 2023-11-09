@@ -26,7 +26,6 @@ enum sceneryParams {
 }
 
 enum sceneryTypes {
-	book,
 	cluster,
 	flower,
 	lamppost,
@@ -99,15 +98,15 @@ function place_scenery(_encodedList) {
 		var _x = real(params[|0]);
 		var _y = real(params[|1]);
 		var ID = real(params[|2]);
-		
+
 		// get params from grid using ID
 		var type		= grid[# sceneryParams.type,			ID];
 		var spr			= grid[# sceneryParams.sprite,			ID];
 		var mask		= grid[# sceneryParams.mask,			ID];
 		
-		var type		= string_digits(type);
-		var spr			= string_digits(spr);
-		var mask		= string_digits(mask);
+		type		= string_digits(type);
+		spr			= string_digits(spr);
+		mask		= string_digits(mask);
 
 		// get the proper object and create it
 		var obj		= scenery_get_object_index(type);
@@ -135,7 +134,7 @@ function place_scenery(_encodedList) {
 		// increment i
 		i++;
 	}
-	
+
 	sceneryCreated	= true;
 }
 
@@ -143,9 +142,6 @@ function scenery_get_object_index(_type) {
 	var t = _type;
 	
 	switch (t) {
-		case sceneryTypes.book:
-			return book;
-		break;
 		
 		case sceneryTypes.cluster:
 			return cluster;

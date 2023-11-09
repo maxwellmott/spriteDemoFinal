@@ -41,7 +41,8 @@ locationHeight	= tileColumnCount * TILEHEIGHT;
 
 locationName	= locationGrid[# locationParams.name, locationID];
 
-var objectString = ds_grid_get(locationGrid, locationParams.objectString, locationID);
+var objectString		= ds_grid_get(locationGrid,	locationParams.objectString,	locationID);
+var literatureString	= ds_grid_get(locationGrid, locationParams.literatureList,	locationID);
 
 tilemapList = ds_list_create();
 
@@ -88,6 +89,7 @@ player.tm_collidables	= tilemapList[| tilemaps.collidables];
 
 place_scenery(objectString);
 place_doors();
+place_literature(literatureString);
 
 // create the overworld alerts stack
 alertStack = ds_list_create();
@@ -124,6 +126,8 @@ if !(instance_exists(overworldDraw)) instance_create_depth(0, 0, get_layer_depth
 
 lightsOn = false;
 
+/*
 if (is_debug_overlay_open()) {
 	instance_create_depth(x, y, get_layer_depth(LAYER.meta), sceneryPlacingTool);	
 }
+*/
