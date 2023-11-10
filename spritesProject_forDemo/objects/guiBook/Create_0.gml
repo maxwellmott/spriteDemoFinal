@@ -32,7 +32,12 @@ headingGrid = ds_grid_create(4, 0);
 
 bookBuilt = false;
 
+turningPageRight = false;
+turningPageLeft = false;
 turningPage = false;
+pageTurned = false;
 
 headingCount	= 0;
 imageCount		= 0;
+
+flipFrame = 0;

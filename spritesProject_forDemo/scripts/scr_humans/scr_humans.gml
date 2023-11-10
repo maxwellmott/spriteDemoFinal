@@ -55,6 +55,10 @@ function draw_swimming_human(_skintone, _hair, _hairColor, _hat, _hatColor) {
 }
 
 function human_walk() {
+	if instance_exists(menu) {
+		exit;
+	}
+	
 	if (instance_exists(overworld)) {
 		if (global.overworld) {
 			if moving {
@@ -82,6 +86,10 @@ function human_walk() {
 }
 
 function human_swim() {
+	if instance_exists(menu) {
+		exit;
+	}	
+	
 	if (instance_exists(overworld)) {
 		if (global.overworld) {	
 			if moving {
@@ -167,6 +175,10 @@ function human_pointer_set() {
 }
 
 function get_interactable() {
+	if instance_exists(menu) {
+		exit;
+	}
+	
 	// start swimming
 	if !(swimming) 
 	&& (tile_meeting(pointerX, pointerY, tm_water, waterTileChecker)) 
@@ -198,6 +210,10 @@ function get_interactable() {
 }
 
 function interact() {
+	if instance_exists(menu) {
+		exit;
+	}	
+	
 	var interactable = get_interactable();
 	
 	switch (interactable) {

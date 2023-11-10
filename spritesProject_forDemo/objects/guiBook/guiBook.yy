@@ -14,7 +14,10 @@
     "name": "Overworld",
     "path": "folders/Objects/Overworld.yy",
   },
-  "parentObjectId": null,
+  "parentObjectId": {
+    "name": "menu",
+    "path": "objects/menu/menu.yy",
+  },
   "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,

@@ -46,7 +46,7 @@ if !(turningPage) {
 }
 
 if (turningPage) {
-	draw_sprite(spr_pageFlip, 1, 0, 0);	
+	draw_sprite(spr_pageFlip, flipFrame, 0, 0);	
 }
 
 surface_reset_target();

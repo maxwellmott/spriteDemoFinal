@@ -12,23 +12,53 @@ if !(bookBuilt) && (ID >= 0) {
 	bookBuilt = true;
 }
 
-if !(turningPage) {
+if !(turningPage) {	
 	if (global.menu_right) {
 		pageIndex++;
-		turningPage = true;	
+		turningPageRight = true;	
+		flipFrame = 0;
+		turningPage = true;
 	}
 	
 	if (global.menu_left) {
 		pageIndex--;
+		turningPageLeft = true;
+		flipFrame = 3;
 		turningPage = true;
 	}
 }
 
-if (turningPage) {
+if (turningPage) && !(pageTurned) {
 	leftPageNum		= pageIndex * 2;
 	rightPageNum	= (pageIndex * 2) + 1;
 	
 	leftPageText	= pages[|leftPageNum];
 	rightPageText	= pages[|rightPageNum];
-	alarm[0] = 24;
+	
+	pageTurned = true;
+
+}
+
+if (turningPageLeft) {
+	if (flipFrame <= 0) {
+		pageTurned = false;
+		turningPage = false;
+		turningPageLeft = false;
+	}
+
+	if (flipFrame > 0) && !(global.gameTime mod 6) {
+		flipFrame--;
+	}
+}
+
+if (turningPageRight) {
+	if (flipFrame >= 3) {
+		pageTurned = false;
+		turningPage = false;
+		turningPageRight = false;
+	}
+
+	if (flipFrame < 3) && !(global.gameTime mod 6) {
+		flipFrame++;
+	}	
 }
