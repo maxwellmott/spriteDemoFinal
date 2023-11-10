@@ -106,52 +106,52 @@ function book_build_text(_string) {
 	
 	var currentLine = 1;
 	var currentPage = 1;
-	var substring = "";
 	
 	var height = string_height(text);
 	var maxLines = pageHeight div height;
 	
-	var count = 1;
-	while (count < length) {
+	while (length > 0) {
 		while (currentLine < maxLines) {
 			// if the text signals to start a new line, add the substring to the current page,
 			// then add the newLine to the substring and increment the currentLine
-			if (string_char_at(_string, count) == "+") {				
+			var char = string_char_at(text, 1);
+			if (char == "+") {				
 				// delete the signal character
-				text = string_delete(text, count, 1);
+				text = string_delete(text, 1, 1);
 				
 				// add the new line to the current page
 				pages[|currentPage] = string_insert("\n", pages[|currentPage], string_length(pages[|currentPage]));
 				
 				// increment count and currentline
-				count++;
+				length--;
 				currentLine++;
 			}
 		
 			// if the text signals to start a new page, add the substring to the current page,
 			// then increment the count and the page
-			if (string_char_at(_string, count) == "|") {
+			var char = string_char_at(text, 1);
+			if (char == "|") {
 				// delete the signal character
-				text = string_delete(text, count, 1);
+				text = string_delete(text, 1, 1);
 				
 				// increment count and currentPage
-				count++;
+				length--;
 				currentPage++;
 			}
 		
 			// if the text signals that there is a heading, add the substring to the current page,
 			// then add the heading to the headingGrid and add lines to create space 
-			if (string_char_at(text, count) == "%") {				
+			if (string_char_at(text, 1) == "%") {				
 				// delete the opening signal character
-				text = string_delete(text, count, 1);
+				text = string_delete(text, 1, 1);
 				
 				// get the heading and remove it from the text
 				var endPos = string_pos("%", text);
-				var headingLength = endPos - count - 1;
-				var headingString = string_copy(text, count, headingLength + 1);
+				var headingLength = endPos - 2;
+				var headingString = string_copy(text, 1, headingLength + 1);
 				
 				// delete the signal encoded in the text
-				text = string_delete(text, count + 1, headingLength + 1);
+				text = string_delete(text, 1, headingLength + 2);
 				
 				// get the x and y position for the heading
 				var headingY = (height * (currentLine - 1)) + textY;
@@ -168,24 +168,24 @@ function book_build_text(_string) {
 				pages[|currentPage] = string_insert("\n", pages[|currentPage], string_length(pages[|currentPage]));
 				
 				// increment count and currentLine (add 3 to count for signal characters)
-				count += headingLength + 2;
+				length -= headingLength + 2;
 				currentLine++;
 			}
 			
 			// if the text signals to draw an image, add the substring to the current page,
 			// then add the image to the imageGrid and add lines to create space
-			if (string_char_at(text, count) == "*") {
+			if (string_char_at(text, 1) == "*") {
 				// get the ID and height of the sprite signaled by the text
-				text			= string_delete(text, count, 1);
+				text			= string_delete(text, 1, 1);
 				var endPos		= string_pos("*", text);
-				var imageLength = endPos - count;
-				var imageString = string_copy(text, count, imageLength + 1);
+				var imageLength = endPos - 1;
+				var imageString = string_copy(text, 1, imageLength + 1);
 				var imageIndex	= real(string_digits(imageString));
 				var imageID		= real(string_digits(spriteIDs[|imageIndex]));
 				var imageHeight = sprite_get_height(imageID);
 				
 				// delete the signal encoded in the text
-				text = string_delete(text, count + 1, imageLength + 1);
+				text = string_delete(text, 1, imageLength + 2);
 				
 				// get the x and y at which to draw the image
 				var imageY = (height * (currentLine - 1)) + textY;
@@ -216,50 +216,57 @@ function book_build_text(_string) {
 				// increment count and currentLine (add 2 to count for signal characters,
 				// add imageLineCount to currentLine as well as one extra line to be sure
 				// the text isn't touching the image.
-				count += imageLength + 2;
+				length -= imageLength + 2;
 				currentLine += imageLineCount + 1;
 			}
 			
 			// if the text contains a space in the next position, find the next word in the text.
 			// add a newLine if the nextWord doesn't fit. Then add the nextWord.
-			if (string_char_at(text, count) == " ") {
-				// add the first space to the substring
-				pages[|currentPage] = string_insert(" ", pages[|currentPage], string_length(pages[|currentPage]));
+			if (string_char_at(text, 1) == " ") {
+				if (string_char_at(text, 2) == "+") || (string_char_at(text, 2) == "|") || (string_char_at(text, 2) == "*") || (string_char_at(text, 2) == "%") {
+					text = string_delete(text, 1, 1);	
+				}	else {
+					// add the first space to the substring
+					pages[|currentPage] = string_insert(" ", pages[|currentPage], string_length(pages[|currentPage]));
 				
-				// delete the first space
-				text = string_delete(text, count, 1);
+					// delete the first space
+					text = string_delete(text, 1, 1);
 
-				// get the nextWord by finding the next space
-				var nextSpace = string_pos(" ", text);
-				var nextWord = string_copy(text, count, nextSpace);
+					// get the nextWord by finding the next space
+					var nextSpace = string_pos(" ", text);
+					var nextWord = string_copy(text, 1, nextSpace -1);
+					var wordLength = string_length(nextWord);
 				
-				// check if adding this word would make the currentPage too wide
-				var checkWidth = string_width(pages[| currentPage]) + string_width(nextWord);
-				if checkWidth > pageWidth {
-					// add a newLine
-					pages[| currentPage] += string_insert("\n", pages[|currentPage], string_length(pages[|currentPage]));
+					// check if adding this word would make the currentPage too wide
+					var checkWidth = string_width(pages[| currentPage]) + string_width(nextWord);
+					if checkWidth > pageWidth {
+						// add a newLine
+						pages[| currentPage] += string_insert("\n", pages[|currentPage], string_length(pages[|currentPage]));
 					
-					// if next line isn't below the bottom of the page, add the nextWord
-					if (currentLine + 1 < maxLines) {
+						// if next line isn't below the bottom of the page, add the nextWord
+						if (currentLine + 1 < maxLines) {
 						// add the nextWord to the currentPage
 						pages[| currentPage] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));
 						
-						count += nextWord + 2;
+						length -= wordLength + 1;
 						currentLine++;
-					}	else {
+						}	else {
 								// add the nextWord to the next page
 								pages[| currentPage + 1] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));
 								
-								count += nextWord +2;
+								length -= wordLength + 1;
 								currentLine = 1;
 					}
-				}
-					else {
-							// add the nextWord to the currentPage
-							pages[| currentPage] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));
-							
-							count += nextWord + 2;
 					}
+						else {
+								// add the nextWord to the currentPage
+								pages[| currentPage] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));
+								
+								length -= wordLength + 1;
+						}
+						
+					text = string_delete(text, 1, wordLength);	
+				}				
 			}
 		}
 		
