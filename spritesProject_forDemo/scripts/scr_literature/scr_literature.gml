@@ -109,9 +109,15 @@ function book_build_text(_string) {
 	
 	var height = string_height(text);
 	var maxLines = pageHeight div height;
-	
+
+	// initialize first page
+	pages[| currentPage] = "";
+
 	while (length > 0) {
 		while (currentLine < maxLines) {
+			
+			var sl = string_length(pages[| currentPage]);
+			
 			// if the text signals to start a new line, add the substring to the current page,
 			// then add the newLine to the substring and increment the currentLine
 			var char = string_char_at(text, 1);
@@ -137,6 +143,7 @@ function book_build_text(_string) {
 				// increment count and currentPage
 				length--;
 				currentPage++;
+				pages[|currentPage] = "";
 			}
 		
 			// if the text signals that there is a heading, add the substring to the current page,
@@ -226,8 +233,10 @@ function book_build_text(_string) {
 				if (string_char_at(text, 2) == "+") || (string_char_at(text, 2) == "|") || (string_char_at(text, 2) == "*") || (string_char_at(text, 2) == "%") {
 					text = string_delete(text, 1, 1);	
 				}	else {
+					sl = string_length(pages[| currentPage]);
+					
 					// add the first space to the substring
-					pages[|currentPage] = string_insert(" ", pages[|currentPage], string_length(pages[|currentPage]));
+					pages[|currentPage] = string_insert(" ", pages[| currentPage], string_length(pages[| currentPage]));
 				
 					// delete the first space
 					text = string_delete(text, 1, 1);
@@ -241,29 +250,31 @@ function book_build_text(_string) {
 					var checkWidth = string_width(pages[| currentPage]) + string_width(nextWord);
 					if checkWidth > pageWidth {
 						// add a newLine
-						pages[| currentPage] += string_insert("\n", pages[|currentPage], string_length(pages[|currentPage]));
+						pages[| currentPage] = string_insert("\n", pages[|currentPage], string_length(pages[|currentPage]));
 					
 						// if next line isn't below the bottom of the page, add the nextWord
-						if (currentLine + 1 < maxLines) {
-						// add the nextWord to the currentPage
-						pages[| currentPage] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));
+						if (currentLine + 1 <= maxLines) {
+							// add the nextWord to the currentPage
+							pages[| currentPage] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));
 						
-						length -= wordLength + 1;
-						currentLine++;
+							length -= wordLength + 1;
+							currentLine++;
 						}	else {
+								// initialize next page
+								pages[| currentPage + 1] = "";
+								
 								// add the nextWord to the next page
-								pages[| currentPage + 1] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));
+								pages[| currentPage + 1] = string_insert(nextWord, pages[|currentPage + 1], 1);
 								
 								length -= wordLength + 1;
 								currentLine = 1;
-					}
-					}
-						else {
-								// add the nextWord to the currentPage
-								pages[| currentPage] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));
-								
-								length -= wordLength + 1;
 						}
+					}	else {
+							// add the nextWord to the currentPage
+							pages[| currentPage] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));
+								
+							length -= wordLength + 1;
+					}
 						
 					text = string_delete(text, 1, wordLength);	
 				}				
