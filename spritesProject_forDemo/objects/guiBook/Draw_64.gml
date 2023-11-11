@@ -8,15 +8,15 @@ if !(bookBuilt) exit;
 
 surface_set_target(game.guiSurface);
 
-draw_set_color(color);
+draw_sprite_ext(spr_bookCover, 0, 0, 0, 1, 1, 0, color, 1.0);
 
-draw_sprite(spr_bookCover, 0, 0, 0);
-
-draw_set_color(c_white);
+draw_set_color(c_black);
 
 draw_sprite(spr_book, 0, 0, 0);
 
 draw_set_font(font);
+
+draw_set_valign(fa_top);
 
 if !(turningPage) {
 	if (headingCount > 0) {
@@ -31,8 +31,8 @@ if !(turningPage) {
 		}
 	}
 	
-	draw_text(leftPageX, textY, leftPageText);
-	draw_text(rightPageX, textY, rightPageText);
+	draw_text_transformed(leftPageX, textY, leftPageText, 0.5, 0.5, 0);
+	draw_text_transformed(rightPageX, textY, rightPageText, 0.5, 0.5, 0);
 	
 	if (imageCount > 0) {
 		var i = 0; repeat (imageCount) {

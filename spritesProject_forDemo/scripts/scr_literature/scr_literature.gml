@@ -113,7 +113,7 @@ function book_build_text(_string) {
 	// initialize first page
 	pages[| currentPage] = "";
 
-	while (length > 0) {
+	while (string_length(text) > 0) {
 		while (currentLine < maxLines) {
 			
 			var sl = string_length(pages[| currentPage]);
@@ -144,6 +144,7 @@ function book_build_text(_string) {
 				length--;
 				currentPage++;
 				pages[|currentPage] = "";
+				currentLine = 1;
 			}
 		
 			// if the text signals that there is a heading, add the substring to the current page,
@@ -234,9 +235,10 @@ function book_build_text(_string) {
 					text = string_delete(text, 1, 1);	
 				}	else {
 					sl = string_length(pages[| currentPage]);
-					
+	// FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE	
+	// FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE				
 					// add the first space to the substring
-					pages[|currentPage] = string_insert(" ", pages[| currentPage], string_length(pages[| currentPage]));
+					pages[|currentPage] = string_insert(" ", pages[| currentPage], sl);
 				
 					// delete the first space
 					text = string_delete(text, 1, 1);
@@ -247,7 +249,8 @@ function book_build_text(_string) {
 					var wordLength = string_length(nextWord);
 				
 					// check if adding this word would make the currentPage too wide
-					var checkWidth = string_width(pages[| currentPage]) + string_width(nextWord);
+					var substring = string_insert(nextWord, pages[| currentPage], string_length(pages[| currentPage]));
+					var checkWidth = string_width(substring);
 					if checkWidth > pageWidth {
 						// add a newLine
 						pages[| currentPage] = string_insert("\n", pages[|currentPage], string_length(pages[|currentPage]));
@@ -268,6 +271,7 @@ function book_build_text(_string) {
 								
 								length -= wordLength + 1;
 								currentLine = 1;
+								currentPage++;
 						}
 					}	else {
 							// add the nextWord to the currentPage
@@ -279,10 +283,13 @@ function book_build_text(_string) {
 					text = string_delete(text, 1, wordLength);	
 				}				
 			}
+				
+			if (string_length(text) == 0) currentLine = maxLines;
 		}
 		
-		// if the currentLine has moved beyond maxLines, move to the next page and start from line 1		
+		// if the currentLine has moved beyond maxLines, move to the next page and start from line 1	
 		currentPage++;
+		pages[|currentPage] = "";
 		currentLine = 1;
 	}
 }

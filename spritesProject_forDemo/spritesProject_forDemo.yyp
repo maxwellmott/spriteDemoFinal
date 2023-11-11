@@ -205,6 +205,7 @@
     {"id":{"name":"spr_thePitCollidableTiles","path":"sprites/spr_thePitCollidableTiles/spr_thePitCollidableTiles.yy",},},
     {"id":{"name":"humanBody","path":"sprites/humanBody/humanBody.yy",},},
     {"id":{"name":"tlst_verdmanFarmsGround","path":"tilesets/tlst_verdmanFarmsGround/tlst_verdmanFarmsGround.yy",},},
+    {"id":{"name":"plainFont","path":"fonts/plainFont/plainFont.yy",},},
     {"id":{"name":"buttonParent","path":"objects/buttonParent/buttonParent.yy",},},
     {"id":{"name":"spr_doorCollisionMask","path":"sprites/spr_doorCollisionMask/spr_doorCollisionMask.yy",},},
     {"id":{"name":"scr_helper","path":"scripts/scr_helper/scr_helper.yy",},},

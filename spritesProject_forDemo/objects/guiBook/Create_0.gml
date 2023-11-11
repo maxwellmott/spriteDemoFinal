@@ -12,13 +12,13 @@ font	= -1;
 pages		= ds_list_create();
 spriteIDs	= ds_list_create();
 
-rightPageX	= 138;
+rightPageX	= 135;
 leftPageX	= 12;
 
 textY = 30;
 
-pageHeight	= 162;
-pageWidth	= 242;
+pageHeight	= 324;
+pageWidth	= 218;
 
 pageIndex		= 0;
 leftPageNum		= 0;

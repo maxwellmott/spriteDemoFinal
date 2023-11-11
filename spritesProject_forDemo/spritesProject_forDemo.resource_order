@@ -149,6 +149,7 @@
     {"name":"spr_verdmanFarmsGroundTiles","order":2,"path":"sprites/spr_verdmanFarmsGroundTiles/spr_verdmanFarmsGroundTiles.yy",},
     {"name":"spr_boulderClusterMask","order":6,"path":"sprites/spr_boulderClusterMask/spr_boulderClusterMask.yy",},
     {"name":"humanBody","order":4,"path":"sprites/humanBody/humanBody.yy",},
+    {"name":"plainFont","order":6,"path":"fonts/plainFont/plainFont.yy",},
     {"name":"buttonParent","order":8,"path":"objects/buttonParent/buttonParent.yy",},
     {"name":"spr_doorCollisionMask","order":3,"path":"sprites/spr_doorCollisionMask/spr_doorCollisionMask.yy",},
     {"name":"scr_humans","order":12,"path":"scripts/scr_humans/scr_humans.yy",},

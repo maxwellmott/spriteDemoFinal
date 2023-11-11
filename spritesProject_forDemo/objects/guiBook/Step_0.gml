@@ -3,6 +3,8 @@
 
 if !(bookBuilt) && (ID >= 0) {	
 	literature_get_params();
+	font = plainFont;
+	draw_set_font(font);
 	book_build_text(text);
 	leftPageNum		= pageIndex * 2;
 	rightPageNum	= (pageIndex * 2) + 1;
