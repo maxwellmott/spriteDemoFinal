@@ -1,7 +1,7 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-texturegroup_set_mode(true, true, fallbackTexture);
+texturegroup_set_mode(true, false, fallbackTexture);
 show_debug_overlay(true);
 gpu_set_alphatestenable(false);
 

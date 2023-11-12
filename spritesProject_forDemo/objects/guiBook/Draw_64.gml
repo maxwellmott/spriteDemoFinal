@@ -18,26 +18,28 @@ draw_set_font(font);
 
 draw_set_valign(fa_top);
 
+draw_set_halign(fa_center);
+
 if !(turningPage) {
 	if (headingCount > 0) {
 		var i = 0; repeat (headingCount) {
 			if (string_digits(headingGrid[# 3, i]) div 2 == pageIndex) {
-				draw_set_halign(fa_center);
-				draw_text(headingGrid[# 0, i], headingGrid[# 1, i], headingGrid[# 2, i]);
-				draw_set_halign(fa_left);
-				
+				draw_text(headingGrid[# 1, i], headingGrid[# 2, i], headingGrid[# 0, i]);
+
 				i++;
 			}
 		}
 	}
-	
+
+	draw_set_halign(fa_left);
+
 	draw_text_transformed(leftPageX, textY, leftPageText, 0.5, 0.5, 0);
 	draw_text_transformed(rightPageX, textY, rightPageText, 0.5, 0.5, 0);
 	
 	if (imageCount > 0) {
 		var i = 0; repeat (imageCount) {
 			if (string_digits(imageGrid[# 3, i]) div 2 == pageIndex) {
-				draw_sprite(imageGrid[# 2, i], 0, imageGrid[# 0, i], imageGrid[# 1, i]);
+				draw_sprite(imageGrid[# 0, i], 0, imageGrid[# 1, i], imageGrid[# 2, i]);
 				
 				i++;
 			}

@@ -166,11 +166,17 @@ function book_build_text(_string) {
 				if !(currentPage mod 2) var headingX = rightPageX + (pageWidth / 2);
 					else var headingX = leftPageX + (pageWidth / 2);
 					
+				var newGridY = headingCount + 1;
+				ds_grid_resize(headingGrid, 4, newGridY);	
+					
 				// add all heading parameters to headingGrid
 				headingGrid[# 0, headingCount] = headingString;
 				headingGrid[# 1, headingCount] = headingX;
 				headingGrid[# 2, headingCount] = headingY;
 				headingGrid[# 3, headingCount] = currentPage;
+				
+				// increment headingCount
+				headingCount++;
 				
 				// clear a line for the heading
 				pages[|currentPage] = string_insert("\n", pages[|currentPage], string_length(pages[|currentPage]));
