@@ -15,19 +15,23 @@ if !(bookBuilt) && (ID >= 0) {
 }
 
 if !(turningPage) {	
-	if (global.menu_right) {
-		pageIndex++;
-		turningPageRight = true;	
-		flipFrame = 0;
-		turningPage = true;
+	if (pageIndex < ds_list_size(pages) div 2) {
+		if (global.menu_right) {
+			pageIndex++;
+			turningPageRight = true;	
+			flipFrame = 0;
+			turningPage = true;
+		}
 	}
 	
-	if (global.menu_left) {
-		pageIndex--;
-		turningPageLeft = true;
-		flipFrame = 3;
-		turningPage = true;
-	}
+	if (pageIndex > 0) {
+		if (global.menu_left) {
+			pageIndex--;
+			turningPageLeft = true;
+			flipFrame = 3;
+			turningPage = true;
+		}
+	}	
 }
 
 if (turningPage) && !(pageTurned) {

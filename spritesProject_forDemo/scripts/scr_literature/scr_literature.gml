@@ -101,23 +101,18 @@ function literature_get_params() {
 function book_build_text(_string) {
 	var text = _string;
 	
-	var length = string_length(text);
 	var last_space = 1;
 	
 	var currentLine = 1;
 	var currentPage = 1;
 	
 	var height = string_height(text);
-	var maxLines = pageHeight div height;
-
-	// initialize first page
+	var maxLines = (pageHeight div height) - 1;
+	
 	pages[| currentPage] = "";
 
 	while (string_length(text) > 0) {
-		while (currentLine < maxLines) {
-			
-			var sl = string_length(pages[| currentPage]);
-			
+		while (currentLine < maxLines) {			
 			// if the text signals to start a new line, add the substring to the current page,
 			// then add the newLine to the substring and increment the currentLine
 			var char = string_char_at(text, 1);
@@ -128,8 +123,7 @@ function book_build_text(_string) {
 				// add the new line to the current page
 				pages[|currentPage] = string_insert("\n", pages[|currentPage], string_length(pages[|currentPage]));
 				
-				// increment count and currentline
-				length--;
+				// increment currentline
 				currentLine++;
 			}
 		
@@ -139,9 +133,8 @@ function book_build_text(_string) {
 			if (char == "|") {
 				// delete the signal character
 				text = string_delete(text, 1, 1);
-				
-				// increment count and currentPage
-				length--;
+				 
+				// increment currentPage and reset currentLine
 				currentPage++;
 				pages[|currentPage] = "";
 				currentLine = 1;
@@ -181,8 +174,7 @@ function book_build_text(_string) {
 				// clear a line for the heading
 				pages[|currentPage] = string_insert("\n", pages[|currentPage], string_length(pages[|currentPage]));
 				
-				// increment count and currentLine (add 3 to count for signal characters)
-				length -= headingLength + 2;
+				// increment currentLine
 				currentLine++;
 			}
 			
@@ -198,13 +190,21 @@ function book_build_text(_string) {
 				var imageID		= real(string_digits(spriteIDs[|imageIndex]));
 				var imageHeight = sprite_get_height(imageID);
 				
+				var linesNeeded = (imageHeight div height) + 1;
+				
+				if (currentLine + linesNeeded + 2) > maxLines {
+					currentPage++;
+					pages[|currentPage] = "";
+					currentLine = 1;
+				}
+				
 				// delete the signal encoded in the text
 				text = string_delete(text, 1, imageLength + 2);
 				
 				// get the x and y at which to draw the image
-				var imageY = (height * (currentLine - 1)) + textY;
-				if !(currentPage mod 2) var imageX = rightPageX;
-					else var imageX = leftPageX;
+				var imageY = (height * (currentLine)) + textY;
+				if !(currentPage mod 2) var imageX = leftPageX + (pageWidth / 4);
+					else var imageX = rightPageX + (pageWidth / 4);
 					
 				// resize image grid
 				var newGridY = imageCount + 1;
@@ -219,19 +219,15 @@ function book_build_text(_string) {
 				// increment imageCount
 				imageCount++;
 				
-				// get the amount of spaces needed to be cleared for the image
-				var imageLineCount = (imageHeight div height) + 1;
-				
 				// clear space for the image
-				repeat (imageLineCount) {
+				repeat (linesNeeded) {
 					pages[|currentPage] = string_insert("\n", pages[|currentPage], string_length(pages[|currentPage]));
 				}
 
 				// increment count and currentLine (add 2 to count for signal characters,
 				// add imageLineCount to currentLine as well as one extra line to be sure
 				// the text isn't touching the image.
-				length -= imageLength + 2;
-				currentLine += imageLineCount + 1;
+				currentLine += linesNeeded + 1;
 			}
 			
 			// if the text contains a space in the next position, find the next word in the text.
@@ -240,11 +236,10 @@ function book_build_text(_string) {
 				if (string_char_at(text, 2) == "+") || (string_char_at(text, 2) == "|") || (string_char_at(text, 2) == "*") || (string_char_at(text, 2) == "%") {
 					text = string_delete(text, 1, 1);	
 				}	else {
-					sl = string_length(pages[| currentPage]);
 	// FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE	
 	// FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE				
 					// add the first space to the substring
-					pages[|currentPage] = string_insert(" ", pages[| currentPage], sl);
+					pages[|currentPage] = string_insert(" ", pages[| currentPage], string_length(pages[| currentPage]));
 				
 					// delete the first space
 					text = string_delete(text, 1, 1);
@@ -266,7 +261,6 @@ function book_build_text(_string) {
 							// add the nextWord to the currentPage
 							pages[| currentPage] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));
 						
-							length -= wordLength + 1;
 							currentLine++;
 						}	else {
 								// initialize next page
@@ -281,11 +275,8 @@ function book_build_text(_string) {
 						}
 					}	else {
 							// add the nextWord to the currentPage
-							pages[| currentPage] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));
-								
-							length -= wordLength + 1;
-					}
-						
+							pages[| currentPage] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));								
+					}	
 					text = string_delete(text, 1, wordLength);	
 				}				
 			}

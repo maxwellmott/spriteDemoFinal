@@ -8,6 +8,9 @@ enum directions {
 	west
 }
 
+global.speaker		= noone;
+global.dialogue		= "";
+
 #macro appearanceGridSectionHeight	168
 
 #macro humanMaskWidth		18
@@ -179,6 +182,21 @@ function get_interactable() {
 		exit;
 	}
 	
+	// talk to npc
+	var interactable = instance_place(x, y, npc);
+	if interactable != noone {
+		global.speaker	= interactable;
+		global.dialogue	= execute_return(interactable.responseFunction);
+		return interactions.talk;
+	}
+	
+	var interactable = instance_place(x, y, owSprite);
+	if interactable != noone {
+		global.speaker	= interactable;
+		global.dialogue	= execute_return(interactable.responseFunction);
+		return interactions.talk;
+	}
+	
 	// start swimming
 	if !(swimming) 
 	&& (tile_meeting(pointerX, pointerY, tm_water, waterTileChecker)) 
@@ -197,8 +215,6 @@ function get_interactable() {
 	
 	// check door
 	if (place_meeting(pointerX, pointerY, door)) return interactions.doorCheck;
-	
-	// talk to NPC
 	
 	// read literature
 	if (place_meeting(pointerX, pointerY, literature)) return interactions.read;
@@ -222,10 +238,10 @@ function interact() {
 			case interactions.swimStop:		ds_list_push(overworld.alertStack, overworldAlerts.swimStop);		break;
 		
 			case interactions.doorCheck:	door_check();														break;
-		
-			case interactions.talk:			/*@TODO run function to talk to NPC*/								break;
 			
 			case interactions.read:			read_literature();													break;
+			
+			case interactions.talk:			instance_create_depth(0, 0, get_layer_depth(LAYER.ui);				break;
 	}
 }
 

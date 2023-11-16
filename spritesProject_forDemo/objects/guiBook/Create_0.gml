@@ -41,3 +41,5 @@ headingCount	= 0;
 imageCount		= 0;
 
 flipFrame = 0;
+
+textColor = $14506e;

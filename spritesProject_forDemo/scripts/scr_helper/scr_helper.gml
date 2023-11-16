@@ -5,6 +5,10 @@ function execute(_fn) {
 	_fn();
 }
 
+function execute_return(_fn) {
+	return _fn();
+}
+
 function draw_set(_halign, _valign, _alpha, _color) {
 		draw_set_halign(_halign);
 		draw_set_valign(_valign);

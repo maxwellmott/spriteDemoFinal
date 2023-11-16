@@ -36,10 +36,34 @@ enum npcParams {
 	spells,
 	responses,
 	locations,
+	respondFunction,
 	height
 }
 
+#region
+
+function fix_response_grid(_grid) {
+	var g = _grid;
+	
+	var i = 0;	repeat (ds_grid_height(mercurioResponseGrid)) {
+		g[# 0, i] = g[# 1, i];
+		g[# 1, i] = g[# 2, i];
+		g[# 2, i] = -1;
+		
+		i++;
+	}
+	
+	ds_grid_resize(g, 2, i+1);
+}
+
 // load response maps from csv files
+var mercurioResponseGrid = load_csv("MERCURIO_DEMO_ENGLISH.csv");
+
+fix_response_grid(mercurioResponseGrid);
+var mercurioResponseMap = ds_map_create();
+convert_grid_to_map(mercurioResponseGrid, mercurioResponseMap);
+
+#endregion
 
 #region TALISMANS
 // create all talisman lists
@@ -70,6 +94,57 @@ ds_list_add(mercurioLocations,	string(locations.miriabramExt) + ",",												
 								
 #endregion
 
+#region RESPONSE FUNCTIONS
+
+/*
+	DAY ONE:
+			12 PM -- MERCURIO V NAIMA || NAIMA V MARCO
+			3 PM  -- INDIGO V PLAYER || INDIGO V MERCURIO
+			5 PM  -- INDIGO V MARCO
+			8 PM  -- FESTIVAL CLOSES
+			
+	DAY TWO:
+			12 PM -- MERCURIO V PLAYER || MARCO V NAIMA
+			3 PM  -- PLAYER V NAIMA || MERCURIO V MARCO
+			5 PM  -- PLAYER V MARCO || NAIMA V INDIGO
+			8 PM  -- FESTIVAL CLOSES
+*/
+
+// create all response functions
+function mercurio_respond() {
+	var wd	= player.weekday;
+	var h	= player.hours;
+	
+	switch (wd) {
+		case weekdays.hyggsun:
+			if h < 20	return ds_map_find_value(responseMap, "byeMatch1");
+			if h < 17	return ds_map_find_value(responseMap, "preBye1");
+			if h < 16	return ds_map_find_value(responseMap, "postMatch2");
+			if h < 15	return ds_map_find_value(responseMap, "preMatch2");
+			if h < 14	return ds_map_find_value(responseMap, "postMatch1");
+			if h < 12	return ds_map_find_value(responseMap, "preMatch1");
+			if h < 10	return ds_map_find_value(responseMap, "dayOnePreFest");
+			
+			if h >= 20	return ds_map_find_value(responseMap, "dayOnePostFest");
+		break;
+		
+		case weekdays.plughsun:
+			if h < 20	return ds_map_find_value(responseMap, "byeMatch2");
+			if h < 17	return ds_map_find_value(responseMap, "preBye2");
+			if h < 16	return ds_map_find_value(responseMap, "postMatch4");
+			if h < 15	return ds_map_find_value(responseMap, "preMatch4");
+			if h < 14	return ds_map_find_value(responseMap, "postMatch3");
+			if h < 12	return ds_map_find_value(responseMap, "preMatch3");
+			if h < 10	return ds_map_find_value(responseMap, "dayTwoPreFest");
+			
+			if h >= 20	return ds_map_find_value(responseMap, "dayTwoPostFest");
+			
+			if h < 4	return ds_map_find_value(responseMap, "dayOnePostFest");
+	}
+}
+
+#endregion
+
 // load csv file to textGrid
 var textGrid = load_csv("npcs_english.csv");
 
@@ -84,8 +159,8 @@ function master_grid_add_npc(_ID) {
 	}
 }
 
-// add all npcs to npcGrid		ID							NAME									WALKING SPRITE			MEDITATING SPRITE			EATING SPRITE			DRINKING SPRITE			WAVEPHONE SPRITE				TALISMANS							SPELLS								RESPONSES		LOCATIONS
-master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",								spr_mercurioWalking,	spr_mercurioMeditating,		spr_mercurioEating,		spr_mercurioDrinking,	spr_mercurioWavephone,			encode_list(mercurioTalismans),		encode_list(mercurioSpells),		noone,			encode_list(mercurioLocations));
+// add all npcs to npcGrid		ID							NAME									WALKING SPRITE			MEDITATING SPRITE			EATING SPRITE			DRINKING SPRITE			WAVEPHONE SPRITE				TALISMANS							SPELLS								RESPONSES									LOCATIONS							RESPONSE FUNCTION
+master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",								spr_mercurioWalking,	spr_mercurioMeditating,		spr_mercurioEating,		spr_mercurioDrinking,	spr_mercurioWavephone,			encode_list(mercurioTalismans),		encode_list(mercurioSpells),		encode_map(mercurioResponseMap),			encode_list(mercurioLocations),		mercurio_respond);
 
 // encode the grid
 global.allNPCs = encode_grid(global.npcGrid);

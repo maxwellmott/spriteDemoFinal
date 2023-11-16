@@ -1,22 +1,20 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "player",
+  "name": "talkBubble",
   "eventList": [
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,},
     {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,},
+    {"resourceType":"GMEvent","resourceVersion":"1.0","name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,},
   ],
-  "managed": false,
+  "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "meta",
-    "path": "folders/Objects/meta.yy",
+    "name": "Overworld",
+    "path": "folders/Objects/Overworld.yy",
   },
-  "parentObjectId": {
-    "name": "human",
-    "path": "objects/human/human.yy",
-  },
-  "persistent": true,
+  "parentObjectId": null,
+  "persistent": false,
   "physicsAngularDamping": 0.1,
   "physicsDensity": 0.5,
   "physicsFriction": 0.2,
@@ -31,10 +29,7 @@
   "physicsStartAwake": true,
   "properties": [],
   "solid": false,
-  "spriteId": {
-    "name": "humanCollisionMask",
-    "path": "sprites/humanCollisionMask/humanCollisionMask.yy",
-  },
+  "spriteId": null,
   "spriteMaskId": null,
   "visible": true,
 }

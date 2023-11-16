@@ -26,6 +26,12 @@ moving = false;
 hmove = 0;
 vmove = 0;
 
+// response map
+responseMap = ds_map_create();
+
+// response function
+responseFunction = noone;
+
 npcListIndex = -1;
 
 walkingSprite		= -1;
