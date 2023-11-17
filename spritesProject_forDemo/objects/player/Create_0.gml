@@ -25,7 +25,7 @@ currentDoor = noone;
 currentLiterature = noone;
 
 // initialize name
-name = "";
+name = "Max";
 
 // initialize x and y
 x = 0;

@@ -115,8 +115,7 @@ function book_build_text(_string) {
 		while (currentLine < maxLines) {			
 			// if the text signals to start a new line, add the substring to the current page,
 			// then add the newLine to the substring and increment the currentLine
-			var char = string_char_at(text, 1);
-			if (char == "+") {				
+			if (string_char_at(text, 1) == "+") {				
 				// delete the signal character
 				text = string_delete(text, 1, 1);
 				
@@ -129,8 +128,7 @@ function book_build_text(_string) {
 		
 			// if the text signals to start a new page, add the substring to the current page,
 			// then increment the count and the page
-			var char = string_char_at(text, 1);
-			if (char == "|") {
+			if (string_char_at(text, 1) == "|") {
 				// delete the signal character
 				text = string_delete(text, 1, 1);
 				 
