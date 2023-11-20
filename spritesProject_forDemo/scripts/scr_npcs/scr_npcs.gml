@@ -188,7 +188,8 @@ function npc_load_parameters(_id) {
 	
 	//decode_list(grid[# npcParams.talismans,		ID],		talismans);
 	//decode_list(grid[# npcParams.spells,			ID],		spells);
-	decode_map(grid[# npcParams.responses,		ID],		responseMap);
+	var responseString = grid[# npcParams.responses, ID];
+	decode_map(responseString, responseMap);
 	
 	// get npcListIndex using npcID
 	npcListIndex = ds_list_find_index(overworld.npcList, ID);
