@@ -1,4 +1,5 @@
 ///@desc
+global.substring = "";
 
 function encode_list(_list) {
 	// it checks the list for commas to determine if it is a structList
@@ -66,6 +67,8 @@ function encode_grid(_grid) {
 }
 
 function encode_map(_map) {
+	global.substring = "";
+	
 	var m = _map;
 	
 	// establish parse characters
@@ -80,10 +83,10 @@ function encode_map(_map) {
 	var firstToken	= ds_map_find_value(m, firstKey);
 	
 	// add key, tokenKeyChar, token, and newItemChar to substring
-	substring += firstKey;
-	substring += tokenKeyChar;
-	substring += firstToken;
-	substring += newItemChar;
+	global.substring = string_insert(firstKey,		global.substring, string_length(global.substring));
+	global.substring = string_insert(tokenKeyChar,	global.substring, string_length(global.substring));
+	global.substring = string_insert(firstToken,	global.substring, string_length(global.substring));
+	global.substring = string_insert(newItemChar,	global.substring, string_length(global.substring));;
 	
 	// set first key as the first key to use to find the next
 	var key = firstKey;
@@ -95,10 +98,10 @@ function encode_map(_map) {
 		var token	= ds_map_find_value(m, key);
 		
 		// add key, tokenKeyChar, token, and newItemChar to substring
-		substring += key;
-		substring += tokenKeyChar;
-		substring += token;
-		substring += newItemChar;
+		global.substring += key;
+		global.substring += tokenKeyChar;
+		global.substring += token;
+		global.substring += newItemChar;
 	}
 	
 	// return substring
@@ -224,7 +227,7 @@ function convert_grid_to_map(_grid, _target) {
 	
 	var height = ds_grid_height(g);
 	
-	var i = 0;	repeat (height) {
+	var i = 0;	repeat (height - 1) {
 		var key		= g[# 0, i];
 		var token	= g[# 1, i];
 		

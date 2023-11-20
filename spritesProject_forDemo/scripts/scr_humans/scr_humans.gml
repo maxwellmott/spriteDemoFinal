@@ -182,15 +182,28 @@ function get_interactable() {
 		exit;
 	}
 	
-	// talk to npc
-	var interactable = instance_place(x, y, npc);
-	if interactable != noone {
-		global.speaker	= interactable;
-		global.dialogue	= execute_return(interactable.responseFunction);
-		return interactions.talk;
+	// talk to npc	
+	var checkY = y;
+	var checkY = bbox_bottom - 3;
+
+	switch (facing) {		
+		case directions.east:
+			var interactable = collision_line(x, checkY, x + 20, checkY, npc, false, true);
+		break;
+		
+		case directions.south:
+			var interactable = collision_line(x, checkY, x, checkY + 12, npc, false, true);
+		break;
+		
+		case directions.west:
+			var interactable = collision_line(x, checkY, x - 20, checkY, npc, false, true);
+		break;
+		
+		case directions.north:
+			var interactable = collision_line(x, checkY, x, checkY - 36, npc, false, true);
+		break;
 	}
-	
-	var interactable = instance_place(x, y, owSprite);
+
 	if interactable != noone {
 		global.speaker	= interactable;
 		global.dialogue	= execute_return(interactable.responseFunction);
@@ -241,7 +254,7 @@ function interact() {
 			
 			case interactions.read:			read_literature();													break;
 			
-			case interactions.talk:			instance_create_depth(0, 0, get_layer_depth(LAYER.ui);				break;
+			case interactions.talk:			instance_create_depth(0, 0, get_layer_depth(LAYER.ui), talkBubble);	break;
 	}
 }
 

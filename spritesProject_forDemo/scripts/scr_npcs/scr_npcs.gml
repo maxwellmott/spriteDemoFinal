@@ -45,7 +45,7 @@ enum npcParams {
 function fix_response_grid(_grid) {
 	var g = _grid;
 	
-	var i = 0;	repeat (ds_grid_height(mercurioResponseGrid)) {
+	var i = 0;	repeat (ds_grid_height(g)) {
 		g[# 0, i] = g[# 1, i];
 		g[# 1, i] = g[# 2, i];
 		g[# 2, i] = -1;
@@ -57,7 +57,7 @@ function fix_response_grid(_grid) {
 }
 
 // load response maps from csv files
-var mercurioResponseGrid = load_csv("MERCURIO_DEMO_ENGLISH.csv");
+var mercurioResponseGrid = load_csv("DEMO_MERCURIO_ENGLISH.csv");
 
 fix_response_grid(mercurioResponseGrid);
 var mercurioResponseMap = ds_map_create();
@@ -114,32 +114,32 @@ ds_list_add(mercurioLocations,	string(locations.miriabramExt) + ",",												
 function mercurio_respond() {
 	var wd	= player.weekday;
 	var h	= player.hours;
-	
+
 	switch (wd) {
 		case weekdays.hyggsun:
-			if h < 20	return ds_map_find_value(responseMap, "byeMatch1");
-			if h < 17	return ds_map_find_value(responseMap, "preBye1");
-			if h < 16	return ds_map_find_value(responseMap, "postMatch2");
-			if h < 15	return ds_map_find_value(responseMap, "preMatch2");
-			if h < 14	return ds_map_find_value(responseMap, "postMatch1");
-			if h < 12	return ds_map_find_value(responseMap, "preMatch1");
-			if h < 10	return ds_map_find_value(responseMap, "dayOnePreFest");
+			if h < 20	return ds_map_find_value(global.speaker.responseMap, "byeMatch1");
+			if h < 17	return ds_map_find_value(global.speaker.responseMap, "preBye1");
+			if h < 16	return ds_map_find_value(global.speaker.responseMap, "postMatch2");
+			if h < 15	return ds_map_find_value(global.speaker.responseMap, "preMatch2");
+			if h < 14	return ds_map_find_value(global.speaker.responseMap, "postMatch1");
+			if h < 12	return ds_map_find_value(global.speaker.responseMap, "preMatch1");
+			if h < 10	return ds_map_find_value(global.speaker.responseMap, "dayOnePreFest");
 			
-			if h >= 20	return ds_map_find_value(responseMap, "dayOnePostFest");
+			if h >= 20	return ds_map_find_value(global.speaker.responseMap, "dayOnePostFest");
 		break;
 		
 		case weekdays.plughsun:
-			if h < 20	return ds_map_find_value(responseMap, "byeMatch2");
-			if h < 17	return ds_map_find_value(responseMap, "preBye2");
-			if h < 16	return ds_map_find_value(responseMap, "postMatch4");
-			if h < 15	return ds_map_find_value(responseMap, "preMatch4");
-			if h < 14	return ds_map_find_value(responseMap, "postMatch3");
-			if h < 12	return ds_map_find_value(responseMap, "preMatch3");
-			if h < 10	return ds_map_find_value(responseMap, "dayTwoPreFest");
+			if h < 20	return ds_map_find_value(global.speaker.responseMap, "byeMatch2");
+			if h < 17	return ds_map_find_value(global.speaker.responseMap, "preBye2");
+			if h < 16	return ds_map_find_value(global.speaker.responseMap, "postMatch4");
+			if h < 15	return ds_map_find_value(global.speaker.responseMap, "preMatch4");
+			if h < 14	return ds_map_find_value(global.speaker.responseMap, "postMatch3");
+			if h < 12	return ds_map_find_value(global.speaker.responseMap, "preMatch3");
+			if h < 10	return ds_map_find_value(global.speaker.responseMap, "dayTwoPreFest");
 			
-			if h >= 20	return ds_map_find_value(responseMap, "dayTwoPostFest");
+			if h >= 20	return ds_map_find_value(global.speaker.responseMap, "dayTwoPostFest");
 			
-			if h < 4	return ds_map_find_value(responseMap, "dayOnePostFest");
+			if h < 4	return ds_map_find_value(global.speaker.responseMap, "dayOnePostFest");
 	}
 }
 
@@ -184,10 +184,11 @@ function npc_load_parameters(_id) {
 	eatingSprite		= real(string_digits(grid[# npcParams.eatingSprite,		ID]));
 	drinkingSprite		= real(string_digits(grid[# npcParams.drinkingSprite,	ID]));
 	wavephoneSprite		= real(string_digits(grid[# npcParams.wavephoneSprite,	ID]));
+	responseFunction	= real(string_digits(grid[# npcParams.respondFunction,	ID]));
 	
 	//decode_list(grid[# npcParams.talismans,		ID],		talismans);
 	//decode_list(grid[# npcParams.spells,			ID],		spells);
-	//decode_map(grid[# npcParams.responses,		ID],		responses);
+	decode_map(grid[# npcParams.responses,		ID],		responseMap);
 	
 	// get npcListIndex using npcID
 	npcListIndex = ds_list_find_index(overworld.npcList, ID);

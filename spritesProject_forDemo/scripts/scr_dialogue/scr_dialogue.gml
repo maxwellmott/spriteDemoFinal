@@ -322,8 +322,54 @@ function talk_bubble_build_dialogue() {
 			}
 			
 			// check if the next character is a space
-			if (string_char_at(text, 1)) == " " {
+			if (string_char_at(text, 1)) == " " {										//READY TO TEST
+				// add the first space to the current page
+				pages[| currentPage] = string_insert(" ", pages[| currentPage], string_length(pages[| currentPage]));
 				
+				// delete the first space
+				text = string_delete(text, 1, 1);
+				
+				// find the next space
+				var endPos = string_pos(" ", text);
+				
+				// use the position of the next space to get the nextWord
+				var nextWord = string_copy(text, 1, endPos);
+				
+				// check if the nextWord will fit on the current line
+				var checkString		= string_insert(nextWord, pages[| currentPage], string_length(pages[| currentPage]));
+				var checkWidth		= string_width(checkString);
+				
+				if (checkWidth <= bubbleWidth) {
+					// if it fits, add the nextWord to the currentPage
+					pages[| currentPage] = string_insert(nextWord, pages[| currentPage], string_length(pages[| currentPage]));
+				}
+				// else statement if the nextWord doesn't fit on the current line
+				else {
+					// check if there is room on the currentPage for a new line
+					if (currentLine + 1 <= maxLines) {
+						// if there is room for a new line, add the new line
+						pages[| currentPage] = string_insert("\n", pages[| currentPage], string_length(pages[| currentPage]));
+						
+						// increment currentLine
+						currentLine++;
+						
+						// add the nextWord to the currentPage
+						pages[| currentPage] = string_insert(nextWord, pages[| currentPage], string_length(pages[| currentPage]));
+					}
+					// else statement if there is not room for a new line
+					else {
+						// increment currentPage
+						currentPage++;
+						
+						// initialize next page
+						pages[| currentPage] = "";
+						
+						// add nextWord
+						pages[| currentPage] = string_insert(nextWord, pages[| currentPage], string_length(pages[| currentPage]));
+					}
+				}
+				// delete nextWord from text
+				text = string_delete(text, 1, endPos);
 			}
 			
 			

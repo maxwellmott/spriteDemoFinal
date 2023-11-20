@@ -10,7 +10,7 @@ yScale = 1;
 bubbleHeight	= sprite_get_height(spr_talkBubble);
 var coverHeight		= sprite_get_height(spr_talkBubbleCover);
 
-if (sY >= 112) {
+if (sY >= camera.y) {
 	bubbleY			= 0;
 	talkArmSprite	= spr_talkBubbleArmDown;
 	yScale		= -1;
@@ -21,7 +21,7 @@ if (sY >= 112) {
 	coverY = bubbleY + bubbleHeight - coverHeight;
 }
 
-if (sY < 112) {
+if (sY < camera.y) {
 	bubbleY			= 224 - sprite_get_height(spr_talkBubble);
 	talkArmSprite	= spr_talkBubbleArmDown;
 	yScale			= 1;
@@ -96,3 +96,9 @@ waitForInput = true;
 
 // variable to store the active talkingSpeed
 talkingSpeed = 1;
+
+// variable used to navigate pages
+pageIndex = 0;
+
+// build text
+talk_bubble_build_dialogue();

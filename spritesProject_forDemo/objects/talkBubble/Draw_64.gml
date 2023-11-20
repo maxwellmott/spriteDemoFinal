@@ -13,7 +13,7 @@ surface_set_target(game.guiSurface);
 	draw_sprite_ext(coverSprite, 0, coverX, coverY, 1, yScale, 0, c_white, 1.0);
 	
 	// draw current page of text
-	
+	draw_text(x + 4, y + 4, pages[| pageIndex]);
 	// draw any current emojis
 
 surface_reset_target();

@@ -276,6 +276,7 @@
     {"id":{"name":"upstairsFrames","path":"sprites/upstairsFrames/upstairsFrames.yy",},},
     {"id":{"name":"tlst_placidValleyWater","path":"tilesets/tlst_placidValleyWater/tlst_placidValleyWater.yy",},},
     {"id":{"name":"ss_LargeButton","path":"sprites/ss_LargeButton/ss_LargeButton.yy",},},
+    {"id":{"name":"owSprite","path":"objects/owSprite/owSprite.yy",},},
     {"id":{"name":"spr_graywoodCluster","path":"sprites/spr_graywoodCluster/spr_graywoodCluster.yy",},},
     {"id":{"name":"spr_gemboBattle","path":"sprites/spr_gemboBattle/spr_gemboBattle.yy",},},
     {"id":{"name":"scr_multiplayercallbacks","path":"scripts/scr_multiplayercallbacks/scr_multiplayercallbacks.yy",},},

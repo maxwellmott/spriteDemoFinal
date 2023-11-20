@@ -211,6 +211,7 @@
     {"name":"transportBubble","order":6,"path":"objects/transportBubble/transportBubble.yy",},
     {"name":"upstairsFrames","order":8,"path":"sprites/upstairsFrames/upstairsFrames.yy",},
     {"name":"tlst_placidValleyWater","order":2,"path":"tilesets/tlst_placidValleyWater/tlst_placidValleyWater.yy",},
+    {"name":"owSprite","order":13,"path":"objects/owSprite/owSprite.yy",},
     {"name":"spr_graywoodCluster","order":6,"path":"sprites/spr_graywoodCluster/spr_graywoodCluster.yy",},
     {"name":"spr_gemboBattle","order":14,"path":"sprites/spr_gemboBattle/spr_gemboBattle.yy",},
     {"name":"scr_multiplayercallbacks","order":7,"path":"scripts/scr_multiplayercallbacks/scr_multiplayercallbacks.yy",},

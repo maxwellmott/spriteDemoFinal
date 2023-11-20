@@ -3,7 +3,7 @@
 
 
 // check if count has reached the end of the page
-if count == string_length(pages[| currentPage]) {
+if count == string_length(pages[| pageIndex]) {
 	// check if on last page
 	if (pageIndex == ds_list_size(pages) - 1) {
 		// check if waiting for player input
