@@ -1,4 +1,6 @@
 ///@desc
+global.substring = "";
+
 function encode_list(_list) {
 	// it checks the list for commas to determine if it is a structList
 	var i = 0; var commaCount = 0;
@@ -36,8 +38,8 @@ function encode_list(_list) {
 function encode_grid(_grid) {	 
 	// set the parseChar depending on whether there were commas present
 	
-	var newRowChar		= "=";
-	var newColumnChar	= "`";
+	var newRowChar		= "`";
+	var newColumnChar	= "_";
 	
 	// repeat for all columns
 	var i = 0;	var substring	= "";
@@ -65,11 +67,13 @@ function encode_grid(_grid) {
 }
 
 function encode_map(_map) {
+	global.substring = "";
+	
 	var m = _map;
 	
 	// establish parse characters
-	var tokenKeyChar	= "@";
-	var newItemChar		= "|";
+	var tokenKeyChar	= "|";
+	var newItemChar		= "_";
 	
 	// initialize substring
 	var substring	= "";
@@ -79,10 +83,10 @@ function encode_map(_map) {
 	var firstToken	= ds_map_find_value(m, firstKey);
 	
 	// add key, tokenKeyChar, token, and newItemChar to substring
-	substring = string_insert(firstKey,		substring, string_length(substring));
-	substring = string_insert(tokenKeyChar,	substring, string_length(substring));
-	substring = string_insert(firstToken,	substring, string_length(substring));
-	substring = string_insert(newItemChar,	substring, string_length(substring));;
+	global.substring = string_insert(firstKey,		global.substring, string_length(global.substring));
+	global.substring = string_insert(tokenKeyChar,	global.substring, string_length(global.substring));
+	global.substring = string_insert(firstToken,	global.substring, string_length(global.substring));
+	global.substring = string_insert(newItemChar,	global.substring, string_length(global.substring));;
 	
 	// set first key as the first key to use to find the next
 	var key = firstKey;
@@ -94,10 +98,10 @@ function encode_map(_map) {
 		var token	= ds_map_find_value(m, key);
 		
 		// add key, tokenKeyChar, token, and newItemChar to substring
-		substring += key;
-		substring += tokenKeyChar;
-		substring += token;
-		substring += newItemChar;
+		global.substring += key;
+		global.substring += tokenKeyChar;
+		global.substring += token;
+		global.substring += newItemChar;
 	}
 	
 	// return substring
@@ -142,8 +146,8 @@ function decode_list(_list, _target) {
 
 function decode_grid(_grid, _target) {
 	
-	var newRowChar		= "=";
-	var newColumnChar	= "`";
+	var newRowChar		= "`";
+	var newColumnChar	= "_";
 	
 	// count grid rows and columns
 	var rowCount	= string_count(newRowChar,		_grid);
@@ -189,8 +193,8 @@ function decode_map(_map, _target) {
 	var m = _map;	var t = _target;
 	
 	// establish tokenKeyChar and newItemChar
-	var tokenKeyChar	= "@";
-	var newItemChar		= "|";
+	var tokenKeyChar	= "|";
+	var newItemChar		= "_";
 	
 	// get size of map by counting newItemChars
 	var mapSize = string_count(newItemChar, m);
