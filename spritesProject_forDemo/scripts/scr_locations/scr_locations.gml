@@ -188,7 +188,7 @@ var miriabramExtLiterature = ds_list_create();
 
 //			list name				x			y			ID
 ds_list_add(miriabramExtLiterature,	"400,"+		"304,"+		string(literatureIDs.inhumanEntities)+",",
-			miriabramExtLiterature,	"416,"+		"400,"+		string(literatureIDs.inhumanEntities)+",");
+									"416,"+		"400,"+		string(literatureIDs.inhumanEntities)+",");
 
 #endregion
 

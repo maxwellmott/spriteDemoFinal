@@ -319,9 +319,9 @@ function place_literature(_encodedList) {
 		var params = ds_list_create();
 		decode_list(str, params);
 		
-		var _x = real(params[|0]);
-		var _y = real(params[|1]);
-		var ID = real(params[|2]);
+		var _x = string_digits(params[|0]);
+		var _y = string_digits(params[|1]);
+		var ID = string_digits(params[|2]);
 		
 		var obj	= grid[# literatureParams.object,	ID];
 		obj	= real(string_digits(obj));
