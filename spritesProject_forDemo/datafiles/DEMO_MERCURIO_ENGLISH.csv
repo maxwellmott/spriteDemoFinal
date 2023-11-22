@@ -1,4 +1,4 @@
-﻿placeholder,preMatch1,*nervous* I'm so nervous. I'm not sure if this is sweat or if I unlocked some powerful water spell
+placeholder,preMatch1,*nervous* I'm so nervous. I'm not sure if this is sweat or if I unlocked some powerful water spell
 placeholder,preMatch2,The headmaster gave me the pep talk of a lifetime. Today I'm just gonna focus on doing better than yesterday.
 placeholder,preMatch3,Apparently you and I are facing each other today! I can't wait to see what you throw at me!
 placeholder,preMatch4,I'm feeling so fired up after our match yesterday! This wasn't so bad after all.
@@ -11,14 +11,18 @@ placeholder,opponentWon,I can't believe it! You'd better not have been going eas
 placeholder,opponentLost,Ahhhh man! I thought I had you!
 placeholder,cutsceneOneDialogueOne,Wait--w-why would we do that? I don't want random people from the island to come watch me spar.
 placeholder,byeMatch1,I wonder if we'll have some time to practice after the festival. I want to use the training fields to work on my spellcasting.
-placeholder,dayOnePostFest,
-placeholder,dayTwoPostFest,
+placeholder,dayOnePostFest,"I admit, today ended up being a lot of fun. I get so nervous before sparring, but once I get in the groove it feels great! Especially when I'm with my friends."
+placeholder,dayTwoPostFest,I'm sorta sad this is all over. It's been a while since anyone has come to visit Miriabram. This really made me feel more connected to the rest of the island.
 placeholder,dayThreePostFest,
 placeholder,dayFourPostFest,
-placeholder,preBye1,
+placeholder,preBye1,"Haha, to think that earlier I was trying to get the Headmaster to cancel the festival. Now I'm mad that I don't have another match till tomorrow! "
 placeholder,preBye2,
-placeholder,dayOnePreFest,
+placeholder,dayOnePreFest,Gosh I'm so nervous. I tried convincing the Headmaster to cancel this thing—or at least push it back to tomorrow—I just know I'm gonna do terribly…
 placeholder,dayTwoPreFest,
 placeholder,dayThreePreFest,
 placeholder,dayFourPreFest,
 placeholder,byeMatch2,
+placeholder,battlePrompt1,I can't sleep quite yet. I keep thinking of my match earlier and I feel like my mind is on fire with new ideas. So what do you say? Wanna have a spar with me and help me prepare for tomorrow?
+placeholder,battlePrompt2,
+placeholder,battlePrompt3,
+placeholder,battlePrompt4,
