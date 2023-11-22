@@ -4,48 +4,54 @@
 sX = global.speaker.x;
 sY = global.speaker.y;
 
+bubbleX = 0;
+
 armXScale = 1;
 yScale = 1;
 
 bubbleHeight	= sprite_get_height(spr_talkBubble);
 var coverHeight		= sprite_get_height(spr_talkBubbleCover);
 
-if (sY >= camera.y) {
-	bubbleY			= 0;
+if (sY < camera.y) {
+	bubbleY			= bubbleHeight;
 	talkArmSprite	= spr_talkBubbleArmDown;
 	yScale		= -1;
 	
-	armY = sY - 14;
+	armY = 112 + (sY - camera.y) - 6;
 	
 	coverX = sX;
 	coverY = bubbleY + bubbleHeight - coverHeight;
+	
+	textX = bubbleX + 4;
+	textY = 12;
 }
 
-if (sY < camera.y) {
+if (sY >= camera.y) {
 	bubbleY			= 224 - sprite_get_height(spr_talkBubble);
 	talkArmSprite	= spr_talkBubbleArmDown;
 	yScale			= 1;
 	
-	armY = sY + 14;
+	armY = 112 + (sY - camera.y) + 14;
 	
 	coverX = sX - 16;
 	coverY = bubbleY;
+	
+	textX = bubbleX + 4;
+	textY = bubbleY + 12;
 }
 
 bubbleSprite	= spr_talkBubble;
 coverSprite		= spr_talkBubbleCover;
 
-if (sX >= 128) {
+if (sX >= camera.x) {
 	armXScale = -1;
 }
 
-if (sX < 128) {
+if (sX < camera.x) {
 	armXScale = 1;
 }
 
-armX = sX;
-
-bubbleX = 0;
+armX = 128 + (sX - camera.x);
 
 text = global.dialogue;
 pages = ds_list_create();
@@ -80,7 +86,7 @@ nextEmoPage		= -1;
 nextSpeedPage	= -1;
 
 // variable to be increased as each letter is drawn to the screen
-count = 0;
+count = 1;
 
 // variables to track the number of paths/emotes/speeds
 pathCount	= 0;
@@ -102,3 +108,6 @@ pageIndex = 0;
 
 // build text
 talk_bubble_build_dialogue();
+
+// create currentText variable
+currentText = "";

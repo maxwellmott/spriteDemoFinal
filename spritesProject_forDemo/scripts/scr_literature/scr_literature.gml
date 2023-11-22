@@ -111,11 +111,10 @@ function book_build_text(_string) {
 	
 	pages[| currentPage] = "";
 
-	while (string_length(text) > 0) {
-		while (currentLine < maxLines) {			
-			// if the text signals to start a new line, add the substring to the current page,
-			// then add the newLine to the substring and increment the currentLine
-			if (string_char_at(text, 1) == "+") {				
+	while (string_length(text) > 0) {		
+		// if the text signals to start a new line, add the substring to the current page,
+		// then add the newLine to the substring and increment the currentLine
+		if (string_char_at(text, 1) == "+") {				
 				// delete the signal character
 				text = string_delete(text, 1, 1);
 				
@@ -126,9 +125,9 @@ function book_build_text(_string) {
 				currentLine++;
 			}
 		
-			// if the text signals to start a new page, add the substring to the current page,
-			// then increment the count and the page
-			if (string_char_at(text, 1) == "|") {
+		// if the text signals to start a new page, add the substring to the current page,
+		// then increment the count and the page
+		if (string_char_at(text, 1) == "|") {
 				// delete the signal character
 				text = string_delete(text, 1, 1);
 				 
@@ -138,9 +137,9 @@ function book_build_text(_string) {
 				currentLine = 1;
 			}
 		
-			// if the text signals that there is a heading, add the substring to the current page,
-			// then add the heading to the headingGrid and add lines to create space 
-			if (string_char_at(text, 1) == "%") {				
+		// if the text signals that there is a heading, add the substring to the current page,
+		// then add the heading to the headingGrid and add lines to create space 
+		if (string_char_at(text, 1) == "%") {				
 				// delete the opening signal character
 				text = string_delete(text, 1, 1);
 				
@@ -175,10 +174,10 @@ function book_build_text(_string) {
 				// increment currentLine
 				currentLine++;
 			}
-			
-			// if the text signals to draw an image, add the substring to the current page,
-			// then add the image to the imageGrid and add lines to create space
-			if (string_char_at(text, 1) == "*") {
+		
+		// if the text signals to draw an image, add the substring to the current page,
+		// then add the image to the imageGrid and add lines to create space
+		if (string_char_at(text, 1) == "*") {
 				// get the ID and height of the sprite signaled by the text
 				text			= string_delete(text, 1, 1);
 				var endPos		= string_pos("*", text);
@@ -227,10 +226,10 @@ function book_build_text(_string) {
 				// the text isn't touching the image.
 				currentLine += linesNeeded + 1;
 			}
-			
-			// if the text contains a space in the next position, find the next word in the text.
-			// add a newLine if the nextWord doesn't fit. Then add the nextWord.
-			if (string_char_at(text, 1) == " ") {
+		
+		// if the text contains a space in the next position, find the next word in the text.
+		// add a newLine if the nextWord doesn't fit. Then add the nextWord.
+		if (string_char_at(text, 1) == " ") {
 				if (string_char_at(text, 2) == "+") || (string_char_at(text, 2) == "|") || (string_char_at(text, 2) == "*") || (string_char_at(text, 2) == "%") {
 					text = string_delete(text, 1, 1);	
 				}	else {
@@ -278,14 +277,6 @@ function book_build_text(_string) {
 					text = string_delete(text, 1, wordLength);	
 				}				
 			}
-				
-			if (string_length(text) == 0) currentLine = maxLines;
-		}
-		
-		// if the currentLine has moved beyond maxLines, move to the next page and start from line 1	
-		currentPage++;
-		pages[|currentPage] = "";
-		currentLine = 1;
 	}
 }
 

@@ -1,6 +1,16 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+// check if count has not yet reached the limit
+if (count < string_length(pages[| pageIndex])) {
+	if !(global.gameTime mod talkingSpeed) {
+		// add the next character to currentText
+		currentText = string_copy(pages[| pageIndex], 1, count);
+		
+		// increment count
+		count++;
+	}
+}
 
 // check if count has reached the end of the page
 if count == string_length(pages[| pageIndex]) {
@@ -23,11 +33,13 @@ if count == string_length(pages[| pageIndex]) {
 		if (waitForInput) {
 			if (global.select) {
 				pageIndex++;	
+				count = 1;
 			}
 		}
 		// else statement (if skipping input)
 		else {
-			pageIndex++;	
+			pageIndex++;
+			count = 1;
 		}
 	}
 }

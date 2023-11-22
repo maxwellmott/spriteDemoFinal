@@ -42,9 +42,8 @@ function talk_bubble_build_dialogue() {
 	pages[| currentPage] = "";
 
 	while (string_length(text) > 0) {
-		while (currentLine < maxLines) {
-			// check if the text signals to start walking a path
-			if (string_char_at(text, 1)) == "^" {											//READY TO TEST
+		// check if the text signals to start walking a path
+		if (string_char_at(text, 1)) == "^" {											//READY TO TEST
 				// delete the opening signal character
 				text = string_delete(text, 1, 1);
 				
@@ -105,9 +104,9 @@ function talk_bubble_build_dialogue() {
 				// increment pathCount
 				pathCount++;
 			}
-			
-			// check if the text signals to display an emotion
-			else if (string_char_at(text, 1)) == "*" {										//READY TO TEST
+		
+		// check if the text signals to display an emotion
+		else if (string_char_at(text, 1)) == "*" {										//READY TO TEST
 				// delete the opening signal character
 				text = string_delete(text, 1, 1);
 				
@@ -214,9 +213,9 @@ function talk_bubble_build_dialogue() {
 				emoCount++;
 				
 			}
-			
-			// check if the text signals to insert the player's name
-			else if (string_char_at(text, 1)) == "_" {										//READY TO TEST
+		
+		// check if the text signals to insert the player's name
+		else if (string_char_at(text, 1)) == "_" {										//READY TO TEST
 				// delete the signal character
 				text = string_delete(text, 1, 1);
 				
@@ -267,9 +266,9 @@ function talk_bubble_build_dialogue() {
 				var nameStringLength = string_length(nameString);
 				text = string_delete(text, 1, nameStringLength);
 			}
-			
-			// check if the text signals to skip to the next page
-			else if (string_char_at(text, 1)) == "|" {										//READY TO TEST
+		
+		// check if the text signals to skip to the next page
+		else if (string_char_at(text, 1)) == "|" {										//READY TO TEST
 				// delete the signal character
 				text = string_delete(text, 1, 1);
 				 
@@ -278,18 +277,18 @@ function talk_bubble_build_dialogue() {
 				pages[|currentPage] = "";
 				currentLine = 1;
 			}
-			
-			// check if the text signals to move on without player input
-			else if (string_char_at(text, 1)) == "&" {										//READY TO TEST
+		
+		// check if the text signals to move on without player input
+		else if (string_char_at(text, 1)) == "&" {										//READY TO TEST
 				// delete the signal character
 				text = string_delete(text, 1, 1);
 				
 				// set waitForInput to false
 				waitForInput = false;
 			}
-			
-			// check if the text signals to change the talkingSpeed
-			else if (string_char_at(text, 1)) == "$" {										//READY TO TEST
+		
+		// check if the text signals to change the talkingSpeed
+		else if (string_char_at(text, 1)) == "$" {										//READY TO TEST
 				// delete first signal character
 				text = string_delete(text, 1, 1);
 				
@@ -320,119 +319,109 @@ function talk_bubble_build_dialogue() {
 				// increment emoCount
 				speedCount++;
 			}
+		
+		// check if the next character is a space
+		else if (string_char_at(text, 1)) == " " {										//READY TO TEST
+			// add the first space to the current page
+			pages[| currentPage] += " ";
 			
-			// check if the next character is a space
-			else if (string_char_at(text, 1)) == " " {										//READY TO TEST
-				// add the first space to the current page
-				pages[| currentPage] += " ";
-				
-				// delete the first space
-				text = string_delete(text, 1, 1);
-				
-				// find the next space
-				var endPos = string_pos(" ", text);
-				
-				// use the position of the next space to get the nextWord
-				var nextWord = string_copy(text, 1, endPos);
-				
-				// check if the nextWord will fit on the current line
-				var checkString		= string_insert(nextWord, pages[| currentPage], string_length(pages[| currentPage]));
-				var checkWidth		= string_width(checkString);
-				
-				var sl = string_length(pages[| currentPage]);
-				
-				if (checkWidth <= bubbleWidth) {
-					// if it fits, add the nextWord to the currentPage
+			// delete the first space
+			text = string_delete(text, 1, 1);
+			
+			// find the next space
+			var endPos = string_pos(" ", text);
+			
+			// use the position of the next space to get the nextWord
+			var nextWord = string_copy(text, 1, endPos);
+			
+			// check if the nextWord will fit on the current line
+			var checkString		= string_insert(nextWord, pages[| currentPage], string_length(pages[| currentPage]));
+			var checkWidth		= string_width(checkString);
+			
+			var sl = string_length(pages[| currentPage]);
+			
+			if (checkWidth <= bubbleWidth) {
+				// if it fits, add the nextWord to the currentPage
+				pages[| currentPage] += nextWord;
+			}
+			// else statement if the nextWord doesn't fit on the current line
+			else {
+				// check if there is room on the currentPage for a new line
+				if (currentLine + 1 <= maxLines) {
+					// if there is room for a new line, add the new line
+					pages[| currentPage] += "\n";
+					
+					// increment currentLine
+					currentLine++;
+					
+					// add the nextWord to the currentPage
 					pages[| currentPage] += nextWord;
 				}
-				// else statement if the nextWord doesn't fit on the current line
+				// else statement if there is not room for a new line
 				else {
-					// check if there is room on the currentPage for a new line
-					if (currentLine + 1 <= maxLines) {
-						// if there is room for a new line, add the new line
-						pages[| currentPage] += "\n";
-						
-						// increment currentLine
-						currentLine++;
-						
-						// add the nextWord to the currentPage
-						pages[| currentPage] += nextWord;
-					}
-					// else statement if there is not room for a new line
-					else {
-						// increment currentPage
-						currentPage++;
-						
-						// initialize next page
-						pages[| currentPage] = "";
-						
-						// initialize currentLine
-						currentLine = 1;
-						
-						// add nextWord
-						pages[| currentPage] += nextWord;
-					}
+					// increment currentPage
+					currentPage++;
+					
+					// initialize next page
+					pages[| currentPage] = "";
+					
+					// initialize currentLine
+					currentLine = 1;
+					
+					// add nextWord
+					pages[| currentPage] += nextWord;
 				}
-				// delete nextWord from text
-				text = string_delete(text, 1, endPos - 1);
 			}
+			// delete nextWord from text
+			text = string_delete(text, 1, endPos - 1);
+		}
+		
+		// if the next char is a regular character, add it
+		else {																			//READY TO TEST
+			// get next character
+			var char = string_char_at(text, 1);
 			
-			// if the next char is a regular character, add it
-			else {																			//READY TO TEST
-				// get next character
-				var char = string_char_at(text, 1);
+			// check if there's room on the current line
+			var checkString = char;
+			var checkWidth = string_width(checkString);
+			
+			if (checkWidth <= bubbleWidth) {
+				// add the character
+				pages[| currentPage] = string_insert(char, pages[| currentPage], string_length(pages[| currentPage]));
 				
-				// check if there's room on the current line
-				var checkString = char;
-				var checkWidth = string_width(checkString);
-				
-				if (checkWidth <= bubbleWidth) {
-					// add the character
+			}
+			// else statement if there's no room on the current line
+			else {
+				// check if there's room for another line on the current page
+				if (currentLine + 1 <= maxLines) {
+					// add a new line
+					pages[| currentPage] += "\n";
+					
+					// increment current line
+					currentLine++;
+					
+					// add the character to the new line
 					pages[| currentPage] = string_insert(char, pages[| currentPage], string_length(pages[| currentPage]));
 					
 				}
-				// else statement if there's no room on the current line
+				// else statement if there's no room for another line
 				else {
-					// check if there's room for another line on the current page
-					if (currentLine + 1 <= maxLines) {
-						// add a new line
-						pages[| currentPage] += "\n";
-						
-						// increment current line
-						currentLine++;
-						
-						// add the character to the new line
-						pages[| currentPage] = string_insert(char, pages[| currentPage], string_length(pages[| currentPage]));
-						
-					}
-					// else statement if there's no room for another line
-					else {
-						// increment current page
-						currentPage++;
-						
-						// initialize new page
-						pages[| currentPage] = "";
-						
-						// initialize current line
-						currentLine = 1;
-						
-						// add the character to the new page
-						pages[| currentPage] = string_insert(char, pages[| currentPage], string_length(pages[| currentPage]));
-						
-					}
+					// increment current page
+					currentPage++;
+					
+					// initialize new page
+					pages[| currentPage] = "";
+					
+					// initialize current line
+					currentLine = 1;
+					
+					// add the character to the new page
+					pages[| currentPage] = string_insert(char, pages[| currentPage], string_length(pages[| currentPage]));
+					
 				}
-				
-				// delete the character from the text
-				text = string_delete(text, 1, 1);
 			}
-			
-			if (string_length(text) == 0) currentLine = maxLines;
+			// delete the character from the text
+			text = string_delete(text, 1, 1);
 		}
-		// if the currentLine has moved beyond maxLines, move to the next page and start from line 1	
-		currentPage++;
-		pages[|currentPage] = "";
-		currentLine = 1;
 	}
-	
-
 }

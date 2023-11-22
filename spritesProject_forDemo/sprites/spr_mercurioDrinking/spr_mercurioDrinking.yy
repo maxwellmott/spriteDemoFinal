@@ -25,8 +25,8 @@
   "nineSlice": null,
   "origin": 0,
   "parent": {
-    "name": "NPCs",
-    "path": "folders/Sprites/humanSprites/NPCs.yy",
+    "name": "Mercurio",
+    "path": "folders/Sprites/humanSprites/NPCs/Mercurio.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {
