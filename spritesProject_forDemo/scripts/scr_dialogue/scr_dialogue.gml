@@ -324,7 +324,7 @@ function talk_bubble_build_dialogue() {
 			// check if the next character is a space
 			else if (string_char_at(text, 1)) == " " {										//READY TO TEST
 				// add the first space to the current page
-				pages[| currentPage] = string_insert(" ", pages[| currentPage], string_length(pages[| currentPage]) + 1);
+				pages[| currentPage] += " ";
 				
 				// delete the first space
 				text = string_delete(text, 1, 1);
@@ -339,22 +339,24 @@ function talk_bubble_build_dialogue() {
 				var checkString		= string_insert(nextWord, pages[| currentPage], string_length(pages[| currentPage]));
 				var checkWidth		= string_width(checkString);
 				
+				var sl = string_length(pages[| currentPage]);
+				
 				if (checkWidth <= bubbleWidth) {
 					// if it fits, add the nextWord to the currentPage
-					pages[| currentPage] = string_insert(nextWord, pages[| currentPage], string_length(pages[| currentPage]));
+					pages[| currentPage] += nextWord;
 				}
 				// else statement if the nextWord doesn't fit on the current line
 				else {
 					// check if there is room on the currentPage for a new line
 					if (currentLine + 1 <= maxLines) {
 						// if there is room for a new line, add the new line
-						pages[| currentPage] = string_insert("\n", pages[| currentPage], string_length(pages[| currentPage]));
+						pages[| currentPage] += "\n";
 						
 						// increment currentLine
 						currentLine++;
 						
 						// add the nextWord to the currentPage
-						pages[| currentPage] = string_insert(nextWord, pages[| currentPage], string_length(pages[| currentPage]));
+						pages[| currentPage] += nextWord;
 					}
 					// else statement if there is not room for a new line
 					else {
@@ -368,11 +370,11 @@ function talk_bubble_build_dialogue() {
 						currentLine = 1;
 						
 						// add nextWord
-						pages[| currentPage] = string_insert(nextWord, pages[| currentPage], string_length(pages[| currentPage]));
+						pages[| currentPage] += nextWord;
 					}
 				}
 				// delete nextWord from text
-				text = string_delete(text, 1, endPos);
+				text = string_delete(text, 1, endPos - 1);
 			}
 			
 			// if the next char is a regular character, add it
@@ -381,7 +383,7 @@ function talk_bubble_build_dialogue() {
 				var char = string_char_at(text, 1);
 				
 				// check if there's room on the current line
-				var checkString = string_insert(char, pages[| currentPage], string_length(pages[| currentPage]));
+				var checkString = char;
 				var checkWidth = string_width(checkString);
 				
 				if (checkWidth <= bubbleWidth) {
@@ -394,7 +396,7 @@ function talk_bubble_build_dialogue() {
 					// check if there's room for another line on the current page
 					if (currentLine + 1 <= maxLines) {
 						// add a new line
-						pages[| currentPage] = string_insert("\n", pages[| currentPage], string_length(pages[| currentPage]));
+						pages[| currentPage] += "\n";
 						
 						// increment current line
 						currentLine++;
