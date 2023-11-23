@@ -120,7 +120,7 @@ function talk_bubble_build_dialogue() {
 				text = string_delete(text, 1, 1);
 				
 				// get the position of the next signal character
-				var endPos = string_pos(text, "*");
+				var endPos = string_pos("*", text);
 				
 				// get emotion string
 				var emotionString = string_copy(text, 1, endPos - 1);
@@ -189,29 +189,35 @@ function talk_bubble_build_dialogue() {
 					case "STUNNED":
 						emo = emotions.stunned;
 					break;
+					
+					case "SPAR":
+						global.enemy		= global.speaker;
+						global.ynFunction	= begin_spar;
 				}
 				
 				// delete emotion string from text
 				text = string_delete(text, 1, endPos);
 				
-				// resize emoGrid
-				ds_grid_resize(emoGrid, 4, emoCount + 1);
-				
-				// store the currentPage in the emotion grid
-				emoGrid[# 0, emoCount] = currentPage;
-				
-				// store the currentLength in the emotion grid
-				emoGrid[# 1, emoCount] = string_length(pages[| currentPage]);
-				
-				// store the emoBool in the emotion grid
-				emoGrid[# 2, emoCount] = emoBool;
-				
-				// store the emotion in the emotion grid
-				emoGrid[# 3, emoCount] = emo;
-				
-				// increment emoCount
-				emoCount++;
-				
+				// if emotion is not SPAR, add emotion to grid
+				if (emo != -1) {
+					// resize emoGrid
+					ds_grid_resize(emoGrid, 4, emoCount + 1);
+					
+					// store the currentPage in the emotion grid
+					emoGrid[# 0, emoCount] = currentPage;
+					
+					// store the currentLength in the emotion grid
+					emoGrid[# 1, emoCount] = string_length(pages[| currentPage]);
+					
+					// store the emoBool in the emotion grid
+					emoGrid[# 2, emoCount] = emoBool;
+					
+					// store the emotion in the emotion grid
+					emoGrid[# 3, emoCount] = emo;
+					
+					// increment emoCount
+					emoCount++;
+				}				
 			}
 		
 		// check if the text signals to insert the player's name

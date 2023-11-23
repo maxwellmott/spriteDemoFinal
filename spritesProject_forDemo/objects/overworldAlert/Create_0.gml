@@ -1,7 +1,7 @@
 /// @desc
 
 x = 0;
-y = guiHeight - 96;
+y = guiHeight - sprite_get_height(spr_talkBubble);
 
 global.overworld = false;
 
@@ -17,13 +17,13 @@ func		= real(alertGrid[# overworldAlertParams.func,		alertID]);
 
 ds_grid_destroy(alertGrid);
 
-//textX	= camera.x - 112;
-//textY	= camera.y + 32;
+textX	= x + 4;
+textY	= y + 4;
 
-textX	= x;
-textY	= y;
-
-if (ynPrompt) yesNo = new overworld_yesNoPrompt(func);
+if (ynPrompt) {
+	global.ynFunction = func;
+	instance_create_layer(0, 0, get_layer_depth(LAYER.meta), yesNoPrompt);
+}
 
 textFormatted = false;
 writtenText = "";

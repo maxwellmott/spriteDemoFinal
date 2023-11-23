@@ -1,3 +1,1 @@
 /// @desc
-
-global.overworld = true;

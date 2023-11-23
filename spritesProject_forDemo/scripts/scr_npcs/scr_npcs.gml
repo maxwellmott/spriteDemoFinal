@@ -114,6 +114,9 @@ ds_list_add(mercurioLocations,	string(locations.miriabramExt) + ",",												
 function mercurio_respond() {
 	var wd	= player.weekday;
 	var h	= player.hours;
+	
+	// for debug purposes
+	return ds_map_find_value(global.speaker.responseMap, "sparPrompt1");
 
 	switch (wd) {
 		case weekdays.hyggsun:

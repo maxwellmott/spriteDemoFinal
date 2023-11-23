@@ -16,15 +16,24 @@ if (count < string_length(pages[| pageIndex])) {
 if count == string_length(pages[| pageIndex]) {
 	// check if on last page
 	if (pageIndex == ds_list_size(pages) - 1) {
-		// check if waiting for player input
-		if (waitForInput) {
-			if (global.select) {
-				instance_destroy(id);	
-			}
+		
+		// if there is a yes no prompt
+		if (global.ynFunction != -1) {
+			instance_create_depth(0, 0, layer_get_depth(LAYER.meta), yesNoPrompt);	
 		}
-		// else statement (if skipping input)
+		
+		// else if there is not a yes no prompt
 		else {
-			instance_destroy(id);
+			// check if waiting for player input
+			if (waitForInput) {
+				if (global.select) {
+					instance_destroy(id);	
+				}
+			}
+			// else statement (if skipping input)
+			else {
+				instance_destroy(id);
+			}
 		}
 	}
 	// else statement (if not on last page)

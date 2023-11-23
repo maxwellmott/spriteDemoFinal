@@ -1,6 +1,8 @@
 #macro	guiWidth	256
 #macro	guiHeight	224
 
+global.ynFunction = -1;
+
 function overworld_yesNoPrompt(_function) constructor {
 	sprite			= spr_overworld_ynPrompt;
 	yesButtonX		= player.x + 108;

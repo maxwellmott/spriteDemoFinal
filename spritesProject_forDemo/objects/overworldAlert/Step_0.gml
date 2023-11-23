@@ -1,9 +1,5 @@
 /// @desc
 
-if (ynPrompt) {
-	yesNo.method_step();
-}
-
 if !(ynPrompt) {
 	if global.back || global.select {
 		visible = false;

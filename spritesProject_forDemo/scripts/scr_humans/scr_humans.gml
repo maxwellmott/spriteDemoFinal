@@ -431,3 +431,7 @@ function human_get_depthY() {
 function human_set_depth() {
 	depth = get_layer_depth(LAYER.collidableTiles) - depthY;	
 }
+	
+function begin_spar() {
+	room_transition(player.x, player.x, player.facing, rm_battleScene);
+}

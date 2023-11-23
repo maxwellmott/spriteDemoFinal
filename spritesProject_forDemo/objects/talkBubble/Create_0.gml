@@ -23,12 +23,12 @@ if (sY < camera.y) {
 	coverY = bubbleY + bubbleHeight - coverHeight;
 	
 	textX = bubbleX + 4;
-	textY = 12;
+	textY = 4;
 }
 
 if (sY >= camera.y) {
 	bubbleY			= 224 - sprite_get_height(spr_talkBubble);
-	talkArmSprite	= spr_talkBubbleArmDown;
+	talkArmSprite	= spr_talkBubbleArmUp;
 	yScale			= 1;
 	
 	armY = 112 + (sY - camera.y) + 14;
@@ -37,7 +37,7 @@ if (sY >= camera.y) {
 	coverY = bubbleY;
 	
 	textX = bubbleX + 4;
-	textY = bubbleY + 12;
+	textY = bubbleY + 4;
 }
 
 bubbleSprite	= spr_talkBubble;
