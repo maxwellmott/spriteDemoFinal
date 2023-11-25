@@ -1,7 +1,7 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "battleAllyParent",
+  "name": "turnMenu",
   "eventList": [],
   "managed": true,
   "overriddenProperties": [],

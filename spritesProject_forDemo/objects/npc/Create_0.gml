@@ -13,6 +13,12 @@ name = "";
 // initialize talismans
 talismans = "";
 
+// initialize roster
+roster = ds_list_create();
+
+// initialize team
+team = ds_list_create();
+
 // initialize facing
 facing = directions.south;
 

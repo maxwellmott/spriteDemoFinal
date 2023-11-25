@@ -191,7 +191,7 @@ function talk_bubble_build_dialogue() {
 					break;
 					
 					case "SPAR":
-						global.enemy		= global.speaker;
+						global.opponent		= global.speaker;
 						global.ynFunction	= begin_spar;
 				}
 				

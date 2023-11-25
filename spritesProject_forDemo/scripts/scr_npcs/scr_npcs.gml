@@ -291,3 +291,12 @@ function day_change_edit_npc_lists(_locationList) {
 	
 	global.allLocations = encode_grid(grid);
 }
+
+function aiOpponent_set_team() {
+	randomize_list(playerTwo.roster);
+	
+	playerTwo.team[|0] = playerTwo.roster[|0];
+	playerTwo.team[|1] = playerTwo.roster[|1];
+	playerTwo.team[|2] = playerTwo.roster[|2];
+	playerTwo.team[|3] = playerTwo.roster[|3];
+}

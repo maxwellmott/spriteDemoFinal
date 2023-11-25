@@ -97,3 +97,6 @@ state = humanStates.standard;
 
 sundown = false;
 darkAlpha = 0.0;
+
+// initialize selected ally
+selectedAlly = noone;
