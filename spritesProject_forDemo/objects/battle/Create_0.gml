@@ -43,6 +43,17 @@ enum sparPhases {
 // initialize spar phase
 sparPhase = sparPhases.initialize;
 
+// selection phases enum
+enum selectionPhases {
+	ally,
+	action,
+	target,
+	height
+}
+
+// initialize selectionPhase
+selectionPhase = selectionPhases.ally;
+
 // initialize sparReady
 sparReady = false;
 
