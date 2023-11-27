@@ -31,6 +31,7 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Scripts","folderPath":"folders/Scripts.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Helper","folderPath":"folders/Scripts/Helper.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"npcs","folderPath":"folders/Scripts/npcs.yy",},
+    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"sparring","folderPath":"folders/Scripts/sparring.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sequences","folderPath":"folders/Sequences.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Shaders","folderPath":"folders/Shaders.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Sounds","folderPath":"folders/Sounds.yy",},
@@ -76,7 +77,6 @@
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"thePit","folderPath":"folders/Tile Sets/thePit.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"verdmanFarms","folderPath":"folders/Tile Sets/verdmanFarms.yy",},
     {"resourceType":"GMFolder","resourceVersion":"1.0","name":"Timelines","folderPath":"folders/Timelines.yy",},
-    {"resourceType":"GMFolder","resourceVersion":"1.0","name":"sparring","folderPath":"folders/Scripts/sparring.yy",},
   ],
   "IncludedFiles": [
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"ABILITIES_ENGLISH.csv","CopyToMask":-1,"filePath":"datafiles",},

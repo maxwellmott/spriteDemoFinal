@@ -266,7 +266,6 @@ function book_build_text(_string) {
 								// add the nextWord to the next page
 								pages[| currentPage + 1] = string_insert(nextWord, pages[|currentPage + 1], 1);
 								
-								length -= wordLength + 1;
 								currentLine = 1;
 								currentPage++;
 						}

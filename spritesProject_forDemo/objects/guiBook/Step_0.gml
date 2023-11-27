@@ -68,3 +68,8 @@ if (turningPageRight) {
 		flipFrame++;
 	}	
 }
+
+if (global.back) {
+	player.currentLiterature = -4;
+	instance_destroy(id);
+}

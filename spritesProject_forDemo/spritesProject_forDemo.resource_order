@@ -19,6 +19,7 @@
     {"name":"Scripts","order":4,"path":"folders/Scripts.yy",},
     {"name":"Helper","order":30,"path":"folders/Scripts/Helper.yy",},
     {"name":"npcs","order":37,"path":"folders/Scripts/npcs.yy",},
+    {"name":"sparring","order":47,"path":"folders/Scripts/sparring.yy",},
     {"name":"Sequences","order":9,"path":"folders/Sequences.yy",},
     {"name":"Shaders","order":5,"path":"folders/Shaders.yy",},
     {"name":"Sounds","order":2,"path":"folders/Sounds.yy",},
@@ -58,7 +59,6 @@
     {"name":"thePit","order":5,"path":"folders/Tile Sets/thePit.yy",},
     {"name":"verdmanFarms","order":6,"path":"folders/Tile Sets/verdmanFarms.yy",},
     {"name":"Timelines","order":7,"path":"folders/Timelines.yy",},
-    {"name":"sparring","order":47,"path":"folders/Scripts/sparring.yy",},
   ],
   "ResourceOrderSettings": [
     {"name":"controller","order":5,"path":"objects/controller/controller.yy",},
