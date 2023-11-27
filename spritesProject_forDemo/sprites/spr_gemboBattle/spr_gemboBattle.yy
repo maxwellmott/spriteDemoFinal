@@ -3,9 +3,9 @@
   "resourceVersion": "1.0",
   "name": "spr_gemboBattle",
   "bbox_bottom": 55,
-  "bbox_left": 2,
-  "bbox_right": 51,
-  "bbox_top": 7,
+  "bbox_left": 4,
+  "bbox_right": 49,
+  "bbox_top": 9,
   "bboxMode": 0,
   "collisionKind": 1,
   "collisionTolerance": 0,
@@ -13,14 +13,14 @@
   "edgeFiltering": false,
   "For3D": false,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"b51156e2-e343-49b6-833b-84d8388d0b06",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"f55b9ccf-f049-4153-a1dc-3f6f537b9b9f",},
   ],
   "gridX": 0,
   "gridY": 0,
   "height": 56,
   "HTile": false,
   "layers": [
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"526a6553-b5ef-4886-af59-bf68e2535330","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"21d47dbb-7a71-4175-94bb-93d695ef6574","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,
   "origin": 4,
@@ -54,7 +54,7 @@
     "timeUnits": 1,
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"b51156e2-e343-49b6-833b-84d8388d0b06","path":"sprites/spr_gemboBattle/spr_gemboBattle.yy",},},},"Disabled":false,"id":"67def567-eac8-4894-a881-d01ddee1afec","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"f55b9ccf-f049-4153-a1dc-3f6f537b9b9f","path":"sprites/spr_gemboBattle/spr_gemboBattle.yy",},},},"Disabled":false,"id":"93cbd553-a7e8-4a7b-9dc4-f5994f97e874","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

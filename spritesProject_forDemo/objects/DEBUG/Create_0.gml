@@ -1,34 +1,34 @@
-initialGrid = ds_grid_create(2, 6);
+initial_grid = ds_grid_create(2, 6);
 
-ds_grid_add(initialGrid, 0, 0, "one");
-ds_grid_add(initialGrid, 0, 1, "two");
-ds_grid_add(initialGrid, 0, 2, "three");
-ds_grid_add(initialGrid, 0, 3, "four");
-ds_grid_add(initialGrid, 0, 4, "five");
-ds_grid_add(initialGrid, 0, 5, "six");
+ds_grid_add(initial_grid, 0, 0, "one");
+ds_grid_add(initial_grid, 0, 1, "two");
+ds_grid_add(initial_grid, 0, 2, "three");
+ds_grid_add(initial_grid, 0, 3, "four");
+ds_grid_add(initial_grid, 0, 4, "five");
+ds_grid_add(initial_grid, 0, 5, "six");
 
-ds_grid_add(initialGrid, 1, 0, "red");
-ds_grid_add(initialGrid, 1, 1, "orange");
-ds_grid_add(initialGrid, 1, 2, "yellow");
-ds_grid_add(initialGrid, 1, 3, "green");
-ds_grid_add(initialGrid, 1, 4, "blue");
-ds_grid_add(initialGrid, 1, 5, "purple");
+ds_grid_add(initial_grid, 1, 0, "red");
+ds_grid_add(initial_grid, 1, 1, "orange");
+ds_grid_add(initial_grid, 1, 2, "yellow");
+ds_grid_add(initial_grid, 1, 3, "green");
+ds_grid_add(initial_grid, 1, 4, "blue");
+ds_grid_add(initial_grid, 1, 5, "purple");
 
-decodedMap = ds_map_create();
+decoded_map = ds_map_create();
 
 /*
-ds_map_add(decodedMap, "one",	"red");
-ds_map_add(decodedMap, "two",	"orange");
-ds_map_add(decodedMap, "three",	"yellow");
-ds_map_add(decodedMap, "four",	"green");
-ds_map_add(decodedMap, "five",	"blue");
-ds_map_add(decodedMap, "six",	"purple");
+ds_map_add(decoded_map, "one",	"red");
+ds_map_add(decoded_map, "two",	"orange");
+ds_map_add(decoded_map, "three",	"yellow");
+ds_map_add(decoded_map, "four",	"green");
+ds_map_add(decoded_map, "five",	"blue");
+ds_map_add(decoded_map, "six",	"purple");
 */
 
-convert_grid_to_map(initialGrid, decodedMap);
+convert_grid_to_map(initial_grid, decoded_map);
 
-encodedMap = encode_map(decodedMap);
+encoded_map = encode_map(decoded_map);
 
-ds_map_destroy(decodedMap);
+ds_map_destroy(decoded_map);
 
 encoded = true;

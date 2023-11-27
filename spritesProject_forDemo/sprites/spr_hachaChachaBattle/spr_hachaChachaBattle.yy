@@ -3,9 +3,9 @@
   "resourceVersion": "1.0",
   "name": "spr_hachaChachaBattle",
   "bbox_bottom": 55,
-  "bbox_left": 1,
-  "bbox_right": 54,
-  "bbox_top": 4,
+  "bbox_left": 3,
+  "bbox_right": 52,
+  "bbox_top": 14,
   "bboxMode": 0,
   "collisionKind": 1,
   "collisionTolerance": 0,
@@ -13,14 +13,14 @@
   "edgeFiltering": false,
   "For3D": false,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"00bad549-b8fc-4240-a934-20eccdf3371b",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"df43b03d-f6df-4b76-9cb5-bc14de79d7d2",},
   ],
   "gridX": 0,
   "gridY": 0,
   "height": 56,
   "HTile": false,
   "layers": [
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"e8aa22d6-d6d5-4098-8fbf-7d890622845d","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"e8cfc71c-8746-4921-9ffa-530a02b2005d","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,
   "origin": 0,
@@ -54,7 +54,7 @@
     "timeUnits": 1,
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"00bad549-b8fc-4240-a934-20eccdf3371b","path":"sprites/spr_hachaChachaBattle/spr_hachaChachaBattle.yy",},},},"Disabled":false,"id":"6ccaa406-fd8c-41a5-b5ee-21c6634ea023","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"df43b03d-f6df-4b76-9cb5-bc14de79d7d2","path":"sprites/spr_hachaChachaBattle/spr_hachaChachaBattle.yy",},},},"Disabled":false,"id":"edaab490-d414-496e-ba47-4ecd19ed8cf6","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

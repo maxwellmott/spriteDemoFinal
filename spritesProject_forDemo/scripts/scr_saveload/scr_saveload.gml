@@ -52,7 +52,7 @@ function save_game() {
 		ds_map_add(_map, "talismans",			talismans);
 		ds_map_add(_map, "inventory",			inventory);
 		ds_map_add(_map, "wardrobe",			wardrobe);
-		ds_map_add(_map, "spells",				spells);
+		ds_map_add(_map, "SPELLS",				SPELLS);
 		ds_map_add(_map, "potions",				potions);
 		ds_map_add(_map, "contacts",			contacts);
 		ds_map_add(_map, "roninScore",			roninScore);
@@ -94,7 +94,7 @@ function load_game() {
 				talismans			= _map[? "talismans"];
 				inventory			= _map[? "inventory"];
 				wardrobe			= _map[? "wardrobe"];
-				spells				= _map[? "spells"];
+				SPELLS				= _map[? "SPELLS"];
 				potions				= _map[? "potions"];
 				contacts			= _map[? "contacts"];
 				roninScore			= _map[? "roninScore"];

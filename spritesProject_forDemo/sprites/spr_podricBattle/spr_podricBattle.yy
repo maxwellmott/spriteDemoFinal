@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "spr_podricBattle",
   "bbox_bottom": 55,
-  "bbox_left": 1,
-  "bbox_right": 53,
+  "bbox_left": 8,
+  "bbox_right": 47,
   "bbox_top": 3,
   "bboxMode": 0,
   "collisionKind": 1,
@@ -13,14 +13,14 @@
   "edgeFiltering": false,
   "For3D": false,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"209b922d-1c69-4254-aac5-2a41995bf375",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"b6c18b93-72e3-4054-abbd-a0301a16c62f",},
   ],
   "gridX": 0,
   "gridY": 0,
   "height": 56,
   "HTile": false,
   "layers": [
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"7b38b279-7460-4cb6-983b-8410dce5f060","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"46021ecc-3dc6-4664-81be-c6333d9eaf4e","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,
   "origin": 4,
@@ -54,7 +54,7 @@
     "timeUnits": 1,
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"209b922d-1c69-4254-aac5-2a41995bf375","path":"sprites/spr_podricBattle/spr_podricBattle.yy",},},},"Disabled":false,"id":"c976270d-7fbe-425a-886d-69f088747f93","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"b6c18b93-72e3-4054-abbd-a0301a16c62f","path":"sprites/spr_podricBattle/spr_podricBattle.yy",},},},"Disabled":false,"id":"4d20cfaf-b75a-4809-9a8e-4405001c5b24","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

@@ -18,6 +18,6 @@ spriteID = player.team[|allyNum];
 
 // initialize sprite
 
-// initialize usable spells
+// initialize usable SPELLS
 
 // load sprite parameters

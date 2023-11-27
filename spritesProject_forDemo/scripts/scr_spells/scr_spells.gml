@@ -1,4 +1,4 @@
-enum spells {
+enum SPELLS {
 	solarFlare,
 	tidalForce,
 	nebulaStorm,

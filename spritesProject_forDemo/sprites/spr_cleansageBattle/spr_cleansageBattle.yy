@@ -3,8 +3,8 @@
   "resourceVersion": "1.0",
   "name": "spr_cleansageBattle",
   "bbox_bottom": 53,
-  "bbox_left": 1,
-  "bbox_right": 54,
+  "bbox_left": 0,
+  "bbox_right": 55,
   "bbox_top": 3,
   "bboxMode": 0,
   "collisionKind": 1,
@@ -13,14 +13,14 @@
   "edgeFiltering": false,
   "For3D": false,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"694e2c0e-b643-45fa-b23d-10beccac385b",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"62ea5170-683d-49b7-bbe5-643ecd4c530a",},
   ],
   "gridX": 0,
   "gridY": 0,
   "height": 56,
   "HTile": false,
   "layers": [
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"e856d9d9-ded1-452b-adb9-aa5c9bd7b83c","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"0921d8ed-f7d1-4580-821d-aff758a20c1e","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,
   "origin": 4,
@@ -54,7 +54,7 @@
     "timeUnits": 1,
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"694e2c0e-b643-45fa-b23d-10beccac385b","path":"sprites/spr_cleansageBattle/spr_cleansageBattle.yy",},},},"Disabled":false,"id":"aa8aa54e-f5d1-4ef0-af5c-48dc40b2053a","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"62ea5170-683d-49b7-bbe5-643ecd4c530a","path":"sprites/spr_cleansageBattle/spr_cleansageBattle.yy",},},},"Disabled":false,"id":"4611ae74-c6d3-40c9-b634-1379e8c5d157","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

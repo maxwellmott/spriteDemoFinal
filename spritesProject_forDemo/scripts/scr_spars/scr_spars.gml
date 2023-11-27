@@ -77,27 +77,27 @@ function get_elemental_damage(_targ, _atkr, _lmnt, _spellPower) {
 	
 	switch (lmnt) {
 		case elements.fire:
-			atkStat		= spriteParams.fire;
-			weakStat	= spriteParams.earth;
-			strongStat	= spriteParams.water;
+			atkStat		= SPRITE_PARAMS.fire;
+			weakStat	= SPRITE_PARAMS.earth;
+			strongStat	= SPRITE_PARAMS.water;
 		break;
 		
 		case elements.water:
-			atkStat		= spriteParams.water;
-			weakStat	= spriteParams.fire;
-			strongStat	= spriteParams.storm;
+			atkStat		= SPRITE_PARAMS.water;
+			weakStat	= SPRITE_PARAMS.fire;
+			strongStat	= SPRITE_PARAMS.storm;
 		break;
 		
 		case elements.storm:
-			atkStat		= spriteParams.storm;
-			weakStat	= spriteParams.water;
-			strongStat	= spriteParams.earth;
+			atkStat		= SPRITE_PARAMS.storm;
+			weakStat	= SPRITE_PARAMS.water;
+			strongStat	= SPRITE_PARAMS.earth;
 		break;
 		
 		case elements.earth:
-			atkStat		= spriteParams.earth;
-			weakStat	= spriteParams.storm;
-			strongStat	= spriteParams.fire;
+			atkStat		= SPRITE_PARAMS.earth;
+			weakStat	= SPRITE_PARAMS.storm;
+			strongStat	= SPRITE_PARAMS.fire;
 		break;
 	}
 	
@@ -121,8 +121,8 @@ function get_physical_damage(_atkr, _targ, _spellPower) {
 	var targ = _targ;
 	var sp = real(_spellPower);
 	
-	var atkrPow = sprite_get_stat(spriteParams.power, atkr);
-	var targRes = sprite_get_stat(spriteParams.resistance, targ);
+	var atkrPow = sprite_get_stat(SPRITE_PARAMS.power, atkr);
+	var targRes = sprite_get_stat(SPRITE_PARAMS.resistance, targ);
 	
 	var damageRatio = atkrPow / targRes;
 	var damage = sp * damageRatio;

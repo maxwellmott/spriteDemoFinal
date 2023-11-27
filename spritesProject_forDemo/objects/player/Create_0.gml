@@ -50,7 +50,7 @@ talismans = "";
 wardrobe = "";
 
 // initialize spellString
-spells = "";
+SPELLS = "";
 
 // initialize contactString
 contacts = "";

@@ -33,7 +33,7 @@ enum npcParams {
 	drinkingSprite,
 	wavephoneSprite,
 	talismans,
-	spells,
+	SPELLS,
 	responses,
 	locations,
 	respondFunction,
@@ -190,7 +190,7 @@ function npc_load_parameters(_id) {
 	responseFunction	= real(string_digits(grid[# npcParams.respondFunction,	ID]));
 	
 	//decode_list(grid[# npcParams.talismans,		ID],		talismans);
-	//decode_list(grid[# npcParams.spells,			ID],		spells);
+	//decode_list(grid[# npcParams.SPELLS,			ID],		SPELLS);
 	decode_map(grid[# npcParams.responses,		ID],		responseMap);
 	
 	// get npcListIndex using npcID

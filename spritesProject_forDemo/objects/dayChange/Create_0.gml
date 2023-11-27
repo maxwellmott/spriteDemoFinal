@@ -52,7 +52,7 @@ alarm[1] = -1;
 enum dcDisplay {
 	day,
 	sprites,
-	spells,
+	SPELLS,
 	conversations,
 	spars,
 	height

@@ -24,8 +24,8 @@ name = "";
 // initialize sprite
 sprite = -1;
 
-// initialize usable spells
-spells = ds_list_create();
+// initialize usable SPELLS
+SPELLS = ds_list_create();
 
 // initialize ability
 ability = noone;
@@ -47,7 +47,7 @@ storm	= -1;
 earth	= -1;
 
 // load sprite parameters
-spite_load_parameters();
+sprite_load_parameters();
 
 // initialize mindset
 mindset = -1;

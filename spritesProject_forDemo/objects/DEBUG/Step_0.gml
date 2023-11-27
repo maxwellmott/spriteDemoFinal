@@ -1,9 +1,9 @@
 if (encoded) {
 	if (global.select) {
-		decodedMap = ds_map_create();
-		decode_map(encodedMap, decodedMap);
+		decoded_map = ds_map_create();
+		decode_map(encoded_map, decoded_map);
 		
-		encodedMap = "";
+		encoded_map = "";
 		
 		encoded = false;
 	}
@@ -11,7 +11,7 @@ if (encoded) {
 
 if !(encoded) {
 	if (global.select) {
-		encodedMap = encode_map(decodedMap);
+		encoded_map = encode_map(decoded_map);
 		
 		encoded = true;
 	}

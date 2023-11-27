@@ -15,7 +15,7 @@ if displaying >= dcDisplay.sprites {
 	draw_text(room_width / 2, room_height * (5/16), "Sprites Befriended:");
 }
 
-if displaying >= dcDisplay.spells {
+if displaying >= dcDisplay.SPELLS {
 	draw_text(room_width / 2, room_height * (8/16), "Spells Learned:");
 }
 
