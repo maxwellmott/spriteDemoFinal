@@ -480,10 +480,9 @@ function sprite_load_parameters() {
 	luck				= grid[# SPRITE_PARAMS.luck,		spriteID];
 	size				= grid[# SPRITE_PARAMS.size,		spriteID];
 	
-	
-	
-	// decode all lists
+	// decode spell list
+	decode_list(spellString, usable_spells);
 	
 	// delete sprite grid
-	
+	ds_grid_destroy(grid);
 }

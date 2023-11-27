@@ -27,8 +27,8 @@ if (playerTwo.object_index == npc) {
 
 // create all allies and enemies
 repeat (4) {
-	instance_create_depth(0, 0, layer_get_depth(LAYER.meta), battleAlly);
-	instance_create_depth(0, 0, layer_get_depth(LAYER.meta), battleEnemy);
+	instance_create_depth(0, 0, layer_get_depth(LAYER.meta), sparAlly);
+	instance_create_depth(0, 0, layer_get_depth(LAYER.meta), sparEnemy);
 }
 
 // spar phases enum

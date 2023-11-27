@@ -5,18 +5,16 @@
 allyNum = instance_count;
 
 // set spotNum
-spotNum = instance_count + 4;
+spotNum = instance_count;
 
 // set spriteID
-spriteID = global.opponent.team[|allyNum];
+spriteID = player.team[|allyNum];
 
 // add self to battle sprite lists
-ds_list_add(battle.enemyList, id);
-ds_list_add(battle.spriteList, id);
 
 // set x and y
 x = (64 * allyNum) - 32;
-y = 48;
+y = guiHeight - 48;
 
 // initialize name
 name = "";
@@ -25,7 +23,7 @@ name = "";
 sprite = -1;
 
 // initialize usable SPELLS
-SPELLS = ds_list_create();
+usable_spells = ds_list_create();
 
 // initialize ability
 ability = noone;
@@ -55,3 +53,10 @@ mindset = -1;
 // initialize bound and hexed
 bound = false;
 hexed = false;
+
+// set sprite_index as sprite
+sprite_index = sprite;
+
+// initialize selectedTarget and selectedAction
+selectedTarget = -1;
+selectedAction = -1;
