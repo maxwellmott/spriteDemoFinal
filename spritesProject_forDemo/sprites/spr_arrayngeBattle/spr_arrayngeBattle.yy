@@ -23,7 +23,7 @@
     {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"625fd8e9-e1af-49f4-b7c0-14dc040e79ed","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,
-  "origin": 1,
+  "origin": 4,
   "parent": {
     "name": "battleSprites",
     "path": "folders/Sprites/Battle Scene/battleSprites.yy",
@@ -60,7 +60,7 @@
     "visibleRange": null,
     "volume": 1.0,
     "xorigin": 28,
-    "yorigin": 0,
+    "yorigin": 28,
   },
   "swatchColours": null,
   "swfPrecision": 2.525,

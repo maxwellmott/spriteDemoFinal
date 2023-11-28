@@ -69,5 +69,15 @@ winner = noone;
 // initialize loser
 loser = noone;
 
+// create sparActions enum
+enum sparActions {
+	attack,
+	spell,
+	dodge,
+	transfer,
+	meditate,
+	height
+}
+
 // switch global.roomBuilt to true to end transition
 global.roomBuilt = true;

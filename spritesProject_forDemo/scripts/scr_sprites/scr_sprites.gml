@@ -420,7 +420,7 @@ sprite_add_to_grid(SPRITES.canuki,			"CANUKI",			spr_canukiBattle,		ALIGNMENTS.n
 sprite_add_to_grid(SPRITES.gastronimo,		"GASTRONIMO",		spr_gastronimoBattle,	ALIGNMENTS.mechanical,	encode_list(gastronimoSpells),		140,	140,	100,	100,	70,		120,	60,		100,	spriteSizes.large);
 sprite_add_to_grid(SPRITES.flotsu,			"FLOTSU",			spr_flotsuBattle,		ALIGNMENTS.natural,		encode_list(flotsuSpells),			90,		135,	50,		180,	120,	100,	60,		100,	spriteSizes.large);
 sprite_add_to_grid(SPRITES.blitzkrane,		"BLITZKRANE",		spr_blitzkraneBattle,	ALIGNMENTS.astral,		encode_list(blitzkraneSpells),		140,	90,		60,		100,	165,	70,		135,	75,		spriteSizes.xLarge);
-sprite_add_to_grid(SPRITES.heatsune,		"HEATSUNE",			spr_heatsuneBatle,		ALIGNMENTS.astral,		encode_list(heatsuneSpells),		110,	70,		170,	50,		115,	100,	135,	85,		spriteSizes.medium);
+sprite_add_to_grid(SPRITES.heatsune,		"HEATSUNE",			spr_heatsuneBattle,		ALIGNMENTS.astral,		encode_list(heatsuneSpells),		110,	70,		170,	50,		115,	100,	135,	85,		spriteSizes.medium);
 sprite_add_to_grid(SPRITES.floopwalker,		"FLOOPWALKER",		spr_floopwalkerBattle,	ALIGNMENTS.astral,		encode_list(floopwalkerSpells),		65,		100,	90,		90,		120,	120,	120,	125,	spriteSizes.small);
 sprite_add_to_grid(SPRITES.stewardrake,		"STEWARDRAKE",		spr_stewardrakeBattle,	ALIGNMENTS.astral,		encode_list(stewardrakeSpells),		65,		140,	120,	90,		120,	90,		100,	100,	spriteSizes.medium);
 sprite_add_to_grid(SPRITES.doormaus,		"DOORMAUS",			spr_doormausBattle,		ALIGNMENTS.astral,		encode_list(doormausSpells),		50,		85,		110,	110,	110,	110,	160,	100,	spriteSizes.small);

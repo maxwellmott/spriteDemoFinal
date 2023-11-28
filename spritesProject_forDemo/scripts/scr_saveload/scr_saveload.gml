@@ -94,7 +94,8 @@ function load_game() {
 				talismans			= _map[? "talismans"];
 				inventory			= _map[? "inventory"];
 				wardrobe			= _map[? "wardrobe"];
-				SPELLS				= _map[? "SPELLS"];
+				knownSpells			= _map[? "knownSpells"];
+				spellBook			= _map[? "spellBook"];
 				potions				= _map[? "potions"];
 				contacts			= _map[? "contacts"];
 				roninScore			= _map[? "roninScore"];
