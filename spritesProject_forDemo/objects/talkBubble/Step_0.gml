@@ -19,7 +19,7 @@ if count == string_length(pages[| pageIndex]) {
 		
 		// if there is a yes no prompt
 		if (global.ynFunction != -1) {
-			instance_create_depth(0, 0, layer_get_depth(LAYER.meta), yesNoPrompt);	
+			instance_create_depth(0, 0, get_layer_depth(LAYER.meta), yesNoPrompt);	
 		}
 		
 		// else if there is not a yes no prompt

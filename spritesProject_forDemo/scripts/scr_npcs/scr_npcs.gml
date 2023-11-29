@@ -66,19 +66,32 @@ convert_grid_to_map(mercurioResponseGrid, mercurioResponseMap);
 #endregion
 
 #region TALISMANS
-// create all talisman lists
-var mercurioTalismans	= ds_list_create();
 
-// populate all talisman lists
+var mercurioTalismans = ds_list_create();
 
+ds_list_add(mercurioTalismans,
+				SPRITES.pondle,
+				SPRITES.hachaChacha,
+				SPRITES.podric,
+				SPRITES.sudsy,
+				SPRITES.pleep
+			);
 #endregion
 
 #region SPELLS
-// create all spell lists
-var mercurioSpells		= ds_list_create();
 
-// populate all spell lists
+var mercurioSpells = ds_list_create();
 
+ds_list_add(mercurioSpells,
+				SPELLS.fireball,
+				SPELLS.holyWater,
+				SPELLS.shock,
+				SPELLS.decay,
+				SPELLS.expelForce,
+				SPELLS.healingLight,
+				SPELLS.jabulsFightSong,
+				SPELLS.creciasCrystalSpikes
+			);
 #endregion
 
 #region LOCATION LISTS

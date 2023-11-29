@@ -8,7 +8,7 @@ allyNum = instance_count;
 spotNum = instance_count;
 
 // set spriteID
-spriteID = player.team[|allyNum];
+spriteID = player.teamList[|allyNum];
 
 // add self to battle sprite lists
 

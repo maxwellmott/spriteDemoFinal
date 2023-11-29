@@ -2,7 +2,7 @@
 
 // make sure mouse object exists
 if !(instance_exists(mouse)) {
-	instance_create_depth(guiWidth / 2, guiHeight / 2, layer_get_depth(LAYER.mouse), mouse);	
+	instance_create_depth(guiWidth / 2, guiHeight / 2, get_layer_depth(LAYER.mouse), mouse);	
 }
 
 // set playerOne and playerTwo
@@ -17,18 +17,18 @@ spriteList	= ds_list_create();
 // create enemyOnline object if this is not an online spar
 
 // if not online, set enemy team and create enemyAI
-if (playerTwo.object_index == npc) {
+if (playerTwo == npc) {
 	// set enemy team using roster
 	aiOpponent_set_team();
 
 	// create enemyAI
-	instance_create_depth(0, 0, layer_get_depth(LAYER.meta), enemyAI);
+	instance_create_depth(0, 0, get_layer_depth(LAYER.meta), enemyAI);
 }
 
 // create all allies and enemies
 repeat (4) {
-	instance_create_depth(0, 0, layer_get_depth(LAYER.meta), sparAlly);
-	instance_create_depth(0, 0, layer_get_depth(LAYER.meta), sparEnemy);
+	instance_create_depth(0, 0, get_layer_depth(LAYER.meta), sparAlly);
+	instance_create_depth(0, 0, get_layer_depth(LAYER.meta), sparEnemy);
 }
 
 // spar phases enum

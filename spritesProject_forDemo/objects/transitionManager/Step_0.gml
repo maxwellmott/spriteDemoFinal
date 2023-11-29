@@ -35,7 +35,7 @@ switch (state) {
 				
 				case rm_battleScene:
 					global.overworld = false;
-					create_once(0, 0, LAYER.meta, battle);
+					create_once(0, 0, LAYER.meta, spar);
 					create_once(0, 0, LAYER.ui, mouse);
 					state = transitionStates.fadingOut;
 				break;

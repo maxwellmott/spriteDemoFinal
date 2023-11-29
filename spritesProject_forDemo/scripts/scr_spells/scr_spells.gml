@@ -64,6 +64,7 @@ enum SPELLS {
 	telekineticBlast,
 	destabilizingBlow,
 	fullThrust,
+	stinkbomb,
 	broadcastData,
 	collapseSpace,
 	expandTime,

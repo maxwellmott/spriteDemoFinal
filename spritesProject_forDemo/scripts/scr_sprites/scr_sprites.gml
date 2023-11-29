@@ -118,9 +118,7 @@ enum spriteSizes {
 			SPELLS.quicksand,
 			SPELLS.downpour,
 			SPELLS.landslide,
-			SPELLS.sneakAttack,
-			SPELLS.endlessRiver,
-			SPELLS.fullThrust
+			SPELLS.endlessRiver
 		);
 	#endregion
 
@@ -178,205 +176,1047 @@ enum spriteSizes {
 	#region		SUDSY
 		var sudsySpells = ds_list_create();
 		
+		ds_list_add(sudsySpells,
+			SPELLS.holyWater,
+			SPELLS.rubursWaterCannon,
+			SPELLS.waterlog,
+			SPELLS.steamBath,
+			SPELLS.empathize,
+			SPELLS.osmosis,
+			SPELLS.jabulsFightSong
+		);
 	#endregion
 	
 	#region		BOOKISH
 		var bookishSpells = ds_list_create();
 		
+		ds_list_add(bookishSpells,
+			SPELLS.solarFlare,
+			SPELLS.tidalForce,
+			SPELLS.nebulaStorm,
+			SPELLS.tectonicShift,
+			SPELLS.fireball,
+			SPELLS.shock,
+			SPELLS.decay,
+			SPELLS.expelForce,
+			SPELLS.ladySolanusGrace,
+			SPELLS.typhoon,
+			SPELLS.healingLight,
+			SPELLS.rubursWaterCannon,
+			SPELLS.lusiasHarvestSpell,
+			SPELLS.intercept,
+			SPELLS.empathize,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.psychicImpact,
+			SPELLS.creciasCrystalSpikes,
+			SPELLS.psychicFissure,
+			SPELLS.rearrange
+		);
 	#endregion
 	
 	#region		PLEEP
 		var pleepSpells = ds_list_create();
+		
+		ds_list_add(pleepSpells,
+			SPELLS.fireball,
+			SPELLS.expelForce,
+			SPELLS.typhoon,
+			SPELLS.airPressure,
+			SPELLS.rapidStrike,
+			SPELLS.intercept,
+			SPELLS.empathize,
+			SPELLS.hellfire,
+			SPELLS.pyrokinesis,
+			SPELLS.deflectiveShield,
+			SPELLS.windSlice,
+			SPELLS.creciasCrystalWind,
+			SPELLS.cloudBreak
+		);
 	#endregion
 		
 	#region		GLIDRAKE
 		var glidrakeSpells = ds_list_create();
 		
+		ds_list_add(glidrakeSpells,
+			SPELLS.nebulaStorm,
+			SPELLS.fireball,
+			SPELLS.typhoon,
+			SPELLS.airPressure,
+			SPELLS.rapidStrike,
+			SPELLS.intercept,
+			SPELLS.ballLightning,
+			SPELLS.pyrokinesis,
+			SPELLS.arcBlast,
+			SPELLS.dionsParry,
+			SPELLS.windSlice,
+			SPELLS.creciasCrystalWind,
+			SPELLS.cloudBreak
+		);
 	#endregion
 	
 	#region		FURVOR
 		var furvorSpells = ds_list_create();
 		
+		ds_list_add(furvorSpells,
+			SPELLS.grapple,
+			SPELLS.lusiasHarvestSpell,
+			SPELLS.superbloom,
+			SPELLS.rapidStrike,
+			SPELLS.loomingDanger,
+			SPELLS.intercept,
+			SPELLS.lordMogradthsRage,
+			SPELLS.hikamsWinterSpell,
+			SPELLS.landslide,
+			SPELLS.tremor,
+			SPELLS.destructiveBlow,
+			SPELLS.jabulsFightSong,
+			SPELLS.sneakAttack,
+			SPELLS.channelEssence,
+			SPELLS.spherasCurse,
+			SPELLS.destabilizingBlow,
+			SPELLS.fullThrust
+		);
 	#endregion	
 	
 	#region		ZEPHIRA
 		var zephiraSpells = ds_list_create();
-		
+
+		ds_list_add(zephiraSpells,
+			SPELLS.nebulaStorm,
+			SPELLS.shock,
+			SPELLS.decay,
+			SPELLS.expelForce,
+			SPELLS.ladySolanusGrace,
+			SPELLS.typhoon,
+			SPELLS.healingLight,
+			SPELLS.lusiasHarvestSpell,
+			SPELLS.airPressure,
+			SPELLS.rapidStrike,
+			SPELLS.loomingDanger,
+			SPELLS.drainLifeforce,
+			SPELLS.hikamsWinterSpell,
+			SPELLS.psychicImpact,
+			SPELLS.skydive,
+			SPELLS.creciasCrystalSpikes,
+			SPELLS.psychicFissure,
+			SPELLS.rearrange,
+			SPELLS.sneakAttack,
+			SPELLS.deflectiveShield,
+			SPELLS.dionsBarterTrick,
+			SPELLS.windSlice,
+			SPELLS.channelEssence,
+			SPELLS.creciasCrystalWind,
+			SPELLS.cloudBreak,
+			SPELLS.telekineticBlast,
+			SPELLS.spherasDemise
+		);
 	#endregion
 	
 	#region		FISHMONGER
 		var fishmongerSpells = ds_list_create();
 		
+		ds_list_add(fishmongerSpells,
+			SPELLS.tidalForce,
+			SPELLS.expelForce,
+			SPELLS.typhoon,
+			SPELLS.rubursWaterCannon,
+			SPELLS.grapple,
+			SPELLS.waterlog,
+			SPELLS.loomingDanger,
+			SPELLS.undertow,
+			SPELLS.downpour,
+			SPELLS.flashFreeze,
+			SPELLS.destructiveBlow,
+			SPELLS.deflectiveShield,
+			SPELLS.dionsParry,
+			SPELLS.dionsBarterTrick,
+			SPELLS.windSlice,
+			SPELLS.channelEssence,
+			SPELLS.endlessRiver,
+			SPELLS.cloudBreak,
+			SPELLS.destabilizingBlow,
+			SPELLS.fullThrust,
+		);
 	#endregion
 	
 	#region		SONGBIRD
 		var songbirdSpells = ds_list_create();
 		
+		ds_list_add(songbirdSpells,
+			SPELLS.expelForce,
+			SPELLS.typhoon,
+			SPELLS.healingLight,
+			SPELLS.airPressure,
+			SPELLS.superbloom,
+			SPELLS.empathize,
+			SPELLS.hikamsWinterSpell,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.shiftPerspective,
+			SPELLS.psychicImpact,
+			SPELLS.skydive,
+			SPELLS.purifyingFlame,
+			SPELLS.jabulsFightSong,
+			SPELLS.noxiousFumes,
+			SPELLS.psychicFissure,
+			SPELLS.rearrange,
+			SPELLS.dionsGamblingBlast,
+			SPELLS.dionsBarterTrick,
+			SPELLS.windSlice,
+			SPELLS.channelEssence,
+			SPELLS.spherasCurse,
+			SPELLS.creciasCrystalWind,
+			SPELLS.cloudBreak,
+			SPELLS.telekineticBlast,
+			SPELLS.broadcastData
+		);	
 	#endregion
 	
 	#region		EXONOLITH
 		var exonolithSpells = ds_list_create();
 		
+		ds_list_add(exonolithSpells,
+			SPELLS.solarFlare,
+			SPELLS.tectonicShift,
+			SPELLS.shock,
+			SPELLS.expelForce,
+			SPELLS.ladySolanusGrace,
+			SPELLS.healingLight,
+			SPELLS.drainLifeforce,
+			SPELLS.pyrokinesis,
+			SPELLS.arcBlast,
+			SPELLS.landslide,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.psychicImpact,
+			SPELLS.tremor,
+			SPELLS.purifyingFlame,
+			SPELLS.psychicFissure,
+			SPELLS.deflectiveShield,
+			SPELLS.magneticPulse,
+			SPELLS.channelEssence,
+			SPELLS.cloudBreak,
+			SPELLS.telekineticBlast
+		);
 	#endregion
 	
 	#region		DRUMLINE
 		var drumlineSpells = ds_list_create();
 		
+		ds_list_add(drumlineSpells,
+			SPELLS.expelForce,
+			SPELLS.ladySolanusGrace,
+			SPELLS.empathize,
+			SPELLS.destructiveBlow,
+			SPELLS.jabulsFightSong,
+			SPELLS.rearrange,
+			SPELLS.deflectiveShield,
+			SPELLS.dionsGamblingBlast,
+		);
 	#endregion
 	
 	#region		MIRREFRACT
 		var mirrefractSpells = ds_list_create();
 		
+		ds_list_add(mirrefractSpells,
+			SPELLS.fireball,
+			SPELLS.shock,
+			SPELLS.expelForce,
+			SPELLS.grapple,
+			SPELLS.rapidStrike,
+			SPELLS.intercept,
+			SPELLS.ballLightning,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.shiftPerspective,
+			SPELLS.deflectiveShield,
+			SPELLS.dionsParry,
+			SPELLS.magneticPulse,
+			SPELLS.channelEssence,
+			SPELLS.destabilizingBlow,
+			SPELLS.fullThrust
+		);
 	#endregion
 	
 	#region		FORTUGA
 		var fortugaSpells = ds_list_create();
 		
+		ds_list_add(fortugaSpells,
+			SPELLS.tidalForce,
+			SPELLS.rubursWaterCannon,
+			SPELLS.waterlog,
+			SPELLS.intercept,
+			SPELLS.undertow,
+			SPELLS.empathize,
+			SPELLS.downpour,
+			SPELLS.landslide,
+			SPELLS.tremor,
+			SPELLS.jabulsFightSong,
+			SPELLS.deflectiveShield,
+			SPELLS.endlessRiver,
+		);
 	#endregion
 	
 	#region		TIKDOFF
 		var tikdoffSpells = ds_list_create();
 		
+		ds_list_add(tikdoffSpells,
+			SPELLS.solarFlare,
+			SPELLS.fireball,
+			SPELLS.expelForce,
+			SPELLS.grapple,
+			SPELLS.hellfire,
+			SPELLS.lordMogradthsRage,
+			SPELLS.pyrokinesis,
+			SPELLS.arcBlast,
+			SPELLS.landslide,
+			SPELLS.tremor,
+			SPELLS.noxiousFumes,
+			SPELLS.burnOut,
+			SPELLS.magneticPulse,
+			SPELLS.lavaSpire,
+			SPELLS.destabilizingBlow,
+			SPELLS.fullThrust
+		);
 	#endregion
 	
 	#region		ARRAYNGE
 		var arrayngeSpells = ds_list_create();
 		
+		ds_list_add(arrayngeSpells,
+			SPELLS.shock,
+			SPELLS.expelForce,
+			SPELLS.intercept,
+			SPELLS.arcBlast,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.noxiousFumes,
+			SPELLS.rearrange,
+			SPELLS.deflectiveShield,
+			SPELLS.magneticPulse,
+			SPELLS.broadcastData,
+			SPELLS.collapseSpace
+		);
 	#endregion
 	
 	#region		SCROOTINEYES
 		var scrootineyesSpells = ds_list_create();
 		
+		ds_list_add(scrootineyesSpells,
+			SPELLS.decay,
+			SPELLS.typhoon,
+			SPELLS.airPressure,
+			SPELLS.rapidStrike,
+			SPELLS.loomingDanger,
+			SPELLS.intercept,
+			SPELLS.empathize,
+			SPELLS.skydive,
+			SPELLS.sneakAttack,
+			SPELLS.deflectiveShield,
+			SPELLS.windSlice,
+			SPELLS.creciasCrystalWind,
+			SPELLS.cloudBreak,
+			SPELLS.broadcastData
+		);
 	#endregion
 	
 	#region		JOE
 		var joeSpells = ds_list_create();
 		
+		ds_list_add(joeSpells,
+			SPELLS.fireball,
+			SPELLS.expelForce,
+			SPELLS.grapple,
+			SPELLS.waterlog,
+			SPELLS.intercept,
+			SPELLS.steamBath,
+			SPELLS.drainLifeforce,
+			SPELLS.osmosis,
+			SPELLS.landslide,
+			SPELLS.tremor,
+			SPELLS.destructiveBlow,
+			SPELLS.burnOut,
+			SPELLS.expandTime
+		);
 	#endregion
 	
 	#region		CANUKI
 		var canukiSpells = ds_list_create();
 		
+		ds_list_add(canukiSpells,
+			SPELLS.decay,
+			SPELLS.lusiasHarvestSpell,
+			SPELLS.landslide,
+			SPELLS.tremor,
+			SPELLS.skydive,
+			SPELLS.jabulsFightSong,
+			SPELLS.stinkbomb,
+			SPELLS.spherasDemise
+		);
 	#endregion
 	
 	#region		GASTRONIMO
 		var gastronimoSpells = ds_list_create();
 		
+		ds_list_add(gastronimoSpells,
+			SPELLS.ladySolanusGrace,
+			SPELLS.healingLight,
+			SPELLS.rubursWaterCannon,
+			SPELLS.grapple,
+			SPELLS.lusiasHarvestSpell,
+			SPELLS.steamBath,
+			SPELLS.landslide,
+			SPELLS.shiftPerspective,
+			SPELLS.tremor,
+			SPELLS.purifyingFlame,
+			SPELLS.jabulsFightSong,
+			SPELLS.dionsBarterTrick,
+			SPELLS.channelEssence,
+			SPELLS.destabilizingBlow,
+			SPELLS.fullThrust
+		);
 	#endregion
 	
 	#region		FLOTSU
 		var flotsuSpells = ds_list_create();
 		
+		ds_list_add(flotsuSpells,
+			SPELLS.tidalForce,
+			SPELLS.holyWater,
+			SPELLS.ladySolanusGrace,
+			SPELLS.typhoon,
+			SPELLS.healingLight,
+			SPELLS.rubursWaterCannon,
+			SPELLS.waterlog,
+			SPELLS.airPressure,
+			SPELLS.intercept,
+			SPELLS.steamBath,
+			SPELLS.undertow,
+			SPELLS.empathize,
+			SPELLS.downpour,
+			SPELLS.hikamsWinterSpell,
+			SPELLS.osmosis,
+			SPELLS.flashFreeze,
+			SPELLS.landslide,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.shiftPerspective,
+			SPELLS.psychicImpact,
+			SPELLS.tremor,
+			SPELLS.skydive,
+			SPELLS.jabulsFightSong,
+			SPELLS.windSlice,
+			SPELLS.endlessRiver,
+			SPELLS.telekineticBlast
+		);
 	#endregion
 	
 	#region		BLITZKRANE
 		var blitzkraneSpells = ds_list_create();
 		
+		ds_list_add(blitzkraneSpells,
+			SPELLS.tidalForce,
+			SPELLS.nebulaStorm,
+			SPELLS.holyWater,
+			SPELLS.shock,
+			SPELLS.typhoon,
+			SPELLS.grapple,
+			SPELLS.waterlog,
+			SPELLS.airPressure,
+			SPELLS.rapidStrike,
+			SPELLS.intercept,
+			SPELLS.undertow,
+			SPELLS.ballLightning,
+			SPELLS.downpour,
+			SPELLS.arcBlast,
+			SPELLS.skydive,
+			SPELLS.jabulsFightSong,
+			SPELLS.windSlice,
+			SPELLS.creciasCrystalWind,
+			SPELLS.cloudBreak,
+			SPELLS.fullThrust,
+			SPELLS.expandTime,
+			SPELLS.spherasDemise
+		);
 	#endregion
 	
 	#region		HEATSUNE
 		var heatsuneSpells = ds_list_create();
 		
+		ds_list_add(heatsuneSpells,
+			SPELLS.solarFlare,
+			SPELLS.nebulaStorm,
+			SPELLS.fireball,
+			SPELLS.shock,
+			SPELLS.decay,
+			SPELLS.expelForce,
+			SPELLS.ladySolanusGrace,
+			SPELLS.healingLight,
+			SPELLS.rapidStrike,
+			SPELLS.hellfire,
+			SPELLS.ballLightning,
+			SPELLS.lordMogradthsRage,
+			SPELLS.drainLifeforce,
+			SPELLS.pyrokinesis,
+			SPELLS.arcBlast,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.psychicImpact,
+			SPELLS.purifyingFlame,
+			SPELLS.noxiousFumes,
+			SPELLS.psychicFissure,
+			SPELLS.sneakAttack,
+			SPELLS.burnOut,
+			SPELLS.windSlice,
+			SPELLS.channelEssence,
+			SPELLS.lavaSpire,
+			SPELLS.telekineticBlast,
+			SPELLS.collapseSpace,
+			SPELLS.spherasDemise
+		);
+			
 	#endregion
 	
 	#region		FLOOPWALKER
 		var floopwalkerSpells = ds_list_create();
 		
+		ds_list_add(floopwalkerSpells,
+			SPELLS.solarFlare,
+			SPELLS.nebulaStorm,
+			SPELLS.decay,
+			SPELLS.ladySolanusGrace,
+			SPELLS.healingLight,
+			SPELLS.typhoon,
+			SPELLS.airPressure,
+			SPELLS.superbloom,
+			SPELLS.rapidStrike,
+			SPELLS.steamBath,
+			SPELLS.ballLightning,
+			SPELLS.arcBlast,
+			SPELLS.landslide,
+			SPELLS.destructiveBlow,
+			SPELLS.creciasCrystalSpikes,
+			SPELLS.deflectiveShield,
+			SPELLS.creciasCrystalWind,
+			SPELLS.cloudBreak,
+			SPELLS.broadcastData,
+			SPELLS.expandTime
+		);
 	#endregion
 	
 	#region		STEWARDRAKE
 		var stewardrakeSpells = ds_list_create();
 		
+		ds_list_add(stewardrakeSpells,
+			SPELLS.solarFlare,
+			SPELLS.nebulaStorm,
+			SPELLS.holyWater,
+			SPELLS.shock,
+			SPELLS.expelForce,
+			SPELLS.ladySolanusGrace,
+			SPELLS.typhoon,
+			SPELLS.healingLight,
+			SPELLS.empathize,
+			SPELLS.pyrokinesis,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.skydive,
+			SPELLS.purifyingFlame,
+			SPELLS.jabulsFightSong,
+			SPELLS.deflectiveShield,
+			SPELLS.windSlice,
+			SPELLS.channelEssence,
+			SPELLS.creciasCrystalWind,
+			SPELLS.cloudBreak
+		);
 	#endregion
 	
 	#region		DOORMAUS
 		var doormausSpells = ds_list_create();
 		
+		ds_list_add(doormausSpells,
+			SPELLS.expelForce,
+			SPELLS.ladySolanusGrace,
+			SPELLS.healingLight,
+			SPELLS.lusiasHarvestSpell,
+			SPELLS.rapidStrike,
+			SPELLS.intercept,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.psychicImpact,
+			SPELLS.psychicFissure,
+			SPELLS.rearrange,
+			SPELLS.sneakAttack,
+			SPELLS.channelEssence,
+			SPELLS.telekineticBlast,
+			SPELLS.broadcastData,
+			SPELLS.collapseSpace,
+		);
 	#endregion
 	
 	#region		PLASMASS
 		var plasmassSpells = ds_list_create();
 		
+		ds_list_add(plasmassSpells,
+			SPELLS.fireball,
+			SPELLS.shock,
+			SPELLS.expelForce,
+			SPELLS.grapple,
+			SPELLS.airPressure,
+			SPELLS.rapidStrike,
+			SPELLS.intercept,
+			SPELLS.ballLightning,
+			SPELLS.arcBlast,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.noxiousFumes,
+			SPELLS.deflectiveShield,
+			SPELLS.magneticPulse,
+			SPELLS.burnOut,
+			SPELLS.destabilizingBlow,
+			SPELLS.fullThrust,
+		);
 	#endregion
 	
 	#region		SHREDATOR
 		var shredatorSpells = ds_list_create();
 		
+		ds_list_add(shredatorSpells,
+			SPELLS.tidalForce,
+			SPELLS.typhoon,
+			SPELLS.rubursWaterCannon,
+			SPELLS.grapple,
+			SPELLS.rapidStrike,
+			SPELLS.intercept,
+			SPELLS.undertow,
+			SPELLS.downpour,
+			SPELLS.sneakAttack,
+			SPELLS.endlessRiver,
+			SPELLS.fullThrust
+		);
 	#endregion
 	
 	#region		JACKHAMMER
 		var jackhammerSpells = ds_list_create();
 		
+		ds_list_add(jackhammerSpells,
+			SPELLS.shock,
+			SPELLS.expelForce,
+			SPELLS.rapidStrike,
+			SPELLS.loomingDanger,
+			SPELLS.hellfire,
+			SPELLS.lordMogradthsRage,
+			SPELLS.pyrokinesis,
+			SPELLS.arcBlast,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.psychicImpact,
+			SPELLS.destructiveBlow,
+			SPELLS.jabulsFightSong,
+			SPELLS.noxiousFumes,
+			SPELLS.psychicFissure,
+			SPELLS.sneakAttack,
+			SPELLS.deflectiveShield,
+			SPELLS.dionsGamblingBlast,
+			SPELLS.magneticPulse,
+			SPELLS.fullThrust,
+			SPELLS.spherasDemise
+		);
 	#endregion
 	
 	#region		STINKLOPS
 		var stinklopsSpells = ds_list_create();
 		
+		ds_list_add(stinklopsSpells,
+			SPELLS.fireball,
+			SPELLS.decay,
+			SPELLS.grapple,
+			SPELLS.loomingDanger,
+			SPELLS.intercept,
+			SPELLS.hellfire,
+			SPELLS.quicksand,
+			SPELLS.pyrokinesis,
+			SPELLS.landslide,
+			SPELLS.tremor,
+			SPELLS.destructiveBlow,
+			SPELLS.jabulsFightSong,
+			SPELLS.noxiousFumes,
+			SPELLS.stinkbomb,
+			SPELLS.spherasCurse,
+			SPELLS.cloudBreak,
+			SPELLS.fullThrust,
+			SPELLS.destabilizingBlow,
+		);
 	#endregion
 	
 	#region		DURENDOUX
 		var durendouxSpells = ds_list_create();
 		
+		ds_list_add(durendouxSpells,
+			SPELLS.tectonicShift,
+			SPELLS.holyWater,
+			SPELLS.decay,
+			SPELLS.expelForce,
+			SPELLS.ladySolanusGrace,
+			SPELLS.healingLight,
+			SPELLS.quicksand,
+			SPELLS.landslide,
+			SPELLS.tremor,
+			SPELLS.creciasCrystalSpikes,
+			SPELLS.deflectiveShield,
+			SPELLS.channelEssence,
+			SPELLS.spherasCurse
+		);
 	#endregion
 	
 	#region		CENOTOMB
 		var cenotombSpells = ds_list_create();
 		
+		ds_list_add(cenotombSpells,
+			SPELLS.fireball,
+			SPELLS.decay,
+			SPELLS.expelForce,
+			SPELLS.loomingDanger,
+			SPELLS.hellfire,
+			SPELLS.lordMogradthsRage,
+			SPELLS.drainLifeforce,
+			SPELLS.pyrokinesis,
+			SPELLS.arcBlast,
+			SPELLS.hikamsWinterSpell,
+			SPELLS.flashFreeze,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.shiftPerspective,
+			SPELLS.psychicImpact,
+			SPELLS.noxiousFumes,
+			SPELLS.creciasCrystalSpikes,
+			SPELLS.psychicFissure,
+			SPELLS.sneakAttack,
+			SPELLS.deflectiveShield,
+			SPELLS.creciasCrystalWind,
+			SPELLS.telekineticBlast,
+			SPELLS.collapseSpace,
+			SPELLS.expandTime,
+			SPELLS.spherasDemise
+		);
 	#endregion
 	
 	#region		CLEANSAGE
 		var cleansageSpells = ds_list_create();
 		
+		ds_list_add(cleansageSpells,
+			SPELLS.fireball,
+			SPELLS.decay,
+			SPELLS.expelForce,
+			SPELLS.ladySolanusGrace,
+			SPELLS.typhoon,
+			SPELLS.healingLight,
+			SPELLS.lusiasHarvestSpell,
+			SPELLS.airPressure,
+			SPELLS.superbloom,
+			SPELLS.intercept,
+			SPELLS.steamBath,
+			SPELLS.empathize,
+			SPELLS.drainLifeforce,
+			SPELLS.shiftPerspective,
+			SPELLS.purifyingFlame,
+			SPELLS.noxiousFumes,
+			SPELLS.burnOut,
+			SPELLS.stinkbomb,
+			SPELLS.windSlice,
+			SPELLS.channelEssence,
+			SPELLS.spherasCurse,
+			SPELLS.creciasCrystalWind,
+			SPELLS.expandTime
+		);
 	#endregion
 	
 	#region		WYRMPOOL
 		var wyrmpoolSpells = ds_list_create();
 		
+		ds_list_add(wyrmpoolSpells,
+			SPELLS.tidalForce,
+			SPELLS.typhoon,
+			SPELLS.rubursWaterCannon,
+			SPELLS.waterlog,
+			SPELLS.airPressure,
+			SPELLS.undertow,
+			SPELLS.downpour,
+			SPELLS.flashFreeze,
+			SPELLS.landslide,
+			SPELLS.tremor,
+			SPELLS.endlessRiver,
+			SPELLS.cloudBreak
+		);
 	#endregion
 	
 	#region		CRAGMA
 		var cragmaSpells = ds_list_create();
 		
+		ds_list_add(cragmaSpells,
+			SPELLS.tectonicShift,
+			SPELLS.fireball,
+			SPELLS.hellfire,
+			SPELLS.landslide,
+			SPELLS.tremor,
+			SPELLS.noxiousFumes,
+			SPELLS.creciasCrystalSpikes,
+			SPELLS.burnOut,
+			SPELLS.stinkbomb,
+			SPELLS.lavaSpire
+		);
 	#endregion
 	
 	#region		CORVOLT
 		var corvoltSpells = ds_list_create();
 		
+		ds_list_add(corvoltSpells,
+			SPELLS.nebulaStorm,
+			SPELLS.shock,
+			SPELLS.typhoon,
+			SPELLS.rubursWaterCannon,
+			SPELLS.airPressure,
+			SPELLS.ballLightning,
+			SPELLS.downpour,
+			SPELLS.arcBlast,
+			SPELLS.skydive,
+			SPELLS.windSlice,
+			SPELLS.cloudBreak
+		);
 	#endregion
 	
 	#region		CHROMOSILOS
 		var chromosilosSpells = ds_list_create();
 		
+		ds_list_add(chromosilosSpells,
+			SPELLS.tectonicShift,
+			SPELLS.fireball,
+			SPELLS.shock,
+			SPELLS.loomingDanger,
+			SPELLS.hellfire,
+			SPELLS.arcBlast,
+			SPELLS.landslide,
+			SPELLS.tremor,
+			SPELLS.destructiveBlow,
+			SPELLS.deflectiveShield,
+			SPELLS.burnOut,
+			SPELLS.lavaSpire,
+			SPELLS.fullThrust
+		);
 	#endregion
 	
 	#region		DOMINO
 		var dominoSpells = ds_list_create();
 		
+		ds_list_add(dominoSpells,
+			SPELLS.fireball,
+			SPELLS.shock,
+			SPELLS.decay,
+			SPELLS.expelForce,
+			SPELLS.rapidStrike,
+			SPELLS.loomingDanger,
+			SPELLS.intercept,
+			SPELLS.hellfire,
+			SPELLS.lordMogradthsRage,
+			SPELLS.drainLifeforce,
+			SPELLS.pyrokinesis,
+			SPELLS.arcBlast,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.shiftPerspective,
+			SPELLS.psychicImpact,
+			SPELLS.destructiveBlow,
+			SPELLS.jabulsFightSong,
+			SPELLS.noxiousFumes,
+			SPELLS.psychicFissure,
+			SPELLS.rearrange,
+			SPELLS.sneakAttack,
+			SPELLS.deflectiveShield,
+			SPELLS.dionsParry,
+			SPELLS.dionsGamblingBlast,
+			SPELLS.dionsBarterTrick,
+			SPELLS.fullThrust,
+			SPELLS.broadcastData,
+			SPELLS.spherasDemise
+		);
 	#endregion
 	
 	#region		ANACHRONAUT
 		var anachronautSpells = ds_list_create();
 		
+		ds_list_add(anachronautSpells,
+			SPELLS.solarFlare,
+			SPELLS.tidalForce,
+			SPELLS.nebulaStorm,
+			SPELLS.tectonicShift,
+			SPELLS.shock,
+			SPELLS.decay,
+			SPELLS.expelForce,
+			SPELLS.ladySolanusGrace,
+			SPELLS.healingLight,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.psychicImpact,
+			SPELLS.psychicFissure,
+			SPELLS.deflectiveShield,
+			SPELLS.magneticPulse,
+			SPELLS.endlessRiver,
+			SPELLS.telekineticBlast,
+			SPELLS.broadcastData,
+			SPELLS.expandTime,
+			SPELLS.spherasDemise
+		);
 	#endregion
 	
 	#region		OMNOST
 		var omnostSpells = ds_list_create();
 		
+		ds_list_add(omnostSpells,
+			SPELLS.solarFlare,
+			SPELLS.tidalForce,
+			SPELLS.nebulaStorm,
+			SPELLS.tectonicShift,
+			SPELLS.fireball,
+			SPELLS.holyWater,
+			SPELLS.shock,
+			SPELLS.decay,
+			SPELLS.expelForce,
+			SPELLS.ladySolanusGrace,
+			SPELLS.typhoon,
+			SPELLS.healingLight,
+			SPELLS.rubursWaterCannon,
+			SPELLS.lusiasHarvestSpell,
+			SPELLS.waterlog,
+			SPELLS.airPressure,
+			SPELLS.superbloom,
+			SPELLS.loomingDanger,
+			SPELLS.steamBath,
+			SPELLS.undertow,
+			SPELLS.hellfire,
+			SPELLS.ballLightning,
+			SPELLS.quicksand,
+			SPELLS.lordMogradthsRage,
+			SPELLS.pyrokinesis,
+			SPELLS.downpour,
+			SPELLS.arcBlast,
+			SPELLS.hikamsWinterSpell,
+			SPELLS.osmosis,
+			SPELLS.flashFreeze,
+			SPELLS.landslide,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.shiftPerspective,
+			SPELLS.psychicImpact,
+			SPELLS.tremor,
+			SPELLS.purifyingFlame,
+			SPELLS.noxiousFumes,
+			SPELLS.creciasCrystalSpikes,
+			SPELLS.psychicFissure,
+			SPELLS.rearrange,
+			SPELLS.deflectiveShield,
+			SPELLS.dionsGamblingBlast,
+			SPELLS.dionsBarterTrick,
+			SPELLS.magneticPulse,
+			SPELLS.burnOut,
+			SPELLS.stinkbomb,
+			SPELLS.windSlice,
+			SPELLS.channelEssence,
+			SPELLS.spherasCurse,
+			SPELLS.creciasCrystalWind,
+			SPELLS.lavaSpire,
+			SPELLS.endlessRiver,
+			SPELLS.cloudBreak,
+			SPELLS.broadcastData
+		);
 	#endregion
 	
 	#region		PRISMATTER
 		var prismatterSpells = ds_list_create();
 		
+		ds_list_add(prismatterSpells,
+			SPELLS.solarFlare,
+			SPELLS.tidalForce,
+			SPELLS.nebulaStorm,
+			SPELLS.tectonicShift,
+			SPELLS.grapple,
+			SPELLS.lusiasHarvestSpell,
+			SPELLS.airPressure,
+			SPELLS.superbloom,
+			SPELLS.rapidStrike,
+			SPELLS.intercept,
+			SPELLS.undertow,
+			SPELLS.quicksand,
+			SPELLS.hikamsWinterSpell,
+			SPELLS.landslide,
+			SPELLS.tremor,
+			SPELLS.destructiveBlow,
+			SPELLS.creciasCrystalSpikes,
+			SPELLS.rearrange,
+			SPELLS.deflectiveShield,
+			SPELLS.dionsParry,
+			SPELLS.magneticPulse,
+			SPELLS.burnOut,
+			SPELLS.windSlice,
+			SPELLS.creciasCrystalWind,
+			SPELLS.lavaSpire,
+			SPELLS.endlessRiver,
+			SPELLS.cloudBreak,
+			SPELLS.telekineticBlast,
+			SPELLS.destabilizingBlow,
+			SPELLS.fullThrust,
+			SPELLS.collapseSpace
+		);
 	#endregion
 	
 	#region		KRONARC
 		var kronarcSpells = ds_list_create();
 		
+		ds_list_add(kronarcSpells,
+			SPELLS.solarFlare,
+			SPELLS.tidalForce,
+			SPELLS.nebulaStorm,
+			SPELLS.tectonicShift,
+			SPELLS.holyWater,
+			SPELLS.shock,
+			SPELLS.decay,
+			SPELLS.expelForce,
+			SPELLS.lusiasHarvestSpell,
+			SPELLS.superbloom,
+			SPELLS.loomingDanger,
+			SPELLS.intercept,
+			SPELLS.hikamsWinterSpell,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.psychicImpact,
+			SPELLS.tremor,
+			SPELLS.psychicFissure,
+			SPELLS.deflectiveShield,
+			SPELLS.magneticPulse,
+			SPELLS.windSlice,
+			SPELLS.channelEssence,
+			SPELLS.spherasCurse,
+			SPELLS.lavaSpire,
+			SPELLS.endlessRiver,
+			SPELLS.telekineticBlast,
+			SPELLS.expandTime,
+			SPELLS.spherasDemise
+		);
+			
 	#endregion
 	
 	#region		COSMALCOS
 		var cosmalcosSpells = ds_list_create();
 		
+		ds_list_add(cosmalcosSpells,
+			SPELLS.holyWater,
+			SPELLS.decay,
+			SPELLS.expelForce,
+			SPELLS.superbloom,
+			SPELLS.loomingDanger,
+			SPELLS.hellfire,
+			SPELLS.lordMogradthsRage,
+			SPELLS.drainLifeforce,
+			SPELLS.drainLifeforce,
+			SPELLS.hikamsWinterSpell,
+			SPELLS.amandsEnergyBlast,
+			SPELLS.psychicImpact,
+			SPELLS.destructiveBlow,
+			SPELLS.noxiousFumes,
+			SPELLS.psychicFissure,
+			SPELLS.deflectiveShield,
+			SPELLS.dionsParry,
+			SPELLS.dionsBarterTrick,
+			SPELLS.stinkbomb,
+			SPELLS.channelEssence,
+			SPELLS.spherasCurse,
+			SPELLS.telekineticBlast,
+			SPELLS.spherasDemise
+		);
 	#endregion
 
 #endregion
@@ -437,10 +1277,10 @@ sprite_add_to_grid(SPRITES.corvolt,			"CORVOLT",			spr_corvoltBattle,		ALIGNMENT
 sprite_add_to_grid(SPRITES.chromosilos,		"CHROMOSILOS",		spr_chromosilosBattle,	ALIGNMENTS.mechanical,	encode_list(chromosilosSpells),		190,	140,	120,	40,		40,		160,	70,		75,		spriteSizes.xLarge);
 sprite_add_to_grid(SPRITES.domino,			"DOMINO",			spr_dominoBattle,		ALIGNMENTS.mechanical,	encode_list(dominoSpells),			135,	70,		85,		85,		85,		85,		140,	150,	spriteSizes.small);
 sprite_add_to_grid(SPRITES.anachronaut,		"ANACHRONAUT",		spr_anachronautBattle,	ALIGNMENTS.mechanical,	encode_list(anachronautSpells),		35,		60,		120,	120,	120,	120,	160,	100,	spriteSizes.small);
-sprite_add_to_grid(SPRITES.omnost,			"OMNOST",			spr_omnostBattle,		undefined,				encode_list(omnostSpells),			50,		100,	110,	110,	150,	110,	70,		150,	spriteSizes.xLarge);
-sprite_add_to_grid(SPRITES.prismatter,		"PRISMATTER",		spr_prismatterBattle,	undefined,				encode_list(prismatterSpells),		175,	175,	80,		80,		80,		150,	75,		35,		spriteSizes.xLarge);
-sprite_add_to_grid(SPRITES.kronarc,			"KRONARC",			spr_kronarcBattle,		undefined,				encode_list(kronarcSpells),			100,	100,	100,	100,	100,	100,	100,	150,	spriteSizes.xLarge);
-sprite_add_to_grid(SPRITES.cosmalcos,		"COSMALCOS",		spr_cosmalcosBattle,	undefined,				encode_list(cosmalcosSpells),		120,	180,	30,		30,		30,		30,		30,		150,	spriteSizes.xLarge);
+sprite_add_to_grid(SPRITES.omnost,			"OMNOST",			spr_omnostBattle,		-1,						encode_list(omnostSpells),			50,		100,	110,	110,	150,	110,	70,		150,	spriteSizes.xLarge);
+sprite_add_to_grid(SPRITES.prismatter,		"PRISMATTER",		spr_prismatterBattle,	-1,						encode_list(prismatterSpells),		175,	175,	80,		80,		80,		150,	75,		35,		spriteSizes.xLarge);
+sprite_add_to_grid(SPRITES.kronarc,			"KRONARC",			spr_kronarcBattle,		-1,						encode_list(kronarcSpells),			100,	100,	100,	100,	100,	100,	100,	150,	spriteSizes.xLarge);
+sprite_add_to_grid(SPRITES.cosmalcos,		"COSMALCOS",		spr_cosmalcosBattle,	-1,						encode_list(cosmalcosSpells),		120,	180,	30,		30,		30,		30,		30,		150,	spriteSizes.xLarge);
 
 #endregion
 

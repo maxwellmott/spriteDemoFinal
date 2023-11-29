@@ -41,19 +41,39 @@ location = locations.miriabramExt;
 appearance = string(colors.skintone2) + "," + string(outfits.overalls) + "," + string(colors.indigo) + "," + string(hairstyles.shortStraight) + "," + string(colors.chartreuse) + "," + string(hats.cowboy) + "," + string(colors.noir) + "," + string(footwear.sandals) + "," + string(colors.cyan) + ",-1,-1,";
 
 // initialize teamString
-team = "";
+teamString = "";
+
+// initialize teamList
+teamList = ds_list_create();
+
+// ONLY FOR TESTING
+teamList[| 0] = SPRITES.pondle;
+teamList[| 1] = SPRITES.hachaChacha;
+teamList[| 2] = SPRITES.podric;
+teamList[| 3] = SPRITES.glidrake;
 
 // initialize spriteString
-talismans = "";
+talismanString = "";
+
+// initialize talismanList
+talismanList = ds_list_create();
 
 // initialize wardrobeString
-wardrobe = "";
+wardrobeString = "";
+
+// initialize wardrobeList
+wardrobeList = ds_list_create();
 
 // initialize spellString
-SPELLS = "";
+spellString = "";
+
+// initialize spellList
+spellList = ds_list_create();
 
 // initialize contactString
-contacts = "";
+contactString = "";
+
+// initialize contactList
 
 // initialize various battle ranking scores
 roninScore			= 0;
@@ -63,7 +83,7 @@ onlineMatchCount	= 0;
 
 // initialize HP and MP
 maxHP = 1000;
-maxMP = 1000;
+maxMP = 100;
 
 currentHP = maxHP;
 currentMP = maxMP;
