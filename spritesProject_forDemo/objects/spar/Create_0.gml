@@ -74,7 +74,7 @@ enum sparActions {
 	attack,
 	spell,
 	dodge,
-	transfer,
+	swap,
 	meditate,
 	height
 }

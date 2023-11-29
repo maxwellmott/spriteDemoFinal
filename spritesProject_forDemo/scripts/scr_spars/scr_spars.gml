@@ -216,3 +216,9 @@ function averageList_populate(_sprite) {
 	avgPhys = physSum / spriteCount;
 	global.averageList[|elements.height] = avgPhys;
 }
+
+function spar_set_action() {
+	sprite.selectedAction = action;
+	spar.selectionPhase = selectionPhases.target;
+	instance_destroy(sparActionMenu);
+}

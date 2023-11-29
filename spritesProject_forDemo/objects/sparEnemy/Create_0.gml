@@ -2,10 +2,11 @@
 // You can write your code in this editor
 
 // set allyNum
-allyNum = instance_count;
+allyNum = instance_count - 1;
 
-// set spotNum
-spotNum = instance_count + 4;
+// set spotNum (increase by 3 to account for the +4 for enemy nums
+// and the -1 due to 0 index)
+spotNum = instance_count + 3;
 
 // set spriteID
 spriteID = global.opponent.team[|allyNum];

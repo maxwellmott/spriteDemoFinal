@@ -3,6 +3,6 @@
 
 surface_set_target(game.guiSurface);
 	draw_self();
-
-	draw_text(x, y, name);
+	
+	draw_text(x, y, text);
 surface_reset_target();

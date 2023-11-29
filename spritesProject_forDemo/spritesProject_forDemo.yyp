@@ -171,7 +171,7 @@
     {"id":{"name":"tlst_thePitGround","path":"tilesets/tlst_thePitGround/tlst_thePitGround.yy",},},
     {"id":{"name":"spr_mercurioWavephone","path":"sprites/spr_mercurioWavephone/spr_mercurioWavephone.yy",},},
     {"id":{"name":"spr_mercurioMeditating","path":"sprites/spr_mercurioMeditating/spr_mercurioMeditating.yy",},},
-    {"id":{"name":"spr_sparActionButto","path":"sprites/spr_sparActionButto/spr_sparActionButto.yy",},},
+    {"id":{"name":"spr_sparActionButton","path":"sprites/spr_sparActionButton/spr_sparActionButton.yy",},},
     {"id":{"name":"waterTiles","path":"sprites/waterTiles/waterTiles.yy",},},
     {"id":{"name":"fnt_keypadStandard","path":"fonts/fnt_keypadStandard/fnt_keypadStandard.yy",},},
     {"id":{"name":"spr_mercurioWalking","path":"sprites/spr_mercurioWalking/spr_mercurioWalking.yy",},},
