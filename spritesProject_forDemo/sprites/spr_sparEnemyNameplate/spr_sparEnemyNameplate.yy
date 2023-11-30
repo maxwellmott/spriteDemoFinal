@@ -4,7 +4,7 @@
   "name": "spr_sparEnemyNameplate",
   "bbox_bottom": 14,
   "bbox_left": 1,
-  "bbox_right": 110,
+  "bbox_right": 125,
   "bbox_top": 1,
   "bboxMode": 0,
   "collisionKind": 1,
@@ -13,20 +13,20 @@
   "edgeFiltering": false,
   "For3D": false,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"63e3c7ca-9ce2-43a7-b6de-0ecb3a6b7a2c",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"33f86b66-b93e-44de-a9c7-571b20321bf7",},
   ],
   "gridX": 0,
   "gridY": 0,
   "height": 16,
   "HTile": false,
   "layers": [
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"2d11ef70-8e4c-4d2e-b356-c621197ae6ff","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"1e3a7b91-f402-48bb-b697-9a1852a4ad9e","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,
   "origin": 0,
   "parent": {
-    "name": "Battle Scene",
-    "path": "folders/Sprites/Battle Scene.yy",
+    "name": "UI",
+    "path": "folders/Sprites/SPARS/UI.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {
@@ -54,7 +54,7 @@
     "timeUnits": 1,
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"63e3c7ca-9ce2-43a7-b6de-0ecb3a6b7a2c","path":"sprites/spr_sparEnemyNameplate/spr_sparEnemyNameplate.yy",},},},"Disabled":false,"id":"1f5f33ee-9966-47fd-b009-1c25ae4f4e74","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"33f86b66-b93e-44de-a9c7-571b20321bf7","path":"sprites/spr_sparEnemyNameplate/spr_sparEnemyNameplate.yy",},},},"Disabled":false,"id":"5fb49eb7-d02a-44fb-90ad-e7e43733b566","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,
@@ -70,5 +70,5 @@
   },
   "type": 0,
   "VTile": false,
-  "width": 112,
+  "width": 128,
 }

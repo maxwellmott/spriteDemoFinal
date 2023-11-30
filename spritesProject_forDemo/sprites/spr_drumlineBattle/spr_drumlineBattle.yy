@@ -13,20 +13,20 @@
   "edgeFiltering": false,
   "For3D": false,
   "frames": [
-    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"8f81b407-dd1e-4706-b0bd-d22677cb0fff",},
+    {"resourceType":"GMSpriteFrame","resourceVersion":"1.1","name":"17387a89-56a7-4ae8-a66e-2f14236cd6a3",},
   ],
   "gridX": 0,
   "gridY": 0,
   "height": 56,
   "HTile": false,
   "layers": [
-    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"ba584f5b-8578-43d0-87bb-37fc1f14bb7a","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
+    {"resourceType":"GMImageLayer","resourceVersion":"1.0","name":"72870b40-de75-4eb2-bbe9-d69f49ec0a93","blendMode":0,"displayName":"default","isLocked":false,"opacity":100.0,"visible":true,},
   ],
   "nineSlice": null,
   "origin": 4,
   "parent": {
     "name": "battleSprites",
-    "path": "folders/Sprites/Battle Scene/battleSprites.yy",
+    "path": "folders/Sprites/SPARS/battleSprites.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {
@@ -54,7 +54,7 @@
     "timeUnits": 1,
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"8f81b407-dd1e-4706-b0bd-d22677cb0fff","path":"sprites/spr_drumlineBattle/spr_drumlineBattle.yy",},},},"Disabled":false,"id":"7e168e4f-22f9-4d82-96ab-0c21a86ddf09","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"17387a89-56a7-4ae8-a66e-2f14236cd6a3","path":"sprites/spr_drumlineBattle/spr_drumlineBattle.yy",},},},"Disabled":false,"id":"c152e81b-9fc9-45ff-b87a-9d6ac0d8bb3c","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

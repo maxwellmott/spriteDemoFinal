@@ -52,8 +52,8 @@ earth	= -1;
 // load sprite parameters
 sprite_load_parameters();
 
-// initialize mindset
-mindset = -1;
+// initialize mindset (set to 0 since negative IDs= curses)
+mindset = 0;
 
 // initialize bound and hexed
 bound = false;
@@ -71,3 +71,12 @@ bbBottom	= y + 32;
 bbTop		= y - 32;
 bbLeft		= x - 32;
 bbRight		= x + 32;
+
+// initialize draw positions for indicators
+hexedY		= x - 16;
+mindsetY	= x;
+boundX		= x + 16;
+
+boundY		= guiHeight - 88;
+hexedY		= guiHeight - 88;
+mindsetY	= guiHeight - 88;

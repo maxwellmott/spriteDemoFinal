@@ -35,3 +35,17 @@ enemyAI_get_params();
 
 // select team
 enemyAI_set_team();
+
+// initialize hindrances
+miasma	= true;
+hum		= true;
+rust	= true;
+
+// initialize hindrance indicator positions
+miasmaX	= guiWidth - 40;
+humX	= guiWidth - 24;
+rustX	= guiWidth - 8;
+
+miasmaY	= 8;
+humY	= 8;
+rustY	= 8;

@@ -25,8 +25,8 @@
   "nineSlice": null,
   "origin": 9,
   "parent": {
-    "name": "Battle Scene",
-    "path": "folders/Sprites/Battle Scene.yy",
+    "name": "SPARS",
+    "path": "folders/Sprites/SPARS.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

@@ -26,7 +26,7 @@
   "origin": 4,
   "parent": {
     "name": "battleSprites",
-    "path": "folders/Sprites/Battle Scene/battleSprites.yy",
+    "path": "folders/Sprites/SPARS/battleSprites.yy",
   },
   "preMultiplyAlpha": false,
   "sequence": {

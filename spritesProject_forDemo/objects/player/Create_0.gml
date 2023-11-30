@@ -135,3 +135,17 @@ spellBook = ds_list_create();
 
 // initialize selected ally
 selectedAlly = noone;
+
+// initialize hindrances
+miasma	= true;
+hum		= true;
+rust	= true;
+
+// initialize hindrance indicator positions
+miasmaX = 8;
+humX	= 24;
+rustX	= 40;
+
+miasmaY = guiHeight - 8;
+humY	= guiHeight - 8;
+rustY	= guiHeight - 8;

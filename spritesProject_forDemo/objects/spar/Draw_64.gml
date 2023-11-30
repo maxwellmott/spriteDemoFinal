@@ -13,48 +13,92 @@ with (mouse) {
 // set surface to GUI
 surface_set_target(game.guiSurface);
 	// draw background
-	draw_sprite(spr_battleSceneBackground, 0, 0, 0);
+	draw_sprite(spr_sparBackground, 0, 0, 0);
 	
 	// draw spell backdrop
 	
 	// draw arena if there is one
 	
-	// draw sprites
+	#region ALLIES AND ENEMIES
 	var i = 0; repeat (8) {
+		// get sprite instance ID
 		var inst = spriteList[| i];
 		
+		// set alpha
 		draw_set_alpha(inst.alpha);
+		
+		// draw ally spot
+		draw_sprite(spr_sparAllySpot, 0, inst.x, inst.y);
+		
+		// draw sprite
 		draw_sprite(inst.sprite, 0, inst.x, inst.y);	
 		
+		// if sprite has any status effects, draw the indicators
+		if (inst.hexed) draw_sprite(spr_sparHexed, 0, inst.hexedX, inst.hexedY);
+		if (inst.bound) draw_sprite(spr_sparBound, 0, inst.boundX, inst.boundY);
+		
+		// if sprite has a curse or blessing, draw the indicator
+		if (inst.mindset > 0) draw_sprite(spr_sparBlessings, abs(mindset) - 1, mindsetX, mindsetY);
+		if (inst.mindset < 0) draw_sprite(spr_sparCurses, abs(mindset) - 1, mindsetX, mindsetY);
+
+		// increment i
 		i++;
 	}
 	
-	// draw selectionMenu
-	if (sparPhase == sparPhases.select) {
-		draw_sprite(spr_sparSelectionMenu, 0, messageX, messageY);
-		draw_text_transformed(messageX, messageY, msg, 0.5, 0.5, 0);
-	}
+	// reset alpha
+	draw_set_alpha(1.0);
 	
-	// if there is an action button, draw all the buttons
-	if (instance_exists(sparActionButton)) {
-		var count = instance_number(sparActionButton);
-		
-		var i = 0;	repeat (count) {
-			var inst = sparActionMenu.actionButtons[| i];
-			
-			draw_sprite(spr_sparActionButton, inst.frame, inst.x, inst.y);
-			draw_set_color(inst.textColor);
-			
-			draw_text_transformed(inst.x, inst.y, inst.name, 0.5, 0.5, 0);
-			
-			i++;
+	#endregion
+	
+	#region SELECTION INTERFACE
+		// draw selectionMenu
+		if (sparPhase == sparPhases.select) {
+			draw_sprite(spr_sparSelectionMenu, 0, messageX, messageY);
+			draw_text_transformed(messageX, messageY, msg, 0.5, 0.5, 0);
 		}
 		
-		draw_set_color(c_black);
-	}
+		// if there is an action button, draw all the buttons
+		if (instance_exists(sparActionButton)) {
+			var count = instance_number(sparActionButton);
+			
+			var i = 0;	repeat (count) {
+				var inst = sparActionMenu.actionButtons[| i];
+				
+				draw_sprite(spr_sparActionButton, inst.frame, inst.x, inst.y);
+				draw_set_color(inst.textColor);
+				
+				draw_text_transformed(inst.x, inst.y, inst.name, 0.5, 0.5, 0);
+				
+				i++;
+			}
+			
+			draw_set_color(c_black);
+		}
+	#endregion
 	
-	// draw ui
-
+	#region USER INTERFACE
+		// draw nameplates
+		draw_sprite(spr_sparPlayerNameplate, 0, guiWidth, guiHeight);
+		draw_sprite(spr_sparEnemyNameplate, 0, 0, 0);
+		
+		// draw titles and names
+		
+		// draw HPMP symbols
+		draw_sprite(spr_sparHPMP, 0, 120, guiHeight - 8);
+		draw_sprite(spr_sparHPMP, 0, 135, 8);
+		
+		// draw health and magic bars
+		
+		// draw hindrance indicators
+		if (playerOne.miasma)	draw_sprite(spr_sparMiasma, 0,	playerOne.miasmaX,	playerOne.miasmaY);
+		if (playerOne.hum)		draw_sprite(spr_sparHum,	0,	playerOne.humX,		playerOne.humY);
+		if (playerOne.rust)		draw_sprite(spr_sparRust,	0,	playerOne.rustX,	playerOne.rustY);
+		
+		if (playerTwo.miasma)	draw_sprite(spr_sparMiasma,	0,	playerTwo.miasmaX,	playerTwo.miasmaY);
+		if (playerTwo.hum)		draw_sprite(spr_sparHum,	0,	playerTwo.humX,		playerTwo.humY);
+		if (playerTwo.rust)		draw_sprite(spr_sparRust,	0,	playerTwo.rustX,	playerTwo.rustY);
+	
+	#endregion
 	
 	// draw spell FX
 	

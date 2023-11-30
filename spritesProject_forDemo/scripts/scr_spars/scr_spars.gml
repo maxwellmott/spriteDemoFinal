@@ -1,3 +1,21 @@
+global.arena = -1;
+
+enum arenas {
+	volcano,
+	ocean,
+	stratosphere,
+	forest,
+	height
+}
+
+enum mindsets {
+	tree,
+	warrior,
+	mother,
+	imp,
+	height
+}
+
 enum sparTypes {
 	inGame,
 	localMulti,

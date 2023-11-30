@@ -88,3 +88,5 @@ messageY = (guiHeight / 2) - 11;
 
 // initialize message
 msg = "";
+
+// if global.arena is not -1, perform an arena change
