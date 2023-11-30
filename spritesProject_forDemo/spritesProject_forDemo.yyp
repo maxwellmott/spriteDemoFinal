@@ -402,7 +402,7 @@
     {"id":{"name":"spr_cragmaBattle","path":"sprites/spr_cragmaBattle/spr_cragmaBattle.yy",},},
     {"id":{"name":"spr_thePitCollidableFrames","path":"sprites/spr_thePitCollidableFrames/spr_thePitCollidableFrames.yy",},},
     {"id":{"name":"spr_verdmanFarmsUpperStoryFrames","path":"sprites/spr_verdmanFarmsUpperStoryFrames/spr_verdmanFarmsUpperStoryFrames.yy",},},
-    {"id":{"name":"spr_sparActionMenu","path":"sprites/spr_sparActionMenu/spr_sparActionMenu.yy",},},
+    {"id":{"name":"spr_sparSelectionMenu","path":"sprites/spr_sparSelectionMenu/spr_sparSelectionMenu.yy",},},
     {"id":{"name":"sparActionMenu","path":"objects/sparActionMenu/sparActionMenu.yy",},},
     {"id":{"name":"spr_keypadNineButton","path":"sprites/spr_keypadNineButton/spr_keypadNineButton.yy",},},
     {"id":{"name":"scr_literature","path":"scripts/scr_literature/scr_literature.yy",},},

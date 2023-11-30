@@ -6,10 +6,6 @@ y = 102;
 
 selectedButton = noone;
 
-spriteName = player.selectedAlly.name;
-
-text = "What should " + spriteName + " do this turn?";
-
 actionButtons = ds_list_create();
 
 repeat (sparActions.height) {

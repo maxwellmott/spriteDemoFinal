@@ -31,7 +31,7 @@ currentMP = maxMP;
 // initialize selectionLogic
 
 // load parameters
-aiOpponent_get_params();
+enemyAI_get_params();
 
 // select team
-aiOpponent_set_team();
+enemyAI_set_team();

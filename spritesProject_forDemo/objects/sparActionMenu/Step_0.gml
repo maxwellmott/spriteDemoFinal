@@ -18,3 +18,9 @@ if (global.menu_left) {
 	
 	selectedButton = actionButtons[| index];
 }
+
+// handle backspace input
+if (global.back) {
+	spar.selectionPhase = selectionPhases.ally;
+	instance_destroy(self);
+}

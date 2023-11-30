@@ -398,7 +398,7 @@ function human_set_sprite() {
 	human_set_frames();
 }
 
-// this function can be called to set the minFrame and maxFrame for a human object
+///@desc this function can be called to set the minFrame and maxFrame for a human object
 function human_set_frames() {
 	var minPrev	= minFrame;
 	var maxPrev = maxFrame;
@@ -431,9 +431,10 @@ function human_get_depthY() {
 function human_set_depth() {
 	depth = get_layer_depth(LAYER.collidableTiles) - depthY;	
 }
-	
-function spar_begin_ingame() {
+
+///@desc this sprite takes an NPC id and begins a match with that NPC
+function spar_begin_ingame(_opponent) {
+	global.opponent = _opponent;
 	global.sparType = sparTypes.inGame;
-	global.opponent = global.speaker.ID;
-	room_transition(player.x, player.x, player.facing, rm_battleScene);
+	room_transition(200, 400, directions.south, rm_battleScene);
 }

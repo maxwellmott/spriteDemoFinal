@@ -324,7 +324,7 @@
     {"name":"scr_text","order":33,"path":"scripts/scr_text/scr_text.yy",},
     {"name":"spr_titleScreenButton","order":1,"path":"sprites/spr_titleScreenButton/spr_titleScreenButton.yy",},
     {"name":"spr_cragmaBattle","order":38,"path":"sprites/spr_cragmaBattle/spr_cragmaBattle.yy",},
-    {"name":"spr_sparActionMenu","order":36,"path":"sprites/spr_sparActionMenu/spr_sparActionMenu.yy",},
+    {"name":"spr_sparSelectionMenu","order":36,"path":"sprites/spr_sparSelectionMenu/spr_sparSelectionMenu.yy",},
     {"name":"sparActionMenu","order":8,"path":"objects/sparActionMenu/sparActionMenu.yy",},
     {"name":"spr_keypadNineButton","order":5,"path":"sprites/spr_keypadNineButton/spr_keypadNineButton.yy",},
     {"name":"scr_literature","order":34,"path":"scripts/scr_literature/scr_literature.yy",},

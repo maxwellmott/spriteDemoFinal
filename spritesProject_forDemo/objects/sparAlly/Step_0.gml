@@ -7,7 +7,7 @@ if (spar.sparPhase == sparPhases.select) {
 	if (spar.selectionPhase == selectionPhases.ally) 
 	|| (spar.selectionPhase == selectionPhases.action) {
 		// if player clicks on sprite, set sprite as selected
-		if (place_meeting(mouse.x, mouse.y, id)) {
+		if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 			if (global.click) {
 				player.selectedAlly = id;
 				spar.selectionPhase = selectionPhases.action;
@@ -24,7 +24,7 @@ if (spar.sparPhase == sparPhases.select) {
 		if (player.selectedAlly != id) {
 	
 			// if player clicks on sprite, set sprite as target
-			if (place_meeting(mouse.x, mouse.y, id)) {
+			if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 				if (global.click) {
 					player.selectedAlly.target = id;	
 					spar.selectionPhase = selectionPhases.ally;

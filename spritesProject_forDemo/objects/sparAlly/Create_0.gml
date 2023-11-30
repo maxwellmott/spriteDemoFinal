@@ -1,19 +1,24 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+// initialize alpha
+alpha = 1.0;
+
 // set allyNum
-allyNum = instance_count;
+allyNum = instance_number(object_index) - 1;
 
 // set spotNum
-spotNum = instance_count;
+spotNum = allyNum;
 
 // set spriteID
-spriteID = player.teamList[|allyNum];
+spriteID = player.teamList[| allyNum];
 
 // add self to battle sprite lists
+spar.allyList[| allyNum]	= id;
+spar.spriteList[| spotNum]	= id;
 
 // set x and y
-x = (64 * allyNum) - 32;
+x = (64 * allyNum) + 32;
 y = guiHeight - 48;
 
 // initialize name
@@ -60,3 +65,9 @@ sprite_index = sprite;
 // initialize selectedTarget and selectedAction
 selectedTarget = -1;
 selectedAction = -1;
+
+// set bbox dimensions
+bbBottom	= y + 32;
+bbTop		= y - 32;
+bbLeft		= x - 32;
+bbRight		= x + 32;

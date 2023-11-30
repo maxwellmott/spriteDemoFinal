@@ -10,9 +10,13 @@ var ow = global.overworld;
 if (ow) and (instance_exists(player)) {
 	follow = player;	
 }
+else {
+	follow = -1;
+	x = guiWidth / 2;
+	y = guiHeight / 2;
+}
 
 // increment or decrement x and y
-
 if (follow >= 0) {
 	x = follow.x;
 	y = follow.y;

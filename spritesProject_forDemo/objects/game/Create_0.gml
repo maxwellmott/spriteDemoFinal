@@ -27,5 +27,5 @@ debugDraw = false;
 drawNums = "";
 
 if (is_debug_overlay_open()) {
-	new_game();
+	new_game();	
 }

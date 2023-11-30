@@ -88,37 +88,50 @@ maxMP = 100;
 currentHP = maxHP;
 currentMP = maxMP;
 
-// initialize enemy
-enemy = noone;
-
 // initialize hmove and vmove
 hmove		= 0;
 vmove		= 0;
 
+// initialize swimming
 swimming			= false;
 
+// initialize pointer coordinates
 pointerX			= noone;
 pointerY			= noone;
 
+// initialize frame
 frame = 0;
 
+// initialize unlockedDoors list
 unlockedDoors = "";
+
+// initialize moving
 moving = false;
 
+// intitialize sprite
 sprite = -1;
+
+// initialize frameCount
 frameCount = -1;
 
+// initialize min and max frame
 minFrame = -1;
 maxFrame = -1;
 
+// set appearance loaded to false
 appearanceLoaded = false;
 
+// initialize state
 state = humanStates.standard;
 
+// initialize sundown
 sundown = false;
+
+// initialize darkAlpha
 darkAlpha = 0.0;
 
 // initialize spellbook
+spellBook = ds_list_create();
 
 // initialize selected ally
 selectedAlly = noone;

@@ -1306,19 +1306,19 @@ function sprite_load_parameters() {
 	decode_grid(global.allSprites, grid);
 	
 	// use sprite grid to get parameters
-	name				= grid[# SPRITE_PARAMS.name,		spriteID];
-	sprite				= grid[# SPRITE_PARAMS.sprite,		spriteID];
-	alignment			= grid[# SPRITE_PARAMS.alignment,	spriteID];
-	var spellString		= grid[# SPRITE_PARAMS.spells,		spriteID];
-	physPower			= grid[# SPRITE_PARAMS.power,		spriteID];
-	resistance			= grid[# SPRITE_PARAMS.resistance,	spriteID];
-	fire				= grid[# SPRITE_PARAMS.fire,		spriteID];
-	water				= grid[# SPRITE_PARAMS.water,		spriteID];
-	storm				= grid[# SPRITE_PARAMS.storm,		spriteID];
-	earth				= grid[# SPRITE_PARAMS.earth,		spriteID];
-	agility				= grid[# SPRITE_PARAMS.agility,		spriteID];
-	luck				= grid[# SPRITE_PARAMS.luck,		spriteID];
-	size				= grid[# SPRITE_PARAMS.size,		spriteID];
+	name				= grid[# SPRITE_PARAMS.name,			spriteID];
+	sprite				= real(grid[# SPRITE_PARAMS.sprite,		spriteID]);
+	alignment			= real(grid[# SPRITE_PARAMS.alignment,	spriteID]);
+	var spellString		= grid[# SPRITE_PARAMS.spells,			spriteID];
+	attack				= real(grid[# SPRITE_PARAMS.power,		spriteID]);
+	resistance			= real(grid[# SPRITE_PARAMS.resistance,	spriteID]);
+	fire				= real(grid[# SPRITE_PARAMS.fire,		spriteID]);
+	water				= real(grid[# SPRITE_PARAMS.water,		spriteID]);
+	storm				= real(grid[# SPRITE_PARAMS.storm,		spriteID]);
+	earth				= real(grid[# SPRITE_PARAMS.earth,		spriteID]);
+	agility				= real(grid[# SPRITE_PARAMS.agility,	spriteID]);
+	luck				= real(grid[# SPRITE_PARAMS.luck,		spriteID]);
+	size				= real(grid[# SPRITE_PARAMS.size,		spriteID]);
 	
 	// decode spell list
 	decode_list(spellString, usable_spells);

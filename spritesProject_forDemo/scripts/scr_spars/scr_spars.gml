@@ -229,3 +229,32 @@ function spar_set_action() {
 	spar.selectionPhase = selectionPhases.target;
 	instance_destroy(sparActionMenu);
 }
+
+function enemyAI_get_params() {
+	// create temporary grid
+	var grid = ds_grid_create(npcParams.height, npcs.height);
+	
+	// decode npcGrid
+	decode_grid(global.allNPCs, grid);
+	
+	// use npcID to get params
+	talismanString	= grid[# npcParams.talismans,	ID];
+	name			= grid[# npcParams.name,		ID];
+	spellString		= grid[# npcParams.SPELLS,		ID];
+	
+	// decode talismanString and spellString
+	decode_list(talismanString, roster);
+	decode_list(spellString, spellBook);
+	
+	// delete temporary grid
+	ds_grid_destroy(grid);
+}
+
+function enemyAI_set_team() {
+	randomize_list(roster);
+	
+	team[|0] = real(roster[|0]);
+	team[|1] = real(roster[|1]);
+	team[|2] = real(roster[|2]);
+	team[|3] = real(roster[|3]);
+}

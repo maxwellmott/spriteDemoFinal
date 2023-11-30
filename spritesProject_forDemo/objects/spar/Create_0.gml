@@ -75,9 +75,16 @@ enum sparActions {
 	spell,
 	dodge,
 	swap,
-	meditate,
+	rest,
 	height
 }
 
 // switch global.roomBuilt to true to end transition
 global.roomBuilt = true;
+
+// initialize messageX and messageY
+messageX = guiWidth / 2;
+messageY = (guiHeight / 2) - 11;
+
+// initialize message
+msg = "";

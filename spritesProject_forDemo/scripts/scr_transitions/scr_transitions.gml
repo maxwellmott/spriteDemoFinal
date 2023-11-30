@@ -4,11 +4,14 @@ global.newRoom		= -1;
 global.roomBuilt	= false;
 
 function room_transition(_newX, _newY, _newFacing, _newRoom) {
+	if (instance_exists(transitionManager)) instance_destroy(transitionManager);
+
 	global.newX			= _newX;
 	global.newY			= _newY;
 	global.newFacing	= _newFacing;
 	global.newRoom		= _newRoom;
-	create_once(0, 0, LAYER.meta, transitionManager);
+	
+	instance_create_depth(x, y, get_layer_depth(LAYER.meta), transitionManager);
 }
 
 function overworld_transition(_newX, _newY, _newFacing, _newLocation) {

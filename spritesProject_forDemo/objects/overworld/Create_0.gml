@@ -131,3 +131,7 @@ if (is_debug_overlay_open()) {
 	instance_create_depth(x, y, get_layer_depth(LAYER.meta), sceneryPlacingTool);	
 }
 */
+
+if (is_debug_overlay_open()) {
+	spar_begin_ingame(npcs.mercurioGallant);
+}

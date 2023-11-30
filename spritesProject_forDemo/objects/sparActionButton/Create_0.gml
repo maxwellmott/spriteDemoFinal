@@ -2,7 +2,7 @@
 // You can write your code in this editor
 
 // get action ID
-action = instance_count - 1;
+action = instance_number(object_index) - 1;
 
 // get selectedally
 sprite = player.selectedAlly;
@@ -32,8 +32,8 @@ switch (action) {
 		x = 176;
 	break;
 	
-	case sparActions.meditate:
-		name = "MEDITATE";
+	case sparActions.rest:
+		name = "REST";
 		x = 224;
 	break;
 }
@@ -43,3 +43,17 @@ y = 118;
 
 // add id to list of action buttons
 sparActionMenu.actionButtons[| action] = id;
+
+// initialize frame
+frame = 0;
+
+// initialize bbox dimensions
+var spriteHeight	= sprite_get_height(spr_sparActionButton);
+var spriteWidth		= sprite_get_height(spr_sparActionButton);
+
+bboxBottom	= y + (spriteHeight / 2);
+bboxTop		= y - (spriteHeight / 2);
+bboxLeft	= x - (spriteHeight / 2);
+bboxRight	= x + (spriteHeight / 2);
+
+textColor = c_black;

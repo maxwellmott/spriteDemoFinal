@@ -1,19 +1,21 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-// set allyNum
-allyNum = instance_count - 1;
+// initialize alpha
+alpha = 1.0;
 
-// set spotNum (increase by 3 to account for the +4 for enemy nums
-// and the -1 due to 0 index)
-spotNum = instance_count + 3;
+// set allyNum
+allyNum = instance_number(object_index) - 1;
+
+// set spotNum (increase by 4 since this is the enemy)
+spotNum = allyNum + 4;
 
 // set spriteID
-spriteID = global.opponent.team[|allyNum];
+spriteID = spar.playerTwo.team[| allyNum];
 
 // add self to battle sprite lists
-ds_list_add(spar.enemyList, id);
-ds_list_add(spar.spriteList, id);
+spar.enemyList[| allyNum]	= id;
+spar.spriteList[| spotNum]	= id;
 
 // set x and y
 x = guiWidth - ((64 * allyNum) + 32);
@@ -63,3 +65,9 @@ sprite_index = sprite;
 // initialize selectedTarget and selectedAction
 selectedTarget = -1;
 selectedAction = -1;
+
+// set bbox dimensions
+bbBottom	= y + 32;
+bbTop		= y - 32;
+bbLeft		= x - 32;
+bbRight		= x + 32;
