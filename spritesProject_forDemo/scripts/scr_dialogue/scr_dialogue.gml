@@ -192,7 +192,7 @@ function talk_bubble_build_dialogue() {
 					
 					case "SPAR":
 						global.opponent		= global.speaker;
-						global.ynFunction	= begin_spar;
+						global.ynFunction	= spar_begin_ingame;
 				}
 				
 				// delete emotion string from text

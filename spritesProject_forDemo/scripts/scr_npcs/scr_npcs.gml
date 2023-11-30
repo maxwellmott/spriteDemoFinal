@@ -305,11 +305,31 @@ function day_change_edit_npc_lists(_locationList) {
 	global.allLocations = encode_grid(grid);
 }
 
-function aiOpponent_set_team() {
-	randomize_list(playerTwo.roster);
+function aiOpponent_get_params() {
+	// create temporary grid
+	var grid = ds_grid_create(npcParams.height, npcs.height);
 	
-	playerTwo.team[|0] = playerTwo.roster[|0];
-	playerTwo.team[|1] = playerTwo.roster[|1];
-	playerTwo.team[|2] = playerTwo.roster[|2];
-	playerTwo.team[|3] = playerTwo.roster[|3];
+	// decode npcGrid
+	decode_grid(global.allNPCs, grid);
+	
+	// use npcID to get params
+	talismanString	= grid[# npcParams.talismans,	ID];
+	name			= grid[# npcParams.name,		ID];
+	spellString		= grid[# npcParams.SPELLS,		ID];
+	
+	// decode talismanString and spellString
+	decode_list(talismanString, roster);
+	decode_list(spellString, spellBook);
+	
+	// delete temporary grid
+	ds_grid_destroy(grid);
+}
+
+function aiOpponent_set_team() {
+	randomize_list(roster);
+	
+	team[|0] = roster[|0];
+	team[|1] = roster[|1];
+	team[|2] = roster[|2];
+	team[|3] = roster[|3];
 }

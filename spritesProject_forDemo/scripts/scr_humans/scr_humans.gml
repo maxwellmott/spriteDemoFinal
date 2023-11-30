@@ -432,6 +432,8 @@ function human_set_depth() {
 	depth = get_layer_depth(LAYER.collidableTiles) - depthY;	
 }
 	
-function begin_spar() {
+function spar_begin_ingame() {
+	global.sparType = sparTypes.inGame;
+	global.opponent = global.speaker.ID;
 	room_transition(player.x, player.x, player.facing, rm_battleScene);
 }

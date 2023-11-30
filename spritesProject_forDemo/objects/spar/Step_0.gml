@@ -18,7 +18,7 @@ switch (sparPhase) {
 	
 	break;
 	
-	case sparPhases.initialize:
+	case sparPhases.turnBegin:
 		
 	break;
 }

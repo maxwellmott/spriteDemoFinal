@@ -7,22 +7,22 @@ if !(instance_exists(mouse)) {
 
 // set playerOne and playerTwo
 playerOne = player;
-playerTwo = global.opponent;
 
 // create sprite lists
 allyList	= ds_list_create();
 enemyList	= ds_list_create();
 spriteList	= ds_list_create();
 
-// create enemyOnline object if this is not an online spar
-
-// if not online, set enemy team and create enemyAI
-if (playerTwo == npc) {
-	// set enemy team using roster
-	aiOpponent_set_team();
-
-	// create enemyAI
-	instance_create_depth(0, 0, get_layer_depth(LAYER.meta), enemyAI);
+switch (global.sparType) {
+	case sparTypes.inGame:
+		playerTwo = instance_create_depth(x, y, get_layer_depth(LAYER.meta), enemyAI);
+	break;
+	
+	case sparTypes.localMulti:
+	break;
+	
+	case sparTypes.onlineMulti:
+	break;
 }
 
 // create all allies and enemies
@@ -33,7 +33,7 @@ repeat (4) {
 
 // spar phases enum
 enum sparPhases {
-	initialize,
+	turnBegin,
 	select,
 	process,
 	turnEnd,
@@ -41,7 +41,7 @@ enum sparPhases {
 }
 
 // initialize spar phase
-sparPhase = sparPhases.initialize;
+sparPhase = sparPhases.turnBegin;
 
 // selection phases enum
 enum selectionPhases {

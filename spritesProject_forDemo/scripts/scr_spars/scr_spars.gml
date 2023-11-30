@@ -1,3 +1,10 @@
+enum sparTypes {
+	inGame,
+	localMulti,
+	onlineMulti,
+	height
+}
+
 enum elements {
 	fire,
 	water,
