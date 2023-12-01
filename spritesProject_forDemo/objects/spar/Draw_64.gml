@@ -49,8 +49,8 @@ surface_set_target(game.guiSurface);
 	#region SELECTION INTERFACE
 		// draw selectionMenu
 		if (sparPhase == sparPhases.select) {
-			draw_sprite(spr_sparSelectionMenu, 0, messageX, messageY);
-			draw_text_transformed(messageX, messageY, msg, 0.5, 0.5, 0);
+			draw_sprite(spr_sparSelectionMenu, 0, selectionMsgX, selectionMsgY);
+			draw_text_transformed(selectionMsgX, selectionMsgY, selectionMsg, 0.5, 0.5, 0);
 		}
 		
 		// if there is an action button, draw all the buttons
@@ -98,43 +98,58 @@ surface_set_target(game.guiSurface);
 	
 	#region HOVER MENU
 		if (global.hoverSprite != -1) {
+			//draw_set_font(sparFont);
+			draw_set_halign(fa_center);
+			draw_set_valign(fa_middle);
+			draw_set_color(c_white);
+			
 			var hs = global.hoverSprite;
 			
+			// draw message sprite
+			draw_sprite(spr_sparMessage, 0, sparMsgX, sparMsgY);
+			
 			// draw hoverMenu sprite
-			draw_sprite(spr_sparHoverMenu, 0, hoverMenuX, hoverMenuY);
+			draw_sprite(spr_sparHoverMenuNameplate, 0, hoverMenu_nameplateX, hoverMenu_nameplateY);
 			
 			// draw name
-			draw_text(hoverMenu_nameX,		hoverMenu_nameY,	"name: " + hs.name);
+			draw_text_transformed(hoverMenu_nameplateX,		hoverMenu_nameplateY + 1,	hs.name, 0.5, 0.5, 0);
 			
-			// draw alignment
-			draw_text(hoverMenu_alignX,		hoverMenu_alignY,	"alignment: " + sprite_get_alignment_string(hs.currentAlign));
+			draw_set_color(c_black);
 			
-			// draw size
-			draw_text(hoverMenu_sizeX,		hoverMenu_sizeY,	"size: " + sprite_get_size_string(hs.currentSize));
+			draw_set_halign(fa_left);
+			
+			// draw alignment and size
+			draw_text_transformed(hoverMenu_alignmentX,	hoverMenu_alignmentY,	"alignment: " + sprite_get_alignment_string(hs.currentAlign), 0.5, 0.5, 0);
+			draw_text_transformed(hoverMenu_sizeX,		hoverMenu_sizeY,		"size: " + sprite_get_size_string(hs.currentSize), 0.5, 0.5, 0);
+			
+			draw_set_halign(fa_center);
 			
 			// draw power
-			draw_text(hoverMenu_powerX,		hoverMenu_powerY,	"power: " + string(hs.currentPower));
+			if (hs.currentPower < hs.basePower) draw_set_color(c_red);
+			if (hs.currentPower > hs.basePower) draw_set_color(c_green);
+			
+			draw_text_transformed(hoverMenu_columnOneX,			hoverMenu_rowOneY,	"POWER", 0.5, 0.5, 0);
 			
 			// draw resistance
-			draw_text(hoverMenu_resistX,	hoverMenu_resistY,	"resistance: " + string(hs.currentResist));
+			draw_text_transformed(hoverMenu_columnOneX,			hoverMenu_rowThreeY,	"RESIST", 0.5, 0.5, 0);
 			
 			// draw agility
-			draw_text(hoverMenu_agilityX,	hoverMenu_agilityY,	"agility: " + string(hs.currentAgility));
+			draw_text_transformed(hoverMenu_columnTwoX,			hoverMenu_rowOneY,	"AGILITY", 0.5, 0.5, 0);
 			
 			// draw luck
-			draw_text(hoverMenu_luckX,		hoverMenu_luckY,	"luck: " + string(hs.currentLuck));
+			draw_text_transformed(hoverMenu_columnTwoX,			hoverMenu_rowThreeY,	"LUCK", 0.5, 0.5, 0);
 			
 			// draw fire
-			draw_text(hoverMenu_fireX,		hoverMenu_fireY,	"fire: " + string(hs.currentFire));
+			draw_text_transformed(hoverMenu_columnThreeX,		hoverMenu_rowOneY,	"FIRE", 0.5, 0.5, 0);
 			
 			// draw water
-			draw_text(hoverMenu_waterX,		hoverMenu_waterY,	"water: " + string(hs.currentWater));
+			draw_text_transformed(hoverMenu_columnThreeX,		hoverMenu_rowThreeY,	"WATER", 0.5, 0.5, 0);
 			
 			// draw storm
-			draw_text(hoverMenu_stormX,		hoverMenu_stormY,	"storm: " + string(hs.currentStorm));
+			draw_text_transformed(hoverMenu_columnFourX,		hoverMenu_rowOneY,	"STORM", 0.5, 0.5, 0);
 			
 			// draw earth
-			draw_text(hoverMenu_earthX,		hoverMenu_earthY,	"earth: " + string(hs.currentEarth));
+			draw_text_transformed(hoverMenu_columnFourX,		hoverMenu_rowThreeY,	"EARTH", 0.5, 0.5, 0);
 		}
 	#endregion
 	

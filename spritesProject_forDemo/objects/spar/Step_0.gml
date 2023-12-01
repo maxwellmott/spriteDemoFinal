@@ -18,29 +18,29 @@ switch (sparPhase) {
 		// use a switch statement to manage all selectionPhases
 		switch(selectionPhase) {
 			case selectionPhases.ally:
-				msg = "Select a sprite to command";
+				selectionMsg = "Select a sprite to command";
 			break;
 			
 			case selectionPhases.action:
-				msg = "What should " + player.selectedAlly.name + " do this turn?";
+				selectionMsg = "What should " + player.selectedAlly.name + " do this turn?";
 				create_once(x, y, LAYER.meta, sparActionMenu);
 			break;
 			
 			case selectionPhases.target:
 				var a = global.action;
 				
-				// switch statement to set msg text
+				// switch statement to set selectionMsg text
 				switch(a) {
 					case sparActions.attack:
-						msg = "Select a sprite within range to target with a basic attack";
+						selectionMsg = "Select a sprite within range to target with a basic attack";
 					break;
 					
 					case sparActions.spell:
-						msg = "Select a sprite within range to target with a spell";
+						selectionMsg = "Select a sprite within range to target with a spell";
 					break;
 					
 					case sparActions.swap:
-						msg = "Select the sprite with whom " + player.selectedAlly.name + " should swap";
+						selectionMsg = "Select the sprite with whom " + player.selectedAlly.name + " should swap";
 					break;
 				}
 				

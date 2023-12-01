@@ -82,52 +82,43 @@ enum sparActions {
 // switch global.roomBuilt to true to end transition
 global.roomBuilt = true;
 
-// initialize messageX and messageY
-messageX = guiWidth / 2;
-messageY = (guiHeight / 2) - 11;
+// initialize selectionMsgX and selectionMsgY
+selectionMsgX = guiWidth / 2;
+selectionMsgY = (guiHeight / 2) - 11;
 
-// initialize message
-msg = "";
+// initialize selectionMsg
+selectionMsg = "";
 
 // if global.arena is not -1, perform an arena change
 
 // initialize turnGrid
 turnGrid = ds_grid_create(3, 8);
 
-#region HOVER MENU POSITION
-hoverMenuX			= -1;
-hoverMenuY			= -1;
-					
-hoverMenu_nameX		= -1;
-hoverMenu_nameY		= -1;
+// initialize sparMsg
+sparMsg = "";
 
-hoverMenu_alignX	= -1;
-hoverMenu_alignY	= -1;
+// initialize sparMsgX and sparMsgY
+sparMsgX = guiWidth / 2;
+sparMsgY = guiHeight / 2;
 
-hoverMenu_powerX	= -1;
-hoverMenu_powerY	= -1;
-					
-hoverMenu_resistX	= -1;
-hoverMenu_resistY	= -1;
-					
-hoverMenu_agilityX	= -1;
-hoverMenu_agilityY	= -1;
-					
-hoverMenu_luckX		= -1;
-hoverMenu_luckY		= -1;
-					
-hoverMenu_sizeX		= -1;
-hoverMenu_sizeY		= -1;
-					
-hoverMenu_fireX		= -1;
-hoverMenu_fireY		= -1;
-					
-hoverMenu_waterX	= -1;
-hoverMenu_waterY	= -1;
-					
-hoverMenu_stormX	= -1;
-hoverMenu_stormY	= -1;
-					
-hoverMenu_earthX	= -1;
-hoverMenu_earthY	= -1;
+#region HOVER MENU POSITIONS
+hoverMenu_nameplateX	= 45;
+hoverMenu_nameplateY	= sparMsgY - 9;
+						
+hoverMenu_alignmentX	= 5;
+hoverMenu_alignmentY	= sparMsgY + 3;
+
+hoverMenu_sizeX			= hoverMenu_alignmentX;
+hoverMenu_sizeY			= hoverMenu_alignmentY + 7;
+
+hoverMenu_columnOneX	= 111;
+hoverMenu_columnTwoX	= hoverMenu_columnOneX + 39;
+hoverMenu_columnThreeX	= hoverMenu_columnTwoX + 39;
+hoverMenu_columnFourX	= hoverMenu_columnThreeX + 39;
+
+hoverMenu_rowOneY		= sparMsgY - 10;
+hoverMenu_rowTwoY		= hoverMenu_rowOneY + 7;
+hoverMenu_rowThreeY		= hoverMenu_rowTwoY + 7;
+hoverMenu_rowFourY		= hoverMenu_rowThreeY + 7;
+
 #endregion
