@@ -55,6 +55,6 @@ if (room == scalingRoom) {
 	room_goto(rm_gameStart);	
 }
 
-if (keyboard_check_direct(vk_shift)) debugDraw = !debugDraw;
+if global.overworld && (keyboard_check_direct(vk_shift)) debugDraw = !debugDraw;
 
 //if !(global.gameTime mod 16)	drawNums = string(fps_real);

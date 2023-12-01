@@ -137,9 +137,9 @@ spellBook = ds_list_create();
 selectedAlly = noone;
 
 // initialize hindrances
-miasma	= true;
-hum		= true;
-rust	= true;
+miasma	= false;
+hum		= false;
+rust	= false;
 
 // initialize hindrance indicator positions
 miasmaX = 8;
@@ -149,3 +149,9 @@ rustX	= 40;
 miasmaY = guiHeight - 8;
 humY	= guiHeight - 8;
 rustY	= guiHeight - 8;
+
+// initialize spellCount
+spellCount = 8;
+
+// initialize spellBookGrid
+spellBookGrid = ds_grid_create(SPELL_PARAMS.height, spellCount);

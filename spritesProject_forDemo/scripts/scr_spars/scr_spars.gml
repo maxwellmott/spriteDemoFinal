@@ -1,4 +1,15 @@
-global.arena = -1;
+global.hoverSprite		= -1;
+global.arena			= -1;
+global.targetRange		= -1;
+global.action			= -1;
+global.selectedSpell	= -1;
+
+enum ranges {
+	nearestOne,
+	nearestThree,
+	anyone,
+	height
+}
 
 enum arenas {
 	volcano,
@@ -243,8 +254,37 @@ function averageList_populate(_sprite) {
 }
 
 function spar_set_action() {
-	sprite.selectedAction = action;
-	spar.selectionPhase = selectionPhases.target;
+	global.action = action;
+	
+	switch (action) {
+		case sparActions.attack:
+			global.targetRange = ranges.nearestThree;
+			spar.selectionPhase = selectionPhases.target;
+		break;
+		
+		case sparActions.spell:
+		break;
+		
+		case sparActions.dodge:
+			sprite.selectedTarget = -1;
+			sprite.selectedAction = action;
+			sprite.turnReady = true;
+			spar.selectionPhase = selectionPhases.ally;
+		break;
+		
+		case sparActions.swap:
+			global.targetRange = ranges.anyone;
+			spar.selectionPhase = selectionPhases.target;
+		break;
+		
+		case sparActions.rest:
+			sprite.selectedTarget = -1;
+			sprite.selectedAction = action;
+			sprite.turnReady = true;
+			spar.selectionPhase = selectionPhases.ally;
+		break;
+	}
+
 	instance_destroy(sparActionMenu);
 }
 
@@ -275,4 +315,22 @@ function enemyAI_set_team() {
 	team[|1] = real(roster[|1]);
 	team[|2] = real(roster[|2]);
 	team[|3] = real(roster[|3]);
+}
+
+///@desc This function is called when the player hits the "READY" button
+/// after selecting an action and target for each of their allies. It places
+/// each of those selections on the turnGrid.
+function player_submit_turn() {
+	var i = 0;	repeat (4) {
+		// get sprite
+		var inst = spar.allyList[| i];
+		
+		// add info to grid
+		spar.turnGrid[# selectionPhases.ally,	inst.spotNum]	= inst.spotNum;
+		spar.turnGrid[# selectionPhases.action,	inst.spotNum]	= inst.selectedAction;
+		spar.turnGrid[# selectionPhases.target,	inst.spotNum]	= inst.selectedTarget;
+		
+		// increment i
+		i++;
+	}
 }

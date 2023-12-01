@@ -1308,21 +1308,43 @@ function sprite_load_parameters() {
 	// use sprite grid to get parameters
 	name				= grid[# SPRITE_PARAMS.name,			spriteID];
 	sprite				= real(grid[# SPRITE_PARAMS.sprite,		spriteID]);
-	alignment			= real(grid[# SPRITE_PARAMS.alignment,	spriteID]);
+	baseAlign			= real(grid[# SPRITE_PARAMS.alignment,	spriteID]);
 	var spellString		= grid[# SPRITE_PARAMS.spells,			spriteID];
-	attack				= real(grid[# SPRITE_PARAMS.power,		spriteID]);
-	resistance			= real(grid[# SPRITE_PARAMS.resistance,	spriteID]);
-	fire				= real(grid[# SPRITE_PARAMS.fire,		spriteID]);
-	water				= real(grid[# SPRITE_PARAMS.water,		spriteID]);
-	storm				= real(grid[# SPRITE_PARAMS.storm,		spriteID]);
-	earth				= real(grid[# SPRITE_PARAMS.earth,		spriteID]);
-	agility				= real(grid[# SPRITE_PARAMS.agility,	spriteID]);
-	luck				= real(grid[# SPRITE_PARAMS.luck,		spriteID]);
-	size				= real(grid[# SPRITE_PARAMS.size,		spriteID]);
+	basePower			= real(grid[# SPRITE_PARAMS.power,		spriteID]);
+	baseResistance		= real(grid[# SPRITE_PARAMS.resistance,	spriteID]);
+	baseFire			= real(grid[# SPRITE_PARAMS.fire,		spriteID]);
+	baseWater			= real(grid[# SPRITE_PARAMS.water,		spriteID]);
+	baseStorm			= real(grid[# SPRITE_PARAMS.storm,		spriteID]);
+	baseEarth			= real(grid[# SPRITE_PARAMS.earth,		spriteID]);
+	baseAgility			= real(grid[# SPRITE_PARAMS.agility,	spriteID]);
+	baseLuck			= real(grid[# SPRITE_PARAMS.luck,		spriteID]);
+	baseSize			= real(grid[# SPRITE_PARAMS.size,		spriteID]);
 	
 	// decode spell list
 	decode_list(spellString, usable_spells);
 	
 	// delete sprite grid
 	ds_grid_destroy(grid);
+}
+
+function sprite_get_alignment_string(_alignment) {
+	var a = _alignment;
+	
+	switch (a) {
+		case ALIGNMENTS.astral:		return "ASTRAL";
+		case ALIGNMENTS.mechanical:	return "MECHANICAL";
+		case ALIGNMENTS.natural:	return "NATURAL";
+	}
+}
+
+function sprite_get_size_string(_size) {
+	var s = _size;
+	
+	switch (s) {
+		case spriteSizes.xSmall:	return "X-SMALL";
+		case spriteSizes.small:		return "SMALL";
+		case spriteSizes.medium:	return "MEDIUM";
+		case spriteSizes.large:		return "LARGE";
+		case spriteSizes.xLarge:	return "X-LARGE";
+	}
 }

@@ -49,3 +49,9 @@ rustX	= guiWidth - 8;
 miasmaY	= 8;
 humY	= 8;
 rustY	= 8;
+
+// initialize spellCount
+spellCount = 8;
+
+// initialize spellBookGrid
+spellBookGrid = ds_grid_create(SPELL_PARAMS.height, spellCount);

@@ -72,3 +72,13 @@ enum SPELLS {
 	height 
 	
 }
+	
+enum SPELL_PARAMS {
+	ID,
+	name,
+	description,
+	element,
+	power,
+	range,
+	height
+}

@@ -7,8 +7,6 @@ y = room_height / 2;
 
 fadeRate = 0.5;
 
-idle = false;
-
 alpha = 1.0;
 
 frame = 0;
@@ -16,4 +14,4 @@ frame = 0;
 xPrev = 0;
 yPrev = 0;
 
-asleep = false;
+idle = false;

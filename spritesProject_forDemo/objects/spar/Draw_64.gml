@@ -6,10 +6,6 @@ draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
 draw_set_color(c_black);
 
-with (mouse) {
-	event_perform(ev_gui, 1);	
-}
-
 // set surface to GUI
 surface_set_target(game.guiSurface);
 	// draw background
@@ -100,7 +96,54 @@ surface_set_target(game.guiSurface);
 	
 	#endregion
 	
+	#region HOVER MENU
+		if (global.hoverSprite != -1) {
+			var hs = global.hoverSprite;
+			
+			// draw hoverMenu sprite
+			draw_sprite(spr_sparHoverMenu, 0, hoverMenuX, hoverMenuY);
+			
+			// draw name
+			draw_text(hoverMenu_nameX,		hoverMenu_nameY,	"name: " + hs.name);
+			
+			// draw alignment
+			draw_text(hoverMenu_alignX,		hoverMenu_alignY,	"alignment: " + sprite_get_alignment_string(hs.currentAlign));
+			
+			// draw size
+			draw_text(hoverMenu_sizeX,		hoverMenu_sizeY,	"size: " + sprite_get_size_string(hs.currentSize));
+			
+			// draw power
+			draw_text(hoverMenu_powerX,		hoverMenu_powerY,	"power: " + string(hs.currentPower));
+			
+			// draw resistance
+			draw_text(hoverMenu_resistX,	hoverMenu_resistY,	"resistance: " + string(hs.currentResist));
+			
+			// draw agility
+			draw_text(hoverMenu_agilityX,	hoverMenu_agilityY,	"agility: " + string(hs.currentAgility));
+			
+			// draw luck
+			draw_text(hoverMenu_luckX,		hoverMenu_luckY,	"luck: " + string(hs.currentLuck));
+			
+			// draw fire
+			draw_text(hoverMenu_fireX,		hoverMenu_fireY,	"fire: " + string(hs.currentFire));
+			
+			// draw water
+			draw_text(hoverMenu_waterX,		hoverMenu_waterY,	"water: " + string(hs.currentWater));
+			
+			// draw storm
+			draw_text(hoverMenu_stormX,		hoverMenu_stormY,	"storm: " + string(hs.currentStorm));
+			
+			// draw earth
+			draw_text(hoverMenu_earthX,		hoverMenu_earthY,	"earth: " + string(hs.currentEarth));
+		}
+	#endregion
+	
 	// draw spell FX
 	
 // reset surface
 surface_reset_target();
+
+// call mouse draw event to draw mouse
+with (mouse) {
+	event_perform(ev_gui, 1);	
+}

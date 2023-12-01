@@ -15,6 +15,7 @@ switch (sparPhase) {
 	break;
 	
 	case sparPhases.select:
+		// use a switch statement to manage all selectionPhases
 		switch(selectionPhase) {
 			case selectionPhases.ally:
 				msg = "Select a sprite to command";
@@ -26,23 +27,26 @@ switch (sparPhase) {
 			break;
 			
 			case selectionPhases.target:
-				var a = player.selectedAlly.selectedAction;
+				var a = global.action;
 				
+				// switch statement to set msg text
 				switch(a) {
 					case sparActions.attack:
+						msg = "Select a sprite within range to target with a basic attack";
 					break;
 					
 					case sparActions.spell:
-					break;
-					
-					case sparActions.dodge:
+						msg = "Select a sprite within range to target with a spell";
 					break;
 					
 					case sparActions.swap:
+						msg = "Select the sprite with whom " + player.selectedAlly.name + " should swap";
 					break;
-					
-					case sparActions.rest:
-					break;
+				}
+				
+				// handle backspace input
+				if (global.back) {
+					selectionPhase = selectionPhases.action;
 				}
 			break;
 		}

@@ -26,7 +26,9 @@ if (spar.sparPhase == sparPhases.select) {
 			// if player clicks on sprite, set sprite as target
 			if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 				if (global.click) {
-					player.selectedAlly.target = id;	
+					player.selectedAlly.selectedAction = global.action;
+					player.selectedAlly.selectedTarget = spotNum;
+					player.selectedAlly.turnReady = true;
 					spar.selectionPhase = selectionPhases.ally;
 				}
 			}

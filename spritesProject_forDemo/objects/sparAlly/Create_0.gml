@@ -33,24 +33,32 @@ usable_spells = ds_list_create();
 // initialize ability
 ability = noone;
 
-// initialize alignment
-alignment = -1;
-
-// initialize size
-size = -1;
-
-// initialize stats
-attack	= -1;
-resist	= -1;
-agility = -1;
-luck	= -1;
-fire	= -1;
-water	= -1;
-storm	= -1;
-earth	= -1;
+// initialize base stats
+basePower	= -1;
+baseResist	= -1;
+baseAgility = -1;
+baseLuck	= -1;
+baseFire	= -1;
+baseWater	= -1;
+baseStorm	= -1;
+baseEarth	= -1;
+baseSize	= -1;
+baseAlign	= -1;
 
 // load sprite parameters
 sprite_load_parameters();
+
+// initialize current stats
+currentPower	= basePower;
+currentResist	= baseResist;
+currentAgility	= baseAgility;
+currentLuck		= baseLuck;
+currentFire		= baseFire;
+currentWater	= baseWater;
+currentStorm	= baseStorm;
+currentEarth	= baseEarth;
+currentSize		= baseSize;
+currentAlign	= baseAlign;
 
 // initialize mindset (set to 0 since negative IDs= curses)
 mindset = 0;
@@ -58,9 +66,6 @@ mindset = 0;
 // initialize bound and hexed
 bound = false;
 hexed = false;
-
-// set sprite_index as sprite
-sprite_index = sprite;
 
 // initialize selectedTarget and selectedAction
 selectedTarget = -1;
@@ -80,3 +85,6 @@ boundX		= x + 16;
 boundY		= guiHeight - 88;
 hexedY		= guiHeight - 88;
 mindsetY	= guiHeight - 88;
+
+// intitialize turnReady
+turnReady = false;

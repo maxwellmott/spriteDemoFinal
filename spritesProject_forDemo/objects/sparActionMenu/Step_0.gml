@@ -21,6 +21,7 @@ if (global.menu_left) {
 
 // handle backspace input
 if (global.back) {
+	player.selectedAlly = -1;
 	spar.selectionPhase = selectionPhases.ally;
 	instance_destroy(self);
 }
