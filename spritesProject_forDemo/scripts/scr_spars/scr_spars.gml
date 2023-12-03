@@ -5,9 +5,14 @@ global.action			= -1;
 global.selectedSpell	= -1;
 
 enum ranges {
-	nearestOne,
-	nearestThree,
-	anyone,
+	nearestOneEnemy,
+	nearestTwoAllies,
+	nearestThreeSprites,
+	nearestThreeEnemies,
+	nearestFiveSprites,
+	anyEnemy,
+	anyAlly,
+	anySprite,
 	height
 }
 
@@ -253,12 +258,12 @@ function averageList_populate(_sprite) {
 	global.averageList[|elements.height] = avgPhys;
 }
 
-function spar_set_action() {
+function spar_set_action() {	
 	global.action = action;
 	
 	switch (action) {
 		case sparActions.attack:
-			global.targetRange = ranges.nearestThree;
+			global.targetRange = ranges.nearestFiveSprites;
 			spar.selectionPhase = selectionPhases.target;
 		break;
 		
@@ -273,7 +278,7 @@ function spar_set_action() {
 		break;
 		
 		case sparActions.swap:
-			global.targetRange = ranges.anyone;
+			global.targetRange = ranges.anyAlly;
 			spar.selectionPhase = selectionPhases.target;
 		break;
 		
@@ -284,6 +289,8 @@ function spar_set_action() {
 			spar.selectionPhase = selectionPhases.ally;
 		break;
 	}
+	
+	inRangeSprites_rebuild(sprite, global.targetRange);
 
 	instance_destroy(sparActionMenu);
 }
@@ -332,5 +339,120 @@ function player_submit_turn() {
 		
 		// increment i
 		i++;
+	}
+}
+
+function inRangeSprites_rebuild(_sprite, _range) {
+	var s = _sprite;
+	var r = _range;
+	var spot = s.spotNum;
+	
+	ds_list_clear(spar.inRangeSprites);
+	
+	switch (r) {
+		case ranges.nearestOneEnemy:
+			spar.inRangeSprites[| 0] = spar.spriteList[| 7 - spot];
+		break;
+		
+		case ranges.nearestTwoAllies:
+			if (spot == 0) {
+				spar.inRangeSprites[| 0] = spar.spriteList[| 1];
+			}
+			
+			else if (spot == 3) {
+				spar.inRangeSprites[| 0] = spar.spriteList[| 2];
+			}
+			
+			else {
+				spar.inRangeSprites[| 0] = spot - 1;
+				spar.inRangeSprites[| 1] = spot + 2;
+			}
+		break;
+		
+		case ranges.nearestThreeSprites:
+			if (spot == 0) {
+				spar.inRangeSprites[| 0] = spar.spriteList[| 1];
+				spar.inRangeSprites[| 1] = spar.spriteList[| 7 - spot];
+			}
+			
+			else if (spot == 3) {
+				spar.inRangeSprites[| 0] = spar.spriteList[| 2];
+				spar.inRangeSprites[| 1] = spar.spriteList[| 7 - spot];
+			}
+			
+			else {
+				spar.inRangeSprites[| 0] = spar.spriteList[| spot - 1];
+				spar.inRangeSprites[| 1] = spar.spriteList[| spot + 1];
+				spar.inRangeSprites[| 2] = spar.spriteList[| 7 - spot];
+			}
+		break;
+		
+		case ranges.nearestThreeEnemies:
+			if (spot == 0) {
+				spar.inRangeSprites[| 0] = spar.spriteList[| 7 - spot];
+				spar.inRangeSprites[| 1] = spar.spriteList[| 7 - spot - 1];
+			}
+			
+			else if (spot == 3) {
+				spar.inRangeSprites[| 0] = spar.spriteList[| 7 - spot];
+				spar.inRangeSprites[| 1] = spar.spriteList[| 7 - spot + 1];				
+			}
+			
+			else {
+				spar.inRangeSprites[| 0] = spar.spriteList[| 7 - spot + 1];
+				spar.inRangeSprites[| 1] = spar.spriteList[| 7 - spot];
+				spar.inRangeSprites[| 2] = spar.spriteList[| 7 - spot - 1];
+			}
+		break;
+		
+		case ranges.nearestFiveSprites:
+			if (spot == 0) {
+				spar.inRangeSprites[| 0] = spar.spriteList[| 1];
+				spar.inRangeSprites[| 1] = spar.spriteList[| 7 - spot];
+				spar.inRangeSprites[| 2] = spar.spriteList[| 7 - spot - 1];
+			}
+			
+			else if (spot == 3) {
+				spar.inRangeSprites[| 0] = spar.spriteList[| 2];
+				spar.inRangeSprites[| 1] = spar.spriteList[| 7 - spot + 1];
+				spar.inRangeSprites[| 2] = spar.spriteList[| 7 - spot];
+			}
+			
+			else {
+				spar.inRangeSprites[| 0] = spar.spriteList[| spot + 1];
+				spar.inRangeSprites[| 1] = spar.spriteList[| spot - 1];
+				spar.inRangeSprites[| 2] = spar.spriteList[| 7 - spot + 1];
+				spar.inRangeSprites[| 3] = spar.spriteList[| 7 - spot];
+				spar.inRangeSprites[| 4] = spar.spriteList[| 7 - spot - 1];				
+			}
+		break;
+		
+		case ranges.anyEnemy:
+			var i = 4;	repeat (4) {
+				spar.inRangeSprites[| i - 4] = spar.spriteList[| i];
+				
+				i++;
+			}
+		break;
+		
+		case ranges.anyAlly:
+			var i = 0;	repeat (4) {
+				if (spot != i) {
+					ds_list_add(spar.inRangeSprites, spar.spriteList[| i]);
+				}
+				
+				i++;
+			}
+		break;
+		
+		case ranges.anySprite:
+			var i = 0;	repeat (8) {
+				if (spot != i) {
+					ds_list_add(spar.inRangeSprites, spar.spriteList[| i]);
+				}
+				
+				i++;
+			}
+		break;
 	}
 }

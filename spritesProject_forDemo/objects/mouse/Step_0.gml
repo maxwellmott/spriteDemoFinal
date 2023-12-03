@@ -11,6 +11,11 @@ if (instance_exists(spar)) {
 		var inst = spar.spriteList[| i];
 		
 		if (collision_rectangle(inst.bbLeft, inst.bbTop, inst.bbRight, inst.bbBottom, mouse, false, false)) {
+			// if the player is selecting anything but a target, change frame to magnifying glass
+			if (spar.selectionPhase != -1) 
+			&& (spar.selectionPhase != selectionPhases.action) 
+				frame = 2;
+			
 			global.hoverSprite = inst;
 			hvrSet = true;
 			break;
@@ -24,7 +29,23 @@ if (instance_exists(spar)) {
 	// reset hoverSprite to -1
 	if !(hvrSet)
 	&& (global.hoverSprite != -1) {
+		frame = 0;
 		global.hoverSprite = -1;	
+	}
+	
+	// check if hoverSprite is currently set
+	if (global.hoverSprite != -1) {
+		// check if player is selecting a target
+		if (spar.selectionPhase == selectionPhases.target) {
+			// check if hoverSprite is on the list of out of range spots
+			if (ds_list_find_index(spar.inRangeSprites, global.hoverSprite) == -1) {
+				// check if frame is less than 3
+				if (frame < 3) {
+					// if so, add 3 to frame
+					frame += 3;
+				}
+			}
+		}
 	}
 }
 

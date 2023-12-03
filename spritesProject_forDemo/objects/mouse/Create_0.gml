@@ -1,6 +1,6 @@
 /// @desc
 
-depth = LAYER.mouse;
+depth = get_layer_depth(LAYER.mouse) - 1;
 
 x = room_width / 2;
 y = room_height / 2;

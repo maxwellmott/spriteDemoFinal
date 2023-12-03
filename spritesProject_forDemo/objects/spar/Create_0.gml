@@ -103,7 +103,7 @@ sparMsgY = guiHeight / 2;
 
 #region HOVER MENU POSITIONS
 hoverMenu_nameplateX	= 45;
-hoverMenu_nameplateY	= sparMsgY - 9;
+hoverMenu_nameplateY	= sparMsgY - 8;
 						
 hoverMenu_alignmentX	= 5;
 hoverMenu_alignmentY	= sparMsgY + 3;
@@ -116,9 +116,11 @@ hoverMenu_columnTwoX	= hoverMenu_columnOneX + 39;
 hoverMenu_columnThreeX	= hoverMenu_columnTwoX + 39;
 hoverMenu_columnFourX	= hoverMenu_columnThreeX + 39;
 
-hoverMenu_rowOneY		= sparMsgY - 10;
+hoverMenu_rowOneY		= sparMsgY - 11
 hoverMenu_rowTwoY		= hoverMenu_rowOneY + 7;
 hoverMenu_rowThreeY		= hoverMenu_rowTwoY + 7;
 hoverMenu_rowFourY		= hoverMenu_rowThreeY + 7;
 
 #endregion
+
+inRangeSprites = ds_list_create();
