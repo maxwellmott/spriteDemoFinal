@@ -1,5 +1,7 @@
 /// @desc
 
+depth = get_layer_depth(LAYER.ui);
+
 // make sure mouse object exists
 if !(instance_exists(mouse)) {
 	instance_create_depth(guiWidth / 2, guiHeight / 2, get_layer_depth(LAYER.mouse), mouse);	

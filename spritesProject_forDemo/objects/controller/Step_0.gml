@@ -4,6 +4,7 @@
 switch(global.controllerType) {
 	
 	case controllerTypes.gamepad:
+		global.shift		=	gamepad_button_check(0, gp_shoulderlb);
 		global.click		=	gamepad_button_check_released(0, gp_stickr);
 		global.select		=	gamepad_button_check_released(0, gp_face1);
 		global.back			=	gamepad_button_check_released(0, gp_face2);
@@ -49,6 +50,7 @@ switch(global.controllerType) {
 			}
 		}
 		
+		global.shift		=	keyboard_check_direct(vk_shift);
 		global.click		=	device_mouse_check_button_released(0, mb_any);
 		global.back			=	keyboard_check_released(vk_backspace);
 		global.start		=	keyboard_check_released(vk_space);

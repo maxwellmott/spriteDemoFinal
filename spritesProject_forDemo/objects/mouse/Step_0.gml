@@ -1,24 +1,23 @@
 /// @desc
+hvrSet = false;
 
 // check if spar is active
 if (instance_exists(spar)) {
 	var count = ds_list_size(spar.spriteList);
-	
-	var hvrSet = false;
 	
 	var i = 0; repeat (count) {
 		// get sprite
 		var inst = spar.spriteList[| i];
 		
 		if (collision_rectangle(inst.bbLeft, inst.bbTop, inst.bbRight, inst.bbBottom, mouse, false, false)) {
-			// if the player is selecting anything but a target, change frame to magnifying glass
-			if (spar.selectionPhase != -1) 
-			&& (spar.selectionPhase != selectionPhases.action) 
-				frame = 2;
-			
-			global.hoverSprite = inst;
-			hvrSet = true;
-			break;
+			if (spar.selectionPhase == selectionPhases.ally) 
+			|| (spar.selectionPhase == selectionPhases.target) {
+				if (global.shift) frame = 2;
+				
+				global.hoverSprite = inst;
+				hvrSet = true;
+				break;
+			}
 		}
 		
 		// increment i
@@ -74,9 +73,25 @@ else {
 }
 
 // turn to idle
-if ((alarm[0] == -1) and (x == xPrev) and (y == yPrev)) {
-	alarm[0] = 60;	
+if ((alarm[0] == -1) && (x == xprevious) && (y == yprevious)) {
+	alarm[0] = 120;	
 }
+
+// turn back from idle
+if (alarm[0] != -1) {
+	if (x != xprevious) || (y != yprevious) {
+		alarm[0] = -1;
+		idle = false;
+	}
+}
+
+// if inspecting during a spar, turn back from idle
+if instance_exists(spar)
+&& global.shift {
+	alarm[0] = -1;
+	idle = false;	
+}
+
 
 // manage click animation
 if ((alarm[1] == -1) and (global.click > 0)) {
