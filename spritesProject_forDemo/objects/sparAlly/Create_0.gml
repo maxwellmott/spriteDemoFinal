@@ -88,3 +88,9 @@ mindsetY	= guiHeight - 88;
 
 // intitialize turnReady
 turnReady = false;
+
+// initialize readyDisplay
+readyDisplay = "";
+
+// initialize readyDisplayBuilt
+readyDisplayBuilt = false;

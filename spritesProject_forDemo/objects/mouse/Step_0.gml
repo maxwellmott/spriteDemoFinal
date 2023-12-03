@@ -13,6 +13,7 @@ if (instance_exists(spar)) {
 			if (spar.selectionPhase == selectionPhases.ally) 
 			|| (spar.selectionPhase == selectionPhases.target) {
 				if (global.shift) frame = 2;
+				else frame = 0;
 				
 				global.hoverSprite = inst;
 				hvrSet = true;

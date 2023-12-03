@@ -1,5 +1,7 @@
 /// @desc
 
+ready = false;
+
 // inherit human create event
 event_inherited();
 

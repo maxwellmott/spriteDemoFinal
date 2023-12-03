@@ -456,3 +456,49 @@ function inRangeSprites_rebuild(_sprite, _range) {
 		break;
 	}
 }
+
+function check_all_allies_ready() {
+	var readyBool = true;
+	
+	var i = 0;	repeat (ds_list_size(allyList)) {
+		if (allyList[| i].selectedAction == -1) readyBool = false;
+		i++;
+	}
+	
+	return readyBool;
+}
+	
+function sprite_build_ready_display() {
+	var targName = "";
+	if selectedTarget != -1 {
+		targName = spar.spriteList[| selectedTarget].name;
+	}
+	
+	var spriteWidth = sprite_get_width(spr_readyDisplayBox);
+	
+	switch (selectedAction) {
+		case sparActions.attack:
+			var substring = "READY TO ATTACK " + targName;
+			readyDisplay = format_text(substring, spriteWidth - 6);
+		break;
+		
+		case sparActions.dodge:
+		break;
+		
+		case sparActions.swap:
+		break;
+		
+		case sparActions.rest:
+		break;
+	}
+	
+	readyDisplayBuilt = true;
+}
+
+function spar_set_target() {
+	player.selectedAlly.readyDisplayBuilt = false;
+	player.selectedAlly.selectedAction = global.action;
+	player.selectedAlly.selectedTarget = spotNum;
+	player.selectedAlly.turnReady = true;
+	spar.selectionPhase = selectionPhases.ally;
+}

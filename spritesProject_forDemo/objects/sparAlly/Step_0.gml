@@ -26,12 +26,22 @@ if (spar.sparPhase == sparPhases.select) {
 			// if player clicks on sprite, set sprite as target
 			if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 				if (global.click) {
-					player.selectedAlly.selectedAction = global.action;
-					player.selectedAlly.selectedTarget = spotNum;
-					player.selectedAlly.turnReady = true;
-					spar.selectionPhase = selectionPhases.ally;
+					spar_set_target();
 				}
 			}
 		}
 	}
+}
+
+// check if selectedTarget is set
+if (selectedTarget != -1) {
+	// check if readyDisplay has been built
+	if !(readyDisplayBuilt) {
+		// if not, build readyDisplay
+		sprite_build_ready_display();
+	}
+}
+
+if (spar.sparPhase == sparPhases.process) {
+	readyDisplayBuilt = false;	
 }

@@ -18,11 +18,23 @@ switch (sparPhase) {
 		// use a switch statement to manage all selectionPhases
 		switch(selectionPhase) {
 			case selectionPhases.ally:
+				// set selection message
 				selectionMsg = "Select a sprite to command";
+				
+				// create ready button if all sprites are ready
+				if check_all_allies_ready() {
+					create_once(0, 0, LAYER.ui, sparReadyButton);	
+				}
 			break;
 			
 			case selectionPhases.action:
+				// destroy readyButton if it exists
+				destroy_if_possible(sparReadyButton);
+				
+				// set selection message
 				selectionMsg = "What should " + player.selectedAlly.name + " do this turn?";
+				
+				// create action menu
 				create_once(x, y, LAYER.meta, sparActionMenu);
 			break;
 			
@@ -49,6 +61,18 @@ switch (sparPhase) {
 					selectionPhase = selectionPhases.action;
 				}
 			break;
+		}
+			
+		if (player.ready) {
+			destroy_if_possible(sparReadyButton);
+			
+			switch (global.sparType) {
+				case sparTypes.inGame:
+					sparPhase = sparPhases.process;
+				break;
+			}
+			
+			selectionMsg = "Waiting for the other player...";
 		}
 	break;
 	
