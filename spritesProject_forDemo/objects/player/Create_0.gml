@@ -157,3 +157,6 @@ spellCount = 8;
 
 // initialize spellBookGrid
 spellBookGrid = ds_grid_create(SPELL_PARAMS.height, spellCount);
+
+// initialize enemy
+enemy = noone;

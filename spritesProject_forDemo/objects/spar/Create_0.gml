@@ -27,6 +27,10 @@ switch (global.sparType) {
 	break;
 }
 
+// set enemy for each player
+playerOne.enemy = playerTwo;
+playerTwo.enemy = playerOne;
+
 // create all allies and enemies
 repeat (4) {
 	instance_create_depth(0, 0, get_layer_depth(LAYER.meta), sparAlly);

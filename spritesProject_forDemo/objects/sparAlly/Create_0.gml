@@ -94,3 +94,6 @@ readyDisplay = "";
 
 // initialize readyDisplayBuilt
 readyDisplayBuilt = false;
+
+// initialize enemy
+enemy = player.enemy;
