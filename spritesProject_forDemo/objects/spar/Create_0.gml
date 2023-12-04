@@ -95,10 +95,19 @@ selectionMsgY = (guiHeight / 2) - 11;
 // initialize selectionMsg
 selectionMsg = "";
 
-// if global.arena is not -1, perform an arena change
+// set currentArena to global.arena
+currentArena = global.arena
+
+// initialize turnParams
+enum turnParams {
+	actor,
+	action,
+	target,
+	height
+}
 
 // initialize turnGrid
-turnGrid = ds_grid_create(3, 8);
+turnGrid = ds_grid_create(turnParams.height, 8);
 
 // initialize sparMsg
 sparMsg = "";

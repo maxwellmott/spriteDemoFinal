@@ -1,3 +1,4 @@
+// spell ids enum
 enum SPELLS {
 	solarFlare,
 	tidalForce,
@@ -73,12 +74,32 @@ enum SPELLS {
 	
 }
 	
+// spell params enum
 enum SPELL_PARAMS {
 	ID,
-	name,
-	description,
-	element,
-	power,
-	range,
-	height
+	NAME,
+	DESCRIPTION,
+	TYPE,
+	POWER,
+	RANGE,
+	HEIGHT
+}
+
+// create all spell functions
+
+// create spell grid
+
+// spell grid function
+
+// add all spells to grid
+
+// encode spell grid
+
+// delete spell grid
+
+function spell_load_params() {
+	// decode spell grid
+	
+	// use currentSpell to get all params
+	
 }
