@@ -19,8 +19,22 @@ enum SPAR_EFFECTS {
 	TIMED_BLAST_ENEMY,
 	TIMED_BLAST_SELF,
 	TIMED_BLAST_GLOBAL,
-	BESTOW_MINDSET,
-	SHIFT_MINDSET,
+	BESTOW_MINDSET_SELF,
+	BESTOW_MINDSET_TARGET,
+	BESTOW_MINDSET_NEARBY_ALLIES,
+	BESTOW_MINDSET_NEARBY_ENEMIES,
+	BESTOW_MINDSET_ALL_NEARBY,
+	BESTOW_MINDSET_ALL_ALLIES,
+	BESTOW_MINDSET_ALL_ENEMIES,
+	BESTOW_MINDSET_GLOBAL,
+	SHIFT_MINDSET_SELF,
+	SHIFT_MINDSET_TARGET,
+	SHIFT_MINDSET_NEARBY_ALLIES,
+	SHIFT_MINDSET_NEARBY_ENEMIES,
+	SHIFT_MINDSET_ALL_NEARBY,
+	SHIFT_MINDSET_ALL_ALLIES,
+	SHIFT_MINDSET_ALL_ENEMIES,
+	SHIFT_MINDSET_GLOBAL,
 	COPY_MINDSET,
 	STEAL_MP,
 	STEAL_HP,
@@ -64,40 +78,87 @@ enum SPAR_EFFECTS {
 	CLEAR_MINDSETS_ALL_NEARBY,
 	CLEAR_MINDSETS_SELF,
 	CLEAR_MINDSETS_GLOBAL,
-	SHIFT_CURSES_NEARBY_ALLIES,
-	SHIFT_CURSES_ALL_NEARBY,
-	SHIFT_CURSES_SELF,
-	SHIFT_CURSES_GLOBAL,
+	BLESS_TO_CURSE_SELF,
+	BLESS_TO_CURSE_TARGET,
+	BLESS_TO_CURSE_NEARBY_ALLIES,
+	BLESS_TO_CURSE_NEARBY_ENEMIES,
+	BLESS_TO_CURSE_ALL_NEARBY,
+	BLESS_TO_CURSE_ALL_ALLIES,
+	BLESS_TO_CURSE_ALL_ENEMIES,
+	BLESS_TO_CURSE_GLOBAL,
+	CURSE_TO_BLESS_SELF,
+	CURSE_TO_BLESS_TARGET,
+	CURSE_TO_BLESS_NEARBY_ALLIES,
+	CURSE_TO_BLESS_NEARBY_ENEMIES,
+	CURSE_TO_BLESS_ALL_NEARBY,
+	CURSE_TO_BLESS_ALL_ALLIES,
+	CURSE_TO_BLESS_ALL_ENEMIES,
+	CURSE_TO_BLESS_GLOBAL,
+	WARRIOR_BLESS_SELF,
+	WARRIOR_BLESS_TARGET,
+	WARRIOR_BLESS_NEARBY_ALLIES,
+	WARRIOR_BLESS_NEARBY_ENEMIES,
+	WARRIOR_BLESS_ALL_NEARBY,
+	WARRIOR_BLESS_ALL_ALLIES,
+	WARRIOR_BLESS_ALL_ENEMIES,
+	WARRIOR_BLESS_GLOBAL,
+	WARRIOR_CURSE_SELF,
+	WARRIOR_CURSE_TARGET,
+	WARRIOR_CURSE_NEARBY_ALLIES,
+	WARRIOR_CURSE_NEARBY_ENEMIES,
+	WARRIOR_CURSE_ALL_NEARBY,
+	WARRIOR_CURSE_ALL_ALLIES,
+	WARRIOR_CURSE_ALL_ENEMIES,
+	WARRIOR_CURSE_GLOBAL,
+	MOTHER_BLESS_SELF,
+	MOTHER_BLESS_TARGET,
+	MOTHER_BLESS_NEARBY_ALLIES,
+	MOTHER_BLESS_NEARBY_ENEMIES,
+	MOTHER_BLESS_ALL_NEARBY,
+	MOTHER_BLESS_ALL_ALLIES,
+	MOTHER_BLESS_ALL_ENEMIES,
+	MOTHER_BLESS_GLOBAL,
+	MOTHER_CURSE_SELF,
+	MOTHER_CURSE_TARGET,
+	MOTHER_CURSE_NEARBY_ALLIES,
+	MOTHER_CURSE_NEARBY_ENEMIES,
+	MOTHER_CURSE_ALL_NEARBY,
+	MOTHER_CURSE_ALL_ALLIES,
+	MOTHER_CURSE_ALL_ENEMIES,
+	MOTHER_CURSE_GLOBAL,
+	TREE_BLESS_SELF,
+	TREE_BLESS_TARGET,
+	TREE_BLESS_NEARBY_ALLIES,
+	TREE_BLESS_NEARBY_ENEMIES,
+	TREE_BLESS_ALL_NEARBY,
+	TREE_BLESS_ALL_ALLIES,
+	TREE_BLESS_ALL_ENEMIES,
+	TREE_BLESS_GLOBAL,
+	TREE_CURSE_SELF,
+	TREE_CURSE_TARGET,
+	TREE_CURSE_NEARBY_ALLIES,
+	TREE_CURSE_NEARBY_ENEMIES,
+	TREE_CURSE_ALL_NEARBY,
+	TREE_CURSE_ALL_ALLIES,
+	TREE_CURSE_ALL_ENEMIES,
+	TREE_CURSE_GLOBAL,
+	IMP_BLESS_SELF,
+	IMP_BLESS_TARGET,
+	IMP_BLESS_NEARBY_ALLIES,
+	IMP_BLESS_NEARBY_ENEMIES,
+	IMP_BLESS_ALL_NEARBY,
+	IMP_BLESS_ALL_ALLIES,
+	IMP_BLESS_ALL_ENEMIES,
+	IMP_BLESS_GLOBAL,
+	IMP_CURSE_SELF,
+	IMP_CURSE_TARGET,
+	IMP_CURSE_NEARBY_ALLIES,
+	IMP_CURSE_NEARBY_ENEMIES,
+	IMP_CURSE_ALL_NEARBY,
+	IMP_CURSE_ALL_ALLIES,
+	IMP_CURSE_ALL_ENEMIES,
+	IMP_CURSE_GLOBAL,
 	HEIGHT
-}
-
-global.argumentList = ds_list_create();
-
-///@desc This function says it only takes one argument (the ID of a function to call),
-/// but it is actually intended to be overloaded. The excess arguments will be placed
-/// on a list called global.argumentList. They will then be gotten from that list by
-/// the function given as the first argument.
-function execute_arguments(_function) {
-	// get the number of arguments
-	var c = argument_count;
-	
-	// clear argumentList just in case
-	ds_list_clear(global.argumentList);
-	
-	// starting at 1 (argument 0 is the function to call)
-	var i = 1;	repeat (c - 1) {
-		// add the next argumetn to the argumentList
-		global.argumentList[| i - 1] = argument[i];
-		
-		// increment i
-		i++;
-	}
-	
-	// call the given function
-	_function();
-	
-	// clear argumentList
-	ds_list_clear(global.argumentList);
 }
 
 function arena_change_volcano() {
@@ -195,11 +256,67 @@ function timed_blast_global() {
 	
 }
 
-function bestow_mindset() {
+function bestow_mindset_self() {
 	
 }
 
-function shift_mindset() {
+function bestow_mindset_target() {
+	
+}
+
+function bestow_mindset_nearby_allies() {
+	
+}
+
+function bestow_mindset_nearby_enemies() {
+	
+}
+
+function bestow_mindset_all_nearby() {
+	
+}
+
+function bestow_mindset_all_allies() {
+	
+}
+
+function bestow_mindset_all_enemies() {
+	
+}
+
+function bestow_mindset_global() {
+	
+}
+
+function shift_mindset_self() {
+	
+}
+
+function shift_mindset_target() {
+	
+}
+
+function shift_mindset_nearby_allies() {
+	
+}
+
+function shift_mindset_nearby_enemies() {
+	
+}
+
+function shift_mindset_all_nearby() {
+	
+}
+
+function shift_mindset_all_allies() {
+	
+}
+
+function shift_mindset_all_enemies() {
+	
+}
+
+function shift_mindset_global() {
 	
 }
 
@@ -375,18 +492,66 @@ function clear_mindsets_global() {
 	
 }
 
-function shift_curses_nearby_allies() {
+function bless_to_curse_self() {
 	
 }
 
-function shift_curses_all_nearby() {
+function bless_to_curse_target() {
 	
 }
 
-function shift_curses_self() {
+function bless_to_curse_nearby_allies() {
 	
 }
 
-function shift_curses_global() {
+function bless_to_curse_nearby_enemies() {
+	
+}
+
+function bless_to_curse_all_nearby() {
+	
+}
+
+function bless_to_curse_all_allies() {
+	
+}
+
+function bless_to_curse_all_enemies() {
+	
+}
+
+function bless_to_curse_global() {
+	
+}
+
+function curse_to_bless_self() {
+	
+}
+
+function curse_to_bless_target() {
+	
+}
+
+function curse_to_bless_nearby_allies() {
+	
+}
+
+function curse_to_bless_nearby_enemies() {
+	
+}
+
+function curse_to_bless_all_nearby() {
+	
+}
+
+function curse_to_bless_all_allies() {
+	
+}
+
+function curse_to_bless_all_enemies() {
+	
+}
+
+function curse_to_bless_global() {
 	
 }

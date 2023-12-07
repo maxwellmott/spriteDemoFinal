@@ -17,5 +17,12 @@ if (currentSpell == -1) {
 	}
 }
 else {
+	// check for dodge
 	
+	// calculate damage
+	
+	// apply damage and change sparMessage
+	
+	// check for effect function
+		// if spell has effect function, call that function
 }

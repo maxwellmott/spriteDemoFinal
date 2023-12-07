@@ -82,16 +82,38 @@ enum SPELL_PARAMS {
 	TYPE,
 	POWER,
 	RANGE,
+	EFFECT,
 	HEIGHT
 }
 
-// create all spell functions
+// declare spell types
+enum SPELL_TYPES {
+	FIRE,
+	WATER,
+	STORM,
+	EARTH,
+	PHYSICAL,
+	TRICK,
+	HEIGHT
+}
+
+// get all text from spell csv
+var textGrid = load_csv("SPELLS_ENGLISH.csv");
 
 // create spell grid
+global.spellGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.height);
 
 // spell grid function
+function master_grid_add_spell(_ID) {
+	var i = 0;	repeat (SPELL_PARAMS.HEIGHT) {
+		global.spellGrid[# i, _ID] = argument[i];
+		
+		i++;
+	}
+}
 
-// add all spells to grid
+// add all spells to grid	ID					NAME								DESCRIPTION							TYPE				POWER	RANGE						EFFECT
+master_grid_add_spell(		SPELLS.solarFlare,	textGrid[# 1, SPELLS.solarFlare],	textGrid[# 1, SPELLS.solarFlare],	SPELL_TYPES.FIRE,	150,	ranges.nearestFiveSprites,	);
 
 // encode spell grid
 

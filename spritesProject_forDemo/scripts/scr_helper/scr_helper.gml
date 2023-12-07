@@ -9,6 +9,35 @@ function execute_return(_fn) {
 	return _fn();
 }
 
+global.argumentList = ds_list_create();
+
+///@desc This function says it only takes one argument (the ID of a function to call),
+/// but it is actually intended to be overloaded. The excess arguments will be placed
+/// on a list called global.argumentList. They will then be gotten from that list by
+/// the function given as the first argument.
+function execute_arguments(_function) {
+	// get the number of arguments
+	var c = argument_count;
+	
+	// clear argumentList just in case
+	ds_list_clear(global.argumentList);
+	
+	// starting at 1 (argument 0 is the function to call)
+	var i = 1;	repeat (c - 1) {
+		// add the next argumetn to the argumentList
+		global.argumentList[| i - 1] = argument[i];
+		
+		// increment i
+		i++;
+	}
+	
+	// call the given function
+	_function();
+	
+	// clear argumentList
+	ds_list_clear(global.argumentList);
+}
+
 function draw_set(_halign, _valign, _alpha, _color) {
 		draw_set_halign(_halign);
 		draw_set_valign(_valign);

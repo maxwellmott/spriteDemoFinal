@@ -209,7 +209,7 @@ function get_interactable() {
 		global.dialogue	= execute_return(interactable.responseFunction);
 		return interactions.talk;
 	}
-	
+
 	// start swimming
 	if !(swimming) 
 	&& (tile_meeting(pointerX, pointerY, tm_water, waterTileChecker)) 
