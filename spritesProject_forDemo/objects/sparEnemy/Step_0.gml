@@ -9,7 +9,11 @@ if (spar.sparPhase == sparPhases.select) {
 		// if player clicks on sprite, set sprite as target
 		if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 			if (global.click) {
-				spar_set_target();
+				if (ds_list_find_index(spar.inRangeSprites, id) != -1){
+					spar_set_target();
+				}
+				
+				// @TODO else, load ERROR sound effect
 			}
 		}
 	}
