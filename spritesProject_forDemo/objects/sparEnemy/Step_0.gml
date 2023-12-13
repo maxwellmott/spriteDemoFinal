@@ -11,6 +11,7 @@ if (spar.sparPhase == sparPhases.select) {
 			if (global.click) {
 				if (ds_list_find_index(spar.inRangeSprites, id) != -1){
 					spar_set_target();
+					spar.selectionPhase = selectionPhases.ally;
 				}
 				
 				// @TODO else, load ERROR sound effect

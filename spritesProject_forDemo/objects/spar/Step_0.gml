@@ -31,11 +31,21 @@ switch (sparPhase) {
 				// destroy readyButton if it exists
 				destroy_if_possible(sparReadyButton);
 				
-				// set selection message
-				selectionMsg = "What should " + player.selectedAlly.name + " do this turn?";
-				
-				// create action menu
-				create_once(x, y, LAYER.meta, sparActionMenu);
+				// check if spellMenu is present
+				if (instance_exists(sparSpellMenu)) {
+					// if so, destroy actionMenu
+					destroy_if_possible(sparActionMenu);
+					
+					// set selectionMsg to blank
+					selectionMsg = "";
+				}
+				else {
+					// if not, create action menu
+					create_once(x, y, LAYER.meta, sparActionMenu);
+					
+					// set selection message
+					selectionMsg = "What should " + player.selectedAlly.name + " do this turn?";
+				}
 			break;
 			
 			case selectionPhases.target:

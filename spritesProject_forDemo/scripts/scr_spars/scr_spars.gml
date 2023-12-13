@@ -1,3 +1,5 @@
+#macro SELFTARGET	10
+
 global.hoverSprite		= -1;
 global.arena			= -1;
 global.targetRange		= -1;
@@ -269,6 +271,8 @@ function spar_set_action() {
 		break;
 		
 		case sparActions.spell:
+			instance_create_depth(x, y, get_layer_depth(LAYER.meta), sparSpellMenu);
+			instance_destroy(sparActionMenu);
 		break;
 		
 		case sparActions.dodge:
@@ -496,10 +500,22 @@ function sprite_build_ready_display() {
 	readyDisplayBuilt = true;
 }
 
+///@desc This function sets the selected ally's action and target with global.action and
+/// the spotNum of the sprite being clicked, respectively. (This function should only
+/// be called by a sprite being clicked during target selection).
 function spar_set_target() {
 	player.selectedAlly.readyDisplayBuilt = false;
 	player.selectedAlly.selectedAction = global.action;
 	player.selectedAlly.selectedTarget = spotNum;
 	player.selectedAlly.turnReady = true;
-	spar.selectionPhase = selectionPhases.ally;
+}
+
+///@desc This function sets the selected ally's action and target with global.action
+/// and the macro indicating a self targeting action. This function can be called whenever
+/// you are ready to do this as it doesn't make any local references.
+function self_target_set() {
+	player.selectedAlly.readyDisplayBuilt = false;
+	player.selectedAlly.selectedAction = global.action;
+	player.selectedAlly.selectedTarget = SELFTARGET;
+	player.selectedAlly.turnReady = true;
 }

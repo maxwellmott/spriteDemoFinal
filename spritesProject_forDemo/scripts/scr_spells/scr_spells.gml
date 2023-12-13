@@ -1,3 +1,6 @@
+// set legal spell count
+#macro	SPELLMAX	8
+
 // spell ids enum
 enum SPELLS {
 	solarFlare,
@@ -117,12 +120,40 @@ function master_grid_add_spell(_ID) {
 master_grid_add_spell(		SPELLS.solarFlare,	textGrid[# 1, SPELLS.solarFlare],	textGrid[# 1, SPELLS.solarFlare],	textGrid[# 2, SPELLS.solarFlare],	SPELL_TYPES.FIRE,	150,	ranges.nearestFiveSprites,	);
 
 // encode spell grid
+global.allSpells = encode_grid(global.spellGrid);
 
 // delete spell grid
+ds_grid_destroy(global.spellGrid);
 
-function spell_load_params() {
+function human_build_spellBookGrid() {	
 	// decode spell grid
-	
+	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.height);
+	decode_grid(global.allSpells, grid);
+
+	// use a repeat loop to add the info for each spell in spellBook
+	var i = 0;	repeat (SPELLMAX) {
+		// get id
+		var spellID = spellBook[| i];
+		
+		// use a repeat loop to set all vars
+		var j = 0;	repeat (SPELL_PARAMS.HEIGHT) {
+			// set proper value
+			spellBookGrid[# j,	i] = grid[# j, spellID];
+			
+			// increment j
+			j++;
+		}
+		
+		// increment i
+		i++;
+	}
+}
+
+function spar_spell_load_params() {
 	// use currentSpell to get all params
-	
+	name			= player.spellBookGrid[# SPELL_PARAMS.NAME,			currentSpell];
+	description		= player.spellBookGrid[# SPELL_PARAMS.DESCRIPTION,	currentSpell];
+	spellType		= player.spellBookGrid[# SPELL_PARAMS.TYPE,			currentSpell];
+	spellRange		= player.spellBookGrid[# SPELL_PARAMS.RANGE,		currentSpell];
+	spellPower		= player.spellBookGrid[# SPELL_PARAMS.POWER,		currentSpell];
 }

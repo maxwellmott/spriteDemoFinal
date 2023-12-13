@@ -152,11 +152,8 @@ miasmaY = guiHeight - 8;
 humY	= guiHeight - 8;
 rustY	= guiHeight - 8;
 
-// initialize spellCount
-spellCount = 8;
-
 // initialize spellBookGrid
-spellBookGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, spellCount);
+spellBookGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLMAX);
 
 // initialize enemy
 enemy = noone;

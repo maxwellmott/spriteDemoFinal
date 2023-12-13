@@ -3,6 +3,9 @@
 
 sprite = spr_spellBook;
 
+frame		= 0;
+frameMax	= 5;
+
 spriteWidth		= sprite_get_width(sprite);
 spriteHeight	= sprite_get_height(sprite);
 
@@ -15,10 +18,12 @@ currentSpell = player.spellBook[| index];
 
 pageFlip = false;
 
-name			= player.spellBookGrid[# SPELL_PARAMS.NAME,			currentSpell];
-description		= player.spellBookGrid[# SPELL_PARAMS.DESCRIPTION,	currentSpell];
-spellPower		= player.spellBookGrid[# SPELL_PARAMS.POWER,		currentSpell];
-spellType		= player.spellBookGrid[# SPELL_PARAMS.TYPE,			currentSpell];
-spellRange		= player.spellBookGrid[# SPELL_PARAMS.RANGE,		currentSpell];
+flipRight	= false;
+flipLeft	= false;
 
 targetX = spriteWidth / 2;
+
+nextPhase = -1;
+
+flipFrame	= 0;
+flipMax		= 1;

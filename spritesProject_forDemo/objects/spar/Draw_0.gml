@@ -89,6 +89,20 @@ draw_set_alpha(1.0);
 	}
 #endregion
 
+#region SPELL MENU
+	// check that spellMenu exists
+	if (instance_exists(sparSpellMenu)) {
+		
+		// draw spellBook
+		draw_sprite(sparSpellMenu.sprite, sparSpellMenu.frame, sparSpellMenu.x, sparSpellMenu.y);
+	
+		// check if pageFlip is happening
+		if (sparSpellMenu.pageFlip) {
+		draw_sprite(spr_spellBookPageFlip, sparSpellMenu.flipFrame, sparSpellMenu.x, sparSpellMenu.y);	
+	}
+	}
+#endregion
+
 #region USER INTERFACE
 	// draw nameplates
 	draw_sprite(spr_sparPlayerNameplate, 0, guiWidth, guiHeight);

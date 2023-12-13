@@ -27,6 +27,7 @@ if (spar.sparPhase == sparPhases.select) {
 			if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 				if (global.click) {
 					spar_set_target();
+					spar.selectionPhase = selectionPhases.ally;
 				}
 			}
 		}
