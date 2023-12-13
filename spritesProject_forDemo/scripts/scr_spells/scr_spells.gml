@@ -79,6 +79,7 @@ enum SPELL_PARAMS {
 	ID,
 	NAME,
 	DESCRIPTION,
+	LORE,
 	TYPE,
 	POWER,
 	RANGE,
@@ -112,8 +113,8 @@ function master_grid_add_spell(_ID) {
 	}
 }
 
-// add all spells to grid	ID					NAME								DESCRIPTION							TYPE				POWER	RANGE						EFFECT
-master_grid_add_spell(		SPELLS.solarFlare,	textGrid[# 1, SPELLS.solarFlare],	textGrid[# 1, SPELLS.solarFlare],	SPELL_TYPES.FIRE,	150,	ranges.nearestFiveSprites,	);
+// add all spells to grid	ID					NAME								DESCRIPTION							LORE								TYPE				POWER	RANGE						EFFECT
+master_grid_add_spell(		SPELLS.solarFlare,	textGrid[# 1, SPELLS.solarFlare],	textGrid[# 1, SPELLS.solarFlare],	textGrid[# 2, SPELLS.solarFlare],	SPELL_TYPES.FIRE,	150,	ranges.nearestFiveSprites,	);
 
 // encode spell grid
 

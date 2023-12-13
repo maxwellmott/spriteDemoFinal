@@ -5,6 +5,7 @@ global.action			= -1;
 global.selectedSpell	= -1;
 
 enum ranges {
+	onlySelf,
 	nearestOneEnemy,
 	nearestTwoAllies,
 	nearestThreeSprites,
