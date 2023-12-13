@@ -53,14 +53,13 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 	if (global.menu_left) {
 		// check if index is at 0
 		if (index > 0) {
-			// set pageFlip to true
 			pageFlip = true;
 			
 			// set flipLeft to true
 			flipLeft = true;
 			
 			// set flipFrame to 1
-			flipFrame = 1;
+			flipFrame = flipMax;
 			
 			// if not, decrement index
 			index--;
@@ -69,14 +68,13 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 			currentSpell = player.spellBook[| index];
 			
 			// get spell params
-			spar_spell_load_params();
+			//spellbook_load_params();
 		}
 	}
 	
 	if (global.menu_right) {
 		// check if index is at max
 		if (index < SPELLMAX - 1) {
-			// set pageFlip to true
 			pageFlip = true;
 			
 			// set flipRight to true
@@ -92,7 +90,7 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 			currentSpell = player.spellBook[| index];
 			
 			// get spell params
-			spar_spell_load_params();
+			//spellbook_load_params();
 			
 		}
 	}
@@ -106,43 +104,58 @@ if (x == targetX) && (targetX == 0 - (spriteWidth / 2)) {
 	instance_destroy(self);	
 }
 
-// check if page flip is happening
-if (pageFlip) {
-	if flipRight {
-		// if flip is over, change pageFlip to false
-		if (flipFrame == 0) {
-			if !(global.gameTime mod 4) {
-				pageFlip = false;	
-			}
-		}
-		
-		// if flip isn't over, increment frame
-		if (flipFrame > 0) {
-			if !(global.gameTime mod 4) {
-				flipFrame++;	
-			}
-		}
+// if pageFlip is over, set flipRight and flipLeft to false
+if !(global.gameTime mod modVar) {
+	if !(pageFlip) {
+		if drawFlip		drawFlip	= false;
+		if flipRight	flipRight	= false;
+		if flipLeft		flipLeft	= false;
 	}
-	
-	if flipLeft {
-		// if flip is over, change pageFlip to false
-		if (flipFrame == flipMax) {
-			if !(global.gameTime mod 4) {
-				pageFlip = false;	
+}
+
+// check if pageFlip is true
+if pageFlip {
+	if drawFlip {
+		// check if flipping right
+		if flipRight {
+			// if flip is over, change pageFlip to false
+			if (flipFrame == flipMax) {
+				if !(global.gameTime mod modVar) {
+					pageFlip = false;
+				}
+			}
+		
+			// if flip isn't over, increment frame
+			if (flipFrame < flipMax) {
+				if !(global.gameTime mod modVar) {
+					flipFrame++;
+				}
 			}
 		}
-		
-		// if flip isn't over, decrement frame
-		if (flipFrmae < flipMax) {
-			if !(global.gameTime mod 4) {
-				flipFrame--;	
+	
+		// check if flipping left
+		if flipLeft {
+			// if flip is over, change pageFlip to false
+			if (flipFrame == 0) {
+				if !(global.gameTime mod modVar) {
+					pageFlip = false;	
+				}
+			}
+			
+			// if flip isn't over, decrement frame
+			if (flipFrame > 0) {
+				if !(global.gameTime mod modVar) {
+					flipFrame--;	
+				}
 			}
 		}
 	}
 }
 
-// if pageFlip is over, set flipRight and flipLeft to false
-if !(pageFlip) {
-	if flipRight	flipRight	= false;
-	if flipLeft		flipLeft	= false;
+if !drawFlip {
+	if pageFlip {
+		if !(global.gameTime mod modVar) {
+			drawFlip = true;	
+		}
+	}
 }

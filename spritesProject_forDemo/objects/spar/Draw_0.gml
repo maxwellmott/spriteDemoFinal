@@ -97,9 +97,9 @@ draw_set_alpha(1.0);
 		draw_sprite(sparSpellMenu.sprite, sparSpellMenu.frame, sparSpellMenu.x, sparSpellMenu.y);
 	
 		// check if pageFlip is happening
-		if (sparSpellMenu.pageFlip) {
-		draw_sprite(spr_spellBookPageFlip, sparSpellMenu.flipFrame, sparSpellMenu.x, sparSpellMenu.y);	
-	}
+		if (sparSpellMenu.drawFlip) {
+			draw_sprite(spr_spellBookPageFlip, sparSpellMenu.flipFrame, sparSpellMenu.x, sparSpellMenu.y);	
+		}
 	}
 #endregion
 

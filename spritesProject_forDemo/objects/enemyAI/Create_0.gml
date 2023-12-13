@@ -36,6 +36,9 @@ enemyAI_get_params();
 // select team
 enemyAI_set_team();
 
+// select spells
+//enemyAI_set_spellbook();
+
 // initialize hindrances
 miasma	= true;
 hum		= true;
@@ -50,11 +53,13 @@ miasmaY	= 8;
 humY	= 8;
 rustY	= 8;
 
-// initialize spellCount
-spellCount = 8;
-
 // initialize spellBookGrid
 spellBookGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, spellCount);
 
 // initialize enemy
 enemy = noone;
+
+// 
+
+// set spellBookGrid
+human_build_spellBookGrid();

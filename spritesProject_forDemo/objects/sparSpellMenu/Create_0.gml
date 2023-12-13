@@ -16,6 +16,8 @@ index = 0;
 
 currentSpell = player.spellBook[| index];
 
+//spellbook_load_params();
+
 pageFlip = false;
 
 flipRight	= false;
@@ -27,3 +29,7 @@ nextPhase = -1;
 
 flipFrame	= 0;
 flipMax		= 1;
+
+modVar = 6;
+
+drawFlip = false;

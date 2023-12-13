@@ -438,3 +438,27 @@ function spar_begin_ingame(_opponent) {
 	global.sparType = sparTypes.inGame;
 	room_transition(200, 400, directions.south, rm_battleScene);
 }
+
+function human_build_spellBookGrid() {	
+	// decode spell grid
+	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.height);
+	decode_grid(global.allSpells, grid);
+
+	// use a repeat loop to add the info for each spell in spellBook
+	var i = 0;	repeat (SPELLMAX) {
+		// get id
+		var spellID = spellBook[| i];
+		
+		// use a repeat loop to set all vars
+		var j = 0;	repeat (SPELL_PARAMS.HEIGHT) {
+			// set proper value
+			spellBookGrid[# j,	i] = grid[# j, spellID];
+			
+			// increment j
+			j++;
+		}
+		
+		// increment i
+		i++;
+	}
+}

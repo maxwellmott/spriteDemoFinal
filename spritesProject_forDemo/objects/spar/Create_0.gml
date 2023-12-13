@@ -17,6 +17,7 @@ spriteList	= ds_list_create();
 
 switch (global.sparType) {
 	case sparTypes.inGame:
+		// create ai player
 		playerTwo = instance_create_depth(x, y, get_layer_depth(LAYER.meta), enemyAI);
 	break;
 	
@@ -30,6 +31,11 @@ switch (global.sparType) {
 // set enemy for each player
 playerOne.enemy = playerTwo;
 playerTwo.enemy = playerOne;
+
+// set player's spellBookGrid
+with (playerOne) {
+	human_build_spellBookGrid();	
+}
 
 // create all allies and enemies
 repeat (4) {

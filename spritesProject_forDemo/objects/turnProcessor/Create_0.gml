@@ -28,5 +28,5 @@ if (currentAction >= sparActions.height) {
 
 // if spell is set, get all spell params
 if (currentSpell != -1) {
-	spell_load_params();
+	spar_spell_load_params();
 }
