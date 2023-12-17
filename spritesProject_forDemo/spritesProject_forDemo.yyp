@@ -93,12 +93,11 @@
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"SPELLS_ENGLISH.csv","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"splashScreens_english.csv","CopyToMask":-1,"filePath":"datafiles",},
     {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"SPRITES_ENGLISH.csv","CopyToMask":-1,"filePath":"datafiles",},
-    {"resourceType":"GMIncludedFile","resourceVersion":"1.0","name":"TEAS_ENGLISH.csv","CopyToMask":-1,"filePath":"datafiles",},
   ],
   "isEcma": false,
   "LibraryEmitters": [],
   "MetaData": {
-    "IDEVersion": "2023.11.0.121",
+    "IDEVersion": "2023.11.1.129",
   },
   "resources": [
     {"id":{"name":"spr_songbirdBattle","path":"sprites/spr_songbirdBattle/spr_songbirdBattle.yy",},},
@@ -365,7 +364,7 @@
     {"id":{"name":"game start flow","path":"notes/game start flow/game start flow.yy",},},
     {"id":{"name":"spr_chromosilosBattle","path":"sprites/spr_chromosilosBattle/spr_chromosilosBattle.yy",},},
     {"id":{"name":"scr_dataManagement","path":"scripts/scr_dataManagement/scr_dataManagement.yy",},},
-    {"id":{"name":"spr_pondleBattle","path":"sprites/spr_pondleBattle/spr_pondleBattle.yy",},},
+    {"id":{"name":"spr_pondileBattle","path":"sprites/spr_pondileBattle/spr_pondileBattle.yy",},},
     {"id":{"name":"splashScreen","path":"objects/splashScreen/splashScreen.yy",},},
     {"id":{"name":"scr_overworldAlerts","path":"scripts/scr_overworldAlerts/scr_overworldAlerts.yy",},},
     {"id":{"name":"groundFrames","path":"sprites/groundFrames/groundFrames.yy",},},

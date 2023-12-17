@@ -70,7 +70,7 @@ convert_grid_to_map(mercurioResponseGrid, mercurioResponseMap);
 var mercurioTalismans = ds_list_create();
 
 ds_list_add(mercurioTalismans,
-				SPRITES.pondle,
+				SPRITES.pondile,
 				SPRITES.hachaChacha,
 				SPRITES.podric,
 				SPRITES.sudsy,

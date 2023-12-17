@@ -11,7 +11,12 @@ switch (sparPhase) {
 	break;
 	
 	case sparPhases.process:
+		// sort by agility
 	
+		// use a repeat loop to perform all swaps and rests
+		
+		// use a repeat loop to to perform all attacks and spells
+		
 	break;
 	
 	case sparPhases.select:

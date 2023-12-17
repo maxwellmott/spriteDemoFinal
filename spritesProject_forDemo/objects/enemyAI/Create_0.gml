@@ -54,7 +54,7 @@ humY	= 8;
 rustY	= 8;
 
 // initialize spellBookGrid
-spellBookGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, spellCount);
+spellBookGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLMAX);
 
 // initialize enemy
 enemy = noone;

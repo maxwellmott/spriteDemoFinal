@@ -147,12 +147,6 @@ function human_set_facing() {
 		}	
 }
 
-// this function will get the proper coordinates by which to stretch the shadow, depending
-// on the position of the sun, which will be calculated by the overworld object
-function human_set_shadow_y() {
-	shadowY = y + (humanSpriteHeight / 2);
-}
-	
 function human_pointer_set() {	
 	switch (facing) {
 		case directions.east:

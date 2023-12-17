@@ -295,7 +295,7 @@
     {"name":"game start flow","order":2,"path":"notes/game start flow/game start flow.yy",},
     {"name":"spr_chromosilosBattle","order":36,"path":"sprites/spr_chromosilosBattle/spr_chromosilosBattle.yy",},
     {"name":"scr_dataManagement","order":22,"path":"scripts/scr_dataManagement/scr_dataManagement.yy",},
-    {"name":"spr_pondleBattle","order":52,"path":"sprites/spr_pondleBattle/spr_pondleBattle.yy",},
+    {"name":"spr_pondileBattle","order":52,"path":"sprites/spr_pondileBattle/spr_pondileBattle.yy",},
     {"name":"splashScreen","order":6,"path":"objects/splashScreen/splashScreen.yy",},
     {"name":"scr_overworldAlerts","order":31,"path":"scripts/scr_overworldAlerts/scr_overworldAlerts.yy",},
     {"name":"groundFrames","order":10,"path":"sprites/groundFrames/groundFrames.yy",},

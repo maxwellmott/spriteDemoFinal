@@ -27,8 +27,6 @@ if (parametersLoaded) {
 		if swimming human_swim();
 		if !swimming human_walk();
 		human_pointer_set();
-		
-		human_set_shadow_y();
 	}
 }
 

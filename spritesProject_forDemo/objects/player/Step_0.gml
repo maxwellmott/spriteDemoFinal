@@ -31,8 +31,6 @@ if (global.overworld) {
 	human_pointer_set();			
 	human_set_depth();
 
-	human_set_shadow_y();
-
 	if (global.start) {
 		if !(instance_exists(soulStone)) {open_soulStone();}
 	}

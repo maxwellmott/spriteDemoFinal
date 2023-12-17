@@ -7,7 +7,7 @@ enum ALIGNMENTS {
 
 enum SPRITES {
 	gembo,
-	pondle,
+	pondile,
 	hachaChacha,
 	podric,
 	needlepaw,
@@ -91,7 +91,7 @@ enum spriteSizes {
 			SPELLS.fireball,
 			SPELLS.shock,
 			SPELLS.expelForce,
-			SPELLS.grapple,
+			SPELLS.ruburs_grapple,
 			SPELLS.empathize,
 			SPELLS.arcBlast,
 			SPELLS.amandsEnergyBlast,
@@ -106,10 +106,10 @@ enum spriteSizes {
 		);
 	#endregion
 	
-	#region		PONDLE
-		var pondleSpells = ds_list_create();
+	#region		pondile
+		var pondileSpells = ds_list_create();
 		
-		ds_list_add(pondleSpells,
+		ds_list_add(pondileSpells,
 			SPELLS.decay,
 			SPELLS.typhoon,
 			SPELLS.rubursWaterCannon,
@@ -258,7 +258,7 @@ enum spriteSizes {
 		var furvorSpells = ds_list_create();
 		
 		ds_list_add(furvorSpells,
-			SPELLS.grapple,
+			SPELLS.ruburs_grapple,
 			SPELLS.lusiasHarvestSpell,
 			SPELLS.superbloom,
 			SPELLS.rapidStrike,
@@ -320,7 +320,7 @@ enum spriteSizes {
 			SPELLS.expelForce,
 			SPELLS.typhoon,
 			SPELLS.rubursWaterCannon,
-			SPELLS.grapple,
+			SPELLS.ruburs_grapple,
 			SPELLS.waterlog,
 			SPELLS.loomingDanger,
 			SPELLS.undertow,
@@ -420,7 +420,7 @@ enum spriteSizes {
 			SPELLS.fireball,
 			SPELLS.shock,
 			SPELLS.expelForce,
-			SPELLS.grapple,
+			SPELLS.ruburs_grapple,
 			SPELLS.rapidStrike,
 			SPELLS.intercept,
 			SPELLS.ballLightning,
@@ -461,7 +461,7 @@ enum spriteSizes {
 			SPELLS.solarFlare,
 			SPELLS.fireball,
 			SPELLS.expelForce,
-			SPELLS.grapple,
+			SPELLS.ruburs_grapple,
 			SPELLS.hellfire,
 			SPELLS.lordMogradthsRage,
 			SPELLS.pyrokinesis,
@@ -522,7 +522,7 @@ enum spriteSizes {
 		ds_list_add(joeSpells,
 			SPELLS.fireball,
 			SPELLS.expelForce,
-			SPELLS.grapple,
+			SPELLS.ruburs_grapple,
 			SPELLS.waterlog,
 			SPELLS.intercept,
 			SPELLS.steamBath,
@@ -558,7 +558,7 @@ enum spriteSizes {
 			SPELLS.ladySolanusGrace,
 			SPELLS.healingLight,
 			SPELLS.rubursWaterCannon,
-			SPELLS.grapple,
+			SPELLS.ruburs_grapple,
 			SPELLS.lusiasHarvestSpell,
 			SPELLS.steamBath,
 			SPELLS.landslide,
@@ -615,7 +615,7 @@ enum spriteSizes {
 			SPELLS.holyWater,
 			SPELLS.shock,
 			SPELLS.typhoon,
-			SPELLS.grapple,
+			SPELLS.ruburs_grapple,
 			SPELLS.waterlog,
 			SPELLS.airPressure,
 			SPELLS.rapidStrike,
@@ -753,7 +753,7 @@ enum spriteSizes {
 			SPELLS.fireball,
 			SPELLS.shock,
 			SPELLS.expelForce,
-			SPELLS.grapple,
+			SPELLS.ruburs_grapple,
 			SPELLS.airPressure,
 			SPELLS.rapidStrike,
 			SPELLS.intercept,
@@ -776,7 +776,7 @@ enum spriteSizes {
 			SPELLS.tidalForce,
 			SPELLS.typhoon,
 			SPELLS.rubursWaterCannon,
-			SPELLS.grapple,
+			SPELLS.ruburs_grapple,
 			SPELLS.rapidStrike,
 			SPELLS.intercept,
 			SPELLS.undertow,
@@ -820,7 +820,7 @@ enum spriteSizes {
 		ds_list_add(stinklopsSpells,
 			SPELLS.fireball,
 			SPELLS.decay,
-			SPELLS.grapple,
+			SPELLS.ruburs_grapple,
 			SPELLS.loomingDanger,
 			SPELLS.intercept,
 			SPELLS.hellfire,
@@ -1124,7 +1124,7 @@ enum spriteSizes {
 			SPELLS.tidalForce,
 			SPELLS.nebulaStorm,
 			SPELLS.tectonicShift,
-			SPELLS.grapple,
+			SPELLS.ruburs_grapple,
 			SPELLS.lusiasHarvestSpell,
 			SPELLS.airPressure,
 			SPELLS.superbloom,
@@ -1236,7 +1236,7 @@ function sprite_add_to_grid(_ID) {
 #region ALL SPRITE DATA
 //					ID						NAME										ALIGNMENT				USABLE SPELLS						POWER	RES		FIRE	WATER	STORM	EARTH	AGL		LUCK	SIZE
 sprite_add_to_grid(SPRITES.gembo,			"GEMBO",			spr_gemboBattle,		ALIGNMENTS.astral,		encode_list(gemboSpells),			120,	120,	115,	100,	115,	100,	70,		90,		spriteSizes.medium);
-sprite_add_to_grid(SPRITES.pondle,			"PONDLE",			spr_pondleBattle,		ALIGNMENTS.natural,		encode_list(pondleSpells),			110,	75,		70,		140,	90,		90,		130,	80,		spriteSizes.medium);
+sprite_add_to_grid(SPRITES.pondile,			"PONDILE",			spr_pondileBattle,		ALIGNMENTS.natural,		encode_list(pondileSpells),			110,	75,		70,		140,	90,		90,		130,	80,		spriteSizes.medium);
 sprite_add_to_grid(SPRITES.hachaChacha,		"HACHA-CHACHA",		spr_hachaChachaBattle,	ALIGNMENTS.natural,		encode_list(hachaSpells),			80,		50,		190,	35,		70,		110,	90,		150,	spriteSizes.small);
 sprite_add_to_grid(SPRITES.podric,			"PODRIC",			spr_podricBattle,		ALIGNMENTS.natural,		encode_list(podricSpells),			165,	70,		30,		90,		40,		180,	160,	100,	spriteSizes.small);
 sprite_add_to_grid(SPRITES.needlepaw,		"NEEDLEPAW",		spr_needlepawBattle,	ALIGNMENTS.astral,		encode_list(needlepawSpells),		130,	70,		110,	55,		130,	110,	180,	50,		spriteSizes.small);

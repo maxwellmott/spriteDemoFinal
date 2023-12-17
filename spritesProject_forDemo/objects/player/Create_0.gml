@@ -49,7 +49,7 @@ teamString = "";
 teamList = ds_list_create();
 
 // ONLY FOR TESTING
-teamList[| 0] = SPRITES.pondle;
+teamList[| 0] = SPRITES.pondile;
 teamList[| 1] = SPRITES.hachaChacha;
 teamList[| 2] = SPRITES.podric;
 teamList[| 3] = SPRITES.glidrake;
@@ -66,16 +66,33 @@ wardrobeString = "";
 // initialize wardrobeList
 wardrobeList = ds_list_create();
 
-// initialize spellString
-spellString = "";
+// initialize knownSpellString
+knownSpellString = "";
 
-// initialize spellList
-spellList = ds_list_create();
+// initialize knownSpells
+knownSpells = ds_list_create();
+
+// initialize spellBookString
+spellBookString = "";
+
+// initialize spellBook
+spellBook = ds_list_create();
+
+// ONLY FOR TESTING
+spellBook[| 7] = SPELLS.ruburs_grapple;
+spellBook[| 6] = SPELLS.ladySolanusGrace;
+spellBook[| 5] = SPELLS.expelForce;
+spellBook[| 4] = SPELLS.healingLight;
+spellBook[| 3] = SPELLS.decay;
+spellBook[| 2] = SPELLS.shock;
+spellBook[| 1] = SPELLS.holyWater;
+spellBook[| 0] = SPELLS.fireball;
 
 // initialize contactString
 contactString = "";
 
 // initialize contactList
+contactList = ds_list_create();
 
 // initialize various battle ranking scores
 roninScore			= 0;
@@ -131,9 +148,6 @@ sundown = false;
 
 // initialize darkAlpha
 darkAlpha = 0.0;
-
-// initialize spellbook
-spellBook = ds_list_create();
 
 // initialize selected ally
 selectedAlly = noone;
