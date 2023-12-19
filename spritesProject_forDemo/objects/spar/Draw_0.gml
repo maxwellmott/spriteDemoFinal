@@ -146,7 +146,7 @@ draw_set_alpha(1.0);
 				var hs = global.hoverSprite;
 				
 				// draw message sprite
-				draw_sprite(spr_sparMessage, 0, sparMsgX, sparMsgY);
+				draw_sprite(spr_sparMessage, 0, turnMsgX, turnMsgY);
 				
 				// draw hoverMenu sprite
 				draw_sprite(spr_sparHoverMenuNameplate, 0, hoverMenu_nameplateX, hoverMenu_nameplateY);

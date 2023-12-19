@@ -115,19 +115,19 @@ enum turnParams {
 // initialize turnGrid
 turnGrid = ds_grid_create(turnParams.height, 8);
 
-// initialize sparMsg
-sparMsg = "";
+// initialize turnMsg
+turnMsg = "";
 
-// initialize sparMsgX and sparMsgY
-sparMsgX = guiWidth / 2;
-sparMsgY = guiHeight / 2;
+// initialize turnMsgX and turnMsgY
+turnMsgX = guiWidth / 2;
+turnMsgY = guiHeight / 2;
 
 #region HOVER MENU POSITIONS
 hoverMenu_nameplateX	= 45;
-hoverMenu_nameplateY	= sparMsgY - 8;
+hoverMenu_nameplateY	= turnMsgY - 8;
 						
 hoverMenu_alignmentX	= 5;
-hoverMenu_alignmentY	= sparMsgY + 3;
+hoverMenu_alignmentY	= turnMsgY + 3;
 
 hoverMenu_sizeX			= hoverMenu_alignmentX;
 hoverMenu_sizeY			= hoverMenu_alignmentY + 7;
@@ -137,7 +137,7 @@ hoverMenu_columnTwoX	= hoverMenu_columnOneX + 39;
 hoverMenu_columnThreeX	= hoverMenu_columnTwoX + 39;
 hoverMenu_columnFourX	= hoverMenu_columnThreeX + 39;
 
-hoverMenu_rowOneY		= sparMsgY - 11
+hoverMenu_rowOneY		= turnMsgY - 11
 hoverMenu_rowTwoY		= hoverMenu_rowOneY + 7;
 hoverMenu_rowThreeY		= hoverMenu_rowTwoY + 7;
 hoverMenu_rowFourY		= hoverMenu_rowThreeY + 7;

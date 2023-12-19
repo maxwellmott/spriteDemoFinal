@@ -163,32 +163,22 @@ enum SPAR_EFFECTS {
 
 function arena_change_volcano() {
 	spar.currentArena = arenas.volcano;
-	
-	spar.sparMsg = "THE ARENA BECAME SCORCHING HOT LIKE A VOLCANO";
 }
 
 function arena_change_ocean() {
 	spar.currentArena = arenas.ocean;
-	
-	spar.sparMsg = "THE ARENA BECAME VAST AND WATER LIKE THE OCEAN";
 }
 
 function arena_change_stratos() {
 	spar.currentArena = arenas.stratosphere;
-	
-	spar.sparMsg = "THE ARENA BECAME CLOUDY AND LIGHT LIKE THE STRATOSPHERE";
 }
 
 function arena_change_forest() {
 	spar.currentArena = arenas.forest;
-	
-	spar.sparMsg = "THE ARENA BECAME DENSE AND EARTHY LIKE THE FOREST";
 }
 
 function arena_change_normal() {
 	spar.currentArena = -1;
-	
-	spar.sparMsg = "THE ARENA RETURNED TO ITS NORMAL STATE";
 }
 
 /// argument[0] = sprite using the effect
@@ -196,8 +186,6 @@ function set_miasma_enemy() {
 	var user = global.argumentList[| 0];
 	
 	user.enemy.miasma = true;
-	
-	spar.sparMsg = string(spar.selfTwo.name) + "'S SIDE OF THE ARENA BECAME COVERED WITH A TOXIC MIASMA";
 }
 
 function set_miasma_self() {
