@@ -25,7 +25,7 @@ Placeholder ,Empathize,This spell allows the caster to fully understand the targ
 Placeholder ,Hellfire,This spell releases a shadowy flame from beneath the target. All of the target's nearby allies will become hexed.,LORE
 Placeholder ,Ball Lightning,"The caster of this spell will wait until the end of the turn to attack. Until then, any storm spells will be drawn to the caster and add to the power of the spell.",LORE
 Placeholder ,Quicksand,This spell causes the earth beneath the target to soften and begin to absorb their apparition. This causes the target to be bound.,LORE
-Placeholder ,Lord Morgadth's Rage,The caster of this spell will embody pure evil and cover the target with a blanket of negativity. The target and all their nearby allies will become hexed and bound.,LORE
+Placeholder ,Lord Mogradth's Rage,The caster of this spell will embody pure evil and cover the target with a blanket of negativity. The target and all their nearby allies will become hexed and bound.,LORE
 Placeholder ,Drain Lifeforce,The caster of this spell will latch onto the target and begin to siphon their energy. Energy depleted by this spell will be used to restore the caster's team.,LORE
 Placeholder ,Pyrokinesis,The caster of this spell will connect with the target telepathically and flood the channel with destructive energy. The caster will take a fraction of the damage.,LORE
 Placeholder ,Downpour,This spell causes water energy to cascade down on the arena. This summons the effect of rust on the target's side of the field.,LORE
@@ -47,7 +47,7 @@ Placeholder ,Crecia's Crystal Spikes,This spell summons magical crystals from th
 Placeholder ,Psychic Fissure,The caster of this spell attacks the target's weak spot with a destructive blast. The caster takes half of the damage done to the target.,LORE
 Placeholder ,Rearrange,This spell creates a confusing energy about the enemy's side of the field. The opposing sprites have their positions randomly swapped.,LORE
 Placeholder ,Sneak Attack,"The caster of this spell attempts to dodge any spells or attacks targeting them this turn. If they are successful in dodging, they deliver a powerful attack to their target at the end of the turn.",LORE
-Placeholder ,Defective Shield,This spell generates a magical field around the caster which will deflect any spells back to their caster.,LORE
+Placeholder ,Deflective Shield,This spell generates a magical field around the caster which will deflect any spells back to their caster.,LORE
 Placeholder ,Dion's Parry,"The caster of this spell waits to be targeted by an attack. Once they are attacked, the spell is cast. This ignores any damage done to the caster and halves the target's resistance when retaliating.",LORE
 Placeholder ,Dion's Gambling Blast,The caster of this spell generates an Energy Blast of random power against either the caster's team or the enemy team. The power of the blast is completely random.,LORE
 Placeholder ,Dion's Barter Trick,The caster of this spell trades a quarter of their team's current HP for half of the enemy's current MP.,LORE
@@ -64,8 +64,11 @@ Placeholder ,Cloud Break,This spell creates a burst of wind so powerful that it 
 Placeholder ,Telekinetic Blast,The caster of this spell unleashes a powerful mental attack on the target. This causes the target to become hexed.,LORE
 Placeholder ,Destabilizing Blow,The caster of this spell shatters the constitution of the target. This causes the target to become imbued with the Curse of the Imp.,LORE
 Placeholder ,Full Thrust,"The caster of this spell uses all of their power to attack the target, throwing the caster completely off balance. This causes the caster to become bound.",LORE
-Placeholder,Volcanic Eruption,"This spell uses the destructive volcano to attack the enemy team and shatter their defenses. It fails unless the arena is volcano. This resets the arena, summons miasma on the target's side of the field, and grants all enemy sprites the Curse of the Mother.",
+Placeholder,Volcanic Eruption,"This spell uses the destructive volcano to attack the enemy team and shatter their defenses. It fails unless the arena is volcano. This resets the arena, summons miasma on the target's side of the field, and grants all enemy sprites the Curse of the Mother.",LORE
 Placeholder ,Broadcast Data,The caster of this spell uses magical channels to distribute information to their allies to help create an advantage. This causes all allies to have perfect luck for the rest of the turn.,LORE
 Placeholder ,Collapse Space,This spell creates a crushing weight as it folds space itself. This resets the arena and causes all enemy sprites to become bound.,LORE
 Placeholder ,Expand Time,The caster of this spell compresses the temporal dimension in an attempt to give their team an advantage. This causes all enemy sprites to have the worst possible luck until the end of the turn.,LORE
 Placeholder,Sphera's Demise,This spell fills the field with the stench of death as it eradicates the essence of nature. This resets the arena and causes all enemy sprites to become hexed.,LORE
+Placeholder,Time Loop,The caster of this spell sends the target's mind back to its state from the prior turn. The target is forced to repeat their actions from the last turn.,LORE
+Placeholder,Eradicate,The caster of this spell produces a supermassive gravity at the beginning of the turn. This anomaly absorbs any spells cast during the turn before imploding and unleashing an Energy Blast with power relative to the amount of spells it absorbed.,LORE
+,,,LORE

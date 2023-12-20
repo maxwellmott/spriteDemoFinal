@@ -74,6 +74,8 @@ enum SPELLS {
 	collapseSpace,
 	expandTime,
 	spherasDemise,
+	timeLoop,
+	eradicate,
 	height
 }
 	
@@ -404,6 +406,14 @@ function spheras_demise() {
 	
 }
 
+function time_loop() {
+	
+}
+
+function eradicate() {
+	
+}
+
 #endregion  
 
 // add all spells to grid	ID								NAME										DESCRIPTION									LORE										TYPE					POWER	COST	RANGE						EFFECT					DODGEABLE?
@@ -469,6 +479,17 @@ master_grid_add_spell(		SPELLS.creciasCrystalWind,		textGrid[# 1, SPELLS.crecias
 master_grid_add_spell(		SPELLS.lavaSpire,				textGrid[# 1, SPELLS.lavaSpire],			textGrid[# 2, SPELLS.lavaSpire],			textGrid[# 3, SPELLS.lavaSpire],			SPELL_TYPES.FIRE,		100,	50,		ranges.nearestThreeSprites,	lava_spire,				true);
 master_grid_add_spell(		SPELLS.endlessRiver,			textGrid[# 1, SPELLS.endlessRiver],			textGrid[# 2, SPELLS.endlessRiver],			textGrid[# 3, SPELLS.endlessRiver],			SPELL_TYPES.WATER,		80,		40,		ranges.nearestFiveSprites,	endless_river,			true);
 master_grid_add_spell(		SPELLS.cloudBreak,				textGrid[# 1, SPELLS.cloudBreak],			textGrid[# 2, SPELLS.cloudBreak],			textGrid[# 3, SPELLS.cloudBreak],			SPELL_TYPES.STORM,		60,		30,		ranges.anySprite,			cloud_break,			false);
+master_grid_add_spell(		SPELLS.telekineticBlast,		textGrid[# 1, SPELLS.telekineticBlast],		textGrid[# 2, SPELLS.telekineticBlast],		textGrid[# 3, SPELLS.telekineticBlast],		SPELL_TYPES.PHYSICAL,	120,	65,		ranges.anySprite,			telekinetic_blast,		false);
+master_grid_add_spell(		SPELLS.destabilizingBlow,		textGrid[# 1, SPELLS.destabilizingBlow],	textGrid[# 2, SPELLS.destabilizingBlow],	textGrid[# 3, SPELLS.destabilizingBlow],	SPELL_TYPES.PHYSICAL,	100,	40,		ranges.nearestFiveSprites,	destabilizing_blow,		true);
+master_grid_add_spell(		SPELLS.fullThrust,				textGrid[# 1, SPELLS.fullThrust],			textGrid[# 2, SPELLS.fullThrust],			textGrid[# 3, SPELLS.fullThrust],			SPELL_TYPES.PHYSICAL,	160,	60,		ranges.nearestThreeSprites,	full_thrust,			true);
+master_grid_add_spell(		SPELLS.volcanicEruption,		textGrid[# 1, SPELLS.volcanicEruption],		textGrid[# 2, SPELLS.volcanicEruption],		textGrid[# 3, SPELLS.volcanicEruption],		SPELL_TYPES.FIRE,		130,	70,		ranges.nearestThreeSprites,	volcanic_eruption,		true);
+master_grid_add_spell(		SPELLS.broadcastData,			textGrid[# 1, SPELLS.broadcastData],		textGrid[# 2, SPELLS.broadcastData],		textGrid[# 3, SPELLS.broadcastData],		SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			broadcast_data,			false);
+master_grid_add_spell(		SPELLS.collapseSpace,			textGrid[# 1, SPELLS.collapseSpace],		textGrid[# 2, SPELLS.collapseSpace],		textGrid[# 3, SPELLS.collapseSpace],		SPELL_TYPES.TRICK,		0,		60,		ranges.onlySelf,			collapse_space,			false);
+master_grid_add_spell(		SPELLS.expandTime,				textGrid[# 1, SPELLS.expandTime],			textGrid[# 2, SPELLS.expandTime],			textGrid[# 3, SPELLS.expandTime],			SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			expand_time,			false);
+master_grid_add_spell(		SPELLS.spherasDemise,			textGrid[# 1, SPELLS.spherasDemise],		textGrid[# 2, SPELLS.spherasDemise],		textGrid[# 3, SPELLS.spherasDemise],		SPELL_TYPES.TRICK,		0,		60,		ranges.onlySelf,			spheras_demise,			false);
+master_grid_add_spell(		SPELLS.timeLoop,				textGrid[# 1, SPELLS.timeLoop],				textGrid[# 2, SPELLS.timeLoop],				textGrid[# 3, SPELLS.timeLoop],				SPELL_TYPES.TRICK,		0,		50,		ranges.anySprite,			time_loop,				false);
+master_grid_add_spell(		SPELLS.eradicate,				textGrid[# 1, SPELLS.eradicate],			textGrid[# 2, SPELLS.eradicate],			textGrid[# 3, SPELLS.eradicate],			SPELL_TYPES.TRICK,		0,		65,		ranges.onlySelf,			eradicate,				false);
+
 // encode spell grid
 global.allSpells = encode_grid(global.spellGrid);
 
