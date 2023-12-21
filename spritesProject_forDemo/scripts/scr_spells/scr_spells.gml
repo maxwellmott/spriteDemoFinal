@@ -123,295 +123,341 @@ function master_grid_add_spell(_ID) {
 #region SPELL FUNCTION
 
 function solar_flare() {
-		
+	// grant all allies curse of the warrior
 }
 
 function tidal_force() {
-	
+	// force target to swap (dodgeable)
 }
 
 function nebula_storm() {
-	
+	// hex all enemies
 }
 
 function tectonic_shift() {
-	
+	// bind all enemies
 }
 
 function fireball() {
-	
+	// no effect
 }
 
 function holy_water() {
-	
+	// heal team
 }
 
 function shock() {
-	
+	// bind target (dodgeable)
 }
 
 function decay() {
-	
+	// restore half of health depleted (dodgeable)
 }
 
 function expel_force() {
-	
+	// no effect
 }
 
 function lady_solanus_grace() {
-	
+	// heal team and grant all allies blessing of the tree
 }
 
 function typhoon() {
-	
+	// grant target curse of the warrior
 }
 
 function healing_light() {
-	
+	// fully heal team
 }
 
 function ruburs_water_cannon() {
-	
+	// no effect
 }
 
 function ruburs_grapple() {
-	
+	// bind target (dodgeable)
 }
 
 function lusias_harvest_spell() {
-	
+	// change arena to forest
 }
 
 function waterlog() {
-	
+	// grant target curse of the tree
 }
 
 function air_pressure() {
-	
+	// grant target and all nearby enemies the curse of the tree
 }
 
 function superbloom() {
-	
+	// remove all curses and hindrances from caster's side of the field
 }
 
 function rapid_strike() {
-	
+	// the ID of this spell is on a list of "prioritySpells"
 }
 
 function looming_danger() {
+	// the ID of this spell is on a list of "prioritySpells"
 	
+	// start a timer for an Energy Blast
 }
 
 function intercept() {
-	
+	// take target's place in any spells targeting them this turn 
 }
 
 function steam_bath() {
-	
+	// heal team, remove hindrances, turn all curses to blessings (dodgeable)
 }
 
 function undertow() {
-	
+	// grant target curse of the imp
 }
 
 function empathize() {
-	
+	// adopt target's mindset and partially heal target's team (dodgeable)
 }
 
 function hellfire() {
-	
+	// hex target and all nearby allies (dodgeable)
 }
 
 function ball_lightning() {
+	// the ID of this spell is on a list of "prioritySpells"
 	
+	// absorb all storm spells and cause them to totally fail
+	
+	// at the end of the turn, deliver the attack with additional damage for each 
+	// storm spell absorbed
 }
 
 function quicksand() {
-	
+	// traps target
 }
 
 function lord_mogradths_rage() {
-	
+	// hex and curse target and all nearby allies (dodgeable)
 }
 
 function drain_lifeforce() {
-	
+	// restore half of the health depleted from target (dodgeable)
 }
 
 function pyrokinesis() {
-	
+	// deal a fraction of the damage to the caster
 }
 
 function downpour() {
-	
+	// summon rust on target's side of the field
 }
 
 function arc_blast() {
-	
+	// grant target curse of the imp 
 }
 
 function hikams_winter_spell() {
+	// fail unless forest is active
 	
+	// reset arena
+	
+	// fully restore caster's MP and HP
+	
+	// grant blessing of the tree to all nearby allies
 }
 
 function osmosis() {
-	
+	// restore half of the HP depleted from target
 }
 
 function flash_freeze() {
-	
+	// bind the target
 }
 
 function landslide() {
-	
+	// reset arena and grant curse of the warrior to target and nearby allies
 }
 
 function amands_energy_blast() {
-	
+	// create an Energy Blast against the enemy team that deals damage relative to
+	// the caster's luck for the turn
 }
 
 function shift_perspective() {
+	// flip the target's mindset
 	
+	// if curse->blessing heal some HP
+	
+	// if blessing->curse remove some HP
 }
 
 function psychic_impact() {
-	
+	// find target's weak spot and attack them there
 }
 
 function tremor() {
-
+	// no effect
 }
 
 function skydive() {
+	// become invulnerable until the end of the turn
 	
+	// at the end of the turn, deliver the attack
 }
 
 function destructive_blow() {
-	
+	// there will be a check before damage is dealt wherein
+	// this spell will do extra damage to mechanical sprites when
+	// cast
 }
 
 function purifying_flame() {
-	
+	// there will be a check before damage is dealth wherein
+	// this spell will do extra damage to astral sprites when
+	// cast
 }
 
 function jabuls_fight_song() {
-	
+	// partially restore target's HP and grant curse of the warrior
+	// to them and all their nearby allies
 }
 
 function noxious_fumes() {
-	
+	// summon miasma on target's side of the field
 }
 
 function crecias_crystal_spikes() {
-	
+	// hex target
 }
 
 function psychic_fissure() {
-	
+	// same effect as psychic impact (there will be a check for
+	// these two spells that modify damage before it is done)
 }
 
 function rearrange() {
-	
+	// split target team into two pairs and swap them (dodgeable)
 }
 
 function sneak_attack() {
+	// set caster to dodge
 	
+	// if caster manages to avoid damage, deliver an attack
 }
 
 function deflective_shield() {
-	
+	// create a shield that deflects all spells until the end of the turn
 }
 
 function dions_parry() {
+	// the ID of this spell is on a list of "prioritySpells"
 	
+	// if the caster is targeted by a basic attack, ignore damage done
+	// to the caster and halve the target's resistance when calcing damage
+	// for the retaliation
 }
 
 function dions_gambling_blast() {
-	
+	// generate an Energy Blast with random power. This has a small chance
+	// to target the caster's team instead
 }
 
 function dions_barter_trick() {
-	
+	// trade a quarter of the caster's HP for half of the target's HP
 }
 
 function magnetic_pulse() {
-	
+	// summon hum
 }
 
 function burn_out() {
-	
+	// grant curse of the mother to the caster
 }
 
 function stinkbomb() {
-	
+	// summon miasma on both sides of the field
 }
 
 function wind_slice() {
-	
+	// grant curse of the imp to the target (dodgeable)
 }
 
 function channel_essence() {
-	
+	// make arena reflect caster's elemental bias
 }
 
 function spheras_curse() {
-	
+	// make arena exploit target's elemental bias (dodgeable)
 }
 
 function crecias_crystal_wind() {
-	
+	// hex target and all nearby allies
 }
 
 function lava_spire() {
-	
+	// change arena to volcano
 }
 
 function endless_river() {
-	
+	// change arena to ocean
 }
 
 function cloud_break() {
-	
+	// change arena to stratosphere
 }
 
 function telekinetic_blast() {
-	
+	// hex target (dodgeable)
 }
 
 function destabilizing_blow() {
-	
+	// grant target curse of the imp (dodgeable)
 }
 
 function full_thrust() {
-	
+	// bind caster
 }
 
 function volcanic_eruption() {
+	// fail unless arena is volcano
 	
+	// reset arena 
+
+	// summon miasma on target's side of the field
+	
+	// grant all enemies curse of the mother
 }
 
 function broadcast_data() {
-	
+	// change all allies luck roll to highest possible
 }
 
 function collapse_space() {
-	
+	// reset arena and hex all enemies
 }
 
 function expand_time() {
-	
+	// change all enemies luck roll to lowest possible
 }
 
 function spheras_demise() {
-	
+	// reset arena and trap all enemies
 }
 
 function time_loop() {
+	// the ID of this spell is on a list of "prioritySpells"
 	
+	// force target to perform same action as last turn (replaces their selected action)
 }
 
 function eradicate() {
+	// the ID of this spell is on a list of "prioritySpells"
 	
+	// absorb all storm spells and cause them to totally fail
+	
+	// at the end of the turn, deliver an Energy Blast with damage 
+	// relative to each spell absorbed
 }
 
 #endregion  
