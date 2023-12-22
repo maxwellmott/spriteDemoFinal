@@ -552,3 +552,16 @@ function spellbook_load_params() {
 	spellPower		= player.spellBookGrid[# SPELL_PARAMS.POWER,		currentSpell];
 	spellCost		= player.spellBookGrid[# SPELL_PARAMS.COST,			currentSpell];
 }
+
+function spar_spell_load_params() {
+	// decode spell grid
+	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.height);
+	decode_grid(global.allSpells, grid);
+	
+	// use currentSpell to get all params
+	spellName	= grid[# SPELL_PARAMS.NAME,			currentSpell];
+	spellCost	= grid[# SPELL_PARAMS.COST,			currentSpell];
+	spellType	= grid[# SPELL_PARAMS.TYPE,			currentSpell];
+	spellPower	= grid[# SPELL_PARAMS.POWER,		currentSpell];
+	spellEffect	= grid[# SPELL_PARAMS.EFFECT,		currentSpell];
+}

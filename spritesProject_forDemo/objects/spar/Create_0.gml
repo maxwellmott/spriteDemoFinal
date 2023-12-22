@@ -145,3 +145,16 @@ hoverMenu_rowFourY		= hoverMenu_rowThreeY + 7;
 #endregion
 
 inRangeSprites = ds_list_create();
+
+// TURNS TILL BLAST | DAMAGE | TARGET PLAYER
+timedBlasts = ds_grid_create(3, 0);
+
+playerOneDrawHP = playerOne.currentHP;
+playerTwoDrawHP = playerTwo.currentHP;
+
+playerOneDrawMP = playerOne.currentMP;
+playerTwoDrawMP = playerTwo.currentMP;
+
+sparMsg	= "";
+
+turnProcessCount = 0;

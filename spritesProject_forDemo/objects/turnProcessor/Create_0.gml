@@ -1,14 +1,24 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+// initialize target
+
+// initialize actor
+
+// initialize action
+
+// initialize damage
+damage = 0;
+
 // initialize currentSpell
 currentSpell = -1;
 
 // initialize spellParams
 spellName		= "";
+spellCost		= -1;
 spellType		= -1;
 spellPower		= -1;
-spellFunction	= -1;
+spellEffect		= -1;
 
 // perform agility sort
 agility_sort(spar.turnGrid);

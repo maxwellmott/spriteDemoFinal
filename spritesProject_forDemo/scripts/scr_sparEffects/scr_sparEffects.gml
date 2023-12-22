@@ -1,3 +1,10 @@
+enum HINDRANCES {
+	MIASMA,
+	HUM,
+	RUST,
+	HEIGHT
+}
+
 function arena_change_volcano() {
 	spar.currentArena = arenas.volcano;
 }
@@ -18,7 +25,6 @@ function arena_change_normal() {
 	spar.currentArena = -1;
 }
 
-/// argument[0] = sprite using the effect
 function set_miasma_enemy() {	
 	target.team.miasma = true;
 }
@@ -58,306 +64,100 @@ function set_rust_global() {
 	set_rust_self();
 }
 
-function energy_blast() {
+function energy_blast(_targetPlayer, _damage) {
+	var t = _targetPlayer;
+	var d = _damage;
 	
+	t.currentHP -= d;
 }
 
-function bestow_mindset_self() {
+function bestow_mindset(_target, _mindset) {
+	var t = _target;
+	var m = _mindset;
 	
+	t.mindset = m;
 }
 
-function bestow_mindset_target() {
-	
-}
-
-function bestow_mindset_nearby_allies() {
-	
-}
-
-function bestow_mindset_nearby_enemies() {
-	
-}
-
-function bestow_mindset_all_nearby() {
-	
-}
-
-function bestow_mindset_all_allies() {
-	
-}
-
-function bestow_mindset_all_enemies() {
-	
-}
-
-function bestow_mindset_global() {
-	
-}
-
-function shift_mindset_self() {
-	
-}
-
-function shift_mindset_target() {
-	
-}
-
-function shift_mindset_nearby_allies() {
-	
-}
-
-function shift_mindset_nearby_enemies() {
-	
-}
-
-function shift_mindset_all_nearby() {
-	
-}
-
-function shift_mindset_all_allies() {
-	
-}
-
-function shift_mindset_all_enemies() {
-	
-}
-
-function shift_mindset_global() {
-	
-}
-
-function copy_mindset() {
-	
-}
-
-function steal_mp() {
-	
-}
-
-function steal_hp() {
-	
-}
-
-function drain_mp() {
-	
-}
-
-function drain_hp() {
-	
-}
-
-function restore_mp() {
-	
-}
-
-function restore_hp() {
-	
-}
-
-function set_bound() {
-	
-}
-
-function set_bound_nearby_allies() {
-	
-}
-
-function set_bound_nearby_enemies() {
-	
-}
-
-function set_bound_all_nearby() {
-	
-}
-
-function set_bound_enemy() {
-	
-}
-
-function set_bound_self() {
-	
-}
-
-function set_bound_global() {
-	
-}
-
-function set_hexed() {
-	
-}
-
-function set_hexed_nearby_allies() {
-	
-}
-
-function set_hexed_nearby_enemies() {
-	
-}
-
-function set_hexed_all_nearby() {
-	
-}
-
-function set_hexed_enemy() {
-	
-}
-
-function set_hexed_self() {
-	
-}
-
-function set_hexed_global() {
-	
-}
-
-function remove_bound() {
-	
-}
-
-function remove_bound_nearby_allies() {
-	
-}
-
-function remove_bound_all_nearby() {
-	
-}
-
-function remove_bound_self() {
-	
-}
-
-function remove_bound_global() {
-	
-}
-
-function remove_hexed() {
-	
-}
-
-function remove_hexed_nearby_allies() {
-	
-}
-
-function remove_hexed_all_nearby() {
-	
-}
-
-function remove_hexed_self() {
-	
-}
-
-function remove_hexed_global() {
-	
-}
-
-function clear_miasma_self() {
-	
-}
-
-function clear_miasma_global() {
-	
-}
-
-function clear_hum_self() {
-	
-}
-
-function clear_hum_global() {
-	
-}
-
-function clear_rust_self() {
-	
-}
-
-function clear_rust_global() {
-	
-}
-
-function clear_hindrances_self() {
-	
-}
-
-function clear_hindrances_global() {
-	
-}
-
-function clear_mindsets_nearby_allies() {
-	
-}
-
-function clear_mindsets_all_nearby() {
-	
-}
-
-function clear_mindsets_self() {
-	
-}
-
-function clear_mindsets_global() {
-	
-}
-
-function bless_to_curse_self() {
-	
-}
-
-function bless_to_curse_target() {
-	
-}
-
-function bless_to_curse_nearby_allies() {
-	
-}
-
-function bless_to_curse_nearby_enemies() {
-	
-}
+function shift_mindset(_target) {
+	var t = _target;
 
-function bless_to_curse_all_nearby() {
-	
+	if (t.mindset > 0) {
+		t.mindset = 0 - t.mindset;
+		// return -1 for switching to curse
+		return -1;
+	}
+	if (t.mindset < 0) {
+		t.mindset = 0 - t.mindset;
+		// return 1 for switching to blessing
+		return 1;
+	}
 }
 
-function bless_to_curse_all_allies() {
+function copy_mindset(_caster, _target) {
+	var c = _caster;
+	var t = _target;
 	
+	c.mindset = t.mindset;
 }
 
-function bless_to_curse_all_enemies() {
+function restore_mp(_targetPlayer, _amount) {
+	var t = _targetPlayer;
+	var a = _amount;
 	
+	t.currentMP += a;
 }
 
-function bless_to_curse_global() {
+function restore_hp(_targetPlayer, _amount) {
+	var t = _targetPlayer;
+	var a = _amount;
 	
+	t.currentHP += a;
 }
 
-function curse_to_bless_self() {
+function set_bound(_target) {
+	var t = _target;
 	
+	t.bound = true;
 }
 
-function curse_to_bless_target() {
+function set_hexed(_target) {
+	var t = _target;
 	
+	t.hexed = true;
 }
 
-function curse_to_bless_nearby_allies() {
+function remove_bound(_target) {
+	var t = _target;
 	
+	t.bound = false;
 }
 
-function curse_to_bless_nearby_enemies() {
+function remove_hexed(_target) {
+	var t = _target;
 	
+	t.hexed  = false;
 }
 
-function curse_to_bless_all_nearby() {
+function clear_miasma(_targetPlayer) {
+	var t = _targetPlayer;
 	
+	t.miasma = false;
 }
 
-function curse_to_bless_all_allies() {
+function clear_hum(_targetPlayer) {
+	var t = _targetPlayer;
 	
+	t.hum = false;
 }
 
-function curse_to_bless_all_enemies() {
+function clear_rust(_targetPlayer) {
+	var t = _targetPlayer;
 	
+	t.rust = false;
 }
 
-function curse_to_bless_global() {
+function clear_mindset(_target) {
+	var t = _target;
 	
+	t.mindset = 0;
 }

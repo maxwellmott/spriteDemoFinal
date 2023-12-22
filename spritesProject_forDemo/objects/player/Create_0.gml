@@ -79,7 +79,7 @@ spellBookString = "";
 spellBook = ds_list_create();
 
 // ONLY FOR TESTING
-spellBook[| 7] = SPELLS.ruburs_grapple;
+spellBook[| 7] = SPELLS.rubursGrapple;
 spellBook[| 6] = SPELLS.ladySolanusGrace;
 spellBook[| 5] = SPELLS.expelForce;
 spellBook[| 4] = SPELLS.healingLight;
