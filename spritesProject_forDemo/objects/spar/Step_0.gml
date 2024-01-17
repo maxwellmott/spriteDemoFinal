@@ -12,10 +12,21 @@ switch (sparPhase) {
 	
 	case sparPhases.process:
 		// sort by agility
-	
-		// use a repeat loop to perform all swaps and rests
 		
-		// use a repeat loop to to perform all attacks and spells
+		// perform all swaps and rests
+		
+		// correct mp bar (find a way to do this right after an action is taken)
+		
+		// perform all attacks and spells
+		
+		// set displayHealth and displayMagic
+		playerDisplayHP = player.currentHP;
+		playerDisplayMP = player.currentMP;
+		
+		enemyDisplayHP	= playerTwo.currentHP;
+		enemyDisplayMP	= playerTwo.currentMP;
+		
+		// correct hp bar
 		
 	break;
 	

@@ -1,5 +1,5 @@
-/// @description Insert description here
-// You can write your code in this editor
+#macro MAX_HP	1000
+#macro MAX_MP	100
 
 draw_set_font(sparFont);
 draw_set_halign(fa_center);
@@ -46,8 +46,10 @@ var i = 0; repeat (8) {
 		draw_set_halign(fa_left);
 		draw_set_valign(fa_top);
 		
+		draw_set_font(plainFont);
+		
 		draw_sprite(spr_readyDisplayBox, 0, inst.x, inst.y);
-		draw_text_transformed(inst.x - 27, inst.y - 25, inst.readyDisplay, 0.5, 0.5, 0);
+		draw_text_transformed(inst.x - 27, inst.y - 15, inst.readyDisplay, 0.5, 0.5, 0);
 	}
 	
 	// reset halign and valign
@@ -120,7 +122,11 @@ draw_set_alpha(1.0);
 	draw_sprite(spr_sparHPMP, 0, 120, guiHeight - 8);
 	draw_sprite(spr_sparHPMP, 0, 135, 8);
 	
-	// draw health and magic bars
+	// draw playerBars surface
+	draw_surface_ext(playerBarSurface, playerBarSurfaceX, playerBarSurfaceY, -1, 1, 0, c_white, 1.0);
+	
+	// draw enemyBars surface
+	draw_surface(enemyBarSurface, enemyBarSurfaceX, enemyBarSurfaceY);
 	
 	// draw hindrance indicators
 	if (playerOne.miasma)	draw_sprite(spr_sparMiasma, 0,	playerOne.miasmaX,	playerOne.miasmaY);

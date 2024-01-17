@@ -35,7 +35,7 @@ if (spar.sparPhase == sparPhases.select) {
 }
 
 // check if selectedTarget is set
-if (selectedTarget != -1) {
+if (selectedTarget != -4) {
 	// check if readyDisplay has been built
 	if !(readyDisplayBuilt) {
 		// if not, build readyDisplay
@@ -43,6 +43,7 @@ if (selectedTarget != -1) {
 	}
 }
 
-if (spar.sparPhase == sparPhases.process) {
+if (spar.sparPhase == sparPhases.process)
+&& (readyDisplayBuilt) {
 	readyDisplayBuilt = false;	
 }

@@ -158,3 +158,24 @@ playerTwoDrawMP = playerTwo.currentMP;
 sparMsg	= "";
 
 turnProcessCount = 0;
+
+playerDisplayHP		= 500;
+enemyDisplayHP		= 500;
+
+playerDisplayMP		= player.currentMP;
+enemyDisplayMP		= playerTwo.currentMP;
+
+hpBarX				= 3;
+mpBarX				= 3;
+
+hpBarY				= 3;
+mpBarY				= 10;
+
+playerBarSurfaceX	= 112;
+playerBarSurfaceY	= 208;
+
+enemyBarSurfaceX	= 144;
+enemyBarSurfaceY	= 0;
+
+playerBarSurface	= surface_create(48, 16);
+enemyBarSurface		= surface_create(48, 16);

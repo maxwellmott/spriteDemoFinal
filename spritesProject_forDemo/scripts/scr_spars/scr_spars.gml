@@ -276,6 +276,7 @@ function spar_set_action() {
 		break;
 		
 		case sparActions.dodge:
+			sprite.readyDisplayBuilt = false;
 			sprite.selectedTarget = -1;
 			sprite.selectedAction = action;
 			sprite.turnReady = true;
@@ -288,6 +289,7 @@ function spar_set_action() {
 		break;
 		
 		case sparActions.rest:
+			sprite.readyDisplayBuilt = false;
 			sprite.selectedTarget = -1;
 			sprite.selectedAction = action;
 			sprite.turnReady = true;
@@ -466,34 +468,67 @@ function check_all_allies_ready() {
 	var readyBool = true;
 	
 	var i = 0;	repeat (ds_list_size(allyList)) {
-		if (allyList[| i].selectedAction == -1) readyBool = false;
+		if (allyList[| i].turnReady == false) readyBool = false;
 		i++;
 	}
 	
 	return readyBool;
 }
 	
-function sprite_build_ready_display() {
-	var targName = "";
-	if selectedTarget != -1 {
-		targName = spar.spriteList[| selectedTarget].name;
+///@desc This function will be called by each ally after their turn has been set. It will
+/// take the details of their turn and produce a short description of their plan for the
+/// upcoming action phase.
+function sprite_build_ready_display() {	
+	if (selectedTarget != -1) {
+		var num = spar.spriteList[| selectedTarget].allyNum;
+		var numString = "";
+		
+		switch (num) {
+			case 0:
+				numString = "one";
+			break;
+			
+			case 1:
+				numString = "two";
+			break;
+			
+			case 2:
+				numString = "three";
+			break;
+			
+			case 3:
+				numString = "four";
+			break;
+		}
 	}
 	
 	var spriteWidth = sprite_get_width(spr_readyDisplayBox);
 	
 	switch (selectedAction) {
 		case sparActions.attack:
-			var substring = "READY TO ATTACK " + targName;
-			readyDisplay = format_text(substring, spriteWidth - 6);
+			if (selectedTarget > 3) {
+				var substring = "attacking enemy " + numString;
+				readyDisplay = format_text(substring, spriteWidth - 4);
+			}
+			else {
+				var substring = "attacking ally " + numString;
+				readyDisplay = format_text(substring, spriteWidth - 4);
+			}
 		break;
 		
 		case sparActions.dodge:
+			var substring = "dodging";
+			readyDisplay = format_text(substring, spriteWidth - 4);
 		break;
 		
 		case sparActions.swap:
+			var substring = "swapping with ally " + numString;
+			readyDisplay = format_text(substring, spriteWidth - 4);
 		break;
 		
 		case sparActions.rest:
+			var substring = "resting";
+			readyDisplay = format_text(substring, spriteWidth - 4);
 		break;
 	}
 	
@@ -508,6 +543,13 @@ function spar_set_target() {
 	player.selectedAlly.selectedAction = global.action;
 	player.selectedAlly.selectedTarget = spotNum;
 	player.selectedAlly.turnReady = true;
+	
+	if (global.action == sparActions.swap) {
+		readyDisplayBuilt = false;
+		selectedAction = global.action;
+		selectedTarget = player.selectedAlly.spotNum;
+		turnReady = true;
+	}
 }
 
 ///@desc This function sets the selected ally's action and target with global.action

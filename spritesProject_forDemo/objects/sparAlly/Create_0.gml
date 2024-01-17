@@ -68,8 +68,8 @@ bound = false;
 hexed = false;
 
 // initialize selectedTarget and selectedAction
-selectedTarget = -1;
-selectedAction = -1;
+selectedTarget = -4;
+selectedAction = -4;
 
 // set bbox dimensions
 bbBottom	= y + 32;
