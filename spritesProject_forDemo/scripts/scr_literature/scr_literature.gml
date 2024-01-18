@@ -12,7 +12,7 @@ enum literatureIDs {
 	sacriLibriV,
 	epicOfTheAeons,						//genesis
 	phremnsBirth,
-	astralDoctrine,						//bible
+	ASTRALDoctrine,						//bible
 	threeWitchesGrimoireVol1,
 	threeWitchesGrimoireVol2,
 	threeWitchesGrimoireVol3,

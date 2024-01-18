@@ -5,6 +5,14 @@ enum HINDRANCES {
 	HEIGHT
 }
 
+enum MINDSETS {
+	MOTHER,
+	WARRIOR,
+	IMP,
+	TREE,
+	HEIGHT
+}
+
 function arena_change_volcano() {
 	spar.currentArena = arenas.volcano;
 }

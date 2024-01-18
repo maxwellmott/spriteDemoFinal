@@ -59,7 +59,5 @@ spellBookGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLMAX);
 // initialize enemy
 enemy = noone;
 
-// 
-
 // set spellBookGrid
 human_build_spellBookGrid();

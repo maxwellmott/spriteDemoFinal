@@ -95,5 +95,8 @@ readyDisplay = "";
 // initialize readyDisplayBuilt
 readyDisplayBuilt = false;
 
+// initialize team
+team = spar.playerTwo;
+
 // initialize enemy
-enemy = spar.playerTwo.enemy;
+enemy = player;

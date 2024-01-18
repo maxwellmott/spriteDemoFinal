@@ -95,5 +95,8 @@ readyDisplay = "";
 // initialize readyDisplayBuilt
 readyDisplayBuilt = false;
 
+// initialize team
+team = player;
+
 // initialize enemy
 enemy = player.enemy;

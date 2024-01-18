@@ -49,10 +49,10 @@ teamString = "";
 teamList = ds_list_create();
 
 // ONLY FOR TESTING
-teamList[| 0] = SPRITES.pondile;
-teamList[| 1] = SPRITES.hachaChacha;
-teamList[| 2] = SPRITES.podric;
-teamList[| 3] = SPRITES.glidrake;
+teamList[| 0] = SPRITES.PONDILE;
+teamList[| 1] = SPRITES.HACHACHACHA;
+teamList[| 2] = SPRITES.PODRIC;
+teamList[| 3] = SPRITES.GLIDRAKE;
 
 // initialize spriteString
 talismanString = "";
@@ -79,14 +79,14 @@ spellBookString = "";
 spellBook = ds_list_create();
 
 // ONLY FOR TESTING
-spellBook[| 7] = SPELLS.rubursGrapple;
-spellBook[| 6] = SPELLS.ladySolanusGrace;
-spellBook[| 5] = SPELLS.expelForce;
-spellBook[| 4] = SPELLS.healingLight;
-spellBook[| 3] = SPELLS.decay;
-spellBook[| 2] = SPELLS.shock;
-spellBook[| 1] = SPELLS.holyWater;
-spellBook[| 0] = SPELLS.fireball;
+spellBook[| 7] = SPELLS.RUBURS_GRAPPLE;
+spellBook[| 6] = SPELLS.LADY_SOLANUS_GRACE;
+spellBook[| 5] = SPELLS.EXPEL_FORCE;
+spellBook[| 4] = SPELLS.HEALING_LIGHT;
+spellBook[| 3] = SPELLS.DECAY;
+spellBook[| 2] = SPELLS.SHOCK;
+spellBook[| 1] = SPELLS.HOLY_WATER;
+spellBook[| 0] = SPELLS.FIREBALL;
 
 // initialize contactString
 contactString = "";

@@ -70,11 +70,11 @@ convert_grid_to_map(mercurioResponseGrid, mercurioResponseMap);
 var mercurioTalismans = ds_list_create();
 
 ds_list_add(mercurioTalismans,
-				SPRITES.pondile,
-				SPRITES.hachaChacha,
-				SPRITES.podric,
-				SPRITES.sudsy,
-				SPRITES.pleep
+				SPRITES.PONDILE,
+				SPRITES.HACHACHACHA,
+				SPRITES.PODRIC,
+				SPRITES.SUDSY,
+				SPRITES.PLEEP
 			);
 #endregion
 
@@ -83,14 +83,14 @@ ds_list_add(mercurioTalismans,
 var mercurioSpells = ds_list_create();
 
 ds_list_add(mercurioSpells,
-				SPELLS.fireball,
-				SPELLS.holyWater,
-				SPELLS.shock,
-				SPELLS.decay,
-				SPELLS.expelForce,
-				SPELLS.healingLight,
-				SPELLS.jabulsFightSong,
-				SPELLS.creciasCrystalSpikes
+				SPELLS.FIREBALL,
+				SPELLS.HOLY_WATER,
+				SPELLS.SHOCK,
+				SPELLS.DECAY,
+				SPELLS.EXPEL_FORCE,
+				SPELLS.HEALING_LIGHT,
+				SPELLS.JABULS_FIGHT_SONG,
+				SPELLS.CRECIAS_CRYSTAL_SPIKES
 			);
 #endregion
 

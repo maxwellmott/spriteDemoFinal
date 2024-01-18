@@ -5,20 +5,21 @@ in each of the "last thoughts" notes to follow.
 
 BATTLE SCENE TODO:
 
-	-add spell animations
-	-add spell backgrounds
-	-program a pause for spell/attack/swap animations to play
-	-finish spells and effects
-	-add abilities
-	-add all new sprites
-	-replace spell and sprite scripts with demo versions
-	-program spellbook icons
-	-create turn message functionality
-	-fix ready display												DONE [1/16]
-	-fix fonts
-	-add music and sound effects
-	-add hp and mp bars												DONE [1/16]
+	-add spell animations					4 POINTS
+	-finish spells and effects				2 POINTS				
+	-add abilities							4 POINTS
+	-add all new sprites					2 POINTS				
+	-create demo scripts*					2 POINTS
+	-program spellbook icons				1 POINT
+	-program sparSwapProcessor				2 POINTS
+	-finish sparActionProcessor				4 POINTS
+	-create turn message functionality		1 POINT
+	-fix ready display						2 POINTS				2 POINTS DONE [1/16]
+	-fix fonts								3 POINTS
+	-add music and sound effects			4 POINTS
+	-add hp and mp bars						1 POINT					1 POINT DONE [1/16]
 	
+	*demo scripts cannot be built until full versions are complete (npcs, sprites, spells, abilities)
 	
 1/16 (added hp and mp bars) &&& (fixed ready display)
 
@@ -32,3 +33,12 @@ BATTLE SCENE TODO:
 	out of the picture completely and replace them with a reference to their enemy or ally number respectively. This will make it easier as 
 	well when the player is seeing a sprite for the first time and they don't yet know the sprite's name. I also changed the font to the 
 	plainFont since it's much easier to fit everything on the banner in an organized fashion.
+	
+1/17 
+	
+		Today I just did some tidying up (corrected the casing of all the sprite and spell enums). I also commented out some yet-to-be-written
+	processes. I also started working on spell functions, but only completed the solar flare function.
+	
+		I need to determine exactly how it should look in-game when a swap occurs (this means intentionally and by some spell effect). Ideally,
+	the same object will be used for both types of swaps, and any pre-turn swapping will occur all at once. I would love to have an animation
+	that covers the sprites when the swap occurs, but I think it would be best to get the process working first and then see what might look good.

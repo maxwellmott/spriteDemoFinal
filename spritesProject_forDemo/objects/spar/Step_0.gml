@@ -11,6 +11,9 @@ switch (sparPhase) {
 	break;
 	
 	case sparPhases.process:
+		// check if any sprites are swapping
+			// if so, create the sparSwapProcessor
+	
 		// sort by agility
 		
 		// perform all swaps and rests
