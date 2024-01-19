@@ -169,3 +169,15 @@ function clear_mindset(_target) {
 	
 	t.mindset = 0;
 }
+	
+function fully_restore_hp(_targetPlayer) {
+	var t = _targetPlayer;
+	
+	t.currentHP = MAX_HP;
+}
+
+function fully_restore_mp(_targetPlayer) {
+	var t = _targetPlayer;
+	
+	t.currentMP = MAX_MP;
+}

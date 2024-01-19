@@ -561,3 +561,16 @@ function self_target_set() {
 	player.selectedAlly.selectedTarget = SELFTARGET;
 	player.selectedAlly.turnReady = true;
 }
+
+///@desc This function should be called by each sprite on the field whenever a swap occurs. The
+/// function simply rebuilds all of their "nearby" lists, in case any sprites changed position.
+///
+/// (these lists store the instance ID of sprites)
+function rebuild_nearby_lists() {
+	// clear all lists
+	ds_list_clear(nearbyAllies);
+	ds_list_clear(nearbyEnemies);
+	ds_list_clear(nearbySprites);
+	
+	///@TODO rebuild each list depending on the sprites position
+}

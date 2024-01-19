@@ -100,3 +100,8 @@ team = spar.playerTwo;
 
 // initialize enemy
 enemy = player;
+
+// initialize nearby lists
+nearbyAllies	= ds_list_create();
+nearbyEnemies	= ds_list_create();
+nearbySprites	= ds_list_create();

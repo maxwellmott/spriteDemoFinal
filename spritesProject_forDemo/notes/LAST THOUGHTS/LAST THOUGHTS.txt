@@ -18,6 +18,7 @@ BATTLE SCENE TODO:
 	-fix fonts								3 POINTS
 	-add music and sound effects			4 POINTS
 	-add hp and mp bars						1 POINT					1 POINT DONE [1/16]
+	-complete nearby list functionality		1 POINT
 	
 	*demo scripts cannot be built until full versions are complete (npcs, sprites, spells, abilities)
 	

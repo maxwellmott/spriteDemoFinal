@@ -158,72 +158,209 @@ function tidal_force() {
 
 ///@desc SPELL FUNCTION: hexes all enemies
 function nebula_storm() {
+	// get target's team
+	var t = targetSprite.team;
 
+	// initialize dummy list
+	var list = ds_list_create();
+	
+	// get enemy allyList
+	if (t == spar.playerOne) {
+		ds_list_copy(list, spar.allyList);
+	}
+	
+	if (t == spar.playerTwo) {
+		ds_list_copy(list, spar.enemyList);
+	}
+	
+	// use a repeat loop to hex all enemies
+	var i = 0;	repeat (ds_list_size(list)) {
+		set_hexed(list[| i]);
+		
+		i++;
+	}
+	
+	// delete the dummy list
+	ds_list_destroy(list);
 }
 
 ///@desc SPELL FUNCTION: binds all enemies
 function tectonic_shift() {
+	// get target's team
+	var t = targetSprite.team;
 
+	// initialize dummy list
+	var list = ds_list_create();
+	
+	// get enemy allyList
+	if (t == spar.playerOne) {
+		ds_list_copy(list, spar.allyList);
+	}
+	
+	if (t == spar.playerTwo) {
+		ds_list_copy(list, spar.enemyList);
+	}
+	
+	// use a repeat loop to hex all enemies
+	var i = 0;	repeat (ds_list_size(list)) {
+		set_bound(list[| i]);
+		
+		i++;
+	}
+	
+	// delete the dummy list
+	ds_list_destroy(list);	
 }
 
 ///@desc SPELL FUNCTION: no effect
 function fireball() {
-
+	// maybe uhh delete this uhh function
 }
 
-///@desc SPELL FUNCTION: partially heals caster's team
+///@desc SPELL FUNCTION: deals extra damage if the sprite
 function holy_water() {
-
+	// any spells that effect damage calc will be on a list
+	// that will be checked before damage calc is performed
+	// (effect functions are called after damage calc)
 }
 
 ///@desc SPELL FUNCTION: binds target (dodgeable)
 function shock() {
-	// bind target (dodgeable)
+	if (dodgeSuccess == false) {
+		set_bound(targetSprite);
+	}
 }
 
 ///@desc SPELL FUNCTION: restores half of health depleted (dodgeable)
 function decay() {
-	
+	if (dodgeSuccess == false) {
+		var t = activeSprite.team;
+		var d = damage / 2;
+		
+		restore_hp(t, d);
+	}
 }
 
 function expel_force() {
 	// no effect
 }
 
+///@desc SPELL FUNCTION: partially restores team and grants all allies blessing of the tree
 function lady_solanus_grace() {
-	// heal team and grant all allies blessing of the tree
+	// get caster's team
+	var t = activeSprite.team;
+	
+	// heal team fully
+	fully_restore_hp(t);
+	
+	// initialize dummy list
+	var list = ds_list_create();
+	
+	// get the team's allyList
+	if (t == spar.playerOne) {
+		ds_list_copy(list, spar.allyList);
+	}
+	
+	if (t == spar.playerTwo) {
+		ds_list_copy(list, spar.enemyList);
+	}
+	
+	var i = 0;	repeat (ds_list_size(list)) {
+		bestow_mindset(list[| i], MINDSETS.TREE);
+		
+		i++;
+	}
 }
 
+///@desc SPELL FUNCTION: grants target curse of the tree (dodgeable)
 function typhoon() {
-	// grant target curse of the warrior
+	if (dodgeSuccess == false) {
+		bestow_mindset(targetSprite, 0 - MINDSETS.TREE);
+	}
 }
 
+///@desc SPELL FUNCTION: fully heals the caster's team
 function healing_light() {
-	// fully heal team
+	var t = activeSprite.team;
+	
+	fully_restore_hp(t);
 }
 
+///@desc SPELL FUNCTION: no effect
 function ruburs_water_cannon() {
 	// no effect
 }
 
+///@desc SPELL FUNCTION: binds the target (dodgeable)
 function ruburs_grapple() {
-	// bind target (dodgeable)
+	if (dodgeSuccess == false) {
+		set_bound(targetSprite);
+	}
 }
 
+///@desc SPELL FUNCTION: changes arena to forest
 function lusias_harvest_spell() {
-	// change arena to forest
+	arena_change_forest();
 }
 
+///@desc SPELL FUNCTION: grants target the curse of the tree
 function waterlog() {
-	// grant target curse of the tree
+	bestow_mindset(targetSprite, 0 - MINDSETS.TREE);
 }
 
+///@desc SPELL FUNCTION: grants target and all nearby enemies the curse of the tree
 function air_pressure() {
-	// grant target and all nearby enemies the curse of the tree
+	
+	// initialize the dummy list
+	var list = ds_list_create();
+	
+	// copy the target's nearbyAlly list
+	ds_list_copy(list, targetSprites.nearbyAllies);
+	
+	// use a repeat loop to grant curse to all nearbyAllies
+	var i = 0;	repeat (ds_list_size(nearbyAllies)) {
+		bestow_mindset(list[| i], 0 - MINDSETS.TREE);
+		
+		i++;
+	}
+	
+	// grant mindset to targetSprite
+	bestow_mindset(targetSprite, 0 - MINDSETS.TREE);
+	
+	// destroy list
+	ds_list_destroy(list);
 }
 
+///@desc SPELL FUNCTION: removes all curses and hindrances from caster's side of the field
 function superbloom() {
-	// remove all curses and hindrances from caster's side of the field
+	// get caster's team
+	var t = activeSprite.team;
+	
+	// create dummy list
+	var list = ds_list_create();
+	
+	// get team's ally list
+	if (t == spar.playerOne) {
+		ds_list_copy(list, spar.allyList);	
+	}
+	
+	if (t == spar.playerTwo) {
+		ds_list_copy(list, spar.enemyList);	
+	}
+	
+	// use a repeat list to remove any curses
+	var i = 0;	repeat (ds_list_size(list)) {
+		if (list[| i].mindset < 0) {
+			list[| i].mindset = 0;	
+		}
+		
+		i++;
+	}
+	
+	// remove all hindrances
+	clear_hum(t);
+	clear_miasma(t);
+	clear_rust(t);
 }
 
 function rapid_strike() {

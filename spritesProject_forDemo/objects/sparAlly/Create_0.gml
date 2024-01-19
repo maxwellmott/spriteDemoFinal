@@ -100,3 +100,8 @@ team = player;
 
 // initialize enemy
 enemy = player.enemy;
+
+// initialize nearby lists
+nearbyAllies	= ds_list_create();
+nearbyEnemies	= ds_list_create();
+nearbySprites	= ds_list_create();
