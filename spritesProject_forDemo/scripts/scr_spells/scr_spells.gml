@@ -363,34 +363,141 @@ function superbloom() {
 	clear_rust(t);
 }
 
+///@desc SPELL FUNCTION: this spell strikes first. it's id will be on a list of priority moves
 function rapid_strike() {
 	// the ID of this spell is on a list of "prioritySpells"
 }
 
-function looming_danger() {
-	// the ID of this spell is on a list of "prioritySpells"
+///@desc SPELL FUNCTION: this spell starts a timer for an Energy Blast on the
+/// target's team.
+function looming_danger() {	
+	// get target's team
+	var t = targetSprite.team;
 	
-	// start a timer for an Energy Blast
+	// add the params of the blast to the blast grid
+	var count = spar.blastCount;
+	
+	spar.timedBlasts[# 0, count] = 3;
+	spar.timedBlasts[# 1, count] = 500;
+	spar.timedBlasts[# 2, count] = t;
+	
+	// increment the blast count
+	spar.blastCount++;
 }
 
+///@desc SPELL FUNCTION: caster takes target's place in any spells targeting
+/// them this turn.
 function intercept() {
-	// take target's place in any spells targeting them this turn 
+	// get caster
+	var c = activeSprite;
+	
+	// get target
+	var t = targetSprite;
+	
+	// use a repeat loop to check the target column of the turn grid for the target
+	var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
+		// check if the target matches
+		if (spar.turnGrid[# 2, i] == t.spotNum) {
+			// check if the action is a spell
+			if (spar.turnGrid[# 3, i] >= sparActions.height) {
+				// replace the target with the caster
+				spar.turnGrid[# 2, i] = c.spotNum;
+			}
+		}
+	}
 }
 
+///@desc SPELL FUNCTION: partially heals the caster's team, removes miasma, turns all 
+/// ally curses into blessings
 function steam_bath() {
-	// heal team, remove hindrances, turn all curses to blessings (dodgeable)
+	// get the caster
+	var c = activeSprite;
+	
+	// get the caster's team
+	var t = c.team;
+	
+	// initialize dummy list
+	var list = ds_list_create();
+	
+	// get the caster's team's allyList
+	if (t == spar.playerOne) {
+		ds_list_copy(list, spar.allyList);
+	}
+	
+	if (t == spar.playerTwo) {
+		ds_list_copy(list, spar.enemyList);
+	}
+	
+	// remove miasma on both sides of the field
+	clear_miasma(spar.playerOne);
+	clear_miasma(spar.playerTwo);
+	
+	// use a repeat loop to turn any ally curses into blessings
+	var i = 0;	repeat (ds_list_size(list)) {
+		var m = list[| i].mindset;
+		
+		if (m < 0) {
+			shift_mindset(list[| i]);
+		}
+		
+		i++;	
+	}
 }
 
+///@desc SPELL FUNCTION: grants target curse of the imp
 function undertow() {
-	// grant target curse of the imp
+	var t = targetSprite;
+	
+	bestow_mindset(t, 0 - MINDSETS.IMP);
 }
 
+///@desc SPELL FUNCTION: adopts target's mindset and fully heals target or caster's team
+/// depending on whether the mindset in question is a blessing or a curse. (dodgeable)
 function empathize() {
-	// adopt target's mindset and partially heal target's team (dodgeable)
+	if !(dodgeSuccess) {
+		// store target and caster in locals
+		var t = targetSprite;
+		var c = activeSprite;
+		
+		// check if target has an altered mindset
+		if (t.mindset != 0) {
+			// copy mindset
+			c.mindset = t.mindset;
+			
+			// if blessing, fully heal target team
+			if (t.mindset > 0) {
+				fully_restore_hp(t.team);	
+			}
+			
+			// if curse, fully heal caster's team
+			if (t.mindset < 0) {
+				fully_restore_hp(c.team);	
+			}
+		}
+	}
 }
 
+///@desc SPELL FUNCTION: hexes target and all their nearby allies (effect only dodgeable by target)
 function hellfire() {
-	// hex target and all nearby allies (dodgeable)
+	// store target in a local
+	var t = targetSprite;
+	
+	// initialize dummy list
+	var list = ds_list_create();
+	
+	// copy nearbyAllies list to dummy list
+	ds_list_copy(list, t.nearbyAllies);
+	
+	// use a repeat loop to hex all nearby allies
+	var i = 0;	repeat (ds_list_size(list)) {
+		set_hexed(list[| i]);
+		
+		i++;
+	}
+	
+	if !(dodgeSuccess) {
+		set_hexed(t);	
+	}
 }
 
 function ball_lightning() {

@@ -112,7 +112,7 @@ enum turnParams {
 	height
 }
 
-// initialize turnGrid
+// initialize turnGrid	ACTIVE SPRITE	|	TARGET SPRITE	|	ACTION
 turnGrid = ds_grid_create(turnParams.height, 8);
 
 // initialize turnMsg
@@ -149,6 +149,8 @@ inRangeSprites = ds_list_create();
 // TURNS TILL BLAST | DAMAGE | TARGET PLAYER
 timedBlasts = ds_grid_create(3, 0);
 
+blastCount = 0;
+
 playerOneDrawHP = playerOne.currentHP;
 playerTwoDrawHP = playerTwo.currentHP;
 
@@ -179,3 +181,6 @@ enemyBarSurfaceY	= 0;
 
 playerBarSurface	= surface_create(48, 16);
 enemyBarSurface		= surface_create(48, 16);
+
+blackHoleActive = false;
+ballLightningActive = false;
