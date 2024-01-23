@@ -9,8 +9,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "battle scene",
-    "path": "folders/Objects/battle scene.yy",
+    "name": "sprites",
+    "path": "folders/Objects/battle scene/sprites.yy",
   },
   "parentObjectId": null,
   "persistent": false,

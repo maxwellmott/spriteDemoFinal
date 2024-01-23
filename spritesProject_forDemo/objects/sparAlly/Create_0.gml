@@ -105,3 +105,12 @@ enemy = player.enemy;
 nearbyAllies	= ds_list_create();
 nearbyEnemies	= ds_list_create();
 nearbySprites	= ds_list_create();
+
+blackHoleActive = false;
+ballLightningActive = false;
+
+absorbedSpellCount = 0;
+
+newSpriteID = -1;
+
+swapping = false;

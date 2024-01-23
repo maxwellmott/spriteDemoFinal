@@ -50,6 +50,7 @@ enum elements {
 	height
 }
 
+/*
 function get_size_val(_size) {
 	var s = _size;
 	switch (s) {
@@ -330,6 +331,7 @@ function enemyAI_set_team() {
 	team[|2] = real(roster[|2]);
 	team[|3] = real(roster[|3]);
 }
+*/
 
 ///@desc This function is called when the player hits the "READY" button
 /// after selecting an action and target for each of their allies. It places

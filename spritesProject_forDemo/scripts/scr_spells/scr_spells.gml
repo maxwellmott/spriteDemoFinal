@@ -500,29 +500,79 @@ function hellfire() {
 	}
 }
 
+///@desc SPELL FUNCTION: this spell sets the ballLightningActive variable to true
+/// for the casting sprite. Until the end of the turn, all storm spells are negated
+/// and absorbed by the ball lightning. Each absorbed spell adds to the power of the
+/// spell, the damage of which is calculated at the end of the turn. This spell is also
+/// a priority spell.
 function ball_lightning() {
-	// the ID of this spell is on a list of "prioritySpells"
-	
-	// absorb all storm spells and cause them to totally fail
-	
-	// at the end of the turn, deliver the attack with additional damage for each 
-	// storm spell absorbed
+	// turn the caster's ballLightningActive variable to true
+	activeSprite.ballLightningActive = true;
 }
 
+///@desc SPELL FUNCTION: binds the target
 function quicksand() {
-	// traps target
+	// store targetSprite
+	var t = targetSprite;
+	
+	// bind the targetSprite
+	set_bound(t);
 }
 
+///@desc SPELL FUNCTION: hexes and binds the target and all nearby allies (target can dodge)
 function lord_mogradths_rage() {
-	// hex and curse target and all nearby allies (dodgeable)
+	// store targetSprite in a local variable
+	var t = targetSprite;
+	
+	// initialize the dummy list
+	var list = ds_list_create();
+	
+	// get nearbyAllies list
+	ds_list_copy(list, t.nearbyAllies);
+	
+	// use a repeat loop to hex and bind all nearby allies
+	var i = 0;	repeat (ds_list_size(list)) {
+		var s = list[| i];
+		set_hexed(s);
+		set_bound(s);
+		
+		// increment i
+		i++;
+	}
+	
+	// check for dodgeSuccess
+	if !(dodgeSuccess) {
+		// if no successful dodge, hex and bind target
+		set_hexed(t);
+		set_bound(t);
+	}
 }
 
+///@desc SPELL FUNCTION: restores half of the health depleted from target (dodgeable)
 function drain_lifeforce() {
-	// restore half of the health depleted from target (dodgeable)
+	if (dodgeSuccess == false) {
+		var t = activeSprite.team;
+		var d = damage / 2;
+		
+		restore_hp(t, d);
+	}
 }
 
+///@desc SPELL FUNCTION: deals a fraction of the damage to the caster
 function pyrokinesis() {
-	// deal a fraction of the damage to the caster
+	if (dodgeSuccess) {
+		// calculate what the damage would have been so that you
+		// can still calculate the recoil damage
+		var d = 100;	///@FIXME
+	}
+	else {
+		var d = damage / 3;	
+	}
+	
+	// get caster's team
+	var t = activeSprite.team;
+	
+	deplete_hp(t, d);
 }
 
 function downpour() {

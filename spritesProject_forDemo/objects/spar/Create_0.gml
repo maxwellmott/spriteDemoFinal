@@ -182,5 +182,4 @@ enemyBarSurfaceY	= 0;
 playerBarSurface	= surface_create(48, 16);
 enemyBarSurface		= surface_create(48, 16);
 
-blackHoleActive = false;
-ballLightningActive = false;
+swapsComplete = false;

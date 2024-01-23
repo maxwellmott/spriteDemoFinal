@@ -47,3 +47,9 @@ if (spar.sparPhase == sparPhases.process)
 && (readyDisplayBuilt) {
 	readyDisplayBuilt = false;	
 }
+
+// check if swapping is true
+if (swapping) {
+	// if swapping, change sprite to swapCloud
+	sprite = spr_sparSwapCloud;
+}

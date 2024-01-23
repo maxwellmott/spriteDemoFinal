@@ -11,8 +11,8 @@
   "managed": false,
   "overriddenProperties": [],
   "parent": {
-    "name": "battle scene",
-    "path": "folders/Objects/battle scene.yy",
+    "name": "UI",
+    "path": "folders/Objects/battle scene/UI.yy",
   },
   "parentObjectId": null,
   "persistent": false,

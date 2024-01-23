@@ -9,8 +9,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "battle scene",
-    "path": "folders/Objects/battle scene.yy",
+    "name": "turn processors",
+    "path": "folders/Objects/battle scene/turn processors.yy",
   },
   "parentObjectId": null,
   "persistent": false,

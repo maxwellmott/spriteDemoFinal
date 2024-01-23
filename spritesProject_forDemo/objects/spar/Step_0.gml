@@ -7,16 +7,28 @@ switch (sparPhase) {
 	break;
 	
 	case sparPhases.turnEnd:
-	
+		turnProcessCount = 0;
+		swapsComplete = false;
 	break;
 	
 	case sparPhases.process:
 		// check if any sprites are swapping
-			// if so, create the sparSwapProcessor
-	
-		// sort by agility
+		var w = ds_grid_width(turnGrid);
+		var h = ds_grid_height(turnGrid);
 		
-		// perform all swaps and rests
+		if (ds_grid_value_exists(turnGrid, 2, 0, 2, h, sparActions.swap)) {
+			// if so, create the sparSwapProcessor
+			create_once(0, 0, LAYER.meta, sparSwapProcessor);
+			swapsComplete = true;
+		}
+		
+		// check if any sprites are resting
+			// if so, create the sparRestProcessor
+			
+		// check if any sprites are dodging
+			// if so, create the sparDodgeAnnouncer
+	
+		// sort turnGrid by agility
 		
 		// correct mp bar (find a way to do this right after an action is taken)
 		
