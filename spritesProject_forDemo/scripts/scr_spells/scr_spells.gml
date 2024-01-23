@@ -30,7 +30,7 @@ enum SPELLS {
 	HELLFIRE,
 	BALL_LIGHTNING,
 	QUICKSAND,
-	LORD_MORGADTHS_RAGE,
+	LORD_MOGRADTHS_RAGE,
 	DRAIN_LIFEFORCE,
 	PYROKINESIS,
 	DOWNPOUR,
@@ -69,7 +69,7 @@ enum SPELLS {
 	TELEKINETIC_BLAST,
 	DESTABILIZING_BLOW,
 	FULL_THRUST,
-	VOLANIC_ERUPTION,
+	VOLCANIC_ERUPTION,
 	BROADCAST_DATA,
 	COLLAPSE_SPACE,
 	EXPAND_TIME,
@@ -109,7 +109,7 @@ enum SPELL_TYPES {
 var textGrid = load_csv("SPELLS_ENGLISH.csv");
 
 // create spell grid
-global.spellGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.height);
+global.spellGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
 
 // spell grid function
 function master_grid_add_spell(_ID) {
@@ -881,7 +881,7 @@ function spellbook_load_params() {
 
 function spar_spell_load_params() {
 	// decode spell grid
-	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.height);
+	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
 	decode_grid(global.allSpells, grid);
 	
 	// use currentSpell to get all params

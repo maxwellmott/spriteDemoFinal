@@ -54,11 +54,11 @@ enum elements {
 function get_size_val(_size) {
 	var s = _size;
 	switch (s) {
-		case spriteSizes.xLarge:	return 0.0;	break;
-		case spriteSizes.large:		return 0.5;	break;
-		case spriteSizes.medium:	return 1.0;	break;
-		case spriteSizes.small:		return 1.5;	break;
-		case spriteSizes.xSmall:	return 2.0;	break;
+		case SPRITE_SIZES.X_LARGE:	return 0.0;	break;
+		case SPRITE_SIZES.LARGE:		return 0.5;	break;
+		case SPRITE_SIZES.MEDIUM:	return 1.0;	break;
+		case SPRITE_SIZES.SMALL:		return 1.5;	break;
+		case SPRITE_SIZES.X_SMALL:	return 2.0;	break;
 	}
 }
 
@@ -261,6 +261,7 @@ function averageList_populate(_sprite) {
 	avgPhys = physSum / spriteCount;
 	global.averageList[|elements.height] = avgPhys;
 }
+*/
 
 function spar_set_action() {	
 	global.action = action;
@@ -331,7 +332,7 @@ function enemyAI_set_team() {
 	team[|2] = real(roster[|2]);
 	team[|3] = real(roster[|3]);
 }
-*/
+
 
 ///@desc This function is called when the player hits the "READY" button
 /// after selecting an action and target for each of their allies. It places

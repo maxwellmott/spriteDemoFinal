@@ -435,7 +435,7 @@ function spar_begin_ingame(_opponent) {
 
 function human_build_spellBookGrid() {	
 	// decode spell grid
-	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.height);
+	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
 	decode_grid(global.allSpells, grid);
 
 	// use a repeat loop to add the info for each spell in spellBook
