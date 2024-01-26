@@ -6,8 +6,11 @@ swapList = ds_list_create();
 
 // populate the list
 var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
-	// get the sprite's instance id
-	var inst = spar.turnGrid[# 0, i];
+	// get the spotNum of the active sprite
+	var activeSpot = spar.turnGrid[# 0, i];
+	
+	// get the instance id of the active sprite
+	var inst = spot_num_get_instance(activeSpot);
 	
 	// get the action of the i row
 	var a = spar.turnGrid[# 2, i];

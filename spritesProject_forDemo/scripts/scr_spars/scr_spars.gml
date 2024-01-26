@@ -577,3 +577,12 @@ function rebuild_nearby_lists() {
 	
 	///@TODO rebuild each list depending on the sprites position
 }
+
+///@desc This function is meant to be a quick and obvious way of getting the instance id of a sprite
+/// on the field using their spot num. It's meant to improve readability with all of the various lists of
+/// sprites and sprite parameters we have going at this point.
+function spot_num_get_instance(_spotNum) {
+	var s = _spotNum;
+	
+	return spar.spriteList[| s];
+}

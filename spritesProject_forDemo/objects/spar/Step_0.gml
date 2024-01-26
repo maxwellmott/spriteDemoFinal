@@ -19,7 +19,6 @@ switch (sparPhase) {
 		if (ds_grid_value_exists(turnGrid, 2, 0, 2, h, sparActions.swap)) {
 			// if so, create the sparSwapProcessor
 			create_once(0, 0, LAYER.meta, sparSwapProcessor);
-			swapsComplete = true;
 		}
 		
 		// check if any sprites are resting
