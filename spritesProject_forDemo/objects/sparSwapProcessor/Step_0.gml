@@ -5,7 +5,7 @@ if (global.select) {
 		
 		with (inst) {
 			spriteID = newSpriteID;
-			newSpriteID = false;
+			newSpriteID = -1;
 			swapping = false;
 			sprite_load_parameters();
 		}

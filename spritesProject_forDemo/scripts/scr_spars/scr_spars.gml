@@ -99,17 +99,6 @@ function get_lowest_luck(_tier) {
 	}
 }
 
-function get_luck_tier(_luck) {
-	var luck = _luck;
-	
-	var luckTier = luck div 25;
-	
-	if (luckTier == 0) luckTier = 1;
-	if (luckTier > 7) luckTier = 7;
-	
-	return luckTier;
-}
-
 function get_elemental_damage(_targ, _atkr, _lmnt, _spellPower) {
 	var targ = _targ;
 	var atkr = _atkr;
@@ -333,24 +322,79 @@ function enemyAI_set_team() {
 	team[|3] = real(roster[|3]);
 }
 
+///@desc This function is used to get the number of times that a
+/// sprite should roll for luck by checking their luck stat.
+function get_luck_tier(_luck) {
+	var luck = _luck;
+	
+	var luckTier = luck div 25;
+	
+	if (luckTier == 0) luckTier = 1;
+	if (luckTier > 7) luckTier = 7;
+	
+	return luckTier;
+}
+
 
 ///@desc This function is called when the player hits the "READY" button
 /// after selecting an action and target for each of their allies. It places
 /// each of those selections on the turnGrid.
-function player_submit_turn() {
+///
+/// This function is where the ally sprites get their luck for the turn.
+function player_submit_turn() {	
 	var i = 0;	repeat (4) {
 		// get sprite
 		var inst = spar.allyList[| i];
+		
+		// get luck tier
+		var lt = get_luck_tier(inst.currentLuck);
+		
+		var highestRoll = 0;
+		
+		// roll for luck
+		repeat (lt ) {
+			var roll = irandom_range(725, 1075);
+			if roll > highestRoll {
+				highestRoll = roll;
+			}
+		}
 		
 		// add info to grid
 		spar.turnGrid[# selectionPhases.ally,	inst.spotNum]	= inst.spotNum;
 		spar.turnGrid[# selectionPhases.action,	inst.spotNum]	= inst.selectedAction;
 		spar.turnGrid[# selectionPhases.target,	inst.spotNum]	= inst.selectedTarget;
+		spar.turnGrid[# selectionPhases.height,	inst.spotNum]	= highestRoll / 1000;
 		
 		// increment i
 		i++;
 	}
 }
+
+function local_enemy_submit_turn() {
+	var i = 0;	repeat (4) {
+		// get sprite
+		var inst = spar.enemyList[| i];
+
+		// get luck tier
+		var lt = get_luck_tier(inst.currentLuck);
+		
+		var highestRoll = 0;
+		
+		// roll for luck
+		repeat (lt ) {
+			var roll = irandom_range(725, 1075);
+			if roll > highestRoll {
+				highestRoll = roll;
+			}
+		}
+
+		// add info to grid
+		spar.turnGrid[# selectionPhases.ally,	inst.spotNum]		= inst.spotNum;
+		spar.turnGrid[# selectionPhases.action,	inst.spotNum]		= inst.selectedAction;
+		spar.turnGrid[# selectionPhases.target, inst.spotNum]		= inst.selectedTarget;
+		spar.turnGrid[# selectionPhases.height,	inst.spotNum]		= highestRoll / 1000;
+	}
+}	
 
 function inRangeSprites_rebuild(_sprite, _range) {
 	var s = _sprite;

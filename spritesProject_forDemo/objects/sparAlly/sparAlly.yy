@@ -10,7 +10,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "sprites",
-    "path": "folders/Objects/battle scene/sprites.yy",
+    "path": "folders/Objects/spars/sprites.yy",
   },
   "parentObjectId": null,
   "persistent": false,

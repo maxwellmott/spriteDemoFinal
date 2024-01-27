@@ -11,7 +11,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "UI",
-    "path": "folders/Objects/battle scene/UI.yy",
+    "path": "folders/Objects/spars/UI.yy",
   },
   "parentObjectId": null,
   "persistent": false,

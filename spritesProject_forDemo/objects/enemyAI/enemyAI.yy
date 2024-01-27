@@ -10,7 +10,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "enemy players",
-    "path": "folders/Objects/battle scene/enemy players.yy",
+    "path": "folders/Objects/spars/enemy players.yy",
   },
   "parentObjectId": null,
   "persistent": false,

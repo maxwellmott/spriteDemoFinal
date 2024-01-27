@@ -1,5 +1,5 @@
-// create a list of all the sprites who are swapping this turn
-swapList = ds_list_create();
+// create a list to store the instance ids of all the sprites who are resting this turn
+restList = ds_list_create();
 
 // populate the list
 var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
@@ -13,21 +13,12 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 	var a = spar.turnGrid[# selectionPhases.action, i];
 	
 	// check if the action is a swap
-	if (a == sparActions.swap) {
+	if (a == sparActions.rest) {
 		// if so, set the sprite's swapping var to true
-		inst.swapping = true;
+		inst.resting = true;
 		
-		// get the target
-		var t = spar.turnGrid[# selectionPhases.target, i];
-		
-		// get the target's instance id
-		var targ = spar.spriteList[| t];
-		
-		// set the sprite's newSpriteID to equal their target
-		inst.newSpriteID = targ.spriteID;
-		
-		// add the instance id to the swapList
-		ds_list_add(swapList, inst);
+		// add the instance id to the restList
+		ds_list_add(restList, inst);
 		
 		// clear this sprite's spot on the turn grid
 		var ii = 0;	repeat (selectionPhases.height) {
@@ -40,4 +31,4 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 	i++;
 }
 
-// load swap turn message
+frame = 0;

@@ -7,7 +7,7 @@
   "overriddenProperties": [],
   "parent": {
     "name": "turn processors",
-    "path": "folders/Objects/battle scene/turn processors.yy",
+    "path": "folders/Objects/spars/turn processors.yy",
   },
   "parentObjectId": null,
   "persistent": false,

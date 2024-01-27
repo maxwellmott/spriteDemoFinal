@@ -114,3 +114,6 @@ absorbedSpellCount = 0;
 newSpriteID = -1;
 
 swapping = false;
+resting = false;
+
+turnRoll = 0;

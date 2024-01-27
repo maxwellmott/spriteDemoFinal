@@ -23,14 +23,15 @@ var i = 0; repeat (8) {
 	
 	// draw ally spot
 	draw_sprite(spr_sparAllySpot, 0, inst.x, inst.y);
-	
+
 	// check if inst is an enemy or an ally
 	if (i < 4) {
 		// draw sprite
-		draw_sprite(inst.sprite, 0, inst.x, inst.y);
+		draw_sprite(inst.sprite, image_index, inst.x, inst.y);
 	}
 	else {
-		draw_sprite_ext(inst.sprite, 0, inst.x, inst.y, -1, 1, 0, c_white, 1.0);	
+		// draw sprite flipped
+		draw_sprite_ext(inst.sprite, image_index, inst.x, inst.y, -1, 1, 0, c_white, 1.0);	
 	}
 	
 	// if sprite has any status effects, draw the indicators

@@ -1,0 +1,1 @@
+// replenish mp for each sprite using a repeat loop

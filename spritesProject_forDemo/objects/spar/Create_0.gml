@@ -1,5 +1,9 @@
 /// @desc
 
+// I'm just doing this so that the cloud animation works. If I end up needing to change this then I will.
+sprite_index = spr_sparSwapCloud;
+image_speed = 1;
+
 depth = get_layer_depth(LAYER.ui);
 
 // make sure mouse object exists
@@ -182,4 +186,15 @@ enemyBarSurfaceY	= 0;
 playerBarSurface	= surface_create(48, 16);
 enemyBarSurface		= surface_create(48, 16);
 
-swapsComplete = false;
+processPhase = PROCESS_PHASES.SWAP;
+
+enum PROCESS_PHASES {
+	PREPROCESS,
+	SWAP,
+	REST,
+	DODGE,
+	PRIORITY,
+	ATTACK,
+	END,
+	HEIGHT
+}
