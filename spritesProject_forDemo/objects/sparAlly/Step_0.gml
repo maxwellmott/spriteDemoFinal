@@ -48,16 +48,14 @@ if (spar.sparPhase == sparPhases.process)
 	readyDisplayBuilt = false;	
 }
 
-// check if swapping is true
-if (swapping) {
+// check if swapping is true and sprite has yet to change
+if (swapping) && (sprite != spr_sparSwapCloud) {
 	// if swapping, change sprite to swapCloud
 	sprite = spr_sparSwapCloud;
 }
 
-// fade out sprite if they don't meet certain conditions
-if (instance_exists(sparRestProcessor) && (resting)) {
-	if (alpha > 0.0) {alpha -= 0.05;}	
-}
-else {
-	if (alpha < 1.0) {alpha += 0.05;}	
+// check if resting is true and sprite has yet to change
+if (resting) && (sprite != spr_sparRestEye) {
+	// if resting, change sprite to restEye
+	sprite = spr_sparRestEye;
 }

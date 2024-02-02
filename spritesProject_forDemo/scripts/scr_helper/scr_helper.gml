@@ -378,8 +378,8 @@ function set_frame() {
 function game_timer() {
 	global.gameTime++;
 	
-	if (global.gameTime >= 1600) {
-		global.gameTime -= 1600;	
+	if (global.gameTime >= 16000) {
+		global.gameTime -= 16000;
 	}
 }
 

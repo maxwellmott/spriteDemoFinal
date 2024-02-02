@@ -11,7 +11,10 @@ BATTLE SCENE TODO:
 	-add all new sprites					2 POINTS				
 	-create demo scripts*					2 POINTS
 	-program spellbook icons				1 POINT
-	-program sparSwapProcessor				2 POINTS
+	-program sparSwapProcessor				2 POINTS				2 POINTS DONE [1/20]
+	-program sparRestProcessor				2 POINTS
+	-program sparDodgeProcessor				2 POINTS
+	-add turn number screen					1 POINT
 	-finish sparActionProcessor				4 POINTS
 	-create turn message functionality		1 POINT
 	-fix ready display						2 POINTS				2 POINTS DONE [1/16]
@@ -43,3 +46,21 @@ BATTLE SCENE TODO:
 		I need to determine exactly how it should look in-game when a swap occurs (this means intentionally and by some spell effect). Ideally,
 	the same object will be used for both types of swaps, and any pre-turn swapping will occur all at once. I would love to have an animation
 	that covers the sprites when the swap occurs, but I think it would be best to get the process working first and then see what might look good.
+	
+	
+2/1 
+		Today I tried my best to get the rest processor working completely. As expected, there are a few bugs leftover, but most of the functionality is
+	there. Here is a list of bugs to tackle tomorrow:
+	
+		- animation isn't stopping once it's finished. Do real-time-debugging and watch spar.image_index
+		- mp bar isn't being corrected. I put a breakpoint where the mp is being replenished so that I can watch what happens there.
+		- not really a bug, but I don't like the pace of the hourglass wiggle. Try some other stuff and see if you can get it right.
+		
+		Aside from that, I also decided I should add a moment before the process phase where a black screen fades in halway and the current turn number is displayed.
+	This would offer a nice beat between the clicking of the ready button and the beginning of the turn, but it would also be a good way to get the turn number in
+	there somehow as there isn't room for it in the UI as of right now.
+	
+	Good luck tomorrow!
+	
+	
+2/2

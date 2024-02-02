@@ -1,6 +1,8 @@
 /// @desc
 
-// I'm just doing this so that the cloud animation works. If I end up needing to change this then I will.
+// I guess the only way for me to use gms2's built in animation system is to 
+// make the object sprite whatever sprite I want to display. Whatever. I'll have to 
+// set these built-ins to whatever values I need when other things like this occur.
 sprite_index = spr_sparSwapCloud;
 image_speed = 1;
 
@@ -108,16 +110,8 @@ selectionMsg = "";
 // set currentArena to global.arena
 currentArena = global.arena
 
-// initialize turnParams
-enum turnParams {
-	actor,
-	action,
-	target,
-	height
-}
-
-// initialize turnGrid	ACTIVE SPRITE	|	TARGET SPRITE	|	ACTION
-turnGrid = ds_grid_create(turnParams.height, 8);
+// initialize turnGrid	|	ACTIVE SPRITE	|	TARGET SPRITE	|	ACTION	|	LUCK ROLL	|
+turnGrid = ds_grid_create(selectionPhases.height + 1, 8);
 
 // initialize turnMsg
 turnMsg = "";
@@ -165,10 +159,10 @@ sparMsg	= "";
 
 turnProcessCount = 0;
 
-playerDisplayHP		= 500;
-enemyDisplayHP		= 500;
+playerDisplayHP		= playerOne.currentHP;
+enemyDisplayHP		= playerTwo.currentHP;
 
-playerDisplayMP		= player.currentMP;
+playerDisplayMP		= playerOne.currentMP;
 enemyDisplayMP		= playerTwo.currentMP;
 
 hpBarX				= 3;
@@ -198,3 +192,5 @@ enum PROCESS_PHASES {
 	END,
 	HEIGHT
 }
+
+restGlassAngle = 0;

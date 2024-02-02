@@ -1,4 +1,5 @@
-#macro SELFTARGET	10
+#macro SELFTARGET			10
+#macro REST_BASE_MP_REGEN	30
 
 global.hoverSprite		= -1;
 global.arena			= -1;
@@ -335,7 +336,6 @@ function get_luck_tier(_luck) {
 	return luckTier;
 }
 
-
 ///@desc This function is called when the player hits the "READY" button
 /// after selecting an action and target for each of their allies. It places
 /// each of those selections on the turnGrid.
@@ -348,26 +348,38 @@ function player_submit_turn() {
 		
 		// get luck tier
 		var lt = get_luck_tier(inst.currentLuck);
-		
-		var highestRoll = 0;
-		
-		// roll for luck
-		repeat (lt ) {
-			var roll = irandom_range(725, 1075);
-			if roll > highestRoll {
-				highestRoll = roll;
-			}
-		}
+
+		var roll = roll_for_luck(lt);
 		
 		// add info to grid
 		spar.turnGrid[# selectionPhases.ally,	inst.spotNum]	= inst.spotNum;
 		spar.turnGrid[# selectionPhases.action,	inst.spotNum]	= inst.selectedAction;
 		spar.turnGrid[# selectionPhases.target,	inst.spotNum]	= inst.selectedTarget;
-		spar.turnGrid[# selectionPhases.height,	inst.spotNum]	= highestRoll / 1000;
+		spar.turnGrid[# selectionPhases.height,	inst.spotNum]	= roll;
 		
 		// increment i
 		i++;
 	}
+}
+
+function roll_for_luck(_luckTier) {
+	var lt = _luckTier;
+	
+	var highestRoll = 0;
+	
+	var luckFloor = 725;
+	var luckCeiling = 1075;
+	
+	repeat (lt ) {
+		var roll = irandom_range(luckFloor, luckCeiling);
+		if roll > highestRoll {
+			if (roll == luckCeiling)	return roll;
+			
+			highestRoll = roll;
+		}
+	}
+	
+	return highestRoll / 1000;
 }
 
 function local_enemy_submit_turn() {
@@ -377,25 +389,57 @@ function local_enemy_submit_turn() {
 
 		// get luck tier
 		var lt = get_luck_tier(inst.currentLuck);
-		
-		var highestRoll = 0;
-		
+
 		// roll for luck
-		repeat (lt ) {
-			var roll = irandom_range(725, 1075);
-			if roll > highestRoll {
-				highestRoll = roll;
-			}
-		}
+		var roll = roll_for_luck(lt);
 
 		// add info to grid
 		spar.turnGrid[# selectionPhases.ally,	inst.spotNum]		= inst.spotNum;
 		spar.turnGrid[# selectionPhases.action,	inst.spotNum]		= inst.selectedAction;
 		spar.turnGrid[# selectionPhases.target, inst.spotNum]		= inst.selectedTarget;
-		spar.turnGrid[# selectionPhases.height,	inst.spotNum]		= highestRoll / 1000;
+		spar.turnGrid[# selectionPhases.height,	inst.spotNum]		= roll;
 	}
 }	
 
+function sprite_process_rest(_instanceID) {
+	var inst = _instanceID;
+	
+	var t = inst.team;
+	var lr = inst.luckRoll;
+	
+	var mpRegen = REST_BASE_MP_REGEN * lr;
+	
+	restore_mp(t, mpRegen);
+}
+
+///@desc This function is meant to be called outside of the spar object to see if
+/// the spar object's hp and mp values are current. If any of them don't match the
+/// current value for the player or enemy, it will return false. If none of them are
+/// flagged as nonequal, it will return true.
+function spar_check_hpmp() {
+	if (spar.playerDisplayHP != spar.playerOne.currentHP)	return false;
+	if (spar.playerDisplayMP != spar.playerOne.currentMP)	return false;
+	if (spar.enemyDisplayHP	!= spar.playerTwo.currentHP)	return false;
+	if (spar.enemyDisplayMP != spar.playerTwo.currentMP)	return false;
+	return true;
+}
+
+function spar_correct_hpmp() {
+	if (playerDisplayHP < playerOne.currentHP)	playerDisplayHP++;
+	if (playerDisplayHP > playerOne.currentHP)	playerDisplayHP--;
+	
+	if (playerDisplayMP < playerOne.currentMP)	playerDisplayMP++;
+	if (playerDisplayMP > playerOne.currentMP)	playerDisplayMP--;
+	
+	if (enemyDisplayHP < playerTwo.currentHP)	enemyDisplayHP++;
+	if (enemyDisplayHP > playerTwo.currentHP)	enemyDisplayHP--;
+	
+	if (enemyDisplayMP < playerTwo.currentMP)	enemyDisplayMP++;
+	if (enemyDisplayMP > playerTwo.currentMP)	enemyDisplayMP--;
+}
+
+///@desc This function is called by an ally or enemy object to set that sprites
+/// list of inRangeSprites depending on the range of the spell in question.
 function inRangeSprites_rebuild(_sprite, _range) {
 	var s = _sprite;
 	var r = _range;
@@ -511,6 +555,9 @@ function inRangeSprites_rebuild(_sprite, _range) {
 	}
 }
 
+///@desc This function is meant to be called by the spar object to 
+/// periodically check if all of the player's sprites are ready. It returns
+/// a boolean variable.
 function check_all_allies_ready() {
 	var readyBool = true;
 	
@@ -520,6 +567,27 @@ function check_all_allies_ready() {
 	}
 	
 	return readyBool;
+}
+
+///@desc This function will be called in the PREPROCESS phase of the process phase of a spar.
+/// It gets the sprite's current luck roll off of the turn grid. (all luck rolls are determined
+/// and then placed on the turn grid in the submit_turn functions).
+function all_sprites_get_luck_roll() {
+	var i = 0;	repeat (ds_list_size(spriteList)) {
+		var inst = spriteList[| i];
+		
+		var sn = inst.spotNum;
+		
+		var h = ds_grid_height(turnGrid);
+		
+		var rowNum = ds_grid_value_y(turnGrid, selectionPhases.ally, 0, selectionPhases.ally, h, sn);
+		
+		var lr = turnGrid[# selectionPhases.height, rowNum];
+		
+		inst.luckRoll = lr;
+		
+		i++;
+	}
 }
 	
 ///@desc This function will be called by each ally after their turn has been set. It will

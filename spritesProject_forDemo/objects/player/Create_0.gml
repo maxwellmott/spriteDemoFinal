@@ -104,8 +104,8 @@ onlineMatchCount	= 0;
 maxHP = 1000;
 maxMP = 100;
 
-currentHP = maxHP;
-currentMP = maxMP;
+currentHP = 500;
+currentMP = 25;
 
 // initialize hmove and vmove
 hmove		= 0;

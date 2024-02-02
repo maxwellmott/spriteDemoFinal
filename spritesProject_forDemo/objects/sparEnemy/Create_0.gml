@@ -113,7 +113,10 @@ absorbedSpellCount = 0;
 
 newSpriteID = -1;
 
-swapping = false;
-resting = false;
+swapping	= false;
+resting		= false;
+dodging		= false;
 
-turnRoll = 0;
+luckRoll = 0;
+
+currentPose = SPRITE_POSES.IDLE;

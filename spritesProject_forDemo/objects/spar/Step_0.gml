@@ -20,20 +20,38 @@ switch (sparPhase) {
 		switch (processPhase) {
 			
 			case PROCESS_PHASES.PREPROCESS:
+				all_sprites_get_luck_roll();
 			break;
 			
 			case PROCESS_PHASES.SWAP:
 				if (ds_grid_value_exists(turnGrid, selectionPhases.action, 0, selectionPhases.action, h, sparActions.swap)) {
+					// set these built-ins so that the gms2 animation works
+					sprite_index = spr_sparSwapCloud;
+					image_speed = 1;
+					
 					// if so, create the sparSwapProcessor
 					create_once(0, 0, LAYER.meta, sparSwapProcessor);
 				}
+				
 			break;
 			
 			case PROCESS_PHASES.REST:
 				// check if any sprites are resting
 				if (ds_grid_value_exists(turnGrid, selectionPhases.action, 0, selectionPhases.action, h, sparActions.rest)) {
+					// set these built-ins so that the gms2 animation works
+					sprite_index = spr_sparRestEye;
+					image_speed = 1;
+					
 					// if so, create the sparRestProcessor
 					create_once(0, 0, LAYER.meta, sparRestProcessor);
+				}
+				else {
+					if !(instance_exists(sparRestProcessor))	processPhase = PROCESS_PHASES.DODGE;
+				}
+				
+				if (instance_exists(sparRestProcessor)) {
+					restGlassAngle = dcos(global.gameTime * 2);
+					spar_correct_hpmp();
 				}
 			break;
 			

@@ -82,6 +82,14 @@ enum SPRITE_SIZES {
 	HEIGHT
 }
 
+enum SPRITE_POSES {
+	IDLE,
+	ATTACK,
+	SPELL,
+	HURT,
+	HEIGHT
+}
+
 #region	CREATE ALL SPELL LISTS
 
 	#region		GEMBO

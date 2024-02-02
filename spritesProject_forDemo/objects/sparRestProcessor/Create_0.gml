@@ -1,6 +1,9 @@
 // create a list to store the instance ids of all the sprites who are resting this turn
 restList = ds_list_create();
 
+restFrameCount = 15;
+animationStopped = false;
+
 // populate the list
 var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 	// get the spotNum of the active sprite
