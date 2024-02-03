@@ -112,14 +112,20 @@ function restore_mp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = _amount;
 	
-	t.currentMP += a;
+	var mpNeeded = MAX_MP - t.currentMP;
+	
+	if (a >= mpNeeded)	t.currentMP = MAX_MP;
+	else				t.currentMP += a;
 }
 
 function restore_hp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = _amount;
 	
-	t.currentHP += a;
+	var hpNeeded = MAX_HP - t.currentMP;
+	
+	if (a >= hpNeeded)	t.currentHP = MAX_HP;
+	else				t.currentHP += a;
 }
 
 function set_bound(_target) {

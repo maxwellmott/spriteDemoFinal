@@ -11,16 +11,16 @@ BATTLE SCENE TODO:
 	-add all new sprites					2 POINTS				
 	-create demo scripts*					2 POINTS
 	-program spellbook icons				1 POINT
-	-program sparSwapProcessor				2 POINTS				2 POINTS DONE [1/20]
-	-program sparRestProcessor				2 POINTS
+	-program sparSwapProcessor				2 POINTS				2 POINTS DONE	[1/20]
+	-program sparRestProcessor				2 POINTS				2 POINTS DONE	[2/02]
 	-program sparDodgeProcessor				2 POINTS
 	-add turn number screen					1 POINT
 	-finish sparActionProcessor				4 POINTS
 	-create turn message functionality		1 POINT
-	-fix ready display						2 POINTS				2 POINTS DONE [1/16]
+	-fix ready display						2 POINTS				2 POINTS DONE	[1/16]
 	-fix fonts								3 POINTS
 	-add music and sound effects			4 POINTS
-	-add hp and mp bars						1 POINT					1 POINT DONE [1/16]
+	-add hp and mp bars						1 POINT					1 POINT DONE	[1/16]
 	-complete nearby list functionality		1 POINT
 	
 	*demo scripts cannot be built until full versions are complete (npcs, sprites, spells, abilities)
@@ -63,4 +63,11 @@ BATTLE SCENE TODO:
 	Good luck tomorrow!
 	
 	
-2/2
+2/2		(finished rest processor)
+		Today I finished the rest processor. The bugs were easy fixes. I removed the hourglass because I didn't like the look of it.
+	Everything feels smooth and I'm ready to move on to the action processor. There are however a few bugs I'll note here:
+		
+		- The game currently breaks if you don't do a swap, I'm thinking that this has something to do with the rest check in the swap step event
+		- Not really a bug, but you need to figure out how to go about telling the player whether they have enough MP to swap, and then deplete that MP upon swapping.
+		
+	That's actually all the bugs I can think of currently, I'll test the game in the morning and see if there's anything else that pops up.

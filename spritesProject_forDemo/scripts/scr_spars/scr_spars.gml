@@ -407,7 +407,7 @@ function sprite_process_rest(_instanceID) {
 	var t = inst.team;
 	var lr = inst.luckRoll;
 	
-	var mpRegen = REST_BASE_MP_REGEN * lr;
+	var mpRegen = round(REST_BASE_MP_REGEN * lr);
 	
 	restore_mp(t, mpRegen);
 }
@@ -425,20 +425,20 @@ function spar_check_hpmp() {
 }
 
 function spar_correct_hpmp() {
-	if (playerDisplayHP < playerOne.currentHP)	playerDisplayHP++;
-	if (playerDisplayHP > playerOne.currentHP)	playerDisplayHP--;
+	if (playerDisplayHP < playerOne.currentHP)	playerDisplayHP++
+	if (playerDisplayHP > playerOne.currentHP)	playerDisplayHP--
 	
-	if (playerDisplayMP < playerOne.currentMP)	playerDisplayMP++;
-	if (playerDisplayMP > playerOne.currentMP)	playerDisplayMP--;
+	if (playerDisplayMP < playerOne.currentMP)	playerDisplayMP++
+	if (playerDisplayMP > playerOne.currentMP)	playerDisplayMP--
 	
 	if (enemyDisplayHP < playerTwo.currentHP)	enemyDisplayHP++;
 	if (enemyDisplayHP > playerTwo.currentHP)	enemyDisplayHP--;
 	
 	if (enemyDisplayMP < playerTwo.currentMP)	enemyDisplayMP++;
-	if (enemyDisplayMP > playerTwo.currentMP)	enemyDisplayMP--;
+	if (enemyDisplayMP > playerTwo.currentMP)	enemyDisplayMP++;
 }
 
-///@desc This function is called by an ally or enemy object to set that sprites
+///@desc This function is called by an ally or enemy object to set that sprite's
 /// list of inRangeSprites depending on the range of the spell in question.
 function inRangeSprites_rebuild(_sprite, _range) {
 	var s = _sprite;
@@ -697,4 +697,18 @@ function spot_num_get_instance(_spotNum) {
 	var s = _spotNum;
 	
 	return spar.spriteList[| s];
+}
+
+///@desc This function is called after the sprite's sprite has been temporarily changed for some reason. It simply
+/// gets their sprite from the sprite grid and sets it back to normal.
+function sprite_reload_sprite() {	
+	// decode sprite grid
+	var grid = ds_grid_create(SPRITE_PARAMS.HEIGHT, SPRITES.HEIGHT);
+	decode_grid(global.allSprites, grid);
+	
+	// load sprite from grid
+	sprite = real(grid[# SPRITE_PARAMS.SPRITE,		spriteID]);
+	
+	// destroy grid
+	ds_grid_destroy(grid);
 }

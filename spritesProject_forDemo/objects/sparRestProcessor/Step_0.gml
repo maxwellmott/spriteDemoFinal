@@ -9,7 +9,7 @@ var i = 0;	repeat (ds_list_size(restList)) {
 }
 
 
- if (spar.image_index == restFrameCount) {
+ if (spar.image_index >= restFrameCount) {
 	animationStopped = true;	 
  }
  

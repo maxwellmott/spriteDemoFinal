@@ -21,6 +21,7 @@ switch (sparPhase) {
 			
 			case PROCESS_PHASES.PREPROCESS:
 				all_sprites_get_luck_roll();
+				processPhase = PROCESS_PHASES.SWAP;
 			break;
 			
 			case PROCESS_PHASES.SWAP:
@@ -50,7 +51,6 @@ switch (sparPhase) {
 				}
 				
 				if (instance_exists(sparRestProcessor)) {
-					restGlassAngle = dcos(global.gameTime * 2);
 					spar_correct_hpmp();
 				}
 			break;
@@ -71,15 +71,6 @@ switch (sparPhase) {
 			case PROCESS_PHASES.END:
 			break;
 		}
-		
-		// set displayHealth and displayMagic
-		playerDisplayHP = player.currentHP;
-		playerDisplayMP = player.currentMP;
-		
-		enemyDisplayHP	= playerTwo.currentHP;
-		enemyDisplayMP	= playerTwo.currentMP;
-		
-		// correct hp bar
 		
 	break;
 	

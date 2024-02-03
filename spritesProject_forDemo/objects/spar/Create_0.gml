@@ -180,7 +180,7 @@ enemyBarSurfaceY	= 0;
 playerBarSurface	= surface_create(48, 16);
 enemyBarSurface		= surface_create(48, 16);
 
-processPhase = PROCESS_PHASES.SWAP;
+processPhase = PROCESS_PHASES.PREPROCESS;
 
 enum PROCESS_PHASES {
 	PREPROCESS,
@@ -192,5 +192,3 @@ enum PROCESS_PHASES {
 	END,
 	HEIGHT
 }
-
-restGlassAngle = 0;
