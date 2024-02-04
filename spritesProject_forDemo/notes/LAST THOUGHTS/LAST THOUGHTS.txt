@@ -71,3 +71,6 @@ BATTLE SCENE TODO:
 		- Not really a bug, but you need to figure out how to go about telling the player whether they have enough MP to swap, and then deplete that MP upon swapping.
 		
 	That's actually all the bugs I can think of currently, I'll test the game in the morning and see if there's anything else that pops up.
+	
+2/3
+		Today I did some debugging. You can now take multiple turns per test and there is no problem with selecting only rests. Dodges and basic attacks are next!

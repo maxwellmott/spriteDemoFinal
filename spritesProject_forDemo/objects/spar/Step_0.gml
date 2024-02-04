@@ -8,7 +8,8 @@ switch (sparPhase) {
 	
 	case sparPhases.turnEnd:
 		turnProcessCount = 0;
-		processPhase = PROCESS_PHASES.SWAP;
+		processPhase = PROCESS_PHASES.SWAP;		
+		sparPhase = sparPhases.turnBegin;
 	break;
 	
 	case sparPhases.process:
@@ -32,6 +33,9 @@ switch (sparPhase) {
 					
 					// if so, create the sparSwapProcessor
 					create_once(0, 0, LAYER.meta, sparSwapProcessor);
+				}
+				else {
+					if !(instance_exists(sparSwapProcessor))	processPhase = PROCESS_PHASES.REST;	
 				}
 				
 			break;
@@ -60,15 +64,21 @@ switch (sparPhase) {
 				if (ds_grid_value_exists(turnGrid, selectionPhases.action, 0, selectionPhases.action, h, sparActions.dodge)) {
 					// if so, create the sparDodgeAnnouncer
 				}
+				else {
+					if !(instance_exists(sparDodgeAnnouncer))	processPhase = PROCESS_PHASES.PRIORITY;	
+				}
 			break;
 			
 			case PROCESS_PHASES.PRIORITY:
+				processPhase = PROCESS_PHASES.ATTACK;
 			break;
 			
 			case PROCESS_PHASES.ATTACK:
+				processPhase = PROCESS_PHASES.END;
 			break;
 			
 			case PROCESS_PHASES.END:
+				sparPhase = sparPhases.turnEnd;
 			break;
 		}
 		
@@ -150,6 +160,16 @@ switch (sparPhase) {
 	
 	#region TURN BEGIN PHASE
 		case sparPhases.turnBegin:
+			player.ready = false;
+		
+			with (sparAlly) {
+				readyDisplay = "";
+				readyDisplayBuilt = false;
+				turnReady = false;
+				selectedAction = -4;
+				selectedTarget = -4;
+			}
+			
 			sparPhase = sparPhases.select;
 		break;
 	#endregion
