@@ -41,3 +41,4 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 }
 
 // load swap turn message
+spar.turnMsg = turn_message_get_number_text(ds_list_size(swapList)) + " sprites are swapping position";

@@ -125,17 +125,17 @@ hoverMenu_nameplateX	= 45;
 hoverMenu_nameplateY	= turnMsgY - 8;
 						
 hoverMenu_alignmentX	= 5;
-hoverMenu_alignmentY	= turnMsgY + 3;
+hoverMenu_alignmentY	= turnMsgY + 2;
 
 hoverMenu_sizeX			= hoverMenu_alignmentX;
 hoverMenu_sizeY			= hoverMenu_alignmentY + 7;
 
-hoverMenu_columnOneX	= 111;
+hoverMenu_columnOneX	= 113;
 hoverMenu_columnTwoX	= hoverMenu_columnOneX + 39;
 hoverMenu_columnThreeX	= hoverMenu_columnTwoX + 39;
 hoverMenu_columnFourX	= hoverMenu_columnThreeX + 39;
 
-hoverMenu_rowOneY		= turnMsgY - 11
+hoverMenu_rowOneY		= turnMsgY - 11;
 hoverMenu_rowTwoY		= hoverMenu_rowOneY + 7;
 hoverMenu_rowThreeY		= hoverMenu_rowTwoY + 7;
 hoverMenu_rowFourY		= hoverMenu_rowThreeY + 7;
@@ -154,8 +154,6 @@ playerTwoDrawHP = playerTwo.currentHP;
 
 playerOneDrawMP = playerOne.currentMP;
 playerTwoDrawMP = playerTwo.currentMP;
-
-sparMsg	= "";
 
 turnProcessCount = 0;
 

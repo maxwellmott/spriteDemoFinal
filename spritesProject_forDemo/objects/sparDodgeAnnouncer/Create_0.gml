@@ -1,7 +1,8 @@
-// create a list to store the instance ids of all the sprites who are resting this turn
-restList = ds_list_create();
+dodgeList = ds_list_create();
 
-restFrameCount = 15;
+animationStarted = false;
+
+dodgeFrameCount = 3;
 animationStopped = false;
 
 // populate the list
@@ -16,12 +17,12 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 	var a = spar.turnGrid[# selectionPhases.action, i];
 	
 	// check if the action is a swap
-	if (a == sparActions.rest) {
+	if (a == sparActions.dodge) {
 		// if so, set the sprite's swapping var to true
-		inst.resting = true;
+		inst.dodging = true;
 		
 		// add the instance id to the restList
-		ds_list_add(restList, inst);
+		ds_list_add(dodgeList, inst);
 		
 		// clear this sprite's spot on the turn grid
 		var ii = 0;	repeat (selectionPhases.height) {
@@ -34,9 +35,9 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 	i++;
 }
 
-if (ds_list_size(restList) == 1) {
-	spar.turnMsg = "One sprite is resting to regain energy";	
+if (ds_list_size(dodgeList) == 1) {
+	spar.turnMsg = "One sprite is planning to dodge";	
 }
 else {
-	spar.turnMsg = turn_message_get_number_text(ds_list_size(restList)) + " sprites are resting to regain energy";
+	spar.turnMsg = turn_message_get_number_text(ds_list_size(dodgeList)) + " sprites are planning to dodge";
 }

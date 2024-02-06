@@ -1,6 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+#region TARGET SELECTION
+
 // check if the player is selecting a target
 if (spar.sparPhase == sparPhases.select) {
 	// check that it is the target phase
@@ -20,13 +22,9 @@ if (spar.sparPhase == sparPhases.select) {
 	}
 }
 
-// fade out sprite if they don't meet certain conditions
-if (instance_exists(sparRestProcessor) && (resting != true)) {
-	if (alpha > 0.0) {alpha -= 0.05;}	
-}
-else {
-	if (alpha < 1.0) {alpha += 0.05;}	
-}
+#endregion
+
+#region CHANGE SPRITE FOR RESTING, SWAPPING, ETC
 
 // check if swapping is true and sprite has yet to change
 if (swapping) && (sprite != spr_sparSwapCloud) {
@@ -39,3 +37,13 @@ if (resting) && (sprite != spr_sparRestEye) {
 	// if resting, change sprite to restEye
 	sprite = spr_sparRestEye;
 }
+
+// fade out sprite if they aren't resting during the rest process
+if (instance_exists(sparRestProcessor) && (resting != true)) {
+	if (alpha > 0.0) {alpha -= 0.05;}	
+}
+else {
+	if (alpha < 1.0) {alpha += 0.05;}	
+}
+
+#endregion

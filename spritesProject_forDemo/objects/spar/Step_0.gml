@@ -13,6 +13,17 @@ switch (sparPhase) {
 	break;
 	
 	case sparPhases.process:
+		// reset all sprites' turn selections
+		with (sparAlly) {
+			turnReady = false;
+			readyDisplayBuilt = false;
+			readyDisplay = "";
+			selectedAction = -4;
+			selectedTarget = -4;
+		}
+		
+		player.ready = false;
+	
 		// sort turnGrid by agility
 	
 		// get current height of turnGrid
@@ -62,7 +73,12 @@ switch (sparPhase) {
 			case PROCESS_PHASES.DODGE:
 				// check if any sprites are dodging
 				if (ds_grid_value_exists(turnGrid, selectionPhases.action, 0, selectionPhases.action, h, sparActions.dodge)) {
+					// set these built_ins so that the gms2 animation works
+					sprite_index = spr_sparDodge;
+					image_speed = 1;
+					
 					// if so, create the sparDodgeAnnouncer
+					create_once(0, 0, LAYER.meta, sparDodgeAnnouncer);
 				}
 				else {
 					if !(instance_exists(sparDodgeAnnouncer))	processPhase = PROCESS_PHASES.PRIORITY;	
@@ -160,16 +176,6 @@ switch (sparPhase) {
 	
 	#region TURN BEGIN PHASE
 		case sparPhases.turnBegin:
-			player.ready = false;
-		
-			with (sparAlly) {
-				readyDisplay = "";
-				readyDisplayBuilt = false;
-				turnReady = false;
-				selectedAction = -4;
-				selectedTarget = -4;
-			}
-			
 			sparPhase = sparPhases.select;
 		break;
 	#endregion

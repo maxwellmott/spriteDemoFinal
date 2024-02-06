@@ -399,3 +399,20 @@ function ds_list_reset(_list) {
 		i++;
 	}
 }
+	
+///@desc This function accepts an integer 1-8 and returns a string of that number's name.
+/// This is meant specifically for the rest, dodge, and swap processors (hence the casing of the text).
+function turn_message_get_number_text(_int) {
+	var int = _int;
+	
+	switch (int) {
+		case 1: return "One";
+		case 2: return "Two";
+		case 3: return "Three";
+		case 4: return "Four";
+		case 5: return "Five";
+		case 6: return "Six";
+		case 7: return "Seven";
+		case 8: return "Eight";
+	}
+}

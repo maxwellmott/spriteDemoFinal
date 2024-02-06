@@ -150,6 +150,19 @@ draw_set_alpha(1.0);
 	if (playerTwo.miasma)	draw_sprite(spr_sparMiasma,	0,	playerTwo.miasmaX,	playerTwo.miasmaY);
 	if (playerTwo.hum)		draw_sprite(spr_sparHum,	0,	playerTwo.humX,		playerTwo.humY);
 	if (playerTwo.rust)		draw_sprite(spr_sparRust,	0,	playerTwo.rustX,	playerTwo.rustY);
+	
+	// draw turn message
+	if (turnMsg != "") {	
+		draw_set_font(plainFont);
+		var offset = 0;
+		
+		if (string_width(turnMsg) mod 2 != 0) {
+			offset = 1;	
+		}
+		
+		draw_sprite(spr_sparTurnMessage, 0, turnMsgX, turnMsgY);
+		draw_text_transformed(turnMsgX - offset, turnMsgY - offset, turnMsg, 0.5, 0.5, 0);
+	}
 
 #endregion
 
@@ -179,8 +192,8 @@ draw_set_alpha(1.0);
 				draw_set_halign(fa_left);
 				
 				// draw alignment and size
-				draw_text_transformed(hoverMenu_alignmentX,	hoverMenu_alignmentY,	"SIZE: " + sprite_get_alignment_string(hs.currentAlign),	0.5, 0.5, 0);
-				draw_text_transformed(hoverMenu_sizeX,		hoverMenu_sizeY,		"TYPE: " + sprite_get_size_string(hs.currentSize),			0.5, 0.5, 0);
+				draw_text_transformed(hoverMenu_alignmentX,	hoverMenu_alignmentY,	"SIZE   " + sprite_get_size_string(hs.currentSize),			0.5, 0.5, 0);
+				draw_text_transformed(hoverMenu_sizeX,		hoverMenu_sizeY,		"TYPE   " + sprite_get_alignment_string(hs.currentAlign),	0.5, 0.5, 0);
 				
 				draw_set_halign(fa_center);
 				

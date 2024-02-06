@@ -1,3 +1,7 @@
+spar.turnMsg = "";
+
+ds_list_destroy(restList);
+
 with (sparAlly) {
 	if resting {
 		sprite_reload_sprite();

@@ -13,15 +13,16 @@ BATTLE SCENE TODO:
 	-program spellbook icons				1 POINT
 	-program sparSwapProcessor				2 POINTS				2 POINTS DONE	[1/20]
 	-program sparRestProcessor				2 POINTS				2 POINTS DONE	[2/02]
-	-program sparDodgeProcessor				2 POINTS
+	-program sparDodgeProcessor				2 POINTS				2 POINTS DONE	[2/05]
 	-add turn number screen					1 POINT
 	-finish sparActionProcessor				4 POINTS
-	-create turn message functionality		1 POINT
+	-create turn message functionality		1 POINT					1 POINT DONE	[2/05]
 	-fix ready display						2 POINTS				2 POINTS DONE	[1/16]
-	-fix fonts								3 POINTS
+	-fix fonts								3 POINTS				
 	-add music and sound effects			4 POINTS
 	-add hp and mp bars						1 POINT					1 POINT DONE	[1/16]
 	-complete nearby list functionality		1 POINT
+	-switch out all sprite artwork			2 POINTS
 	
 	*demo scripts cannot be built until full versions are complete (npcs, sprites, spells, abilities)
 	
@@ -74,3 +75,5 @@ BATTLE SCENE TODO:
 	
 2/3
 		Today I did some debugging. You can now take multiple turns per test and there is no problem with selecting only rests. Dodges and basic attacks are next!
+		
+2/5
