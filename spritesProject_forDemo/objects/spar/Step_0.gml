@@ -86,6 +86,22 @@ switch (sparPhase) {
 			break;
 			
 			case PROCESS_PHASES.PRIORITY:
+				// sort grid by agility
+			
+				var i = 0;	repeat (ds_grid_height(turnGrid)) {
+					// get action
+					var a = turnGrid[# selectionPhases.action, i];
+					
+					// check if action is a spell
+					if (action_check_spell(a)) {
+						// get spellID
+						
+						// check if it is on the priority list
+					}
+					// increment i
+					i++;
+				}
+				
 				processPhase = PROCESS_PHASES.ATTACK;
 			break;
 			

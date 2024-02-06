@@ -18,7 +18,7 @@ BATTLE SCENE TODO:
 	-finish sparActionProcessor				4 POINTS
 	-create turn message functionality		1 POINT					1 POINT DONE	[2/05]
 	-fix ready display						2 POINTS				2 POINTS DONE	[1/16]
-	-fix fonts								3 POINTS				
+	-fix fonts								3 POINTS				3 POINTS DONE	[2/05]		
 	-add music and sound effects			4 POINTS
 	-add hp and mp bars						1 POINT					1 POINT DONE	[1/16]
 	-complete nearby list functionality		1 POINT
@@ -76,4 +76,9 @@ BATTLE SCENE TODO:
 2/3
 		Today I did some debugging. You can now take multiple turns per test and there is no problem with selecting only rests. Dodges and basic attacks are next!
 		
-2/5
+2/5	(finished dodge announcer, finished turn message functionality, fixed fonts)
+
+	Today was a good day! Let's keep the momentum going! Tomorrow finish up priority spells and get started on the action processor!
+	
+	The priority spell list has been started in the spells script. The check for priority spells is happening in the priority case of the switch statement
+	in the spar object step event. Good luck!

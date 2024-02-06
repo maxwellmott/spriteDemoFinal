@@ -94,6 +94,14 @@ enum SPELL_PARAMS {
 	HEIGHT
 }
 
+var priorityList = ds_list_create();
+
+// populate priority list
+
+// encode priority list
+
+// delete temp list
+
 // declare spell types
 enum SPELL_TYPES {
 	FIRE,
@@ -575,24 +583,45 @@ function pyrokinesis() {
 	deplete_hp(t, d);
 }
 
+///@desc SPELL FUNCTION: summons rust on the target's side of the field
 function downpour() {
-	// summon rust on target's side of the field
+	var t = targetSprite.team;
+	
+	t.rust = true;
 }
 
+///@desc SPELL FUNCTION: grants the target the curse of the imp (dodgeable)
 function arc_blast() {
-	// grant target curse of the imp 
+	var t = targetSprite;
+	
+	bestow_mindset(t, 0 - MINDSETS.IMP);
 }
 
+///@desc SPELL FUNCTION: fails unless forest is active, removes forest, fully restores caster's
+/// HP, and grants blessing of the tree to all nearby allies
 function hikams_winter_spell() {
 	// fail unless forest is active
-	
-	// reset arena
-	
-	// fully restore caster's MP and HP
-	
-	// grant blessing of the tree to all nearby allies
+	if (spar.currentArena == arenas.forest) {	
+		var t = activeSprite.team;
+		
+		// fully restore caster's MP and HP
+		fully_restore_hp(t);
+
+		// grant blessing of the tree to all nearby allies
+		var i = 0;	repeat (ds_list_size(activeSprite.nearbyAllies)) {
+			var inst = nearbyAllies[| i];
+			
+			bestow_mindset(inst, MINDSETS.TREE);
+			
+			i++;
+		}
+		
+		// reset arena
+		spar.currentArena = -1;
+	}
 }
 
+///@desc SPELL FUNCTION: forces the target to adopt the user's type and mindset
 function osmosis() {
 	// restore half of the HP depleted from target
 }

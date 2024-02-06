@@ -38,7 +38,7 @@ currentAction	= spar.turnGrid[# turnParams.action,	turnNum];
 activeTarget	= spar.turnGrid[# turnParams.target,	turnNum];
 
 // check if currentAction is a spell
-if (currentAction >= sparActions.height) {
+if action_check_spell() {
 	currentSpell = currentAction - sparActions.height;
 }
 

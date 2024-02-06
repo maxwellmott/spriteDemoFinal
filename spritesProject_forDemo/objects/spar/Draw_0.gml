@@ -63,7 +63,7 @@ var i = 0; repeat (8) {
 		draw_set_font(plainFont);
 		
 		draw_sprite(spr_readyDisplayBox, 0, inst.x, inst.y);
-		draw_text_transformed(inst.x - 27, inst.y - 15, inst.readyDisplay, 0.5, 0.5, 0);
+		spar_draw_text(inst.x - 27, inst.y - 15, inst.readyDisplay);
 	}
 	
 	// reset halign and valign
@@ -87,7 +87,7 @@ draw_set_alpha(1.0);
 		if (sparPhase == sparPhases.select) {
 			draw_sprite(spr_sparSelectionMenu, 0, selectionMsgX, selectionMsgY);
 			if !(instance_exists(sparReadyButton)) {
-				draw_text_transformed(selectionMsgX, selectionMsgY, selectionMsg, 0.5, 0.5, 0);
+				spar_draw_text(selectionMsgX, selectionMsgY, selectionMsg);
 			}
 		}
 		
@@ -101,7 +101,7 @@ draw_set_alpha(1.0);
 				draw_sprite(spr_sparActionButton, inst.frame, inst.x, inst.y);
 				draw_set_color(inst.textColor);
 				
-				draw_text_transformed(inst.x, inst.y, inst.name, 0.5, 0.5, 0);
+				spar_draw_text(inst.x, inst.y, inst.name);
 				
 				i++;
 			}
@@ -154,14 +154,9 @@ draw_set_alpha(1.0);
 	// draw turn message
 	if (turnMsg != "") {	
 		draw_set_font(plainFont);
-		var offset = 0;
-		
-		if (string_width(turnMsg) mod 2 != 0) {
-			offset = 1;	
-		}
 		
 		draw_sprite(spr_sparTurnMessage, 0, turnMsgX, turnMsgY);
-		draw_text_transformed(turnMsgX - offset, turnMsgY - offset, turnMsg, 0.5, 0.5, 0);
+		spar_draw_text(turnMsgX, turnMsgY, turnMsg);
 	}
 
 #endregion
@@ -185,89 +180,153 @@ draw_set_alpha(1.0);
 				draw_sprite(spr_sparHoverMenuNameplate, 0, hoverMenu_nameplateX, hoverMenu_nameplateY);
 				
 				// draw name
-				draw_text_transformed(hoverMenu_nameplateX,		hoverMenu_nameplateY,	hs.name, 0.5, 0.5, 0);
+				spar_draw_text(hoverMenu_nameplateX, hoverMenu_nameplateY, hs.name);
 				
 				draw_set_color(c_black);
 				
 				draw_set_halign(fa_left);
 				
 				// draw alignment and size
-				draw_text_transformed(hoverMenu_alignmentX,	hoverMenu_alignmentY,	"SIZE   " + sprite_get_size_string(hs.currentSize),			0.5, 0.5, 0);
-				draw_text_transformed(hoverMenu_sizeX,		hoverMenu_sizeY,		"TYPE   " + sprite_get_alignment_string(hs.currentAlign),	0.5, 0.5, 0);
+				spar_draw_text(hoverMenu_alignmentX,	hoverMenu_alignmentY,	"TYPE   " + sprite_get_size_string(hs.currentAlign));
+				spar_draw_text(hoverMenu_sizeX,			hoverMenu_sizeY,		"SIZE   " + sprite_get_size_string(hs.currentSize));
 				
 				draw_set_halign(fa_center);
 				
-				// draw power
-				if (hs.currentPower < hs.basePower) draw_set_color(c_red);
-				if (hs.currentPower > hs.basePower) draw_set_color(c_green);
+				#region DRAW POWER
 				
-				draw_text_transformed(hoverMenu_columnOneX,			hoverMenu_rowOneY,		"POWER",					0.5, 0.5, 0);
-				draw_text_transformed(hoverMenu_columnOneX,			hoverMenu_rowTwoY,		string(hs.currentPower),	0.5, 0.5, 0);
+					// draw label
+					spar_draw_text(hoverMenu_columnOneX,		hoverMenu_rowOneY,		"POWER");
+					
+					// check if the stat has been changed at all
+					if (hs.currentPower < hs.basePower) draw_set_color(c_red);
+					if (hs.currentPower > hs.basePower) draw_set_color(c_green);
+					
+					// draw stat
+					spar_draw_text(hoverMenu_columnOneX,		hoverMenu_rowTwoY,		string(hs.currentPower));
+					
+					// reset color to black
+					draw_set_color(c_black);
 				
-				draw_set_color(c_black);
+				#endregion
 				
-				// draw resistance			
-				if (hs.currentResist < hs.baseResist)	draw_set_color(c_red);
-				if (hs.currentResist > hs.baseResist)	draw_set_color(c_green);
+				#region DRAW RESISTANCE
 				
-				draw_text_transformed(hoverMenu_columnOneX,			hoverMenu_rowThreeY,	"RESIST",					0.5, 0.5, 0);
-				draw_text_transformed(hoverMenu_columnOneX,			hoverMenu_rowFourY,		string(hs.currentResist),	0.5, 0.5, 0);
+					// draw label
+					spar_draw_text(hoverMenu_columnOneX,		hoverMenu_rowThreeY,	"RESIST");
+					
+					// check if the stat has been changed at all
+					if (hs.currentResist < hs.baseResist)	draw_set_color(c_red);
+					if (hs.currentResist > hs.baseResist)	draw_set_color(c_green);
+					
+					// draw stat
+					spar_draw_text(hoverMenu_columnOneX,		hoverMenu_rowFourY,		string(hs.currentResist));
+					
+					// reset color to black
+					draw_set_color(c_black);
 				
-				draw_set_color(c_black);
+				#endregion
 				
-				// draw agility
-				if (hs.currentAgility < hs.baseAgility)	draw_set_color(c_red);
-				if (hs.currentAgility > hs.baseAgility)	draw_set_color(c_green);
+				#region DRAW AGILITY
 				
-				draw_text_transformed(hoverMenu_columnTwoX,			hoverMenu_rowOneY,		"AGILITY",					0.5, 0.5, 0);
-				draw_text_transformed(hoverMenu_columnTwoX,			hoverMenu_rowTwoY,		string(hs.currentAgility),	0.5, 0.5, 0);
+					// draw label
+					spar_draw_text(hoverMenu_columnTwoX,			hoverMenu_rowOneY,		"AGILITY");
+					
+					// check if the stat has been changed at all
+					if (hs.currentAgility < hs.baseAgility)	draw_set_color(c_red);
+					if (hs.currentAgility > hs.baseAgility)	draw_set_color(c_green);
+					
+					// draw stat
+					spar_draw_text(hoverMenu_columnTwoX,		hoverMenu_rowTwoY,		string(hs.currentAgility));
+					
+					// reset color to black
+					draw_set_color(c_black);
+
+				#endregion
 				
-				draw_set_color(c_black);
+				#region DRAW LUCK
 				
-				// draw luck	
-				if (hs.currentLuck < hs.baseLuck)		draw_set_color(c_red);
-				if (hs.currentLuck > hs.baseLuck)		draw_set_color(c_green);
+					// draw label
+					spar_draw_text(hoverMenu_columnTwoX,		hoverMenu_rowThreeY,	"LUCK");
+					
+					// check if the stat has been changed at all
+					if (hs.currentLuck < hs.baseLuck)		draw_set_color(c_red);
+					if (hs.currentLuck > hs.baseLuck)		draw_set_color(c_green);
+					
+					// draw stat
+					spar_draw_text(hoverMenu_columnTwoX,		hoverMenu_rowFourY,		string(hs.currentLuck));
+					
+					// reset color to black
+					draw_set_color(c_black);
 				
-				draw_text_transformed(hoverMenu_columnTwoX,			hoverMenu_rowThreeY,	"LUCK",						0.5, 0.5, 0);
-				draw_text_transformed(hoverMenu_columnTwoX,			hoverMenu_rowFourY,		string(hs.currentLuck),		0.5, 0.5, 0);
+				#endregion
 				
-				draw_set_color(c_black);
+				#region DRAW FIRE
 				
-				// draw fire	
-				if (hs.currentFire < hs.baseFire)		draw_set_color(c_red);
-				if (hs.currentFire > hs.baseFire)		draw_set_color(c_green);
+					// draw label
+					spar_draw_text(hoverMenu_columnThreeX,		hoverMenu_rowOneY,		"FIRE");
+					
+					// check if the stat has been changed at all
+					if (hs.currentFire < hs.baseFire)		draw_set_color(c_red);
+					if (hs.currentFire > hs.baseFire)		draw_set_color(c_green);
+					
+					// draw stat
+					spar_draw_text(hoverMenu_columnThreeX,		hoverMenu_rowTwoY,		string(hs.currentFire));
+					
+					// reset color to black
+					draw_set_color(c_black);
 				
-				draw_text_transformed(hoverMenu_columnThreeX,		hoverMenu_rowOneY,		"FIRE",						0.5, 0.5, 0);
-				draw_text_transformed(hoverMenu_columnThreeX,		hoverMenu_rowTwoY,		string(hs.currentFire),		0.5, 0.5, 0);
+				#endregion
 				
-				draw_set_color(c_black);
+				#region DRAW WATER
 				
-				// draw water		
-				if (hs.currentWater < hs.baseWater)		draw_set_color(c_red);
-				if (hs.currentWater > hs.baseWater)		draw_set_color(c_green);
+					// draw label
+					spar_draw_text(hoverMenu_columnThreeX,		hoverMenu_rowThreeY,	"WATER");
+					
+					// check if the stat has been changed at all
+					if (hs.currentWater < hs.baseWater)		draw_set_color(c_red);
+					if (hs.currentWater > hs.baseWater)		draw_set_color(c_green);
+					
+					// draw stat
+					spar_draw_text(hoverMenu_columnThreeX,		hoverMenu_rowFourY,		string(hs.currentWater));
+					
+					// reset color to black
+					draw_set_color(c_black);
 				
-				draw_text_transformed(hoverMenu_columnThreeX,		hoverMenu_rowThreeY,	"WATER",					0.5, 0.5, 0);
-				draw_text_transformed(hoverMenu_columnThreeX,		hoverMenu_rowFourY,		string(hs.currentWater),	0.5, 0.5, 0);
+				#endregion
 				
-				draw_set_color(c_black);
+				#region DRAW STORM
+
+					// draw the label
+					spar_draw_text(hoverMenu_columnFourX,		hoverMenu_rowOneY,		"STORM");
+					
+					// check if the stat has been changed at all
+					if (hs.currentStorm < hs.baseStorm)		draw_set_color(c_red);
+					if (hs.currentStorm > hs.baseStorm)		draw_set_color(c_green);
+					
+					// draw stat
+					spar_draw_text(hoverMenu_columnFourX,		hoverMenu_rowTwoY,		string(hs.currentStorm));
+					
+					// reset the color to black
+					draw_set_color(c_black);
 				
-				// draw storm	
-				if (hs.currentStorm < hs.baseStorm)		draw_set_color(c_red);
-				if (hs.currentStorm > hs.baseStorm)		draw_set_color(c_green);
+				#endregion
 				
-				draw_text_transformed(hoverMenu_columnFourX,		hoverMenu_rowOneY,		"STORM",					0.5, 0.5, 0);
-				draw_text_transformed(hoverMenu_columnFourX,		hoverMenu_rowTwoY,		string(hs.currentStorm),	0.5, 0.5, 0);
+				#region DRAW EARTH
 				
-				draw_set_color(c_black);
+					// draw label
+					spar_draw_text(hoverMenu_columnFourX,		hoverMenu_rowThreeY,	"EARTH");
+					
+					// check if the stat has been changed at all
+					if (hs.currentEarth < hs.baseEarth)		draw_set_color(c_red);
+					if (hs.currentStorm > hs.baseStorm)		draw_set_color(c_green);
+					
+					// draw stat
+					spar_draw_text(hoverMenu_columnFourX,		hoverMenu_rowFourY,		string(hs.currentEarth));
+					
+					// reset color to black
+					draw_set_color(c_black);
 				
-				// draw earth																							
-				if (hs.currentEarth < hs.baseEarth)		draw_set_color(c_red);
-				if (hs.currentStorm > hs.baseStorm)		draw_set_color(c_green);
-				
-				draw_text_transformed(hoverMenu_columnFourX,		hoverMenu_rowThreeY,	"EARTH",					0.5, 0.5, 0);
-				draw_text_transformed(hoverMenu_columnFourX,		hoverMenu_rowFourY,		string(hs.currentEarth),	0.5, 0.5, 0);
-				
-				draw_set_color(c_black);
+				#endregion
 			}
 		}
 	}

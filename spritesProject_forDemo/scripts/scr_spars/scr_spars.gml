@@ -7,6 +7,7 @@ global.targetRange		= -1;
 global.action			= -1;
 global.selectedSpell	= -1;
 
+
 enum ranges {
 	onlySelf,
 	nearestOneEnemy,
@@ -711,4 +712,31 @@ function sprite_reload_sprite() {
 	
 	// destroy grid
 	ds_grid_destroy(grid);
+}
+
+///@desc This function is used to draw text in the battle scene. It's just a way of safely ensuring that when text
+/// is drawn with a centered alignment, it corrects if the width of the string being drawn is an odd number (can't draw
+/// pixels at decimal values)
+function spar_draw_text(_x, _y, _text) {
+	var xx = _x;
+	var yy = _y;
+	var tt = _text;
+	
+	if (string_width(tt) mod 2 == 1) {
+		xx -= 1;	
+	}
+	
+	draw_text_transformed(xx, yy, tt, 0.5, 0.5, 0);
+}
+
+function action_check_spell(_action) {
+	var spellBool = false;
+	
+	if (currentAction >= sparActions.height)	spellBool = true;
+	
+	return spellBool;
+}
+
+function spell_check_priority() {
+	
 }
