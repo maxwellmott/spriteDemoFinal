@@ -732,11 +732,11 @@ function spar_draw_text(_x, _y, _text) {
 function action_check_spell(_action) {
 	var spellBool = false;
 	
-	if (currentAction >= sparActions.height)	spellBool = true;
+	if (_action >= sparActions.height)	spellBool = true;
 	
 	return spellBool;
 }
 
-function spell_check_priority() {
-	
+function spar_draw_spell_icon(_spellID) {
+	// get height and width
 }

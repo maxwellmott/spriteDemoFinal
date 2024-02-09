@@ -190,3 +190,7 @@ enum PROCESS_PHASES {
 	END,
 	HEIGHT
 }
+
+// this variable will be used by the actionProcessor to determine which row from the turnGrid
+// should be pulled for the turn
+turnRow = -1;

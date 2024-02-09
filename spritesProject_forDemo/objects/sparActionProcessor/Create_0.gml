@@ -29,17 +29,17 @@ spellEffect		= noone;
 // perform agility sort
 agility_sort(spar.turnGrid);
 
-// get turnNum
-turnNum = spar.turnNum;
+// get turnRow
+turnRow = spar.turnRow;
 
-// use turnNum to get params from turnGrid
-activeSprite	= spar.turnGrid[# turnParams.actor,		turnNum];
-currentAction	= spar.turnGrid[# turnParams.action,	turnNum];
-activeTarget	= spar.turnGrid[# turnParams.target,	turnNum];
+// use turnRow to get params from turnGrid
+activeSprite	= spar.turnGrid[# turnParams.actor,		turnRow];
+currentAction	= spar.turnGrid[# turnParams.action,	turnRow];
+activeTarget	= spar.turnGrid[# turnParams.target,	turnRow];
 
 // check if currentAction is a spell
-if action_check_spell() {
-	currentSpell = currentAction - sparActions.height;
+if action_check_spell(currentAction) {
+	currentSpell = action_get_spell_id(currentAction);
 }
 
 // if spell is set, get all spell params

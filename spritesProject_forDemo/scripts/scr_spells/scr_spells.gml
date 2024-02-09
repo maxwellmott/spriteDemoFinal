@@ -97,10 +97,14 @@ enum SPELL_PARAMS {
 var priorityList = ds_list_create();
 
 // populate priority list
-
+ds_list_add(priorityList,	SPELLS.SHOCK,		SPELLS.RAPID_STRIKE,		SPELLS.BALL_LIGHTNING,		SPELLS.FLASH_FREEZE,	SPELLS.SNEAK_ATTACK,
+							SPELLS.SKYDIVE,		SPELLS.DEFLECTIVE_SHIELD,	SPELLS.DIONS_PARRY,		SPELLS.TIME_LOOP,		SPELLS.ERADICATE);
+							
 // encode priority list
+global.prioritySpellList = encode_list(priorityList);
 
 // delete temp list
+ds_list_destroy(priorityList);
 
 // declare spell types
 enum SPELL_TYPES {
@@ -627,6 +631,8 @@ function osmosis() {
 }
 
 function flash_freeze() {
+	// IS A PRIORITY MOVE
+	
 	// bind the target
 }
 
@@ -656,6 +662,8 @@ function tremor() {
 }
 
 function skydive() {
+	// PRIORITY MOVE
+	
 	// become invulnerable until the end of the turn
 	
 	// at the end of the turn, deliver the attack
@@ -696,12 +704,16 @@ function rearrange() {
 }
 
 function sneak_attack() {
-	// set caster to dodge
+	// PRIORITY SPELL
+	
+	// set dodging to true
 	
 	// if caster manages to avoid damage, deliver an attack
 }
 
 function deflective_shield() {
+	// PRIORITY SPELL
+	
 	// create a shield that deflects all spells until the end of the turn
 }
 
@@ -919,4 +931,8 @@ function spar_spell_load_params() {
 	spellType	= grid[# SPELL_PARAMS.TYPE,			currentSpell];
 	spellPower	= grid[# SPELL_PARAMS.POWER,		currentSpell];
 	spellEffect	= grid[# SPELL_PARAMS.EFFECT,		currentSpell];
+}
+
+function action_get_spell_id(_action) {
+	return _action - sparActions.height;
 }

@@ -88,19 +88,40 @@ switch (sparPhase) {
 			case PROCESS_PHASES.PRIORITY:
 				// sort grid by agility
 			
-				var i = 0;	repeat (ds_grid_height(turnGrid)) {
-					// get action
-					var a = turnGrid[# selectionPhases.action, i];
-					
-					// check if action is a spell
-					if (action_check_spell(a)) {
-						// get spellID
+			
+				// check if the actionProcessor is already active
+				if !(instance_exists(sparActionProcessor)) {
+					var i = 0;	repeat (ds_grid_height(turnGrid)) {
+						// get action
+						var a = turnGrid[# selectionPhases.action, i];
 						
-						// check if it is on the priority list
+						// check if action is a spell
+						if (action_check_spell(a)) {
+							// get spellID
+							var sid = action_get_spell_id(a);
+							
+							// create the priority list
+							var pl = ds_list_create();
+							decode_list(global.prioritySpellList, pl);
+							
+							// check if the spell id is on the priority list
+							if (ds_list_find_index(pl, sid) >= 0) {
+								// if so, set turnRow
+								turnRow = i;
+								
+								// create actionProcessor
+								create_once(0, 0, LAYER.meta, sparActionProcessor);
+								ds_list_destroy(pl);
+								break;
+							}
+							
+							ds_list_destroy(pl);
+						}
+						
+						// increment i
+						i++;
 					}
-					// increment i
-					i++;
-				}
+				}	else	break;
 				
 				processPhase = PROCESS_PHASES.ATTACK;
 			break;

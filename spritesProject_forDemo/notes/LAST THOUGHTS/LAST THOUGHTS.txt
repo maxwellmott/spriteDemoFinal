@@ -82,3 +82,8 @@ BATTLE SCENE TODO:
 	
 	The priority spell list has been started in the spells script. The check for priority spells is happening in the priority case of the switch statement
 	in the spar object step event. Good luck!
+	
+2/8 
+	-finish spell functions
+	-create a non-demo version of the spell icon art sheet
+	-test priority spells
