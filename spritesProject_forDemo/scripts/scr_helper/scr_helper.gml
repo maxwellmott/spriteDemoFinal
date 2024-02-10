@@ -15,7 +15,7 @@ global.argumentList = ds_list_create();
 /// but it is actually intended to be overloaded. The excess arguments will be placed
 /// on a list called global.argumentList. They will then be gotten from that list by
 /// the function given as the first argument.
-function execute_arguments(_function) {
+function execute_arguments(_fn) {
 	// get the number of arguments
 	var c = argument_count;
 	
@@ -32,7 +32,7 @@ function execute_arguments(_function) {
 	}
 	
 	// call the given function
-	_function();
+	_fn();
 	
 	// clear argumentList
 	ds_list_clear(global.argumentList);
@@ -123,12 +123,6 @@ function randomize_list(_list){
 	}
 }
 
-function ds_list_append(_target, _source){
-	for (var i = 0; i < ds_list_size(_source); i++) {
-		ds_list_add(_target, ds_list_find_value(_source, i));
-	}
-}
-
 function create_once(_x, _y, _layer, _obj) {
 	if !(instance_exists(_obj)) {
 		instance_create_depth(_x, _y, get_layer_depth(_layer), _obj)
@@ -162,48 +156,6 @@ function calculate_spell_damage(_user, _target, _spellType, _weakType, _strongTy
 	damage	= ratio1 * ratio2 * _power;
 	
 	return damage;
-}
-
-function replenish_mp(_team, _amount) {
-	team		= _team;
-	regenAmount	= _amount;
-	
-	mpNeeded	= team.maxMP - team.currentMP;
-	if (mpNeeded < regenAmount) {regenAmount = mpNeeded;}
-	
-	team.currentMP += round(regenAmount);
-}
-
-function replenish_hp(_team, _amount) {
-	team		= _team;
-	regenAmount	= _amount;
-	
-	hpNeeded	= team.maxHP - team.currentHP;
-	if (hpNeeded < regenAmount) {regenAmount = hpNeeded;}
-	
-	team.currentHP += round(regenAmount);
-}
-
-function deplete_hp(_team, _amount) {
-	team	= _team;
-	amount	= _amount;
-	
-	hpLeft		= team.currentHP;
-	if (hpLeft < amount) {amount = hpLeft;}
-	
-	team.currentHP -= round(amount);
-}
-
-function initialize_sprite_states() {
-	for (var i = 0; i < ds_list_size(global.all_units); i++) {
-		global.all_units[| i].state = spriteStates.idle;
-	}
-}
-
-function set_sprites_hidden(_bool) {
-	for (var i = 0; i < ds_list_size(global.all_units); i++) {
-		global.all_units[| i].hidden = _bool;	
-	}
 }
 
 function draw_neat_text(_x, _y, _string, _halign, _valign, _color, _width, _scale, _alpha, _angle) {
@@ -244,119 +196,6 @@ function string_scan(_string, _char) {
 	}
 
 	return present;
-}
-
-// this function takes an encoded list, as well as x and y values. It draws the list to the screen, centered about the given x and y.
-function draw_encoded_list(_list, _x, _y) {
-	// check for structs
-	var hasStructs = string_scan(_list, ";");
-	
-	// set parse character
-	if (hasStructs) {var parseChar = ";";}
-	else	{var parseChar = ",";}
-	
-	// copy the list to a blank substring
-	var substring = _list;
-	
-	// reformat the substring by adding spaces
-	var i = 0;
-	repeat (string_length(substring)) {
-		// if the character at i is a parse character, add a newline directly after it.
-		if (string_char_at(substring, i) == parseChar) {
-			substring = string_insert("\n", substring, i + 1);
-		}
-		
-		// increment i
-		i++;
-	}
-	// draw the string
-	draw_text(_x, _y, substring);
-}
-
-// this function takes an encoded grid, as well as x and y values, and width and height values for cell size. 
-// It draws the grid to the screen, centered about the given x and y, with each cell sized with the given dimensions.
-function draw_encoded_grid(_grid, _x, _y, _width, _height) {
-
-	var newRowChar		= "|";
-	var newColumnChar	= "_";
-	
-	// create a substring
-	var substring = _grid;
-	
-	// copy each column to a substring
-	var i = 0;
-	repeat (string_length(substring)) {
-		// if the character at i is a secondary parse character, add a number of spaces to match the height argument
-		if (string_char_at(substring, i) == newRowChar) {
-			repeat(_height) {
-				var temp = string_insert("\n", substring, i + 1);
-				substring = temp;
-			}
-		}
-		
-		if (string_char_at(substring, i) == newColumnChar) {
-			repeat(_width) {
-				var temp = string_insert("	", substring, i + 1);
-				substring = temp;
-			}
-		}
-		
-		// increment i
-		i++;
-	}
-	
-	// draw the substring
-	draw_text(_x, _y, substring);
-}
-
-// this function takes a ds_list, as well as x and y values, and a height value for cell size.
-// It draws the list to the screen, centered about the given x and y.
-function draw_ds_list(_list, _x, _y, _height) {
-	// get listSize
-	var listSize = ds_list_size(_list);
-	
-	// initialize i and repeat for all list tokens
-	var i = 0;
-	repeat (listSize) {
-		// get drawY depending on i, as well as the given _y and _height arguments
-		var drawY = _y + ((i - listSize / 2) * (_height / listSize));
-		
-		// draw the token at i
-		draw_text(_x, drawY, string(_list[|i]));
-		
-		// increment i
-		i++;
-	}
-}
-
-// this function takes a ds_grid, as well as x and y values, and width and height values for cell size.
-// It draws the ds_grid to the screen, centered about the given x and y, with each cell sized with the given dimensions.
-function draw_ds_grid(_grid, _x, _y, _width, _height) {
-	// get grid width and height
-	var gridWidth = ds_grid_width(_grid);
-	var gridHeight = ds_grid_height(_grid);
-	
-	// initialize i and repeat for all columns
-	var i = 0;
-	repeat (gridWidth) {
-		// initialize ii and repeat for all rows
-		var ii = 0;
-		repeat (gridHeight) {
-			// get drawX depending on i, as well as the given _x and _width arguments
-			var drawX = _x + ((i - gridWidth / 2) * (_width / gridWidth));
-			
-			// get drawY depending on ii, as well as the given _y and _height arguments
-			var drawY = _y + ((ii - gridHeight / 2) * (_height / gridHeight));
-			
-			// draw the token at (i, ii)
-			draw_text(drawX, drawY, _grid[# i, ii]);
-			
-			// increment ii
-			ii++;
-		}
-		// increment i
-		i++;
-	}
 }
 
 global.frame =	0;

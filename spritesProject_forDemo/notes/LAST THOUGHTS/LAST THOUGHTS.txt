@@ -83,7 +83,12 @@ BATTLE SCENE TODO:
 	The priority spell list has been started in the spells script. The check for priority spells is happening in the priority case of the switch statement
 	in the spar object step event. Good luck!
 	
-2/8 
+2/9 
 	-finish spell functions
 	-create a non-demo version of the spell icon art sheet
 	-test priority spells
+	
+	
+	finished most spell functions. Here are some things to keep note of:
+		-	going to change rearrange and tidal force so that the swap occurs at the end of the effect
+		-	need to redo damage calculation functions so that I can finish pyrokinesis, psychic impact, and psychic fissure

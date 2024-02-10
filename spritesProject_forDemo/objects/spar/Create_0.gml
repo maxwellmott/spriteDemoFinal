@@ -194,3 +194,13 @@ enum PROCESS_PHASES {
 // this variable will be used by the actionProcessor to determine which row from the turnGrid
 // should be pulled for the turn
 turnRow = -1;
+
+//	|	CASTER	|	TARGET	|
+skydiveGrid = ds_grid_create(2, 0);
+
+skydiveCount = 0;
+
+//	|	CASTER	|	TARGET	|
+sneakAttackGrid = ds_grid_create(2, 0);
+
+sneakAttackCount = 0;

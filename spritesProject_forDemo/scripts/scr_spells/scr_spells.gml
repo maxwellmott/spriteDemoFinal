@@ -1,6 +1,9 @@
 // set legal spell count
 #macro	SPELLMAX	8
 
+//
+#macro AMANDS_BLAST		400
+
 // spell ids enum
 enum SPELLS {
 	SOLAR_FLARE,
@@ -94,17 +97,20 @@ enum SPELL_PARAMS {
 	HEIGHT
 }
 
-var priorityList = ds_list_create();
+#region BUILD PRIORITY LIST
+	var priorityList = ds_list_create();
+	
+	// populate priority list
+	ds_list_add(priorityList,	SPELLS.SHOCK,		SPELLS.RAPID_STRIKE,		SPELLS.BALL_LIGHTNING,		SPELLS.FLASH_FREEZE,	SPELLS.SNEAK_ATTACK,
+								SPELLS.SKYDIVE,		SPELLS.DEFLECTIVE_SHIELD,	SPELLS.DIONS_PARRY,		SPELLS.TIME_LOOP,		SPELLS.ERADICATE);
+								
+	// encode priority list
+	global.prioritySpellList = encode_list(priorityList);
+	
+	// delete temp list
+	ds_list_destroy(priorityList);
 
-// populate priority list
-ds_list_add(priorityList,	SPELLS.SHOCK,		SPELLS.RAPID_STRIKE,		SPELLS.BALL_LIGHTNING,		SPELLS.FLASH_FREEZE,	SPELLS.SNEAK_ATTACK,
-							SPELLS.SKYDIVE,		SPELLS.DEFLECTIVE_SHIELD,	SPELLS.DIONS_PARRY,		SPELLS.TIME_LOOP,		SPELLS.ERADICATE);
-							
-// encode priority list
-global.prioritySpellList = encode_list(priorityList);
-
-// delete temp list
-ds_list_destroy(priorityList);
+#endregion
 
 // declare spell types
 enum SPELL_TYPES {
@@ -165,7 +171,55 @@ function solar_flare() {
 
 ///@desc SPELL FUNCTION: forces the target to swap (dodgeable)
 function tidal_force() {
-
+	randomize();
+	
+	if !(dodgeSuccess) {
+		// get target's spot number
+		var t = targetSprite;
+		var tsn = t.spotNum;
+		
+		// get target team
+		var tt = t.team;
+		
+		// create temp list
+		var l = ds_list_create();
+		
+		// build a list of numbers representing viable swap partners
+		var i = 0;	repeat (4) {
+			// if i doesn't equal target spot num, add it to the list
+			if (i != tsn)	ds_list_add(l, i);
+			
+			i++;
+		}
+		
+		// pick a random number off of that list and set it as the
+		// partner's spot number
+		var int = irandom_range(0, 3);
+		var psn = l[| int];
+		
+		// create inst list
+		var il = ds_list_create();
+		
+		// copy appropriate list
+		if (tt == spar.playerOne)	ds_list_copy(il, spar.allyList);
+		if (tt == spar.playerTwo)	ds_list_copy(il, spar.enemyList);
+		
+		// store swap partner's sprite ID
+		var psid	= il[| psn].spriteID;
+		
+		// store target's sprite ID
+		var tsid	= il[| tsn].spriteID;
+		
+		// swap sprite IDs
+		
+		var temp	= psid;
+		psid		= tsid;
+		tsid		= temp;
+		
+		// delete lists
+		ds_list_destroy(l);
+		ds_list_destroy(il);
+	}	
 }
 
 ///@desc SPELL FUNCTION: hexes all enemies
@@ -476,13 +530,13 @@ function empathize() {
 			// copy mindset
 			c.mindset = t.mindset;
 			
-			// if blessing, fully heal target team
-			if (t.mindset > 0) {
+			// if curse, fully heal target team
+			if (t.mindset < 0) {
 				fully_restore_hp(t.team);	
 			}
 			
-			// if curse, fully heal caster's team
-			if (t.mindset < 0) {
+			// if blessing, fully heal caster's team
+			if (t.mindset > 0) {
 				fully_restore_hp(c.team);	
 			}
 		}
@@ -591,7 +645,7 @@ function pyrokinesis() {
 function downpour() {
 	var t = targetSprite.team;
 	
-	t.rust = true;
+	set_rust(t);
 }
 
 ///@desc SPELL FUNCTION: grants the target the curse of the imp (dodgeable)
@@ -625,96 +679,291 @@ function hikams_winter_spell() {
 	}
 }
 
-///@desc SPELL FUNCTION: forces the target to adopt the user's type and mindset
+///@desc SPELL FUNCTION: adopts the target's mindset. if curse, heal target team fully. If blessing, heal caster team fully
 function osmosis() {
-	// restore half of the HP depleted from target
+	if !(dodgeSuccess) {
+		// store target and caster in locals
+		var t = targetSprite;
+		var c = activeSprite;
+		
+		// check if target has an altered mindset
+		if (t.mindset != 0) {
+			c.mindset = t.mindset;
+			
+			// if curse, fully heal target team
+			if (t.mindset < 0) {
+				fully_restore_hp(t.team);	
+			}
+			
+			// if blessing, fully heal caster's team
+			if (t.mindset > 0) {
+				fully_restore_hp(c.team);	
+			}
+		}
+	}
 }
 
+///@desc SPELL FUNCTION: this spell is a priority spell that binds the target so long as it is not dodged.
 function flash_freeze() {
 	// IS A PRIORITY MOVE
 	
+	var t = targetSprite;
+	
 	// bind the target
+	if !(dodgeSuccess) {
+		if !(t.bound) {
+			set_bound(t);
+		}
+	}
 }
 
+///@desc SPELL FUNCTION: resets the arena and grants curse of the warrior to target and nearby allies
 function landslide() {
-	// reset arena and grant curse of the warrior to target and nearby allies
+	arena_change_normal();
+	
+	var t = targetSprite;
+	
+	var l = ds_list_create();
+	
+	ds_list_copy(l, t.nearbyAllies);
+	
+	bestow_mindset(t, 0 - MINDSETS.WARRIOR);
+	
+	var i = 0;	repeat (ds_list_size(l)) {
+		var inst = l[| i];
+		
+		bestow_mindset(inst, 0 - MINDSETS.WARRIOR);
+		
+		i++;
+	}
 }
 
+///@desc SPELL FUNCTION: creates an Energy Blast against the enemy team that always deals 400 damage
 function amands_energy_blast() {
-	// create an Energy Blast against the enemy team that deals damage relative to
-	// the caster's luck for the turn
+	var t = targetSprite.team;
+	
+	energy_blast(t, AMANDS_BLAST);
 }
 
+///@desc SPELL FUNCTION: flips the targets mindset. If curse->blessing, heal some HP, if blessing->curse, remove some HP,
+/// so long as it isn't dodged.
 function shift_perspective() {
-	// flip the target's mindset
-	
-	// if curse->blessing heal some HP
-	
-	// if blessing->curse remove some HP
+	if !(dodgeSuccess) {
+		// flip the target's mindset
+		var t = targetSprite;
+		var m = t.mindset;
+		
+		if (m != 0) {
+			// if curse->blessing heal some HP
+			if (m < 0) {
+				restore_hp(t.team, 200);	
+			}
+		
+			// if blessing->curse remove some HP
+			if (m > 0) {
+				deplete_hp_nonlethal(t.team, 200);
+			}
+		}
+	}
 }
 
+///@desc SPELL FUNCTION: THIS FUNCTION IS STILL UNFINISHED
 function psychic_impact() {
 	// find target's weak spot and attack them there
+	if !(dodgeSuccess) {
+		// calculate damage for each possible element
+		
+		// check which is the highest
+
+		// set the damage to equal that amount
+	}
 }
 
 function tremor() {
 	// no effect
 }
 
+///@desc SPELL FUNCTION: the caster of this spell flies into the sky and becomes invulnerable
+/// until the end of the turn when they swoop back in for an attack.
 function skydive() {
 	// PRIORITY MOVE
 	
-	// become invulnerable until the end of the turn
+	var c = activeSprite;
+	var t = targetSprite;
 	
-	// at the end of the turn, deliver the attack
+	// become invulnerable until the end of the turn
+	c.flying = true;
+	
+	// add skydive to list of skydives
+	grid_add_skydive(c, t)
 }
 
+///@desc SPELL FUNCTION: this spell does extra damage when cast against mechanical sprites, it then
+/// changes their type to natural.
 function destructive_blow() {
-	// there will be a check before damage is dealt wherein
-	// this spell will do extra damage to MECHANICAL sprites when
-	// cast
+	var t = targetSprite;
+	
+	if (t.currentAlign == ALIGNMENTS.MECHANICAL) {
+		damage = damage * 1.5;
+		
+		t.currentAlign = ALIGNMENTS.NATURAL;
+	}
 }
 
+///@desc SPELL FUNCTION: this spell does extra damage when cast against astral sprites, it then
+/// changes their type to natural.
 function purifying_flame() {
-	// there will be a check before damage is dealth wherein
-	// this spell will do extra damage to ASTRAL sprites when
-	// cast
+	var t = targetSprite;
+	
+	if (t.currentAlign == ALIGNMENTS.ASTRAL) {
+		damage = damage * 1.5;
+		
+		t.currentAlign = ALIGNMENTS.NATURAL;
+	}
 }
 
+///@desc SPELL FUNCTION: partially restore target's HP and grant blessing
+/// of the warrior to them and all their nearby allies
 function jabuls_fight_song() {
-	// partially restore target's HP and grant curse of the warrior
-	// to them and all their nearby allies
+	var c = activeSprite;
+	
+	var l = ds_list_create();
+	ds_list_copy(l, c.nearbyAllies);
+	
+	var i = 0;	repeat (ds_list_size(l)) {
+		var inst = l[| i];
+		
+		bestow_mindset(inst, MINDSETS.WARRIOR);
+		
+		i++;	
+	}
 }
 
+///@desc SPELL FUNCTION: summons miasma on the target's side of the field
 function noxious_fumes() {
-	// summon miasma on target's side of the field
+	var t = targetSprite.team;
+	
+	set_miasma(t);
 }
 
+///@desc SPELL FUNCTION: hexes the target
 function crecias_crystal_spikes() {
-	// hex target
+	var t = targetSprite;
+	
+	set_hexed(t);
 }
 
+///@desc SPELL FUNCTION: finds the element that would deal the most damage and sets the spell's
+/// type to match the results. This spell also deals damage to the caster, even if it's dodged.
 function psychic_fissure() {
-	// same effect as psychic impact (there will be a check for
-	// these two spells that modify damage before it is done)
+	var d = 0;
+	
+	// calculate damage for each possible element
+	
+	// check which is the highest
+	
+	// set d to equal that amount
+	
+	if !(dodgeSuccess) {
+		// set current damage to equal d	
+	}
+	
 }
 
+///@desc SPELL FUNCTION: splits the target team into two pairs and swaps them
 function rearrange() {
-	// split target team into two pairs and swap them (dodgeable)
+	randomize();
+	
+	if !(dodgeSuccess) {
+		// get target's spot number
+		var ct = activeSprite.team;
+		
+		// create a dummy list
+		var iil = ds_list_create();
+		
+		// find out which list to copy
+		if (ct == spar.playerOne)	ds_list_copy(iil, spar.enemyList);
+		if (ct == spar.playerTwo)	ds_list_copy(iil, spar.allyList);
+		
+		// get a random integer
+		var int = irandom_range(0, 3);
+		
+		// set target as the list token at the index of the random integer
+		var t	= iil[| int];
+		var tsn = t.spotNum;
+		
+		// get target team
+		var tt = t.team;
+		
+		// create temp list
+		var l = ds_list_create();
+		
+		// build a list of numbers representing viable swap partners
+		var i = 0;	repeat (4) {
+			// if i doesn't equal target spot num, add it to the list
+			if (i != tsn)	ds_list_add(l, i);
+			
+			i++;
+		}
+		
+		// pick a random number off of that list and set it as the
+		// partner's spot number
+		var int = irandom_range(0, 3);
+		var psn = l[| int];
+		
+		// create inst list
+		var il = ds_list_create();
+		
+		// copy appropriate list
+		if (tt == spar.playerOne)	ds_list_copy(il, spar.allyList);
+		if (tt == spar.playerTwo)	ds_list_copy(il, spar.enemyList);
+		
+		// store swap partner's sprite ID
+		var psid	= il[| psn].spriteID;
+		
+		// store target's sprite ID
+		var tsid	= il[| tsn].spriteID;
+		
+		// swap sprite IDs
+		
+		var temp	= psid;
+		psid		= tsid;
+		tsid		= temp;
+		
+		// delete lists
+		ds_list_destroy(l);
+		ds_list_destroy(il);
+	}	
 }
 
+///@desc SPELL FUNCTION: attempts to dodge for the duration of the turn. If the caster
+/// is still sneaking/dodging at the end of the turn, they will deliver a powerful attack.
 function sneak_attack() {
 	// PRIORITY SPELL
 	
-	// set dodging to true
+	var c = activeSprite;
 	
-	// if caster manages to avoid damage, deliver an attack
+	// set dodging to true
+	c.dodging = true;
+	
+	// set sneaking to true
+	c.sneaking = true;
+	
+	// get target
+	var t = targetSprite;
+	
+	// add sneak attack to grid
+	grid_add_sneak_attack(c, t);
 }
 
+///@desc SPELL FUNCTION: creates a sheild that deflects all spells until the end of the turn
 function deflective_shield() {
 	// PRIORITY SPELL
 	
-	// create a shield that deflects all spells until the end of the turn
+	var c = activeSprite;
+	
+	c.deflective = true;
+	
 }
 
 function dions_parry() {
@@ -735,19 +984,35 @@ function dions_barter_trick() {
 }
 
 function magnetic_pulse() {
-	// summon hum
+	// set hum on target's side of field
+	var t = targetSprite.team;
+	
+	set_hum(t);
 }
 
 function burn_out() {
 	// grant curse of the mother to the caster
+	
+	var c = activeSprite;
+	
+	bestow_mindset(c, 0 - MINDSETS.MOTHER);
 }
 
 function stinkbomb() {
 	// summon miasma on both sides of the field
+	
+	set_miasma(spar.playerOne);
+	set_miasma(spar.playerTwo);
 }
 
 function wind_slice() {
 	// grant curse of the imp to the target (dodgeable)
+	
+	if !(dodgeSuccess) {
+		var t = targetSprite;
+		
+		bestow_mindset(t, 0 - MINDSETS.IMP);
+	}
 }
 
 function channel_essence() {
@@ -760,30 +1025,61 @@ function spheras_curse() {
 
 function crecias_crystal_wind() {
 	// hex target and all nearby allies
+	
+	// get target sprite
+	var t = targetSprite;
+	
+	// create dummy list
+	var l = ds_list_create();
+	
+	// copy nearby allies list
+	ds_list_copy(l, t.nearbyAllies);
 }
 
 function lava_spire() {
 	// change arena to volcano
+	
+	arena_change_volcano();
 }
 
 function endless_river() {
 	// change arena to ocean
+	
+	arena_change_ocean();
 }
 
 function cloud_break() {
 	// change arena to stratosphere
+	
+	arena_change_stratos();
 }
 
 function telekinetic_blast() {
 	// hex target (dodgeable)
+	
+	if !(dodgeSuccess) {
+		var t = targetSprite;
+		
+		set_hexed(t);
+	}
 }
 
 function destabilizing_blow() {
 	// grant target curse of the imp (dodgeable)
+	
+	if !(dodgeSuccess) {
+		var t = targetSprite;
+		
+		bestow_mindset(t, 0 - MINDSETS.IMP);
+	}
 }
 
 function full_thrust() {
 	// bind caster
+	
+	var c = activeSprite;
+	
+	set_bound(c);
 }
 
 function volcanic_eruption() {

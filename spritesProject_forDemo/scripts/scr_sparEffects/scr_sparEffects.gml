@@ -33,43 +33,22 @@ function arena_change_normal() {
 	spar.currentArena = -1;
 }
 
-function set_miasma_enemy() {	
-	target.team.miasma = true;
+function set_miasma(_targetPlayer) {	
+	var t = _targetPlayer;
+	
+	t.miasma = true;
 }
 
-function set_miasma_self() {
-	actor.team.miasma = true;
+function set_hum(_targetPlayer) {
+	var t = _targetPlayer;
+	
+	t.hum = true;
 }
 
-function set_miasma_global() {
-	set_miasma_enemy();
-	set_miasma_self();
-}
-
-function set_hum_enemy() {
-	actor.team.enemy.hum = true;
-}
-
-function set_hum_self() {
-	actor.team.hum = true;
-}
-
-function set_hum_global() {
-	set_hum_enemy();
-	set_hum_self();
-}
-
-function set_rust_enemy() {
-	actor.enemy.rust = true;
-}
-
-function set_rust_self() {
-	actor.team.rust = true;
-}
-
-function set_rust_global() {
-	set_rust_enemy();
-	set_rust_self();
+function set_rust(_targetPlayer) {
+	var t = _targetPlayer;
+	
+	t.rust = true;
 }
 
 function energy_blast(_targetPlayer, _damage) {
@@ -122,10 +101,40 @@ function restore_hp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = _amount;
 	
-	var hpNeeded = MAX_HP - t.currentMP;
+	var hpNeeded = MAX_HP - t.currentHP;
 	
 	if (a >= hpNeeded)	t.currentHP = MAX_HP;
 	else				t.currentHP += a;
+}
+
+function deplete_hp(_targetPlayer, _amount) {
+	var t = _targetPlayer;
+	var a = _amount;
+	
+	var hpLeft = t.currentHP;
+	
+	if (a >= hpLeft)	t.currentHP = 0;
+	else				t.currentHP -= a;
+}
+
+function deplete_mp(_targetPlayer, _amount) {
+	var t = _targetPlayer;
+	var a = _amount;
+	
+	var mpLeft = t.currentMP;
+	
+	if (a >= mpLeft)	return -1;
+	else				t.currentMP -= a;
+}
+
+function deplete_hp_nonlethal(_targetPlayer, _amount) {
+	var t = _targetPlayer;
+	var a = _amount;
+	
+	var hpLeft = t.currentHP;
+	
+	if (a >= hpLeft)	t.currentHP = 1;
+	else				t.currentHP -= a;
 }
 
 function set_bound(_target) {
@@ -186,4 +195,34 @@ function fully_restore_mp(_targetPlayer) {
 	var t = _targetPlayer;
 	
 	t.currentMP = MAX_MP;
+}
+	
+function grid_add_skydive(_caster, _target) {
+	var c = _caster;
+	var t = _target;
+	
+	// resize grid
+	ds_grid_resize(spar.skydiveGrid, 2, spar.skydiveCount + 1);
+	
+	// add values
+	spar.skydiveGrid[# 0, spar.skydiveCount]	= c;
+	spar.skydiveGrid[# 1, spar.skydiveCount]	= t;
+	
+	// increment skydive count
+	spar.skydiveCount++;
+}
+	
+function grid_add_sneak_attack(_caster, _target) {
+	var c = _caster;
+	var t = _target;
+	
+	// resize grid
+	ds_grid_resize(spar.sneakAttackGrid, 2, spar.sneakAttackCount + 1);
+	
+	// add values
+	spar.sneakAttackGrid[# 0, spar.sneakAttackCount]	= c;
+	spar.sneakAttackGrid[# 0, spar.sneakAttackCount]	= t;
+	
+	// increment sneak attack count
+	spar.sneakAttackCount++;
 }

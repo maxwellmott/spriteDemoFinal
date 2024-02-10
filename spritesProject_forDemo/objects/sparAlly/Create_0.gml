@@ -120,3 +120,8 @@ dodging		= false;
 luckRoll = 0;
 
 currentPose = SPRITE_POSES.IDLE;
+
+flying			= false;
+invulnerable	= false;
+deflective		= false;
+sneaking		= false;
