@@ -18,7 +18,11 @@ if (x > targetX) && (frame > 0) {
 }
 
 if (x == targetX) && (targetX == spriteWidth / 2) {
+	spell_set_potential_cost(spellCost);
+	
 	if (global.select) {
+		global.potentialMPCost = -1;
+		
 		// set global.action
 		global.action = currentSpell + sparActions.height;
 		
@@ -32,7 +36,7 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 		}
 		else {
 			// if not self range, set action normally
-			spar_set_target();
+			spar_set_action();
 			
 			// set next phase
 			nextPhase = selectionPhases.target;
@@ -43,6 +47,8 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 	}
 	
 	if (global.back) {
+		global.potentialMPCost = -1;
+		
 		// set next phase
 		nextPhase = selectionPhases.ally;
 		
@@ -53,6 +59,8 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 	if (global.menu_left) {
 		// check if index is at 0
 		if (index > 0) {
+			global.potentialMPCost = -1;
+			
 			pageFlip = true;
 			
 			// set flipLeft to true
@@ -68,13 +76,15 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 			currentSpell = player.spellBook[| index];
 			
 			// get spell params
-			//spellbook_load_params();
+			spellbook_load_spell_params();
 		}
 	}
 	
 	if (global.menu_right) {
 		// check if index is at max
 		if (index < SPELLMAX - 1) {
+			global.potentialMPCost = -1;
+			
 			pageFlip = true;
 			
 			// set flipRight to true
@@ -90,7 +100,7 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 			currentSpell = player.spellBook[| index];
 			
 			// get spell params
-			//spellbook_load_params();
+			spellbook_load_spell_params();
 			
 		}
 	}

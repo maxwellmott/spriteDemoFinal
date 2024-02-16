@@ -142,6 +142,8 @@ switch (sparPhase) {
 			// use a switch statement to manage all selectionPhases
 			switch(selectionPhase) {
 				case selectionPhases.ally:
+					global.potentialMPCost = -1;
+				
 					// set selection message
 					selectionMsg = "Select a sprite to command";
 					
@@ -164,11 +166,17 @@ switch (sparPhase) {
 						selectionMsg = "";
 					}
 					else {
+						global.potentialMPCost = -1;
+						
 						// if not, create action menu
 						create_once(x, y, LAYER.meta, sparActionMenu);
 						
 						// set selection message
 						selectionMsg = "What should " + player.selectedAlly.name + " do this turn?";
+						
+						if (smw != string_width(selectionMsg)) {
+							smw = string_width(selectionMsg);	
+						}
 					}
 				break;
 				

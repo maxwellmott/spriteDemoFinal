@@ -357,6 +357,7 @@
     {"name":"spr_cityShortlampMask","order":9,"path":"sprites/spr_cityShortlampMask/spr_cityShortlampMask.yy",},
     {"name":"scr_layers","order":1,"path":"scripts/scr_layers/scr_layers.yy",},
     {"name":"literatureMask","order":7,"path":"sprites/literatureMask/literatureMask.yy",},
+    {"name":"spr_sparFlashingSliver","order":27,"path":"sprites/spr_sparFlashingSliver/spr_sparFlashingSliver.yy",},
     {"name":"tlst_verdmanFarmsCollidables","order":1,"path":"tilesets/tlst_verdmanFarmsCollidables/tlst_verdmanFarmsCollidables.yy",},
     {"name":"scr_spars","order":2,"path":"scripts/scr_spars/scr_spars.yy",},
     {"name":"newDrawSystem","order":6,"path":"notes/newDrawSystem/newDrawSystem.yy",},

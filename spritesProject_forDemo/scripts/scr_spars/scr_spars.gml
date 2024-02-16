@@ -6,7 +6,7 @@ global.arena			= -1;
 global.targetRange		= -1;
 global.action			= -1;
 global.selectedSpell	= -1;
-
+global.potentialMPCost	= -1;
 
 enum ranges {
 	onlySelf,
@@ -722,8 +722,8 @@ function spar_draw_text(_x, _y, _text) {
 	var yy = _y;
 	var tt = _text;
 	
-	if (string_width(tt) mod 2 == 1) {
-		xx -= 1;	
+	if ((string_width(tt) / 2) mod 2 != 0) {
+		xx -= 0.5;	
 	}
 	
 	draw_text_transformed(xx, yy, tt, 0.5, 0.5, 0);
@@ -737,6 +737,95 @@ function action_check_spell(_action) {
 	return spellBool;
 }
 
-function spar_draw_spell_icon(_spellID) {
-	// get height and width
+function swap_get_cost(_inst1, _inst2) {
+	// store args in locals
+	var i1 = _inst1;
+	var i2 = _inst2;
+	
+	// get sizes
+	var size1 = i1.currentSize;
+	var size2 = i2.currentSize;
+	
+	// get spot numbers
+	var spot1 = i1.spotNum;
+	var spot2 = i2.spotNum;
+	
+	// initialize sizeSum
+	var sizeSum = 0;
+	
+	// get distance between sprites
+	var distance = abs(spot1 - spot2);
+	
+	// use two switch statements to get a value according to the sizes of the sprites
+	var i = 0;	repeat (2) {
+		// store correct size in temp variable
+		if i	var s = size1;
+		if !i	var s = size2;
+		
+		switch(s) {
+			case SPRITE_SIZES.X_SMALL:	sizeSum += 2;
+			break;
+			
+			case SPRITE_SIZES.SMALL:	sizeSum += 4;
+			break;
+			
+			case SPRITE_SIZES.MEDIUM:	sizeSum += 6;
+			break;
+			
+			case SPRITE_SIZES.LARGE:	sizeSum += 8;
+			break;
+			
+			case SPRITE_SIZES.X_LARGE:	sizeSum += 10;
+			break;
+		}
+		
+		// increment i
+		i++;
+	}
+	
+	// initialize cost value
+	var c =	0;
+	
+	switch(distance) {
+		case 1:	c = round(sizeSum * 1.5);
+		break;
+		
+		case 2:	c = sizeSum * 2;
+		break;
+		
+		case 3: c = round(sizeSum * 2.5);
+		break;
+	}
+	
+	return c;
+}
+
+function swap_set_potential_cost(_inst1, _inst2) {
+	// store args in locals
+	var i1 = _inst1;
+	var i2 = _inst2;
+
+	var c = swap_get_cost(i1, i2);
+	
+	// if there's enough MP, set the cost
+	if (player.currentMP - c >= 0)	global.potentialMPCost = c;
+	else global.potentialMPCost = -1;
+	
+	// prepare the spar object to draw the flashingBar
+	spar.sprite_index = spr_sparFlashingSliver;
+	spar.image_speed = 1;
+}
+
+function spell_set_potential_cost(_spellCost) {
+	var c = _spellCost;
+	
+	// if there's enough MP, set the cost
+	if (player.currentMP - c >= 0)	{
+		global.potentialMPCost = c;
+	}
+	else global.potentialMPCost = -1;
+	
+	// prepare the spar object to draw the flashingBar
+	spar.sprite_index = spr_sparFlashingSliver;
+	spar.image_speed = 1;
 }

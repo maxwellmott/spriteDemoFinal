@@ -1,4 +1,5 @@
 /// @desc
+smw = 0;
 
 // I guess the only way for me to use gms2's built in animation system is to 
 // make the object sprite whatever sprite I want to display. Whatever. I'll have to 

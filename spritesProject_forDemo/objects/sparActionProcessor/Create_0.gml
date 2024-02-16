@@ -44,5 +44,5 @@ if action_check_spell(currentAction) {
 
 // if spell is set, get all spell params
 if (currentSpell >= 0) {
-	spar_spell_load_params();
+	processor_load_spell_params();
 }

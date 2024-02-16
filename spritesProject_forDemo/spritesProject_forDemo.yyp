@@ -438,6 +438,7 @@
     {"id":{"name":"spr_cityShortlampMask","path":"sprites/spr_cityShortlampMask/spr_cityShortlampMask.yy",},},
     {"id":{"name":"scr_layers","path":"scripts/scr_layers/scr_layers.yy",},},
     {"id":{"name":"literatureMask","path":"sprites/literatureMask/literatureMask.yy",},},
+    {"id":{"name":"spr_sparFlashingSliver","path":"sprites/spr_sparFlashingSliver/spr_sparFlashingSliver.yy",},},
     {"id":{"name":"tlst_verdmanFarmsCollidables","path":"tilesets/tlst_verdmanFarmsCollidables/tlst_verdmanFarmsCollidables.yy",},},
     {"id":{"name":"scr_spars","path":"scripts/scr_spars/scr_spars.yy",},},
     {"id":{"name":"newDrawSystem","path":"notes/newDrawSystem/newDrawSystem.yy",},},

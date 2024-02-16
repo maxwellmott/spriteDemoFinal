@@ -16,7 +16,14 @@ index = 0;
 
 currentSpell = player.spellBook[| index];
 
-//spellbook_load_params();
+name			=	"";
+description		=	"";
+spellType		=	-1;
+spellRange		=	-1;
+spellPower		=	0;
+spellCost		=	0;
+
+spellbook_load_spell_params();
 
 pageFlip = false;
 

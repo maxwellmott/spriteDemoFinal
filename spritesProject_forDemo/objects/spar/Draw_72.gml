@@ -10,6 +10,11 @@ surface_set_target(playerBarSurface);
 	
 	draw_sprite_stretched(spr_sparHealthSliver, 0, hpBarX,	hpBarY,	barWidth * playerHealthRatio,	barHeight);
 	draw_sprite_stretched(spr_sparMagicSliver,	0, mpBarX,	mpBarY,	barWidth * playerMagicRatio,	barHeight);
+	
+	if (global.potentialMPCost != -1) {
+		var costRatio = global.potentialMPCost / MAX_MP;
+		draw_sprite_stretched(spr_sparFlashingSliver, image_index, mpBarX, mpBarY, barWidth * costRatio, barHeight);	
+	}
 
 surface_reset_target();
 

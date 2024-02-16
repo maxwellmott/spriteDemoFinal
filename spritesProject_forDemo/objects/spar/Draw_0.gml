@@ -118,6 +118,11 @@ draw_set_alpha(1.0);
 		// draw spellBook
 		draw_sprite(sparSpellMenu.sprite, sparSpellMenu.frame, sparSpellMenu.x, sparSpellMenu.y);
 	
+		// if the book is open and the page isn't being flipped, draw the current spell icon
+		if !(sparSpellMenu.drawFlip) && (sparSpellMenu.frame == 5) {
+			draw_sprite(spr_spellBookIconSheet, sparSpellMenu.currentSpell, sparSpellMenu.x, sparSpellMenu.y + 4);
+		}
+		
 		// check if pageFlip is happening
 		if (sparSpellMenu.drawFlip) {
 			draw_sprite(spr_spellBookPageFlip, sparSpellMenu.flipFrame, sparSpellMenu.x, sparSpellMenu.y);	
