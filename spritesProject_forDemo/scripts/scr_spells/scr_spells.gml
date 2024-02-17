@@ -70,7 +70,7 @@ enum SPELLS {
 	ENDLESS_RIVER,
 	CLOUD_BREAK,
 	TELEKINETIC_BLAST,
-	DESTABILIZING_BLOW,
+	KNOCK_OVER,
 	FULL_THRUST,
 	VOLCANIC_ERUPTION,
 	BROADCAST_DATA,
@@ -1064,7 +1064,7 @@ function telekinetic_blast() {
 	}
 }
 
-function destabilizing_blow() {
+function KNOCK_OVER() {
 	// grant target curse of the imp (dodgeable)
 	
 	if !(dodgeSuccess) {
@@ -1189,7 +1189,7 @@ master_grid_add_spell(		SPELLS.LAVA_SPIRE,				textGrid[# 1, SPELLS.LAVA_SPIRE],	
 master_grid_add_spell(		SPELLS.ENDLESS_RIVER,			textGrid[# 1, SPELLS.ENDLESS_RIVER],			textGrid[# 2, SPELLS.ENDLESS_RIVER],			textGrid[# 3, SPELLS.ENDLESS_RIVER],			SPELL_TYPES.WATER,		80,		40,		ranges.nearestFiveSprites,	endless_river,			true);
 master_grid_add_spell(		SPELLS.CLOUD_BREAK,				textGrid[# 1, SPELLS.CLOUD_BREAK],				textGrid[# 2, SPELLS.CLOUD_BREAK],				textGrid[# 3, SPELLS.CLOUD_BREAK],				SPELL_TYPES.STORM,		60,		30,		ranges.anySprite,			cloud_break,			false);
 master_grid_add_spell(		SPELLS.TELEKINETIC_BLAST,		textGrid[# 1, SPELLS.TELEKINETIC_BLAST],		textGrid[# 2, SPELLS.TELEKINETIC_BLAST],		textGrid[# 3, SPELLS.TELEKINETIC_BLAST],		SPELL_TYPES.PHYSICAL,	120,	65,		ranges.anySprite,			telekinetic_blast,		false);
-master_grid_add_spell(		SPELLS.DESTABILIZING_BLOW,		textGrid[# 1, SPELLS.DESTABILIZING_BLOW],		textGrid[# 2, SPELLS.DESTABILIZING_BLOW],		textGrid[# 3, SPELLS.DESTABILIZING_BLOW],		SPELL_TYPES.PHYSICAL,	100,	40,		ranges.nearestFiveSprites,	destabilizing_blow,		true);
+master_grid_add_spell(		SPELLS.KNOCK_OVER,		textGrid[# 1, SPELLS.KNOCK_OVER],		textGrid[# 2, SPELLS.KNOCK_OVER],		textGrid[# 3, SPELLS.KNOCK_OVER],		SPELL_TYPES.PHYSICAL,	100,	40,		ranges.nearestFiveSprites,	KNOCK_OVER,		true);
 master_grid_add_spell(		SPELLS.FULL_THRUST,				textGrid[# 1, SPELLS.FULL_THRUST],				textGrid[# 2, SPELLS.FULL_THRUST],				textGrid[# 3, SPELLS.FULL_THRUST],				SPELL_TYPES.PHYSICAL,	160,	60,		ranges.nearestThreeSprites,	full_thrust,			true);
 master_grid_add_spell(		SPELLS.VOLCANIC_ERUPTION,		textGrid[# 1, SPELLS.VOLCANIC_ERUPTION],		textGrid[# 2, SPELLS.VOLCANIC_ERUPTION],		textGrid[# 3, SPELLS.VOLCANIC_ERUPTION],		SPELL_TYPES.FIRE,		130,	70,		ranges.nearestThreeSprites,	volcanic_eruption,		true);
 master_grid_add_spell(		SPELLS.BROADCAST_DATA,			textGrid[# 1, SPELLS.BROADCAST_DATA],			textGrid[# 2, SPELLS.BROADCAST_DATA],			textGrid[# 3, SPELLS.BROADCAST_DATA],			SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			broadcast_data,			false);
