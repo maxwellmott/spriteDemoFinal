@@ -7,10 +7,10 @@ BATTLE SCENE TODO:
 
 	-add spell animations					4 POINTS
 	-finish spells and effects				2 POINTS				
-	-add abilities							4 POINTS
-	-add all new sprites					2 POINTS				
+	-add abilities							4 POINTS				
+	-add all new sprites					2 POINTS				2 POINTS DONE	[2/14]				
 	-create demo scripts*					2 POINTS
-	-program spellbook icons				1 POINT
+	-program spellbook icons				1 POINT					1 POINT DONE	[1/24]
 	-program sparSwapProcessor				2 POINTS				2 POINTS DONE	[1/20]
 	-program sparRestProcessor				2 POINTS				2 POINTS DONE	[2/02]
 	-program sparDodgeProcessor				2 POINTS				2 POINTS DONE	[2/05]
@@ -22,7 +22,7 @@ BATTLE SCENE TODO:
 	-add music and sound effects			4 POINTS
 	-add hp and mp bars						1 POINT					1 POINT DONE	[1/16]
 	-complete nearby list functionality		1 POINT
-	-switch out all sprite artwork			2 POINTS
+	-switch out all sprite artwork			2 POINTS				2 POINTS DONE	[2/16]
 	
 	*demo scripts cannot be built until full versions are complete (npcs, sprites, spells, abilities)
 	
@@ -92,3 +92,11 @@ BATTLE SCENE TODO:
 	finished most spell functions. Here are some things to keep note of:
 		-	going to change rearrange and tidal force so that the swap occurs at the end of the effect
 		-	need to redo damage calculation functions so that I can finish pyrokinesis, psychic impact, and psychic fissure
+		
+		
+2/16
+	Today I added all of the 4 frame sprite artwork. I also brought over the corrected scripts from the calculator.
+	The spell animations have also been added into the game, now I just need to program the spellFX object!
+	
+	Start your next session by correcting the damage calculation functions so that they work in the context of the
+	sparActionProcessor. Then test a basic attack, then start working on spells!

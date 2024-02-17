@@ -1248,7 +1248,7 @@ sprite_add_to_grid(SPRITES.PONDILE,			"PONDILE",			spr_pondileBattle,		ALIGNMENT
 sprite_add_to_grid(SPRITES.HACHACHACHA,		"HACHA-CHACHA",		spr_hachaChachaBattle,	ALIGNMENTS.NATURAL,		encode_list(hachaSpells),			80,		50,		190,	35,		70,		110,	90,		150,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.PODRIC,			"PODRIC",			spr_podricBattle,		ALIGNMENTS.NATURAL,		encode_list(podricSpells),			165,	70,		30,		90,		40,		180,	160,	100,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.NEEDLEPAW,		"NEEDLEPAW",		spr_needlepawBattle,	ALIGNMENTS.ASTRAL,		encode_list(needlepawSpells),		130,	70,		110,	55,		130,	110,	180,	50,		SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.SUDSY,			"SUDSY",			spr_sudsyBattle,		ALIGNMENTS.MECHANICAL,	encode_list(sudsySpells),			60,		70,		60,		150,	60,		60,		170,	150,	SPRITE_SIZES.X_SMALL);
+sprite_add_to_grid(SPRITES.SUDSY,			"SUDSY",			spr_mrSudsyBattle,		ALIGNMENTS.MECHANICAL,	encode_list(sudsySpells),			60,		70,		60,		150,	60,		60,		170,	150,	SPRITE_SIZES.X_SMALL);
 sprite_add_to_grid(SPRITES.BOOKISH,			"BOOKISH",			spr_bookishBattle,		ALIGNMENTS.MECHANICAL,	encode_list(bookishSpells),			50,		50,		120,	120,	120,	120,	80,		90,		SPRITE_SIZES.X_SMALL);
 sprite_add_to_grid(SPRITES.PLEEP,			"PLEEP",			spr_pleepBattle,		ALIGNMENTS.ASTRAL,		encode_list(pleepSpells),			110,	80,		100,	70,		150,	50,		100,	100,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.GLIDRAKE,		"GLIDRAKE",			spr_glidrakeBattle,		ALIGNMENTS.NATURAL,		encode_list(glidrakeSpells),		100,	60,		110,	80,		160,	50,		150,	90,		SPRITE_SIZES.MEDIUM);
@@ -1275,7 +1275,7 @@ sprite_add_to_grid(SPRITES.DOORMAUS,		"DOORMAUS",			spr_doormausBattle,		ALIGNME
 sprite_add_to_grid(SPRITES.PLASMASS,		"PLASMASS",			spr_plasmassBattle,		ALIGNMENTS.MECHANICAL,	encode_list(plasmassSpells),		130,	100,	120,	45,		180,	45,		165,	50,		SPRITE_SIZES.LARGE);
 sprite_add_to_grid(SPRITES.SHREDATOR,		"SHREDATOR",		spr_shredatorBattle,	ALIGNMENTS.NATURAL,		encode_list(shredatorSpells),		170,	110,	45,		165,	80,		60,		130,	75,		SPRITE_SIZES.LARGE);
 sprite_add_to_grid(SPRITES.JACKHAMMER,		"JACKHAMMER",		spr_jackhammerBattle,	ALIGNMENTS.ASTRAL,		encode_list(jackhammerSpells),		160,	120,	35,		60,		70,		80,		160,	150,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.STINKLOPS,		"STINKLOPS",		spr_stinklopsBattle,	ALIGNMENTS.NATURAL,		encode_list(stinklopsSpells),		190,	135,	110,	70,		80,		125,	90,		35,		SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.STINKLOPS,		"STINKLOPS",		spr_capnClopsBattle,	ALIGNMENTS.NATURAL,		encode_list(stinklopsSpells),		190,	135,	110,	70,		80,		125,	90,		35,		SPRITE_SIZES.LARGE);
 sprite_add_to_grid(SPRITES.DURENDOUX,		"DURENDOUX",		spr_durendouxBattle,	ALIGNMENTS.ASTRAL,		encode_list(durendouxSpells),		135,	185,	80,		40,		40,		160,	45,		150,	SPRITE_SIZES.MEDIUM);
 sprite_add_to_grid(SPRITES.CENOTOMB,		"CENOTOMB",			spr_cenotombBattle,		ALIGNMENTS.ASTRAL,		encode_list(cenotombSpells),		150,	120,	120,	60,		90,		90,		90,		100,	SPRITE_SIZES.LARGE);
 sprite_add_to_grid(SPRITES.CLEANSAGE,		"CLEANSAGE",		spr_cleansageBattle,	ALIGNMENTS.ASTRAL,		encode_list(cleansageSpells),		90,		140,	120,	70,		90,		140,	35,		80,		SPRITE_SIZES.LARGE);
