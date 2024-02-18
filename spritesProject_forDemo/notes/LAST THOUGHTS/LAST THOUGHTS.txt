@@ -15,7 +15,7 @@ BATTLE SCENE TODO:
 	-program sparRestProcessor				2 POINTS				2 POINTS DONE	[2/02]
 	-program sparDodgeProcessor				2 POINTS				2 POINTS DONE	[2/05]
 	-add turn number screen					1 POINT
-	-finish sparActionProcessor				4 POINTS
+	-finish sparActionProcessor				4 POINTS				4 POINTS DONE	[2/17]
 	-create turn message functionality		1 POINT					1 POINT DONE	[2/05]
 	-fix ready display						2 POINTS				2 POINTS DONE	[1/16]
 	-fix fonts								3 POINTS				3 POINTS DONE	[2/05]		
@@ -100,3 +100,10 @@ BATTLE SCENE TODO:
 	
 	Start your next session by correcting the damage calculation functions so that they work in the context of the
 	sparActionProcessor. Then test a basic attack, then start working on spells!
+	
+2/17 
+	Today I finished the sparActionProcessor.
+	
+	The two main things left before spells will be totally ready are:
+		-write the spellFX object (step phase should basically copy the dodge FX logic in the actionProcessor step phase
+		-write a means for finding the next sprite to cast a spell/make a basic attack (wrote pseudocode in a note on my phone)

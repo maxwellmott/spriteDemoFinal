@@ -46,3 +46,17 @@ if action_check_spell(currentAction) {
 if (currentSpell >= 0) {
 	processor_load_spell_params();
 }
+
+enum ACTION_PROCESSOR_STATES {
+	CALCULATING,
+	WAIT_FOR_FX,
+	DISPLAY_MSG,
+	INPUT_PAUSE,
+	HEIGHT
+}
+
+state = ACTION_PROCESSOR_STATES.CALCULATING;
+
+dodgeStarted = false;
+dodgeStopped = false;
+dodgeFrameCount = 3;

@@ -1,6 +1,6 @@
 // set legal spell count
-#macro	SPELLMAX	8
-
+#macro	SPELLMAX				8
+#macro	BASIC_ATTACK_POWER		75
 //
 #macro AMANDS_BLAST		400
 

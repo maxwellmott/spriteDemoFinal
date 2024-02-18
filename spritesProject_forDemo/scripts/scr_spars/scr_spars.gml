@@ -122,19 +122,6 @@ function enemyAI_set_team() {
 	team[|3] = real(roster[|3]);
 }
 
-///@desc This function is used to get the number of times that a
-/// sprite should roll for luck by checking their luck stat.
-function get_luck_tier(_luck) {
-	var luck = _luck;
-	
-	var luckTier = luck div 25;
-	
-	if (luckTier == 0) luckTier = 1;
-	if (luckTier > 7) luckTier = 7;
-	
-	return luckTier;
-}
-
 ///@desc This function is called when the player hits the "READY" button
 /// after selecting an action and target for each of their allies. It places
 /// each of those selections on the turnGrid.
@@ -159,26 +146,6 @@ function player_submit_turn() {
 		// increment i
 		i++;
 	}
-}
-
-function roll_for_luck(_luckTier) {
-	var lt = _luckTier;
-	
-	var highestRoll = 0;
-	
-	var luckFloor = 725;
-	var luckCeiling = 1075;
-	
-	repeat (lt ) {
-		var roll = irandom_range(luckFloor, luckCeiling);
-		if roll > highestRoll {
-			if (roll == luckCeiling)	return roll;
-			
-			highestRoll = roll;
-		}
-	}
-	
-	return highestRoll / 1000;
 }
 
 function local_enemy_submit_turn() {

@@ -1,11 +1,11 @@
 {
   "resourceType": "GMScript",
   "resourceVersion": "1.0",
-  "name": "calculations",
+  "name": "scr_sparCalculations",
   "isCompatibility": false,
   "isDnD": false,
   "parent": {
-    "name": "_imports",
-    "path": "folders/Scripts/_imports.yy",
+    "name": "sparring",
+    "path": "folders/Scripts/sparring.yy",
   },
 }

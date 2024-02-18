@@ -1,14 +1,18 @@
 #macro	screenHeight		224
 #macro	screenWidth			256
 
+///@desc This function takes the ID of a function with no return and performs it
 function execute(_fn) {
 	_fn();
 }
 
+///@desc This function takes the ID of a function with a return and performs the function
+/// then returns the function's return value.
 function execute_return(_fn) {
 	return _fn();
 }
 
+// This list is for the following function
 global.argumentList = ds_list_create();
 
 ///@desc This function says it only takes one argument (the ID of a function to call),
@@ -38,6 +42,7 @@ function execute_arguments(_fn) {
 	ds_list_clear(global.argumentList);
 }
 
+///@desc This is a helper function that sets values for drawing text
 function draw_set(_halign, _valign, _alpha, _color) {
 		draw_set_halign(_halign);
 		draw_set_valign(_valign);
