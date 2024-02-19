@@ -42,6 +42,36 @@ function execute_arguments(_fn) {
 	ds_list_clear(global.argumentList);
 }
 
+///@desc This function takes the ids of three lists. It adds everything on the two lists to
+/// the third list which is marked targetList.
+function ds_list_append(_list1, _list2, _targetList) {
+	var l1 = _list1;
+	var l2 = _list2;
+	var tl = _targetList;
+	
+	var i = 0;	repeat (ds_list_size(l1)) {
+		// get next token
+		var token = l1[| i];
+		
+		// add the token to the target list
+		ds_list_add(tl, token);
+		
+		// incrment i
+		i++;
+	}
+	
+	var i = 0;	repeat (ds_list_size(l2)) {
+		// get next token
+		var token = l2[| i];
+		
+		// add the token to the target list
+		ds_list_add(tl, token);
+		
+		// increment i
+		i++;
+	}
+}
+
 ///@desc This is a helper function that sets values for drawing text
 function draw_set(_halign, _valign, _alpha, _color) {
 		draw_set_halign(_halign);

@@ -44,14 +44,6 @@ enum sparTypes {
 	height
 }
 
-enum elements {
-	fire,
-	water,
-	storm,
-	earth,
-	height
-}
-
 function spar_set_action() {	
 	global.action = action;
 	
@@ -145,6 +137,36 @@ function player_submit_turn() {
 		
 		// increment i
 		i++;
+	}
+}
+
+///@desc This is my first attempt at a basic selection algorithm. Each of them
+/// should follow this general structure, I'll comment out the main beats of the process.
+function mercurio_selection_logic() {
+	// use a repeat loop to check in with each sprite on the team.
+	var i = 0;	repeat (ds_list_size(spar.enemyList)) {
+		var inst = spar.enemyList[| i];
+		
+		switch (inst.spriteID) {
+			case SPRITES.DEMOLITOPS:
+				// check for any nearby threats
+				
+				// check for any ideal nearby targets
+				
+				// check if the enemy could potentially make a saving swap
+				
+				// determine if it's worth the risk
+			break;
+			
+			case SPRITES.ZEPHIRA:
+			break;
+			
+			case SPRITES.FISHMONGER:
+			break;
+			
+			case SPRITES.UPROOTER:
+			break;
+		}
 	}
 }
 
@@ -453,7 +475,107 @@ function rebuild_nearby_lists() {
 	ds_list_clear(nearbyEnemies);
 	ds_list_clear(nearbySprites);
 	
-	///@TODO rebuild each list depending on the sprites position
+	// rebuild ally and enemy lists depending on position
+	switch (spotNum) {
+		case 0:
+			ds_list_add(nearbyAllies,
+				spar.spriteList[| 1]
+			);
+			
+			ds_list_add(nearbyEnemies,
+				spar.spriteList[| 7],
+				spar.spriteList[| 6]
+			);
+		break;
+		
+		case 1:
+			ds_list_add(nearbyAllies,
+				spar.spriteList[| 0],
+				spar.spriteList[| 1]
+			);
+			
+			ds_list_add(nearbyEnemies,
+				spar.spriteList[| 7],
+				spar.spriteList[| 6],
+				spar.spriteList[| 5]
+			);
+		break;
+		
+		case 2:
+			ds_list_add(nearbyAllies,
+				spar.spriteList[| 1],
+				spar.spriteList[| 3]
+			);
+			
+			ds_list_add(nearbyEnemies,
+				spar.spriteList[| 6],
+				spar.spriteList[| 5],
+				spar.spriteList[| 4]
+			);
+		break;
+		
+		case 3:
+			ds_list_add(nearbyAllies,
+				spar.spriteList[| 2]
+			);
+			
+			ds_list_add(nearbyEnemies,
+				spar.spriteList[| 5],
+				spar.spriteList[| 4]
+			);
+		break;
+		
+		case 4:
+			ds_list_add(nearbyAllies,
+				spar.spriteList[| 5]
+			);
+			
+			ds_list_add(nearbyEnemies,
+				spar.spriteList[| 3],
+				spar.spriteList[| 2]
+			);
+		break;
+		
+		case 5:
+			ds_list_add(nearbyAllies,
+				spar.spriteList[| 4],
+				spar.spriteList[| 6]
+			);
+			
+			ds_list_add(nearbyEnemies,
+				spar.spriteList[| 3],
+				spar.spriteList[| 2],
+				spar.spriteList[| 1]
+			);
+		break;
+		
+		case 6:
+			ds_list_add(nearbyAllies,
+				spar.spriteList[| 5],
+				spar.spriteList[| 7]
+			);
+			
+			ds_list_add(nearbyEnemies,
+				spar.spriteList[| 2],
+				spar.spriteList[| 1],
+				spar.spriteList[| 0]
+			);
+		break;
+		
+		case 7:
+			ds_list_add(nearbyAllies,
+				spar.spriteList[| 6]
+			);
+			
+			ds_list_add(nearbyEnemies,
+				spar.spriteList[| 1],
+				spar.spriteList[| 0]
+			);
+		break;
+	}
+	
+	// combine enemy and ally lists to get nearbySprites list
+	ds_list_append(nearbyAllies, nearbyEnemies, nearbySprites);
 }
 
 ///@desc This function is meant to be a quick and obvious way of getting the instance id of a sprite

@@ -5,24 +5,29 @@ in each of the "last thoughts" notes to follow.
 
 BATTLE SCENE TODO:
 
+	-prototype turn selection algorithm		3 POINTS				
 	-add spell animations					4 POINTS
 	-finish spells and effects				2 POINTS				
 	-add abilities							4 POINTS				
+	-priority spells						2 POINTS				2 POINTS DONE	[2/18]
 	-add all new sprites					2 POINTS				2 POINTS DONE	[2/14]				
 	-create demo scripts*					2 POINTS
 	-program spellbook icons				1 POINT					1 POINT DONE	[1/24]
 	-program sparSwapProcessor				2 POINTS				2 POINTS DONE	[1/20]
 	-program sparRestProcessor				2 POINTS				2 POINTS DONE	[2/02]
 	-program sparDodgeProcessor				2 POINTS				2 POINTS DONE	[2/05]
-	-add turn number screen					1 POINT
+	-add turn number screen					2 POINTS
 	-finish sparActionProcessor				4 POINTS				4 POINTS DONE	[2/17]
 	-create turn message functionality		1 POINT					1 POINT DONE	[2/05]
 	-fix ready display						2 POINTS				2 POINTS DONE	[1/16]
 	-fix fonts								3 POINTS				3 POINTS DONE	[2/05]		
-	-add music and sound effects			4 POINTS
+	-build audio manager					3 POINTS
+	-add music								2 POINTS
+	-add all SFX							4 POINTS
 	-add hp and mp bars						1 POINT					1 POINT DONE	[1/16]
-	-complete nearby list functionality		1 POINT
+	-complete nearby list functionality		1 POINT					1 POINT DONE	[2/18]
 	-switch out all sprite artwork			2 POINTS				2 POINTS DONE	[2/16]
+	-agility sort							3 POINTS				3 POINTS DONE	[2/18]
 	
 	*demo scripts cannot be built until full versions are complete (npcs, sprites, spells, abilities)
 	
@@ -107,3 +112,10 @@ BATTLE SCENE TODO:
 	The two main things left before spells will be totally ready are:
 		-write the spellFX object (step phase should basically copy the dodge FX logic in the actionProcessor step phase
 		-write a means for finding the next sprite to cast a spell/make a basic attack (wrote pseudocode in a note on my phone)
+		
+2/18
+	I'm almost to the point where I can successfully make a basic attack.
+	
+	There is still some debugging left to do before I can move on from basic attacks to spells.
+	
+	I also started working on the first turntaking algorithm called mercurio_selection_algorithm

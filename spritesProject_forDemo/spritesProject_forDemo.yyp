@@ -357,6 +357,7 @@
     {"id":{"name":"tlst_groundExt","path":"tilesets/tlst_groundExt/tlst_groundExt.yy",},},
     {"id":{"name":"spr_placidValleyCollidableTiles","path":"sprites/spr_placidValleyCollidableTiles/spr_placidValleyCollidableTiles.yy",},},
     {"id":{"name":"tlst_placidValleyGround","path":"tilesets/tlst_placidValleyGround/tlst_placidValleyGround.yy",},},
+    {"id":{"name":"ARENA FX","path":"notes/ARENA FX/ARENA FX.yy",},},
     {"id":{"name":"camera","path":"objects/camera/camera.yy",},},
     {"id":{"name":"scr_clothing","path":"scripts/scr_clothing/scr_clothing.yy",},},
     {"id":{"name":"spr_stewardrakeBattle","path":"sprites/spr_stewardrakeBattle/spr_stewardrakeBattle.yy",},},

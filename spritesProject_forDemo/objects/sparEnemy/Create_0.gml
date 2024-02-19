@@ -125,3 +125,9 @@ flying			= false;
 invulnerable	= false;
 deflective		= false;
 sneaking		= false;
+
+backUpAction1	= -1;
+backUpAction2	= -1;
+
+backUpTarget1	= -1;
+backUpTarget2	= -1;

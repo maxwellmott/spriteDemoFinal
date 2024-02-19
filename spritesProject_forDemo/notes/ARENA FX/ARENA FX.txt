@@ -1,0 +1,25 @@
+I'm making a note here to list all of the effects brought on by different types of arenas.
+
+VOLCANO:
+				- If a sprite's FIRE stat is 100 or more they deal 1.1* FIRE damage
+				- If a sprite's WATER stat is 100 or more they take 1.1* FIRE damage
+				- Sprites will always fail to dodge unless their FIRE stat is at least 100
+				- Miasma is set on both sides at the end of every turn
+				
+OCEAN:
+				- If a sprite's WATER stat is 100 or more they deal 1.1* WATER damage
+				- If a sprite's STORM stat is 100 or more they take 1.1* WATER damage
+				- Sprites make their attack in order of WATER stat instead of AGILITY
+				- Rust is set on both sides at the end of every turn
+			
+TROPOSPHERE:	
+				- If a sprite's STORM stat is 100 or more they deal 1.1* STORM damage
+				- If a sprite's EARTH stat is 100 or more they take 1.1* STORM damage
+				- Sprites make their attack in order of STORM stat instead of AGILITY
+				- It's impossible to set miasma
+				
+FOREST:
+				- If a sprite's EARTH stat is 100 or more they deal 1.1* EARTH damage
+				- If a sprite's FIRE stat is 100 or more they take 1.1* EARTH damage
+				- Sprites will always succeed to dodge if their EARTH stat is at least 100
+				- NATURAL sprites restore 125 of their team's HP at the end of each turn

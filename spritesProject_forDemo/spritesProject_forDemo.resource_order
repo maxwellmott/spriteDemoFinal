@@ -288,6 +288,7 @@
     {"name":"spr_dominoBattle","order":5,"path":"sprites/spr_dominoBattle/spr_dominoBattle.yy",},
     {"name":"tlst_groundExt","order":7,"path":"tilesets/tlst_groundExt/tlst_groundExt.yy",},
     {"name":"tlst_placidValleyGround","order":3,"path":"tilesets/tlst_placidValleyGround/tlst_placidValleyGround.yy",},
+    {"name":"ARENA FX","order":7,"path":"notes/ARENA FX/ARENA FX.yy",},
     {"name":"camera","order":1,"path":"objects/camera/camera.yy",},
     {"name":"scr_clothing","order":17,"path":"scripts/scr_clothing/scr_clothing.yy",},
     {"name":"spr_stewardrakeBattle","order":32,"path":"sprites/spr_stewardrakeBattle/spr_stewardrakeBattle.yy",},

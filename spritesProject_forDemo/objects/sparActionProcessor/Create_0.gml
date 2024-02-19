@@ -26,16 +26,18 @@ spellType		= noone;
 spellPower		= noone;
 spellEffect		= noone;
 
-// perform agility sort
-agility_sort(spar.turnGrid);
-
 // get turnRow
 turnRow = spar.turnRow;
 
 // use turnRow to get params from turnGrid
-activeSprite	= spar.turnGrid[# turnParams.actor,		turnRow];
-currentAction	= spar.turnGrid[# turnParams.action,	turnRow];
-activeTarget	= spar.turnGrid[# turnParams.target,	turnRow];
+atkrSpotNum		= spar.turnGrid[# selectionPhases.ally,		turnRow];
+currentAction	= spar.turnGrid[# selectionPhases.action,	turnRow];
+targSpotNum		= spar.turnGrid[# selectionPhases.target,	turnRow];
+
+activeSprite	= spar.spriteList[| atkrSpotNum];
+
+if (targSpotNum >= 0)	targetSprite = spar.spriteList[| targSpotNum];
+else					targetSprite = activeSprite;
 
 // check if currentAction is a spell
 if action_check_spell(currentAction) {

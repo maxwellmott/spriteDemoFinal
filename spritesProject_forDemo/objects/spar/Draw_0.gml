@@ -25,7 +25,7 @@ var i = 0; repeat (8) {
 	draw_sprite(spr_sparAllySpot, 0, inst.x, inst.y);
 
 	// check if inst is swapping, resting, or dodging
-	if (inst.swapping) || (inst.resting) || (inst.dodging) {
+	if (inst.swapping) || (inst.resting) {
 		var spriteFrame = image_index;
 		
 		if (inst.resting) && !(instance_exists(sparRestProcessor)) {
@@ -35,6 +35,10 @@ var i = 0; repeat (8) {
 	else {
 		var spriteFrame = inst.currentPose;	
 	}
+	
+	if (inst.dodging) && (inst.sprite == spr_sparDodge) {
+		spriteFrame = image_index
+	}	else _spriteFrame = inst.currentPose;
 	
 	// check if inst is an enemy or an ally
 	if (i < 4) {

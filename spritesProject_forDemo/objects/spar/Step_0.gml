@@ -86,12 +86,21 @@ switch (sparPhase) {
 			break;
 			
 			case PROCESS_PHASES.PRIORITY:
-				// sort grid by agility
-			
-			
 				// check if the actionProcessor is already active
 				if !(instance_exists(sparActionProcessor)) {
+					// create a variable to store the highest stat found so far
+					var highest = 0;
+					
+					// create a variable to store the nextSprite
+					var nextSprite = -1;
+					
 					var i = 0;	repeat (ds_grid_height(turnGrid)) {
+						// get the current spotnum
+						var sn = turnGrid[# selectionPhases.ally, i];
+						
+						// get the current instance
+						var inst = spriteList[| sn];
+						
 						// get action
 						var a = turnGrid[# selectionPhases.action, i];
 						
@@ -106,13 +115,30 @@ switch (sparPhase) {
 							
 							// check if the spell id is on the priority list
 							if (ds_list_find_index(pl, sid) >= 0) {
-								// if so, set turnRow
-								turnRow = i;
-								
-								// create actionProcessor
-								create_once(0, 0, LAYER.meta, sparActionProcessor);
-								ds_list_destroy(pl);
-								break;
+								// use a switch statement to check the proper stat
+								// depending on the current arena
+								switch (currentArena) {
+									case arenas.ocean:
+										if (inst.currentWater > highest) {
+											highest		= inst.currentWater;
+											nextSprite	= i;
+										}
+									break;
+									
+									case arenas.stratosphere:
+										if (inst.currentStorm > highest) {
+											highest		= inst.currentStorm;
+											nextSprite	= i;
+										}
+									break;
+									
+									default:
+										if (inst.currentAgility > highest) {
+											highest		= inst.currentAgility;
+											nextSprite	= i;
+										}
+									break;
+								}								
 							}
 							
 							ds_list_destroy(pl);
@@ -121,19 +147,103 @@ switch (sparPhase) {
 						// increment i
 						i++;
 					}
-				}	else	break;
+					
+					// check if nextSprite was ever set
+					if (nextSprite >= 0) {
+						// if so, set turnRow to equal nextSprite
+						turnRow = nextSprite;
+						
+						// create the sparActionProcessor
+						create_once(0, 0, LAYER.meta, sparActionProcessor);
+						
+					}	else	processPhase = PROCESS_PHASES.ATTACK;
+				}
 				
-				processPhase = PROCESS_PHASES.ATTACK;
 			break;
 			
 			case PROCESS_PHASES.ATTACK:
-				processPhase = PROCESS_PHASES.END;
+			
+				if !(instance_exists(sparActionProcessor)) {
+					// initialize a variable to store whether there are actions left to process
+					var actionsRemaining = false;
+					
+					var i = 0;	repeat (ds_grid_height(turnGrid)) {
+						var a = turnGrid[# selectionPhases.action, i];
+						
+						// check if the action has been processed and reset to -1 already
+						if (a >= 0) {
+							// if so, set actionsRemaining to true and break the loop
+							actionsRemaining = true;
+							break;
+						}
+						
+						// increment i
+						i++;
+					}
+					
+					// check if there are actionsRemaining
+					if (actionsRemaining) {
+						// create a variable to store the highest stat so far
+						var highest = 0;
+						
+						// create a variable to store the turnRow of the next sprite who should act
+						var nextSprite = -1;
+						
+						// use a repeat loop to find the fastest sprite who still needs
+						// to take their turn
+						var i = 0;	repeat (ds_grid_height(turnGrid)) {
+							// get current spotNum
+							var sn = turnGrid[# selectionPhases.ally, i];
+							
+							// get the current instance
+							var inst = spriteList[| sn];
+							
+							// use a switch statement to check the proper stat
+							// depending on the arena
+							switch (currentArena) {
+								case arenas.ocean:
+									if (inst.currentWater > highest) {
+										highest		= inst.currentWater;
+										nextSprite	= i;
+									}
+								break;
+								
+								case arenas.stratosphere:
+									if (inst.currentStorm > highest) {
+										highest		= inst.currentStorm;
+										nextSprite	= i;
+									}
+								break;
+								
+								default:
+									if (inst.currentAgility > highest) {
+										highest		= inst.currentAgility;
+										nextSprite	= i;
+									}
+								break;
+							}
+							
+							// increment i
+							i++;
+						}
+						
+						// set turnRow to match the nextSprite variable
+						turnRow = nextSprite;
+						
+						// create the sparActionProcessor
+						create_once(0, 0, LAYER.meta, sparActionProcessor);
+						
+					}	else	processPhase = PROCESS_PHASES.END;
+				
+				}
+				
 			break;
 			
 			case PROCESS_PHASES.END:
 				sparPhase = sparPhases.turnEnd;
 			break;
 		}
+
 		
 	break;
 	
