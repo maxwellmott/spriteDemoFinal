@@ -99,9 +99,9 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 		// check for dodge
 		if (targetSprite.dodging) {
 			dodgeSuccess = get_dodge_success();
-			
-			state = ACTION_PROCESSOR_STATES.WAIT_FOR_FX;
 		}
+		
+		state = ACTION_PROCESSOR_STATES.WAIT_FOR_FX;
 	}
 }
 
@@ -130,7 +130,7 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 		
 		if !(dodgeSuccess) {
 			// apply damage and change turnMsg
-			var t = targetsprite.team;
+			var t = targetSprite.team;
 			
 			deplete_hp(t, damage);
 			

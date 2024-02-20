@@ -129,3 +129,5 @@ BATTLE SCENE TODO:
 	the lists of spell animations and spellFX functions.
 	
 		I also fixed the spellBook UI, so you can effectively select a spell now. There is still some debugging to do.
+		
+		Spells are working! And the spellFX script is mostly built. Should be a breeze!

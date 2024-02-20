@@ -1064,7 +1064,7 @@ function telekinetic_blast() {
 	}
 }
 
-function KNOCK_OVER() {
+function knock_over() {
 	// grant target curse of the imp (dodgeable)
 	
 	if !(dodgeSuccess) {
@@ -1224,10 +1224,10 @@ function processor_load_spell_params() {
 	
 	// use currentSpell to get all params
 	spellName	= grid[# SPELL_PARAMS.NAME,			currentSpell];
-	spellCost	= grid[# SPELL_PARAMS.COST,			currentSpell];
-	spellType	= grid[# SPELL_PARAMS.TYPE,			currentSpell];
-	spellPower	= grid[# SPELL_PARAMS.POWER,		currentSpell];
-	spellEffect	= grid[# SPELL_PARAMS.EFFECT,		currentSpell];
+	spellCost	= real(grid[# SPELL_PARAMS.COST,	currentSpell]);
+	spellType	= real(grid[# SPELL_PARAMS.TYPE,	currentSpell]);
+	spellPower	= real(grid[# SPELL_PARAMS.POWER,	currentSpell]);
+	spellEffect	= real(grid[# SPELL_PARAMS.EFFECT,	currentSpell]);
 }
 
 function action_get_spell_id(_action) {
