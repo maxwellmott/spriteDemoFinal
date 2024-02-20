@@ -85,6 +85,24 @@ function spar_set_action() {
 	instance_destroy(sparActionMenu);
 }
 
+function spar_set_spell() {
+	// set selectedAction to currentSpell
+	player.selectedAlly.selectedAction = currentSpell;
+	
+	// set spellRange for target selection
+	global.targetRange = spellRange;
+	
+	// set next selectionPhase
+	spar.selectionPhase = selectionPhases.target;
+	
+	inRangeSprites_rebuild(player.selectedAlly, global.targetRange);
+	
+	// set next phase
+	nextPhase = selectionPhases.target;
+	
+	instance_destroy(sparSpellMenu);
+}
+
 function enemyAI_get_params() {
 	// create temporary grid
 	var grid = ds_grid_create(npcParams.height, npcs.height);
@@ -170,6 +188,8 @@ function mercurio_selection_logic() {
 	}
 }
 
+///@desc This function posts all the AI enemy's selection data to the turnGrid. Similarly to 
+/// the player, this is also where their sprite's have their luckRoll set
 function local_enemy_submit_turn() {
 	var i = 0;	repeat (4) {
 		// get sprite
@@ -186,6 +206,9 @@ function local_enemy_submit_turn() {
 		spar.turnGrid[# selectionPhases.action,	inst.spotNum]		= inst.selectedAction;
 		spar.turnGrid[# selectionPhases.target, inst.spotNum]		= inst.selectedTarget;
 		spar.turnGrid[# selectionPhases.height,	inst.spotNum]		= roll;
+		
+		// increment i
+		i++;
 	}
 }	
 

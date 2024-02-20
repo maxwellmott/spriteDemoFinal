@@ -174,6 +174,7 @@
     {"name":"cursiveFont","order":5,"path":"fonts/cursiveFont/cursiveFont.yy",},
     {"name":"spr_verdmanFarmsUpperStoryTiles","order":1,"path":"sprites/spr_verdmanFarmsUpperStoryTiles/spr_verdmanFarmsUpperStoryTiles.yy",},
     {"name":"tlst_waterExt","order":10,"path":"tilesets/tlst_waterExt/tlst_waterExt.yy",},
+    {"name":"scr_spellFX","order":5,"path":"scripts/scr_spellFX/scr_spellFX.yy",},
     {"name":"ART WAITING LIST","order":4,"path":"notes/ART WAITING LIST/ART WAITING LIST.yy",},
     {"name":"spr_floopwalkerBattle","order":10,"path":"sprites/spr_floopwalkerBattle/spr_floopwalkerBattle.yy",},
     {"name":"spr_subBoulderClusterMask","order":7,"path":"sprites/spr_subBoulderClusterMask/spr_subBoulderClusterMask.yy",},

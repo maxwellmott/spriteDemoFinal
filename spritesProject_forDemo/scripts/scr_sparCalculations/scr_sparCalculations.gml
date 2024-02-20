@@ -107,6 +107,7 @@ function roll_for_luck(_luckTier) {
 	var luckCeiling = 1075;
 	
 	repeat (lt ) {
+		randomize();
 		var roll = irandom_range(luckFloor, luckCeiling);
 		if roll > highestRoll {
 			if (roll == luckCeiling)	return roll;

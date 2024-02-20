@@ -89,7 +89,7 @@ function copy_mindset(_caster, _target) {
 
 function restore_mp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
-	var a = _amount;
+	var a = round(_amount);
 	
 	var mpNeeded = MAX_MP - t.currentMP;
 	
@@ -99,7 +99,7 @@ function restore_mp(_targetPlayer, _amount) {
 
 function restore_hp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
-	var a = _amount;
+	var a = round(_amount);
 	
 	var hpNeeded = MAX_HP - t.currentHP;
 	
@@ -109,7 +109,7 @@ function restore_hp(_targetPlayer, _amount) {
 
 function deplete_hp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
-	var a = _amount;
+	var a = round(_amount);
 	
 	var hpLeft = t.currentHP;
 	
@@ -119,7 +119,7 @@ function deplete_hp(_targetPlayer, _amount) {
 
 function deplete_mp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
-	var a = _amount;
+	var a = round(_amount);
 	
 	var mpLeft = t.currentMP;
 	
@@ -129,7 +129,7 @@ function deplete_mp(_targetPlayer, _amount) {
 
 function deplete_hp_nonlethal(_targetPlayer, _amount) {
 	var t = _targetPlayer;
-	var a = _amount;
+	var a = round(_amount);
 	
 	var hpLeft = t.currentHP;
 	

@@ -36,10 +36,7 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 		}
 		else {
 			// if not self range, set action normally
-			spar_set_action();
-			
-			// set next phase
-			nextPhase = selectionPhases.target;
+			spar_set_spell();	
 		}
 		
 		// close book

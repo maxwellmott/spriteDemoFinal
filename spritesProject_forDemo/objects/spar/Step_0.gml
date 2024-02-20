@@ -163,6 +163,8 @@ switch (sparPhase) {
 			
 			case PROCESS_PHASES.ATTACK:
 			
+				spar_correct_hpmp();
+			
 				if !(instance_exists(sparActionProcessor)) {
 					// initialize a variable to store whether there are actions left to process
 					var actionsRemaining = false;
@@ -192,35 +194,39 @@ switch (sparPhase) {
 						// use a repeat loop to find the fastest sprite who still needs
 						// to take their turn
 						var i = 0;	repeat (ds_grid_height(turnGrid)) {
-							// get current spotNum
-							var sn = turnGrid[# selectionPhases.ally, i];
-							
-							// get the current instance
-							var inst = spriteList[| sn];
-							
-							// use a switch statement to check the proper stat
-							// depending on the arena
-							switch (currentArena) {
-								case arenas.ocean:
-									if (inst.currentWater > highest) {
-										highest		= inst.currentWater;
-										nextSprite	= i;
-									}
-								break;
+							// check if the next action on the grid has been reset to -1 already
+							var a = turnGrid[# selectionPhases.action, i];
+							if (a >= 0) {
+								// get current spotNum
+								var sn = turnGrid[# selectionPhases.ally, i];
 								
-								case arenas.stratosphere:
-									if (inst.currentStorm > highest) {
-										highest		= inst.currentStorm;
-										nextSprite	= i;
-									}
-								break;
+								// get the current instance
+								var inst = spriteList[| sn];
 								
-								default:
-									if (inst.currentAgility > highest) {
-										highest		= inst.currentAgility;
-										nextSprite	= i;
-									}
-								break;
+								// use a switch statement to check the proper stat
+								// depending on the arena
+								switch (currentArena) {
+									case arenas.ocean:
+										if (inst.currentWater > highest) {
+											highest		= inst.currentWater;
+											nextSprite	= i;
+										}
+									break;
+									
+									case arenas.stratosphere:
+										if (inst.currentStorm > highest) {
+											highest		= inst.currentStorm;
+											nextSprite	= i;
+										}
+									break;
+									
+									default:
+										if (inst.currentAgility > highest) {
+											highest		= inst.currentAgility;
+											nextSprite	= i;
+										}
+									break;
+								}		
 							}
 							
 							// increment i

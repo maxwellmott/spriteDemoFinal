@@ -5,6 +5,9 @@ in each of the "last thoughts" notes to follow.
 
 BATTLE SCENE TODO:
 
+	-spellFX script							2 POINTS
+	-change HPMP max system					4 POINTS
+	-make spell UI adhere to knownSpells	4 POINTS
 	-prototype turn selection algorithm		3 POINTS				
 	-add spell animations					4 POINTS
 	-finish spells and effects				2 POINTS				
@@ -119,3 +122,10 @@ BATTLE SCENE TODO:
 	There is still some debugging left to do before I can move on from basic attacks to spells.
 	
 	I also started working on the first turntaking algorithm called mercurio_selection_algorithm
+	
+2/19
+
+		I finished up basic attacks and I'm moving onto spells. I created a script called scr_spellFX where you can build
+	the lists of spell animations and spellFX functions.
+	
+		I also fixed the spellBook UI, so you can effectively select a spell now. There is still some debugging to do.

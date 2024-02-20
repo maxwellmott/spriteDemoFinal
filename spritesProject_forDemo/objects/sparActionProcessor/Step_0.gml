@@ -4,7 +4,7 @@
 if (state == ACTION_PROCESSOR_STATES.WAIT_FOR_FX) {
 	
 	// check if physical spell
-	if (spellType == SPELL_TYPES.PHYSICAL) {
+	if (spellType == SPELL_TYPES.PHYSICAL) || (currentSpell < 0) {
 		// set pose 
 		activeSprite.currentPose = SPRITE_POSES.ATTACK;
 	}
@@ -75,9 +75,9 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 		// check for dodge
 		if (targetSprite.dodging) {
 			dodgeSuccess = get_dodge_success();
-			
-			state = ACTION_PROCESSOR_STATES.WAIT_FOR_FX;
 		}
+		
+		state = ACTION_PROCESSOR_STATES.WAIT_FOR_FX;
 	}
 	else /*		IF CURRENT ACTION IS A SPELL		*/ {	
 		
@@ -148,6 +148,9 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 
 // if waiting for input
 if (state == ACTION_PROCESSOR_STATES.INPUT_PAUSE) {
-	// if select button is clicked, destroy self
-	if (global.select)	instance_destroy(id);	
+	// check if hpmp bars are up to date
+	if (spar_check_hpmp()) {
+		// if select button is clicked, destroy self
+		if (global.select)	instance_destroy(id);	
+	}
 }

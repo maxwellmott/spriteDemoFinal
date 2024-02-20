@@ -23,17 +23,19 @@ var i = 0; repeat (8) {
 	
 	// draw ally spot
 	draw_sprite(spr_sparAllySpot, 0, inst.x, inst.y);
-
+	
+	var spriteFrame = 0;
+	
 	// check if inst is swapping, resting, or dodging
 	if (inst.swapping) || (inst.resting) {
-		var spriteFrame = image_index;
+		spriteFrame = image_index;
 		
 		if (inst.resting) && !(instance_exists(sparRestProcessor)) {
 			spriteFrame = 15;	
 		}
 	}
 	else {
-		var spriteFrame = inst.currentPose;	
+		spriteFrame = inst.currentPose;	
 	}
 	
 	if (inst.dodging) && (inst.sprite == spr_sparDodge) {

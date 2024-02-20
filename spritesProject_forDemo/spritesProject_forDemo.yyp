@@ -230,6 +230,7 @@
     {"id":{"name":"cursiveFont","path":"fonts/cursiveFont/cursiveFont.yy",},},
     {"id":{"name":"spr_verdmanFarmsUpperStoryTiles","path":"sprites/spr_verdmanFarmsUpperStoryTiles/spr_verdmanFarmsUpperStoryTiles.yy",},},
     {"id":{"name":"tlst_waterExt","path":"tilesets/tlst_waterExt/tlst_waterExt.yy",},},
+    {"id":{"name":"scr_spellFX","path":"scripts/scr_spellFX/scr_spellFX.yy",},},
     {"id":{"name":"ART WAITING LIST","path":"notes/ART WAITING LIST/ART WAITING LIST.yy",},},
     {"id":{"name":"spr_floopwalkerBattle","path":"sprites/spr_floopwalkerBattle/spr_floopwalkerBattle.yy",},},
     {"id":{"name":"spr_subBoulderClusterMask","path":"sprites/spr_subBoulderClusterMask/spr_subBoulderClusterMask.yy",},},
