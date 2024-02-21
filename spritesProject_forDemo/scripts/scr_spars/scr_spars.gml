@@ -1,4 +1,3 @@
-#macro SELFTARGET			10
 #macro REST_BASE_MP_REGEN	30
 
 global.hoverSprite		= -1;
@@ -236,14 +235,28 @@ function spar_check_hpmp() {
 }
 
 function spar_correct_hpmp() {
-	if (playerDisplayHP < playerOne.currentHP)	playerDisplayHP++
-	if (playerDisplayHP > playerOne.currentHP)	playerDisplayHP--
+	if (playerDisplayHP < playerOne.currentHP)	{
+		if (abs(playerDisplayHP - playerOne.currentHP) >= 10)	playerDisplayHP += 10;
+		else playerDisplayHP = playerOne.currentHP;
+	}
+	
+	if (playerDisplayHP > playerOne.currentHP)	{
+		if (abs(playerDisplayHP - playerOne.currentHP) >= 10)	playerDisplayHP -= 10;
+		else playerDisplayHP = playerOne.currentHP;
+	}
 	
 	if (playerDisplayMP < playerOne.currentMP)	playerDisplayMP++
 	if (playerDisplayMP > playerOne.currentMP)	playerDisplayMP--
 	
-	if (enemyDisplayHP < playerTwo.currentHP)	enemyDisplayHP++;
-	if (enemyDisplayHP > playerTwo.currentHP)	enemyDisplayHP--;
+	if (enemyDisplayHP < playerTwo.currentHP)	{	
+		if (abs(enemyDisplayHP - playerTwo.currentHP) >= 10)	enemyDisplayHP += 10;
+		else enemyDisplayHP = playerTwo.currentHP;
+	}
+	
+	if (enemyDisplayHP > playerTwo.currentHP)	{	
+		if (abs(enemyDisplayHP - playerTwo.currentHP) >= 10)	enemyDisplayHP -= 10;
+		else enemyDisplayHP = playerTwo.currentHP;
+	}
 	
 	if (enemyDisplayMP < playerTwo.currentMP)	enemyDisplayMP++;
 	if (enemyDisplayMP > playerTwo.currentMP)	enemyDisplayMP++;
@@ -484,7 +497,7 @@ function spar_set_target() {
 function self_target_set() {
 	player.selectedAlly.readyDisplayBuilt = false;
 	player.selectedAlly.selectedAction = global.action;
-	player.selectedAlly.selectedTarget = SELFTARGET;
+	player.selectedAlly.selectedTarget = -1;
 	player.selectedAlly.turnReady = true;
 }
 
@@ -738,4 +751,12 @@ function spell_set_potential_cost(_spellCost) {
 	// prepare the spar object to draw the flashingBar
 	spar.sprite_index = spr_sparFlashingSliver;
 	spar.image_speed = 1;
+}
+	
+function correct_uiAlpha() {
+	if !(instance_exists(sparSpellFX))
+	&& (uiAlpha < 1.0)	uiAlpha += 0.05;
+	
+	if (instance_exists(sparSpellFX))
+	&& (uiAlpha > 0.0)	uiAlpha -= 0.05;
 }

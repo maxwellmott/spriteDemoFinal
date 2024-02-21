@@ -58,9 +58,12 @@ if (state == ACTION_PROCESSOR_STATES.WAIT_FOR_FX) {
 	
 	// if there was no successful dodge
 	else {
-		// set pose
-		targetSprite.currentPose = SPRITE_POSES.HURT;
 		
+		// if this is not a self targeting spell
+		if (targetSprite != activeSprite) {
+			// set target sprite's pose to hurt
+			targetSprite.currentPose = SPRITE_POSES.HURT;
+		}	
 		// create spellFX
 		create_once(0, 0, LAYER.meta, sparSpellFX);
 	}

@@ -81,18 +81,26 @@ if (swapping) && (sprite != spr_sparSwapCloud) {
 	sprite = spr_sparSwapCloud;
 }
 
-// check if resting is true and sprite has yet to change
-if (resting) && (sprite != spr_sparRestEye) {
-	// if resting, change sprite to restEye
-	sprite = spr_sparRestEye;
+if (instance_exists(sparRestProcessor))
+&& (sparRestProcessor.animationStarted) {
+	// check if resting is true and sprite has yet to change
+	if (resting) && (sprite != spr_sparRestEye) {
+		// if resting, change sprite to restEye
+		sprite = spr_sparRestEye;
+	}
+	
+	// fade out sprite if they aren't resting during the rest process
+	if !(resting) {
+		if (alpha > 0.0) {alpha -= 0.05;}	
+	}
+	else {
+		if (alpha < 1.0) {alpha += 0.05;}	
+	}
 }
 
-// fade out sprite if they aren't resting during the rest process
-if (instance_exists(sparRestProcessor) && (resting != true)) {
-	if (alpha > 0.0) {alpha -= 0.05;}	
-}
-else {
-	if (alpha < 1.0) {alpha += 0.05;}	
+if !(instance_exists(sparRestProcessor))
+&& !(instance_exists(sparSpellFX)) {
+	if (alpha < 1.0)	alpha += 0.05;
 }
 
 #endregion

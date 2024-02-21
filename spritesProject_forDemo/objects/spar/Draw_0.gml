@@ -9,8 +9,6 @@ draw_set_color(c_black);
 // draw background
 draw_sprite(spr_sparBackground, 0, 0, 0);
 
-// draw spell backdrop
-
 // draw arena if there is one
 
 #region ALLIES AND ENEMIES
@@ -26,13 +24,28 @@ var i = 0; repeat (8) {
 	
 	var spriteFrame = 0;
 	
-	// check if inst is swapping, resting, or dodging
-	if (inst.swapping) || (inst.resting) {
+	// check if inst is swapping
+	if (inst.swapping) {
+		// set sriteFrame to image_index
 		spriteFrame = image_index;
 		
 		if (inst.resting) && !(instance_exists(sparRestProcessor)) {
 			spriteFrame = 15;	
 		}
+	}
+	else if (inst.resting) {
+		// check if animation has started and not stopped
+		if (instance_exists(sparRestProcessor)) {
+			if (sparRestProcessor.animationStarted)
+			&& !(sparRestProcessor.animationStopped) {
+				// set spriteFrame to image_index
+				spriteFrame = image_index;
+			}
+			
+			// check if animation has stopped
+			if (sparRestProcessor.animationStopped)	spriteFrame = 15;
+		}
+		else	spriteFrame = 15;
 	}
 	else {
 		spriteFrame = inst.currentPose;	
@@ -136,7 +149,17 @@ draw_set_alpha(1.0);
 	}
 #endregion
 
+#region SPELL FX
+	if (instance_exists(sparSpellFX)) {
+		draw_sprite(sparSpellFX.spellAnimation, image_index, sparSpellFX.drawX, sparSpellFX.drawY);
+	}
+#endregion
+
 #region USER INTERFACE
+
+	// set alpha to uiAlpha
+	draw_set_alpha(uiAlpha);
+	
 	// draw nameplates
 	draw_sprite(spr_sparPlayerNameplate, 0, guiWidth, guiHeight);
 	draw_sprite(spr_sparEnemyNameplate, 0, 0, 0);
@@ -148,7 +171,7 @@ draw_set_alpha(1.0);
 	draw_sprite(spr_sparHPMP, 0, 135, 8);
 	
 	// draw playerBars surface
-	draw_surface_ext(playerBarSurface, playerBarSurfaceX, playerBarSurfaceY, -1, 1, 0, c_white, 1.0);
+	draw_surface_ext(playerBarSurface, playerBarSurfaceX, playerBarSurfaceY, -1, 1, 0, c_white, uiAlpha);
 	
 	// draw enemyBars surface
 	draw_surface(enemyBarSurface, enemyBarSurfaceX, enemyBarSurfaceY);
@@ -170,6 +193,7 @@ draw_set_alpha(1.0);
 		spar_draw_text(turnMsgX, turnMsgY, turnMsg);
 	}
 
+	draw_set_alpha(1.0);
 #endregion
 
 #region HOVER MENU
@@ -356,5 +380,3 @@ draw_set_alpha(1.0);
 		}
 	}
 #endregion
-
-// draw spell FX

@@ -205,3 +205,5 @@ skydiveCount = 0;
 sneakAttackGrid = ds_grid_create(2, 0);
 
 sneakAttackCount = 0;
+
+uiAlpha = 0.0;

@@ -1,7 +1,7 @@
 {
   "resourceType": "GMSprite",
   "resourceVersion": "1.0",
-  "name": "spr_spellFXs_wind_slice",
+  "name": "spr_spellFX_ruburs_grapple",
   "bbox_bottom": 0,
   "bbox_left": 0,
   "bbox_right": 0,
@@ -32,7 +32,7 @@
   "sequence": {
     "resourceType": "GMSequence",
     "resourceVersion": "1.4",
-    "name": "spr_spellFXs_wind_slice",
+    "name": "spr_spellFX_ruburs_grapple",
     "autoRecord": true,
     "backdropHeight": 768,
     "backdropImageOpacity": 0.5,
@@ -54,7 +54,7 @@
     "timeUnits": 1,
     "tracks": [
       {"resourceType":"GMSpriteFramesTrack","resourceVersion":"1.0","name":"frames","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"1.0","Keyframes":[
-            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"dbc299c4-8ff7-470f-985a-26fb35433044","path":"sprites/spr_spellFXs_wind_slice/spr_spellFXs_wind_slice.yy",},},},"Disabled":false,"id":"c550bf06-e128-406b-ad1d-1e048d7f0757","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
+            {"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"1.0","Channels":{"0":{"resourceType":"SpriteFrameKeyframe","resourceVersion":"1.0","Id":{"name":"dbc299c4-8ff7-470f-985a-26fb35433044","path":"sprites/spr_spellFX_ruburs_grapple/spr_spellFX_ruburs_grapple.yy",},},},"Disabled":false,"id":"5f14765a-ac10-41c9-9e9e-bb1501f6e9c4","IsCreationKey":false,"Key":0.0,"Length":1.0,"Stretch":false,},
           ],},"modifiers":[],"spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange": null,

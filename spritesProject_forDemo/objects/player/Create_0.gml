@@ -105,7 +105,7 @@ maxHP = 1000;
 maxMP = 100;
 
 currentHP = 500;
-currentMP = 100;
+currentMP = 50;
 
 // initialize hmove and vmove
 hmove		= 0;

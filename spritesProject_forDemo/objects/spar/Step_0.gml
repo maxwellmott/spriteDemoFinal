@@ -61,12 +61,15 @@ switch (sparPhase) {
 					// if so, create the sparRestProcessor
 					create_once(0, 0, LAYER.meta, sparRestProcessor);
 				}
-				else {
-					if !(instance_exists(sparRestProcessor))	processPhase = PROCESS_PHASES.DODGE;
+				
+				if !(instance_exists(sparRestProcessor))
+				&& !(spar_check_hpmp()) {
+					spar_correct_hpmp();
 				}
 				
-				if (instance_exists(sparRestProcessor)) {
-					spar_correct_hpmp();
+				if !(instance_exists(sparRestProcessor))
+				&& (spar_check_hpmp()) {
+					processPhase = PROCESS_PHASES.DODGE;	
 				}
 			break;
 			
@@ -341,5 +344,7 @@ switch (sparPhase) {
 		break;
 	#endregion
 }
+
+correct_uiAlpha();
 
 // sparComplete logic

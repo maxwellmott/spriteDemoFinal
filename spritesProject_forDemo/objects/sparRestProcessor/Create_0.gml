@@ -1,6 +1,8 @@
 // create a list to store the instance ids of all the sprites who are resting this turn
 restList = ds_list_create();
 
+animationStarted = false;
+
 restFrameCount = 15;
 animationStopped = false;
 
@@ -16,10 +18,7 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 	var a = spar.turnGrid[# selectionPhases.action, i];
 	
 	// check if the action is a swap
-	if (a == sparActions.rest) {
-		// if so, set the sprite's swapping var to true
-		inst.resting = true;
-		
+	if (a == sparActions.rest) {		
 		// add the instance id to the restList
 		ds_list_add(restList, inst);
 		

@@ -15,5 +15,3 @@ with (sparEnemy) {
 		resting = false;
 	}
 }
-
-spar.processPhase = PROCESS_PHASES.DODGE;

@@ -6,10 +6,10 @@ in each of the "last thoughts" notes to follow.
 BATTLE SCENE TODO:
 
 	-spellFX script							2 POINTS
-	-change HPMP max system					4 POINTS
+	-spellFX functions						5 POINTS
 	-make spell UI adhere to knownSpells	4 POINTS
 	-prototype turn selection algorithm		3 POINTS				
-	-add spell animations					4 POINTS
+	-add spell animations					4 POINTS				4 POINTS DONE	[2/20]
 	-finish spells and effects				2 POINTS				
 	-add abilities							4 POINTS				
 	-priority spells						2 POINTS				2 POINTS DONE	[2/18]
@@ -131,3 +131,12 @@ BATTLE SCENE TODO:
 		I also fixed the spellBook UI, so you can effectively select a spell now. There is still some debugging to do.
 		
 		Spells are working! And the spellFX script is mostly built. Should be a breeze!
+		
+2/20
+		Okay, we are officially in the "finishing up" phase. Spells are testable and fully working with animations and 
+	everything. The last three systems to finish building are the online multiplayer, the spellFX functions, and the 
+	local enemy turntaking algorithms.
+	
+		Aside from that, Yiming and I both just have a lot of art (and I have music and SFX) to finish creating. I THINK NOW
+	WOULD BE A GOOD TIME TO DO SOME TESTING TO PUT TOGETHER A LIST OF BUGS AS WELL UI FAILINGS AND THINGS THAT I DON'T FEEL
+	FLOW WELL.
