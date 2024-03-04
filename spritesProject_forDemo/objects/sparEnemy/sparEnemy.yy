@@ -9,8 +9,8 @@
   "managed": true,
   "overriddenProperties": [],
   "parent": {
-    "name": "spars",
-    "path": "folders/Objects/spars.yy",
+    "name": "sprites",
+    "path": "folders/Objects/spars/sprites.yy",
   },
   "parentObjectId": null,
   "persistent": false,

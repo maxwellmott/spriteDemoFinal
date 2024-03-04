@@ -1,7 +1,7 @@
 {
   "resourceType": "GMObject",
   "resourceVersion": "1.0",
-  "name": "guest",
+  "name": "hostPrivateButton",
   "eventList": [],
   "managed": true,
   "overriddenProperties": [],
