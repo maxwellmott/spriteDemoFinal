@@ -25,12 +25,17 @@ BATTLE SCENE TODO:
 	-fix ready display						2 POINTS				2 POINTS DONE	[1/16]
 	-fix fonts								3 POINTS				3 POINTS DONE	[2/05]		
 	-build audio manager					3 POINTS
-	-add music								2 POINTS
+	-add music								4 POINTS
 	-add all SFX							4 POINTS
 	-add hp and mp bars						1 POINT					1 POINT DONE	[1/16]
 	-complete nearby list functionality		1 POINT					1 POINT DONE	[2/18]
 	-switch out all sprite artwork			2 POINTS				2 POINTS DONE	[2/16]
 	-agility sort							3 POINTS				3 POINTS DONE	[2/18]
+	-build teambuilder						5 POINTS				
+	-build spellBookBuilder					5 POINTS
+	-build onlineLobby						5 POINTS
+	-test client for private rooms			5 POINTS
+	-test client for matchmaking			5 POINTS
 	
 	*demo scripts cannot be built until full versions are complete (npcs, sprites, spells, abilities)
 	
@@ -140,3 +145,8 @@ BATTLE SCENE TODO:
 		Aside from that, Yiming and I both just have a lot of art (and I have music and SFX) to finish creating. I THINK NOW
 	WOULD BE A GOOD TIME TO DO SOME TESTING TO PUT TOGETHER A LIST OF BUGS AS WELL UI FAILINGS AND THINGS THAT I DON'T FEEL
 	FLOW WELL.
+	
+3/5
+
+		Wrote most of the code for the teambuilder. Need to test it still. There is a line of code in the overworld create event
+	that is forcing a spar to begin right at the beginning. Find a way to alter this for the sake of testing the teambuilder.

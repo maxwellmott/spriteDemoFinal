@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "scr_spells",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "sparring",
-    "path": "folders/Scripts/sparring.yy",
+  "$GMScript":"",
+  "%Name":"scr_spells",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_spells",
+  "parent":{
+    "name":"sparring",
+    "path":"folders/Scripts/sparring.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }

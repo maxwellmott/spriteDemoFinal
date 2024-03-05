@@ -49,3 +49,23 @@ currentColumn = (rowWidth - 1) - ((selectedNameSlot + 1) mod rowWidth);
 // manage spriteslot selection
 
 // manage nameSlot selection
+
+// reset selectorIndex
+var start = (bottomRowNum * rowWidth) - 1;
+
+selectorIndex = selectedNameSlot - start;
+
+// reset selectorX and selectorY
+switch (selectorIndex) {
+	case 0:		selectorX = nameSlotColumnOne;		 selectorY = nameSlotRowOne;	break;
+	case 1:		selectorX = nameSlotColumnTwo;		 selectorY = nameSlotRowOne;	break;
+	case 2:		selectorX = nameSlotColumnThree;	 selectorY = nameSlotRowOne;	break;
+	
+	case 3:		selectorX = nameSlotColumnOne;		 selectorY = nameSlotRowTwo;	break;
+	case 4:		selectorX = nameSlotColumnTwo;		 selectorY = nameSlotRowTwo;	break;
+	case 5:		selectorX = nameSlotColumnThree;	 selectorY = nameSlotRowTwo;	break;
+	
+	case 6:		selectorX = nameSlotColumnOne;		 selectorY = nameSlotRowThree;	break;
+	case 7:		selectorX = nameSlotColumnTwo;		 selectorY = nameSlotRowThree;	break;
+	case 8:		selectorX = nameSlotColumnThree;	 selectorY = nameSlotRowThree;	break;
+}

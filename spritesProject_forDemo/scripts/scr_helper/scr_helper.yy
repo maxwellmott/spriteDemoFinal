@@ -1,11 +1,13 @@
 {
-  "resourceType": "GMScript",
-  "resourceVersion": "1.0",
-  "name": "scr_helper",
-  "isCompatibility": false,
-  "isDnD": false,
-  "parent": {
-    "name": "Helper",
-    "path": "folders/Scripts/Helper.yy",
+  "$GMScript":"",
+  "%Name":"scr_helper",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_helper",
+  "parent":{
+    "name":"Helper",
+    "path":"folders/Scripts/Helper.yy",
   },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
 }
