@@ -150,3 +150,9 @@ BATTLE SCENE TODO:
 
 		Wrote most of the code for the teambuilder. Need to test it still. There is a line of code in the overworld create event
 	that is forcing a spar to begin right at the beginning. Find a way to alter this for the sake of testing the teambuilder.
+	
+	
+	I DETERMINED THE BEST NEXT STEP FOR TESTING TEAMBUILDER AND OTHER MENUS:
+	
+		just build the overworld main menu. It needs to get done, it's a pivotal part of the overworld. This will allow you to fully
+		test every menu nested within in an isolated fashion. 
