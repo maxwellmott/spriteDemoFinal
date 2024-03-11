@@ -2,21 +2,23 @@
 global.substring = "";
 
 function encode_list(_list) {
+	// set parseChar
+	var parseChar = ",";
+	
 	// it checks the list for commas to determine if it is a structList
-	var i = 0; var commaCount = 0;
-	repeat (ds_list_size(_list)) {
-		commaCount += string_scan(string(_list[|i]), ",");
+	// if there are commas present, change parseChar
+	var i = 0;	repeat (ds_list_size(_list)) {
+		if (string_scan(string(_list[|i]), ",") > 0) {
+			parseChar = ";";
+		}
+		
 		i++;
 	}
-	
-	// it then sets the parse character depending on whether it is a structList
-	if (commaCount > 0) {var parseChar = ";";}
-	else	{var parseChar = ",";}
 	
 	// it creates an empty string for the return variable
 	var substring = "";
 	
-	// initializes i
+	// initialize i
 	var i = 0;
 	
 	// it repeats the copying process for every item in the list
@@ -176,14 +178,15 @@ function decode_grid(_grid, _target) {
 			var temp = string_delete(substring, 1, position);
 			substring = temp;
 			
-			// delete the secondary parse character for this row
-			var position = string_pos(newRowChar, substring);
-			var temp = string_delete(substring, position, 1);
-			substring = temp;
-			
 			// increment ii
 			ii++;
 		}
+		
+		// delete the secondary parse character for this row
+		var position = string_pos(newRowChar, substring);
+		var temp = string_delete(substring, position, 1);
+		substring = temp;	
+		
 		// increment i
 		i++;
 	}

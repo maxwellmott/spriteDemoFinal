@@ -1,5 +1,5 @@
-var base_w = 768;
-var base_h = 672;
+var base_w = 1024;
+var base_h = 896;
 var max_w = display_get_width();
 var max_h = display_get_height();
 var aspect = display_get_width() / display_get_height();

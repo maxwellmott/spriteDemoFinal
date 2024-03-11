@@ -1227,7 +1227,7 @@ function processor_load_spell_params() {
 	spellCost	= real(grid[# SPELL_PARAMS.COST,	currentSpell]);
 	spellType	= real(grid[# SPELL_PARAMS.TYPE,	currentSpell]);
 	spellPower	= real(grid[# SPELL_PARAMS.POWER,	currentSpell]);
-	spellEffect	= real(grid[# SPELL_PARAMS.EFFECT,	currentSpell]);
+	spellEffect	= real(string_digits(grid[# SPELL_PARAMS.EFFECT,	currentSpell]));
 }
 
 function action_get_spell_id(_action) {

@@ -156,3 +156,13 @@ BATTLE SCENE TODO:
 	
 		just build the overworld main menu. It needs to get done, it's a pivotal part of the overworld. This will allow you to fully
 		test every menu nested within in an isolated fashion. 
+		
+		
+3/8 
+		A GMS update broke my game again. The problem is definitely somewhere in the overworld create event. The wrong data is being pulled
+		from the locationGrid somehow. This either means that indeces are not lining up anymore, or something about the decode_grid function
+		is not working properly. 
+		
+		Good luck. Thanks GMS -_-
+		
+		Got the GMS related bugs sorted out and everything is running fine again. Now to try and fix the issues with the playtest build!
