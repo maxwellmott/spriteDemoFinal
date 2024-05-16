@@ -5,6 +5,12 @@ global.newRoom = -1;
 spritesCreated = false;
 sceneryCreated = false;
 
+if !(layer_exists("Background"))	layer_create(get_layer_depth(LAYER.background),			"Background");
+if !(layer_exists("Ground"))		layer_create(get_layer_depth(LAYER.groundTiles),		"Ground");
+if !(layer_exists("Water"))			layer_create(get_layer_depth(LAYER.waterTiles),			"Water");
+if !(layer_exists("Collidables"))	layer_create(get_layer_depth(LAYER.collidableTiles),	"Collidables");
+if !(layer_exists("UpperStory"))	layer_create(get_layer_depth(LAYER.upperStoryTiles),	"UpperStory");
+
 move_layer("Background",	LAYER.background);
 move_layer("Ground",		LAYER.groundTiles);
 move_layer("Water",			LAYER.waterTiles);

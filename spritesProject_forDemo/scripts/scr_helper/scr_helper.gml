@@ -259,6 +259,7 @@ function game_timer() {
 
 function new_game() {
 	create_once(0,	0, LAYER.sprites, player);
+	player.location = locations.miriabramExt;
 	
 	room_transition(256, 160, directions.south, rm_overworld);
 }

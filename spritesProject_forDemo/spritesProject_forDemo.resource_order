@@ -112,6 +112,7 @@
     {"name":"npc","order":3,"path":"objects/npc/npc.yy",},
     {"name":"onlineLobby","order":1,"path":"objects/onlineLobby/onlineLobby.yy",},
     {"name":"optionsMenu","order":4,"path":"objects/optionsMenu/optionsMenu.yy",},
+    {"name":"overworld","order":14,"path":"objects/overworld/overworld.yy",},
     {"name":"overworldAlert","order":1,"path":"objects/overworldAlert/overworldAlert.yy",},
     {"name":"overworldDraw","order":10,"path":"objects/overworldDraw/overworldDraw.yy",},
     {"name":"owSprite","order":13,"path":"objects/owSprite/owSprite.yy",},

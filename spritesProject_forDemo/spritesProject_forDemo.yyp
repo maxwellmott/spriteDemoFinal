@@ -156,6 +156,7 @@
     {"id":{"name":"npc","path":"objects/npc/npc.yy",},},
     {"id":{"name":"onlineLobby","path":"objects/onlineLobby/onlineLobby.yy",},},
     {"id":{"name":"optionsMenu","path":"objects/optionsMenu/optionsMenu.yy",},},
+    {"id":{"name":"overworld","path":"objects/overworld/overworld.yy",},},
     {"id":{"name":"overworldAlert","path":"objects/overworldAlert/overworldAlert.yy",},},
     {"id":{"name":"overworldDraw","path":"objects/overworldDraw/overworldDraw.yy",},},
     {"id":{"name":"owSprite","path":"objects/owSprite/owSprite.yy",},},

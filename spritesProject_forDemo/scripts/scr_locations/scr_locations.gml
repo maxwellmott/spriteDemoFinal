@@ -45,12 +45,10 @@ var miriabramExtList				= ds_list_create();
 // populate all object lists with arguments for structs
 
 //			list name				x			y			ID										
-ds_list_add(miriabramExtList,		"368,"+		"304,"+		string(sceneryIDs.crystalLampPost)+",",
-									"368,"+		"400,"+		string(sceneryIDs.crystalLampPost)+",",
-									"368,"+		"496,"+		string(sceneryIDs.crystalLampPost)+",",
-									"432,"+		"304,"+		string(sceneryIDs.crystalLampPost)+",",
-									"432,"+		"400,"+		string(sceneryIDs.crystalLampPost)+",",
-									"432,"+		"496,"+		string(sceneryIDs.crystalLampPost)+",");
+ds_list_add(miriabramExtList,		"368,"+		"344,"+		string(sceneryIDs.crystalLampPost)+",",
+									"368,"+		"472,"+		string(sceneryIDs.crystalLampPost)+",",
+									"432,"+		"344,"+		string(sceneryIDs.crystalLampPost)+",",
+									"432,"+		"472,"+		string(sceneryIDs.crystalLampPost)+",");
 									
 #endregion
 
