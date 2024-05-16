@@ -56,4 +56,4 @@ bboxTop		= y - (spriteHeight / 2);
 bboxLeft	= x - (spriteHeight / 2);
 bboxRight	= x + (spriteHeight / 2);
 
-textColor = c_black;
+textColor = COL_BLACK;

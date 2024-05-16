@@ -27,34 +27,6 @@ if (room == rm_gameStart) {
 	create_once(room_width / 2, room_height / 2, LAYER.sprites, splashScreen);
 }
 
-// handle scaling
-if (room == scalingRoom) {
-	var base_w = 768;
-	var base_h = 672;
-	var max_w = display_get_width();
-	var max_h = display_get_height();
-	var aspect = display_get_width() / display_get_height();
-	if (max_w < max_h)
-	    {
-	    // portait
-	     var VIEW_WIDTH = min(base_w, max_w);
-	    var VIEW_HEIGHT = VIEW_WIDTH / aspect;
-	    }
-	else
-	    {
-	    // landscape
-	    var VIEW_HEIGHT = min(base_h, max_h);
-	    var VIEW_WIDTH = VIEW_HEIGHT * aspect;
-	    }
-	camera_set_view_size(view_camera[0], floor(VIEW_WIDTH), floor(VIEW_HEIGHT))
-	view_wport[0] = max_w;
-	view_hport[0] = max_h;
-
-	application_surface_draw_enable(false);
-
-	room_goto(rm_gameStart);	
-}
-
 if global.overworld && (keyboard_check_direct(vk_shift)) debugDraw = !debugDraw;
 
 //if !(global.gameTime mod 16)	drawNums = string(fps_real);

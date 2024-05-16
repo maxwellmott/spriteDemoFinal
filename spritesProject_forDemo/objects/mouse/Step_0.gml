@@ -12,7 +12,7 @@ if (instance_exists(spar)) {
 		if (collision_rectangle(inst.bbLeft, inst.bbTop, inst.bbRight, inst.bbBottom, mouse, false, false)) {
 			if (spar.selectionPhase == selectionPhases.ally) 
 			|| (spar.selectionPhase == selectionPhases.target) {
-				if (global.shift) frame = 2;
+				if (global.shiftPressed) frame = 2;
 				else frame = 0;
 				
 				global.hoverSprite = inst;
@@ -88,7 +88,7 @@ if (alarm[0] != -1) {
 
 // if inspecting during a spar, turn back from idle
 if instance_exists(spar)
-&& global.shift {
+&& global.shiftPressed {
 	alarm[0] = -1;
 	idle = false;	
 }

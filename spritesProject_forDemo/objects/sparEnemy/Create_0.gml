@@ -11,7 +11,7 @@ allyNum = instance_number(object_index) - 1;
 spotNum = allyNum + 4;
 
 // set spriteID
-spriteID = spar.playerTwo.team[| allyNum];
+spriteID = spar.playerTwo.teamList[| allyNum];
 
 // add self to battle sprite lists
 spar.enemyList[| allyNum]	= id;

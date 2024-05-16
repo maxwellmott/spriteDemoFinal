@@ -20,7 +20,7 @@ if (instance_exists(sparActionMenu)) {
 	if (sparActionMenu.selectedButton == id) {
 		// set frame
 		frame = 1;
-		textColor = c_white;
+		textColor = COL_WHITE;
 		
 		// check if enter is clicked
 		if (global.select) {
@@ -31,6 +31,6 @@ if (instance_exists(sparActionMenu)) {
 	// if button is not selected, reset frame
 	else {
 		frame = 0;
-		textColor = c_black;
+		textColor = COL_BLACK;
 	}
 }

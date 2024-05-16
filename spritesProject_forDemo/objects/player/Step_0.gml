@@ -1,5 +1,6 @@
 event_inherited();
 
+/*
 #region OVERWORLD MOVEMENT AND INTERACTION
 // get appearance variables
 
@@ -59,3 +60,5 @@ if (sundown) && (darkAlpha < 1.0)	darkAlpha += 0.0005;
 if !(sundown) && (darkAlpha > 0.0)	darkAlpha -= 0.0005;
 	
 #endregion
+
+*/

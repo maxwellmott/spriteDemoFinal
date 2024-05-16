@@ -6,6 +6,9 @@ enum controllerTypes {
 }
 
 #region INITIALIZE GLOBAL VARS
+global.shiftPressed		=	noone;
+global.shiftReleased	=	noone;
+
 global.click		=	noone;
 global.select		=	noone;
 global.back			=	noone;

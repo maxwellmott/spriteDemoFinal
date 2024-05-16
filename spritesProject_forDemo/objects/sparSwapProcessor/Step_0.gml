@@ -3,6 +3,22 @@ if (global.select) {
 		// get sprite's instance id
 		var inst = swapList[| i];
 		
+		var swapperSpotNum = inst.spotNum;
+		
+		// get swap partner inst
+		var partnerSpotNum	= spar.turnGrid[# selectionPhases.target, swapperSpotNum];
+		var partnerInst		= spar.spriteList[| partnerSpotNum];
+		
+		// check if their swap partner has already processed their swap
+		if (partnerInst.swapping) {
+			// if they have not, set the cost for the swap so you can charge the player's MP
+			var c = swap_get_cost(inst, partnerInst);
+			
+			// charge the MP cost
+			inst.team.currentMP -= c;
+		}
+		
+		// reset all of this sprites parameters
 		with (inst) {
 			spriteID = newSpriteID;
 			newSpriteID = -1;

@@ -28,4 +28,5 @@ drawNums = "";
 
 if (is_debug_overlay_open()) {
 	new_game();	
+	show_debug_overlay(false);
 }

@@ -52,10 +52,10 @@ function overworld_yesNoPrompt(_function) constructor {
 	method_draw = function() {
 		draw_sprite(sprite, yesButtonFrame, yesButtonX, yesButtonY);
 		draw_sprite(sprite, noButtonFrame, noButtonX, noButtonY);
-		draw_set_color(c_white);
+		draw_set_color(COL_WHITE);
 		draw_text(yesButtonX, yesButtonY, "yes");
 		draw_text(noButtonX, noButtonY, "no");
-		draw_set_color(c_black);
+		draw_set_color(COL_BLACK);
 		draw_text(yesButtonX, yesButtonY, "yes");
 		draw_text(noButtonX, noButtonY, "no");
 		draw_sprite(spr_ynSelector, selectorFrame, selectorX, selectorY);

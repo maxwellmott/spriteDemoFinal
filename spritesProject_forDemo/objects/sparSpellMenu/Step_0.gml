@@ -18,33 +18,39 @@ if (x > targetX) && (frame > 0) {
 }
 
 if (x == targetX) && (targetX == spriteWidth / 2) {
-	spell_set_potential_cost(spellCost);
-	
-	if (global.select) {
-		global.potentialMPCost = -1;
-		
-		// set global.action
-		global.action = currentSpell + sparActions.height;
-		
-		// check if range is self
-		if (spellRange == ranges.onlySelf) {
-			// if so, set action and target to indicate self-targeting spell
-			self_target_set();
+	if (spell_set_potential_cost(spellCost)) {
+		if (global.select) {			
+			// set global.action
+			global.action = currentSpell + sparActions.height;
 			
-			// set next phase
-			nextPhase = selectionPhases.ally;
+			spar.totalSelectionCost += spar.potentialCost;
+			spar.potentialCost = 0;
+			
+			// check if range is self
+			if (spellRange == ranges.onlySelf) {
+				// if so, set action and target to indicate self-targeting spell
+				self_target_set();
+				
+				// set next phase
+				nextPhase = selectionPhases.ally;
+			}
+			else {
+				// if not self range, set action normally
+				spar_set_spell();	
+			}
+			
+			// close book
+			targetX = 0 - (spriteWidth / 2);
 		}
-		else {
-			// if not self range, set action normally
-			spar_set_spell();	
+	}
+	else {
+		if (global.select) {
+			// indicate that the player does not have enough MP	
 		}
-		
-		// close book
-		targetX = 0 - (spriteWidth / 2);
 	}
 	
 	if (global.back) {
-		global.potentialMPCost = -1;
+		spar.potentialCost = 0;
 		
 		// set next phase
 		nextPhase = selectionPhases.ally;
@@ -56,7 +62,7 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 	if (global.menu_left) {
 		// check if index is at 0
 		if (index > 0) {
-			global.potentialMPCost = -1;
+			spar.potentialCost = 0;
 			
 			pageFlip = true;
 			
@@ -74,13 +80,15 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 			
 			// get spell params
 			spellbook_load_spell_params();
+			
+			spar.potentialCost = spellCost;
 		}
 	}
 	
 	if (global.menu_right) {
 		// check if index is at max
 		if (index < SPELLMAX - 1) {
-			global.potentialMPCost = -1;
+			spar.potentialCost = 0;
 			
 			pageFlip = true;
 			
@@ -99,6 +107,7 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 			// get spell params
 			spellbook_load_spell_params();
 			
+			spar.potentialCost = spellCost;
 		}
 	}
 }

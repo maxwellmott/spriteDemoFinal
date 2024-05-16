@@ -24,18 +24,20 @@ if (spar.sparPhase == sparPhases.select) {
 	if (spar.selectionPhase == selectionPhases.target) {
 		// check that this sprite is not the selectedAlly
 		if (player.selectedAlly != id) {
+			// select for a swap
 			if (global.action == sparActions.swap)	{
-				if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
-					swap_set_potential_cost(player.selectedAlly, id);
-				
-					if global.potentialMPCost == -1 {
-						// indicate that you can't select this sprite
-					}
-					else {
+				if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {				
+					if (swap_set_potential_cost(player.selectedAlly, id)) {
 						if (global.click) {
+							spar.totalSelectionCost += spar.potentialCost;
+							spar.potentialCost = 0;
+							
 							spar_set_target();
 							spar.selectionPhase = selectionPhases.ally;
 						}
+					}
+					else {
+						// indicate that you can't select this sprite
 					}
 				}
 			}

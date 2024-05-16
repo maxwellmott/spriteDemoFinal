@@ -37,7 +37,7 @@ y = 0;
 facing = -1;
 
 // initialize location
-location = locations.miriabramExt;
+location = -1;
 
 // initialize appearance
 appearance = string(colors.skintone2) + "," + string(outfits.overalls) + "," + string(colors.indigo) + "," + string(hairstyles.shortStraight) + "," + string(colors.chartreuse) + "," + string(hats.cowboy) + "," + string(colors.noir) + "," + string(footwear.sandals) + "," + string(colors.cyan) + ",-1,-1,";
@@ -54,8 +54,29 @@ teamList[| 1] = SPRITES.HACHACHACHA;
 teamList[| 2] = SPRITES.PODRIC;
 teamList[| 3] = SPRITES.GLIDRAKE;
 
-// initialize spriteString
-talismanString = "";
+// for testing purposes only
+teamString = encode_list(teamList);
+
+// for testing purposes only
+var dl = ds_list_create();
+
+ds_list_add(dl,		SPRITES.PONDILE,
+					SPRITES.HACHACHACHA,
+					SPRITES.SPARMATE,
+					SPRITES.FISTICOGS,
+					SPRITES.GEMBO,
+					SPRITES.CLEANSAGE,
+					SPRITES.ARRAYNGE,
+					SPRITES.PLEEP,
+					SPRITES.GLIDRAKE,
+					SPRITES.EXONOLITH,
+					SPRITES.NEEDLEPAW,
+					SPRITES.CHROMOSILOS,
+					SPRITES.DOMINO
+);
+
+// initialize talismanString
+talismanString = encode_list(dl);
 
 // initialize talismanList
 talismanList = ds_list_create();
@@ -88,6 +109,10 @@ spellBook[| 2] = SPELLS.SHOCK;
 spellBook[| 1] = SPELLS.HOLY_WATER;
 spellBook[| 0] = SPELLS.FIREBALL;
 
+spellBookString = encode_list(spellBook);
+
+knownSpellString = encode_list(spellBook);
+
 // initialize contactString
 contactString = "";
 
@@ -95,17 +120,17 @@ contactString = "";
 contactList = ds_list_create();
 
 // initialize various battle ranking scores
-roninScore			= 0;
+roninScore			= 150;
 roninMatchCount		= 0;
-onlineRating		= 0;
+onlineRating		= 150;
 onlineMatchCount	= 0;
 
 // initialize HP and MP
-maxHP = 1000;
-maxMP = 100;
+maxHP = MAX_HP;
+maxMP = MAX_MP;
 
-currentHP = 500;
-currentMP = 50;
+currentHP = maxHP;
+currentMP = maxMP;
 
 // initialize hmove and vmove
 hmove		= 0;
@@ -171,3 +196,8 @@ spellBookGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLMAX);
 
 // initialize enemy
 enemy = noone;
+
+clientID	= -1;
+clientType	= -1;
+clientScope	= -1;
+roomID		= -1;

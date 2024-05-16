@@ -1,5 +1,9 @@
 /// @desc
 
+if (onlineWaiting) {
+	if !(global.gameTime mod 480)	request_turn_begin();
+}
+
 // spar phase switch statement
 switch (sparPhase) {
 	case sparPhases.height:
@@ -8,11 +12,8 @@ switch (sparPhase) {
 	
 	case sparPhases.turnEnd:
 		turnProcessCount = 0;
-		processPhase = PROCESS_PHASES.SWAP;		
-		sparPhase = sparPhases.turnBegin;
-	break;
-	
-	case sparPhases.process:
+		processPhase = PROCESS_PHASES.SWAP;
+		
 		// reset all sprites' turn selections
 		with (sparAlly) {
 			turnReady = false;
@@ -22,10 +23,20 @@ switch (sparPhase) {
 			selectedTarget = -4;
 		}
 		
-		player.ready = false;
+		with (sparEnemy) {
+			turnReady = false;
+			selectedAction = -4;
+			selectedTarget = -4;
+		}
+		
+		playerOne.ready = false;
+		playerTwo.ready = false;
+		
+		sparPhase = sparPhases.turnBegin;
+
+	break;
 	
-		// sort turnGrid by agility
-	
+	case sparPhases.process:
 		// get current height of turnGrid
 		var h = ds_grid_height(turnGrid);
 		
@@ -46,7 +57,7 @@ switch (sparPhase) {
 					create_once(0, 0, LAYER.meta, sparSwapProcessor);
 				}
 				else {
-					if !(instance_exists(sparSwapProcessor))	processPhase = PROCESS_PHASES.REST;	
+					if !(instance_exists(sparSwapProcessor))	processPhase = PROCESS_PHASES.REST;
 				}
 				
 			break;
@@ -261,7 +272,6 @@ switch (sparPhase) {
 			// use a switch statement to manage all selectionPhases
 			switch(selectionPhase) {
 				case selectionPhases.ally:
-					global.potentialMPCost = -1;
 				
 					// set selection message
 					selectionMsg = "Select a sprite to command";
@@ -284,14 +294,12 @@ switch (sparPhase) {
 						// set selectionMsg to blank
 						selectionMsg = "";
 					}
-					else {
-						global.potentialMPCost = -1;
-						
+					else {						
 						// if not, create action menu
 						create_once(x, y, LAYER.meta, sparActionMenu);
 						
 						// set selection message
-						selectionMsg = "What should " + player.selectedAlly.name + " do this turn?";
+						selectionMsg = "What should " + playerOne.selectedAlly.name + " do this turn?";
 						
 						if (smw != string_width(selectionMsg)) {
 							smw = string_width(selectionMsg);	
@@ -314,32 +322,47 @@ switch (sparPhase) {
 						
 						case sparActions.swap:
 							selectionMsg = "Select the sprite with whom " + player.selectedAlly.name + " should swap";
+							
+							if (global.hoverSprite < 0)	potentialCost = 0;
 						break;
 					}
 					
 					// handle backspace input
 					if (global.back) {
+						potentialCost = 0;
 						selectionPhase = selectionPhases.action;
 					}
 				break;
 			}
 				
-			if (player.ready) {
+			if (playerOne.ready) 
+			&& !(onlineWaiting) {
 				destroy_if_possible(sparReadyButton);
 				
-				switch (global.sparType) {
-					case sparTypes.inGame:
-						sparPhase = sparPhases.process;
-					break;
+				if (instance_exists(onlineEnemy)) {
+					onlineWaiting = true;
 				}
-				
-				selectionMsg = "Waiting for the other player...";
+				else {
+					sparPhase = sparPhases.process;
+				}
+			}
+			
+			if (playerOne.ready)
+			&& (onlineWaiting) {
+				if !(global.gameTime mod 120)	request_turn_begin();	
+			}
+			
+			if (playerOne.ready)
+			&& (playerTwo.ready) {
+				sparPhase = sparPhases.process;
 			}
 		break;
 	#endregion
 	
 	#region TURN BEGIN PHASE
 		case sparPhases.turnBegin:
+			
+		
 			sparPhase = sparPhases.select;
 		break;
 	#endregion

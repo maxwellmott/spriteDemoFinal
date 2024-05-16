@@ -1,6 +1,4 @@
 /// @desc
-destroy_if_possible(overworld);
-destroy_if_possible(overworldDraw);
 
 depth = LAYER.mouse;
 

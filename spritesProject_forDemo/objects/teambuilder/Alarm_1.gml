@@ -1,0 +1,2 @@
+optionsChangingUp = false;
+optionsChangingDown = false;

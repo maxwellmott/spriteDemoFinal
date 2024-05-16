@@ -108,7 +108,7 @@ function overworld_create_player_sprite() {
 			surface_set_target(surf);
 			
 			// clear display buffer
-			draw_clear_alpha(c_black, 0.0);
+			draw_clear_alpha(COL_BLACK, 0.0);
 			
 			// use a switch statement to call the correct draw function
 			switch (i) {

@@ -29,12 +29,8 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 		// add the instance id to the swapList
 		ds_list_add(swapList, inst);
 		
-		// clear this sprite's spot on the turn grid
-		var ii = 0;	repeat (selectionPhases.height) {
-			spar.turnGrid[# ii, i] = -1;
-			
-			ii++;
-		}
+		// set this sprite's action to -1 on the turn grid
+		spar.turnGrid[# selectionPhases.action, i] = -1;
 	}
 	
 	i++;

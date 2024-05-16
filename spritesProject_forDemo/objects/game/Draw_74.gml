@@ -7,5 +7,5 @@ if !(surface_exists(guiSurface)) {
 }
 
 surface_set_target(guiSurface);
-	draw_clear_alpha(c_black, 0.0);
+	draw_clear_alpha(COL_BLACK, 0.0);
 surface_reset_target();

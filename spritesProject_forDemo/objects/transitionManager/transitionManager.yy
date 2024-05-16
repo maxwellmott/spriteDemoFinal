@@ -14,10 +14,7 @@
     "name":"meta",
     "path":"folders/Objects/meta.yy",
   },
-  "parentObjectId":{
-    "name":"menu",
-    "path":"objects/menu/menu.yy",
-  },
+  "parentObjectId":null,
   "persistent":true,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

@@ -61,3 +61,5 @@ enemy = noone;
 
 // set spellBookGrid
 human_build_spellBookGrid();
+
+ready = false;

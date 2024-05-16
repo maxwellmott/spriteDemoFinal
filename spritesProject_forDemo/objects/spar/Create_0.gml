@@ -1,4 +1,6 @@
 /// @desc
+data = ds_map_create();
+
 smw = 0;
 
 // I guess the only way for me to use gms2's built in animation system is to 
@@ -22,17 +24,15 @@ allyList	= ds_list_create();
 enemyList	= ds_list_create();
 spriteList	= ds_list_create();
 
-switch (global.sparType) {
-	case sparTypes.inGame:
-		// create ai player
-		playerTwo = instance_create_depth(x, y, get_layer_depth(LAYER.meta), enemyAI);
-	break;
+if (instance_exists(onlineEnemy)) {
+	playerTwo = onlineEnemy;
 	
-	case sparTypes.localMulti:
-	break;
-	
-	case sparTypes.onlineMulti:
-	break;
+	with (playerTwo) {
+		decode_list(teamString, teamList);
+	}
+}
+else {
+	playerTwo = instance_create_depth(x, y, get_layer_depth(LAYER.meta), enemyAI);	
 }
 
 // set enemy for each player
@@ -207,3 +207,19 @@ sneakAttackGrid = ds_grid_create(2, 0);
 sneakAttackCount = 0;
 
 uiAlpha = 0.0;
+
+if (instance_exists(onlineEnemy)) {
+
+	data = ds_map_create();
+
+	client = network_create_socket(network_socket_udp);	
+	network_connect_raw(client, SERVER_ADDRESS, 80);
+
+	onlineBuffer = buffer_create(120, buffer_fixed, 120);
+}
+
+onlineWaiting = false;
+
+potentialCost = 0;
+
+totalSelectionCost = 0;

@@ -1,10 +1,10 @@
 #macro MAX_HP	1000
 #macro MAX_MP	100
 
-draw_set_font(sparFont);
+draw_set_font(plainFont);
 draw_set_halign(fa_center);
 draw_set_valign(fa_middle);
-draw_set_color(c_black);
+draw_set_color(COL_BLACK);
 
 // draw background
 draw_sprite(spr_sparBackground, 0, 0, 0);
@@ -62,7 +62,7 @@ var i = 0; repeat (8) {
 	}
 	else {
 		// draw sprite flipped
-		draw_sprite_ext(inst.sprite, spriteFrame, inst.x, inst.y, -1, 1, 0, c_white, inst.alpha);
+		draw_sprite_ext(inst.sprite, spriteFrame, inst.x, inst.y, -1, 1, 0, COL_WHITE, inst.alpha);
 	}
 
 	
@@ -125,7 +125,7 @@ draw_set_alpha(1.0);
 				i++;
 			}
 			
-			draw_set_color(c_black);
+			draw_set_color(COL_BLACK);
 		}
 	}
 #endregion
@@ -171,7 +171,7 @@ draw_set_alpha(1.0);
 	draw_sprite(spr_sparHPMP, 0, 135, 8);
 	
 	// draw playerBars surface
-	draw_surface_ext(playerBarSurface, playerBarSurfaceX, playerBarSurfaceY, -1, 1, 0, c_white, uiAlpha);
+	draw_surface_ext(playerBarSurface, playerBarSurfaceX, playerBarSurfaceY, -1, 1, 0, COL_WHITE, uiAlpha);
 	
 	// draw enemyBars surface
 	draw_surface(enemyBarSurface, enemyBarSurfaceX, enemyBarSurfaceY);
@@ -200,11 +200,11 @@ draw_set_alpha(1.0);
 	if (sparPhase == sparPhases.select)
 	&& (selectionPhase != selectionPhases.action) {
 		if (global.hoverSprite != -1) {
-			if (global.shift) {
-				draw_set_font(sparFont);
+			if (global.shiftPressed) {
+				draw_set_font(plainFont);
 				draw_set_halign(fa_center);
 				draw_set_valign(fa_bottom);
-				draw_set_color(c_white);
+				draw_set_color(COL_WHITE);
 				
 				var hs = global.hoverSprite;
 				
@@ -217,7 +217,7 @@ draw_set_alpha(1.0);
 				// draw name
 				spar_draw_text(hoverMenu_nameplateX, hoverMenu_nameplateY, hs.name);
 				
-				draw_set_color(c_black);
+				draw_set_color(COL_BLACK);
 				
 				draw_set_halign(fa_left);
 				
@@ -240,7 +240,7 @@ draw_set_alpha(1.0);
 					spar_draw_text(hoverMenu_columnOneX,		hoverMenu_rowTwoY,		string(hs.currentPower));
 					
 					// reset color to black
-					draw_set_color(c_black);
+					draw_set_color(COL_BLACK);
 				
 				#endregion
 				
@@ -257,7 +257,7 @@ draw_set_alpha(1.0);
 					spar_draw_text(hoverMenu_columnOneX,		hoverMenu_rowFourY,		string(hs.currentResist));
 					
 					// reset color to black
-					draw_set_color(c_black);
+					draw_set_color(COL_BLACK);
 				
 				#endregion
 				
@@ -274,7 +274,7 @@ draw_set_alpha(1.0);
 					spar_draw_text(hoverMenu_columnTwoX,		hoverMenu_rowTwoY,		string(hs.currentAgility));
 					
 					// reset color to black
-					draw_set_color(c_black);
+					draw_set_color(COL_BLACK);
 
 				#endregion
 				
@@ -291,7 +291,7 @@ draw_set_alpha(1.0);
 					spar_draw_text(hoverMenu_columnTwoX,		hoverMenu_rowFourY,		string(hs.currentLuck));
 					
 					// reset color to black
-					draw_set_color(c_black);
+					draw_set_color(COL_BLACK);
 				
 				#endregion
 				
@@ -308,7 +308,7 @@ draw_set_alpha(1.0);
 					spar_draw_text(hoverMenu_columnThreeX,		hoverMenu_rowTwoY,		string(hs.currentFire));
 					
 					// reset color to black
-					draw_set_color(c_black);
+					draw_set_color(COL_BLACK);
 				
 				#endregion
 				
@@ -325,7 +325,7 @@ draw_set_alpha(1.0);
 					spar_draw_text(hoverMenu_columnThreeX,		hoverMenu_rowFourY,		string(hs.currentWater));
 					
 					// reset color to black
-					draw_set_color(c_black);
+					draw_set_color(COL_BLACK);
 				
 				#endregion
 				
@@ -342,7 +342,7 @@ draw_set_alpha(1.0);
 					spar_draw_text(hoverMenu_columnFourX,		hoverMenu_rowTwoY,		string(hs.currentStorm));
 					
 					// reset the color to black
-					draw_set_color(c_black);
+					draw_set_color(COL_BLACK);
 				
 				#endregion
 				
@@ -359,7 +359,7 @@ draw_set_alpha(1.0);
 					spar_draw_text(hoverMenu_columnFourX,		hoverMenu_rowFourY,		string(hs.currentEarth));
 					
 					// reset color to black
-					draw_set_color(c_black);
+					draw_set_color(COL_BLACK);
 				
 				#endregion
 			}
@@ -367,7 +367,7 @@ draw_set_alpha(1.0);
 	}
 	
 	// check that shift is not being pressed
-	if !(global.shift) {
+	if !(global.shiftPressed) {
 		with (sparReadyButton) {
 			draw_sprite(spr_sparReadyButton,	frame,	x1,	y);
 			draw_sprite(spr_sparReadyButton,	frame,	x2,	y);

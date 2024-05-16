@@ -84,27 +84,39 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 	}
 	else /*		IF CURRENT ACTION IS A SPELL		*/ {	
 		
-		// calculate physical damage if it's a physical spell
-		if (spellType == SPELL_TYPES.PHYSICAL) {
-			// calculate damage
-			damage = get_physical_damage(activeSprite, targetSprite, spellPower);
+		// check if there is enough MP to cast the spell
+		if (activeSprite.team.currentMP - spellCost >= 0) {
+		
+			// subtract spellCost from player's MP
+			activeSprite.team.currentMP -= spellCost;
+		
+			// calculate physical damage if it's a physical spell
+			if (spellType == SPELL_TYPES.PHYSICAL) {
+				// calculate damage
+				damage = get_physical_damage(activeSprite, targetSprite, spellPower);
+			}
+			// set damage to 0 if it's a trick spell
+			else if (spellType == SPELL_TYPES.TRICK) {
+				damage = 0;	
+			}
+			// calculate elemental damage if it's an elemental spell
+			else {
+				// calculate damage
+				damage = get_elemental_damage(targetSprite, activeSprite, spellType, spellPower);
+			}
+			
+			// check for dodge
+			if (targetSprite.dodging) {
+				dodgeSuccess = get_dodge_success();
+			}
+			
+			state = ACTION_PROCESSOR_STATES.WAIT_FOR_FX;
 		}
-		// set damage to 0 if it's a trick spell
-		else if (spellType == SPELL_TYPES.TRICK) {
-			damage = 0;	
-		}
-		// calculate elemental damage if it's an elemental spell
 		else {
-			// calculate damage
-			damage = get_elemental_damage(targetSprite, activeSprite, spellType, spellPower);
+			spar.turnMsg = activeSprite.name + " didn't have the energy to make a move...";
+			
+			instance_destroy(id);
 		}
-		
-		// check for dodge
-		if (targetSprite.dodging) {
-			dodgeSuccess = get_dodge_success();
-		}
-		
-		state = ACTION_PROCESSOR_STATES.WAIT_FOR_FX;
 	}
 }
 

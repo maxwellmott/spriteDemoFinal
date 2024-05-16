@@ -9,8 +9,8 @@
   "name":"enemyAI",
   "overriddenProperties":[],
   "parent":{
-    "name":"enemy players",
-    "path":"folders/Objects/spars/enemy players.yy",
+    "name":"spars",
+    "path":"folders/Objects/spars.yy",
   },
   "parentObjectId":null,
   "persistent":false,

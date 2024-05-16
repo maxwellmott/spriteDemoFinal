@@ -5,7 +5,6 @@ global.arena			= -1;
 global.targetRange		= -1;
 global.action			= -1;
 global.selectedSpell	= -1;
-global.potentialMPCost	= -1;
 
 enum ranges {
 	onlySelf,
@@ -71,6 +70,12 @@ function spar_set_action() {
 		break;
 		
 		case sparActions.rest:
+			var r = (REST_BASE_MP_REGEN * 72.5);
+			var c = player.currentMP;
+			
+			if (r + c > MAX_MP)	r = MAX_MP - c;
+		
+			spar.totalSelectionCost -= r;
 			sprite.readyDisplayBuilt = false;
 			sprite.selectedTarget = -1;
 			sprite.selectedAction = action;
@@ -137,6 +142,13 @@ function enemyAI_set_team() {
 ///
 /// This function is where the ally sprites get their luck for the turn.
 function player_submit_turn() {	
+	
+	if (instance_exists(onlineEnemy)) {
+		var onlineGrid = ds_grid_create(4, 4);
+	}
+	
+	var onlineGrid = ds_grid_create(4, 4);
+	
 	var i = 0;	repeat (4) {
 		// get sprite
 		var inst = spar.allyList[| i];
@@ -146,19 +158,47 @@ function player_submit_turn() {
 
 		var roll = roll_for_luck(lt);
 		
-		// add info to grid
-		spar.turnGrid[# selectionPhases.ally,	inst.spotNum]	= inst.spotNum;
-		spar.turnGrid[# selectionPhases.action,	inst.spotNum]	= inst.selectedAction;
-		spar.turnGrid[# selectionPhases.target,	inst.spotNum]	= inst.selectedTarget;
-		spar.turnGrid[# selectionPhases.height,	inst.spotNum]	= roll;
+		// add info to spar.turnGrid
+		spar.turnGrid[# selectionPhases.ally,		inst.spotNum]	= inst.spotNum;
+		spar.turnGrid[# selectionPhases.action,		inst.spotNum]	= inst.selectedAction;
+		spar.turnGrid[# selectionPhases.target,		inst.spotNum]	= inst.selectedTarget;
+		spar.turnGrid[# selectionPhases.height,		inst.spotNum]	= roll;
+		
+		if (instance_exists(onlineEnemy)) {
+			// add info to onlineGrid
+			onlineGrid[# selectionPhases.ally,		inst.spotNum]	= inst.spotNum;
+			onlineGrid[# selectionPhases.action,	inst.spotNum]	= inst.selectedAction;
+			onlineGrid[# selectionPhases.target,	inst.spotNum]	= inst.selectedTarget;
+			onlineGrid[# selectionPhases.height,	inst.spotNum]	= roll;		
+		}
 		
 		// increment i
 		i++;
+	}
+	
+	// if player is online, send grid to server
+	if (instance_exists(onlineEnemy)) {
+		ds_map_add(spar.data, "type",		MESSAGE_TYPES.CLIENT_SUBMIT_TURN);
+		ds_map_add(spar.data, "clientID",	player.clientID);
+		ds_map_add(spar.data, "turn",		encode_grid(onlineGrid));
+		
+		var dataJson = json_encode(spar.data);
+		
+		ds_map_clear(spar.data);
+		
+		buffer_seek(spar.onlineBuffer, buffer_seek_start, 0);
+		
+		buffer_write(spar.onlineBuffer, buffer_text, dataJson);
+		
+		network_send_udp_raw(spar.client, SERVER_ADDRESS, 80, spar.onlineBuffer, buffer_tell(spar.onlineBuffer));
+		
+		spar.onlineWaiting = true;	
 	}
 }
 
 ///@desc This is my first attempt at a basic selection algorithm. Each of them
 /// should follow this general structure, I'll comment out the main beats of the process.
+/// this should go into the npc script and be added to the npc grid under a new parameter
 function mercurio_selection_logic() {
 	// use a repeat loop to check in with each sprite on the team.
 	var i = 0;	repeat (ds_list_size(spar.enemyList)) {
@@ -209,7 +249,9 @@ function local_enemy_submit_turn() {
 		// increment i
 		i++;
 	}
-}	
+	
+	ready = true;
+}
 
 function sprite_process_rest(_instanceID) {
 	var inst = _instanceID;
@@ -259,7 +301,7 @@ function spar_correct_hpmp() {
 	}
 	
 	if (enemyDisplayMP < playerTwo.currentMP)	enemyDisplayMP++;
-	if (enemyDisplayMP > playerTwo.currentMP)	enemyDisplayMP++;
+	if (enemyDisplayMP > playerTwo.currentMP)	enemyDisplayMP--;
 }
 
 ///@desc This function is called by an ally or enemy object to set that sprite's
@@ -488,6 +530,8 @@ function spar_set_target() {
 		selectedAction = global.action;
 		selectedTarget = player.selectedAlly.spotNum;
 		turnReady = true;
+		
+		
 	}
 }
 
@@ -646,10 +690,14 @@ function spar_draw_text(_x, _y, _text) {
 	var tt = _text;
 	
 	if ((string_width(tt) / 2) mod 2 != 0) {
-		xx -= 0.5;	
+		xx -= 1;	
 	}
 	
-	draw_text_transformed(xx, yy, tt, 0.5, 0.5, 0);
+	if ((string_height(tt) / 2) mod 2 != 0) {
+		yy -= 1;	
+	}
+	
+	draw_text(xx, yy, tt);
 }
 
 function action_check_spell(_action) {
@@ -731,26 +779,27 @@ function swap_set_potential_cost(_inst1, _inst2) {
 	var c = swap_get_cost(i1, i2);
 	
 	// if there's enough MP, set the cost
-	if (player.currentMP - c >= 0)	global.potentialMPCost = c;
-	else global.potentialMPCost = -1;
-	
-	// prepare the spar object to draw the flashingBar
-	spar.sprite_index = spr_sparFlashingSliver;
-	spar.image_speed = 1;
+	if (player.currentMP - (spar.totalSelectionCost + c) >= 0)	
+	{
+		spar.potentialCost = c;
+		return 1;	
+	}
+	else {
+		return 0;	
+	}
 }
 
 function spell_set_potential_cost(_spellCost) {
 	var c = _spellCost;
 	
 	// if there's enough MP, set the cost
-	if (player.currentMP - c >= 0)	{
-		global.potentialMPCost = c;
+	if (player.currentMP - (spar.totalSelectionCost + c) >= 0)	{
+		spar.potentialCost = c;
+		return 1;
 	}
-	else global.potentialMPCost = -1;
-	
-	// prepare the spar object to draw the flashingBar
-	spar.sprite_index = spr_sparFlashingSliver;
-	spar.image_speed = 1;
+	else {
+		return 0;	
+	}
 }
 	
 function correct_uiAlpha() {

@@ -1,3 +1,6 @@
+#macro COL_WHITE	$a9dbd2
+#macro COL_BLACK	$0f0f0d
+
 enum colors {
 	magenta,
 	mauve,

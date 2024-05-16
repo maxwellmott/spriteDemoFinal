@@ -155,7 +155,7 @@ function get_elemental_damage(_targ, _atkr, _lmnt, _spellPower) {
 			atkStatTarg		= targ.currentStorm;
 			atkStatAtkr		= atkr.currentStorm;
 			weakStatTarg	= targ.currentWater;
-			strongStatTarg	= targ.CurrentEarth;
+			strongStatTarg	= targ.currentEarth;
 		break;
 		
 		case elements.earth:

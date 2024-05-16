@@ -197,10 +197,10 @@ function draw_neat_text(_x, _y, _string, _halign, _valign, _color, _width, _scal
 	var str = format_text(_string, _width);
 	draw_set_font(fnt_basic);
 	
-	if (_color != c_white) {
-		draw_set(_halign, _valign, _alpha, c_white);
+	if (_color != COL_WHITE) {
+		draw_set(_halign, _valign, _alpha, COL_WHITE);
 	}	else {
-		draw_set(_halign, _valign, _alpha, c_black);
+		draw_set(_halign, _valign, _alpha, COL_BLACK);
 	}
 	
 	draw_text_transformed(_x, _y, str, _scale, _scale, _angle);
@@ -259,7 +259,6 @@ function game_timer() {
 
 function new_game() {
 	create_once(0,	0, LAYER.sprites, player);
-	player.location = locations.miriabramExt;
 	
 	room_transition(256, 160, directions.south, rm_overworld);
 }

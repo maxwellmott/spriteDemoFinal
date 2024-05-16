@@ -25,14 +25,14 @@ switch (state) {
 					create_once(0, 0, LAYER.ui, mouse);
 					state = transitionStates.fadingOut;
 				break;
-			
+			/*
 				case rm_mainMenu:
 					global.overworld = false;
 					create_once(0, 0, LAYER.meta, mainMenu);
 					create_once(0, 0, LAYER.ui, mouse);
 					state = transitionStates.fadingOut;
 				break;
-				
+				*/
 				case rm_battleScene:
 					global.overworld = false;
 					create_once(0, 0, LAYER.meta, spar);

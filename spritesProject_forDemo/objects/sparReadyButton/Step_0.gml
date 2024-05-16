@@ -6,6 +6,9 @@ if (collision_rectangle(bboxLeft, bboxTop, bboxRight, bboxBottom, mouse, false, 
 	
 	// button pressing logic
 	if (global.click) {
+		spar.potentialCost = 0;
+		spar.totalSelectionCost = 0;
+		
 		player_submit_turn();
 		player.ready = true;
 	}
