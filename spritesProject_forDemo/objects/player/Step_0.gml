@@ -31,10 +31,6 @@ if (global.overworld) {
 	if !(swimming)	human_walk();
 	human_pointer_set();			
 	human_set_depth();
-
-	if (global.start) {
-		if !(instance_exists(soulStone)) {open_soulStone();}
-	}
 	
 	if (global.select) interact();
 }

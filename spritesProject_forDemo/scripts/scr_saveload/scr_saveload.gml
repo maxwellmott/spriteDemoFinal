@@ -1,3 +1,17 @@
+///@desc This function is called when the player is beginning a new game. Right now it's
+/// in a very mutative state, because I keep needing this to put you in different rooms
+/// depending on what I'm testing as a way of getting to the problem first while maintaining
+/// the game-start flow. In the playtest build, this function is called playtest_begin() and
+/// works mostly the same
+function start_new_game() {
+	create_once(0,	0, LAYER.sprites, player);
+	player.location = locations.miriabramExt;
+	
+	room_transition(256, 160, directions.south, rm_overworld);
+}
+
+///@desc This function stores a given string of data in a buffer and then saves that buffer
+/// to the given file
 function save_string_to_file(_filename, _string) {	
 	// creates a buffer the size of the string
 	var _buffer = buffer_create(string_byte_length(_string) + 1, buffer_fixed, 1);
@@ -12,6 +26,8 @@ function save_string_to_file(_filename, _string) {
 	buffer_delete(_buffer);
 }
 
+///@desc This function loads a JSON-encoded ds_map from the given file and
+/// returns that data in string form
 function load_JSON_from_file(_filename) {
 	// load the JSON file
 	var _buffer = buffer_load(_filename);
@@ -29,6 +45,9 @@ function load_JSON_from_file(_filename) {
 	return _json;
 }
 
+///@desc This function is called when the player wants to save their progress. The
+/// function replaces the sprites save file with a new file containing a map of all
+/// the values that need to be saved as well as their respective names.
 function save_game() {
 	//Create a root list
 	var _root_list = ds_list_create();
@@ -45,20 +64,21 @@ function save_game() {
 	
 		// add all of the player's parameters to the ds_map
 		ds_map_add(_map, "name",				name);
+		ds_map_add(_map, "location",			string(location));
 		ds_map_add(_map, "x",					x)	
 		ds_map_add(_map, "y",					y);
+		ds_map_add(_map, "unlockedDoors",		unlockedDoors);
 		ds_map_add(_map, "appearance",			appearance);
-		ds_map_add(_map, "team",				team);
-		ds_map_add(_map, "talismans",			talismans);
-		ds_map_add(_map, "inventory",			inventory);
-		ds_map_add(_map, "wardrobe",			wardrobe);
-		ds_map_add(_map, "SPELLS",				SPELLS);
-		ds_map_add(_map, "potions",				potions);
-		ds_map_add(_map, "contacts",			contacts);
-		ds_map_add(_map, "roninScore",			roninScore);
-		ds_map_add(_map, "roninMatchCount",		roninMatchCount);
-		ds_map_add(_map, "onlineRating",		onlineRating);
-		ds_map_add(_map, "onlineMatchCount",	onlineMatchCount);
+		ds_map_add(_map, "team",				teamString);
+		ds_map_add(_map, "talismans",			talismanString);
+		ds_map_add(_map, "wardrobe",			wardrobeString);
+		ds_map_add(_map, "spells",				knownSpellString);
+		ds_map_add(_map, "spellBook",			spellBookString);
+		ds_map_add(_map, "contacts",			contactString);
+		ds_map_add(_map, "roninScore",			string(roninScore));
+		ds_map_add(_map, "roninMatchCount",		string(roninMatchCount));
+		ds_map_add(_map, "onlineRating",		string(onlineRating));
+		ds_map_add(_map, "onlineMatchCount",	string(onlineMatchCount));
 	}
 	
 	// Wrap all of that in one ds_map
@@ -73,6 +93,9 @@ function save_game() {
 	ds_map_destroy(_wrapper);
 }
 
+///@desc This function is called when the player wants to continue from a saved file.
+/// The function loads the map stored in the sprites save file and uses it to build the
+/// game.
 function load_game() {
 	
 	instance_destroy(player);
@@ -87,21 +110,21 @@ function load_game() {
 			create_once(x, y, LAYER.sprites, player);
 			with (player) {
 				name				= _map[? "name"];
-				x					= _map[? "x"];
-				y					= _map[? "y"];
+				location			= real(_map[? "location"]);
+				x					= real(_map[? "x"]);
+				y					= real(_map[? "y"]);
+				unlockedDoors		= _map[? "unlockedDoors"];
 				appearance			= _map[? "appearance"];
-				team				= _map[? "team"];
-				talismans			= _map[? "talismans"];
-				inventory			= _map[? "inventory"];
-				wardrobe			= _map[? "wardrobe"];
-				knownSpells			= _map[? "knownSpells"];
-				spellBook			= _map[? "spellBook"];
-				potions				= _map[? "potions"];
-				contacts			= _map[? "contacts"];
-				roninScore			= _map[? "roninScore"];
-				roninMatchCount		= _map[? "roninMatchCount"];
-				onlineRating		= _map[? "onlineRating"];
-				onlineMatchCount	= _map[? "onlineMatchCount"];
+				teamString			= _map[? "team"];
+				talismanString		= _map[? "talismans"];
+				wardrobeString		= _map[? "wardrobe"];
+				knownSpellString	= _map[? "spells"];
+				spellBookString		= _map[? "spellBook"];
+				contactString		= _map[? "contacts"];
+				roninScore			= real(_map[? "roninScore"]);
+				roninMatchCount		= real(_map[? "roninMatchCount"]);
+				onlineRating		= real(_map[? "onlineRating"]);
+				onlineMatchCount	= real(_map[? "onlineMatchCount"]);
 			}
 		}
 	}

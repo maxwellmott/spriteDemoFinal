@@ -1,7 +1,7 @@
 {
   "$GMNotes":"",
-  "%Name":"ART WAITING LIST",
-  "name":"ART WAITING LIST",
+  "%Name":"NPC SCHEDULING",
+  "name":"NPC SCHEDULING",
   "parent":{
     "name":"Notes",
     "path":"folders/Notes.yy",

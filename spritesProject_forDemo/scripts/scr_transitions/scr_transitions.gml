@@ -1,8 +1,12 @@
+// these functions are used to store all important info during a transition
 global.newX			= -1;
 global.newY			= -1;
 global.newRoom		= -1;
 global.roomBuilt	= false;
 
+///@desc This function is called whenever the game needs to transition to a totally
+/// different room. The function stores all the given arguments in the global vars
+/// initialized at the top of this page, then creates the transitionManager
 function room_transition(_newX, _newY, _newFacing, _newRoom) {
 	if (instance_exists(transitionManager)) instance_destroy(transitionManager);
 
@@ -14,6 +18,9 @@ function room_transition(_newX, _newY, _newFacing, _newRoom) {
 	instance_create_depth(x, y, get_layer_depth(LAYER.meta), transitionManager);
 }
 
+///@desc This function is called whenever the game needs to transition to a different
+/// overworld location. The function stores all the given arguments in the global
+/// vars initialized at the top of this page, then creates the transitionManager
 function overworld_transition(_newX, _newY, _newFacing, _newLocation) {
 	global.newX			= _newX;
 	global.newY			= _newY;
@@ -23,6 +30,9 @@ function overworld_transition(_newX, _newY, _newFacing, _newLocation) {
 	create_once(0, 0, LAYER.meta, transitionManager);
 }
 
+///@desc This function is called whenever the game has finished transitioning and the
+/// player's parameters need to be updated using the global vars initialized at the top
+/// of this page
 function player_change_room() {
 	player.facing	= global.newFacing;
 	player.x		= global.newX;
@@ -30,20 +40,4 @@ function player_change_room() {
 	global.newFacing = -1;
 	global.newX = -1;
 	global.newY = -1;
-}
-
-function ssMenu_transition(_newMenu) {
-	soulStone.newMenu = _newMenu;
-}
-
-function open_soulStone() {
-	create_once(camera.x, camera.y, LAYER.ui, soulStone);
-	create_once(camera.x, camera.y, LAYER.uiFront, mouse);
-	global.overworld = false;
-}
-
-// this must be used from within the soulStone object
-function close_soulStone() {
-	instance_destroy(currentMenu);
-	instance_destroy(soulStone);
 }

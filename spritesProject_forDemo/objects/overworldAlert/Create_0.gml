@@ -22,7 +22,7 @@ textY	= y + 4;
 
 if (ynPrompt) {
 	global.ynFunction = func;
-	instance_create_layer(0, 0, get_layer_depth(LAYER.meta), yesNoPrompt);
+	create_once(0, 0, LAYER.meta, yesNoPrompt);
 }
 
 textFormatted = false;

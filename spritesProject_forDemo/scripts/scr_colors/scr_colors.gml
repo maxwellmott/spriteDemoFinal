@@ -1,6 +1,8 @@
+// these two macros are used to get the "black" and "white" for the UI
 #macro COL_WHITE	$a9dbd2
 #macro COL_BLACK	$0f0f0d
 
+// this is an enumerator of IDs used to map color values
 enum colors {
 	magenta,
 	mauve,
@@ -46,7 +48,7 @@ var textGrid = load_csv("colors_english.csv");
 // create color list
 var masterList = ds_list_create();
 
-// create all colors
+// create all colors							$BBGGRR
 ds_list_insert(masterList,	colors.magenta,		$ff00ff);
 ds_list_insert(masterList,	colors.mauve,		$ffa0c8);
 ds_list_insert(masterList,	colors.maroon,		$000080);

@@ -10,9 +10,6 @@ create_once(0, 0, LAYER.meta, camera);
 // keeps a timer called global.gameTime
 game_timer();
 
-// sets a variable called global.frame using global.gameTime and the constant, FRAMERATE
-set_frame();
-
 // handle controller presence on PC/Mac/Ubuntu
 
 // room state machine

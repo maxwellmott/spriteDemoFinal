@@ -1,11 +1,25 @@
-///@desc
-global.substring = "";
-
+///@desc This function takes a ds_list and loops through it,
+/// converting it into a string with some parse character separating
+/// each item from the list
 function encode_list(_list) {
+	// store the list in a local variable
+	var list = _list;
+	
 	// it checks the list for commas to determine if it is a structList
-	var i = 0; var commaCount = 0;
+	var i = 0; var hasStructs = false;
 	repeat (ds_list_size(_list)) {
-		commaCount += string_scan(string(_list[|i]), ",");
+		// get the current list item
+		var token = list[| i];
+		
+		// check for commas
+		var cc = string_count(",", string(token));
+		
+		// if there were commas, change hasStructs to true and break the loop
+		if (cc > 0) {
+			hasStructs = true;
+			break;
+		}
+		
 		i++;
 	}
 	
@@ -20,9 +34,9 @@ function encode_list(_list) {
 	var i = 0;
 	
 	// it repeats the copying process for every item in the list
-	repeat (ds_list_size(_list)) {
+	repeat (ds_list_size(list)) {
 		// it copies the list item to the return string
-		substring += string(_list[|i]);
+		substring += string(list[|i]);
 		
 		// then it adds the parse character
 		substring += parseChar;
@@ -35,6 +49,9 @@ function encode_list(_list) {
 	return substring;
 }
 
+///@desc This function takes a ds_grid and loops through it,
+/// converting it into a string with two parse characters to
+/// indicate the end of each entry or each row of entries
 function encode_grid(_grid) {	 
 	// set the parseChar depending on whether there were commas present
 	
@@ -66,8 +83,11 @@ function encode_grid(_grid) {
 	return substring;
 }
 
+///@desc This function takes a ds_map and checks each key:value pair,
+/// adding them each to a string in such a way that each pair and item are
+/// separated by two respective parse characters
 function encode_map(_map) {
-	global.substring = "";
+	substring = "";
 	
 	var m = _map;
 	
@@ -83,10 +103,10 @@ function encode_map(_map) {
 	var firstToken	= ds_map_find_value(m, firstKey);
 	
 	// add key, tokenKeyChar, token, and newItemChar to substring
-	global.substring = string_insert(firstKey,		global.substring, string_length(global.substring) + 1);
-	global.substring = string_insert(tokenKeyChar,	global.substring, string_length(global.substring) + 1);
-	global.substring = string_insert(firstToken,	global.substring, string_length(global.substring) + 1);
-	global.substring = string_insert(newItemChar,	global.substring, string_length(global.substring) + 1);
+	substring = string_insert(firstKey,		substring, string_length(substring) + 1);
+	substring = string_insert(tokenKeyChar,	substring, string_length(substring) + 1);
+	substring = string_insert(firstToken,	substring, string_length(substring) + 1);
+	substring = string_insert(newItemChar,	substring, string_length(substring) + 1);
 	
 	// set first key as the first key to use to find the next
 	var key = firstKey;
@@ -98,22 +118,26 @@ function encode_map(_map) {
 		var token	= ds_map_find_value(m, key);
 		
 		// add key, tokenKeyChar, token, and newItemChar to substring
-		global.substring += key;
-		global.substring += tokenKeyChar;
-		global.substring += token;
-		global.substring += newItemChar;
+		substring += key;
+		substring += tokenKeyChar;
+		substring += token;
+		substring += newItemChar;
 	}
 	
 	// return substring
 	return global.substring;
 }
 
+///@desc This function takes an encoded list and turns it back into a ds_list
+/// so that it's easier to access quickly
 function decode_list(_list, _target) {
 	// ensure that the list is a string
 	var list = string(_list);
 	
 	// check for structs
-	var hasStructs = string_scan(list, ";");
+	var hasStructs = false;
+	
+	if (string_count(",", list) > 0)	hasStructs = true;
 
 	// set parse character
 	if (hasStructs) {var parseChar = ";";}
@@ -144,6 +168,8 @@ function decode_list(_list, _target) {
 	}
 }
 
+///@desc This function takes an encoded grid and turns it back into a ds_grid
+/// so that it's easier to access quickly
 function decode_grid(_grid, _target) {
 	
 	var newRowChar		= "@";
@@ -191,6 +217,8 @@ function decode_grid(_grid, _target) {
 	}
 }
 
+///@desc This function takes an encoded map and turns it back into a ds_map
+/// so that it's easier to access quickly
 function decode_map(_map, _target) {
 	var m = _map;	var t = _target;
 	
@@ -224,6 +252,8 @@ function decode_map(_map, _target) {
 	}
 }
 
+///@desc This function takes a ds_grid that is two columns wide and pairs
+/// the items from each row together in a ds_map
 function convert_grid_to_map(_grid, _target) {
 	var g = _grid;	var t = _target;
 	
@@ -241,22 +271,51 @@ function convert_grid_to_map(_grid, _target) {
 	ds_grid_destroy(g);
 }
 
-function draw_structs(_list) {
-	// use a repeat to do the draw method for each struct
-	var i = 0;
-	repeat(ds_list_size(_list)) {
-		var struct = _list[|i];						// get struct from list
-		struct.method_draw();						// execute draw method
-		i++;										// increment i
+///@desc This function resets a ds_list by deleting each item on the list. (NOTE:
+/// I'm not sure why this function even exists, but I'm currently using it to reset
+/// the NPC list, so until I rework that somehow or at least check in on it, this stays)
+function ds_list_reset(_list) {
+	var l = _list;
+	
+	var i = 0; repeat (ds_list_size(l)) {
+		ds_list_delete(l, i);
+		
+		i++;
 	}
 }
 
-function struct_step(_list) {
-	// use a repeat to do the draw method for each struct
-	var i = 0;
-	repeat (ds_list_size(_list)) {
-		var struct = _list[| i];					// get struct from list
-		struct.method_step();						// execute step method
-		i++;										// increment i
+///@desc This function can be used to add a value to the bottom of a list
+function ds_list_push(_list, _val) {
+	_size = ds_list_size(_list);
+	_list[| _size] = _val;
+}
+
+///@desc This function takes the ids of three lists. It adds everything on the two lists to
+/// the third list which is marked targetList.
+function ds_list_append(_list1, _list2, _targetList) {
+	var l1 = _list1;
+	var l2 = _list2;
+	var tl = _targetList;
+	
+	var i = 0;	repeat (ds_list_size(l1)) {
+		// get next token
+		var token = l1[| i];
+		
+		// add the token to the target list
+		ds_list_add(tl, token);
+		
+		// incrment i
+		i++;
+	}
+	
+	var i = 0;	repeat (ds_list_size(l2)) {
+		// get next token
+		var token = l2[| i];
+		
+		// add the token to the target list
+		ds_list_add(tl, token);
+		
+		// increment i
+		i++;
 	}
 }

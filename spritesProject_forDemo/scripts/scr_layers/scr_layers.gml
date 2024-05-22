@@ -15,6 +15,8 @@ enum LAYER {
 	height
 }
 
+///@desc This function is NOT the built-in function. This is the correct function to call.
+/// it will return the number value corresponding to the layer ID you entered as an argument
 function get_layer_depth(_layer){
 	switch(_layer) {
 		case LAYER.mouse:
@@ -59,14 +61,16 @@ function get_layer_depth(_layer){
 	}
 }
 
-function create_layer(_layer) {
-	layer_create(get_layer_depth(_layer), string(_layer));
-}
-
+///@desc This function can be used to move an existing layer to a different depth value by giving
+/// the name of an existing layer and the LAYER id corresponding to the desired depth.
 function move_layer(name, _layer) {
 	layer_depth(layer_get_id(name), get_layer_depth(_layer));
 }
 
+///@desc This function is currently only being used to set the depth of doors when
+/// they are not meant to be displayed in front of the frontmost wall while indoors.
+/// It just does the math that I'm doing when I create all the other scenery. Maybe
+/// you should redo the door object and clean all that up and then rework this somehow)
 function object_set_depth() {
 	depth = get_layer_depth(LAYER.collidableTiles) - y;
 }

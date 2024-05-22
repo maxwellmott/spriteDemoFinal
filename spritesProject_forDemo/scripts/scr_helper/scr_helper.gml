@@ -1,5 +1,16 @@
-#macro	screenHeight		224
-#macro	screenWidth			256
+// this global variable stores a number representing the current frame. The count resets at 16000
+global.gameTime = 0;
+	
+///@desc This function is keeping track of the global.gameTime variable
+function game_timer() {
+	// increment global.gameTime
+	global.gameTime++;
+	
+	// if global.gameTime passes the hard-limit (16000), reset the count
+	if (global.gameTime >= 16000) {
+		global.gameTime -= 16000;
+	}
+}
 
 ///@desc This function takes the ID of a function with no return and performs it
 function execute(_fn) {
@@ -42,36 +53,6 @@ function execute_arguments(_fn) {
 	ds_list_clear(global.argumentList);
 }
 
-///@desc This function takes the ids of three lists. It adds everything on the two lists to
-/// the third list which is marked targetList.
-function ds_list_append(_list1, _list2, _targetList) {
-	var l1 = _list1;
-	var l2 = _list2;
-	var tl = _targetList;
-	
-	var i = 0;	repeat (ds_list_size(l1)) {
-		// get next token
-		var token = l1[| i];
-		
-		// add the token to the target list
-		ds_list_add(tl, token);
-		
-		// incrment i
-		i++;
-	}
-	
-	var i = 0;	repeat (ds_list_size(l2)) {
-		// get next token
-		var token = l2[| i];
-		
-		// add the token to the target list
-		ds_list_add(tl, token);
-		
-		// increment i
-		i++;
-	}
-}
-
 ///@desc This is a helper function that sets values for drawing text
 function draw_set(_halign, _valign, _alpha, _color) {
 		draw_set_halign(_halign);
@@ -80,74 +61,7 @@ function draw_set(_halign, _valign, _alpha, _color) {
 		draw_set_color(_color);
 }
 
-function ds_list_push(_list, _val) {
-	_size = ds_list_size(_list);
-	_list[| _size] = _val;
-}
-
-function clear_turn_selection(_allyNum) {
-	ally = global.all_units[| _allyNum];
-	ally.turn_selected = false;
-	ally.selectedMove = noone;
-	ally.selectedTarget = noone;
-}
-
-function sort_by_highest(_list) {	
-	var listSize = ds_list_size(_list);
-	
-	for (var i = 0; i < listSize; i++) {
-		for (var j = 0; j < listSize - i; j++) {			
-			if (_list[| j] < _list[| j + 1]) {
-				var temp = _list[| j];
-				_list[| j] = _list[| j + 1];
-				_list[| j + 1] = temp;
-				
-			}
-		}
-	}
-}
-
-function agility_sort(_grid) {
-	var gridSize = ds_grid_height(_grid);
-	
-	for (var i = 0; i < gridSize - 1; i++) {
-		for (var j = 0; j < gridSize - i - 1; j++) {
-			var spriteNum1	=	ds_grid_get(_grid, 0, j);
-			var spriteNum2	=	ds_grid_get(_grid, 0, j + 1);
-			
-			if (spriteNum2 >= 0) {
-				var sprite1 = global.all_units[| spriteNum1];
-				var sprite2 = global.all_units[| spriteNum2];
-				
-				var agility1 = sprite1.agility;
-				var agility2 = sprite2.agility;
-				
-				if (agility1 < agility2) {
-					for (var k = 0; k < ds_grid_width(_grid); k++) {
-						var temp	= ds_grid_get(_grid, k, j);
-						var ttemp	= ds_grid_get(_grid, k, j + 1);
-						
-						ds_grid_set(_grid, k, j, ttemp);
-						ds_grid_set(_grid, k, j + 1, temp);
-					}
-				}
-				
-				if (agility1 == agility2) {
-					if (global.fasterPlayer == sprite2.team) and (global.fasterPlayer != sprite1.team) {
-						for (var k = 0; k < ds_grid_width(_grid); k++) {
-							var temp	= ds_grid_get(_grid, k, j);
-							var ttemp	= ds_grid_get(_grid, k, j + 1);
-							
-							ds_grid_set(_grid, k, j, ttemp);
-							ds_grid_set(_grid, k, j + 1, temp);
-						}
-					}
-				}
-			}
-		}
-	}
-}
-
+///@desc This function can be used to randomly reorder the items on a ds_list
 function randomize_list(_list){
 	randomize();
 	for(var i = 0; i < ds_list_size(_list); i++){
@@ -158,135 +72,16 @@ function randomize_list(_list){
 	}
 }
 
+///@desc This is a helper function that ensures to create only one of a new instance
 function create_once(_x, _y, _layer, _obj) {
 	if !(instance_exists(_obj)) {
 		instance_create_depth(_x, _y, get_layer_depth(_layer), _obj)
 	}
 }
 
+///@desc This is a helper function that destroys an instance after ensuring that it exists
 function destroy_if_possible(_obj) {
 	if (object_exists(_obj)) {
 		instance_destroy(_obj);
-	}
-}
-
-function correct_target_number(_var) {
-	if (_var > 7) {
-		_var -= 8;	
-	}
-	
-	return _var;
-}
-
-function calculate_spell_damage(_user, _target, _spellType, _weakType, _strongType, _power) {
-	
-	var userStat			= _user.elemental_stats[| _spellType];
-	var targetStat			= _target.elemental_stats[| _spellType];
-	var targetStrongStat	= _target.elemental_stats[| _strongType];
-	var targetWeakStat		= _target.elemental_stats[| _weakType];
-	
-	var ratio1	= userStat / targetStat;
-	var ratio2	= targetWeakStat / targetStrongStat;
-	
-	damage	= ratio1 * ratio2 * _power;
-	
-	return damage;
-}
-
-function draw_neat_text(_x, _y, _string, _halign, _valign, _color, _width, _scale, _alpha, _angle) {
-	var str = format_text(_string, _width);
-	draw_set_font(fnt_basic);
-	
-	if (_color != COL_WHITE) {
-		draw_set(_halign, _valign, _alpha, COL_WHITE);
-	}	else {
-		draw_set(_halign, _valign, _alpha, COL_BLACK);
-	}
-	
-	draw_text_transformed(_x, _y, str, _scale, _scale, _angle);
-	
-	draw_set(_halign, _valign, _alpha, _color);
-	draw_text_transformed(_x - _scale, _y - _scale, str, _scale, _scale, _angle);
-}
-
-// this function scans a given string for a given character. It returns 1 if the string contains the character, 0 if not.
-function string_scan(_string, _char) {
-	// initialize the boolean return variable as false
-	var present = false;
-	
-	// get stringSize
-	var stringSize = string_length(_string);
-	
-	// initialize i
-	var i = 0;
-	
-	// repeat the following code for every character in the string
-	repeat (stringSize) {
-		
-		// check if the character at index i in the given string matches the given character
-		if (string_char_at(_string, i) == _char) {present = true;}	// if so, set the return variable to true
-	
-		// increment i
-		i++;
-	}
-
-	return present;
-}
-
-global.frame =	0;
-global.gameTime = 0;
-#macro	FRAMERATE	16
-#macro	MAXFRAME	8
-
-function set_frame() {
-	
-	if (global.gameTime mod FRAMERATE == 0) {
-		global.frame++;
-	}
-	
-	if (global.frame > MAXFRAME) {
-		global.frame -= MAXFRAME;	
-	}
-}
-	
-function game_timer() {
-	global.gameTime++;
-	
-	if (global.gameTime >= 16000) {
-		global.gameTime -= 16000;
-	}
-}
-
-function new_game() {
-	create_once(0,	0, LAYER.sprites, player);
-	player.location = locations.miriabramExt;
-	
-	room_transition(256, 160, directions.south, rm_overworld);
-}
-
-function ds_list_reset(_list) {
-	var l = _list;
-	
-	var i = 0; repeat (ds_list_size(l)) {
-		ds_list_delete(l, i);
-		
-		i++;
-	}
-}
-	
-///@desc This function accepts an integer 1-8 and returns a string of that number's name.
-/// This is meant specifically for the rest, dodge, and swap processors (hence the casing of the text).
-function turn_message_get_number_text(_int) {
-	var int = _int;
-	
-	switch (int) {
-		case 1: return "One";
-		case 2: return "Two";
-		case 3: return "Three";
-		case 4: return "Four";
-		case 5: return "Five";
-		case 6: return "Six";
-		case 7: return "Seven";
-		case 8: return "Eight";
 	}
 }

@@ -1,9 +1,9 @@
 {
   "$GMObject":"",
-  "%Name":"transportMenu",
+  "%Name":"outfitMenu",
   "eventList":[],
   "managed":true,
-  "name":"transportMenu",
+  "name":"outfitMenu",
   "overriddenProperties":[],
   "parent":{
     "name":"ssMenu",

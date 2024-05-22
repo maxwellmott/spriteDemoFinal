@@ -166,3 +166,23 @@ BATTLE SCENE TODO:
 		Good luck. Thanks GMS -_-
 		
 		Got the GMS related bugs sorted out and everything is running fine again. Now to try and fix the issues with the playtest build!
+		
+		
+COMING BACK FROM PLAYTEST BUILD
+
+	Before I go into detail about the first steps coming back from the playtest build/doing serverside work, I'm going to go through each script and
+	do some serious organizing.
+	
+	As you go through each script, follow these steps to quickly organize:
+	
+		-Check each declaration on the page
+		-make sure that the function/variable is still necessary--if not, safely delete the declaration and all references to it
+		-make sure that the function/variable has an adequate description and that associated lines have in-line comments
+		-make sure that the function/variable is on the right page/in the right spot--this means both the regrouping/reordering of items on the page,
+			but also the moving of different items onto different scripts when necessary
+			
+		GENERAL SCRIPTS HAVE BEEN COMPLETED!
+			notes:	need to figure out what to do with keypads. If you want to keep it, then rework it and make
+					it cleaner. If you don't want to keep it, find a way to safely delete all of it.
+					
+		

@@ -4,13 +4,13 @@ cliffSpriteHeight	= sprite_get_height(spr_titleScreenCliffs);
 cliffSpriteWidth	= sprite_get_width(spr_titleScreenCliffs);
 
 cliffDrawX			= 0;
-cliffDrawY			= screenHeight;
+cliffDrawY			= guiHeight;
 
 waveSpriteHeight	= sprite_get_height(spr_titleScreenWaves);
 waveDrawX			= 0;
-waveDrawY			= screenHeight - cliffSpriteHeight - waveSpriteHeight;
+waveDrawY			= guiHeight - cliffSpriteHeight - waveSpriteHeight;
 
-waveDrawWidth		= screenWidth;
+waveDrawWidth		= guiWidth;
 waveDrawHeight		= waveSpriteHeight;
 
 var colorID		= colors.scarlet;
@@ -29,9 +29,9 @@ continueButton	= instance_create_depth(buttonX, firstButtonY,	get_layer_depth(LA
 newGameButton	= instance_create_depth(buttonX, secondButtonY,	get_layer_depth(LAYER.uiFront),	buttonParent);
 optionsButton	= instance_create_depth(buttonX, thirdButtonY,	get_layer_depth(LAYER.uiFront),	buttonParent);
 
-continueButton.func = new_game;	continueButton.sprite_index	= spr_titleScreenButton;
-newGameButton.func	= new_game;	newGameButton.sprite_index	= spr_titleScreenButton;
-optionsButton.func	= new_game;	optionsButton.sprite_index	= spr_titleScreenButton;
+continueButton.func = start_new_game;	continueButton.sprite_index	= spr_titleScreenButton;
+newGameButton.func	= start_new_game;	newGameButton.sprite_index	= spr_titleScreenButton;
+optionsButton.func	= start_new_game;	optionsButton.sprite_index	= spr_titleScreenButton;
 
 #endregion
 
