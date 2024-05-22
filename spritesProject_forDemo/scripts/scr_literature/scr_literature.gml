@@ -1,3 +1,4 @@
+// enumerator containing literature IDs
 enum literatureIDs {
 	inhumanEntities,
 	twmFirstEdition,
@@ -26,6 +27,7 @@ enum literatureIDs {
 	height
 }
 
+// enumerator containing literature params
 enum literatureParams {
 	ID,
 	title,
@@ -38,11 +40,13 @@ enum literatureParams {
 	height
 }
 
+// enumerator containing bookcase types
 enum bookcaseTypes {
 	standardWood1,
 	height
 }
 
+// enumerator containing bookcase params
 enum bookcaseParams {
 	ID,
 	type,
@@ -53,16 +57,25 @@ enum bookcaseParams {
 	height
 }
 
+// get all of the text from the csv file containing literature names
+// and contents
 var textGrid = load_csv("LITERATURE_ENGLISH.csv");
 
-var inhumanEntitiesImages = ds_list_create();
+#region CREATE ALL IMAGE LISTS
 
-ds_list_add(inhumanEntitiesImages, string(spr_inhumanEntities1)+",");
+// INHUMAN ENTITIES
+	// initialize list
+	var inhumanEntitiesImages = ds_list_create();
+	
+	// add all images
+	ds_list_add(inhumanEntitiesImages, string(spr_inhumanEntities1)+",");
+	
+#endregion
 
-var encodedImageList = encode_list(inhumanEntitiesImages);
-
+// initialize the literature grid
 global.literatureGrid = ds_grid_create(literatureParams.height, literatureIDs.height);
 
+// create master grid add function
 function master_grid_add_literature(_ID) {
 	var i = 0; repeat (literatureParams.height) {
 		global.literatureGrid[# i, _ID] = argument[i];
@@ -71,10 +84,14 @@ function master_grid_add_literature(_ID) {
 	}
 }
 
+// add all literature to literature grid
 master_grid_add_literature(literatureIDs.inhumanEntities, "Inhuman Entities", "Gregoria Von Verstolen", guiBook, colors.brown, textGrid[# 1, literatureIDs.inhumanEntities], cursiveFont, encode_list(inhumanEntitiesImages));
 
+// encode listerature grid
 global.allLiterature = encode_grid(global.literatureGrid);
 
+///@desc This function gets all of the parameters for a piece of literature when
+/// it's being loaded into a new location
 function literature_get_params() {
 	var tempGrid = ds_grid_create(literatureParams.height, literatureIDs.height);
 	
@@ -98,6 +115,8 @@ function literature_get_params() {
 	ds_grid_destroy(tempGrid);
 }
 
+///@desc This function is called when the player opens a book. The function builds 
+/// all of the pages of text into a book format
 function book_build_text(_string) {
 	var text = _string;
 	
@@ -279,14 +298,21 @@ function book_build_text(_string) {
 	}
 }
 
+///@desc This function is called when the player opens a scroll. The function builds
+/// one long page of text that can be scrolled up and down
 function scroll_build_text() {
 	
 }
 
+///@desc This function is called when the player opens a document. The function builds
+/// all of the text into a document format
 function document_build_text() {
 	
 }
 
+///@desc This function is called when a new location is being loaded. The function builds
+/// all of the literature that is supposed to be in the room and places each piece in it's
+/// respective position
 function place_literature(_encodedList) {
 	// get local vars
 	var el = _encodedList;
@@ -329,6 +355,9 @@ function place_literature(_encodedList) {
 	}
 }
 
+///@desc This function is called when a player interacts with a piece of  literature. The function
+/// gets the instance of the piece of literature and creates the proper object depending on the 
+/// type of literature
 function read_literature() {
 	player.currentLiterature = instance_place(player.pointerX, player.pointerY, literature);
 	var inst = player.currentLiterature;

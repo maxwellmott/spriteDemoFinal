@@ -1,18 +1,14 @@
 enum appearanceParams {
-	outfit,
-	hairstyle,
-	hat,
-	shoes,
-	accessory,
-	height
-}
-
-enum appearanceColors {
 	skintone,
+	outfit,
 	outfitColor,
+	hairstyle,
 	hairColor,
+	hat,
 	hatColor,
+	shoes,
 	shoeColor,
+	accessory,
 	accessoryColor,
 	height
 }

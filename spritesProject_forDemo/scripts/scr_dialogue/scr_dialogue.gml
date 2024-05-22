@@ -1,3 +1,8 @@
+// these global variables store the information about who is talking
+// and what they're saying
+global.speaker		= noone;
+global.dialogue		= "";
+
 enum emotions {
 	joyful,
 	angry,
@@ -27,6 +32,9 @@ enum emotions {
 	&					= don't wait for player to click enter
 */
 
+///@desc This function is used to build the text pages from and properly
+/// handle all encoded symbols within a set of text being called for
+/// dialogue.
 function talk_bubble_build_dialogue() {
 	var currentPage = 0;
 	

@@ -1,8 +1,9 @@
 #macro TILEWIDTH		32
 #macro TILEHEIGHT		32
 
-// before this function is called, you must get the tileset and encoded grid for the current location. 
-// This must be done for each tile layer.
+///@desc This function is called when a new location is being built. After getting the
+/// proper tile layer, tileset, list of tiles, and number of rows/columns, then the function
+/// places all of the tiles in their respective position
 function place_all_tiles(_tileLayer, _tileset, _encodedList, _rowCount, _columnCount) {	
 	// get vars
 	var tileLayer	= _tileLayer;
@@ -56,6 +57,7 @@ function place_all_tiles(_tileLayer, _tileset, _encodedList, _rowCount, _columnC
 	return tilemap;
 }
 
+///@desc This function can be used to do a pixel perfect check for the given type of tile
 function tile_meeting(_x, _y, _tilemap, _checker) {
 	// get local vars
 	var _tm			= _tilemap;

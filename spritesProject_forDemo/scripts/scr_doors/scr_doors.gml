@@ -1,5 +1,9 @@
+// this macro indicates the top position of the invisible door 
+// sprite to make it easy to check if that's the type of door
+// you're dealing with
 #macro	invisiblePortalDoorSpriteTop	288
 
+// enumerator containing door IDs
 enum doors {
 	placidValleyToPit,
 	pitFoyerToPlacidValley,
@@ -10,24 +14,26 @@ enum doors {
 	height
 }
 
+// enumerator containing door params 
 enum doorParams {
 	ID,
 	location,
 	X,
 	Y,
-	hasKeypad,
 	locked,
 	newLocation,
 	newFacing,
 	newX,
 	newY,
-	keypadCode,
 	spriteTop,
 	upperFloor,
 	height
 }
 
-#region prepare allDoors encoded grid
+#region PREPARE DOOR GRID
+
+// these variables all contain the top position for each
+// respective type of door on the door sheet sprite
 var firmwoodSpriteTop	= 0;
 var beachStoneSpriteTop = 48;
 var greenGlassSpriteTop	= 96;
@@ -40,15 +46,15 @@ var portalSpriteTop		= invisiblePortalDoorSpriteTop;
 global.doorGrid = ds_grid_create(doorParams.height, doors.height);
 
 // define add door function
-function master_grid_add_door(_id, _location, _x, _y, _hasKeypad, _locked, _newLocation, _newFacing, _newX, _newY, _keypadCode, _spriteTop, _upperFloor) {
+function master_grid_add_door(_id, _location, _x, _y, _locked, _newLocation, _newFacing, _newX, _newY, _spriteTop, _upperFloor) {
 	var i = 0; repeat (doorParams.height) {
 		global.doorGrid[# i, _id] = argument[i];	
 		i++;
 	}
 }
 
-//						ID									LOCATION					X		Y		HASKP	LOCKED	NEWLOCATION					NEWFACING			NEW X	NEW Y	KEYPAD CODE	SPRITETOP				UPPER FLOOR
-//master_grid_add_door(	doors.placidValleyToPit,			locations.placidValley,		672,	80,		true,	true,	locations.pitFoyer,			directions.north,	118,	118,	12345,		beachStoneSpriteTop,	false);
+//						ID									LOCATION					X		Y	LOCKED	NEWLOCATION					NEWFACING			NEW X	NEW Y	SPRITETOP				UPPER FLOOR
+//master_grid_add_door(	doors.placidValleyToPit,			locations.placidValley,		672,	80,	true,	locations.pitFoyer,			directions.north,	118,	118,	beachStoneSpriteTop,	false);
 
 // encode master grid
 global.allDoors = encode_grid(global.doorGrid);
@@ -57,9 +63,11 @@ global.allDoors = encode_grid(global.doorGrid);
 ds_grid_destroy(global.doorGrid);
 #endregion
 
+#region DECLARE ALL DOOR FUNCTIONS
 
-#region all door related functions
-// this function takes the enum ID of a door and adds that to the player's encoded unlockedDoors list
+///@desc This function is called whenever the player unlocks a locked door
+/// for the first time. The function then adds the ID of the door in question
+/// to the unlockedDoors list, then converts it back into a string.
 function player_add_unlocked_door(_doorID) {
 	var list = ds_list_create();
 	
@@ -72,19 +80,17 @@ function player_add_unlocked_door(_doorID) {
 	ds_list_destroy(list);
 }
 
+///@desc This function is called whenever the player tries to interact with
+/// a door. The function gets the instance ID of the current door, then checks
+/// if it's locked or not. If it's unlocked, then the player transitions to the 
+/// room behind that door.
 function door_check() {
 	
 	player.currentDoor = instance_place(player.pointerX, player.pointerY, door);
 	var inst = player.currentDoor;
 	
-	if (inst.locked) {
-		if (inst.hasKeypad) {
-			ds_list_push(overworld.alertStack, overworldAlerts.keypadStart);
-		}
-		
-		if !(inst.hasKeypad) {
-			ds_list_push(overworld.alertStack, overworldAlerts.doorLocked);
-		}
+	if (inst.locked) {		
+		ds_list_push(overworld.alertStack, overworldAlerts.doorLocked);
 	}
 	
 	if !(inst.locked) {
@@ -93,8 +99,8 @@ function door_check() {
 	}
 }
 
-// this function takes the ID of a door from the doors enumerator and checks if it is
-// on the player's encoded list of unlocked doors
+///@desc This function takes the ID of a door from the doors enumerator and checks 
+/// if it is on the player's encoded list of unlocked doors
 function check_player_unlocked_door(_doorID) {
 	
 	var d		= _doorID;
@@ -110,14 +116,17 @@ function check_player_unlocked_door(_doorID) {
 	return returnBool;
 }
 
-// this door takes the instance id of a door in the overworld and unlocks it
+///@desc This door takes the instance id of a door in the overworld and unlocks it
+/// then adds it to the player's list of unlocked doors
 function door_unlock(_inst) {
 	_inst.locked = false;
-	ds_list_push(overworld.alertStack, overworldAlerts.doorUnlocked);
 	player_add_unlocked_door(_inst.ID);
+	ds_list_push(overworld.alertStack, overworldAlerts.doorUnlocked);
 }
 
-// this function takes the encoded grid containing all of the doors for the location
+///@desc This function is called when a new location is being loaded. The function
+/// gets all of the doors that are meant to be in the current location and places them
+/// all in their respective positions
 function place_doors() {
 	var grid = ds_grid_create(doorParams.height, doors.height);
 	
@@ -137,7 +146,6 @@ function place_doors() {
 			d.ID			= i;
 			d.x				= real(grid[# doorParams.X, i]);
 			d.y				= real(grid[# doorParams.Y, i]);
-			d.hasKeypad		= real(grid[# doorParams.hasKeypad, i]);
 			var l			= real(grid[# doorParams.locked, i]);
 			
 			// it might be better to check the locked door list in the door_check function
@@ -147,7 +155,6 @@ function place_doors() {
 			d.newFacing		= real(grid[# doorParams.newFacing, i]);
 			d.newX			= real(grid[# doorParams.newX, i]);
 			d.newY			= real(grid[# doorParams.newY, i]);
-			d.keypadCode	= grid[# doorParams.keypadCode, i];
 			d.spriteTop		= real(grid[# doorParams.spriteTop, i]);
 			
 			if (d.spriteTop == invisiblePortalDoorSpriteTop) {
@@ -163,4 +170,5 @@ function place_doors() {
 	
 	ds_grid_destroy(grid);
 }
+
 #endregion

@@ -117,7 +117,7 @@ function enemyAI_get_params() {
 	// use npcID to get params
 	talismanString	= grid[# npcParams.talismans,	ID];
 	name			= grid[# npcParams.name,		ID];
-	spellString		= grid[# npcParams.SPELLS,		ID];
+	spellString		= grid[# npcParams.spells,		ID];
 	
 	// decode talismanString and spellString
 	decode_list(talismanString, roster);

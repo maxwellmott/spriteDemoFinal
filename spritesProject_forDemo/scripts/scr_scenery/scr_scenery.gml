@@ -1,4 +1,4 @@
-
+// enumerator containing sceneryIDs
 enum sceneryIDs {
 	firmrootTree,
 	farseedTree,
@@ -16,6 +16,7 @@ enum sceneryIDs {
 	height
 }
 
+// enumerator containing sceneryParams
 enum sceneryParams {
 	ID,
 	type,
@@ -25,6 +26,7 @@ enum sceneryParams {
 	height
 }
 
+// enumerator containing sceneryTypes
 enum sceneryTypes {
 	cluster,
 	flower,
@@ -72,7 +74,11 @@ global.allScenery = encode_grid(global.sceneryGrid);
 // destroy sceneryGrid
 ds_grid_destroy(global.sceneryGrid);
 
-// all scenery functions
+#region ALL SCENERY FUNCTIONS
+
+///@desc This function is called when a new location is being loaded. The
+/// function gets all of the scenery that is meant to be in the current
+/// location and loads it into it's respective position
 function place_scenery(_encodedList) {
 	// get local vars
 	var el = _encodedList;
@@ -138,6 +144,8 @@ function place_scenery(_encodedList) {
 	sceneryCreated	= true;
 }
 
+///@desc This function uses a switch statement to return the object index
+/// of the given instance of scenery
 function scenery_get_object_index(_type) {
 	var t = _type;
 	
@@ -189,6 +197,7 @@ function scenery_get_object_index(_type) {
 		}
 }
 
+///@desc This function draws all of the scenery objects in the room
 function app_surface_draw_scenery() {
 	
 	surface_set_target(application_surface);
@@ -196,7 +205,10 @@ function app_surface_draw_scenery() {
 	surface_reset_target();
 }
 
+///@desc This function can be called to set the depth of a scenery object
 function scenery_get_depth(_depthY) {
 	var dy = _depthY;
 	return get_layer_depth(LAYER.collidableTiles) - dy;
 }
+
+#endregion

@@ -1,3 +1,4 @@
+// enumerator containing npc IDs
 enum npcs {
 	mercurioGallant,
 	indigoMyst,
@@ -24,6 +25,7 @@ enum npcs {
 	height
 }
 
+// enumerator containing npcParams
 enum npcParams {
 	ID,
 	name,
@@ -33,15 +35,18 @@ enum npcParams {
 	drinkingSprite,
 	wavephoneSprite,
 	talismans,
-	SPELLS,
+	spells,
 	responses,
 	locations,
 	respondFunction,
 	height
 }
 
-#region
+#region BUILD ALL RESPONSE GRIDS
 
+///@desc This function is called after each response grid
+/// is converted from the attached CSV file. It removes the placeholder
+/// value at the front of the grid
 function fix_response_grid(_grid) {
 	var g = _grid;
 	
@@ -65,7 +70,7 @@ convert_grid_to_map(mercurioResponseGrid, mercurioResponseMap);
 
 #endregion
 
-#region TALISMANS
+#region BUILD ALL TALISMAN LISTS
 
 var mercurioTalismans = ds_list_create();
 
@@ -77,7 +82,7 @@ ds_list_add(mercurioTalismans,
 			);
 #endregion
 
-#region SPELLS
+#region BUILD ALL KNOWN SPELLS LISTS
 
 var mercurioSpells = ds_list_create();
 
@@ -93,7 +98,7 @@ ds_list_add(mercurioSpells,
 			);
 #endregion
 
-#region LOCATION LISTS
+#region BUILD ALL LOCATION LISTS
 // create all location lists
 var mercurioLocations	= ds_list_create();
 
@@ -106,7 +111,7 @@ ds_list_add(mercurioLocations,	string(locations.miriabramExt) + ",",												
 								
 #endregion
 
-#region RESPONSE FUNCTIONS
+#region BUILD ALL RESPONSE FUNCTIONS
 
 /*
 	DAY ONE:
@@ -122,7 +127,8 @@ ds_list_add(mercurioLocations,	string(locations.miriabramExt) + ",",												
 			8 PM  -- FESTIVAL CLOSES
 */
 
-// create all response functions
+///@desc Mercurio's response function. Determines the proper dialogue
+/// response upon being interacted with.
 function mercurio_respond() {
 	var wd	= player.weekday;
 	var h	= player.hours;
@@ -183,6 +189,9 @@ global.allNPCs = encode_grid(global.npcGrid);
 // delete the grid
 ds_grid_destroy(global.npcGrid);
 
+///@desc This function is called when a new location is being built. The function
+/// takes the NPC who is being added to the location, and gets all their parameters
+/// from the NPC grid
 function npc_load_parameters(_id) {	
 	// get local vars
 	var ID = _id;
@@ -202,7 +211,7 @@ function npc_load_parameters(_id) {
 	responseFunction	= real(string_digits(grid[# npcParams.respondFunction,	ID]));
 	
 	//decode_list(grid[# npcParams.talismans,		ID],		talismans);
-	//decode_list(grid[# npcParams.SPELLS,			ID],		SPELLS);
+	//decode_list(grid[# npcParams.spells,			ID],		SPELLS);
 	decode_map(grid[# npcParams.responses,		ID],		responseMap);
 	
 	// get npcListIndex using npcID
@@ -210,7 +219,9 @@ function npc_load_parameters(_id) {
 	
 	parametersLoaded = true;
 }
-	
+
+///@desc This function is called when an NPC collides with one of the offscreen gates. 
+/// The function moves them to the next location in that direction if there is one.
 function gate_check_npc() {
 	// check north gate
 	if (bbox_top < 0) {

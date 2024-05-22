@@ -1,15 +1,14 @@
+// enumerator containing overworld alert IDs
 enum overworldAlerts {
 	swimStart,
 	swimStop,
 	doorLocked,
 	doorUnlocked,
-	keypadStart,
-	keypadFailure,
-	keypadSuccess,
 	noRoom,
 	height
 }
 
+// enumerator containing overworld alert params
 enum overworldAlertParams {
 	ID,
 	text,
@@ -18,10 +17,13 @@ enum overworldAlertParams {
 	height
 }
 
+// get all the text concerning overworldAlerts from the attached csv file
 var textGrid = load_csv("overworldAlerts_english.csv");
 
+// initialize overworldAlertsGrid
 global.overworldAlertsGrid = ds_grid_create(overworldAlertParams.height, overworldAlerts.height);
 
+// create the master grid add function
 function master_grid_add_overworld_alert(_id, _text, _ynPrompt, _function) {
 	var i = 0; repeat (overworldAlertParams.height) {
 		global.overworldAlertsGrid[# i, _id] = argument[i];
@@ -30,6 +32,7 @@ function master_grid_add_overworld_alert(_id, _text, _ynPrompt, _function) {
 	}
 }
 
+///@desc This function is called when an overworld alert of the type START SWIMMING is pushed
 function start_swimming() {
 	switch (player.facing) {
 		case directions.east:	var xx = player.x + 32;	var yy = player.y;	break;
@@ -47,6 +50,7 @@ function start_swimming() {
 	}
 }
 
+///@desc This function is called when an overworld alert of the type STOP SWIMMING is pushed
 function stop_swimming() {	
 	switch (player.facing) {
 		case directions.east:	var xx = player.x + 32;	var yy = player.y;	break;
@@ -64,20 +68,16 @@ function stop_swimming() {
 	}
 }
 
-function start_keypad() {
-	instance_create_depth(player.x, player.y, get_layer_depth(LAYER.uiFront), keypad);
-}
-
+// add all overworldAlerts to the master grid
 master_grid_add_overworld_alert(overworldAlerts.swimStart,		textGrid[# 1, overworldAlerts.swimStart],		true,	start_swimming);
 master_grid_add_overworld_alert(overworldAlerts.swimStop,		textGrid[# 1, overworldAlerts.swimStop],		true,	stop_swimming);
 master_grid_add_overworld_alert(overworldAlerts.doorLocked,		textGrid[# 1, overworldAlerts.doorLocked],		false,	noone);
 master_grid_add_overworld_alert(overworldAlerts.doorUnlocked,	textGrid[# 1, overworldAlerts.doorUnlocked],	false,	noone);
-master_grid_add_overworld_alert(overworldAlerts.keypadStart,	textGrid[# 1, overworldAlerts.keypadStart],		true,	start_keypad);
-master_grid_add_overworld_alert(overworldAlerts.keypadFailure,	textGrid[# 1, overworldAlerts.keypadFailure],	false,	noone);
-master_grid_add_overworld_alert(overworldAlerts.keypadSuccess,	textGrid[# 1, overworldAlerts.keypadSuccess],	false,	noone);
 master_grid_add_overworld_alert(overworldAlerts.noRoom,			textGrid[# 1, overworldAlerts.noRoom],			false,	noone);
 
+// encode master grid
 global.allOverworldAlerts = encode_grid(global.overworldAlertsGrid);
 
+// destroy temp grids
 ds_grid_destroy(global.overworldAlertsGrid);
 ds_grid_destroy(textGrid);

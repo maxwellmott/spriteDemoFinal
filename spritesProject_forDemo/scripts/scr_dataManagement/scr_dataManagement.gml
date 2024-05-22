@@ -24,7 +24,7 @@ function encode_list(_list) {
 	}
 	
 	// it then sets the parse character depending on whether it is a structList
-	if (commaCount > 0) {var parseChar = ";";}
+	if (hasStructs) {var parseChar = ";";}
 	else	{var parseChar = ",";}
 	
 	// it creates an empty string for the return variable
@@ -125,7 +125,7 @@ function encode_map(_map) {
 	}
 	
 	// return substring
-	return global.substring;
+	return substring;
 }
 
 ///@desc This function takes an encoded list and turns it back into a ds_list
@@ -137,7 +137,7 @@ function decode_list(_list, _target) {
 	// check for structs
 	var hasStructs = false;
 	
-	if (string_count(",", list) > 0)	hasStructs = true;
+	if (string_count(";", list) > 0)	hasStructs = true;
 
 	// set parse character
 	if (hasStructs) {var parseChar = ";";}

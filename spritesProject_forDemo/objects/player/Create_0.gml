@@ -1,5 +1,17 @@
 /// @desc
 
+skintone		= -1;
+outfit			= -1;
+outfitColor		= -1;
+hairstyle		= -1;
+hairColor		= -1;
+hat				= -1;
+hatColor		= -1;
+shoes			= -1;
+shoeColor		= -1;
+accessory		= -1;
+accessoryColor	= -1;
+
 ready = false;
 
 // inherit human create event
@@ -40,7 +52,11 @@ facing = -1;
 location = -1;
 
 // initialize appearance
-appearance = string(colors.skintone2) + "," + string(outfits.overalls) + "," + string(colors.indigo) + "," + string(hairstyles.shortStraight) + "," + string(colors.chartreuse) + "," + string(hats.cowboy) + "," + string(colors.noir) + "," + string(footwear.sandals) + "," + string(colors.cyan) + ",-1,-1,";
+//				skintone							outfit								outfitColor						hairstyle									hairColor							hat							hatColor					shoes								shoeColor				accessory
+appearance =	string(colors.skintone2) + "," +	string(outfits.overalls) + "," +	string(colors.indigo) + "," +	string(hairstyles.shortStraight) + "," +	string(colors.chartreuse) + "," +	string(hats.cowboy) + "," + string(colors.noir) + "," + string(footwear.sandals) + "," +	string(colors.cyan) + ",-1,-1,";
+
+// load player appearance
+player_load_appearance();
 
 // initialize teamString
 teamString = "";

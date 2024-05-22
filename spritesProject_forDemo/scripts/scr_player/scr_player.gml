@@ -12,6 +12,98 @@ enum interactions {
 	height
 }
 
+///@desc This function is called whenever the player is loaded or changes outfit.
+/// the function stores the value for each appearance parameter in the proper variable
+function player_load_appearance() {
+	var list = ds_list_create();
+	
+	decode_list(appearance, list);
+	
+	// ensure that none of the parameters are undefined,
+	// and convert them all to reals
+	var i = 0;	repeat (ds_list_size(list)) {
+		if (list[| i] != "-1")
+		&& (list[| i] != -1) {
+			list[| i] = real(list[| i]);
+		}
+		else {
+			list[| i] = -1;	
+		}
+		
+		i++;
+	}
+	
+	// get all parameters
+	skintone		= list[| appearanceParams.skintone];
+	outfit			= list[| appearanceParams.outfit];
+	outfitColor		= list[| appearanceParams.outfitColor];
+	hairstyle		= list[| appearanceParams.hairstyle];
+	hairColor		= list[| appearanceParams.hairColor];
+	hat				= list[| appearanceParams.hat];
+	hatColor		= list[| appearanceParams.hatColor];
+	shoes			= list[| appearanceParams.shoes];
+	shoeColor		= list[| appearanceParams.shoeColor];
+	accessory		= list[| appearanceParams.accessory];
+	accessoryColor	= list[| appearanceParams.accessoryColor];
+	
+	
+	
+	ds_list_destroy(list);
+}
+
+function draw_standard_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {
+	draw_sprite_part_ext(humanBody,		0, frame * humanSpriteWidth,	0,								humanSheetWidth, humanSheetHeight, x, y, 1, 1, _skintone,		1.0);
+	draw_sprite_part_ext(outfitSheet,	0, frame * humanSpriteWidth,	humanSheetHeight * _outfit,		humanSheetWidth, humanSheetHeight, x, y, 1, 1, _outfitColor,	1.0);
+	draw_sprite_part_ext(hairSheet,		0, frame * humanSpriteWidth,	humanSheetHeight * _hair,		humanSheetWidth, humanSheetHeight, x, y, 1, 1, _hairColor,		1.0);
+	draw_sprite_part_ext(hatSheet,		0, frame * humanSpriteWidth,	humanSheetHeight * _hat,		humanSheetWidth, humanSheetHeight, x, y, 1, 1, _hatColor,		1.0);
+	draw_sprite_part_ext(shoeSheet,		0, frame * humanSpriteWidth,	humanSheetHeight * _shoes,		humanSheetWidth, humanSheetHeight, x, y, 1, 1, _shoeColor,		1.0);
+	//draw_sprite_part_ext(accessorySheet,0, 0,	humanSheetHeight * _accessory,	humanSheetWidth, humanSheetHeight, x, y, 1, 1, _accColor,		1.0);
+}
+
+function draw_eating_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {
+}
+
+function draw_drinking_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
+}
+
+function draw_wavephone_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
+}
+
+function draw_meditating_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
+}
+
+function draw_swimming_player(_skintone, _hair, _hairColor, _hat, _hatColor) {
+	draw_sprite_part_ext(swimmingHumanBody,		0,	frame * humanSpriteWidth,	0,							humanSheetWidth, humanSheetHeight,	x,	y,		1,	1,	_skintone,	1.0);
+	// add 19 to y to correct height for hair and hat
+	draw_sprite_part_ext(hairSheet,				0,	frame * humanSpriteWidth,	humanSheetHeight * _hair,	humanSheetWidth, humanSheetHeight,	x,	y + 19,	1,	1,	_hairColor,	1.0);
+	draw_sprite_part_ext(hatSheet,				0,	frame * humanSpriteWidth,	humanSheetHeight * _hat,	humanSheetWidth, humanSheetHeight,	x,	y + 19,	1,	1,	_hatColor,	1.0);
+}
+
+function player_draw_from_state() {
+	switch (state) {
+		case humanStates.standard:
+			if swimming		draw_swimming_player(skintone, hairstyle, hairColor, hat, hatColor);
+			if !swimming	draw_standard_player(skintone, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory, accessoryColor);
+		break;
+		
+		case humanStates.drinking:
+			draw_drinking_player(skintone, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory, accessoryColor);
+		break;
+		
+		case humanStates.eating:
+			draw_eating_player(skintone, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory, accessoryColor);
+		break;
+		
+		case humanStates.meditating:
+			draw_meditating_player(skintone, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory, accessoryColor);
+		break;
+		
+		case humanStates.playingWavephone:
+			draw_wavephone_player(skintone, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory, accessoryColor);
+		break;
+	}
+}
+
 function player_move() {
 	
 	// store all globals in locals
@@ -66,107 +158,9 @@ function gate_check_player() {
 	}
 }
 	
-function overworld_create_player_sprite() {
-	// get appearance list
-	var app = player.appearance;
-	var list = ds_list_create();
-	decode_list(app, list);
-	
-	// decode color list
-	var colorList = ds_list_create();
-	decode_list(global.allColors, colorList);
-	
-	// get all appearance vars from list
-	var skintoneNum					= real(list[| 0]);
-	var skintone					= colorList[| skintoneNum];
-	
-	var outfit						= real(list[| 1]);
-	var outfitColorNum				= real(list[| 2]);
-	var outfitColor					= colorList[| outfitColorNum];
-	
-	var hairstyle					= real(list[| 3]);
-	var hairColorNum				= real(list[| 4]);
-	var hairColor					= colorList[| hairColorNum];
-	
-	var hat							= real(list[| 5]);
-	var hatColorNum					= real(list[| 6]);
-	var hatColor					= colorList[| hatColorNum];
-	
-	var shoes						= real(list[| 7]);
-	var shoeColorNum				= real(list[| 8]);
-	var shoeColor					= colorList[| shoeColorNum];
-	
-	var accessory					= real(list[| 9]);
-	var accessoryColorNum			= real(list[| 10]);
-	var accessoryColor				= colorList[| accessoryColorNum];
-	
-	// repeat for all humanStates
-	var i = 0; repeat (humanStates.height) {
-		
-			// set temporary surface
-			var surf = surface_create(400, 400);
-			surface_set_target(surf);
-			
-			// clear display buffer
-			draw_clear_alpha(COL_BLACK, 0.0);
-			
-			// use a switch statement to call the correct draw function
-			switch (i) {
-				case humanStates.standard:
-					draw_standard_human(skintone, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory, accessoryColor);
-					var frameCount = 16;
-				break;
-				case humanStates.wandering:
-					draw_swimming_human(skintone, hairstyle, hairColor, hat, hatColor);
-					var frameCount = 16;
-				break;
-				default: frameCount = -1;	break;
-			}
-			
-			// create sprite from surface and add all frames
-			if (frameCount > 0) {
-				var currentSprite = sprite_create_from_surface(surf, 0, 0, humanSpriteWidth, humanSpriteHeight, false, false, 12, 21);
-				var ii = 1; repeat (frameCount - 1) {
-					// add next portion of surface as new frame
-					sprite_add_from_surface(currentSprite, surf, ii * humanSpriteWidth, 0, humanSpriteWidth, humanSpriteHeight, false, false);
-
-					// increment iii
-					ii++;
-				}
-			}	else	currentSprite = -1;
-			
-			// add sprite to playerSpriteList 
-			if currentSprite >= 0 {
-				sprite_assign(playerSpriteList[| i], currentSprite);
-				
-				var i = 0; repeat (frameCount) {
-					var sprText = sprite_get_texture(currentSprite, i);
-					texturegroup_unload(string(sprText));
-				}
-			}
-			
-			// reset surface
-			surface_reset_target();
-			
-			// free surface
-			surface_free(surf);
-		
-			// delete sprite
-			if (currentSprite >= 0) sprite_delete(currentSprite);
-			
-			// increment ii
-			i++;
-		
-	}			
-}
-	
-function player_get_sprites() {
-	walkingSprite		= overworld.playerSpriteList[| humanStates.standard];
-	eatingSprite		= overworld.playerSpriteList[| humanStates.eating];
-	drinkingSprite		= overworld.playerSpriteList[| humanStates.drinking];
-	wavephoneSprite		= overworld.playerSpriteList[| humanStates.playingWavephone];
-	meditatingSprite	= overworld.playerSpriteList[| humanStates.meditating];
-	swimmingSprite		= overworld.playerSpriteList[| humanStates.wandering];	// no swim state/no wander sprite	
-	
-	appearanceLoaded = true;
+///@desc this sprite takes an NPC id and begins a match with that NPC
+function spar_begin_ingame(_opponent) {
+	global.opponent = _opponent;
+	global.sparType = sparTypes.inGame;
+	room_transition(200, 400, directions.south, rm_battleScene);
 }

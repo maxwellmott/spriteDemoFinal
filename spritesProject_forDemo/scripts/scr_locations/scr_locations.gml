@@ -1,3 +1,4 @@
+// enumerator containing the location IDs
 enum locations {
 	miriabramFoyer,
 	miriabramLibrary,
@@ -8,6 +9,7 @@ enum locations {
 	height
 }
 
+// enumerator containing location params
 enum locationParams {
 	ID,
 	name,

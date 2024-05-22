@@ -185,4 +185,14 @@ COMING BACK FROM PLAYTEST BUILD
 			notes:	need to figure out what to do with keypads. If you want to keep it, then rework it and make
 					it cleaner. If you don't want to keep it, find a way to safely delete all of it.
 					
+		OVERWORLD SCRIPTS HAVE BEEN COMPLETED!
+			notes:	ended up deleting all references to keypads, I was also able to completely get rid of the lighting script which
+					is pretty cool. Hopefully the downsizing continues!
+					
+		
+		LAST THOUGHTS:: ALMOST FINISHED WITH HUMANS SCRIPTS. IN THE MIDDLE OF FIXING PLAYER DRAW FUNCTIONS.
+						SWITCHING PLAYER DRAW FUNCTIONS BACK FROM THE NEW ARCHITECTURE (BUILDING SPRITES AND
+						SAVING THEM TO RAM TO BE CALLED FROM THEIR OWN TEXTURE PAGE) TO THE OLD ARCHITECTURE
+						(DRAWING EACH APPEARANCE PARAMETER (BODY, OUTFIT, ET CETERA) LAYER BY LAYER EACH STEP
+					
 		

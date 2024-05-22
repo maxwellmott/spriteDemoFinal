@@ -1,6 +1,8 @@
+// these macros are used to store the width and height of the human sprite sheets
 #macro humanSheetWidth		384
 #macro humanSheetHeight		42
 
+// enumerator to store the four cardinal directions
 enum directions {
 	south,
 	east,
@@ -8,17 +10,13 @@ enum directions {
 	west
 }
 
-global.speaker		= noone;
-global.dialogue		= "";
-
-#macro appearanceGridSectionHeight	168
-
-#macro humanMaskWidth		18
-#macro humanMaskHeight		4
-
+// these macros store the width and height of each frame on the
+// human appearance sprite sheets
 #macro humanSpriteWidth		24
 #macro humanSpriteHeight	42
 
+// enumerator containing the states each human can be in
+// in the overworld
 enum humanStates {
 	standard,
 	eating,
@@ -29,34 +27,9 @@ enum humanStates {
 	height
 }
 
-function draw_standard_human(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {
-	draw_sprite_part_ext(humanBody,		0, 0,	0,								humanSheetWidth, humanSheetHeight, 0, 0, 1, 1, _skintone,		1.0);
-	draw_sprite_part_ext(outfitSheet,	0, 0,	humanSheetHeight * _outfit,		humanSheetWidth, humanSheetHeight, 0, 0, 1, 1, _outfitColor,	1.0);
-	draw_sprite_part_ext(hairSheet,		0, 0,	humanSheetHeight * _hair,		humanSheetWidth, humanSheetHeight, 0, 0, 1, 1, _hairColor,		1.0);
-	draw_sprite_part_ext(hatSheet,		0, 0,	humanSheetHeight * _hat,		humanSheetWidth, humanSheetHeight, 0, 0, 1, 1, _hatColor,		1.0);
-	draw_sprite_part_ext(shoeSheet,		0, 0,	humanSheetHeight * _shoes,		humanSheetWidth, humanSheetHeight, 0, 0, 1, 1, _shoeColor,		1.0);
-	//draw_sprite_part_ext(accessorySheet,0, 0,	humanSheetHeight * _accessory,	humanSheetWidth, humanSheetHeight, 0, 0, 1, 1, _accColor,		1.0);
-}
-
-function draw_eating_human(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {
-}
-
-function draw_drinking_human(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
-}
-
-function draw_wavephone_human(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
-}
-
-function draw_meditating_human(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
-}
-
-function draw_swimming_human(_skintone, _hair, _hairColor, _hat, _hatColor) {
-	draw_sprite_part_ext(swimmingHumanBody,		0,	0,	0,							humanSheetWidth, humanSheetHeight,	0,	0,	1,	1,	_skintone,	1.0);
-	// add 19 to y to correct height for hair and hat
-	draw_sprite_part_ext(hairSheet,				0,	0,	humanSheetHeight * _hair,	humanSheetWidth, humanSheetHeight,	0,	19,	1,	1,	_hairColor,	1.0);
-	draw_sprite_part_ext(hatSheet,				0,	0,	humanSheetHeight * _hat,	humanSheetWidth, humanSheetHeight,	0,	19,	1,	1,	_hatColor,	1.0);
-}
-
+///@desc This function uses the humans hmove and vmove variables
+/// to travel on land in the overworld--with respect to any collidable
+/// tiles and objects
 function human_walk() {
 	if instance_exists(menu) {
 		exit;
@@ -88,6 +61,9 @@ function human_walk() {
 	}
 }
 
+///@desc This function uses the humans hmove and vmove variables
+/// to travel in water in the overworld--with respect to any collidable
+/// tiles and objects
 function human_swim() {
 	if instance_exists(menu) {
 		exit;
@@ -120,11 +96,15 @@ function human_swim() {
 	}
 }
 
+///@desc This function checks to see if the human is successfully moving, 
+/// and should therefore be animated
 function human_check_moving() {
 	if abs(hmove) + abs(vmove) > 0		moving = true;
 	if abs(hmove) + abs(vmove) == 0		moving = false;
 }
 
+///@desc This function gets the direction that the human is facing (north,
+/// east, south, west--according to their respective IDs in the directions enum)
 function human_set_facing() {
 	var dir	= point_direction(0, 0, hmove, vmove);
 	
@@ -147,6 +127,8 @@ function human_set_facing() {
 		}	
 }
 
+///@desc This function sets the position of the humans interaction pointer depending on
+/// their x and y position as well as the direction they're facing
 function human_pointer_set() {	
 	switch (facing) {
 		case directions.east:
@@ -170,13 +152,14 @@ function human_pointer_set() {
 		break;
 	}
 }
-
+	
+///@desc This function is called by the interact function. The function gets the
+/// interactable object or tile that the human is interacting with
 function get_interactable() {
 	if instance_exists(menu) {
 		exit;
 	}
 	
-	// talk to npc	
 	var checkY = y;
 	var checkY = bbox_bottom - 3;
 
@@ -232,6 +215,10 @@ function get_interactable() {
 	return noone;
 }
 
+///@desc This function is called whenever a human indicates that they want to interact
+/// with the object or tile that is in front of them while they're in the overworld.
+/// The function finds the proper object index and pushes an alert to the overworldAlerts
+/// list, indicating that the given interaction should begin to take place
 function interact() {
 	if instance_exists(menu) {
 		exit;
@@ -252,6 +239,9 @@ function interact() {
 	}
 }
 
+///@desc This function is called whenever a human indicates that they want to 
+/// get out of the water and stop swimming. The function switches the swimming variable
+/// to false after placing the human in a safe location on land
 function check_water_get_out(_x, _y) {
 	// get local vars
 	var spawnX = _x;
@@ -312,6 +302,9 @@ function check_water_get_out(_x, _y) {
 	return true;
 }
 
+///@desc This function is called whenever a human indicates that they want to
+/// get into the water and start swimming. The function switches the swimming variable
+/// to true after placing the human in a safe location on land
 function check_water_get_in(_x, _y) {
 	// get local vars
 	var spawnX = _x;
@@ -372,7 +365,9 @@ function check_water_get_in(_x, _y) {
 	return true;
 }
 
-function human_set_sprite() {
+///@desc This function is called in the NPC step event to set the proper sprite 
+/// depending on the NPC's current state
+function npc_set_sprite() {
 	// use the state to set the sprite
 	switch (state) {
 		case humanStates.standard:	
@@ -392,7 +387,8 @@ function human_set_sprite() {
 	human_set_frames();
 }
 
-///@desc this function can be called to set the minFrame and maxFrame for a human object
+///@desc This function is called in the NPC and player step events to set the min and max
+/// frames for their current animation
 function human_set_frames() {
 	var minPrev	= minFrame;
 	var maxPrev = maxFrame;
@@ -404,6 +400,7 @@ function human_set_frames() {
 	if (minPrev != minFrame) || (maxPrev != maxFrame)	frame = minFrame;
 }
 
+///@desc This function is called to increment the frame variable for humans and npcs
 function animate_human() {
 	// increment frame when appropriate
 	if !(global.gameTime mod 8) frame++;
@@ -412,27 +409,32 @@ function animate_human() {
 	if frame > maxFrame frame = minFrame;
 }
 
-function app_surface_draw_human() {
+///@desc This function is called in the human draw event if the human in question is
+/// an NPC. The function simply takes the NPCs current sprite--set by the npc_set_sprite
+/// function--and draws that sprite to the app surface
+function draw_npc() {
 	if (sprite >= 0) {
 		draw_sprite(sprite, frame, x, y);
 	}
 }
 
+///@desc This function can be used to set the depthY variable for a human. The depthY
+/// variable is just the y value of the human's feet. This is used to determine how far
+/// forward or back the player is from the screen
 function human_get_depthY() {
 	depthY = y + (spriteHeight / 2);
 }
 
+///@desc This function can be used to set the human's depth depending on their depthY
+/// variable. I believe this is the same math as the math being done in the 
+/// object_set_depth function, so....we'll see....
 function human_set_depth() {
 	depth = get_layer_depth(LAYER.collidableTiles) - depthY;	
 }
 
-///@desc this sprite takes an NPC id and begins a match with that NPC
-function spar_begin_ingame(_opponent) {
-	global.opponent = _opponent;
-	global.sparType = sparTypes.inGame;
-	room_transition(200, 400, directions.south, rm_battleScene);
-}
-
+///@desc This function is called at the beginning of a spar. It takes the human's
+/// spell selections and builds a ds_grid of all their parameters so that the info
+/// can be quickly accessed.
 function human_build_spellBookGrid() {	
 	// decode spell grid
 	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);

@@ -1,15 +1,13 @@
 event_inherited();
 
+if !(appearanceLoaded) {
+	player_load_appearance();	
+}
 
 #region OVERWORLD MOVEMENT AND INTERACTION
 // get appearance variables
 
 visible = global.overworld;
-
-if (instance_exists(overworld)) {
-	if !appearanceLoaded && global.roomBuilt	player_get_sprites();
-	if appearanceLoaded && global.roomBuilt		human_set_sprite();
-}
 
 if (global.overworld) {
 	player_move(); 
