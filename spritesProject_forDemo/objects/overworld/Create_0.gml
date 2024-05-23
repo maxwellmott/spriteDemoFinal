@@ -114,16 +114,6 @@ var i = 0; repeat (ds_list_size(npcList)) {
 	i++;
 }
 
-// create playerSpriteList
-playerSpriteList = ds_list_create();
-
-playerSpriteList[| humanStates.wandering]			= spr_playerSwimming;
-playerSpriteList[| humanStates.meditating]			= spr_playerMeditating;
-playerSpriteList[| humanStates.playingWavephone]	= spr_playerWavephone;
-playerSpriteList[| humanStates.drinking]			= spr_playerDrinking;
-playerSpriteList[| humanStates.eating]				= spr_playerEating;
-playerSpriteList[| humanStates.standard]			= spr_playerStandard;
-
 // create overworldDraw object
 if !(instance_exists(overworldDraw)) instance_create_depth(0, 0, get_layer_depth(LAYER.meta), overworldDraw);
 

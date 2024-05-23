@@ -384,12 +384,12 @@ function npc_set_sprite() {
 	frameCount = sprite_get_number(sprite) / 4;
 	
 	// set min and maxFrame
-	human_set_frames();
+	npc_set_frames();
 }
 
 ///@desc This function is called in the NPC and player step events to set the min and max
 /// frames for their current animation
-function human_set_frames() {
+function npc_set_frames() {
 	var minPrev	= minFrame;
 	var maxPrev = maxFrame;
 	

@@ -25,8 +25,8 @@
   "nineSlice":null,
   "origin":0,
   "parent":{
-    "name":"overworld",
-    "path":"folders/Sprites/appearances/overworld.yy",
+    "name":"appearanceParams",
+    "path":"folders/Sprites/humanSprites/appearanceParams.yy",
   },
   "preMultiplyAlpha":false,
   "resourceType":"GMSprite",

@@ -1,5 +1,8 @@
 /// @desc
 
+drawX = x - 12;
+drawY = y - 21;
+
 skintone		= -1;
 outfit			= -1;
 outfitColor		= -1;
@@ -168,15 +171,9 @@ unlockedDoors = "";
 // initialize moving
 moving = false;
 
-// intitialize sprite
-sprite = -1;
-
-// initialize frameCount
-frameCount = -1;
-
 // initialize min and max frame
-minFrame = -1;
-maxFrame = -1;
+minFrame = 0;
+maxFrame = 0;
 
 // set appearance loaded to false
 appearanceLoaded = false;

@@ -7,7 +7,7 @@ if (instance_exists(player)) {
 		}
 		
 		// draw shadow surface
-		draw_set_alpha(0.65);
+		draw_set_alpha(0.765);
 		draw_surface(lightingSurface, 0, 0);
 		draw_set_alpha(1.0);
 	}

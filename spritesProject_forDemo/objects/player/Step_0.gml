@@ -12,10 +12,12 @@ visible = global.overworld;
 if (global.overworld) {
 	player_move(); 
 	
+	player_set_draw_position();
+	
 	human_check_moving();
 	if moving human_set_facing();
 	
-	human_set_frames();
+	player_set_frames();
 	
 	if (state = humanStates.standard)	{
 		if moving {

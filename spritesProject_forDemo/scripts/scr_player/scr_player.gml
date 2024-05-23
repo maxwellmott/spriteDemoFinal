@@ -33,6 +33,11 @@ function player_load_appearance() {
 		i++;
 	}
 	
+	// load color list
+	var cl = ds_list_create();
+	
+	decode_list(global.allColors, cl);
+	
 	// get all parameters
 	skintone		= list[| appearanceParams.skintone];
 	outfit			= list[| appearanceParams.outfit];
@@ -46,18 +51,59 @@ function player_load_appearance() {
 	accessory		= list[| appearanceParams.accessory];
 	accessoryColor	= list[| appearanceParams.accessoryColor];
 	
+	// get all colors from color list using colorIDs
+	skintone		= cl[| skintone];
+	outfitColor		= cl[| outfitColor];
+	hairColor		= cl[| hairColor];
+	hatColor		= cl[| hatColor];
+	shoeColor		= cl[| shoeColor];
+	accessoryColor	= cl[| accessoryColor];
 	
-	
+	// destroy temp lists
 	ds_list_destroy(list);
+	ds_list_destroy(cl);
+}
+
+function player_set_draw_position() {
+	drawX = x - 12;
+	drawY = y - 21;
+}
+
+function player_set_frames() {
+	switch (state) {
+		case humanStates.standard:
+			minFrame = 0;
+			maxFrame = 3;
+		break;
+		
+		case humanStates.eating:
+			minFrame = 0;
+			maxFrame = 7;
+		break;
+		
+		case humanStates.drinking:
+			minFrame = 0;
+			maxFrame = 7;
+			
+		case humanStates.meditating:
+			minFrame = 0;
+			maxFrame = 0;
+		break;
+		
+		case humanStates.playingWavephone:
+			minFrame = 0;
+			maxFrame = 7;
+		break;
+	}
 }
 
 function draw_standard_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {
-	draw_sprite_part_ext(humanBody,		0, frame * humanSpriteWidth,	0,								humanSheetWidth, humanSheetHeight, x, y, 1, 1, _skintone,		1.0);
-	draw_sprite_part_ext(outfitSheet,	0, frame * humanSpriteWidth,	humanSheetHeight * _outfit,		humanSheetWidth, humanSheetHeight, x, y, 1, 1, _outfitColor,	1.0);
-	draw_sprite_part_ext(hairSheet,		0, frame * humanSpriteWidth,	humanSheetHeight * _hair,		humanSheetWidth, humanSheetHeight, x, y, 1, 1, _hairColor,		1.0);
-	draw_sprite_part_ext(hatSheet,		0, frame * humanSpriteWidth,	humanSheetHeight * _hat,		humanSheetWidth, humanSheetHeight, x, y, 1, 1, _hatColor,		1.0);
-	draw_sprite_part_ext(shoeSheet,		0, frame * humanSpriteWidth,	humanSheetHeight * _shoes,		humanSheetWidth, humanSheetHeight, x, y, 1, 1, _shoeColor,		1.0);
-	//draw_sprite_part_ext(accessorySheet,0, 0,	humanSheetHeight * _accessory,	humanSheetWidth, humanSheetHeight, x, y, 1, 1, _accColor,		1.0);
+	draw_sprite_part_ext(humanBody,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	0,								humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _skintone,		1.0);
+	draw_sprite_part_ext(outfitSheet,	0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _outfit,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _outfitColor,	1.0);
+	draw_sprite_part_ext(hairSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _hair,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _hairColor,	1.0);
+	draw_sprite_part_ext(hatSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _hat,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _hatColor,		1.0);
+	draw_sprite_part_ext(shoeSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _shoes,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _shoeColor,	1.0);
+	//draw_sprite_part_ext(accessorySheet,0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _accessory,	humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _accColor,		1.0);
 }
 
 function draw_eating_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {
