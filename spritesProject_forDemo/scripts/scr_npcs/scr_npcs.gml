@@ -281,7 +281,16 @@ function day_change_build_location_list(_targetList) {
 	}
 }
 
-// this function takes the list of npc locations and uses it to correct each locations list of 
+///@desc This function is called in the human draw event if the human in question is
+/// an NPC. The function simply takes the NPCs current sprite--set by the npc_set_sprite
+/// function--and draws that sprite to the app surface
+function draw_npc() {
+	if (sprite >= 0) {
+		draw_sprite(sprite, frame, x, y);
+	}
+}
+
+///@desc This function takes the list of npc locations and uses it to change each location's list of 
 // present NPCs for the following day
 function day_change_edit_npc_lists(_locationList) {
 	var locationList = _locationList;

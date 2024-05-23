@@ -69,6 +69,9 @@ function player_set_draw_position() {
 	drawY = y - 21;
 }
 
+///@desc This function is called in the player step event while in the overworld. The
+/// function sets the player's min and max frame to be used for looping the current
+/// animation depending on the player's state (walk cycle, eating animation, etc)
 function player_set_frames() {
 	switch (state) {
 		case humanStates.standard:
@@ -97,6 +100,9 @@ function player_set_frames() {
 	}
 }
 
+///@desc This function is called by the player_draw_from_state function when drawing
+/// the player in the human draw event, while in the overworld. The function draws the
+/// player in their standard state (walking)
 function draw_standard_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {
 	draw_sprite_part_ext(humanBody,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	0,								humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _skintone,		1.0);
 	draw_sprite_part_ext(outfitSheet,	0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _outfit,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _outfitColor,	1.0);
@@ -106,18 +112,33 @@ function draw_standard_player(_skintone, _outfit, _outfitColor, _hair, _hairColo
 	//draw_sprite_part_ext(accessorySheet,0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _accessory,	humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _accColor,		1.0);
 }
 
+///@desc This function is called by the player_draw_from_state function when drawing
+/// the player in the human draw event, while in the overworld. The function draws the
+/// player's eating animation
 function draw_eating_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {
 }
 
+///@desc This function is called by the player_draw_from_state function when drawing
+/// the player in the human draw event, while in the overworld. The function draws the
+/// player's eating animation
 function draw_drinking_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
 }
 
+///@desc This function is called by the player_draw_from_state function when drawing
+/// the player in the human draw event, while in the overworld. The function draws the
+/// player's wavephone animation
 function draw_wavephone_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
 }
 
+///@desc This function is called by the player_draw_from_state function when drawing
+/// the player in the human draw event, while in the overworld. The function draws the
+/// player's meditating animation
 function draw_meditating_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
 }
 
+///@desc This function is called by the player_draw_from_state function when drawing
+/// the player in the human draw event, while in the overworld. The function draws the
+/// player's swimming animation
 function draw_swimming_player(_skintone, _hair, _hairColor, _hat, _hatColor) {
 	draw_sprite_part_ext(swimmingHumanBody,		0,	frame * humanSpriteWidth,	0,							humanSheetWidth, humanSheetHeight,	x,	y,		1,	1,	_skintone,	1.0);
 	// add 19 to y to correct height for hair and hat
@@ -125,6 +146,8 @@ function draw_swimming_player(_skintone, _hair, _hairColor, _hat, _hatColor) {
 	draw_sprite_part_ext(hatSheet,				0,	frame * humanSpriteWidth,	humanSheetHeight * _hat,	humanSheetWidth, humanSheetHeight,	x,	y + 19,	1,	1,	_hatColor,	1.0);
 }
 
+///@desc This function is called in the human draw event, while in the overworld. The
+/// function checks the player's current state and then draws the appropriate animation
 function player_draw_from_state() {
 	switch (state) {
 		case humanStates.standard:
@@ -150,6 +173,8 @@ function player_draw_from_state() {
 	}
 }
 
+///@desc This function is called by the player step event, while in the overworld. The 
+/// function gets controller input and checks if the player is moving
 function player_move() {
 	
 	// store all globals in locals
@@ -174,6 +199,9 @@ function player_move() {
 	if moving human_set_facing();
 }
 
+///@desc This function is called by the overworld step event. The function constantly checks
+/// if the player is walking "off-screen". If there is another location in that direction,
+/// it will begin a transition. Otherwise, it will just keep them from walking off-screen
 function gate_check_player() {
 	// check north gate
 	if (player.bbox_top < 0) {
@@ -204,7 +232,9 @@ function gate_check_player() {
 	}
 }
 	
-///@desc this sprite takes an NPC id and begins a match with that NPC
+///@desc This function is called when a spar against an in-game human opponent is about to 
+/// begin. The function stores the necessary info in global variables and then begins
+/// a transition.
 function spar_begin_ingame(_opponent) {
 	global.opponent = _opponent;
 	global.sparType = sparTypes.inGame;

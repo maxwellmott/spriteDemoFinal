@@ -189,10 +189,14 @@ COMING BACK FROM PLAYTEST BUILD
 			notes:	ended up deleting all references to keypads, I was also able to completely get rid of the lighting script which
 					is pretty cool. Hopefully the downsizing continues!
 					
+		PLAYER SCRIPTS HAVE BEEN COMPLETED!
+			notes:	took this opportunity to change the player's draw function back to the more optimal version wherein
+					the player character is drawn layer by layer each step for each of their clothing items, as opposed
+					to dynamically creating a sprite to be used.
 		
-		LAST THOUGHTS:: FINISHED FIXING THE PLAYER DRAW FUNCTION. STILL NEED TO FINISH DOING SPRING
-						CLEANING ON THE HUMAN SCRIPTS. WILL CONTINUE THAT WHEN I GET HOME FROM 
-						THE GYM.
+		LAST THOUGHTS:: next up is sparring scripts. take this opportunity to finish the spell functions
+						
+						
 						
 						
 						

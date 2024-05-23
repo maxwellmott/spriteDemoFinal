@@ -409,15 +409,6 @@ function animate_human() {
 	if frame > maxFrame frame = minFrame;
 }
 
-///@desc This function is called in the human draw event if the human in question is
-/// an NPC. The function simply takes the NPCs current sprite--set by the npc_set_sprite
-/// function--and draws that sprite to the app surface
-function draw_npc() {
-	if (sprite >= 0) {
-		draw_sprite(sprite, frame, x, y);
-	}
-}
-
 ///@desc This function can be used to set the depthY variable for a human. The depthY
 /// variable is just the y value of the human's feet. This is used to determine how far
 /// forward or back the player is from the screen
