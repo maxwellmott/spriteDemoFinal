@@ -213,7 +213,7 @@ if (instance_exists(onlineEnemy)) {
 	data = ds_map_create();
 
 	client = network_create_socket(network_socket_udp);	
-	network_connect_raw(client, SERVER_ADDRESS, 80);
+	network_connect_raw(client, SERVER_ADDRESS, PORT_NUM);
 
 	onlineBuffer = buffer_create(120, buffer_fixed, 120);
 }

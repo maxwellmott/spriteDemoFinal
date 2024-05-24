@@ -6,7 +6,7 @@ var connected = os_is_network_connected(false);
 if (connected) {
 	client = network_create_socket(network_socket_udp);	
 	
-	network_connect_raw(client, SERVER_ADDRESS, 80);
+	network_connect_raw(client, SERVER_ADDRESS, PORT_NUM);
 	
 	onlineBuffer = buffer_create(120, buffer_fixed, 120);
 	
