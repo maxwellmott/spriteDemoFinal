@@ -19,9 +19,6 @@ var i = 0; repeat (8) {
 	// set alpha
 	draw_set_alpha(inst.alpha);
 	
-	// draw ally spot
-	draw_sprite(spr_sparAllySpot, 0, inst.x, inst.y);
-	
 	var spriteFrame = 0;
 	
 	// check if inst is swapping
@@ -48,12 +45,12 @@ var i = 0; repeat (8) {
 		else	spriteFrame = 15;
 	}
 	else {
-		spriteFrame = inst.currentPose;	
+		spriteFrame = 0;
 	}
 	
 	if (inst.dodging) && (inst.sprite == spr_sparDodge) {
-		spriteFrame = image_index
-	}	else _spriteFrame = inst.currentPose;
+		spriteFrame = image_index;
+	}	else _spriteFrame = 0;
 	
 	// check if inst is an enemy or an ally
 	if (i < 4) {
@@ -62,7 +59,7 @@ var i = 0; repeat (8) {
 	}
 	else {
 		// draw sprite flipped
-		draw_sprite_ext(inst.sprite, spriteFrame, inst.x, inst.y, -1, 1, 0, COL_WHITE, inst.alpha);
+		draw_sprite_ext(inst.sprite, spriteFrame, inst.x, inst.y, -1, 1, 0, c_white, inst.alpha);
 	}
 
 	
@@ -120,7 +117,7 @@ draw_set_alpha(1.0);
 				draw_sprite(spr_sparActionButton, inst.frame, inst.x, inst.y);
 				draw_set_color(inst.textColor);
 				
-				spar_draw_text(inst.x, inst.y, inst.name);
+				spar_draw_text(inst.x, inst.y + 3, inst.name);
 				
 				i++;
 			}

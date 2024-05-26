@@ -10,7 +10,7 @@ if !(parametersLoaded) && (ID >= 0) {
 
 if (parametersLoaded) {
 	if (instance_exists(overworld)) {
-		human_set_sprite();
+		npc_set_sprite();
 		
 		// manage animation
 		if (state = humanStates.standard)	{

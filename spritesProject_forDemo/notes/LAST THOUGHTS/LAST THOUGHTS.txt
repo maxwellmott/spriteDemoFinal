@@ -194,7 +194,8 @@ COMING BACK FROM PLAYTEST BUILD
 					the player character is drawn layer by layer each step for each of their clothing items, as opposed
 					to dynamically creating a sprite to be used.
 		
-		LAST THOUGHTS:: next up is sparring scripts. take this opportunity to finish the spell functions
+	LAST THOUGHTS: still have to do the sparring scripts--I spent the night working on fixing the
+					day change functionality and making some changes to the battle scene.
 						
 						
 						

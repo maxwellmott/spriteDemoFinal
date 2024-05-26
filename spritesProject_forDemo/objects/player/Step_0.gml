@@ -36,6 +36,7 @@ if (global.overworld) {
 }
 #endregion
 
+if (instance_exists(overworld)) {
 #region HANDLE TIME
 	increment_seconds();
 	increment_minutes();
@@ -45,14 +46,18 @@ if (global.overworld) {
 #endregion
 
 #region HANDLE SUNDOWN AND DARKALPHA
-if (instance_exists(overworld)) {
 	if (overworld.outdoorLocation) {
 		set_dark();
 	}	else	{indoor_set_dark();}
+
+
+	if (sundown) && (darkAlpha < 1.0)	darkAlpha += 0.0005;
+	if !(sundown) && (darkAlpha > 0.0)	darkAlpha -= 0.0005;
 }
 
-
-if (sundown) && (darkAlpha < 1.0)	darkAlpha += 0.0005;
-if !(sundown) && (darkAlpha > 0.0)	darkAlpha -= 0.0005;
-	
 #endregion
+
+// for debugging only
+if (global.start) {
+	spar_begin_ingame(npcs.mercurioGallant);
+}

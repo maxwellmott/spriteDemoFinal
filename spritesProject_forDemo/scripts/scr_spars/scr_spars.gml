@@ -130,10 +130,10 @@ function enemyAI_get_params() {
 function enemyAI_set_team() {
 	randomize_list(roster);
 	
-	team[|0] = real(roster[|0]);
-	team[|1] = real(roster[|1]);
-	team[|2] = real(roster[|2]);
-	team[|3] = real(roster[|3]);
+	teamList[|0] = real(roster[|0]);
+	teamList[|1] = real(roster[|1]);
+	teamList[|2] = real(roster[|2]);
+	teamList[|3] = real(roster[|3]);
 }
 
 ///@desc This function is called when the player hits the "READY" button

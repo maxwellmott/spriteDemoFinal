@@ -101,6 +101,7 @@
     {"name":"mouse","order":7,"path":"objects/mouse/mouse.yy",},
     {"name":"neonSign","order":4,"path":"objects/neonSign/neonSign.yy",},
     {"name":"npc","order":3,"path":"objects/npc/npc.yy",},
+    {"name":"onlineEnemy","order":2,"path":"objects/onlineEnemy/onlineEnemy.yy",},
     {"name":"onlineLobby","order":1,"path":"objects/onlineLobby/onlineLobby.yy",},
     {"name":"optionsMenu","order":4,"path":"objects/optionsMenu/optionsMenu.yy",},
     {"name":"outfitMenu","order":8,"path":"objects/outfitMenu/outfitMenu.yy",},

@@ -16,7 +16,7 @@ spellString = "";
 spellBook = ds_list_create();
 
 // initialize team
-team = ds_list_create();
+teamList = ds_list_create();
 
 // initialize roster
 roster = ds_list_create();
@@ -40,9 +40,9 @@ enemyAI_set_team();
 //enemyAI_set_spellbook();
 
 // initialize hindrances
-miasma	= true;
-hum		= true;
-rust	= true;
+miasma	= false;
+hum		= false;
+rust	= false;
 
 // initialize hindrance indicator positions
 miasmaX	= guiWidth - 40;

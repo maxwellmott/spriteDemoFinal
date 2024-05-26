@@ -60,7 +60,8 @@ function increment_hours() {
 ///@desc This function indicates that it is time to begin the day
 /// change cutscene
 function begin_day_change() {
-	if hours >= 24 {
+	if hours >= 24 
+	&& !(instance_exists(transitionManager)) {
 		room_transition(x, y, facing, rm_dayChange);	
 	}
 }

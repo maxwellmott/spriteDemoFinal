@@ -144,6 +144,7 @@
     {"id":{"name":"mouse","path":"objects/mouse/mouse.yy",},},
     {"id":{"name":"neonSign","path":"objects/neonSign/neonSign.yy",},},
     {"id":{"name":"npc","path":"objects/npc/npc.yy",},},
+    {"id":{"name":"onlineEnemy","path":"objects/onlineEnemy/onlineEnemy.yy",},},
     {"id":{"name":"onlineLobby","path":"objects/onlineLobby/onlineLobby.yy",},},
     {"id":{"name":"optionsMenu","path":"objects/optionsMenu/optionsMenu.yy",},},
     {"id":{"name":"outfitMenu","path":"objects/outfitMenu/outfitMenu.yy",},},
