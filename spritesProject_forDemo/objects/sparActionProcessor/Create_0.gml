@@ -50,6 +50,8 @@ if (currentSpell >= 0) {
 }
 
 enum ACTION_PROCESSOR_STATES {
+	ANNOUNCING,
+	FADING_IN,
 	CALCULATING,
 	WAIT_FOR_FX,
 	DISPLAY_MSG,
@@ -57,8 +59,19 @@ enum ACTION_PROCESSOR_STATES {
 	HEIGHT
 }
 
-state = ACTION_PROCESSOR_STATES.CALCULATING;
+state = ACTION_PROCESSOR_STATES.ANNOUNCING;
+
+if (currentSpell >= 0) {
+	spar.turnMsg = activeSprite.name + " is preparing to cast a spell";
+}
+else {
+	spar.turnMsg = activeSprite.name + " is preparing to make an attack";	
+}
 
 dodgeStarted = false;
 dodgeStopped = false;
 dodgeFrameCount = 3;
+
+shadeAlpha = 0.0;
+
+shadeAlphaMax = 0.8;

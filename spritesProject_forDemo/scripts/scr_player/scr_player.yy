@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_player",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"HUMANS",
+    "path":"folders/Scripts/HUMANS.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

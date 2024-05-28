@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_sparCalculations",
   "parent":{
-    "name":"sparring",
-    "path":"folders/Scripts/sparring.yy",
+    "name":"SPARRING",
+    "path":"folders/Scripts/SPARRING.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

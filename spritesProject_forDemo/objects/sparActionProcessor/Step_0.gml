@@ -1,6 +1,20 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+if (state == ACTION_PROCESSOR_STATES.ANNOUNCING)
+&& (global.select) {
+	state = ACTION_PROCESSOR_STATES.FADING_IN;
+}
+
+if (state == ACTION_PROCESSOR_STATES.FADING_IN) {
+	if (shadeAlpha <= shadeAlphaMax) {
+		shadeAlpha += 0.05;	
+	}
+	else {
+		state = ACTION_PROCESSOR_STATES.CALCULATING;	
+	}
+}
+
 if (state == ACTION_PROCESSOR_STATES.WAIT_FOR_FX) {
 	
 	// check if physical spell
@@ -43,7 +57,7 @@ if (state == ACTION_PROCESSOR_STATES.WAIT_FOR_FX) {
 		}
 
 		// if animation is complete, switch sprite back and increment dodgeCount
-		if (animationStopped) {
+		if (dodgeStopped) {
 			with (targetSprite) {
 				// reset params
 				sprite_load_parameters();	
@@ -149,7 +163,11 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 			
 			deplete_hp(t, damage);
 			
-			spar.turnMsg = activeSprite.name + " cast " + spellName + " against " + targetSprite.name;
+			if (targetSprite != activeSprite) {
+				spar.turnMsg = activeSprite.name + " cast " + spellName + " against " + targetSprite.name;
+			}	else {
+				spar.turnMs = activeSprite.name + " cast " + spellName;	
+			}
 		}
 		else {
 			// change turnMsg	
@@ -163,8 +181,16 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 
 // if waiting for input
 if (state == ACTION_PROCESSOR_STATES.INPUT_PAUSE) {
-	// check if hpmp bars are up to date
-	if (spar_check_hpmp()) {
+	
+	// fade out darkAlpha
+	if (shadeAlpha >= 0) {
+		shadeAlpha -= 0.05;	
+	}
+	
+	// check if hpmp bars are up to date and
+	// shadeAlpha is at 0
+	if (spar_check_hpmp()) 
+	&& (shadeAlpha <= 0.0) {
 		// if select button is clicked, destroy self
 		if (global.select)	instance_destroy(id);	
 	}

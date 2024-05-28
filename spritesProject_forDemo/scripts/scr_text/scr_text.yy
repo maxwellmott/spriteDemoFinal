@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_text",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"GENERAL",
+    "path":"folders/Scripts/GENERAL.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

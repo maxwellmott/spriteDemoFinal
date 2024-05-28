@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_overworldAlerts",
   "parent":{
-    "name":"Scripts",
-    "path":"folders/Scripts.yy",
+    "name":"OVERWORLD",
+    "path":"folders/Scripts/OVERWORLD.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

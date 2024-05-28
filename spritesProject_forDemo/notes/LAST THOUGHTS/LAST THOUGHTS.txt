@@ -194,12 +194,31 @@ COMING BACK FROM PLAYTEST BUILD
 					the player character is drawn layer by layer each step for each of their clothing items, as opposed
 					to dynamically creating a sprite to be used.
 		
-	LAST THOUGHTS: still have to do the sparring scripts--I spent the night working on fixing the
-					day change functionality and making some changes to the battle scene.
-						
-						
-						
-						
-						
-					
+
+
+	5/27
+
+	okay, I've taken a break from working on spring cleaning. Soon enough, I'll finish the sparring scripts and then get
+	started on objects. I finally got the spell animations and all of that looking pretty good. The lack of a basic attack
+	animation is really obvious now.
+	
+	I need to see what the pose functionality looks like with this new system. If I need to wait until the final release,
+	that's fine. If it doesn't look good, that's even finer.
+	
+	FINAL STEPS FOR SPARS:
+	
+		-FINISH ALL ABILITY FUNCTIONS
+		-FINISH ABILITY TYPE ENUM
+		-FINISH ABILITY GRID
+		-FINISH ALL ABILITY CHECK FUNCTIONS AND CALLS
+		
+		-FIX READY DISPLAY TEXT
+		
+		-CREATE EFFECTS ENUM
+		-FINISH EFFECT ALERT OBJECT
+		-ADD EFFECT ANIMATIONS
+		-FIX SPELL EFFECT SYSTEM SO THAT IT STORES 
+			AN ID THAT GETS ADDED TO THE ALERT LIST 
+			(DON'T JUST CALL THE FUNCTION IN THE ACTION PROCESSOR)
+			
 		

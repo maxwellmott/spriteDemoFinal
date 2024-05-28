@@ -45,6 +45,7 @@ var i = 0; repeat (8) {
 		else	spriteFrame = 15;
 	}
 	else {
+		//spriteFrame = inst.currentPose;
 		spriteFrame = 0;
 	}
 	
@@ -144,6 +145,21 @@ draw_set_alpha(1.0);
 			draw_sprite(spr_spellBookPageFlip, sparSpellMenu.flipFrame, sparSpellMenu.x, sparSpellMenu.y);	
 		}
 	}
+#endregion
+
+#region SPELL FX DARK LAYER
+	// check if the action processor is present
+	if (instance_exists(sparActionProcessor)) {
+		// set alpha to match shadeAlpha
+		draw_set_alpha(sparActionProcessor.shadeAlpha);
+		
+		// draw the spell shade surface
+		draw_surface(spellShadeSurface, 0, 0);
+		
+		// reset alpha
+		draw_set_alpha(1.0);
+	}
+
 #endregion
 
 #region SPELL FX

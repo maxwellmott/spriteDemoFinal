@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_npcs",
   "parent":{
-    "name":"npcs",
-    "path":"folders/Scripts/npcs.yy",
+    "name":"HUMANS",
+    "path":"folders/Scripts/HUMANS.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

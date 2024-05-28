@@ -5,8 +5,8 @@
   "isDnD":false,
   "name":"scr_helper",
   "parent":{
-    "name":"Helper",
-    "path":"folders/Scripts/Helper.yy",
+    "name":"GENERAL",
+    "path":"folders/Scripts/GENERAL.yy",
   },
   "resourceType":"GMScript",
   "resourceVersion":"2.0",

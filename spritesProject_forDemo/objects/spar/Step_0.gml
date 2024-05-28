@@ -4,6 +4,12 @@ if (onlineWaiting) {
 	if !(global.gameTime mod 480)	request_turn_begin();
 }
 
+// check if there are any effect alerts waiting to be
+// announced and displayed
+if (ds_list_size(effectAlertList) > 0) {
+	create_once(0, 0, LAYER.meta, sparEffectAlert);
+}
+
 // spar phase switch statement
 switch (sparPhase) {
 	case sparPhases.height:
@@ -14,7 +20,16 @@ switch (sparPhase) {
 		turnProcessCount = 0;
 		processPhase = PROCESS_PHASES.SWAP;
 		
-		// reset all sprites' turn selections
+		playerOne.ready = false;
+		playerTwo.ready = false;
+		
+		sparPhase = sparPhases.turnBegin;
+
+	break;
+	
+	case sparPhases.process:
+	
+		// reset all sprites' selection data
 		with (sparAlly) {
 			turnReady = false;
 			readyDisplayBuilt = false;
@@ -29,14 +44,6 @@ switch (sparPhase) {
 			selectedTarget = -4;
 		}
 		
-		playerOne.ready = false;
-		playerTwo.ready = false;
-		
-		sparPhase = sparPhases.turnBegin;
-
-	break;
-	
-	case sparPhases.process:
 		// get current height of turnGrid
 		var h = ds_grid_height(turnGrid);
 		
@@ -183,6 +190,7 @@ switch (sparPhase) {
 					// initialize a variable to store whether there are actions left to process
 					var actionsRemaining = false;
 					
+					// use a repeat loop to check the whole grid for remaining actions
 					var i = 0;	repeat (ds_grid_height(turnGrid)) {
 						var a = turnGrid[# selectionPhases.action, i];
 						
