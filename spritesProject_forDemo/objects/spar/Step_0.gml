@@ -1,5 +1,9 @@
 /// @desc
 
+if (instance_exists(sparEffectAlert)) {
+	exit;	
+}
+
 if (onlineWaiting) {
 	if !(global.gameTime mod 480)	request_turn_begin();
 }

@@ -160,7 +160,7 @@ function solar_flare() {
 	// use a repeat loop to grant curse of the warrior to
 	// all sprites on the list
 	var i = 0;	repeat (ds_list_size(list)) {
-		bestow_mindset(list[| i], -1 * (MINDSETS.WARRIOR));
+		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, list[| i], -1 * (MINDSETS.WARRIOR));
 		
 		i++;
 	}
@@ -171,54 +171,8 @@ function solar_flare() {
 
 ///@desc SPELL FUNCTION: forces the target to swap (dodgeable)
 function tidal_force() {
-	randomize();
-	
-	if !(dodgeSuccess) {
-		// get target's spot number
-		var t = targetSprite;
-		var tsn = t.spotNum;
-		
-		// get target team
-		var tt = t.team;
-		
-		// create temp list
-		var l = ds_list_create();
-		
-		// build a list of numbers representing viable swap partners
-		var i = 0;	repeat (4) {
-			// if i doesn't equal target spot num, add it to the list
-			if (i != tsn)	ds_list_add(l, i);
-			
-			i++;
-		}
-		
-		// pick a random number off of that list and set it as the
-		// partner's spot number
-		var int = irandom_range(0, 3);
-		var psn = l[| int];
-		
-		// create inst list
-		var il = ds_list_create();
-		
-		// copy appropriate list
-		if (tt == spar.playerOne)	ds_list_copy(il, spar.allyList);
-		if (tt == spar.playerTwo)	ds_list_copy(il, spar.enemyList);
-		
-		// store swap partner's sprite ID
-		var psid	= il[| psn].spriteID;
-		
-		// store target's sprite ID
-		var tsid	= il[| tsn].spriteID;
-		
-		// swap sprite IDs
-		
-		var temp	= psid;
-		psid		= tsid;
-		tsid		= temp;
-		
-		// delete lists
-		ds_list_destroy(l);
-		ds_list_destroy(il);
+	if !(sparActionProcessor.dodgeSuccess) {
+		spar_effect_push_alert(SPAR_EFFECTS.FORCE_SWAP, targetSprite);
 	}	
 }
 
@@ -241,7 +195,7 @@ function nebula_storm() {
 	
 	// use a repeat loop to hex all enemies
 	var i = 0;	repeat (ds_list_size(list)) {
-		set_hexed(list[| i]);
+		spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED, list[| i]);
 		
 		i++;
 	}
@@ -437,18 +391,7 @@ function rapid_strike() {
 ///@desc SPELL FUNCTION: this spell starts a timer for an Energy Blast on the
 /// target's team.
 function looming_danger() {	
-	// get target's team
-	var t = targetSprite.team;
 	
-	// add the params of the blast to the blast grid
-	var count = spar.blastCount;
-	
-	spar.timedBlasts[# 0, count] = 3;
-	spar.timedBlasts[# 1, count] = 500;
-	spar.timedBlasts[# 2, count] = t;
-	
-	// increment the blast count
-	spar.blastCount++;
 }
 
 ///@desc SPELL FUNCTION: caster takes target's place in any spells targeting

@@ -235,8 +235,7 @@ function gate_check_player() {
 ///@desc This function is called when a spar against an in-game human opponent is about to 
 /// begin. The function stores the necessary info in global variables and then begins
 /// a transition.
-function spar_begin_ingame(_opponent) {
-	global.opponent = _opponent;
+function spar_begin_ingame() {
 	global.sparType = sparTypes.inGame;
 	room_transition(200, 400, directions.south, rm_battleScene);
 }

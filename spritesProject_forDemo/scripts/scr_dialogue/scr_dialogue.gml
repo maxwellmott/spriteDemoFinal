@@ -199,7 +199,7 @@ function talk_bubble_build_dialogue() {
 					break;
 					
 					case "SPAR":
-						global.opponent		= global.speaker;
+						global.opponent		= global.speaker.ID;
 						global.ynFunction	= spar_begin_ingame;
 				}
 				

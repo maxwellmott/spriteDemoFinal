@@ -221,4 +221,14 @@ COMING BACK FROM PLAYTEST BUILD
 			AN ID THAT GETS ADDED TO THE ALERT LIST 
 			(DON'T JUST CALL THE FUNCTION IN THE ACTION PROCESSOR)
 			
+			
+			
+	5/28
+	
+		Started doing some p heavy work on the new spar effects system. I'm going to work more on it tonight and give a more
+		solid explanation of the overall system. For now, here is this list:
+			-finish all spar effect functions
+			-replace spar effect function calls in spell functions with spar_effect_push_alert
+			-build sparAlert object
+			
 		

@@ -59,5 +59,6 @@ if (instance_exists(overworld)) {
 
 // for debugging only
 if (global.start) {
-	spar_begin_ingame(npcs.mercurioGallant);
+	global.opponent = npcs.mercurioGallant;
+	spar_begin_ingame();
 }

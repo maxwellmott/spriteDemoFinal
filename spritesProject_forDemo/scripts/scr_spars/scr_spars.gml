@@ -827,3 +827,7 @@ function turn_message_get_number_text(_int) {
 		case 8: return "Eight";
 	}
 }
+	
+function blast_timers_check_ready() {
+	
+}

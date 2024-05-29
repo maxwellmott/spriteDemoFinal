@@ -128,8 +128,4 @@ if (is_debug_overlay_open()) {
 }
 */
 
-if (is_debug_overlay_open()) {
-	spar_begin_ingame(npcs.mercurioGallant);
-}
-
 global.roomBuilt = true;

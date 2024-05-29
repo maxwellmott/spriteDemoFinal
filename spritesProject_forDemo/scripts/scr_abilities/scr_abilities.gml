@@ -4,7 +4,7 @@
 
 // enum containing ability types
 
-#region CREATE ALL ABILITY FUNCTIONS
+#region CREATE ALL ABILITY EFFECT FUNCTIONS
 
 ///@desc ABILITY FUNCTION: This function is called when a sprite
 /// with this ability is targeted by a basic attack or a spell. If 
