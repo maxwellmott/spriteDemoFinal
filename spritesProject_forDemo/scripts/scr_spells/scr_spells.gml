@@ -145,34 +145,16 @@ function solar_flare() {
 	// get target's team
 	var t = targetSprite.team;
 	
-	// initialize dummy list
-	var list = ds_list_create();
-	
-	// get player's allyList
-	if (t == spar.playerOne) {
-		ds_list_copy(list, spar.allyList);
-	}
-	
-	if (t == spar.playerTwo) {
-		ds_list_copy(list, spar.enemyList);
-	}
-	
-	// use a repeat loop to grant curse of the warrior to
-	// all sprites on the list
-	var i = 0;	repeat (ds_list_size(list)) {
-		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, list[| i], -1 * (MINDSETS.WARRIOR));
-		
-		i++;
-	}
-	
-	// delete the list
-	ds_list_destroy(list);
+	// push spar effect and target team to alert list
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, -1 * (MINDSETS.WARRIOR));
 }
 
 ///@desc SPELL FUNCTION: forces the target to swap (dodgeable)
 function tidal_force() {
 	if !(sparActionProcessor.dodgeSuccess) {
-		spar_effect_push_alert(SPAR_EFFECTS.FORCE_SWAP, targetSprite);
+		var t = targetSprite.team;
+		
+		spar_effect_push_alert(SPAR_EFFECTS.FORCE_SWAP_TEAM, t);
 	}	
 }
 
@@ -181,27 +163,7 @@ function nebula_storm() {
 	// get target's team
 	var t = targetSprite.team;
 
-	// initialize dummy list
-	var list = ds_list_create();
-	
-	// get enemy allyList
-	if (t == spar.playerOne) {
-		ds_list_copy(list, spar.allyList);
-	}
-	
-	if (t == spar.playerTwo) {
-		ds_list_copy(list, spar.enemyList);
-	}
-	
-	// use a repeat loop to hex all enemies
-	var i = 0;	repeat (ds_list_size(list)) {
-		spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED, list[| i]);
-		
-		i++;
-	}
-	
-	// delete the dummy list
-	ds_list_destroy(list);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_TEAM, t);
 }
 
 ///@desc SPELL FUNCTION: binds all enemies
@@ -209,27 +171,7 @@ function tectonic_shift() {
 	// get target's team
 	var t = targetSprite.team;
 
-	// initialize dummy list
-	var list = ds_list_create();
-	
-	// get enemy allyList
-	if (t == spar.playerOne) {
-		ds_list_copy(list, spar.allyList);
-	}
-	
-	if (t == spar.playerTwo) {
-		ds_list_copy(list, spar.enemyList);
-	}
-	
-	// use a repeat loop to hex all enemies
-	var i = 0;	repeat (ds_list_size(list)) {
-		set_bound(list[| i]);
-		
-		i++;
-	}
-	
-	// delete the dummy list
-	ds_list_destroy(list);	
+	spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND_TEAM, t);	
 }
 
 ///@desc SPELL FUNCTION: no effect
@@ -237,17 +179,19 @@ function fireball() {
 	// maybe uhh delete this uhh function
 }
 
-///@desc SPELL FUNCTION: deals extra damage if the sprite
+///@desc SPELL FUNCTION: deals extra damage if the sprite is of type: ASTRAL
 function holy_water() {
-	// any spells that effect damage calc will be on a list
-	// that will be checked before damage calc is performed
-	// (effect functions are called after damage calc)
+	if !(dodgeSuccess) {
+		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL, 1.5);
+	}
 }
 
 ///@desc SPELL FUNCTION: binds target (dodgeable)
 function shock() {
-	if (dodgeSuccess == false) {
-		set_bound(targetSprite);
+	if !(dodgeSuccess) {
+		var t = 
+		
+		spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, t)
 	}
 }
 
@@ -257,7 +201,7 @@ function decay() {
 		var t = activeSprite.team;
 		var d = damage / 2;
 		
-		restore_hp(t, d);
+		spar_effect_push_alert(SPAR_EFFECTS.DRAIN_HEALTH, t, d);
 	}
 }
 
@@ -270,32 +214,16 @@ function lady_solanus_grace() {
 	// get caster's team
 	var t = activeSprite.team;
 	
-	// heal team fully
-	fully_restore_hp(t);
-	
-	// initialize dummy list
-	var list = ds_list_create();
-	
-	// get the team's allyList
-	if (t == spar.playerOne) {
-		ds_list_copy(list, spar.allyList);
-	}
-	
-	if (t == spar.playerTwo) {
-		ds_list_copy(list, spar.enemyList);
-	}
-	
-	var i = 0;	repeat (ds_list_size(list)) {
-		bestow_mindset(list[| i], MINDSETS.TREE);
-		
-		i++;
-	}
+	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, t);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE);
 }
 
 ///@desc SPELL FUNCTION: grants target curse of the tree (dodgeable)
 function typhoon() {
-	if (dodgeSuccess == false) {
-		bestow_mindset(targetSprite, 0 - MINDSETS.TREE);
+	if !(dodgeSuccess) {
+		var t = targetSprite;
+		
+		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.TREE);
 	}
 }
 
@@ -303,7 +231,7 @@ function typhoon() {
 function healing_light() {
 	var t = activeSprite.team;
 	
-	fully_restore_hp(t);
+	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, t);
 }
 
 ///@desc SPELL FUNCTION: no effect
@@ -313,74 +241,37 @@ function ruburs_water_cannon() {
 
 ///@desc SPELL FUNCTION: binds the target (dodgeable)
 function ruburs_grapple() {
-	if (dodgeSuccess == false) {
-		set_bound(targetSprite);
+	if !(dodgeSuccess) {
+		var t = targetSprite;
+		
+		spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, t)
 	}
 }
 
 ///@desc SPELL FUNCTION: changes arena to forest
 function lusias_harvest_spell() {
-	arena_change_forest();
+	spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_FOREST);
 }
 
 ///@desc SPELL FUNCTION: grants target the curse of the tree
 function waterlog() {
-	bestow_mindset(targetSprite, 0 - MINDSETS.TREE);
+	var t = targetSprite;
+	
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.TREE);
 }
 
 ///@desc SPELL FUNCTION: grants target and all nearby enemies the curse of the tree
 function air_pressure() {
+	var t = targetSprite.team;
 	
-	// initialize the dummy list
-	var list = ds_list_create();
-	
-	// copy the target's nearbyAlly list
-	ds_list_copy(list, targetSprites.nearbyAllies);
-	
-	// use a repeat loop to grant curse to all nearbyAllies
-	var i = 0;	repeat (ds_list_size(nearbyAllies)) {
-		bestow_mindset(list[| i], 0 - MINDSETS.TREE);
-		
-		i++;
-	}
-	
-	// grant mindset to targetSprite
-	bestow_mindset(targetSprite, 0 - MINDSETS.TREE);
-	
-	// destroy list
-	ds_list_destroy(list);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t);
 }
 
 ///@desc SPELL FUNCTION: removes all curses and hindrances from caster's side of the field
 function superbloom() {
-	// get caster's team
-	var t = activeSprite.team;
+	var t = targetSprite.team;
 	
-	// create dummy list
-	var list = ds_list_create();
-	
-	// get team's ally list
-	if (t == spar.playerOne) {
-		ds_list_copy(list, spar.allyList);	
-	}
-	
-	if (t == spar.playerTwo) {
-		ds_list_copy(list, spar.enemyList);	
-	}
-	
-	// use a repeat list to remove any curses
-	var i = 0;	repeat (ds_list_size(list)) {
-		if (list[| i].mindset < 0) {
-			list[| i].mindset = 0;	
-		}
-		
-		i++;
-	}
-	
-	// remove all hindrances
-	clear_hum(t);
-	clear_miasma(t);
-	clear_rust(t);
+	spar_effect_push_alert(SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES, t);
 }
 
 ///@desc SPELL FUNCTION: this spell strikes first. it's id will be on a list of priority moves
@@ -391,7 +282,11 @@ function rapid_strike() {
 ///@desc SPELL FUNCTION: this spell starts a timer for an Energy Blast on the
 /// target's team.
 function looming_danger() {	
+	var c = 3;
+	var p = 500;
+	var t = targetSprite.team;
 	
+	spar_effect_push_alert(SPAR_EFFECTS.GRID_ADD_TIMED_BLAST, c, p, t);
 }
 
 ///@desc SPELL FUNCTION: caster takes target's place in any spells targeting
@@ -403,21 +298,11 @@ function intercept() {
 	// get target
 	var t = targetSprite;
 	
-	// use a repeat loop to check the target column of the turn grid for the target
-	var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
-		// check if the target matches
-		if (spar.turnGrid[# 2, i] == t.spotNum) {
-			// check if the action is a spell
-			if (spar.turnGrid[# 3, i] >= sparActions.height) {
-				// replace the target with the caster
-				spar.turnGrid[# 2, i] = c.spotNum;
-			}
-		}
-	}
+	spar_effect_push_alert(SPAR_EFFECTS.REPLACE_TARGET, c, t);
 }
 
-///@desc SPELL FUNCTION: partially heals the caster's team, removes miasma, turns all 
-/// ally curses into blessings
+///@desc SPELL FUNCTION: removes all hindrances on the caster's side and sets rust on the
+/// target's side
 function steam_bath() {
 	// get the caster
 	var c = activeSprite;
@@ -425,39 +310,16 @@ function steam_bath() {
 	// get the caster's team
 	var t = c.team;
 	
-	// initialize dummy list
-	var list = ds_list_create();
+	spar_effect_push_alert(SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES, c);
 	
-	// get the caster's team's allyList
-	if (t == spar.playerOne) {
-		ds_list_copy(list, spar.allyList);
-	}
-	
-	if (t == spar.playerTwo) {
-		ds_list_copy(list, spar.enemyList);
-	}
-	
-	// remove miasma on both sides of the field
-	clear_miasma(spar.playerOne);
-	clear_miasma(spar.playerTwo);
-	
-	// use a repeat loop to turn any ally curses into blessings
-	var i = 0;	repeat (ds_list_size(list)) {
-		var m = list[| i].mindset;
-		
-		if (m < 0) {
-			shift_mindset(list[| i]);
-		}
-		
-		i++;	
-	}
+	spar_effect_push_alert(SPAR_EFFECTS.SET_RUST, t);
 }
 
 ///@desc SPELL FUNCTION: grants target curse of the imp
 function undertow() {
 	var t = targetSprite;
 	
-	bestow_mindset(t, 0 - MINDSETS.IMP);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP);
 }
 
 ///@desc SPELL FUNCTION: adopts target's mindset and fully heals target or caster's team
@@ -471,42 +333,28 @@ function empathize() {
 		// check if target has an altered mindset
 		if (t.mindset != 0) {
 			// copy mindset
-			c.mindset = t.mindset;
+			spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, c, t.mindset);
 			
 			// if curse, fully heal target team
 			if (t.mindset < 0) {
-				fully_restore_hp(t.team);	
+				spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, t.team);
 			}
 			
 			// if blessing, fully heal caster's team
 			if (t.mindset > 0) {
-				fully_restore_hp(c.team);	
+				spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, c.team);
 			}
 		}
 	}
 }
 
-///@desc SPELL FUNCTION: hexes target and all their nearby allies (effect only dodgeable by target)
+///@desc SPELL FUNCTION: hexes enemy team and caster
 function hellfire() {
-	// store target in a local
-	var t = targetSprite;
+	var c = activeSprite;
+	var t = targetSprite.team;
 	
-	// initialize dummy list
-	var list = ds_list_create();
-	
-	// copy nearbyAllies list to dummy list
-	ds_list_copy(list, t.nearbyAllies);
-	
-	// use a repeat loop to hex all nearby allies
-	var i = 0;	repeat (ds_list_size(list)) {
-		set_hexed(list[| i]);
-		
-		i++;
-	}
-	
-	if !(dodgeSuccess) {
-		set_hexed(t);	
-	}
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED, c);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_TEAM, t);
 }
 
 ///@desc SPELL FUNCTION: this spell sets the ballLightningActive variable to true

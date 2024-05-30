@@ -231,4 +231,8 @@ COMING BACK FROM PLAYTEST BUILD
 			-replace spar effect function calls in spell functions with spar_effect_push_alert
 			-build sparAlert object
 			
+	5/29
+	
+		Still working on the replacing all of the spar effect function calls with spar_effect_push_alert.
 		
+		I left off at ball_lightning!

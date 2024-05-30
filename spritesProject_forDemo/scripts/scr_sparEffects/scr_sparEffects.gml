@@ -137,10 +137,30 @@ enum SPAR_EFFECTS {
 	SET_BOUND_GLOBAL,
 	APPLY_HEXED,
 	APPLY_BOUND,
+	ENERGY_BLAST_GLOBAL,
+	RUST_INCREASE_PHYSICAL_DAMAGE,
+	HUM_DECREASE_ELEMENTAL_DAMAGE,
+	INCREASE_DAMAGE_NATURAL,
+	DECREASE_DAMAGE_NATURAL,
+	INCREASE_DAMAGE_MECHANICAL,
+	DECREASE_DAMAGE_MECHANICAL,
+	INCREASE_DAMAGE_ASTRAL,
+	DECREASE_DAMAGE_ASTRAL,
+	VOLCANO_WATER_DECREASE_DAMAGE,
+	VOLCANO_FIRE_INCREASE_DAMAGE,
+	OCEAN_STORM_INCREASE_DAMAGE,
+	OCEAN_WATER_INCREASE_DAMAGE,
+	STRATOS_EARTH_DECREASE_DAMAGE,
+	STRATOS_STORM_INCREASE_DAMAGE,
+	FOREST_FIRE_INCREASE_DAMAGE,
+	FOREST_EARTH_INCREASE_DAMAGE,
+	ELEMENTAL_DAMAGE_DESTROY_ARENA,
+	PHYSICAL_DAMAGE_DESTROY_ARENA,
+	DRAIN_HEALTH,
+	DRAIN_MAGIC,
+	REPLACE_TARGET,
 	HEIGHT
 }
-
-#region ADDED IDS
 
 // enum that contains all spar effect params
 enum SPAR_EFFECT_PARAMS {
@@ -460,8 +480,6 @@ function force_swap(_targetSprite) {
 	ds_list_destroy(il);
 }
 
-#endregion
-
 function force_swap_team(_targetPlayer) {
 }
 
@@ -506,16 +524,43 @@ function clear_mindset_global() {
 	
 }
 
-function bestow_mindset_nearby_allies(_target) {
+function bestow_mindset_nearby_allies(_target, _mindset) {
 }
 
-function bestow_mindset_nearby_enemies(_target) {
+function bestow_mindset_nearby_enemies(_target, _mindset) {
 }
 
-function bestow_mindset_nearby_sprites(_target) {
+function bestow_mindset_nearby_sprites(_target, _mindset) {
 }
 
-function bestow_mindset_team(_targetPlayer) {	
+function bestow_mindset_team(_targetPlayer, _mindset) {	
+	// store arguments in local variables
+	var t = _targetPlayer;
+	var m = _mindset;
+	
+	// initialize dummy list
+	var list = ds_list_create();
+	
+	// get player's allyList
+	if (t == spar.playerOne) {
+		ds_list_copy(list, spar.allyList);
+	}
+	
+	if (t == spar.playerTwo) {
+		ds_list_copy(list, spar.enemyList);
+	}
+	
+	// use a repeat loop to grant curse of the warrior to
+	// all sprites on the list
+	var i = 0;	repeat (ds_list_size(list)) {
+		list[| i].mindset = m;
+		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, list[| i], -1 * (MINDSETS.WARRIOR));
+		
+		i++;
+	}
+	
+	// delete the list
+	ds_list_destroy(list);	
 }
 
 function bestow_mindset_global() {
@@ -590,7 +635,27 @@ function set_hexed_nearby_sprites(_target) {
 }
 
 function set_hexed_team(_targetPlayer) {
+	// initialize dummy list
+	var list = ds_list_create();
 	
+	// get enemy allyList
+	if (t == spar.playerOne) {
+		ds_list_copy(list, spar.allyList);
+	}
+	
+	if (t == spar.playerTwo) {
+		ds_list_copy(list, spar.enemyList);
+	}
+	
+	// use a repeat loop to hex all enemies
+	var i = 0;	repeat (ds_list_size(list)) {
+		spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED, list[| i]);
+		
+		i++;
+	}
+	
+	// delete the dummy list
+	ds_list_destroy(list);	
 }
 
 function set_hexed_global() {
@@ -623,6 +688,94 @@ function apply_hexed() {
 
 function apply_bound() {
 	
+}
+
+function energy_blast_global() {
+	
+}
+
+function rust_increase_physical_damage() {
+	
+}
+
+function hum_decrease_elemental_damage() {
+	
+}
+
+function increase_damage_natural(_multiplier) {
+	
+}
+
+function decrease_damage_natural(_multiplier) {
+	
+}
+
+function increase_damage_mechanical(_multiplier) {
+	
+}
+
+function decrease_damage_mechanical(_multiplier) {
+	
+}
+
+function increase_damage_astral(_multiplier) {
+	
+}
+
+function decrease_damage_astral(_multiplier) {
+	
+}
+
+function volcano_water_decrease_damage() {
+	
+}
+
+function volcano_fire_increase_damage() {
+	
+}
+
+function ocean_storm_increase_damage() {
+	
+}
+
+function ocean_water_increase_damage() {
+	
+}
+
+function stratos_earth_decrease_damage() {
+	
+}
+
+function stratos_storm_increase_damage() {
+	
+}
+
+function forest_fire_increase_damage() {
+	
+}
+
+function forest_earth_increase_damage() {
+	
+}
+
+function elemental_damage_destroy_arena() {
+	
+}
+
+function physical_damage_destroy_arena() {
+	
+}
+
+function drain_health(_receivingTeam, _amount) {
+	
+}
+
+function drain_magic(_receivingTeam, _amount) {
+	
+}
+
+function replace_target(_caster, _target) {
+		
 }
 
 // get text from csv file
@@ -726,6 +879,29 @@ master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND_TEAM,				textGrid[# 1, SPAR_E
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.SET_BOUND_GLOBAL],				set_bound_global,				noone);
 master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_HEXED,					textGrid[# 1, SPAR_EFFECTS.APPLY_HEXED],					apply_hexed,					noone);
 master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_BOUND,					textGrid[# 1, SPAR_EFFECTS.APPLY_BOUND],					apply_bound,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.ENERGY_BLAST_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.ENERGY_BLAST_GLOBAL],			energy_blast_global,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.RUST_INCREASE_PHYSICAL_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.RUST_INCREASE_PHYSICAL_DAMAGE],	rust_increase_physical_damage,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.HUM_DECREASE_ELEMENTAL_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.HUM_DECREASE_ELEMENTAL_DAMAGE],	hum_decrease_elemental_damage,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.INCREASE_DAMAGE_NATURAL,		textGrid[# 1, SPAR_EFFECTS.INCREASE_DAMAGE_NATURAL],		increase_damage_natural,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DECREASE_DAMAGE_NATURAL,		textGrid[# 1, SPAR_EFFECTS.DECREASE_DAMAGE_NATURAL],		decrease_damage_natural,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.INCREASE_DAMAGE_MECHANICAL,	textGrid[# 1, SPAR_EFFECTS.INCREASE_DAMAGE_MECHANICAL],		increase_damage_mechanical,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DECREASE_DAMAGE_MECHANICAL,	textGrid[# 1, SPAR_EFFECTS.DECREASE_DAMAGE_MECHANICAL],		decrease_damage_mechanical,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL,		textGrid[# 1, SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL],			increase_damage_astral,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DECREASE_DAMAGE_ASTRAL,		textGrid[# 1, SPAR_EFFECTS.DECREASE_DAMAGE_ASTRAL],			decrease_damage_astral,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.VOLCANO_WATER_DECREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.VOLCANO_WATER_DECREASE_DAMAGE],	volcano_water_decrease_damage,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.VOLCANO_FIRE_INCREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.VOLCANO_FIRE_INCREASE_DAMAGE],	volcano_fire_increase_damage,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.OCEAN_STORM_INCREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.OCEAN_STORM_INCREASE_DAMAGE],	ocean_storm_increase_damage,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.OCEAN_WATER_INCREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.OCEAN_WATER_INCREASE_DAMAGE],	ocean_water_increase_damage,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.STRATOS_EARTH_DECREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.STRATOS_EARTH_DECREASE_DAMAGE],	stratos_earth_decrease_damage,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.STRATOS_STORM_INCREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.STRATOS_STORM_INCREASE_DAMAGE],	stratos_storm_increase_damage,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.FOREST_FIRE_INCREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.FOREST_FIRE_INCREASE_DAMAGE],	forest_fire_increase_damage,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.FOREST_EARTH_INCREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.FOREST_EARTH_INCREASE_DAMAGE],	forest_earth_increase_damage,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.ELEMENTAL_DAMAGE_DESTROY_ARENA,textGrid[# 1, SPAR_EFFECTS.ELEMENTAL_DAMAGE_DESTROY_ARENA],	elemental_damage_destroy_arena,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.PHYSICAL_DAMAGE_DESTROY_ARENA,	textGrid[# 1, SPAR_EFFECTS.PHYSICAL_DAMAGE_DESTROY_ARENA],	physical_damage_destroy_arena,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DRAIN_HEALTH,					textGrid[# 1, SPAR_EFFECTS.DRAIN_HEALTH],					drain_health,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DRAIN_MAGIC,					textGrid[# 1, SPAR_EFFECTS.DRAIN_MAGIC],					drain_magic,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.REPLACE_TARGET,				textGrid[# 1, SPAR_EFFECTS.REPLACE_TARGET],					replace_target,					noone);
+
 #endregion
 
 // encode the spar effect grid
