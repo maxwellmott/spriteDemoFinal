@@ -205,6 +205,7 @@ function decay() {
 	}
 }
 
+///@desc SPELL FUNCTION: no effect
 function expel_force() {
 	// no effect
 }
@@ -227,10 +228,12 @@ function typhoon() {
 	}
 }
 
-///@desc SPELL FUNCTION: fully heals the caster's team
+///@desc SPELL FUNCTION: fully heals the caster's team and make's caster INVULNERABLE
 function healing_light() {
+	var c = activeSprite;
 	var t = activeSprite.team;
 	
+	spar_effect_push_alert(SPAR_EFFECTS.SET_INVULNERABLE, c);
 	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, t);
 }
 
@@ -267,7 +270,8 @@ function air_pressure() {
 	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t);
 }
 
-///@desc SPELL FUNCTION: removes all curses and hindrances from caster's side of the field
+///@desc SPELL FUNCTION: removes all curses and hindrances from caster's side of the field and 
+/// grants all the blessing of the tree
 function superbloom() {
 	var t = targetSprite.team;
 	
@@ -363,8 +367,9 @@ function hellfire() {
 /// spell, the damage of which is calculated at the end of the turn. This spell is also
 /// a priority spell.
 function ball_lightning() {
-	// turn the caster's ballLightningActive variable to true
-	activeSprite.ballLightningActive = true;
+	var c = activeSprite;
+	
+	spar_effect_push_alert(SPAR_EFFECTS.BALL_LIGHTNING_SET_ACTIVE, c);
 }
 
 ///@desc SPELL FUNCTION: binds the target
@@ -372,37 +377,15 @@ function quicksand() {
 	// store targetSprite
 	var t = targetSprite;
 	
-	// bind the targetSprite
-	set_bound(t);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, t);
 }
 
-///@desc SPELL FUNCTION: hexes and binds the target and all nearby allies (target can dodge)
+///@desc SPELL FUNCTION: hexes and binds all enemies
 function lord_mogradths_rage() {
-	// store targetSprite in a local variable
-	var t = targetSprite;
+	var t = targetSprite.team;
 	
-	// initialize the dummy list
-	var list = ds_list_create();
-	
-	// get nearbyAllies list
-	ds_list_copy(list, t.nearbyAllies);
-	
-	// use a repeat loop to hex and bind all nearby allies
-	var i = 0;	repeat (ds_list_size(list)) {
-		var s = list[| i];
-		set_hexed(s);
-		set_bound(s);
-		
-		// increment i
-		i++;
-	}
-	
-	// check for dodgeSuccess
-	if !(dodgeSuccess) {
-		// if no successful dodge, hex and bind target
-		set_hexed(t);
-		set_bound(t);
-	}
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_TEAM, t);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND_TEAM, t);
 }
 
 ///@desc SPELL FUNCTION: restores half of the health depleted from target (dodgeable)
@@ -411,39 +394,29 @@ function drain_lifeforce() {
 		var t = activeSprite.team;
 		var d = damage / 2;
 		
-		restore_hp(t, d);
+		spar_effect_push_alert(SPAR_EFFECTS.DRAIN_HEALTH, t, d);
 	}
 }
 
 ///@desc SPELL FUNCTION: deals a fraction of the damage to the caster
 function pyrokinesis() {
-	if (dodgeSuccess) {
-		// calculate what the damage would have been so that you
-		// can still calculate the recoil damage
-		var d = 100;	///@FIXME
-	}
-	else {
-		var d = damage / 3;	
-	}
-	
-	// get caster's team
 	var t = activeSprite.team;
 	
-	deplete_hp(t, d);
+	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, t, d);
 }
 
 ///@desc SPELL FUNCTION: summons rust on the target's side of the field
 function downpour() {
 	var t = targetSprite.team;
 	
-	set_rust(t);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_RUST, t);
 }
 
 ///@desc SPELL FUNCTION: grants the target the curse of the imp (dodgeable)
 function arc_blast() {
 	var t = targetSprite;
 	
-	bestow_mindset(t, 0 - MINDSETS.IMP);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP);
 }
 
 ///@desc SPELL FUNCTION: fails unless forest is active, removes forest, fully restores caster's
@@ -613,8 +586,7 @@ function purifying_flame() {
 	}
 }
 
-///@desc SPELL FUNCTION: partially restore target's HP and grant blessing
-/// of the warrior to them and all their nearby allies
+///@desc SPELL FUNCTION: set berserk for nearby sprites, 
 function jabuls_fight_song() {
 	var c = activeSprite;
 	
@@ -753,21 +725,25 @@ function deflective_shield() {
 	
 	var c = activeSprite;
 	
-	c.deflective = true;
-	
+	spar_effect_push_alert(SPAR_EFFECTS.SET_DEFLECTIVE, c);
 }
 
+///@desc SPELL FUNCTION: sets parrying to true (when parrying, the sprite reverses damage 
+/// twofold unto basic-attacking sprites that target this one. After doing so, the sprite becomes
+/// INVULNERABLE (this spell is also a prioritySpell)
 function dions_parry() {
-	// the ID of this spell is on a list of "prioritySpells"
+	var c = activeSprite;
 	
-	// if the caster is targeted by a basic attack, ignore damage done
-	// to the caster and halve the target's resistance when calcing damage
-	// for the retaliation
+	spar_effect_push_alert(SPAR_EFFECTS.SET_PARRYING, c);
 }
 
+///@desc SPELL FUNCTION: creates a blast with a target and damage that is dependent on the caster's luckroll
 function dions_gambling_blast() {
-	// generate an Energy Blast with random power. This has a small chance
-	// to target the caster's team instead
+	var c = activeSprite;
+	var lr = c.luckRoll;
+	
+	if (lr >= 900)	var t = c.enemy;
+	if (lr < 900)	var t = c.team;
 }
 
 function dions_barter_trick() {
@@ -912,6 +888,18 @@ function eradicate() {
 	
 	// at the end of the turn, deliver an Energy Blast with damage 
 	// relative to each spell absorbed
+}
+
+// SPELL FUNCTION: sets both teams' MP to 0
+/// (use dark deal 10 times and you'll be awoken from sleeping to do the Cenotomb quest)
+function dark_deal() {
+	
+}
+
+/// SPELL FUNCTION: sets user team's HP to 1, sets all of their 
+/// sprites to INVULNERABLE until the end of the turn
+function hail_mary() {
+	
 }
 
 #endregion  

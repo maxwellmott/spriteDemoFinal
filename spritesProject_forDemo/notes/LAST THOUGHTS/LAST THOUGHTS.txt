@@ -236,3 +236,7 @@ COMING BACK FROM PLAYTEST BUILD
 		Still working on the replacing all of the spar effect function calls with spar_effect_push_alert.
 		
 		I left off at ball_lightning!
+		
+	5/30
+	
+		Added some more effects. Still finishing up spell effect call replacements. I left off at Hikams

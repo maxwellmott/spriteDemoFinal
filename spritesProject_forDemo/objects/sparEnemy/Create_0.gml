@@ -63,9 +63,17 @@ currentAlign	= baseAlign;
 // initialize mindset (set to 0 since negative IDs= curses)
 mindset = 0;
 
-// initialize bound and hexed
+// initialize bound, hexed, berserk, and invulnerable
 bound = false;
 hexed = false;
+berserk = false;
+invulnerable = false;
+
+// initialize bound, hexed, berserk, and invulnerable counters
+boundCounter = 0;
+hexedCounter = 0;
+berserkCounter = 0;
+invulnerableCounter = 0;
 
 // initialize selectedTarget and selectedAction
 selectedTarget = -1;
@@ -107,9 +115,10 @@ nearbyEnemies	= ds_list_create();
 nearbySprites	= ds_list_create();
 
 blackHoleActive = false;
-ballLightningActive = false;
+blackHoleCount = 0;
 
-absorbedSpellCount = 0;
+ballLightningActive = false;
+ballLightningCount = 0;
 
 newSpriteID = -1;
 
@@ -131,3 +140,7 @@ backUpAction2	= -1;
 
 backUpTarget1	= -1;
 backUpTarget2	= -1;
+
+dividing = false;
+multiplying = false;
+coefficient = -1;

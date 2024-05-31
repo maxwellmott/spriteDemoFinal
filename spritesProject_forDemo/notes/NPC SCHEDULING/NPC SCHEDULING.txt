@@ -30,3 +30,20 @@ this architecture.
 --How will the routines be stored?
 
 --The build_daily_schedule function must still be completed.
+
+SPECIAL EVENT ARCHITECTURE
+
+there will be a global variable called global.currentSpecialEvent
+
+each NPC will have a special set of scheduling params for special events in which they are present
+
+During special events, time will be stopped until the event is complete
+
+Once the event is complete, the game will perform an overworld transition to some new location at some new time
+these will be set specific to each special event
+
+If the player interacts with their bed during a special event, an alert will be displayed stating "You can't go to
+sleep right now, you're in the middle of something important!"
+
+NPC behavior will be different from cutscenes and also from regular overworld time. Instead, it will be more similar
+to pokemon, where the characters' behavior will be set to loop continually until the end of the event.

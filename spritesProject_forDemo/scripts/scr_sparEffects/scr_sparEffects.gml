@@ -154,11 +154,41 @@ enum SPAR_EFFECTS {
 	STRATOS_STORM_INCREASE_DAMAGE,
 	FOREST_FIRE_INCREASE_DAMAGE,
 	FOREST_EARTH_INCREASE_DAMAGE,
-	ELEMENTAL_DAMAGE_DESTROY_ARENA,
-	PHYSICAL_DAMAGE_DESTROY_ARENA,
+	DESTROY_ARENA,
 	DRAIN_HEALTH,
 	DRAIN_MAGIC,
 	REPLACE_TARGET,
+	BALL_LIGHTNING_SET_ACTIVE,
+	BALL_LIGHTNING_ABSORB_SPELL,
+	BALL_LIGHTNING_APPLY_DAMAGE,
+	BLACK_HOLE_SET_ACTIVE,
+	BLACK_HOLE_ABSORB_SPELL,
+	BLACK_HOLE_APPLY_DAMAGE,
+	APPLY_SELF_DAMAGE,
+	SET_BERSERK,
+	SET_BERSERK_NEARBY_ALLIES,
+	SET_BERSERK_NEARBY_ENEMIES,
+	SET_BERSERK_NEARBY_SPRITES,
+	SET_BERSERK_TEAM,
+	SET_BERSERK_GLOBAL,
+	SET_INVULNERABLE,
+	SET_INVULNERABLE_NEARBY_ALLIES,
+	SET_INVULNERABLE_NEARBY_ENEMIES,
+	SET_INVULNERABLE_NEARBY_SPRITES,
+	SET_INVULNERABLE_TEAM,
+	SET_INVULNERABLE_GLOBAL,
+	SKYDIVE_AVOID_DAMAGE,
+	INVULNERABLE_AVOID_DAMAGE,
+	SET_PARRYING,
+	APPLY_PARRY,
+	SET_DIVIDING,
+	SET_MULTIPLYING,
+	DIVIDE_HEALING,
+	DIVIDE_DAMAGE,
+	MULTIPLY_HEALING,
+	MULTIPLY_DAMAGE,
+	SET_DEFLECTIVE,
+	DEFLECT_SPELL,
 	HEIGHT
 }
 
@@ -758,11 +788,7 @@ function forest_earth_increase_damage() {
 	
 }
 
-function elemental_damage_destroy_arena() {
-	
-}
-
-function physical_damage_destroy_arena() {
+function destroy_arena() {
 	
 }
 
@@ -776,6 +802,130 @@ function drain_magic(_receivingTeam, _amount) {
 
 function replace_target(_caster, _target) {
 		
+}
+
+function ball_lightning_set_active(_caster) {
+	
+}
+
+function ball_lightning_absorb_spell(_blSprite) {
+	
+}
+
+function ball_lightning_apply_damage(_blSprite, _count) {
+	
+}
+
+function black_hole_set_active(_caster) {
+	
+}
+
+function black_hole_absorb_spell(_bhSprite) {
+	
+}
+
+function black_hole_apply_damage(_bhSprite, _count) {
+	
+}
+
+function apply_self_damage(_targetPlayer, _amount) {
+	
+}
+
+function set_berserk(_target) {
+	
+}
+
+function set_berserk_nearby_allies(_target) {
+	
+}
+
+function set_berserk_nearby_enemies(_target) {
+	
+}
+
+function set_berserk_nearby_sprites(_target) {
+	
+}
+	
+function set_berserk_team(_targetPlayer) {
+	
+}
+
+function set_berserk_global() {
+	
+}
+
+function set_invulnerable(_target) {
+	
+}
+
+function set_invulnerable_nearby_allies(_target) {
+	
+}
+
+function set_invulnerable_nearby_enemies(_target) {
+	
+}
+
+function set_invulnerable_nearby_sprites(_target) {
+	
+}
+
+function set_invulnerable_team(_targetPlayer) {
+	
+}
+
+function set_invulnerable_global() {
+	
+}
+
+function skydive_avoid_damage() {
+	
+}
+
+function invulnerable_avoid_damage() {
+	
+}
+
+function set_parrying(_caster) {
+	
+}
+
+function apply_parry(_attackingSprite) {
+	
+}
+
+function set_dividing(_targetSprite, _coefficient) {
+	
+}
+
+function set_multiplying(_targetSprite, _coefficient) {
+	
+}
+
+function multiply_healing(_targetSprite, _coefficient) {
+	
+}
+
+function multiply_damage(_targetsprite, _coefficient) {
+	
+}
+
+function divide_healing(_targetSprite, _coefficient) {
+	
+}
+
+function divide_damage(_targetSprite, _coefficient) {
+	
+}
+
+function set_deflective(_caster) {
+	
+}
+
+function deflect_spell(_caster) {
+	
 }
 
 // get text from csv file
@@ -796,111 +946,141 @@ function master_grid_add_spar_effect(_ID) {
 }
 
 #region BUILD THE SPAR EFFECT GRID
-//							ID											ALERT TEXT													EFFECT FUNCTION					ANIMATION
-master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_VOLCANO,			textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_VOLCANO],			arena_change_volcano,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_OCEAN,			textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_OCEAN],				arena_change_ocean,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_STRATOS,			textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_STRATOS],			arena_change_stratos,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_FOREST,			textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_FOREST],			arena_change_forest,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_NORMAL,			textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_NORMAL],			arena_change_normal,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_MIASMA,					textGrid[# 1, SPAR_EFFECTS.SET_MIASMA],						set_miasma,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_HUM,						textGrid[# 1, SPAR_EFFECTS.SET_HUM],						set_hum,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_RUST,						textGrid[# 1, SPAR_EFFECTS.SET_RUST],						set_rust,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.ENERGY_BLAST,					textGrid[# 1, SPAR_EFFECTS.ENERGY_BLAST],					energy_blast,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.BESTOW_MINDSET,				textGrid[# 1, SPAR_EFFECTS.BESTOW_MINDSET],					bestow_mindset,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET,					textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET],					shift_mindset,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.COPY_MINDSET,					textGrid[# 1, SPAR_EFFECTS.COPY_MINDSET],					copy_mindset,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_MP,					textGrid[# 1, SPAR_EFFECTS.RESTORE_MP],						restore_mp,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_HP,					textGrid[# 1, SPAR_EFFECTS.RESTORE_HP],						restore_hp,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.DEPLETE_MP,					textGrid[# 1, SPAR_EFFECTS.DEPLETE_MP],						deplete_mp,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.DEPLETE_HP,					textGrid[# 1, SPAR_EFFECTS.DEPLETE_HP],						deplete_hp,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL,			textGrid[# 1, SPAR_EFFECTS.DEPLETE_HP_NONLETHAL],			deplete_hp_nonlethal,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND,						textGrid[# 1, SPAR_EFFECTS.SET_BOUND],						set_bound,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED,						textGrid[# 1, SPAR_EFFECTS.SET_HEXED],						set_hexed,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.REMOVE_BOUND,					textGrid[# 1, SPAR_EFFECTS.REMOVE_BOUND],					remove_bound,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.REMOVE_HEXED,					textGrid[# 1, SPAR_EFFECTS.REMOVE_HEXED],					remove_hexed,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MIASMA,					textGrid[# 1, SPAR_EFFECTS.CLEAR_MIASMA],					clear_miasma,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_HUM,						textGrid[# 1, SPAR_EFFECTS.CLEAR_HUM],						clear_hum,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_RUST,					textGrid[# 1, SPAR_EFFECTS.CLEAR_RUST],						clear_rust,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MINDSET,					textGrid[# 1, SPAR_EFFECTS.CLEAR_MINDSET],					clear_mindset,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.FULLY_RESTORE_HP,				textGrid[# 1, SPAR_EFFECTS.FULLY_RESTORE_HP],				fully_restore_hp,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.FULLY_RESTORE_MP,				textGrid[# 1, SPAR_EFFECTS.FULLY_RESTORE_MP],				fully_restore_mp,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.GRID_ADD_SKYDIVE,				textGrid[# 1, SPAR_EFFECTS.GRID_ADD_SKYDIVE],				grid_add_skydive,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.GRID_ADD_SNEAK_ATTACK,			textGrid[# 1, SPAR_EFFECTS.GRID_ADD_SNEAK_ATTACK],			grid_add_sneak_attack,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.GRID_ADD_TIMED_BLAST,			textGrid[# 1, SPAR_EFFECTS.GRID_ADD_TIMED_BLAST],			grid_add_timed_blast,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES,			textGrid[# 1, SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES],			clear_team_hindrances,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_ALL_HINDRANCES,			textGrid[# 1, SPAR_EFFECTS.CLEAR_ALL_HINDRANCES],			clear_all_hindrances,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.BLAST_TIMER_GO_OFF,			textGrid[# 1, SPAR_EFFECTS.BLAST_TIMER_GO_OFF],				blast_timer_go_off,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.BLAST_TIMERS_DECREMENT_COUNT,	textGrid[# 1, SPAR_EFFECTS.BLAST_TIMERS_DECREMENT_COUNT],	blast_timers_decrement_count,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_MIASMA,					textGrid[# 1, SPAR_EFFECTS.APPLY_MIASMA],					apply_miasma,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_HUM,						textGrid[# 1, SPAR_EFFECTS.APPLY_HUM],						apply_hum,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_RUST,					textGrid[# 1, SPAR_EFFECTS.APPLY_RUST],						apply_rust,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_SWAP,					textGrid[# 1, SPAR_EFFECTS.FORCE_SWAP],						force_swap,						noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_SWAP_TEAM,				textGrid[# 1, SPAR_EFFECTS.FORCE_SWAP_TEAM],				force_swap_team,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_SWAP_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.FORCE_SWAP_GLOBAL],				force_swap_global,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_MIASMA_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.SET_MIASMA_GLOBAL],				set_miasma_global,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_HUM_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.SET_HUM_GLOBAL],					set_hum_global,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_RUST_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.SET_RUST_GLOBAL],				set_rust_global,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MIASMA_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.CLEAR_MIASMA_GLOBAL],			clear_miasma_global,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_HUM_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.CLEAR_HUM_GLOBAL],				clear_hum_global,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_RUST_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.CLEAR_RUST_GLOBAL],				clear_rust_global,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MINDSET_NEARBY_ALLIES,	textGrid[# 1, SPAR_EFFECTS.CLEAR_MINDSET_NEARBY_ALLIES],	clear_mindset_nearby_allies,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MINDSET_NEARBY_ENEMIES,	textGrid[# 1, SPAR_EFFECTS.CLEAR_MINDSET_NEARBY_ENEMIES],	clear_mindset_nearby_enemies,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MINDSET_TEAM,			textGrid[# 1, SPAR_EFFECTS.CLEAR_MINDSET_TEAM],				clear_mindset_team,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MINDSET_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.CLEAR_MINDSET_GLOBAL],			clear_mindset_global,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ALLIES,	textGrid[# 1, SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ALLIES],	bestow_mindset_nearby_allies,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ENEMIES,	textGrid[# 1, SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ENEMIES],	bestow_mindset_nearby_enemies,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_SPRITES,	textGrid[# 1, SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_SPRITES],	bestow_mindset_nearby_sprites,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.BESTOW_MINDSET_TEAM,			textGrid[# 1, SPAR_EFFECTS.BESTOW_MINDSET_TEAM],			bestow_mindset_team,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.BESTOW_MINDSET_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.BESTOW_MINDSET_GLOBAL],			bestow_mindset_global,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_ALLIES,	textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_ALLIES],	shift_mindset_nearby_allies,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_ENEMIES,	textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_ENEMIES],	shift_mindset_nearby_enemies,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_SPRITES,	textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_SPRITES],	shift_mindset_nearby_sprites,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_TEAM,			textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_TEAM],				shift_mindset_team,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_GLOBAL],			shift_mindset_global,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_NEARBY_ALLIES,		textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_NEARBY_ALLIES],		shift_curse_nearby_allies,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_NEARBY_ENEMIES,	textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_NEARBY_ENEMIES],		shift_curse_nearby_enemies,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_NEARBY_SPRITES,	textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_NEARBY_SPRITES],		shift_curse_nearby_sprites,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_TEAM,				textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_TEAM],				shift_curse_team,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_GLOBAL],				shift_curse_global,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_BLESSING_NEARBY_ALLIES,	textGrid[# 1, SPAR_EFFECTS.SHIFT_BLESSING_NEARBY_ALLIES],	shift_blessing_nearby_allies,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_BLESSING_NEARBY_ENEMIES,	textGrid[# 1, SPAR_EFFECTS.SHIFT_BLESSING_NEARBY_ENEMIES],	shift_blessing_nearby_enemies,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_BLESSING_NEARBY_SPRITES,	textGrid[# 1, SPAR_EFFECTS.SHIFT_BLESSING_NEARBY_SPRITES],	shift_blessing_nearby_sprites,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_BLESSING_TEAM,			textGrid[# 1, SPAR_EFFECTS.SHIFT_BLESSING_TEAM],			shift_blessing_team,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_BLESSING_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.SHIFT_BLESSING_GLOBAL],			shift_blessing_global,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED_NEARBY_ALLIES,		textGrid[# 1, SPAR_EFFECTS.SET_HEXED_NEARBY_ALLIES],		set_hexed_nearby_allies,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED_NEARBY_ENEMIES,		textGrid[# 1, SPAR_EFFECTS.SET_HEXED_NEARBY_ENEMIES],		set_hexed_nearby_enemies,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED_NEARBY_SPRITES,		textGrid[# 1, SPAR_EFFECTS.SET_HEXED_NEARBY_SPRITES],		set_hexed_nearby_sprites,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED_TEAM,				textGrid[# 1, SPAR_EFFECTS.SET_HEXED_TEAM],					set_hexed_team,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.SET_HEXED_GLOBAL],				set_hexed_global,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND_NEARBY_ALLIES,		textGrid[# 1, SPAR_EFFECTS.SET_BOUND_NEARBY_ALLIES],		set_bound_nearby_allies,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND_NEARBY_ENEMIES,		textGrid[# 1, SPAR_EFFECTS.SET_BOUND_NEARBY_ENEMIES],		set_bound_nearby_enemies,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND_NEARBY_SPRITES,		textGrid[# 1, SPAR_EFFECTS.SET_BOUND_NEARBY_SPRITES],		set_bound_nearby_sprites,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND_TEAM,				textGrid[# 1, SPAR_EFFECTS.SET_BOUND_TEAM],					set_bound_team,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.SET_BOUND_GLOBAL],				set_bound_global,				noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_HEXED,					textGrid[# 1, SPAR_EFFECTS.APPLY_HEXED],					apply_hexed,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_BOUND,					textGrid[# 1, SPAR_EFFECTS.APPLY_BOUND],					apply_bound,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.ENERGY_BLAST_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.ENERGY_BLAST_GLOBAL],			energy_blast_global,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.RUST_INCREASE_PHYSICAL_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.RUST_INCREASE_PHYSICAL_DAMAGE],	rust_increase_physical_damage,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.HUM_DECREASE_ELEMENTAL_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.HUM_DECREASE_ELEMENTAL_DAMAGE],	hum_decrease_elemental_damage,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.INCREASE_DAMAGE_NATURAL,		textGrid[# 1, SPAR_EFFECTS.INCREASE_DAMAGE_NATURAL],		increase_damage_natural,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.DECREASE_DAMAGE_NATURAL,		textGrid[# 1, SPAR_EFFECTS.DECREASE_DAMAGE_NATURAL],		decrease_damage_natural,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.INCREASE_DAMAGE_MECHANICAL,	textGrid[# 1, SPAR_EFFECTS.INCREASE_DAMAGE_MECHANICAL],		increase_damage_mechanical,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.DECREASE_DAMAGE_MECHANICAL,	textGrid[# 1, SPAR_EFFECTS.DECREASE_DAMAGE_MECHANICAL],		decrease_damage_mechanical,		noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL,		textGrid[# 1, SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL],			increase_damage_astral,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.DECREASE_DAMAGE_ASTRAL,		textGrid[# 1, SPAR_EFFECTS.DECREASE_DAMAGE_ASTRAL],			decrease_damage_astral,			noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.VOLCANO_WATER_DECREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.VOLCANO_WATER_DECREASE_DAMAGE],	volcano_water_decrease_damage,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.VOLCANO_FIRE_INCREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.VOLCANO_FIRE_INCREASE_DAMAGE],	volcano_fire_increase_damage,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.OCEAN_STORM_INCREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.OCEAN_STORM_INCREASE_DAMAGE],	ocean_storm_increase_damage,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.OCEAN_WATER_INCREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.OCEAN_WATER_INCREASE_DAMAGE],	ocean_water_increase_damage,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.STRATOS_EARTH_DECREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.STRATOS_EARTH_DECREASE_DAMAGE],	stratos_earth_decrease_damage,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.STRATOS_STORM_INCREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.STRATOS_STORM_INCREASE_DAMAGE],	stratos_storm_increase_damage,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.FOREST_FIRE_INCREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.FOREST_FIRE_INCREASE_DAMAGE],	forest_fire_increase_damage,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.FOREST_EARTH_INCREASE_DAMAGE,	textGrid[# 1, SPAR_EFFECTS.FOREST_EARTH_INCREASE_DAMAGE],	forest_earth_increase_damage,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.ELEMENTAL_DAMAGE_DESTROY_ARENA,textGrid[# 1, SPAR_EFFECTS.ELEMENTAL_DAMAGE_DESTROY_ARENA],	elemental_damage_destroy_arena,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.PHYSICAL_DAMAGE_DESTROY_ARENA,	textGrid[# 1, SPAR_EFFECTS.PHYSICAL_DAMAGE_DESTROY_ARENA],	physical_damage_destroy_arena,	noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.DRAIN_HEALTH,					textGrid[# 1, SPAR_EFFECTS.DRAIN_HEALTH],					drain_health,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.DRAIN_MAGIC,					textGrid[# 1, SPAR_EFFECTS.DRAIN_MAGIC],					drain_magic,					noone);
-master_grid_add_spar_effect(SPAR_EFFECTS.REPLACE_TARGET,				textGrid[# 1, SPAR_EFFECTS.REPLACE_TARGET],					replace_target,					noone);
+//							ID												ALERT TEXT														EFFECT FUNCTION						ANIMATION
+master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_VOLCANO,				textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_VOLCANO],				arena_change_volcano,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_OCEAN,				textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_OCEAN],					arena_change_ocean,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_STRATOS,				textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_STRATOS],				arena_change_stratos,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_FOREST,				textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_FOREST],				arena_change_forest,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_NORMAL,				textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_NORMAL],				arena_change_normal,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_MIASMA,						textGrid[# 1, SPAR_EFFECTS.SET_MIASMA],							set_miasma,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_HUM,							textGrid[# 1, SPAR_EFFECTS.SET_HUM],							set_hum,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_RUST,							textGrid[# 1, SPAR_EFFECTS.SET_RUST],							set_rust,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.ENERGY_BLAST,						textGrid[# 1, SPAR_EFFECTS.ENERGY_BLAST],						energy_blast,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BESTOW_MINDSET,					textGrid[# 1, SPAR_EFFECTS.BESTOW_MINDSET],						bestow_mindset,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET,						textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET],						shift_mindset,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.COPY_MINDSET,						textGrid[# 1, SPAR_EFFECTS.COPY_MINDSET],						copy_mindset,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_MP,						textGrid[# 1, SPAR_EFFECTS.RESTORE_MP],							restore_mp,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_HP,						textGrid[# 1, SPAR_EFFECTS.RESTORE_HP],							restore_hp,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DEPLETE_MP,						textGrid[# 1, SPAR_EFFECTS.DEPLETE_MP],							deplete_mp,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DEPLETE_HP,						textGrid[# 1, SPAR_EFFECTS.DEPLETE_HP],							deplete_hp,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL,				textGrid[# 1, SPAR_EFFECTS.DEPLETE_HP_NONLETHAL],				deplete_hp_nonlethal,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND,							textGrid[# 1, SPAR_EFFECTS.SET_BOUND],							set_bound,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED,							textGrid[# 1, SPAR_EFFECTS.SET_HEXED],							set_hexed,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.REMOVE_BOUND,						textGrid[# 1, SPAR_EFFECTS.REMOVE_BOUND],						remove_bound,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.REMOVE_HEXED,						textGrid[# 1, SPAR_EFFECTS.REMOVE_HEXED],						remove_hexed,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MIASMA,						textGrid[# 1, SPAR_EFFECTS.CLEAR_MIASMA],						clear_miasma,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_HUM,							textGrid[# 1, SPAR_EFFECTS.CLEAR_HUM],							clear_hum,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_RUST,						textGrid[# 1, SPAR_EFFECTS.CLEAR_RUST],							clear_rust,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MINDSET,						textGrid[# 1, SPAR_EFFECTS.CLEAR_MINDSET],						clear_mindset,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.FULLY_RESTORE_HP,					textGrid[# 1, SPAR_EFFECTS.FULLY_RESTORE_HP],					fully_restore_hp,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.FULLY_RESTORE_MP,					textGrid[# 1, SPAR_EFFECTS.FULLY_RESTORE_MP],					fully_restore_mp,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.GRID_ADD_SKYDIVE,					textGrid[# 1, SPAR_EFFECTS.GRID_ADD_SKYDIVE],					grid_add_skydive,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.GRID_ADD_SNEAK_ATTACK,				textGrid[# 1, SPAR_EFFECTS.GRID_ADD_SNEAK_ATTACK],				grid_add_sneak_attack,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.GRID_ADD_TIMED_BLAST,				textGrid[# 1, SPAR_EFFECTS.GRID_ADD_TIMED_BLAST],				grid_add_timed_blast,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES,				textGrid[# 1, SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES],				clear_team_hindrances,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_ALL_HINDRANCES,				textGrid[# 1, SPAR_EFFECTS.CLEAR_ALL_HINDRANCES],				clear_all_hindrances,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BLAST_TIMER_GO_OFF,				textGrid[# 1, SPAR_EFFECTS.BLAST_TIMER_GO_OFF],					blast_timer_go_off,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BLAST_TIMERS_DECREMENT_COUNT,		textGrid[# 1, SPAR_EFFECTS.BLAST_TIMERS_DECREMENT_COUNT],		blast_timers_decrement_count,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_MIASMA,						textGrid[# 1, SPAR_EFFECTS.APPLY_MIASMA],						apply_miasma,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_HUM,							textGrid[# 1, SPAR_EFFECTS.APPLY_HUM],							apply_hum,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_RUST,						textGrid[# 1, SPAR_EFFECTS.APPLY_RUST],							apply_rust,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_SWAP,						textGrid[# 1, SPAR_EFFECTS.FORCE_SWAP],							force_swap,							noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_SWAP_TEAM,					textGrid[# 1, SPAR_EFFECTS.FORCE_SWAP_TEAM],					force_swap_team,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_SWAP_GLOBAL,					textGrid[# 1, SPAR_EFFECTS.FORCE_SWAP_GLOBAL],					force_swap_global,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_MIASMA_GLOBAL,					textGrid[# 1, SPAR_EFFECTS.SET_MIASMA_GLOBAL],					set_miasma_global,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_HUM_GLOBAL,					textGrid[# 1, SPAR_EFFECTS.SET_HUM_GLOBAL],						set_hum_global,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_RUST_GLOBAL,					textGrid[# 1, SPAR_EFFECTS.SET_RUST_GLOBAL],					set_rust_global,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MIASMA_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.CLEAR_MIASMA_GLOBAL],				clear_miasma_global,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_HUM_GLOBAL,					textGrid[# 1, SPAR_EFFECTS.CLEAR_HUM_GLOBAL],					clear_hum_global,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_RUST_GLOBAL,					textGrid[# 1, SPAR_EFFECTS.CLEAR_RUST_GLOBAL],					clear_rust_global,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MINDSET_NEARBY_ALLIES,		textGrid[# 1, SPAR_EFFECTS.CLEAR_MINDSET_NEARBY_ALLIES],		clear_mindset_nearby_allies,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MINDSET_NEARBY_ENEMIES,		textGrid[# 1, SPAR_EFFECTS.CLEAR_MINDSET_NEARBY_ENEMIES],		clear_mindset_nearby_enemies,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MINDSET_TEAM,				textGrid[# 1, SPAR_EFFECTS.CLEAR_MINDSET_TEAM],					clear_mindset_team,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.CLEAR_MINDSET_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.CLEAR_MINDSET_GLOBAL],				clear_mindset_global,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ALLIES,		textGrid[# 1, SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ALLIES],		bestow_mindset_nearby_allies,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ENEMIES,		textGrid[# 1, SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ENEMIES],		bestow_mindset_nearby_enemies,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_SPRITES,		textGrid[# 1, SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_SPRITES],		bestow_mindset_nearby_sprites,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BESTOW_MINDSET_TEAM,				textGrid[# 1, SPAR_EFFECTS.BESTOW_MINDSET_TEAM],				bestow_mindset_team,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BESTOW_MINDSET_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.BESTOW_MINDSET_GLOBAL],				bestow_mindset_global,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_ALLIES,		textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_ALLIES],		shift_mindset_nearby_allies,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_ENEMIES,		textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_ENEMIES],		shift_mindset_nearby_enemies,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_SPRITES,		textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_SPRITES],		shift_mindset_nearby_sprites,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_TEAM,				textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_TEAM],					shift_mindset_team,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_GLOBAL],				shift_mindset_global,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_NEARBY_ALLIES,			textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_NEARBY_ALLIES],			shift_curse_nearby_allies,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_NEARBY_ENEMIES,		textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_NEARBY_ENEMIES],			shift_curse_nearby_enemies,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_NEARBY_SPRITES,		textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_NEARBY_SPRITES],			shift_curse_nearby_sprites,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_TEAM,					textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_TEAM],					shift_curse_team,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_GLOBAL],					shift_curse_global,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_BLESSING_NEARBY_ALLIES,		textGrid[# 1, SPAR_EFFECTS.SHIFT_BLESSING_NEARBY_ALLIES],		shift_blessing_nearby_allies,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_BLESSING_NEARBY_ENEMIES,		textGrid[# 1, SPAR_EFFECTS.SHIFT_BLESSING_NEARBY_ENEMIES],		shift_blessing_nearby_enemies,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_BLESSING_NEARBY_SPRITES,		textGrid[# 1, SPAR_EFFECTS.SHIFT_BLESSING_NEARBY_SPRITES],		shift_blessing_nearby_sprites,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_BLESSING_TEAM,				textGrid[# 1, SPAR_EFFECTS.SHIFT_BLESSING_TEAM],				shift_blessing_team,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_BLESSING_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.SHIFT_BLESSING_GLOBAL],				shift_blessing_global,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED_NEARBY_ALLIES,			textGrid[# 1, SPAR_EFFECTS.SET_HEXED_NEARBY_ALLIES],			set_hexed_nearby_allies,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED_NEARBY_ENEMIES,			textGrid[# 1, SPAR_EFFECTS.SET_HEXED_NEARBY_ENEMIES],			set_hexed_nearby_enemies,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED_NEARBY_SPRITES,			textGrid[# 1, SPAR_EFFECTS.SET_HEXED_NEARBY_SPRITES],			set_hexed_nearby_sprites,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED_TEAM,					textGrid[# 1, SPAR_EFFECTS.SET_HEXED_TEAM],						set_hexed_team,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED_GLOBAL,					textGrid[# 1, SPAR_EFFECTS.SET_HEXED_GLOBAL],					set_hexed_global,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND_NEARBY_ALLIES,			textGrid[# 1, SPAR_EFFECTS.SET_BOUND_NEARBY_ALLIES],			set_bound_nearby_allies,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND_NEARBY_ENEMIES,			textGrid[# 1, SPAR_EFFECTS.SET_BOUND_NEARBY_ENEMIES],			set_bound_nearby_enemies,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND_NEARBY_SPRITES,			textGrid[# 1, SPAR_EFFECTS.SET_BOUND_NEARBY_SPRITES],			set_bound_nearby_sprites,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND_TEAM,					textGrid[# 1, SPAR_EFFECTS.SET_BOUND_TEAM],						set_bound_team,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND_GLOBAL,					textGrid[# 1, SPAR_EFFECTS.SET_BOUND_GLOBAL],					set_bound_global,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_HEXED,						textGrid[# 1, SPAR_EFFECTS.APPLY_HEXED],						apply_hexed,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_BOUND,						textGrid[# 1, SPAR_EFFECTS.APPLY_BOUND],						apply_bound,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.ENERGY_BLAST_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.ENERGY_BLAST_GLOBAL],				energy_blast_global,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.RUST_INCREASE_PHYSICAL_DAMAGE,		textGrid[# 1, SPAR_EFFECTS.RUST_INCREASE_PHYSICAL_DAMAGE],		rust_increase_physical_damage,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.HUM_DECREASE_ELEMENTAL_DAMAGE,		textGrid[# 1, SPAR_EFFECTS.HUM_DECREASE_ELEMENTAL_DAMAGE],		hum_decrease_elemental_damage,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.INCREASE_DAMAGE_NATURAL,			textGrid[# 1, SPAR_EFFECTS.INCREASE_DAMAGE_NATURAL],			increase_damage_natural,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DECREASE_DAMAGE_NATURAL,			textGrid[# 1, SPAR_EFFECTS.DECREASE_DAMAGE_NATURAL],			decrease_damage_natural,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.INCREASE_DAMAGE_MECHANICAL,		textGrid[# 1, SPAR_EFFECTS.INCREASE_DAMAGE_MECHANICAL],			increase_damage_mechanical,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DECREASE_DAMAGE_MECHANICAL,		textGrid[# 1, SPAR_EFFECTS.DECREASE_DAMAGE_MECHANICAL],			decrease_damage_mechanical,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL,			textGrid[# 1, SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL],				increase_damage_astral,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DECREASE_DAMAGE_ASTRAL,			textGrid[# 1, SPAR_EFFECTS.DECREASE_DAMAGE_ASTRAL],				decrease_damage_astral,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.VOLCANO_WATER_DECREASE_DAMAGE,		textGrid[# 1, SPAR_EFFECTS.VOLCANO_WATER_DECREASE_DAMAGE],		volcano_water_decrease_damage,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.VOLCANO_FIRE_INCREASE_DAMAGE,		textGrid[# 1, SPAR_EFFECTS.VOLCANO_FIRE_INCREASE_DAMAGE],		volcano_fire_increase_damage,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.OCEAN_STORM_INCREASE_DAMAGE,		textGrid[# 1, SPAR_EFFECTS.OCEAN_STORM_INCREASE_DAMAGE],		ocean_storm_increase_damage,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.OCEAN_WATER_INCREASE_DAMAGE,		textGrid[# 1, SPAR_EFFECTS.OCEAN_WATER_INCREASE_DAMAGE],		ocean_water_increase_damage,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.STRATOS_EARTH_DECREASE_DAMAGE,		textGrid[# 1, SPAR_EFFECTS.STRATOS_EARTH_DECREASE_DAMAGE],		stratos_earth_decrease_damage,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.STRATOS_STORM_INCREASE_DAMAGE,		textGrid[# 1, SPAR_EFFECTS.STRATOS_STORM_INCREASE_DAMAGE],		stratos_storm_increase_damage,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.FOREST_FIRE_INCREASE_DAMAGE,		textGrid[# 1, SPAR_EFFECTS.FOREST_FIRE_INCREASE_DAMAGE],		forest_fire_increase_damage,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.FOREST_EARTH_INCREASE_DAMAGE,		textGrid[# 1, SPAR_EFFECTS.FOREST_EARTH_INCREASE_DAMAGE],		forest_earth_increase_damage,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DESTROY_ARENA,						textGrid[# 1, SPAR_EFFECTS.DESTROY_ARENA],						destroy_arena,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DRAIN_HEALTH,						textGrid[# 1, SPAR_EFFECTS.DRAIN_HEALTH],						drain_health,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DRAIN_MAGIC,						textGrid[# 1, SPAR_EFFECTS.DRAIN_MAGIC],						drain_magic,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.REPLACE_TARGET,					textGrid[# 1, SPAR_EFFECTS.REPLACE_TARGET],						replace_target,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BALL_LIGHTNING_SET_ACTIVE,			textGrid[# 1, SPAR_EFFECTS.BALL_LIGHTNING_SET_ACTIVE],			ball_lightning_set_active,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BALL_LIGHTNING_ABSORB_SPELL,		textGrid[# 1, SPAR_EFFECTS.BALL_LIGHTNING_ABSORB_SPELL],		ball_lightning_absorb_spell,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BALL_LIGHTNING_APPLY_DAMAGE,		textGrid[# 1, SPAR_EFFECTS.BALL_LIGHTNING_APPLY_DAMAGE],		ball_lightning_apply_damage,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BLACK_HOLE_SET_ACTIVE,				textGrid[# 1, SPAR_EFFECTS.BLACK_HOLE_SET_ACTIVE],				black_hole_set_active,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BLACK_HOLE_ABSORB_SPELL,			textGrid[# 1, SPAR_EFFECTS.BLACK_HOLE_ABSORB_SPELL],			black_hole_absorb_spell,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.BLACK_HOLE_APPLY_DAMAGE,			textGrid[# 1, SPAR_EFFECTS.BLACK_HOLE_APPLY_DAMAGE],			black_hole_apply_damage,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_SELF_DAMAGE,					textGrid[# 1, SPAR_EFFECTS.APPLY_SELF_DAMAGE],					apply_self_damage,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_BERSERK,						textGrid[# 1, SPAR_EFFECTS.SET_BERSERK],						set_berserk,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_BERSERK_NEARBY_ALLIES,			textGrid[# 1, SPAR_EFFECTS.SET_BERSERK_NEARBY_ALLIES],			set_berserk_nearby_allies,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_BERSERK_NEARBY_ENEMIES,		textGrid[# 1, SPAR_EFFECTS.SET_BERSERK_NEARBY_ENEMIES],			set_berserk_nearby_enemies,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_BERSERK_NEARBY_SPRITES,		textGrid[# 1, SPAR_EFFECTS.SET_BERSERK_NEARBY_SPRITES],			set_berserk_nearby_sprites,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_BERSERK_TEAM,					textGrid[# 1, SPAR_EFFECTS.SET_BERSERK_TEAM],					set_berserk_team,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_BERSERK_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.SET_BERSERK_GLOBAL],					set_berserk_global,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE,					textGrid[# 1, SPAR_EFFECTS.SET_INVULNERABLE],					set_invulnerable,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE_NEARBY_ALLIES,	textGrid[# 1, SPAR_EFFECTS.SET_INVULNERABLE_NEARBY_ALLIES],		set_invulnerable_nearby_allies,		noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE_NEARBY_ENEMIES,	textGrid[# 1, SPAR_EFFECTS.SET_INVULNERABLE_NEARBY_ENEMIES],	set_invulnerable_nearby_enemies,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE_NEARBY_SPRITES,	textGrid[# 1, SPAR_EFFECTS.SET_INVULNERABLE_NEARBY_SPRITES],	set_invulnerable_nearby_sprites,	noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE_TEAM,				textGrid[# 1, SPAR_EFFECTS.SET_INVULNERABLE_TEAM],				set_invulnerable_team,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.SET_INVULNERABLE_GLOBAL],			set_invulnerable_global,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SKYDIVE_AVOID_DAMAGE,				textGrid[# 1, SPAR_EFFECTS.SKYDIVE_AVOID_DAMAGE],				skydive_avoid_damage,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.INVULNERABLE_AVOID_DAMAGE,			textGrid[# 1, SPAR_EFFECTS.INVULNERABLE_AVOID_DAMAGE],			invulnerable_avoid_damage,			noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_PARRYING,						textGrid[# 1, SPAR_EFFECTS.SET_PARRYING],						set_parrying,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_PARRY,						textGrid[# 1, SPAR_EFFECTS.APPLY_PARRY],						apply_parry,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_DIVIDING,						textGrid[# 1, SPAR_EFFECTS.SET_DIVIDING],						set_dividing,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_MULTIPLYING,					textGrid[# 1, SPAR_EFFECTS.SET_MULTIPLYING],					set_multiplying,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DIVIDE_HEALING,					textGrid[# 1, SPAR_EFFECTS.DIVIDE_HEALING],						divide_healing,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DIVIDE_DAMAGE,						textGrid[# 1, SPAR_EFFECTS.DIVIDE_DAMAGE],						divide_damage,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.MULTIPLY_HEALING,					textGrid[# 1, SPAR_EFFECTS.MULTIPLY_HEALING],					multiply_healing,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.MULTIPLY_DAMAGE,					textGrid[# 1, SPAR_EFFECTS.MULTIPLY_DAMAGE],					multiply_damage,					noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_DEFLECTIVE,					textGrid[# 1, SPAR_EFFECTS.SET_DEFLECTIVE],						set_deflective,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.DEFLECT_SPELL,						textGrid[# 1, SPAR_EFFECTS.DEFLECT_SPELL],						deflect_spell,						noone);
 
 #endregion
 

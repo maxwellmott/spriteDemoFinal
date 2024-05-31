@@ -1,3 +1,6 @@
+#macro MAX_LUCK		1075
+#macro MIN_LUCK		725
+
 global.averageWeaknesses	= ds_list_create();
 global.averageStrengths		= ds_list_create();
 global.agilityOdds			= 0;
