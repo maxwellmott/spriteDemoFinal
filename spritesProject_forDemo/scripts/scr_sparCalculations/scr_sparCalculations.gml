@@ -225,3 +225,6 @@ function get_faster_sprite(_sprite1, _sprite2) {
 	if (spd2 == spd1)	return -1;
 }
 
+function calculate_psychic_damage(_caster, _target, _power) {
+	// physical damage but use their best and worst stat respectively	
+}

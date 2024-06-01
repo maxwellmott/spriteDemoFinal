@@ -402,7 +402,9 @@ function drain_lifeforce() {
 function pyrokinesis() {
 	var t = activeSprite.team;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, t, d);
+	var d = get_elemental_damage(targetSprite, activeSprite, spellType, spellPower);
+	
+	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, t, d / 3);
 }
 
 ///@desc SPELL FUNCTION: summons rust on the target's side of the field
@@ -422,25 +424,11 @@ function arc_blast() {
 ///@desc SPELL FUNCTION: fails unless forest is active, removes forest, fully restores caster's
 /// HP, and grants blessing of the tree to all nearby allies
 function hikams_winter_spell() {
-	// fail unless forest is active
-	if (spar.currentArena == arenas.forest) {	
-		var t = activeSprite.team;
-		
-		// fully restore caster's MP and HP
-		fully_restore_hp(t);
-
-		// grant blessing of the tree to all nearby allies
-		var i = 0;	repeat (ds_list_size(activeSprite.nearbyAllies)) {
-			var inst = nearbyAllies[| i];
-			
-			bestow_mindset(inst, MINDSETS.TREE);
-			
-			i++;
-		}
-		
-		// reset arena
-		spar.currentArena = -1;
-	}
+	var t = activeSprite.team;
+	
+	spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
+	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_MP, t);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE);
 }
 
 ///@desc SPELL FUNCTION: adopts the target's mindset. if curse, heal target team fully. If blessing, heal caster team fully
@@ -450,19 +438,10 @@ function osmosis() {
 		var t = targetSprite;
 		var c = activeSprite;
 		
-		// check if target has an altered mindset
-		if (t.mindset != 0) {
-			c.mindset = t.mindset;
-			
-			// if curse, fully heal target team
-			if (t.mindset < 0) {
-				fully_restore_hp(t.team);	
-			}
-			
-			// if blessing, fully heal caster's team
-			if (t.mindset > 0) {
-				fully_restore_hp(c.team);	
-			}
+		var m = t.mindset;
+		
+		if (m != 0) {
+			spar_effect_push_alert(SPAR_EFFECTS.COPY_MINDSET, c, t);	
 		}
 	}
 }
@@ -475,58 +454,39 @@ function flash_freeze() {
 	
 	// bind the target
 	if !(dodgeSuccess) {
-		if !(t.bound) {
-			set_bound(t);
-		}
+		spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, t);
 	}
 }
 
-///@desc SPELL FUNCTION: resets the arena and grants curse of the warrior to target and nearby allies
+///@desc SPELL FUNCTION: resets the arena
 function landslide() {
-	arena_change_normal();
-	
-	var t = targetSprite;
-	
-	var l = ds_list_create();
-	
-	ds_list_copy(l, t.nearbyAllies);
-	
-	bestow_mindset(t, 0 - MINDSETS.WARRIOR);
-	
-	var i = 0;	repeat (ds_list_size(l)) {
-		var inst = l[| i];
-		
-		bestow_mindset(inst, 0 - MINDSETS.WARRIOR);
-		
-		i++;
+	if (global.arena >= 0) {
+		spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);	
 	}
 }
 
 ///@desc SPELL FUNCTION: creates an Energy Blast against the enemy team that always deals 400 damage
 function amands_energy_blast() {
 	var t = targetSprite.team;
-	
-	energy_blast(t, AMANDS_BLAST);
+
+	spar_effect_push_alert(SPAR_EFFECTS.ENERGY_BLAST, t, AMANDS_BLAST);
 }
 
 ///@desc SPELL FUNCTION: flips the targets mindset. If curse->blessing, heal some HP, if blessing->curse, remove some HP,
 /// so long as it isn't dodged.
 function shift_perspective() {
 	if !(dodgeSuccess) {
-		// flip the target's mindset
-		var t = targetSprite;
-		var m = t.mindset;
+		t = targetSprite;
+		m = t.mindset;
 		
-		if (m != 0) {
-			// if curse->blessing heal some HP
-			if (m < 0) {
-				restore_hp(t.team, 200);	
-			}
+		if (m < 0) {
+			spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
+			spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t.team, 500);
+		}
 		
-			// if blessing->curse remove some HP
-			if (m > 0) {
-				deplete_hp_nonlethal(t.team, 200);
-			}
+		if (m < 0) {
+			spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
+			spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, t.team, 250);
 		}
 	}
 }
@@ -535,16 +495,24 @@ function shift_perspective() {
 function psychic_impact() {
 	// find target's weak spot and attack them there
 	if !(dodgeSuccess) {
-		// calculate damage for each possible element
+		var c = activeSprite;
+		var t = targetSprite;
+		var p = 120;
 		
-		// check which is the highest
-
-		// set the damage to equal that amount
+		spar_effect_push_alert(SPAR_EFFECTS.PSYCHIC_ATTACK, c, t, p);
 	}
 }
 
+///@desc SPELL FUNCTION: resets the arena and deals self damage
 function tremor() {
-	// no effect
+	if (global.arena >= 0) {
+		spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
+	}
+	
+	var t = activeSprite.team;
+	var d = get_elemental_damage(targetSprite, activeSprite, spellType, spellPower);
+	
+	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, t, d / 3);
 }
 
 ///@desc SPELL FUNCTION: the caster of this spell flies into the sky and becomes invulnerable
@@ -556,10 +524,9 @@ function skydive() {
 	var t = targetSprite;
 	
 	// become invulnerable until the end of the turn
-	c.flying = true;
+	c.invulnerable= true;
 	
-	// add skydive to list of skydives
-	grid_add_skydive(c, t)
+	spar_effect_push_alert(SPAR_EFFECTS.GRID_ADD_SKYDIVE, c, t);
 }
 
 ///@desc SPELL FUNCTION: this spell does extra damage when cast against mechanical sprites, it then
@@ -568,9 +535,12 @@ function destructive_blow() {
 	var t = targetSprite;
 	
 	if (t.currentAlign == ALIGNMENTS.MECHANICAL) {
-		damage = damage * 1.5;
+		var m = 1.5;
+		var t = targetSprite;
+		var a = ALIGNMENTS.NATURAL;
 		
-		t.currentAlign = ALIGNMENTS.NATURAL;
+		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_MECHANICAL, m);
+		spar_effect_push_alert(SPAR_EFFECTS.CHANGE_ALIGNMENT, t, a);
 	}
 }
 
@@ -580,57 +550,50 @@ function purifying_flame() {
 	var t = targetSprite;
 	
 	if (t.currentAlign == ALIGNMENTS.ASTRAL) {
-		damage = damage * 1.5;
+		var m = 1.5;
+		var t = targetSprite;
+		var a = ALIGNMENTS.NATURAL;
 		
-		t.currentAlign = ALIGNMENTS.NATURAL;
+		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL, m);
+		spar_effect_push_alert(SPAR_EFFECTS.CHANGE_ALIGNMENT, t, a);
 	}
 }
 
-///@desc SPELL FUNCTION: set berserk for nearby sprites, 
+///@desc SPELL FUNCTION: set berserk for nearby sprites
 function jabuls_fight_song() {
 	var c = activeSprite;
 	
-	var l = ds_list_create();
-	ds_list_copy(l, c.nearbyAllies);
-	
-	var i = 0;	repeat (ds_list_size(l)) {
-		var inst = l[| i];
-		
-		bestow_mindset(inst, MINDSETS.WARRIOR);
-		
-		i++;	
-	}
+	spar_effect_push_alert(SPAR_EFFECTS.SET_BERSERK_NEARBY_SPRITES, c);
 }
 
 ///@desc SPELL FUNCTION: summons miasma on the target's side of the field
 function noxious_fumes() {
 	var t = targetSprite.team;
 	
-	set_miasma(t);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_MIASMA, t);
 }
 
 ///@desc SPELL FUNCTION: hexes the target
 function crecias_crystal_spikes() {
 	var t = targetSprite;
 	
-	set_hexed(t);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED, t);
 }
 
 ///@desc SPELL FUNCTION: finds the element that would deal the most damage and sets the spell's
 /// type to match the results. This spell also deals damage to the caster, even if it's dodged.
 function psychic_fissure() {
-	var d = 0;
-	
-	// calculate damage for each possible element
-	
-	// check which is the highest
-	
-	// set d to equal that amount
+	var c = activeSprite;
+	var t = targetSprite;
+	var p = 150;
+
+	var d = calculate_psychic_damage(c, t, p);
 	
 	if !(dodgeSuccess) {
-		// set current damage to equal d	
+		spar_effect_push_alert(SPAR_EFFECTS.PSYCHIC_ATTACK, c, t, p);
 	}
 	
+	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, c.team, d / 3);
 }
 
 ///@desc SPELL FUNCTION: splits the target team into two pairs and swaps them
@@ -876,9 +839,9 @@ function spheras_demise() {
 }
 
 function time_loop() {
-	// the ID of this spell is on a list of "prioritySpells"
+	var t = activeSprite.enemy;
 	
-	// force target to perform same action as last turn (replaces their selected action)
+	spar_effect_push_alert(SPAR_EFFECTS.REPEAT_LAST_TURN);
 }
 
 function eradicate() {
@@ -895,9 +858,7 @@ function eradicate() {
 function dark_deal() {
 	
 }
-
-/// SPELL FUNCTION: sets user team's HP to 1, sets all of their 
-/// sprites to INVULNERABLE until the end of the turn
+/// SPELL FUNCTION: sets user team's HP to 1, ends the turn
 function hail_mary() {
 	
 }

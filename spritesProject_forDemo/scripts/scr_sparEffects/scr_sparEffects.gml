@@ -189,6 +189,11 @@ enum SPAR_EFFECTS {
 	MULTIPLY_DAMAGE,
 	SET_DEFLECTIVE,
 	DEFLECT_SPELL,
+	FORCE_TURN_END,
+	REPEAT_LAST_TURN,
+	PSYCHIC_ATTACK,
+	CHANGE_ALIGNMENT,
+	CHANGE_SIZE,
 	HEIGHT
 }
 
@@ -925,6 +930,26 @@ function set_deflective(_caster) {
 }
 
 function deflect_spell(_caster) {
+	
+}
+
+function force_turn_end() {
+	
+}
+
+function repeat_last_turn(_targetTeam) {
+	
+}
+
+function psychic_attack(_caster, _target, _power) {
+	
+}
+
+function change_alignment(_target, _newAlignment) {
+	
+}
+
+function change_size(_target, _newSize) {
 	
 }
 

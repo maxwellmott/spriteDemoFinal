@@ -75,3 +75,5 @@ dodgeFrameCount = 3;
 shadeAlpha = 0.0;
 
 shadeAlphaMax = 0.8;
+
+spellFailed = false;

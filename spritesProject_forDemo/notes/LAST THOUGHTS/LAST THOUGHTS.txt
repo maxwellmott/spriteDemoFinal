@@ -240,3 +240,7 @@ COMING BACK FROM PLAYTEST BUILD
 	5/30
 	
 		Added some more effects. Still finishing up spell effect call replacements. I left off at Hikams
+		
+	5/31 
+	
+		LEFT OFF AT REARRANGE!
