@@ -893,3 +893,11 @@ function turn_message_get_number_text(_int) {
 function blast_timers_check_ready() {
 	
 }
+
+function get_best_elemental_stat(_spriteInstance) {
+	return -1;
+}
+
+function get_worst_elemental_stat(_spriteInstance) {
+	return -1;
+}

@@ -189,7 +189,7 @@ function holy_water() {
 ///@desc SPELL FUNCTION: binds target (dodgeable)
 function shock() {
 	if !(dodgeSuccess) {
-		var t = 
+		var t = targetSprite;
 		
 		spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, t)
 	}
@@ -598,87 +598,17 @@ function psychic_fissure() {
 
 ///@desc SPELL FUNCTION: splits the target team into two pairs and swaps them
 function rearrange() {
-	randomize();
+	var t = targetSprite.team;
 	
-	if !(dodgeSuccess) {
-		// get target's spot number
-		var ct = activeSprite.team;
-		
-		// create a dummy list
-		var iil = ds_list_create();
-		
-		// find out which list to copy
-		if (ct == spar.playerOne)	ds_list_copy(iil, spar.enemyList);
-		if (ct == spar.playerTwo)	ds_list_copy(iil, spar.allyList);
-		
-		// get a random integer
-		var int = irandom_range(0, 3);
-		
-		// set target as the list token at the index of the random integer
-		var t	= iil[| int];
-		var tsn = t.spotNum;
-		
-		// get target team
-		var tt = t.team;
-		
-		// create temp list
-		var l = ds_list_create();
-		
-		// build a list of numbers representing viable swap partners
-		var i = 0;	repeat (4) {
-			// if i doesn't equal target spot num, add it to the list
-			if (i != tsn)	ds_list_add(l, i);
-			
-			i++;
-		}
-		
-		// pick a random number off of that list and set it as the
-		// partner's spot number
-		var int = irandom_range(0, 3);
-		var psn = l[| int];
-		
-		// create inst list
-		var il = ds_list_create();
-		
-		// copy appropriate list
-		if (tt == spar.playerOne)	ds_list_copy(il, spar.allyList);
-		if (tt == spar.playerTwo)	ds_list_copy(il, spar.enemyList);
-		
-		// store swap partner's sprite ID
-		var psid	= il[| psn].spriteID;
-		
-		// store target's sprite ID
-		var tsid	= il[| tsn].spriteID;
-		
-		// swap sprite IDs
-		
-		var temp	= psid;
-		psid		= tsid;
-		tsid		= temp;
-		
-		// delete lists
-		ds_list_destroy(l);
-		ds_list_destroy(il);
-	}	
+	spar_effect_push_alert(SPAR_EFFECTS.FORCE_SWAP_TEAM, t);
 }
 
 ///@desc SPELL FUNCTION: attempts to dodge for the duration of the turn. If the caster
 /// is still sneaking/dodging at the end of the turn, they will deliver a powerful attack.
 function sneak_attack() {
-	// PRIORITY SPELL
-	
 	var c = activeSprite;
-	
-	// set dodging to true
-	c.dodging = true;
-	
-	// set sneaking to true
-	c.sneaking = true;
-	
-	// get target
 	var t = targetSprite;
 	
-	// add sneak attack to grid
 	grid_add_sneak_attack(c, t);
 }
 
@@ -703,164 +633,234 @@ function dions_parry() {
 ///@desc SPELL FUNCTION: creates a blast with a target and damage that is dependent on the caster's luckroll
 function dions_gambling_blast() {
 	var c = activeSprite;
+	var t = targetSprite;
 	var lr = c.luckRoll;
 	
-	if (lr >= 900)	var t = c.enemy;
-	if (lr < 900)	var t = c.team;
+	if (lr >= 900)	{
+		var p = (MAX_LUCK - lr) * 2;
+		spar_effect_push_alert(SPAR_EFFECTS.ENERGY_BLAST, t.team, p);
+	}
+	
+	if (lr < 900)	{
+		var p = (lr - MIN_LUCK) * 3;
+		spar_effect_push_alert(SPAR_EFFECTS.ENERGY_BLAST_SELF, c.team, p);
+	}
 }
 
+///@desc SPELL FUNCTION: trades half of the caster's current HP for a quarter of the target's current HP
 function dions_barter_trick() {
-	// trade a quarter of the caster's HP for half of the target's HP
+	// trade half of the caster's current HP for a third of the enemy's current HP
+	
+	var t = targetPlayer.team;
+	var c = activePlayer.team;
+	
+	var a1 = ceil(c.currentHP / 2);
+	var a2 = ceil(t.currentHP / 3);
+	
+	spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, c, a1);
+	spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, t, a2);
+	
+	spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, c, a2);
+	spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t, a1);
 }
 
+///@desc SPELL FUNCTION: sets hum on the target's side of the field
 function magnetic_pulse() {
-	// set hum on target's side of field
 	var t = targetSprite.team;
 	
-	set_hum(t);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HUM, t);
 }
 
+///@desc SPELL FUNCTION: grants curse of the mother to the caster
 function burn_out() {
-	// grant curse of the mother to the caster
-	
 	var c = activeSprite;
 	
-	bestow_mindset(c, 0 - MINDSETS.MOTHER);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, c, 0 - MINDSETS.MOTHER);
 }
 
+///@desc SPELL FUNCTION: summons miasma on both sides of the field
 function stinkbomb() {
-	// summon miasma on both sides of the field
-	
-	set_miasma(spar.playerOne);
-	set_miasma(spar.playerTwo);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_MIASMA_GLOBAL);
 }
 
+///@desc SPELL FUNCTION: grants curse of the imp to the target (dodgeable)
 function wind_slice() {
-	// grant curse of the imp to the target (dodgeable)
-	
 	if !(dodgeSuccess) {
 		var t = targetSprite;
 		
-		bestow_mindset(t, 0 - MINDSETS.IMP);
+		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP);
 	}
 }
 
+///@desc SPELL FUNCTION: makes the arena reflect the caster's elemental bias
 function channel_essence() {
-	// make arena reflect caster's elemental bias
-}
-
-function spheras_curse() {
-	// make arena exploit target's elemental bias (dodgeable)
-}
-
-function crecias_crystal_wind() {
-	// hex target and all nearby allies
+	var c = activeSprite;
 	
-	// get target sprite
+	var s = get_best_elemental_stat(c);
+	
+	switch (s) {
+		case elements.fire:
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_VOLCANO);
+		break;
+		
+		case elements.water:
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_OCEAN);
+		break;
+		
+		case elements.storm:
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_STRATOS);
+		break;
+		
+		case elements.earth:
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_FOREST);
+		break;
+	}
+}
+
+///@desc SPELL FUNCTION: makes the arena exploit the target's elemental bias (dodgeable)
+function spheras_curse() {
 	var t = targetSprite;
 	
-	// create dummy list
-	var l = ds_list_create();
+	var s = get_worst_elemental_stat(t);
 	
-	// copy nearby allies list
-	ds_list_copy(l, t.nearbyAllies);
+	switch (s) {
+		case elements.fire:
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_OCEAN);
+		break;
+		
+		case elements.water:
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_STRATOS);
+		break;
+		
+		case elements.storm:
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_FOREST);
+		break;
+		
+		case elements.earth:
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_VOLCANO);
+		break;
+	}
 }
 
+///@desc SPELL FUNCTION: hexes target and all nearby allies
+function crecias_crystal_wind() {
+	var t = targetSprite;
+	
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_NEARBY_ALLIES, t);
+}
+
+///@desc SPELL FUNCTION: changes the arena to VOLCANO
 function lava_spire() {
-	// change arena to volcano
-	
-	arena_change_volcano();
+	spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_VOLCANO);
 }
 
+///@desc SPELL FUNCTION: changes the arena to OCEAN
 function endless_river() {
-	// change arena to ocean
-	
-	arena_change_ocean();
+	spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_OCEAN);
 }
 
+///@desc SPELL FUNCTION: changes the arena to STRATOSPHERE
 function cloud_break() {
-	// change arena to stratosphere
-	
-	arena_change_stratos();
+	spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_STRATOS);
 }
 
+///@desc SPELL FUNCTION: hexes the target (dodgeable)
 function telekinetic_blast() {
-	// hex target (dodgeable)
-	
 	if !(dodgeSuccess) {
 		var t = targetSprite;
 		
-		set_hexed(t);
+		spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED, t);
 	}
 }
 
-function knock_over() {
-	// grant target curse of the imp (dodgeable)
-	
+///@desc SPELL FUNCTION: grants the target CURSE OF THE IMP (dodgeable)
+function knock_over() {	
 	if !(dodgeSuccess) {
 		var t = targetSprite;
 		
-		bestow_mindset(t, 0 - MINDSETS.IMP);
+		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP);
 	}
 }
 
+///@desc SPELL FUNCTION: binds the caster
 function full_thrust() {
-	// bind caster
-	
 	var c = activeSprite;
 	
-	set_bound(c);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, c);
 }
 
+///@desc SPELL FUNCTION: fails unless arena is volcano. destroys the arena
+/// summons miasma on the target's side of the field
 function volcanic_eruption() {
-	// fail unless arena is volcano
+	spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
 	
-	// reset arena 
-
-	// summon miasma on target's side of the field
+	var t = targetSprite.team;
 	
-	// grant all enemies curse of the mother
+	spar_effect_push_alert(SPAR_EFFECTS.SET_MIASMA, t);
 }
 
+///@desc SPELL FUNCTION: changes all allies luck roll to highest possible
 function broadcast_data() {
-	// change all allies luck roll to highest possible
+	var t = activeSprite.team;
+	
+	spar_effect_push_alert(SPAR_EFFECTS.FORCE_BEST_LUCK_TEAM, t);
 }
 
+///@desc SPELL FUNCTION: destroys arena and hexes all enemies
 function collapse_space() {
-	// reset arena and hex all enemies
+	var t = activeSprite.enemy;
+	
+	spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_TEAM, t);
 }
 
+///@desc SPELL FUNCTION: changes all enemies luck roll to lowest possible
 function expand_time() {
-	// change all enemies luck roll to lowest possible
+	var t = activeSprite.enemy;
+	
+	spar_effect_push_alert(SPAR_EFFECTS.FORCE_WORST_LUCK_TEAM, t);
 }
 
+///@desc SPELL FUNCTION: destroys arena and traps all enemies
 function spheras_demise() {
-	// reset arena and trap all enemies
+	var t = activeSprite.enemy;
+	
+	spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND_TEAM, t);
 }
 
+///@desc SPELL FUNCTION: forces the enemy to repeat this turn next turn
 function time_loop() {
 	var t = activeSprite.enemy;
 	
 	spar_effect_push_alert(SPAR_EFFECTS.REPEAT_LAST_TURN);
 }
 
+///@desc SPELL FUNCTION: creates a black hole that absorbs all spells
 function eradicate() {
-	// the ID of this spell is on a list of "prioritySpells"
+	var c = activeSprite;
 	
-	// absorb all storm spells and cause them to totally fail
-	
-	// at the end of the turn, deliver an Energy Blast with damage 
-	// relative to each spell absorbed
+	spar_effect_push_alert(SPAR_EFFECTS.BLACK_HOLE_SET_ACTIVE, c);
 }
 
 // SPELL FUNCTION: sets both teams' MP to 0
 /// (use dark deal 10 times and you'll be awoken from sleeping to do the Cenotomb quest)
 function dark_deal() {
+	var t = activeSprite.enemy;
+	var c = activeSprite.team;
 	
+	spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_MP, t, t.currentMP);
+	spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_MP, c, c.currentMP);
 }
-/// SPELL FUNCTION: sets user team's HP to 1, ends the turn
+
+/// SPELL FUNCTION: sets user team's HP to 1, ends the turn. Sets a variable indicating
+/// that the whole team should become invulnerable at the beginning of the next turn
 function hail_mary() {
+	var c = activeSprite.team;
 	
+	spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, c.currentHP);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HAIL_MARY, c);
+	spar_effect_push_alert(SPAR_EFFECTS.FORCE_TURN_END);
 }
 
 #endregion  

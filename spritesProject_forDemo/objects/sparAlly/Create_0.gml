@@ -134,6 +134,8 @@ flying			= false;
 deflective		= false;
 sneaking		= false;
 
+hailMary = false;
+
 dividing = false;
 multiplying = false;
 coefficient = -1;

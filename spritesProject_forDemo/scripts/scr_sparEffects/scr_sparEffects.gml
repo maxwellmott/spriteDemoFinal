@@ -194,6 +194,14 @@ enum SPAR_EFFECTS {
 	PSYCHIC_ATTACK,
 	CHANGE_ALIGNMENT,
 	CHANGE_SIZE,
+	ENERGY_BLAST_SELF,
+	FORCE_BEST_LUCK,
+	FORCE_WORST_LUCK,
+	FORCE_BEST_LUCK_TEAM,
+	FORCE_WORST_LUCK_TEAM,
+	FORCE_BEST_LUCK_GLOBAL,
+	FORCE_WORST_LUCK_GLOBAL,
+	SET_HAIL_MARY,
 	HEIGHT
 }
 
@@ -407,6 +415,14 @@ function grid_add_skydive(_caster, _target) {
 	
 function grid_add_sneak_attack(_caster, _target) {
 	var c = _caster;
+	
+	// set dodging to true
+	c.dodging = true;
+	
+	// set sneaking to true
+	c.sneaking = true;
+	
+	// get target
 	var t = _target;
 	
 	// resize grid
@@ -516,6 +532,68 @@ function force_swap(_targetSprite) {
 }
 
 function force_swap_team(_targetPlayer) {
+	randomize();
+	
+	if !(dodgeSuccess) {		
+		// get target's spot number
+		var ct = _targetPlayer;
+		
+		// create a dummy list
+		var iil = ds_list_create();
+		
+		// find out which list to copy
+		if (ct == spar.playerOne)	ds_list_copy(iil, spar.enemyList);
+		if (ct == spar.playerTwo)	ds_list_copy(iil, spar.allyList);
+		
+		// get a random integer
+		var int = irandom_range(0, 3);
+		
+		// set target as the list token at the index of the random integer
+		var t	= iil[| int];
+		var tsn = t.spotNum;
+		
+		// get target team
+		var tt = t.team;
+		
+		// create temp list
+		var l = ds_list_create();
+		
+		// build a list of numbers representing viable swap partners
+		var i = 0;	repeat (4) {
+			// if i doesn't equal target spot num, add it to the list
+			if (i != tsn)	ds_list_add(l, i);
+			
+			i++;
+		}
+		
+		// pick a random number off of that list and set it as the
+		// partner's spot number
+		var int = irandom_range(0, 3);
+		var psn = l[| int];
+		
+		// create inst list
+		var il = ds_list_create();
+		
+		// copy appropriate list
+		if (tt == spar.playerOne)	ds_list_copy(il, spar.allyList);
+		if (tt == spar.playerTwo)	ds_list_copy(il, spar.enemyList);
+		
+		// store swap partner's sprite ID
+		var psid	= il[| psn].spriteID;
+		
+		// store target's sprite ID
+		var tsid	= il[| tsn].spriteID;
+		
+		// swap sprite IDs
+		
+		var temp	= psid;
+		psid		= tsid;
+		tsid		= temp;
+		
+		// delete lists
+		ds_list_destroy(l);
+		ds_list_destroy(il);
+	}	
 }
 
 function force_swap_global() {
@@ -658,10 +736,6 @@ function set_hexed_nearby_allies(_target) {
 }
 
 function set_hexed_nearby_enemies(_target) {
-	
-}
-
-function set_hexed_nearby_sprites(_target) {
 	
 }
 
@@ -950,6 +1024,14 @@ function change_alignment(_target, _newAlignment) {
 }
 
 function change_size(_target, _newSize) {
+	
+}
+
+function energy_blast_self(_targetPlayer, _damage) {
+	
+}
+
+function set_hail_mary(_targetPlayer) {
 	
 }
 

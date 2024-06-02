@@ -135,6 +135,8 @@ invulnerable	= false;
 deflective		= false;
 sneaking		= false;
 
+hailMary = false;
+
 backUpAction1	= -1;
 backUpAction2	= -1;
 

@@ -244,3 +244,15 @@ COMING BACK FROM PLAYTEST BUILD
 	5/31 
 	
 		LEFT OFF AT REARRANGE!
+		
+	6/1 
+		LEFT OFF AT BARTER TRICK!!
+		
+		Finished replacing all of the references in the spell functions. The next steps are listed below:
+			- finish all spar_effect functions
+			- finish all spar_effect alert texts
+			- finish sparEffectAlert object
+			- finish all ability functions
+			- add all ability checks
+			- add spellFail check
+			- add all effect checks
