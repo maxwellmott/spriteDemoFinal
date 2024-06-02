@@ -9,3 +9,4 @@
 // two arguments that might be needed for the
 // effect function
 
+effectedSprites = ds_list_create();

@@ -214,44 +214,69 @@ enum SPAR_EFFECT_PARAMS {
 	HEIGHT
 }
 
+///@desc SPAR EFFECT: sets the current ARENA to VOLCANO
 function arena_change_volcano() {
-	spar.currentArena = arenas.volcano;
+	if (spar.currentArena != arenas.volcano) {
+		spar.currentArena = arenas.volcano;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets the current ARENA to OCEAN
 function arena_change_ocean() {
-	spar.currentArena = arenas.ocean;
+	if (spar.currentArena != arenas.ocean) {
+		spar.currentArena = arenas.ocean;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets the current ARENA to STRATOS
 function arena_change_stratos() {
-	spar.currentArena = arenas.stratosphere;
+	if (spar.currentArena != arenas.stratosphere) {
+		spar.currentArena = arenas.stratosphere;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets the current ARENA to FOREST
 function arena_change_forest() {
-	spar.currentArena = arenas.forest;
+	if (spar.currentArena != arenas.forest) {
+		spar.currentArena = arenas.forest;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets the current ARENA to NORMAL
 function arena_change_normal() {
-	spar.currentArena = -1;
+	if (spar.currentArena != -1) {
+		spar.currentArena = -1;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets MIASMA to true for targetPlayer
 function set_miasma(_targetPlayer) {	
 	var t = _targetPlayer;
 	
-	t.miasma = true;
+	if !(t.miasma) {
+		t.miasma = true;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets HUM to true for targetPlayer
 function set_hum(_targetPlayer) {
 	var t = _targetPlayer;
 	
-	t.hum = true;
+	if !(t.hum) {
+		t.hum = true;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets RUST to true for targetPlayer
 function set_rust(_targetPlayer) {
 	var t = _targetPlayer;
 	
-	t.rust = true;
+	if !(t.rust) {
+		t.rust = true;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: applies damage from an ENERGY BLAST to targetPlayer
 function energy_blast(_targetPlayer, _damage) {
 	var t = _targetPlayer;
 	var d = _damage;
@@ -259,35 +284,45 @@ function energy_blast(_targetPlayer, _damage) {
 	t.currentHP -= d;
 }
 
+///@desc SPAR EFFECT: bestows the given MINDSET to the given target sprite
 function bestow_mindset(_target, _mindset) {
 	var t = _target;
 	var m = _mindset;
 	
-	t.mindset = m;
+	if (t.mindset != m) {
+		t.mindset = m;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: shifts the target's MINDSET from BLESSING to CURSE or vice versa
 function shift_mindset(_target) {
 	var t = _target;
 
 	if (t.mindset > 0) {
 		t.mindset = 0 - t.mindset;
 		// return -1 for switching to curse
+		// this is simply to close the function
 		return -1;
 	}
 	if (t.mindset < 0) {
 		t.mindset = 0 - t.mindset;
 		// return 1 for switching to blessing
+		// this is simply to close the function
 		return 1;
 	}
 }
 
+///@desc SPAR EFFECT: the caster copies the target's MINDSET
 function copy_mindset(_caster, _target) {
 	var c = _caster;
 	var t = _target;
 	
-	c.mindset = t.mindset;
+	if (t.mindset != 0) {
+		c.mindset = t.mindset;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: the targetPlayer restores the given amount of MP
 function restore_mp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = round(_amount);
@@ -298,6 +333,7 @@ function restore_mp(_targetPlayer, _amount) {
 	else				t.currentMP += a;
 }
 
+///@desc SPAR EFFECT: the targetPlayer restores the given amount of HP
 function restore_hp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = round(_amount);
@@ -308,6 +344,7 @@ function restore_hp(_targetPlayer, _amount) {
 	else				t.currentHP += a;
 }
 
+///@desc SPAR EFFECT: the targetPlayer loses the given amount of HP
 function deplete_hp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = round(_amount);
@@ -318,6 +355,7 @@ function deplete_hp(_targetPlayer, _amount) {
 	else				t.currentHP -= a;
 }
 
+///@desc SPAR EFFECT: the targetPlayer loses the given amount of MP
 function deplete_mp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = round(_amount);
@@ -328,6 +366,8 @@ function deplete_mp(_targetPlayer, _amount) {
 	else				t.currentMP -= a;
 }
 
+///@desc SPAR EFFECT: the targetPlayer loses the given amount of HP or
+/// the most it can give while still having 1 HP left
 function deplete_hp_nonlethal(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = round(_amount);
@@ -338,69 +378,101 @@ function deplete_hp_nonlethal(_targetPlayer, _amount) {
 	else				t.currentHP -= a;
 }
 
+///@desc SPAR EFFECT: sets BOUND to true for the target sprite
 function set_bound(_target) {
 	var t = _target;
-	
-	t.bound = true;
+	if !(t.bound) {
+		t.bound = true;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets HEXED to true for the target sprite
 function set_hexed(_target) {
 	var t = _target;
 	
-	t.hexed = true;
+	if !(t.hexed) {
+		t.hexed = true;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets BOUND to false for the target sprite
 function remove_bound(_target) {
 	var t = _target;
 	
-	t.bound = false;
+	if (t.bound) {
+		t.bound = false;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets HEXED to false for the target sprite
 function remove_hexed(_target) {
 	var t = _target;
 	
-	t.hexed  = false;
+	if (t.hexed) {
+		t.hexed  = false;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets MIASMA to false for the targetPlayer
 function clear_miasma(_targetPlayer) {
 	var t = _targetPlayer;
 	
-	t.miasma = false;
+	if (t.miasma) {
+		t.miasma = false;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets HUM to false for the targetPlayer
 function clear_hum(_targetPlayer) {
 	var t = _targetPlayer;
 	
-	t.hum = false;
+	if (t.hum) {
+		t.hum = false;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets RUST to false for the targetPlayer
 function clear_rust(_targetPlayer) {
 	var t = _targetPlayer;
 	
-	t.rust = false;
+	if (t.rust) {
+		t.rust = false;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: removes the MINDSET of the target by setting it to 0
 function clear_mindset(_target) {
 	var t = _target;
 	
-	t.mindset = 0;
+	if (t.mindset != 0) {
+		t.mindset = 0;
+	}	else	instance_destroy(id);
 }
 	
+///@desc SPAR EFFECT: fully restores targetPlayer's HP
 function fully_restore_hp(_targetPlayer) {
 	var t = _targetPlayer;
 	
-	t.currentHP = MAX_HP;
+	if (t.currentHP != MAX_HP) {
+		t.currentHP = MAX_HP;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: fully restores targetPlayer's MP
 function fully_restore_mp(_targetPlayer) {
 	var t = _targetPlayer;
 	
-	t.currentMP = MAX_MP;
+	if (t.currentMP != MAX_MP) {
+		t.currentMP = MAX_MP;
+	}	else	instance_destroy(id);
 }
 	
+///@desc SPAR EFFECT: adds a new SKYDIVE to the grid
 function grid_add_skydive(_caster, _target) {
 	var c = _caster;
 	var t = _target;
+	
+	c.invulnerable = true;
 	
 	// resize grid
 	ds_grid_resize(spar.skydiveGrid, 2, spar.skydiveCount + 1);
@@ -413,6 +485,7 @@ function grid_add_skydive(_caster, _target) {
 	spar.skydiveCount++;
 }
 	
+///@desc SPAR EFFECT: adds a new SNEAK ATTACK to the grid
 function grid_add_sneak_attack(_caster, _target) {
 	var c = _caster;
 	
@@ -436,6 +509,7 @@ function grid_add_sneak_attack(_caster, _target) {
 	spar.sneakAttackCount++;
 }
 	
+///@desc SPAR EFFECT: adds a new TIMED BLAST to the grid
 function grid_add_timed_blast(_counter, _power, _targetPlayer) {
 	// store all arguments in local variables
 	var c = _counter;
@@ -453,32 +527,110 @@ function grid_add_timed_blast(_counter, _power, _targetPlayer) {
 	spar.blastCount++;	
 }	
 
+///@desc SPAR EFFECT: clears all hindrances on the given team's
+/// side of the field
 function clear_team_hindrances(_team) {
+	var t = _team;
 	
+	if (t.miasma)
+	|| (t.hum)
+	|| (t.rust) {
+		t.miasma = false;
+		t.hum = false;
+		t.rust = false;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: clears all hindrances on both sides of the field
 function clear_all_hindrances() {
+	var t1 = spar.playerOne;
+	var t2 = spar.playerTwo;
 	
+	if ((t1.miasma + t1.hum + t1.rust + t2.miasma + t2.hum + t2.rust) > 0) {
+		t1.miasma = false;
+		t1.hum = false;
+		t1.rust = false;
+		
+		t2.miasma = false;
+		t2.hum = false;
+		t2.rust = false;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: triggers a TIMED BLAST whose timer is up
 function blast_timer_go_off(_blastNum) {
+	var n = _blastNum;
 	
+	// get all blast params
+	var c = spar.timedBlasts[# 0, n];
+	var p = spar.timedBlasts[# 1, n];
+	var t = spar.timedBlasts[# 2, n];
+	
+	// create the energy blast
+	spar_effect_push_alert(SPAR_EFFECTS.ENERGY_BLAST, t, p);
+	
+	// decrement the blastCount
+	spar.blastCount--;
+	
+	// check if this is the last entry
+	if (n != ds_grid_height(spar.timedBlasts)) {
+		var i = 1;	repeat (ds_grid_height(spar.timedBlasts) - n) {
+			spar.timedBlasts[# 0, n] =	spar.timedBlasts[# 0, n + i];
+			spar.timedBlasts[# 1, n] =	spar.timedBlasts[# 1, n + i];
+			spar.timedBlasts[# 2, n] =	spar.timedBlasts[# 2, n + i];
+			
+			i++;
+		}
+	}
+	
+	// resize the timedBlast grid
+	ds_grid_resize(spar.timedBlasts, 3, spar.blastCount);
 }
 
+///@desc SPAR EFFECT: drops the counter for each blast timer down one tick
 function blast_timers_decrement_count() {
-	
+	var i = 0;	repeat (spar.blastCount) {
+		spar.timedBlasts[# 0, i] -= 1;
+		
+		i++;
+	}
 }
 
+///@desc SPAR EFFECT: applies the damage from MIASMA
 function apply_miasma(_effectedTeam) {
+	var t = _effectedTeam;
+	var d = 0;
 	
+	// check for natural sprites to increase damage
+	// and add to effectedSprites list
+	var i = 0;	repeat (4) {
+		if (t[| i].currentAlign == ALIGNMENTS.NATURAL) {
+			effectedSprites += t[| i];
+			
+			d += 125;
+		}
+		
+		i++;
+	}
+	
+	// check that damage was increased at least once before applying
+	if (d > 0) {
+		spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP, t, d);
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: applies negation of ELEMENTAL damage from HUM
 function apply_hum(_activeSprite) {
-	
+	// damage cannot be edited by any of these functions. There will be a check
+	// before damage is applied, and that check will call this function as a means
+	// of notifying the player after the fact
 }
 
+///@desc SPAR EFFECT: applies increase of PHYSICAL damage from RUST
 function apply_rust(_targetSprite) {
-	
+	// damage cannot be edited by any of these functions. There will be a check
+	// before damage is applied, and that check will call this function as a means
+	// of notifying the player after the fact
 }
 	
 function force_swap(_targetSprite) {

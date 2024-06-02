@@ -256,3 +256,5 @@ COMING BACK FROM PLAYTEST BUILD
 			- add all ability checks
 			- add spellFail check
 			- add all effect checks
+			
+		Started working on spar effect functions.

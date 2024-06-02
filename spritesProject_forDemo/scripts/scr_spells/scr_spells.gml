@@ -460,7 +460,7 @@ function flash_freeze() {
 
 ///@desc SPELL FUNCTION: resets the arena
 function landslide() {
-	if (global.arena >= 0) {
+	if (spar.currentArena >= 0) {
 		spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);	
 	}
 }
@@ -505,7 +505,7 @@ function psychic_impact() {
 
 ///@desc SPELL FUNCTION: resets the arena and deals self damage
 function tremor() {
-	if (global.arena >= 0) {
+	if (spar.currentArena >= 0) {
 		spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
 	}
 	
@@ -522,9 +522,6 @@ function skydive() {
 	
 	var c = activeSprite;
 	var t = targetSprite;
-	
-	// become invulnerable until the end of the turn
-	c.invulnerable= true;
 	
 	spar_effect_push_alert(SPAR_EFFECTS.GRID_ADD_SKYDIVE, c, t);
 }
