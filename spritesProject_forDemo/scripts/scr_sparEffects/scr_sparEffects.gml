@@ -36,6 +36,19 @@ function spar_effect_push_alert(_effectID) {
 	ds_list_push(spar.effectAlertList, encList);
 }
 
+///@desc This function is called in the create event of the sparEffectAlert object. The
+/// function simply finds any arguments on the alertParams list and adds them to the global.argumentList
+/// for the execute_arguments function being used to call the effect function attached to the alert
+function effect_alert_get_args() {
+	if (ds_list_size(alertParams) > 1) {
+		var i = 1;	repeat (ds_list_size(alertParams) - 1) {
+			global.argumentList[| i - 1] = alertParams[| i];
+			
+			i++;	
+		}
+	}
+}
+
 // enum that contains all spar hindrances
 enum HINDRANCES {
 	MIASMA,
@@ -204,6 +217,9 @@ enum SPAR_EFFECTS {
 	FORCE_BEST_LUCK_GLOBAL,
 	FORCE_WORST_LUCK_GLOBAL,
 	SET_HAIL_MARY,
+	BERSERK_IGNORE_HEXED,
+	BERSERK_IGNORE_BOUND,
+	INVULNERABLE_IGNORE_STATUS,
 	HEIGHT
 }
 
@@ -375,7 +391,9 @@ function deplete_hp_nonlethal(_targetPlayer, _amount) {
 function set_bound(_target) {
 	var t = _target;
 	if !(t.bound) {
-		t.bound = true;
+		if (t.invulnerable)		spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+		else					t.bound = true;
+		
 	}	else	instance_destroy(id);
 }
 
@@ -384,7 +402,9 @@ function set_hexed(_target) {
 	var t = _target;
 	
 	if !(t.hexed) {
-		t.hexed = true;
+		if (t.invulnerable)		spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+		else					t.hexed = true;
+		
 	}	else	instance_destroy(id);
 }
 
@@ -1550,8 +1570,14 @@ function set_hexed_nearby_allies(_target) {
 		var inst = t.nearbyAllies[| i];
 		
 		if !(inst.hexed) {
-			ds_list_add(effectedSprites, inst);
-			inst.hexed = true;
+			if (inst.invulnerable) {
+				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+			}	else if (inst.berserk) {
+				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_HEXED);
+			}	else {
+				ds_list_add(effectedSprites, inst);
+				inst.hexed = true;
+			}
 		}
 		
 		i++;
@@ -1574,8 +1600,14 @@ function set_hexed_nearby_enemies(_target) {
 		var inst = t.nearbyEnemies[| i];
 		
 		if !(inst.hexed) {
-			ds_list_add(effectedSprites, inst);
-			inst.hexed = true;
+			if (inst.invulnerable) {
+				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+			}	else if (inst.berserk) {
+				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_HEXED);
+			}	else {
+				ds_list_add(effectedSprites, inst);
+				inst.hexed = true;
+			}
 		}
 		
 		i++;
@@ -1598,8 +1630,14 @@ function set_hexed_nearby_sprites(_target) {
 		var inst = t.nearbySprites[| i];
 		
 		if !(inst.hexed) {
-			ds_list_add(effectedSprites, inst);
-			inst.hexed = true;
+			if (inst.invulnerable) {
+				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+			}	else if (inst.berserk) {
+				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_HEXED);
+			}	else {
+				ds_list_add(effectedSprites, inst);
+				inst.hexed = true;
+			}
 		}
 		
 		i++;
@@ -1620,14 +1658,20 @@ function set_hexed_team(_targetPlayer) {
 	if (t == spar.playerOne)	var list = spar.allyList;
 	if (t == spar.playerTwo)	var list = spar.enemyList;	
 	
-	// use a repeat loop to grant curse of the warrior to
-	// all sprites on the list
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(list)) {
 		var inst = list[| i];
 		
 		if !(inst.hexed) {
-			ds_list_add(effectedSprites, inst);
-			inst.hexed = true;
+			if (inst.invulnerable) {
+				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+			}	else if (inst.berserk) {
+				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_HEXED);
+			}	else {
+				ds_list_add(effectedSprites, inst);
+				inst.hexed = true;
+			}
 		}
 		
 		i++;
@@ -1653,13 +1697,17 @@ function set_hexed_global() {
 			var inst = list[| j];
 			
 			if !(inst.hexed) {
-				ds_list_add(effectedSprites, inst);
-				inst.hexed = true;
+				if (inst.invulnerable) {
+					spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+				}	else if (inst.berserk) {
+					spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_HEXED);
+				}	else {
+					ds_list_add(effectedSprites, inst);
+					inst.hexed = true;
+				}
 			}
-			
 			j++;
-		}	
-		
+		}
 		i++;
 	}
 	
@@ -1676,12 +1724,18 @@ function set_bound_nearby_allies(_target) {
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
-	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
+	var i = 0;	repeat (ds_list_size(t.nearbyAllies[|i])) {
 		var inst = t.nearbyAllies[| i];
 		
 		if !(inst.bound) {
-			ds_list_add(effectedSprites, inst);
-			inst.bound = true;
+			if (inst.invulnerable) {
+				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+			}	else if (inst.berserk) {
+				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_BOUND);
+			}	else {
+				ds_list_add(effectedSprites, inst);
+				inst.bound = true;
+			}
 		}
 		
 		i++;
@@ -1700,12 +1754,18 @@ function set_bound_nearby_enemies(_target) {
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
-	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
+	var i = 0;	repeat (ds_list_size(t.nearbyEnemies[|i])) {
 		var inst = t.nearbyEnemies[| i];
 		
 		if !(inst.bound) {
-			ds_list_add(effectedSprites, inst);
-			inst.bound = true;
+			if (inst.invulnerable) {
+				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+			}	else if (inst.berserk) {
+				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_BOUND);
+			}	else {
+				ds_list_add(effectedSprites, inst);
+				inst.bound = true;
+			}
 		}
 		
 		i++;
@@ -1724,12 +1784,18 @@ function set_bound_nearby_sprites(_target) {
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
-	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
+	var i = 0;	repeat (ds_list_size(t.nearbySprites[|i])) {
 		var inst = t.nearbySprites[| i];
 		
 		if !(inst.bound) {
-			ds_list_add(effectedSprites, inst);
-			inst.bound = true;
+			if (inst.invulnerable) {
+				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+			}	else if (inst.berserk) {
+				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_BOUND);
+			}	else {
+				ds_list_add(effectedSprites, inst);
+				inst.bound = true;
+			}
 		}
 		
 		i++;
@@ -1750,14 +1816,20 @@ function set_bound_team(_targetPlayer) {
 	if (t == spar.playerOne)	var list = spar.allyList;
 	if (t == spar.playerTwo)	var list = spar.enemyList;	
 	
-	// use a repeat loop to grant curse of the warrior to
-	// all sprites on the list
-	var i = 0;	repeat (ds_list_size(list)) {
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(list[|i])) {
 		var inst = list[| i];
 		
 		if !(inst.bound) {
-			ds_list_add(effectedSprites, inst);
-			inst.bound = true;
+			if (inst.invulnerable) {
+				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+			}	else if (inst.berserk) {
+				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_BOUND);
+			}	else {
+				ds_list_add(effectedSprites, inst);
+				inst.bound = true;
+			}
 		}
 		
 		i++;
@@ -1779,17 +1851,22 @@ function set_bound_global() {
 		
 		// use a repeat loop to check if any nearbySprites need to have
 		// their mindset cleared
-		var j = 0;	repeat (ds_list_size(list)) {
+		var j = 0;	repeat (ds_list_size(list[|j])) {
 			var inst = list[| j];
 			
 			if !(inst.bound) {
-				ds_list_add(effectedSprites, inst);
-				inst.bound = true;
+				if (inst.invulnerable) {
+					spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+				}	else if (inst.berserk) {
+					spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_BOUND);
+				}	else {
+					ds_list_add(effectedSprites, inst);
+					inst.bound = true;
+				}
 			}
 			
 			j++;
 		}	
-		
 		i++;
 	}
 	
@@ -1811,241 +1888,762 @@ function apply_bound() {
 	
 }
 
-
+///@desc SPAR EFFECT: apply damage from an ENERGY BLAST to both players
 function energy_blast_global(_damage) {
+	var d = _damage;
 	
+	spar.playerOne.currentHP -= d;
+	spar.playerTwo.currentHP -= d;
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
 function rust_increase_physical_damage() {
 	
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
 function hum_decrease_elemental_damage() {
 	
 }
 
-function increase_damage_natural(_multiplier) {
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
+function increase_damage_natural() {
 	
 }
 
-function decrease_damage_natural(_multiplier) {
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
+function decrease_damage_natural() {
 	
 }
 
-function increase_damage_mechanical(_multiplier) {
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
+function increase_damage_mechanical() {
 	
 }
 
-function decrease_damage_mechanical(_multiplier) {
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
+function decrease_damage_mechanical() {
 	
 }
 
-function increase_damage_astral(_multiplier) {
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
+function increase_damage_astral() {
 	
 }
 
-function decrease_damage_astral(_multiplier) {
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
+function decrease_damage_astral() {
 	
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
 function volcano_water_decrease_damage() {
 	
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
 function volcano_fire_increase_damage() {
 	
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
 function ocean_storm_increase_damage() {
 	
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
 function ocean_water_increase_damage() {
 	
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
 function stratos_earth_decrease_damage() {
 	
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
 function stratos_storm_increase_damage() {
 	
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
 function forest_fire_increase_damage() {
 	
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
 function forest_earth_increase_damage() {
 	
 }
 
+///@desc SPAR EFFECT: change the arena back to normal. This has to exist along with
+/// the arena_change_normal effect, because they trigger different effects/abilities
 function destroy_arena() {
-	
+	if (spar.currentArena != -1) {
+		spar.currentArena = -1;	
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: this is simply a "restore health" function but the verbiage is
+/// different and it triggers different effects/abilities
 function drain_health(_receivingTeam, _amount) {
+	var t = _receivingTeam;
+	var a = _amount;
 	
+	t.currentHP += a;
 }
 
+///@desc SPAR EFFECT: this is simply a "restore magic" function but the verbiage is
+/// different and it triggers different effects/abilities
 function drain_magic(_receivingTeam, _amount) {
+	var t = _receivingTeam;
+	var a = _amount;
 	
+	t.currentMP += a;
 }
 
+///@desc SPAR EFFECT: search the target column of the turn grid for the target of this
+/// spell. When found, replace the target's ID with the caster's
 function replace_target(_caster, _target) {
+	var c = _caster;
+	var t = _target;
+	
+	var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
+		var _ID = spar.turnGrid[# selectionPhases.target, i];
 		
+		if (_ID == t.spotNum) {
+			spar.turnGrid[# selectionPhases.target, i] = c.spotNum;	
+		}
+		
+		i++;
+	}
 }
 
+///@desc SPAR EFFECT: set ballLightningActive to true for the casting sprite
 function ball_lightning_set_active(_caster) {
+	var c = _caster;
 	
+	c.ballLightningActive = true;
+	c.ballLightningCount = 1;
 }
 
+///@desc SPAR EFFECT: increase ballLightningCount for the ball lightning sprite
 function ball_lightning_absorb_spell(_blSprite) {
+	var c = _blSprite;
 	
+	c.ballLightningCount += 1;
 }
 
+///@desc SPAR EFFECT: apply the damage from the ball lightning
 function ball_lightning_apply_damage(_blSprite, _count) {
+	var t = _blSprite.enemy;
+	var c = _count;
 	
+	var p = c * 150;
+	
+	t.currentHP -= p;
 }
 
+///@desc SPAR EFFECT: set blackHoleActive to true for the casting sprite
 function black_hole_set_active(_caster) {
+	var c = _caster;
 	
+	c.blackHoleActive = true;
+	c.blackHoleCount = 1;
 }
 
+///@desc SPAR EFFECT: increase blackHoleCount for the black hole sprite
 function black_hole_absorb_spell(_bhSprite) {
+	var c = _bhSprite;
 	
+	c.blackHoleCount += 1;
 }
 
+///@desc SPAR EFFECT: apply the damage from the black hole
 function black_hole_apply_damage(_bhSprite, _count) {
+	var t = _bhSprite.enemy;
+	var c = _count;
 	
+	var p = c * 85;
+	
+	t.currentHP -= p;
 }
 
+///@desc SPAR EFFECT: apply recoil damage to the player
 function apply_self_damage(_targetPlayer, _amount) {
+	var t = _targetPlayer;
+	var a = _amount;
 	
+	t.currentHP -= a;
 }
 
+///@desc SPAR EFFECT: set BERSERK to true for the target
 function set_berserk(_target) {
+	var t = _target;
 	
+	if !(t.berserk) {
+		t.berserk = true;
+	}	else	t.berserkCounter = 0;
 }
 
+///@desc SPAR EFFECT: set BERSERK to true for all the target's nearby allies
 function set_berserk_nearby_allies(_target) {
+	// store args in locals
+	var t = _target;
 	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
+		var inst = t.nearbyAllies[| i];
+		
+		// check if sprite is invulnerable
+		if (inst.invulnerable) {
+			// if so, ignore berserk
+			spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+		}	else	{
+			// check that sprite is not berserk already
+			if !(inst.berserk) {
+				// if it is not, clear hexed and bound if necessary
+				if (inst.bound)		inst.bound = false;
+				if (inst.hexed)		inst.hexed = false;
+				
+				// set berserk to true
+				inst.berserk = true;
+				
+			// if already berserk
+			}	else {
+				// reset berserk counter
+				inst.berserkCounter = 0;
+			}
+		
+			ds_list_add(effectedSprites, inst);
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: set BERSERK to true for all the target's nearby enemies
 function set_berserk_nearby_enemies(_target) {
+	// store args in locals
+	var t = _target;
 	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
+		var inst = t.nearbyEnemies[| i];
+		
+		// check if sprite is invulnerable
+		if (inst.invulnerable) {
+			// if so, ignore berserk
+			spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+		}	else	{
+			// check that sprite is not berserk already
+			if !(inst.berserk) {
+				// if it is not, clear hexed and bound if necessary
+				if (inst.bound)		inst.bound = false;
+				if (inst.hexed)		inst.hexed = false;
+				
+				// set berserk to true
+				inst.berserk = true;
+				
+			// if already berserk
+			}	else {
+				// reset berserk counter
+				inst.berserkCounter = 0;
+			}
+		
+			ds_list_add(effectedSprites, inst);
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: set BERSERK to true for all the target's nearby sprites
 function set_berserk_nearby_sprites(_target) {
+	// store args in locals
+	var t = _target;
 	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
+		var inst = t.nearbySprites[| i];
+		
+		// check if sprite is invulnerable
+		if (inst.invulnerable) {
+			// if so, ignore berserk
+			spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+		}	else	{
+			// check that sprite is not berserk already
+			if !(inst.berserk) {
+				// if it is not, clear hexed and bound if necessary
+				if (inst.bound)		inst.bound = false;
+				if (inst.hexed)		inst.hexed = false;
+				
+				// set berserk to true
+				inst.berserk = true;
+				
+			// if already berserk
+			}	else {
+				// reset berserk counter
+				inst.berserkCounter = 0;
+			}
+		
+			ds_list_add(effectedSprites, inst);
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 	
+///@desc SPAR EFFECT: set BERSERK to true for all sprites on the target team
 function set_berserk_team(_targetPlayer) {
+	// store arguments in local variables
+	var t = _targetPlayer;
 	
+	// get the correct list based on the target player
+	if (t == spar.playerOne)	var list = spar.allyList;
+	if (t == spar.playerTwo)	var list = spar.enemyList;	
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(list)) {
+		var inst = list[| i];
+		
+		// check if sprite is invulnerable
+		if (inst.invulnerable) {
+			// if so, ignore berserk
+			spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+		}	else	{
+			// check that sprite is not berserk already
+			if !(inst.berserk) {
+				// if it is not, clear hexed and bound if necessary
+				if (inst.bound)		inst.bound = false;
+				if (inst.hexed)		inst.hexed = false;
+				
+				// set berserk to true
+				inst.berserk = true;
+				
+			// if already berserk
+			}	else {
+				// reset berserk counter
+				inst.berserkCounter = 0;
+			}
+		
+			ds_list_add(effectedSprites, inst);
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: set BERSERK to true for all sprites on the field
 function set_berserk_global() {
+	var i = 0;	repeat (2) {
+		
+		// get the correct list based on the target player
+		if (i)	var list = spar.allyList;
+		if !(i)	var list = spar.enemyList;
+		
+			// use a repeat loop to check if any nearbySprites need to have
+			// their mindset cleared
+			var j = 0;	repeat (ds_list_size(list)) {
+				var inst = list[| j];
+				
+				// check if sprite is invulnerable
+				if (inst.invulnerable) {
+					// if so, ignore berserk
+					spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+				}	else	{
+					// check that sprite is not berserk already
+					if !(inst.berserk) {
+						// if it is not, clear hexed and bound if necessary
+						if (inst.bound)		inst.bound = false;
+						if (inst.hexed)		inst.hexed = false;
+						
+						// set berserk to true
+						inst.berserk = true;
+						
+					// if already berserk
+					}	else {
+						// reset berserk counter
+						inst.berserkCounter = 0;
+					}
+				
+					ds_list_add(effectedSprites, inst);
+				}
+				
+				j++;
+			}
+		
+		i++;
+	}
 	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: set INVULNERABLE to true for the target
 function set_invulnerable(_target) {
+	var t = _target;
 	
+	if !(t.invulnerable) {
+		if (t.bound)	t.bound = false;
+		if (t.hexed)	t.hexed = false;
+		
+		t.invulnerable = true;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: set INVULNERABLE to true for all the target's nearby allies
 function set_invulnerable_nearby_allies(_target) {
+	// store args in locals
+	var t = _target;
 	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
+		var inst = t.nearbyAllies[| i];
+		
+		if !(inst.invulnerable) {
+			ds_list_add(effectedSprites, inst);
+			
+			if (t.bound)	t.bound = false;
+			if (t.hexed)	t.hexed = false;
+			
+			inst.invulnerable = true;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: set INVULNERABLE to true for all the target's nearby enemies
 function set_invulnerable_nearby_enemies(_target) {
+	// store args in locals
+	var t = _target;
 	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
+		var inst = t.nearbyEnemies[| i];
+		
+		if !(inst.invulnerable) {
+			ds_list_add(effectedSprites, inst);
+			inst.invulnerable = true;
+		
+			if (t.bound)	t.bound = false;
+			if (t.hexed)	t.hexed = false;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: set INVULNERABLE to true for all the target's nearby sprites
 function set_invulnerable_nearby_sprites(_target) {
+	// store args in locals
+	var t = _target;
 	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
+		var inst = t.nearbySprites[| i];
+		
+		if !(inst.invulnerable) {
+			ds_list_add(effectedSprites, inst);
+			inst.invulnerable = true;
+			
+			if (t.bound)	t.bound = false;
+			if (t.hexed)	t.hexed = false;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
-
+	
+///@desc SPAR EFFECT: set INVULNERABLE to true for all sprites on the target team
 function set_invulnerable_team(_targetPlayer) {
+	// store arguments in local variables
+	var t = _targetPlayer;
 	
+	// get the correct list based on the target player
+	if (t == spar.playerOne)	var list = spar.allyList;
+	if (t == spar.playerTwo)	var list = spar.enemyList;	
+	
+	// use a repeat loop to grant curse of the warrior to
+	// all sprites on the list
+	var i = 0;	repeat (ds_list_size(list)) {
+		var inst = list[| i];
+		
+		if !(inst.invulnerable) {
+			ds_list_add(effectedSprites, inst);
+			inst.invulnerable = true;
+			
+			if (t.bound)	t.bound = false;
+			if (t.hexed)	t.hexed = false;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: set INVULNERABLE to true for all sprites on the field
 function set_invulnerable_global() {
+	var i = 0;	repeat (2) {
+		
+		// get the correct list based on the target player
+		if (i)	var list = spar.allyList;
+		if !(i)	var list = spar.enemyList;
+		
+		// use a repeat loop to check if any nearbySprites need to have
+		// their mindset cleared
+		var j = 0;	repeat (ds_list_size(list)) {
+			var inst = list[| j];
+			
+			if !(inst.invulnerable) {
+				ds_list_add(effectedSprites, inst);
+				inst.invulnerable = true;
+				
+				if (t.bound)	t.bound = false;
+				if (t.hexed)	t.hexed = false;
+			}
+			
+			j++;
+		}	
+		
+		i++;
+	}
 	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
 function skydive_avoid_damage() {
 	
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
 function invulnerable_avoid_damage() {
 	
 }
 
+///@desc SPAR EFFECT: set PARRYING to true for casting sprite
 function set_parrying(_caster) {
+	var c = _caster;
 	
+	c.parrying = true;
 }
 
-function apply_parry(_attackingSprite) {
+///@desc SPAR EFFECT: determines what the damage would have been
+/// if the sprite were not parrying, then depletes that amount of damage from
+/// the attacking sprite's team after multiplying it by 1.5*
+function apply_parry(_attackingSprite, _parryingSprite) {
+	var t = _attackingSprite;
+	var c = _parryingSprite;
 	
+	var d = get_physical_damage(t, c, BASIC_ATTACK_POWER);
+	
+	t.team.currentHPl -= (d * 1.5);
 }
 
+///@desc SPAR EFFECT: sets DIVIDING to true for the target sprite
+/// and sets the given coefficient
 function set_dividing(_targetSprite, _coefficient) {
+	var t = _targetSprite;
+	var a = _coefficient;
 	
+	if !(t.dividing) 
+	&& !(t.multiplying) {
+		t.dividing = true;
+		t.coefficient = a;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets MULTIPLYING to true for the target sprite
+/// and sets the given coefficient
 function set_multiplying(_targetSprite, _coefficient) {
+	var t = _targetSprite;
+	var a = _coefficient;
+	
+	if !(t.dividing)
+	&& !(t.multiplying) {
+		t.multiplying = true;
+		t.coefficient = a;
+	}	else	instance_destroy(id);
+}
+
+///@desc SPAR EFFECT: this effect is simply a means of notifying the player
+/// that the healing was altered after the fact
+function multiply_healing() {
 	
 }
 
-function multiply_healing(_targetSprite, _coefficient) {
+///@desc SPAR EFFECT: this effect is simply a means of notifying the player
+/// that the damage was altered after the fact
+function multiply_damage() {
 	
 }
 
-function multiply_damage(_targetsprite, _coefficient) {
+///@desc SPAR EFFECT: this effect is simply a means of notifying the player
+/// that the healing was altered after the fact
+function divide_healing() {
 	
 }
 
-function divide_healing(_targetSprite, _coefficient) {
-	
-}
-
+///@desc SPAR EFFECT: this effect is simply a means of notifying the player
+/// that the damage was altered after the fact
 function divide_damage(_targetSprite, _coefficient) {
 	
 }
 
+///@desc SPAR EFFECT: sets deflective to true for casting sprite
 function set_deflective(_caster) {
+	var c = _caster;
 	
+	if !(c.deflective) {
+		c.deflective = true;	
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: this effect is simply a means of notifying the player
+/// that the spell was altered after the fact
 function deflect_spell(_caster) {
 	
 }
 
+///@desc SPAR EFFECT: forces the turn to end immediately
 function force_turn_end() {
-	
+	ds_grid_clear(spar.turnGrid, -1);
+	spar.sparPhase = sparPhases.turnEnd;
 }
 
+///@desc SPAR EFFECT: forces the targetTeam to store these turn selections
+/// and repeat them the following turn
 function repeat_last_turn(_targetTeam) {
 	
 }
 
+///@desc SPAR EFFECT: applies damage calculated using the caster's best stat
+/// and the target's worst stat
 function psychic_attack(_caster, _target, _power) {
+	var c = _caster;
+	var t = _target;
+	var p = _power;
 	
+	var s1 = get_current_stat_elemental(get_best_elemental_stat(c));
+	
+	if (c.currentPower		> s1)	s1 = c.currentPower;
+	if (c.currentAgility	> s1)	s1 = c.currentAgility;
+	
+	var s2 = get_current_stat_elemental(get_worst_elemental_stat(c));
+	
+	if (t.currentResist		< s2)	s2 = t.currentResist;
+	if (t.currentAgility	< s2)	s2 = t.currentAgility;
+	
+	var d = get_psychic_damage(s1, s2, p);
+	
+	t.team.currentHP -= d;
 }
 
+///@desc SPAR EFFECT: changes the target's alignment to the given alignment
 function change_alignment(_target, _newAlignment) {
-	
+	var t = _target;
+	var a = _newAlignment;
+
+	if (t.currentAlign != a) {
+		t.currentAlign = a;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: changes the target's size to the given size
 function change_size(_target, _newSize) {
+	var t = _target;
+	var s = _newSize;
 	
+	if (t.currentSize != s) {
+		t.currentSize = s;	
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: this is just the energy blast function that is cast
+/// specifically on the self
 function energy_blast_self(_targetPlayer, _damage) {
+	var t = _targetPlayer;
+	var d = _damage;
 	
+	t.currentHP -= d;
 }
 
+///@desc SPAR EFFECT: sets hail mary as true for the target player
 function set_hail_mary(_targetPlayer) {
+	var t = _targetPlayer;
 	
+	t.hailMary = true;
 }
 
 // get text from csv file

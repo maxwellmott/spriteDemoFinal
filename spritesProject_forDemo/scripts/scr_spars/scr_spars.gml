@@ -1,5 +1,10 @@
 #macro REST_BASE_MP_REGEN	20
 
+#macro HEXED_COUNT_MAX			1
+#macro BOUND_COUNT_MAX			1
+#macro BERSERK_COUNT_MAX		2
+#macro INVULNERABLE_COUNT_MAX	0
+
 global.hoverSprite		= -1;
 global.arena			= -1;
 global.targetRange		= -1;
@@ -899,5 +904,21 @@ function get_best_elemental_stat(_spriteInstance) {
 }
 
 function get_worst_elemental_stat(_spriteInstance) {
+	return -1;
+}
+
+function get_base_stat_value() {
+	return -1;
+}
+
+function get_base_stat_elemental() {
+	return -1;
+}
+
+function get_current_stat() {
+	return -1;
+}
+
+function get_current_stat_elemental() {
 	return -1;
 }

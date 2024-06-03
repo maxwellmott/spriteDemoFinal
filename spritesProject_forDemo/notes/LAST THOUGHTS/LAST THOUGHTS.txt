@@ -261,3 +261,16 @@ COMING BACK FROM PLAYTEST BUILD
 		
 	6/2
 		CONTINUING SPAR EFFECT FUNCTIONS ---- LEFT OFF AT ENERGY_BLAST_GLOBAL
+		
+		LIST OF REMAINING TASKS:
+			- ability checks
+			- ability functions
+			- ability check functions
+			- effect checks
+			- effect check functions
+			- effect alert text
+			- effect animation timing (display animation after clicking through or loop animation until click through)
+			- effect animation placement
+			- effect animation sprites
+			- damage alteration check
+			- spell fail check

@@ -122,6 +122,8 @@ ballLightningCount = 0;
 
 newSpriteID = -1;
 
+parrying	= true;
+
 swapping	= false;
 resting		= false;
 dodging		= false;
@@ -131,7 +133,6 @@ luckRoll = 0;
 currentPose = SPRITE_POSES.IDLE;
 
 flying			= false;
-invulnerable	= false;
 deflective		= false;
 sneaking		= false;
 

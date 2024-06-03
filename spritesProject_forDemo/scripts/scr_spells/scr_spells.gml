@@ -584,7 +584,7 @@ function psychic_fissure() {
 	var t = targetSprite;
 	var p = 150;
 
-	var d = calculate_psychic_damage(c, t, p);
+	var d = get_psychic_damage(c, t, p);
 	
 	if !(dodgeSuccess) {
 		spar_effect_push_alert(SPAR_EFFECTS.PSYCHIC_ATTACK, c, t, p);

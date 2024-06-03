@@ -122,6 +122,8 @@ ballLightningCount = 0;
 
 newSpriteID = -1;
 
+parrying = false;
+
 swapping	= false;
 resting		= false;
 dodging		= false;
