@@ -257,4 +257,7 @@ COMING BACK FROM PLAYTEST BUILD
 			- add spellFail check
 			- add all effect checks
 			
-		Started working on spar effect functions.
+		Started working on spar effect functions
+		
+	6/2
+		CONTINUING SPAR EFFECT FUNCTIONS ---- LEFT OFF AT ENERGY_BLAST_GLOBAL

@@ -115,6 +115,8 @@ enum SPAR_EFFECTS {
 	SHIFT_MINDSET_NEARBY_SPRITES,
 	SHIFT_MINDSET_TEAM,
 	SHIFT_MINDSET_GLOBAL,
+	SHIFT_CURSE,
+	SHIFT_BLESSING,
 	SHIFT_CURSE_NEARBY_ALLIES,
 	SHIFT_CURSE_NEARBY_ENEMIES,
 	SHIFT_CURSE_NEARBY_SPRITES,
@@ -298,18 +300,9 @@ function bestow_mindset(_target, _mindset) {
 function shift_mindset(_target) {
 	var t = _target;
 
-	if (t.mindset > 0) {
-		t.mindset = 0 - t.mindset;
-		// return -1 for switching to curse
-		// this is simply to close the function
-		return -1;
-	}
-	if (t.mindset < 0) {
-		t.mindset = 0 - t.mindset;
-		// return 1 for switching to blessing
-		// this is simply to close the function
-		return 1;
-	}
+	if (t.mindset != 0) {
+		t.mindset = t.mindset * -1;	
+	}	else	instance_destroy(id);
 }
 
 ///@desc SPAR EFFECT: the caster copies the target's MINDSET
@@ -633,6 +626,7 @@ function apply_rust(_targetSprite) {
 	// of notifying the player after the fact
 }
 	
+///@desc SPAR EFFECT: forces the target to swap with a randomly chosen ally
 function force_swap(_targetSprite) {
 	randomize();
 	
@@ -683,12 +677,80 @@ function force_swap(_targetSprite) {
 	ds_list_destroy(il);
 }
 
+///@desc SPAR EFFECT: forces the target team to split into two groups randomly
+/// and perform swaps
 function force_swap_team(_targetPlayer) {
 	randomize();
+		
+	// get target's spot number
+	var ct = _targetPlayer;
 	
-	if !(dodgeSuccess) {		
-		// get target's spot number
-		var ct = _targetPlayer;
+	// create a dummy list
+	var iil = ds_list_create();
+	
+	// find out which list to copy
+	if (ct == spar.playerOne)	ds_list_copy(iil, spar.enemyList);
+	if (ct == spar.playerTwo)	ds_list_copy(iil, spar.allyList);
+	
+	// get a random integer
+	var int = irandom_range(0, 3);
+	
+	// set target as the list token at the index of the random integer
+	var t	= iil[| int];
+	var tsn = t.spotNum;
+	
+	// get target team
+	var tt = t.team;
+	
+	// create temp list
+	var l = ds_list_create();
+	
+	// build a list of numbers representing viable swap partners
+	var i = 0;	repeat (4) {
+		// if i doesn't equal target spot num, add it to the list
+		if (i != tsn)	ds_list_add(l, i);
+		
+		i++;
+	}
+	
+	// pick a random number off of that list and set it as the
+	// partner's spot number
+	var int = irandom_range(0, 3);
+	var psn = l[| int];
+	
+	// create inst list
+	var il = ds_list_create();
+	
+	// copy appropriate list
+	if (tt == spar.playerOne)	ds_list_copy(il, spar.allyList);
+	if (tt == spar.playerTwo)	ds_list_copy(il, spar.enemyList);
+	
+	// store swap partner's sprite ID
+	var psid	= il[| psn].spriteID;
+	
+	// store target's sprite ID
+	var tsid	= il[| tsn].spriteID;
+	
+	// swap sprite IDs
+	il[| psn].spriteID = tsid;
+	il[| tsn].spriteID = psid;
+	
+	// delete lists
+	ds_list_destroy(l);
+	ds_list_destroy(il);
+
+}
+
+///@desc SPAR EFFECT: forces both teams to perform swaps with all their sprites
+function force_swap_global() {
+	var ct = -1;
+	
+	var i = 0;	repeat (2) {
+		// reset random seed
+		randomize();
+		
+		if (i)	ct = spar.playerOne;
+		if !(i)	ct = spar.playerTwo;
 		
 		// create a dummy list
 		var iil = ds_list_create();
@@ -711,11 +773,11 @@ function force_swap_team(_targetPlayer) {
 		var l = ds_list_create();
 		
 		// build a list of numbers representing viable swap partners
-		var i = 0;	repeat (4) {
+		var j = 0;	repeat (4) {
 			// if i doesn't equal target spot num, add it to the list
-			if (i != tsn)	ds_list_add(l, i);
+			if (j != tsn)	ds_list_add(l, j);
 			
-			i++;
+			j++;
 		}
 		
 		// pick a random number off of that list and set it as the
@@ -737,221 +799,1020 @@ function force_swap_team(_targetPlayer) {
 		var tsid	= il[| tsn].spriteID;
 		
 		// swap sprite IDs
-		
-		var temp	= psid;
-		psid		= tsid;
-		tsid		= temp;
+		il[| psn].spriteID = tsid;
+		il[| tsn].spriteID = psid;
 		
 		// delete lists
 		ds_list_destroy(l);
 		ds_list_destroy(il);
-	}	
+		
+		// increment i
+		i++;
+	}
 }
 
-function force_swap_global() {
-}
-
+///@desc SPAR EFFECT: sets MIASMA on both sides of the field
 function set_miasma_global() {
+	if !(spar.playerOne.miasma)
+	|| !(spar.playerTwo.miasma) {
+		spar.playerOne.miasma = true;
+		spar.playerTwo.miasma = true;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets HUM on both sides of the field
 function set_hum_global() {
+	if !(spar.playerOne.hum)
+	|| !(spar.playerTwo.hum) {
+		spar.playerOne.hum = true;
+		spar.playerTwo.hum = true;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: sets RUST on both sides of the field
 function set_rust_global() {
+	if !(spar.playerOne.rust)
+	|| !(spar.playerTwo.rust) {
+		spar.playerOne.rust = true;
+		spar.playerTwo.rust = true;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: clears MIASMA from both sides of the field
 function clear_miasma_global() {
+	if (spar.playerOne.miasma) 
+	|| (spar.playerTwo.miasma) {
+		spar.playerOne.miasma = false;
+		spar.playerTwo.miasma = false;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: clears HUM from both sides of the field
 function clear_hum_global() {
+	if (spar.playerOne.hum) 
+	|| (spar.playerTwo.hum) {
+		spar.playerOne.hum = false;
+		spar.playerTwo.hum = false;
+	}
 }
 
+///@desc SPAR EFFECT: clears rust from both sides of the field
 function clear_rust_global() {
+	if (spar.playerOne.rust) 
+	|| (spar.playerTwo.rust) {
+		spar.playerOne.rust = false;
+		spar.playerTwo.rust = false;
+	}	else	instance_destroy(id);
 }
 
+///@desc SPAR EFFECT: clears the MINDSET of any nearby allies
 function clear_mindset_nearby_allies(_target) {
+	// store args in locals
+	var t = _target;
 	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
+		var inst = t.nearbyAllies[| i];
+		
+		if (inst.mindset != 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = 0;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: clears the MINDSET of any nearby enemies
 function clear_mindset_nearby_enemies(_target) {
+	// store args in locals
+	var t = _target;
 	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
+		var inst = t.nearbyEnemies[| i];
+		
+		if (inst.mindset != 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = 0;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: clears the MINDSET of any nearby sprites
 function clear_mindset_nearby_sprites(_target) {
+	// store args in locals
+	var t = _target;
 	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
+		var inst = t.nearbySprites[| i];
+		
+		if (inst.mindset != 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = 0;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: clears the MINDSET of all sprites on the target team
 function clear_mindset_team(_targetPlayer) {
+	// store args in locals
+	var t = _targetPlayer;
 	
+	// get the correct list based on the target player
+	if (t == spar.playerOne)	var list = spar.allyList;
+	if (t == spar.playerTwo)	var list = spar.enemyList;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(list)) {
+		var inst = list[| i];
+		
+		if (inst.mindset != 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = 0;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: clears the MINDSET of all sprites on the field
 function clear_mindset_global() {
+	var i = 0;	repeat (2) {
+		
+		// get the correct list based on the target player
+		if (i)	var list = spar.allyList;
+		if !(i)	var list = spar.enemyList;
+		
+		// use a repeat loop to check if any nearbySprites need to have
+		// their mindset cleared
+		var j = 0;	repeat (ds_list_size(list)) {
+			var inst = list[| j];
+			
+			if (inst.mindset != 0) {
+				ds_list_add(effectedSprites, inst);
+				inst.mindset = 0;
+			}
+			
+			j++;
+		}	
+		
+		i++;
+	}
 	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: grants a MINDSET to all allies near the target
 function bestow_mindset_nearby_allies(_target, _mindset) {
+	// store args in locals
+	var t = _target;
+	var m = _mindset;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
+		var inst = t.nearbyAllies[| i];
+		
+		if (inst.mindset != m) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = m;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: grants a MINDSET to all enemies near the target
 function bestow_mindset_nearby_enemies(_target, _mindset) {
+	// store args in locals
+	var t = _target;
+	var m = _mindset;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
+		var inst = t.nearbyEnemies[| i];
+		
+		if (inst.mindset != m) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = m;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: grants a MINDSET to all sprites near the target
 function bestow_mindset_nearby_sprites(_target, _mindset) {
+	// store args in locals
+	var t = _target;
+	var m = _mindset;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
+		var inst = t.nearbySprites[| i];
+		
+		if (inst.mindset != m) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = m;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: grants a MINDSET to all members of the given team
 function bestow_mindset_team(_targetPlayer, _mindset) {	
 	// store arguments in local variables
 	var t = _targetPlayer;
 	var m = _mindset;
 	
-	// initialize dummy list
-	var list = ds_list_create();
-	
-	// get player's allyList
-	if (t == spar.playerOne) {
-		ds_list_copy(list, spar.allyList);
-	}
-	
-	if (t == spar.playerTwo) {
-		ds_list_copy(list, spar.enemyList);
-	}
+	// get the correct list based on the target player
+	if (t == spar.playerOne)	var list = spar.allyList;
+	if (t == spar.playerTwo)	var list = spar.enemyList;	
 	
 	// use a repeat loop to grant curse of the warrior to
 	// all sprites on the list
 	var i = 0;	repeat (ds_list_size(list)) {
-		list[| i].mindset = m;
-		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, list[| i], -1 * (MINDSETS.WARRIOR));
+		var inst = list[| i];
+		
+		if (inst.mindset != m) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = m;
+		}
 		
 		i++;
 	}
 	
-	// delete the list
-	ds_list_destroy(list);	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
-function bestow_mindset_global() {
+///@desc SPAR EFFECT: grants a MINDSET to all sprites on the field
+function bestow_mindset_global(_mindset) {
+	var m = _mindset;
+	
+	var i = 0;	repeat (2) {
+	
+		// get the correct list based on i
+		if (i)	var list = spar.allyList;
+		if !(i)	var list = spar.enemyList;
+		
+		// use a repeat loop to grant curse of the warrior to
+		// all sprites on the list
+		var j = 0;	repeat (ds_list_size(list)) {
+			var inst = list[| j];
+			
+			if (inst.mindset != m) {
+				ds_list_add(effectedSprites, inst);
+				inst.mindset = m;
+			}
+			
+			j++;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: shifts the MINDSET of all target's nearby allies
 function shift_mindset_nearby_allies(_target) {
-}
-
-function shift_mindset_nearby_enemies(_target) {
-}
-
-function shift_mindset_nearby_sprites(_target) {
-}
-
-function shift_mindset_team(_targetPlayer) {
-}
-
-function shift_mindset_global() {	
-}
-
-function shift_curse_nearby_allies(_target) {
-}
-
-function shift_curse_nearby_enemies(_target) {
-}
-
-function shift_curse_nearby_sprites(_target) {
-}
-
-function shift_curse_team(_targetPlayer) {
+	// store args in locals
+	var t = _target;
 	
-}
-
-function shift_curse_global() {
-	
-}
-
-function shift_blessing_nearby_allies(_target) {
-	
-}
-
-function shift_blessing_nearby_enemies(_target) {
-	
-}
-
-function shift_blessing_nearby_sprites(_target) {
-	
-}
-
-function shift_blessing_team(_targetPlayer) {
-	
-}
-
-function shift_blessing_global() {
-	
-}
-
-function set_hexed_nearby_allies(_target) {
-	
-}
-
-function set_hexed_nearby_enemies(_target) {
-	
-}
-
-function set_hexed_nearby_sprites(_target) {
-	
-}
-
-function set_hexed_team(_targetPlayer) {
-	// initialize dummy list
-	var list = ds_list_create();
-	
-	// get enemy allyList
-	if (t == spar.playerOne) {
-		ds_list_copy(list, spar.allyList);
-	}
-	
-	if (t == spar.playerTwo) {
-		ds_list_copy(list, spar.enemyList);
-	}
-	
-	// use a repeat loop to hex all enemies
-	var i = 0;	repeat (ds_list_size(list)) {
-		spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED, list[| i]);
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
+		var inst = t.nearbyAllies[| i];
+		
+		if (inst.mindset != 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = inst.mindset * -1;
+		}
 		
 		i++;
 	}
 	
-	// delete the dummy list
-	ds_list_destroy(list);	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: shifts the MINDSET of all target's nearby enemies
+function shift_mindset_nearby_enemies(_target) {
+	// store args in locals
+	var t = _target;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
+		var inst = t.nearbyEnemies[| i];
+		
+		if (inst.mindset != 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = inst.mindset * -1;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: shifts the MINDSET of all target's nearby sprites
+function shift_mindset_nearby_sprites(_target) {
+	// store args in locals
+	var t = _target;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
+		var inst = t.nearbySprites[| i];
+		
+		if (inst.mindset != 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = inst.mindset * -1;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: shifts the MINDSET of all sprites on the target team
+function shift_mindset_team(_targetPlayer) {
+	// store arguments in local variables
+	var t = _targetPlayer;
+	
+	// get the correct list based on the target player
+	if (t == spar.playerOne)	var list = spar.allyList;
+	if (t == spar.playerTwo)	var list = spar.enemyList;	
+	
+	// use a repeat loop to grant curse of the warrior to
+	// all sprites on the list
+	var i = 0;	repeat (ds_list_size(list)) {
+		var inst = list[| i];
+		
+		if (inst.mindset != 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = inst.mindset * -1;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: shifts the MINDSET of all sprites on the field
+function shift_mindset_global() {	
+	var i = 0;	repeat (2) {
+		
+		// get the correct list based on the target player
+		if (i)	var list = spar.allyList;
+		if !(i)	var list = spar.enemyList;
+		
+		// use a repeat loop to check if any nearbySprites need to have
+		// their mindset cleared
+		var j = 0;	repeat (ds_list_size(list)) {
+			var inst = list[| j];
+			
+			if (inst.mindset != 0) {
+				ds_list_add(effectedSprites, inst);
+				inst.mindset = inst.mindset * -1;
+			}
+			
+			j++;
+		}	
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: shifts CURSE to BLESSING for target
+function shift_curse(_target) {
+	var t = _target;
+	
+	if (t.mindset < 0) {
+		t.mindset = t.mindset * -1;
+	}	else	instance_destroy(id);
+}
+
+///@desc SPAR EFFECT: shifts BLESSING to CURSE for target
+function shift_blessing(_target) {
+	var t = _target;
+	
+	if (t.mindset > 0) {
+		t.mindset = t.mindset * -1;	
+	}	else	instance_destroy(id);
+}
+
+///@desc SPAR EFFECT: shifts CURSE to BLESSING for target's nearby allies
+function shift_curse_nearby_allies(_target) {
+	// store args in locals
+	var t = _target;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
+		var inst = t.nearbyAllies[| i];
+		
+		if (inst.mindset < 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = inst.mindset * -1;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: shifts CURSE to BLESSING for target's nearby enemies
+function shift_curse_nearby_enemies(_target) {
+	// store args in locals
+	var t = _target;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
+		var inst = t.nearbyEnemies[| i];
+		
+		if (inst.mindset < 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = inst.mindset * -1;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: shifts CURSE to BLESSING for target's nearby sprites
+function shift_curse_nearby_sprites(_target) {
+	// store args in locals
+	var t = _target;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
+		var inst = t.nearbySprites[| i];
+		
+		if (inst.mindset < 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = inst.mindset * -1;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: shifts CURSE to BLESSING for all sprites on target team
+function shift_curse_team(_targetPlayer) {
+	// store arguments in local variables
+	var t = _targetPlayer;
+	
+	// get the correct list based on the target player
+	if (t == spar.playerOne)	var list = spar.allyList;
+	if (t == spar.playerTwo)	var list = spar.enemyList;	
+	
+	// use a repeat loop to grant curse of the warrior to
+	// all sprites on the list
+	var i = 0;	repeat (ds_list_size(list)) {
+		var inst = list[| i];
+		
+		if (inst.mindset < 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = inst.mindset * -1;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: shifts CURSE to BLESSING for all sprites on the field
+function shift_curse_global() {
+	var i = 0;	repeat (2) {
+		
+		// get the correct list based on the target player
+		if (i)	var list = spar.allyList;
+		if !(i)	var list = spar.enemyList;
+		
+		// use a repeat loop to check if any nearbySprites need to have
+		// their mindset cleared
+		var j = 0;	repeat (ds_list_size(list)) {
+			var inst = list[| j];
+			
+			if (inst.mindset < 0) {
+				ds_list_add(effectedSprites, inst);
+				inst.mindset = inst.mindset * -1;
+			}
+			
+			j++;
+		}	
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}	
+}
+
+///@desc SPAR EFFECT: shifts BLESSING to CURSE for target's nearby allies
+function shift_blessing_nearby_allies(_target) {
+	// store args in locals
+	var t = _target;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
+		var inst = t.nearbyAllies[| i];
+		
+		if (inst.mindset > 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = inst.mindset * -1;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: shifts BLESSING to CURSE for target's nearby enemies
+function shift_blessing_nearby_enemies(_target) {
+	// store args in locals
+	var t = _target;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
+		var inst = t.nearbyEnemies[| i];
+		
+		if (inst.mindset > 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = inst.mindset * -1;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: shifts BLESSING to CURSE for target's nearby sprites
+function shift_blessing_nearby_sprites(_target) {
+	// store args in locals
+	var t = _target;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
+		var inst = t.nearbySprites[| i];
+		
+		if (inst.mindset > 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = inst.mindset * -1;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: shifts BLESSING to CURSE for all sprites on target team
+function shift_blessing_team(_targetPlayer) {
+	// store arguments in local variables
+	var t = _targetPlayer;
+	
+	// get the correct list based on the target player
+	if (t == spar.playerOne)	var list = spar.allyList;
+	if (t == spar.playerTwo)	var list = spar.enemyList;	
+	
+	// use a repeat loop to grant curse of the warrior to
+	// all sprites on the list
+	var i = 0;	repeat (ds_list_size(list)) {
+		var inst = list[| i];
+		
+		if (inst.mindset > 0) {
+			ds_list_add(effectedSprites, inst);
+			inst.mindset = inst.mindset * -1;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: shifts BLESSING to CURSE for all sprites on the field
+function shift_blessing_global() {
+	var i = 0;	repeat (2) {
+		
+		// get the correct list based on the target player
+		if (i)	var list = spar.allyList;
+		if !(i)	var list = spar.enemyList;
+		
+		// use a repeat loop to check if any nearbySprites need to have
+		// their mindset cleared
+		var j = 0;	repeat (ds_list_size(list)) {
+			var inst = list[| j];
+			
+			if (inst.mindset > 0) {
+				ds_list_add(effectedSprites, inst);
+				inst.mindset = inst.mindset * -1;
+			}
+			
+			j++;
+		}	
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}	
+}
+
+///@desc SPAR EFFECT: set HEXED to true for all target's nearby allies
+function set_hexed_nearby_allies(_target) {
+	// store args in locals
+	var t = _target;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
+		var inst = t.nearbyAllies[| i];
+		
+		if !(inst.hexed) {
+			ds_list_add(effectedSprites, inst);
+			inst.hexed = true;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: set HEXED to true for all target's nearby enemies
+function set_hexed_nearby_enemies(_target) {
+	// store args in locals
+	var t = _target;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
+		var inst = t.nearbyEnemies[| i];
+		
+		if !(inst.hexed) {
+			ds_list_add(effectedSprites, inst);
+			inst.hexed = true;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: set HEXED to true for all target's nearby sprites
+function set_hexed_nearby_sprites(_target) {
+	// store args in locals
+	var t = _target;
+	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
+		var inst = t.nearbySprites[| i];
+		
+		if !(inst.hexed) {
+			ds_list_add(effectedSprites, inst);
+			inst.hexed = true;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: set HEXED to true for all sprites on target team
+function set_hexed_team(_targetPlayer) {
+	// store arguments in local variables
+	var t = _targetPlayer;
+	
+	// get the correct list based on the target player
+	if (t == spar.playerOne)	var list = spar.allyList;
+	if (t == spar.playerTwo)	var list = spar.enemyList;	
+	
+	// use a repeat loop to grant curse of the warrior to
+	// all sprites on the list
+	var i = 0;	repeat (ds_list_size(list)) {
+		var inst = list[| i];
+		
+		if !(inst.hexed) {
+			ds_list_add(effectedSprites, inst);
+			inst.hexed = true;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
+}
+
+///@desc SPAR EFFECT: set HEXED to true for all sprites on the field
 function set_hexed_global() {
+	var i = 0;	repeat (2) {
+		
+		// get the correct list based on the target player
+		if (i)	var list = spar.allyList;
+		if !(i)	var list = spar.enemyList;
+		
+		// use a repeat loop to check if any nearbySprites need to have
+		// their mindset cleared
+		var j = 0;	repeat (ds_list_size(list)) {
+			var inst = list[| j];
+			
+			if !(inst.hexed) {
+				ds_list_add(effectedSprites, inst);
+				inst.hexed = true;
+			}
+			
+			j++;
+		}	
+		
+		i++;
+	}
 	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}	
 }
 
+///@desc SPAR EFFECT: set BOUND to true for all target's nearby allies
 function set_bound_nearby_allies(_target) {
+	// store args in locals
+	var t = _target;
 	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
+		var inst = t.nearbyAllies[| i];
+		
+		if !(inst.bound) {
+			ds_list_add(effectedSprites, inst);
+			inst.bound = true;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: set BOUND to true for all target's nearby enemies
 function set_bound_nearby_enemies(_target) {
+	// store args in locals
+	var t = _target;
 	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
+		var inst = t.nearbyEnemies[| i];
+		
+		if !(inst.bound) {
+			ds_list_add(effectedSprites, inst);
+			inst.bound = true;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: set BOUND to true for all target's nearby sprites
 function set_bound_nearby_sprites(_target) {
+	// store args in locals
+	var t = _target;
 	
+	// use a repeat loop to check if any nearbySprites need to have
+	// their mindset cleared
+	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
+		var inst = t.nearbySprites[| i];
+		
+		if !(inst.bound) {
+			ds_list_add(effectedSprites, inst);
+			inst.bound = true;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
+///@desc SPAR EFFECT: set BOUND to true for all sprites on target team
 function set_bound_team(_targetPlayer) {
+	// store arguments in local variables
+	var t = _targetPlayer;
 	
+	// get the correct list based on the target player
+	if (t == spar.playerOne)	var list = spar.allyList;
+	if (t == spar.playerTwo)	var list = spar.enemyList;	
+	
+	// use a repeat loop to grant curse of the warrior to
+	// all sprites on the list
+	var i = 0;	repeat (ds_list_size(list)) {
+		var inst = list[| i];
+		
+		if !(inst.bound) {
+			ds_list_add(effectedSprites, inst);
+			inst.bound = true;
+		}
+		
+		i++;
+	}
+	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}
 }
 
-function set_bound_global(_targetPlayer) {
+///@desc SPAR EFFECT: set BOUND to true for all sprites on the field
+function set_bound_global() {
+	var i = 0;	repeat (2) {
+		
+		// get the correct list based on the target player
+		if (i)	var list = spar.allyList;
+		if !(i)	var list = spar.enemyList;
+		
+		// use a repeat loop to check if any nearbySprites need to have
+		// their mindset cleared
+		var j = 0;	repeat (ds_list_size(list)) {
+			var inst = list[| j];
+			
+			if !(inst.bound) {
+				ds_list_add(effectedSprites, inst);
+				inst.bound = true;
+			}
+			
+			j++;
+		}	
+		
+		i++;
+	}
 	
+	// if no sprites were effected, destroy spar effect alert
+	if (ds_list_size(effectedSprites <= 0)) {
+		instance_destroy(id);
+	}	
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that they are HEXED and cannot cast spells
 function apply_hexed() {
 	
 }
 
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that they are BOUND and cannot swap
 function apply_bound() {
 	
 }
 
-function energy_blast_global() {
+
+function energy_blast_global(_damage) {
 	
 }
 
@@ -1266,6 +2127,8 @@ master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_ENEMIES,		textGrid
 master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_SPRITES,		textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_NEARBY_SPRITES],		shift_mindset_nearby_sprites,		noone);
 master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_TEAM,				textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_TEAM],					shift_mindset_team,					noone);
 master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET_GLOBAL,				textGrid[# 1, SPAR_EFFECTS.SHIFT_MINDSET_GLOBAL],				shift_mindset_global,				noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE,						textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE],						shift_curse,						noone);
+master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_BLESSING,					textGrid[# 1, SPAR_EFFECTS.SHIFT_BLESSING],						shift_blessing,						noone);
 master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_NEARBY_ALLIES,			textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_NEARBY_ALLIES],			shift_curse_nearby_allies,			noone);
 master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_NEARBY_ENEMIES,		textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_NEARBY_ENEMIES],			shift_curse_nearby_enemies,			noone);
 master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_CURSE_NEARBY_SPRITES,		textGrid[# 1, SPAR_EFFECTS.SHIFT_CURSE_NEARBY_SPRITES],			shift_curse_nearby_sprites,			noone);
