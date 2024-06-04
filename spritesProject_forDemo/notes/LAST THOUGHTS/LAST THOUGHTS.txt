@@ -274,3 +274,9 @@ COMING BACK FROM PLAYTEST BUILD
 			- effect animation sprites
 			- damage alteration check
 			- spell fail check
+			
+	6/3
+			ADD BERSERK AND INVULNERABLE ENDING FUNCTIONS FOR ALL SCOPES
+			FIND ALL instance_destroy(id) ON EFFECTS SCRIPT AND ENSURE THAT THERE IS A ds_list_add(effectedSprites, AS WELL
+			
+			still working on adding references for effect animations	---- decide what to do about moves like sneak attack and skydive
