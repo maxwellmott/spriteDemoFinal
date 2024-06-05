@@ -280,3 +280,8 @@ COMING BACK FROM PLAYTEST BUILD
 			FIND ALL instance_destroy(id) ON EFFECTS SCRIPT AND ENSURE THAT THERE IS A ds_list_add(effectedSprites, AS WELL
 			
 			still working on adding references for effect animations	---- decide what to do about moves like sneak attack and skydive
+	
+	6/4
+			Finished adding all sprite references to spar effect grid. 
+			I still need to add all of the currently existing effect animations
+			Still need to finish the build alert text function and the effectAlert object
