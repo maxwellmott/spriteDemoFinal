@@ -30,7 +30,7 @@ placeholder,_ will lurk in the shadows until it's time to attack…
 placeholder,A timer began counting down…
 placeholder,All HINDRANCES were cleared from _'s side of the field!
 placeholder,All HINDRANCES were cleared from the field!
-placeholder,The timer hit 0 and an ENERGY BLAST struck _!
+placeholder,A timer began going off!
 placeholder,A timer is getting closer to 0…
 placeholder,_'s NATURAL allies took some damage from the MIASMA!
 placeholder,_'s ASTRAL allies' powers are weakened by the HUM!
@@ -59,6 +59,8 @@ placeholder,All enemies near _ had their MINDSETs shifted!
 placeholder,All SPRITEs near _ had their MINDSETs shifted!
 placeholder,All _'s allies had their MINDSETs shifted!
 placeholder,All SPRITEs on the field had their MINDSETs shifted!
+placeholder,_'s CURSE was shifted to the respective BLESSING!
+placeholder,_'s BLESSING was shifted to the respective CURSE!
 placeholder,All allies near _ had their CURSEs shifted!
 placeholder,All enemies near _ had their CURSEs shifted!
 placeholder,All SPRITEs near _ had their CURSEs shifted!

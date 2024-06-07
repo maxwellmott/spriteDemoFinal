@@ -1,3 +1,5 @@
+#macro BOTH_PLAYERS_EFFECTED		-49
+
 ///@desc This function asks for one argument--the ID of an effect from the SPAR_EFFECTS
 /// enum--but it is meant to be overloaded with any arguments that the given function
 /// requires. This function is called by spells and abilities and different checks that 
@@ -54,6 +56,46 @@ function effect_alert_get_args() {
 /// asterisks with any object that may have been loaded by the effectFunction.
 function effect_alert_build_text() {
 	
+}
+
+///@desc This function takes the ID of a mindset and returns a string with the
+/// name of that mindset
+function get_mindset_name(_ID) {
+	var ID = _ID;
+	
+	switch (ID) {
+		case MINDSETS.IMP * -1: 
+			return "CURSE OF THE IMP";
+		break;
+		
+		case MINDSETS.TREE * -1:
+			return "CURSE OF THE TREE";
+		break;
+		
+		case MINDSETS.WARRIOR * -1:
+			return "CURSE OF THE WARRIOR";
+		break;
+		
+		case MINDSETS.MOTHER * -1:
+			return "CURSE OF THE MOTHER";
+		break;
+		
+		case MINDSETS.MOTHER:
+			return "BLESSING OF THE MOTHER";
+		break;
+		
+		case MINDSETS.WARRIOR:
+			return "BLESSING OF THE WARRIOR";
+		break;
+		
+		case MINDSETS.TREE:
+			return "BLESSING OF THE TREE";
+		break;
+		
+		case MINDSETS.IMP:
+			return "BLESSING OF THE IMP";
+		break;
+	}
 }
 
 // enum that contains all spar hindrances
@@ -290,6 +332,8 @@ function set_miasma(_targetPlayer) {
 	var t = _targetPlayer;
 	
 	if !(t.miasma) {
+		effectedPlayer = t;
+		subject = t.name;
 		t.miasma = true;
 	}	else	instance_destroy(id);
 }
@@ -299,6 +343,8 @@ function set_hum(_targetPlayer) {
 	var t = _targetPlayer;
 	
 	if !(t.hum) {
+		effectedPlayer = t;
+		subject = t.name;
 		t.hum = true;
 	}	else	instance_destroy(id);
 }
@@ -308,6 +354,8 @@ function set_rust(_targetPlayer) {
 	var t = _targetPlayer;
 	
 	if !(t.rust) {
+		effectedPlayer = t;
+		subject = t.name;
 		t.rust = true;
 	}	else	instance_destroy(id);
 }
@@ -318,6 +366,9 @@ function energy_blast(_targetPlayer, _damage) {
 	var d = _damage;
 	
 	t.currentHP -= d;
+	
+	subject = t.name;
+	effectedPlayer = t;
 }
 
 ///@desc SPAR EFFECT: bestows the given MINDSET to the given target sprite
@@ -326,6 +377,9 @@ function bestow_mindset(_target, _mindset) {
 	var m = _mindset;
 	
 	if (t.mindset != m) {
+		ds_list_add(effectedSprites, t);
+		subject = t.name;
+		object = get_mindset_name(m);
 		t.mindset = m;
 	}	else	instance_destroy(id);
 }
@@ -335,6 +389,8 @@ function shift_mindset(_target) {
 	var t = _target;
 
 	if (t.mindset != 0) {
+		ds_list_add(effectedSprites, t);
+		subject = t.name;
 		t.mindset = t.mindset * -1;	
 	}	else	instance_destroy(id);
 }
@@ -345,6 +401,8 @@ function copy_mindset(_caster, _target) {
 	var t = _target;
 	
 	if (t.mindset != 0) {
+		ds_list_add(effectedSprites, c, t);
+		subject = t.name;
 		c.mindset = t.mindset;
 	}	else	instance_destroy(id);
 }
@@ -353,6 +411,9 @@ function copy_mindset(_caster, _target) {
 function restore_mp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = round(_amount);
+	
+	effectedPlayer = t;
+	subject = t.name;
 	
 	var mpNeeded = MAX_MP - t.currentMP;
 	
@@ -365,6 +426,9 @@ function restore_hp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = round(_amount);
 	
+	effectedPlayer = t;
+	subject = t.name;
+	
 	var hpNeeded = MAX_HP - t.currentHP;
 	
 	if (a >= hpNeeded)	t.currentHP = MAX_HP;
@@ -376,6 +440,9 @@ function deplete_hp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = round(_amount);
 	
+	effectedPlayer = t;
+	subject = t.name;
+	
 	var hpLeft = t.currentHP;
 	
 	if (a >= hpLeft)	t.currentHP = 0;
@@ -386,6 +453,9 @@ function deplete_hp(_targetPlayer, _amount) {
 function deplete_mp(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = round(_amount);
+	
+	effectedPlayer = t;
+	subject = t.name;
 	
 	var mpLeft = t.currentMP;
 	
@@ -399,6 +469,9 @@ function deplete_hp_nonlethal(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = round(_amount);
 	
+	effectedPlayer = t;
+	subject = t.name;
+	
 	var hpLeft = t.currentHP;
 	
 	if (a >= hpLeft)	t.currentHP = 1;
@@ -409,8 +482,15 @@ function deplete_hp_nonlethal(_targetPlayer, _amount) {
 function set_bound(_target) {
 	var t = _target;
 	if !(t.bound) {
-		if (t.invulnerable)		spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-		else					t.bound = true;
+		if (t.invulnerable)		{
+			spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+			instance_destroy(id);
+		}
+		else					{
+			ds_list_add(effectedSprites, t);
+			subject = t.name;
+			t.bound = true;
+		}
 		
 	}	else	instance_destroy(id);
 }
@@ -420,8 +500,15 @@ function set_hexed(_target) {
 	var t = _target;
 	
 	if !(t.hexed) {
-		if (t.invulnerable)		spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-		else					t.hexed = true;
+		if (t.invulnerable)		{
+			spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
+			instance_destroy(id);
+		}
+		else					{
+			ds_list_add(effectedSprites, t);
+			subject = t.name;
+			t.hexed = true;
+		}
 		
 	}	else	instance_destroy(id);
 }
@@ -431,6 +518,8 @@ function remove_bound(_target) {
 	var t = _target;
 	
 	if (t.bound) {
+		ds_list_add(effectedSprites, t);
+		subject = t.name;
 		t.bound = false;
 	}	else	instance_destroy(id);
 }
@@ -440,6 +529,8 @@ function remove_hexed(_target) {
 	var t = _target;
 	
 	if (t.hexed) {
+		ds_list_add(effectedSprites, t);
+		subject = t.name;
 		t.hexed  = false;
 	}	else	instance_destroy(id);
 }
@@ -449,6 +540,8 @@ function clear_miasma(_targetPlayer) {
 	var t = _targetPlayer;
 	
 	if (t.miasma) {
+		effectedPlayer = t;
+		subject = t.name;
 		t.miasma = false;
 	}	else	instance_destroy(id);
 }
@@ -458,6 +551,8 @@ function clear_hum(_targetPlayer) {
 	var t = _targetPlayer;
 	
 	if (t.hum) {
+		effectedPlayer = t;
+		subject = t.name;
 		t.hum = false;
 	}	else	instance_destroy(id);
 }
@@ -467,6 +562,8 @@ function clear_rust(_targetPlayer) {
 	var t = _targetPlayer;
 	
 	if (t.rust) {
+		effectedPlayer = t;
+		subject = t.name;
 		t.rust = false;
 	}	else	instance_destroy(id);
 }
@@ -476,6 +573,8 @@ function clear_mindset(_target) {
 	var t = _target;
 	
 	if (t.mindset != 0) {
+		ds_list_add(effectedSprites, t);
+		subject = t.name;
 		t.mindset = 0;
 	}	else	instance_destroy(id);
 }
@@ -485,6 +584,8 @@ function fully_restore_hp(_targetPlayer) {
 	var t = _targetPlayer;
 	
 	if (t.currentHP != MAX_HP) {
+		effectedPlayer = t;
+		subject = t.name;
 		t.currentHP = MAX_HP;
 	}	else	instance_destroy(id);
 }
@@ -494,6 +595,8 @@ function fully_restore_mp(_targetPlayer) {
 	var t = _targetPlayer;
 	
 	if (t.currentMP != MAX_MP) {
+		effectedPlayer = t;
+		subject = t.name;
 		t.currentMP = MAX_MP;
 	}	else	instance_destroy(id);
 }
@@ -502,6 +605,9 @@ function fully_restore_mp(_targetPlayer) {
 function grid_add_skydive(_caster, _target) {
 	var c = _caster;
 	var t = _target;
+	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
 	
 	c.invulnerable = true;
 	
@@ -519,6 +625,9 @@ function grid_add_skydive(_caster, _target) {
 ///@desc SPAR EFFECT: adds a new SNEAK ATTACK to the grid
 function grid_add_sneak_attack(_caster, _target) {
 	var c = _caster;
+	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
 	
 	// set dodging to true
 	c.dodging = true;
@@ -547,6 +656,8 @@ function grid_add_timed_blast(_counter, _power, _targetPlayer) {
 	var p = _power;
 	var t = _targetPlayer;
 	
+	effectedPlayer = t;
+	
 	// add the params of the blast to the blast grid
 	var count = spar.blastCount;
 	
@@ -566,6 +677,9 @@ function clear_team_hindrances(_team) {
 	if (t.miasma)
 	|| (t.hum)
 	|| (t.rust) {
+		effectedPlayer = t;
+		subject = t.name;
+		
 		t.miasma = false;
 		t.hum = false;
 		t.rust = false;
@@ -578,6 +692,7 @@ function clear_all_hindrances() {
 	var t2 = spar.playerTwo;
 	
 	if ((t1.miasma + t1.hum + t1.rust + t2.miasma + t2.hum + t2.rust) > 0) {
+		effectedPlayer = BOTH_PLAYERS_EFFECTED;
 		t1.miasma = false;
 		t1.hum = false;
 		t1.rust = false;
@@ -632,6 +747,8 @@ function apply_miasma(_effectedTeam) {
 	var t = _effectedTeam;
 	var d = 0;
 	
+	subject = t.name;
+	
 	// check for natural sprites to increase damage
 	// and add to effectedSprites list
 	var i = 0;	repeat (4) {
@@ -652,6 +769,11 @@ function apply_miasma(_effectedTeam) {
 
 ///@desc SPAR EFFECT: applies negation of ELEMENTAL damage from HUM
 function apply_hum(_activeSprite) {
+	var c = _activeSprite;
+	
+	ds_list_add(effectedSprites, c);
+	subject = c.team.name;
+	
 	// damage cannot be edited by any of these functions. There will be a check
 	// before damage is applied, and that check will call this function as a means
 	// of notifying the player after the fact
@@ -659,6 +781,10 @@ function apply_hum(_activeSprite) {
 
 ///@desc SPAR EFFECT: applies increase of PHYSICAL damage from RUST
 function apply_rust(_targetSprite) {
+	var t = _targetSprite;
+	
+	ds_list_add(effectedSprites, t);
+	subject = t.team.name;
 	// damage cannot be edited by any of these functions. There will be a check
 	// before damage is applied, and that check will call this function as a means
 	// of notifying the player after the fact
@@ -710,6 +836,9 @@ function force_swap(_targetSprite) {
 	psid		= tsid;
 	tsid		= temp;
 	
+	ds_list_add(effectedSprites, t, il[| psn]);
+	subject = tt.name;
+	
 	// delete lists
 	ds_list_destroy(l);
 	ds_list_destroy(il);
@@ -722,6 +851,9 @@ function force_swap_team(_targetPlayer) {
 		
 	// get target's spot number
 	var ct = _targetPlayer;
+	
+	effectedPlayer = ct;
+	subject = ct.name;
 	
 	// create a dummy list
 	var iil = ds_list_create();
@@ -782,6 +914,8 @@ function force_swap_team(_targetPlayer) {
 ///@desc SPAR EFFECT: forces both teams to perform swaps with all their sprites
 function force_swap_global() {
 	var ct = -1;
+	
+	effectedPlayer = BOTH_PLAYERS_EFFECTED;
 	
 	var i = 0;	repeat (2) {
 		// reset random seed
@@ -853,6 +987,7 @@ function force_swap_global() {
 function set_miasma_global() {
 	if !(spar.playerOne.miasma)
 	|| !(spar.playerTwo.miasma) {
+		effectedPlayer = BOTH_PLAYERS_EFFECTED;
 		spar.playerOne.miasma = true;
 		spar.playerTwo.miasma = true;
 	}	else	instance_destroy(id);
@@ -862,6 +997,7 @@ function set_miasma_global() {
 function set_hum_global() {
 	if !(spar.playerOne.hum)
 	|| !(spar.playerTwo.hum) {
+		effectedPlayer = BOTH_PLAYERS_EFFECTED;
 		spar.playerOne.hum = true;
 		spar.playerTwo.hum = true;
 	}	else	instance_destroy(id);
@@ -871,6 +1007,7 @@ function set_hum_global() {
 function set_rust_global() {
 	if !(spar.playerOne.rust)
 	|| !(spar.playerTwo.rust) {
+		effectedPlayer = BOTH_PLAYERS_EFFECTED;
 		spar.playerOne.rust = true;
 		spar.playerTwo.rust = true;
 	}	else	instance_destroy(id);
@@ -880,6 +1017,7 @@ function set_rust_global() {
 function clear_miasma_global() {
 	if (spar.playerOne.miasma) 
 	|| (spar.playerTwo.miasma) {
+		effectedPlayer = BOTH_PLAYERS_EFFECTED;
 		spar.playerOne.miasma = false;
 		spar.playerTwo.miasma = false;
 	}	else	instance_destroy(id);
@@ -889,6 +1027,7 @@ function clear_miasma_global() {
 function clear_hum_global() {
 	if (spar.playerOne.hum) 
 	|| (spar.playerTwo.hum) {
+		effectedPlayer = BOTH_PLAYERS_EFFECTED;
 		spar.playerOne.hum = false;
 		spar.playerTwo.hum = false;
 	}
@@ -898,6 +1037,7 @@ function clear_hum_global() {
 function clear_rust_global() {
 	if (spar.playerOne.rust) 
 	|| (spar.playerTwo.rust) {
+		effectedPlayer = BOTH_PLAYERS_EFFECTED;
 		spar.playerOne.rust = false;
 		spar.playerTwo.rust = false;
 	}	else	instance_destroy(id);
@@ -907,6 +1047,8 @@ function clear_rust_global() {
 function clear_mindset_nearby_allies(_target) {
 	// store args in locals
 	var t = _target;
+	
+	subject = t.name;
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -932,6 +1074,8 @@ function clear_mindset_nearby_enemies(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
@@ -956,6 +1100,8 @@ function clear_mindset_nearby_sprites(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
@@ -979,6 +1125,8 @@ function clear_mindset_nearby_sprites(_target) {
 function clear_mindset_team(_targetPlayer) {
 	// store args in locals
 	var t = _targetPlayer;
+	
+	subject = t.name;
 	
 	// get the correct list based on the target player
 	if (t == spar.playerOne)	var list = spar.allyList;
@@ -1027,6 +1175,8 @@ function clear_mindset_global() {
 		i++;
 	}
 	
+	effectedPlayer = BOTH_PLAYERS_EFFECTED;
+	
 	// if no sprites were effected, destroy spar effect alert
 	if (ds_list_size(effectedSprites <= 0)) {
 		instance_destroy(id);
@@ -1038,6 +1188,9 @@ function bestow_mindset_nearby_allies(_target, _mindset) {
 	// store args in locals
 	var t = _target;
 	var m = _mindset;
+	
+	subject = t.name;
+	object = get_mindset_name(m);
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -1064,6 +1217,9 @@ function bestow_mindset_nearby_enemies(_target, _mindset) {
 	var t = _target;
 	var m = _mindset;
 	
+	subject = t.name;
+	object = get_mindset_name(m);
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
@@ -1089,6 +1245,9 @@ function bestow_mindset_nearby_sprites(_target, _mindset) {
 	var t = _target;
 	var m = _mindset;
 	
+	subject = t.name;
+	object = get_mindset_name(m);
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
@@ -1113,6 +1272,9 @@ function bestow_mindset_team(_targetPlayer, _mindset) {
 	// store arguments in local variables
 	var t = _targetPlayer;
 	var m = _mindset;
+	
+	subject = t.name;
+	object = get_mindset_name(m);
 	
 	// get the correct list based on the target player
 	if (t == spar.playerOne)	var list = spar.allyList;
@@ -1140,6 +1302,8 @@ function bestow_mindset_team(_targetPlayer, _mindset) {
 ///@desc SPAR EFFECT: grants a MINDSET to all sprites on the field
 function bestow_mindset_global(_mindset) {
 	var m = _mindset;
+	
+	object = get_mindset_name(m);
 	
 	var i = 0;	repeat (2) {
 	
@@ -1174,6 +1338,8 @@ function shift_mindset_nearby_allies(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
@@ -1197,6 +1363,8 @@ function shift_mindset_nearby_allies(_target) {
 function shift_mindset_nearby_enemies(_target) {
 	// store args in locals
 	var t = _target;
+	
+	subject = t.name;
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -1222,6 +1390,8 @@ function shift_mindset_nearby_sprites(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
@@ -1245,6 +1415,8 @@ function shift_mindset_nearby_sprites(_target) {
 function shift_mindset_team(_targetPlayer) {
 	// store arguments in local variables
 	var t = _targetPlayer;
+	
+	subject = t.name;
 	
 	// get the correct list based on the target player
 	if (t == spar.playerOne)	var list = spar.allyList;
@@ -1303,6 +1475,9 @@ function shift_mindset_global() {
 function shift_curse(_target) {
 	var t = _target;
 	
+	ds_list_add(effectedSprites, t);
+	subject = t.name;
+	
 	if (t.mindset < 0) {
 		t.mindset = t.mindset * -1;
 	}	else	instance_destroy(id);
@@ -1311,6 +1486,9 @@ function shift_curse(_target) {
 ///@desc SPAR EFFECT: shifts BLESSING to CURSE for target
 function shift_blessing(_target) {
 	var t = _target;
+	
+	ds_list_add(effectedSprites, t);
+	subject = t.name;
 	
 	if (t.mindset > 0) {
 		t.mindset = t.mindset * -1;	
@@ -1321,6 +1499,8 @@ function shift_blessing(_target) {
 function shift_curse_nearby_allies(_target) {
 	// store args in locals
 	var t = _target;
+	
+	subject = t.name;
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -1346,6 +1526,8 @@ function shift_curse_nearby_enemies(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
@@ -1369,6 +1551,8 @@ function shift_curse_nearby_enemies(_target) {
 function shift_curse_nearby_sprites(_target) {
 	// store args in locals
 	var t = _target;
+	
+	subject = t.name;
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -1394,6 +1578,8 @@ function shift_curse_team(_targetPlayer) {
 	// store arguments in local variables
 	var t = _targetPlayer;
 	
+	subject = t.name;
+	
 	// get the correct list based on the target player
 	if (t == spar.playerOne)	var list = spar.allyList;
 	if (t == spar.playerTwo)	var list = spar.enemyList;	
@@ -1418,7 +1604,7 @@ function shift_curse_team(_targetPlayer) {
 }
 
 ///@desc SPAR EFFECT: shifts CURSE to BLESSING for all sprites on the field
-function shift_curse_global() {
+function shift_curse_global() {	
 	var i = 0;	repeat (2) {
 		
 		// get the correct list based on the target player
@@ -1452,6 +1638,8 @@ function shift_blessing_nearby_allies(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
@@ -1475,6 +1663,8 @@ function shift_blessing_nearby_allies(_target) {
 function shift_blessing_nearby_enemies(_target) {
 	// store args in locals
 	var t = _target;
+	
+	subject = t.name;
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -1500,6 +1690,8 @@ function shift_blessing_nearby_sprites(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
@@ -1523,6 +1715,8 @@ function shift_blessing_nearby_sprites(_target) {
 function shift_blessing_team(_targetPlayer) {
 	// store arguments in local variables
 	var t = _targetPlayer;
+	
+	subject = t.name;
 	
 	// get the correct list based on the target player
 	if (t == spar.playerOne)	var list = spar.allyList;
@@ -1582,6 +1776,8 @@ function set_hexed_nearby_allies(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
@@ -1611,6 +1807,8 @@ function set_hexed_nearby_allies(_target) {
 function set_hexed_nearby_enemies(_target) {
 	// store args in locals
 	var t = _target;
+	
+	subject = t.name;
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -1642,6 +1840,8 @@ function set_hexed_nearby_sprites(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
@@ -1671,6 +1871,8 @@ function set_hexed_nearby_sprites(_target) {
 function set_hexed_team(_targetPlayer) {
 	// store arguments in local variables
 	var t = _targetPlayer;
+	
+	subject = t.name;
 	
 	// get the correct list based on the target player
 	if (t == spar.playerOne)	var list = spar.allyList;
@@ -1740,6 +1942,8 @@ function set_bound_nearby_allies(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbyAllies[|i])) {
@@ -1769,6 +1973,8 @@ function set_bound_nearby_allies(_target) {
 function set_bound_nearby_enemies(_target) {
 	// store args in locals
 	var t = _target;
+	
+	subject = t.name;
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -1800,6 +2006,8 @@ function set_bound_nearby_sprites(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbySprites[|i])) {
@@ -1829,6 +2037,8 @@ function set_bound_nearby_sprites(_target) {
 function set_bound_team(_targetPlayer) {
 	// store arguments in local variables
 	var t = _targetPlayer;
+	
+	subject = t.name;
 	
 	// get the correct list based on the target player
 	if (t == spar.playerOne)	var list = spar.allyList;
@@ -1896,14 +2106,20 @@ function set_bound_global() {
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that they are HEXED and cannot cast spells
-function apply_hexed() {
+function apply_hexed(_effectedSprite) {
+	var t = _effectedSprite;
 	
+	ds_list_add(effectedSprites, t);
+	subject = t.name;
 }
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that they are BOUND and cannot swap
-function apply_bound() {
+function apply_bound(_effectedSprite) {
+	var t = _effectedSprite;
 	
+	ds_list_add(effectedSprites, t);
+	subject = t.name;
 }
 
 ///@desc SPAR EFFECT: apply damage from an ENERGY BLAST to both players
@@ -1912,42 +2128,56 @@ function energy_blast_global(_damage) {
 	
 	spar.playerOne.currentHP -= d;
 	spar.playerTwo.currentHP -= d;
+	
+	effectedPlayer = BOTH_PLAYERS_EFFECTED;
 }
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that the damage was altered after the fact
-function increase_damage_natural() {
+function increase_damage_natural(_activeSprite) {
+	var c = _activeSprite;
 	
+	subject = c.name;
 }
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that the damage was altered after the fact
-function decrease_damage_natural() {
+function decrease_damage_natural(_activeSprite) {
+	var c = _activeSprite;
 	
+	subject = c.name;
 }
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that the damage was altered after the fact
-function increase_damage_mechanical() {
+function increase_damage_mechanical(_activeSprite) {
+	var c = _activeSprite;
 	
+	subject = c.name;	
 }
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that the damage was altered after the fact
-function decrease_damage_mechanical() {
+function decrease_damage_mechanical(_activeSprite) {
+	var c = _activeSprite;
 	
+	subject = c.name;	
 }
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that the damage was altered after the fact
-function increase_damage_astral() {
+function increase_damage_astral(_activeSprite) {
+	var c = _activeSprite;
 	
+	subject = c.name;	
 }
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that the damage was altered after the fact
-function decrease_damage_astral() {
+function decrease_damage_astral(_activeSprite) {
+	var c = _activeSprite;
 	
+	subject = c.name;	
 }
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
@@ -2012,6 +2242,9 @@ function drain_health(_receivingTeam, _amount) {
 	var t = _receivingTeam;
 	var a = _amount;
 	
+	subject = t.name;
+	effectedPlayer = t;
+	
 	t.currentHP += a;
 }
 
@@ -2021,6 +2254,9 @@ function drain_magic(_receivingTeam, _amount) {
 	var t = _receivingTeam;
 	var a = _amount;
 	
+	subject = t.name;
+	effectedPlayer = t;	
+	
 	t.currentMP += a;
 }
 
@@ -2029,6 +2265,10 @@ function drain_magic(_receivingTeam, _amount) {
 function replace_target(_caster, _target) {
 	var c = _caster;
 	var t = _target;
+	
+	ds_list_add(effectedSprites, c, t);
+	subject = c.name;
+	object = t.name;
 	
 	var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 		var _ID = spar.turnGrid[# selectionPhases.target, i];
@@ -2045,6 +2285,9 @@ function replace_target(_caster, _target) {
 function ball_lightning_set_active(_caster) {
 	var c = _caster;
 	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
+	
 	c.ballLightningActive = true;
 	c.ballLightningCount = 1;
 }
@@ -2053,6 +2296,9 @@ function ball_lightning_set_active(_caster) {
 function ball_lightning_absorb_spell(_blSprite) {
 	var c = _blSprite;
 	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
+	
 	c.ballLightningCount += 1;
 }
 
@@ -2060,6 +2306,9 @@ function ball_lightning_absorb_spell(_blSprite) {
 function ball_lightning_apply_damage(_blSprite, _count) {
 	var t = _blSprite.enemy;
 	var c = _count;
+	
+	effectedPlayer = t;
+	subject = _blSprite.name;
 	
 	var p = c * 150;
 	
@@ -2070,6 +2319,9 @@ function ball_lightning_apply_damage(_blSprite, _count) {
 function black_hole_set_active(_caster) {
 	var c = _caster;
 	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
+	
 	c.blackHoleActive = true;
 	c.blackHoleCount = 1;
 }
@@ -2078,6 +2330,9 @@ function black_hole_set_active(_caster) {
 function black_hole_absorb_spell(_bhSprite) {
 	var c = _bhSprite;
 	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
+	
 	c.blackHoleCount += 1;
 }
 
@@ -2085,6 +2340,9 @@ function black_hole_absorb_spell(_bhSprite) {
 function black_hole_apply_damage(_bhSprite, _count) {
 	var t = _bhSprite.enemy;
 	var c = _count;
+	
+	effectedPlayer = t;
+	subject = c.name;
 	
 	var p = c * 85;
 	
@@ -2096,6 +2354,9 @@ function apply_self_damage(_targetPlayer, _amount) {
 	var t = _targetPlayer;
 	var a = _amount;
 	
+	effectedPlayer = t;
+	subject = t.name;
+	
 	t.currentHP -= a;
 }
 
@@ -2104,6 +2365,8 @@ function set_berserk(_target) {
 	var t = _target;
 	
 	if !(t.berserk) {
+		ds_list_add(effectedSprites, t);
+		subject = t.name;
 		t.berserk = true;
 	}	else	t.berserkCounter = 0;
 }
@@ -2112,6 +2375,8 @@ function set_berserk(_target) {
 function set_berserk_nearby_allies(_target) {
 	// store args in locals
 	var t = _target;
+	
+	subject = t.name;
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -2155,6 +2420,8 @@ function set_berserk_nearby_enemies(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
@@ -2197,6 +2464,8 @@ function set_berserk_nearby_sprites(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
@@ -2238,6 +2507,8 @@ function set_berserk_nearby_sprites(_target) {
 function set_berserk_team(_targetPlayer) {
 	// store arguments in local variables
 	var t = _targetPlayer;
+	
+	subject = t.name;
 	
 	// get the correct list based on the target player
 	if (t == spar.playerOne)	var list = spar.allyList;
@@ -2332,6 +2603,9 @@ function set_berserk_global() {
 function set_invulnerable(_target) {
 	var t = _target;
 	
+	ds_list_add(effectedSprites, t);
+	subject = t.name;
+	
 	if !(t.invulnerable) {
 		if (t.bound)	t.bound = false;
 		if (t.hexed)	t.hexed = false;
@@ -2344,6 +2618,8 @@ function set_invulnerable(_target) {
 function set_invulnerable_nearby_allies(_target) {
 	// store args in locals
 	var t = _target;
+	
+	subject = t.name;
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -2373,6 +2649,8 @@ function set_invulnerable_nearby_enemies(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
@@ -2400,6 +2678,8 @@ function set_invulnerable_nearby_sprites(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
@@ -2426,6 +2706,8 @@ function set_invulnerable_nearby_sprites(_target) {
 function set_invulnerable_team(_targetPlayer) {
 	// store arguments in local variables
 	var t = _targetPlayer;
+	
+	subject = t.name;
 	
 	// get the correct list based on the target player
 	if (t == spar.playerOne)	var list = spar.allyList;
@@ -2488,19 +2770,28 @@ function set_invulnerable_global() {
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that the damage was altered after the fact
-function skydive_avoid_damage() {
+function skydive_avoid_damage(_skydiveSprite) {
+	var c = _skydiveSprite;
 	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
 }
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that the damage was altered after the fact
-function invulnerable_avoid_damage() {
+function invulnerable_avoid_damage(_invulnSprite) {
+	var c = _invulnSprite;
 	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
 }
 
 ///@desc SPAR EFFECT: set PARRYING to true for casting sprite
 function set_parrying(_caster) {
 	var c = _caster;
+	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
 	
 	c.parrying = true;
 }
@@ -2512,6 +2803,9 @@ function apply_parry(_attackingSprite, _parryingSprite) {
 	var t = _attackingSprite;
 	var c = _parryingSprite;
 	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
+	
 	var d = get_physical_damage(t, c, BASIC_ATTACK_POWER);
 	
 	t.team.currentHPl -= (d * 1.5);
@@ -2522,6 +2816,9 @@ function apply_parry(_attackingSprite, _parryingSprite) {
 function set_dividing(_targetSprite, _coefficient) {
 	var t = _targetSprite;
 	var a = _coefficient;
+	
+	ds_list_add(effectedSprites, t);
+	subject = t.name;
 	
 	if !(t.dividing) 
 	&& !(t.multiplying) {
@@ -2536,6 +2833,9 @@ function set_multiplying(_targetSprite, _coefficient) {
 	var t = _targetSprite;
 	var a = _coefficient;
 	
+	ds_list_add(effectedSprites, t);
+	subject = t.name;
+	
 	if !(t.dividing)
 	&& !(t.multiplying) {
 		t.multiplying = true;
@@ -2545,14 +2845,12 @@ function set_multiplying(_targetSprite, _coefficient) {
 
 ///@desc SPAR EFFECT: this effect is simply a means of notifying the player
 /// that the healing was altered after the fact
-function multiply_healing() {
-	
+function multiply_healing(_healingSprite) {
 }
 
 ///@desc SPAR EFFECT: this effect is simply a means of notifying the player
 /// that the damage was altered after the fact
 function multiply_damage() {
-	
 }
 
 ///@desc SPAR EFFECT: this effect is simply a means of notifying the player
@@ -2563,13 +2861,16 @@ function divide_healing() {
 
 ///@desc SPAR EFFECT: this effect is simply a means of notifying the player
 /// that the damage was altered after the fact
-function divide_damage(_targetSprite, _coefficient) {
+function divide_damage() {
 	
 }
 
 ///@desc SPAR EFFECT: sets deflective to true for casting sprite
 function set_deflective(_caster) {
 	var c = _caster;
+	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
 	
 	if !(c.deflective) {
 		c.deflective = true;	
@@ -2579,7 +2880,10 @@ function set_deflective(_caster) {
 ///@desc SPAR EFFECT: this effect is simply a means of notifying the player
 /// that the spell was altered after the fact
 function deflect_spell(_caster) {
+	var c = _caster;
 	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
 }
 
 ///@desc SPAR EFFECT: forces the turn to end immediately
@@ -2591,7 +2895,10 @@ function force_turn_end() {
 ///@desc SPAR EFFECT: forces the targetTeam to store these turn selections
 /// and repeat them the following turn
 function repeat_last_turn(_targetTeam) {
+	var t = _targetTeam;
 	
+	effectedPlayer = t;
+	subject = t.name;
 }
 
 ///@desc SPAR EFFECT: applies damage calculated using the caster's best stat
@@ -2600,6 +2907,10 @@ function psychic_attack(_caster, _target, _power) {
 	var c = _caster;
 	var t = _target;
 	var p = _power;
+	
+	ds_list_add(effectedSprites, c, t);
+	subject = c.name;
+	object = t.name;
 	
 	var s1 = get_current_stat_elemental(get_best_elemental_stat(c));
 	
@@ -2622,6 +2933,8 @@ function change_alignment(_target, _newAlignment) {
 	var a = _newAlignment;
 
 	if (t.currentAlign != a) {
+		ds_list_add(effectedSprites, t);
+		subject = t.name;
 		t.currentAlign = a;
 	}	else	instance_destroy(id);
 }
@@ -2630,9 +2943,11 @@ function change_alignment(_target, _newAlignment) {
 function change_size(_target, _newSize) {
 	var t = _target;
 	var s = _newSize;
-	
+
 	if (t.currentSize != s) {
 		t.currentSize = s;	
+		ds_list_add(effectedSprites, t);
+		subject = t.name;
 	}	else	instance_destroy(id);
 }
 
@@ -2642,6 +2957,9 @@ function energy_blast_self(_targetPlayer, _damage) {
 	var t = _targetPlayer;
 	var d = _damage;
 	
+	effectedPlayer = t;
+	subject = t.name;
+	
 	t.currentHP -= d;
 }
 
@@ -2649,13 +2967,19 @@ function energy_blast_self(_targetPlayer, _damage) {
 function set_hail_mary(_targetPlayer) {
 	var t = _targetPlayer;
 	
+	effectedPlayer = t;
+	subject = t.name;
+	
 	t.hailMary = true;
 }
 
 ///@desc SPAR EFFECT: this effect is simply a means of notifying the player
 /// that the damage was altered aftert the fact
-function berserk_increase_damage() {
+function berserk_increase_damage(_activeSprite) {
+	var c = _activeSprite;
 	
+	ds_list_add(effectedSprites, c);
+	subject = c.name;
 }
 
 ///@desc SPAR EFFECT: sets BERSERK to false for target sprite
@@ -2663,6 +2987,8 @@ function end_berserk(_target) {
 	var t = _target;
 	
 	if (t.berserk) {
+		ds_list_add(effectedSprites, t);
+		subject = t.name;
 		t.berserk = false;
 	}	else	instance_destroy(id);
 }
@@ -2671,6 +2997,8 @@ function end_berserk(_target) {
 function end_berserk_nearby_allies(_target) {
 	// store args in locals
 	var t = _target;
+	
+	subject = t.name;
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -2696,6 +3024,8 @@ function end_berserk_nearby_enemies(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
@@ -2720,6 +3050,8 @@ function end_berserk_nearby_sprites(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
@@ -2743,6 +3075,8 @@ function end_berserk_nearby_sprites(_target) {
 function end_berserk_team(_targetPlayer) {
 	// store arguments in local variables
 	var t = _targetPlayer;
+	
+	subject = t.name;
 	
 	// get the correct list based on the target player
 	if (t == spar.playerOne)	var list = spar.allyList;
@@ -2800,6 +3134,8 @@ function end_invulnerable(_target) {
 	var t = _target;
 	
 	if (t.invulnerable) {
+		ds_list_add(effectedSprites, t);
+		subject = t.name;
 		t.invulnerable = false;	
 	}	else	instance_destroy(id);
 }
@@ -2808,6 +3144,8 @@ function end_invulnerable(_target) {
 function end_invulnerable_nearby_allies(_target) {
 	// store args in locals
 	var t = _target;
+	
+	subject = t.name;
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -2829,9 +3167,12 @@ function end_invulnerable_nearby_allies(_target) {
 }
 
 ///@desc SPAR EFFECT: sets INVULNERABLE to false for all target's nearby enemies
+
 function end_invulnerable_nearby_enemies(_target) {
 	// store args in locals
 	var t = _target;
+	
+	subject = t.name;
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
@@ -2857,6 +3198,8 @@ function end_invulnerable_nearby_sprites(_target) {
 	// store args in locals
 	var t = _target;
 	
+	subject = t.name;
+	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
@@ -2880,6 +3223,8 @@ function end_invulnerable_nearby_sprites(_target) {
 function end_invulnerable_team(_target) {
 	// store arguments in local variables
 	var t = _targetPlayer;
+	
+	subject = t.name;
 	
 	// get the correct list based on the target player
 	if (t == spar.playerOne)	var list = spar.allyList;

@@ -1,6 +1,11 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+subject = "";
+object = "";
+
+effectedPlayer = -1;
+
 effectedSprites = ds_list_create();
 
 alertString = spar.effectAlertList[| 0];

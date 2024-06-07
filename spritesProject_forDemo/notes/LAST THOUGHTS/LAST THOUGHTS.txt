@@ -1,3 +1,5 @@
+
+
 It's been a while since I checked in here, I deleted all past notes so I can start fresh with the demo from here on out.
 
 I'm going to start by building a list of everything that needs to be finished with the battle scene, then I'll refer to that list
@@ -285,3 +287,9 @@ COMING BACK FROM PLAYTEST BUILD
 			Finished adding all sprite references to spar effect grid. 
 			I still need to add all of the currently existing effect animations
 			Still need to finish the build alert text function and the effectAlert object
+			
+	6/6
+	
+			Finished setting subject/object/effectedPlayer/effectedSprites for every spar effect function
+			need to finish the build alert text function
+			then its time for abilities, ability checks and effect checks!
