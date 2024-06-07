@@ -49,4 +49,39 @@ if (ds_list_size(alertParams) == 1) {
 	execute(effectFunction);	
 }
 
+effect_alert_build_text();
+
 spar.turnMsg = alertText;
+
+maxFrame = sprite_get_number(animation) - 1;
+
+drawingMultiple = false;
+
+if (ds_list_size(effectedSprites) > 1)	drawingMultiple = true;
+
+drawX = -1;
+drawY = -1;
+
+if !(drawingMultiple) {
+	if (ds_list_size(effectedSprites) == 1) {
+		drawX = effectedSprites[| 0].x;
+		drawY = effectedSprites[| 0].y;
+	}
+	
+	if (effectedPlayer != -1) {
+		if (effectedPlayer == spar.playerOne) {
+			drawX = 0;
+			drawY = guiHeight - 128;
+		}
+		
+		if (effectedPlayer == spar.playerTwo) {
+			drawX = 0;
+			drawY = 64;
+		}
+		
+		if (effectedPlayer == BOTH_PLAYERS_EFFECTED) {
+			drawX = 0;
+			drawY = 0;
+		}
+	}
+}

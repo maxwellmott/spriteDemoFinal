@@ -54,8 +54,21 @@ function effect_alert_get_args() {
 ///@desc This function is called when the alertText is loaded. It replaces underscores
 /// with any subject that may have been loaded by the effectFunction. It replaces
 /// asterisks with any object that may have been loaded by the effectFunction.
-function effect_alert_build_text() {
+function effect_alert_build_text() {	
+	var subCount = string_count("_", alertText);
+	var objCount = string_count("*", alertText);
 	
+	if (subCount > 0) {
+		repeat (subCount) {
+			alertText = string_replace(alertText, "_", subject);
+		}
+	}
+	
+	if (objCount > 0) {
+		repeat (subCount) {
+			alertText = string_replace(alertText, "*", object);	
+		}
+	}
 }
 
 ///@desc This function takes the ID of a mindset and returns a string with the

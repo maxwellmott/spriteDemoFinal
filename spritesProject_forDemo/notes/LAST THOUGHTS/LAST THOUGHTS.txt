@@ -284,7 +284,7 @@ COMING BACK FROM PLAYTEST BUILD
 			still working on adding references for effect animations	---- decide what to do about moves like sneak attack and skydive
 	
 	6/4
-			Finished adding all sprite references to spar effect grid. 
+			Finished adding all sprite references to spar effect grid.
 			I still need to add all of the currently existing effect animations
 			Still need to finish the build alert text function and the effectAlert object
 			
@@ -293,3 +293,7 @@ COMING BACK FROM PLAYTEST BUILD
 			Finished setting subject/object/effectedPlayer/effectedSprites for every spar effect function
 			need to finish the build alert text function
 			then its time for abilities, ability checks and effect checks!
+			
+			I ended up getting some more work done. The effect alert system is finished, but there is
+			some testing that needs to be done. If you run a match and cast a spell with an effect,
+			you'll see the issue and can get to it.
