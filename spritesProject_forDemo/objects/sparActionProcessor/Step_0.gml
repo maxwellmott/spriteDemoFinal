@@ -155,7 +155,7 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 	// or spell
 	else {
 		// call effect function
-		execute(spellEffect);
+		spellEffect();
 		
 		if !(dodgeSuccess) {
 			// apply damage and change turnMsg

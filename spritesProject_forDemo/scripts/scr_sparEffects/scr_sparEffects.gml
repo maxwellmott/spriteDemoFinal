@@ -44,7 +44,7 @@ function spar_effect_push_alert(_effectID) {
 function effect_alert_get_args() {
 	if (ds_list_size(alertParams) > 1) {
 		var i = 1;	repeat (ds_list_size(alertParams) - 1) {
-			global.argumentList[| i - 1] = alertParams[| i];
+			global.argumentList[| i - 1] = real(string_digits(alertParams[| i]));
 			
 			i++;	
 		}
@@ -2253,24 +2253,30 @@ function destroy_arena() {
 /// different and it triggers different effects/abilities
 function drain_health(_receivingTeam, _amount) {
 	var t = _receivingTeam;
-	var a = _amount;
+	var a = round(_amount);
 	
-	subject = t.name;
 	effectedPlayer = t;
+	subject = t.name;
 	
-	t.currentHP += a;
+	var hpNeeded = MAX_HP - t.currentHP;
+	
+	if (a >= hpNeeded)	t.currentHP = MAX_HP;
+	else				t.currentHP += a;
 }
 
 ///@desc SPAR EFFECT: this is simply a "restore magic" function but the verbiage is
 /// different and it triggers different effects/abilities
 function drain_magic(_receivingTeam, _amount) {
 	var t = _receivingTeam;
-	var a = _amount;
+	var a = round(_amount);
 	
+	effectedPlayer = t;
 	subject = t.name;
-	effectedPlayer = t;	
 	
-	t.currentMP += a;
+	var mpNeeded = MAX_MP - t.currentMP;
+	
+	if (a >= mpNeeded)	t.currentMP = MAX_MP;
+	else				t.currentMP += a;
 }
 
 ///@desc SPAR EFFECT: search the target column of the turn grid for the target of this

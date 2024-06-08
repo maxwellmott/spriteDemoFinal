@@ -14,7 +14,7 @@ alertParams = ds_list_create();
 
 decode_list(alertString, alertParams);
 
-effectID = alertParams[| 0];
+effectID = real(alertParams[| 0]);
 
 effect_alert_get_args();
 
@@ -22,31 +22,28 @@ var effectGrid = ds_grid_create(SPAR_EFFECT_PARAMS.HEIGHT, SPAR_EFFECTS.HEIGHT);
 
 decode_grid(global.allSparEffects, effectGrid);
 
-effectFunction	= effectGrid[# SPAR_EFFECT_PARAMS.EFFECT_FUNCTION,	effectID];
+effectFunction	= real(string_digits(effectGrid[# SPAR_EFFECT_PARAMS.EFFECT_FUNCTION,	effectID]));
 alertText		= effectGrid[# SPAR_EFFECT_PARAMS.ALERT_TEXT,		effectID];
-animation		= effectGrid[# SPAR_EFFECT_PARAMS.ANIMATION,		effectID];
+animation		= real(string_digits(effectGrid[# SPAR_EFFECT_PARAMS.ANIMATION,		effectID]));
 
 if (ds_list_size(alertParams) == 5) {
-	execute_arguments(effectFunction, global.argumentList[| 0], global.argumentList[| 1],
-					global.argumentList[| 2], global.argumentList[| 3]);
+	effectFunction(global.argumentList[| 0], global.argumentList[| 1], global.argumentList[| 2], global.argumentList[| 3]);
 }
 
 if (ds_list_size(alertParams) == 4) {
-	execute_arguments(effectFunction, global.argumentList[| 0], global.argumentList[| 1],
-					global.argumentList[| 2]);
+	effectFunction(global.argumentList[| 0], global.argumentList[| 1], global.argumentList[| 2]);
 }
 
 if (ds_list_size(alertParams) == 3) {
-	execute_arguments(effectFunction, global.argumentList[| 0],
-					global.argumentList[| 1]);
+	effectFunction(global.argumentList[| 0], global.argumentList[| 1]);
 }
 
 if (ds_list_size(alertParams) == 2) {
-	execute_arguments(effectFunction, global.argumentList[| 0]);
+	effectFunction(global.argumentList[| 0]);
 }	
 
 if (ds_list_size(alertParams) == 1) {
-	execute(effectFunction);	
+	effectFunction();
 }
 
 effect_alert_build_text();

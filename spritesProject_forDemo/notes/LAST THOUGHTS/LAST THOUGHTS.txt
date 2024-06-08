@@ -297,3 +297,12 @@ COMING BACK FROM PLAYTEST BUILD
 			I ended up getting some more work done. The effect alert system is finished, but there is
 			some testing that needs to be done. If you run a match and cast a spell with an effect,
 			you'll see the issue and can get to it.
+			
+	6/7
+	
+			Spar effects are working! I'll have to keep debugging every spell and every effect over time, but 
+			that's what the playtesting phase is for!
+			
+			I'm going to start another note called spars remaining so that I can log bugs and unfinished code!
+			
+			Great job getting this up and running, playtesting is right around the corner!

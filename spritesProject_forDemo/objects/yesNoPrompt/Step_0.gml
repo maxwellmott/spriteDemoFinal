@@ -22,7 +22,7 @@ if (index == 0) {
 			overworldAlert.visible = false;
 			ds_list_delete(overworld.alertStack, 0);
 		}
-		execute(func);
+		func();
 		instance_destroy(id);
 	}
 }

@@ -177,7 +177,7 @@ function decode_grid(_grid, _target) {
 	
 	// count grid rows and columns
 	var rowCount	= string_count(newRowChar,		_grid);
-	var columnCount = string_count(newColumnChar,	_grid) / rowCount;
+	var columnCount = ceil(string_count(newColumnChar,	_grid) / rowCount);
 	
 	// ensure that the target grid is the proper size
 	ds_grid_resize(_target, columnCount, rowCount);

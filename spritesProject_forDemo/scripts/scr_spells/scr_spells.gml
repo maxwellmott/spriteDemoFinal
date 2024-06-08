@@ -130,6 +130,7 @@ var textGrid = load_csv("SPELLS_ENGLISH.csv");
 global.spellGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
 
 // spell grid function
+
 function master_grid_add_spell(_ID) {
 	var i = 0;	repeat (SPELL_PARAMS.HEIGHT) {
 		global.spellGrid[# i, _ID] = argument[i];
@@ -199,7 +200,7 @@ function shock() {
 function decay() {
 	if (dodgeSuccess == false) {
 		var t = activeSprite.team;
-		var d = damage / 2;
+		var d = round(damage / 2);
 		
 		spar_effect_push_alert(SPAR_EFFECTS.DRAIN_HEALTH, t, d);
 	}
@@ -232,9 +233,10 @@ function typhoon() {
 function healing_light() {
 	var c = activeSprite;
 	var t = activeSprite.team;
+	var a = round(MAX_HP / 2);
 	
 	spar_effect_push_alert(SPAR_EFFECTS.SET_INVULNERABLE, c);
-	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, t);
+	spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t, a);
 }
 
 ///@desc SPELL FUNCTION: no effect
@@ -392,7 +394,7 @@ function lord_mogradths_rage() {
 function drain_lifeforce() {
 	if (dodgeSuccess == false) {
 		var t = activeSprite.team;
-		var d = damage / 2;
+		var d = round(damage / 2);
 		
 		spar_effect_push_alert(SPAR_EFFECTS.DRAIN_HEALTH, t, d);
 	}
@@ -476,12 +478,12 @@ function amands_energy_blast() {
 /// so long as it isn't dodged.
 function shift_perspective() {
 	if !(dodgeSuccess) {
-		t = targetSprite;
-		m = t.mindset;
-		
+		var t = targetSprite;
+		var m = t.mindset;
+		var a = round(MAX_HP / 2);
 		if (m < 0) {
 			spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
-			spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t.team, 500);
+			spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t.team, a);
 		}
 		
 		if (m < 0) {

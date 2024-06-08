@@ -1,0 +1,38 @@
+				------BUGS------
+		-flashing bar is on the wrong
+			side of the player's HPMP bars
+		-flashing bar flashes twice as fast
+			on second turn
+		-statuses drawn in incorrect positions
+			(probably a draw origin thing)
+		-hover menu is drawn in the wrong
+			position
+		-not clearing the HPMP surface
+		-flashing bar and MP bar sometimes go 
+			over the limit
+		
+				---INCOMPLETE---
+		-win/lose screen
+		-ability functions
+		-ability grid
+		-ability check functions
+		-effect check functions
+		effect/ability check calls
+		-damage alteration check
+		-ready display
+		-correcting swap partner when
+			reselecting an action
+		-names not drawn
+		-titles not drawn
+		-no turn timer
+		-no turn counter
+		-(ONLINE) no turn grid file builder/saver
+		-(ONLINE) no server reconnect logic
+		-(ONLINE) no server log
+		
+		
+				---UNBALANCED---
+		-fireball should cost less
+		-resting should regain less
+		-basic attacks should do more
+		-

@@ -4,6 +4,6 @@ mmButtonOneFrame			= 0;
 mmButtonTwoFrame			= 0;
 mmButtonThreeFrame			= 0;
 
-execute(mmSelectedFunction);
+mmSelectedFunction();
 
 mmButtonPressed = false;

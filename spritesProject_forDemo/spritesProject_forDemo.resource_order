@@ -79,6 +79,7 @@
     {"name":"ssFont","order":2,"path":"fonts/ssFont/ssFont.yy",},
     {"name":"game start flow","order":2,"path":"notes/game start flow/game start flow.yy",},
     {"name":"NPC SCHEDULING","order":1,"path":"notes/NPC SCHEDULING/NPC SCHEDULING.yy",},
+    {"name":"SPARS REMAINING","order":3,"path":"notes/SPARS REMAINING/SPARS REMAINING.yy",},
     {"name":"boulder","order":1,"path":"objects/boulder/boulder.yy",},
     {"name":"buttonParent","order":8,"path":"objects/buttonParent/buttonParent.yy",},
     {"name":"camera","order":1,"path":"objects/camera/camera.yy",},

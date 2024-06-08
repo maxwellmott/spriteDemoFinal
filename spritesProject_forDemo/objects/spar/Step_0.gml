@@ -111,6 +111,8 @@ switch (sparPhase) {
 			break;
 			
 			case PROCESS_PHASES.PRIORITY:
+				spar_correct_hpmp();
+			
 				// check if the actionProcessor is already active
 				if !(instance_exists(sparActionProcessor)) {
 					// create a variable to store the highest stat found so far
