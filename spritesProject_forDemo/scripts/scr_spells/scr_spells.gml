@@ -953,6 +953,8 @@ function spellbook_load_spell_params() {
 	spellRange		= player.spellBookGrid[# SPELL_PARAMS.RANGE,		index];
 	spellPower		= player.spellBookGrid[# SPELL_PARAMS.POWER,		index];
 	spellCost		= player.spellBookGrid[# SPELL_PARAMS.COST,			index];
+
+	description = format_text(description, descWidth, 7, 0.5);
 }
 
 ///@desc This function is meant to be called by the sparActionProcessor whenever a spell is being cast

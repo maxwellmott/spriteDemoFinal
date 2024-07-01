@@ -14,7 +14,7 @@ if (connected) {
 }
 
 if !(connected) {
-	instance_create_depth(x, y, get_layer_depth(LAYER.meta), networkFailureAlert);	
+//	instance_create_depth(x, y, get_layer_depth(LAYER.meta), networkFailureAlert);	
 	instance_destroy(id);
 }
 

@@ -2,12 +2,15 @@
 // You can write your code in this editor
 
 sprite = spr_spellBook;
+infoDisplaySprite = spr_sparSpellInfoDisplay;
 
 frame		= 0;
 frameMax	= 5;
 
 spriteWidth		= sprite_get_width(sprite);
 spriteHeight	= sprite_get_height(sprite);
+
+descWidth = 240;
 
 x = 0 - (spriteWidth / 2);
 y = (guiHeight / 2) - 8;
@@ -40,3 +43,30 @@ flipMax		= 1;
 modVar = 6;
 
 drawFlip = false;
+
+// spar spell info display params
+
+// initialize info display x and y 
+var idsw = sprite_get_width(infoDisplaySprite);
+
+infoDisplayX = (idsw / 2) + spriteWidth + 4;
+infoDisplayY = (guiHeight / 2);
+
+// initialize info display alpha
+infoDisplayAlpha = 0.0;
+
+// initialize draw positions for spell params 
+rangeDrawX = infoDisplayX - (idsw / 2) + 16;
+rangeDrawY = infoDisplayY - 14;
+
+powerDrawX = rangeDrawX + 26;
+powerDrawY = rangeDrawY + 2;
+
+costDrawX = powerDrawX + 26;
+costDrawY = powerDrawY;
+
+typeDrawX = costDrawX + 26;
+typeDrawY = rangeDrawY;
+
+descDrawX = infoDisplayX - 86;
+descDrawY = infoDisplayY - 5;

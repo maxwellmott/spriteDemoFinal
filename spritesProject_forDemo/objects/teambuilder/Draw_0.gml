@@ -68,7 +68,7 @@ if !(optionsChangingUp)
 			}
 		
 			// draw name
-			if (ds_list_find_index(teamList, talismanList[| ind]) == -1)	spar_draw_text(nameX, nameY, name);
+			if (ds_list_find_index(teamList, talismanList[| ind]) == -1)	draw_text_pixel_perfect(nameX, nameY, name, 1);
 			else															draw_sprite(spr_teambuilderSelectedSlot, 0, nameX, nameY);
 		
 		
@@ -147,7 +147,7 @@ if (ds_list_size(teamList) == 4)
 		draw_set(fa_center, fa_middle, 1.0, COL_BLACK);
 
 		draw_sprite(spr_teambuilderStringBackdrop, 0, acceptStringX, acceptStringY);
-		spar_draw_text(acceptStringX + 1, acceptStringY + 5, acceptString);
+		draw_text_pixel_perfect(acceptStringX + 1, acceptStringY + 5, acceptString, 1);
 		
 		draw_set_font(plainFont);
 	}

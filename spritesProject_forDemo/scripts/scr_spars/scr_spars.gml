@@ -556,27 +556,27 @@ function sprite_build_ready_display() {
 		case sparActions.attack:
 			if (selectedTarget > 3) {
 				var substring = "attacking enemy " + numString;
-				readyDisplay = format_text(substring, spriteWidth - 4);
+				readyDisplay = format_text(substring, spriteWidth - 4, 4, 1);
 			}
 			else {
 				var substring = "attacking ally " + numString;
-				readyDisplay = format_text(substring, spriteWidth - 4);
+				readyDisplay = format_text(substring, spriteWidth - 4, 4, 1);
 			}
 		break;
 		
 		case sparActions.dodge:
 			var substring = "dodging";
-			readyDisplay = format_text(substring, spriteWidth - 4);
+			readyDisplay = format_text(substring, spriteWidth - 4, 4, 1);
 		break;
 		
 		case sparActions.swap:
 			var substring = "swapping with ally " + numString;
-			readyDisplay = format_text(substring, spriteWidth - 4);
+			readyDisplay = format_text(substring, spriteWidth - 4, 4, 1);
 		break;
 		
 		case sparActions.rest:
 			var substring = "resting";
-			readyDisplay = format_text(substring, spriteWidth - 4);
+			readyDisplay = format_text(substring, spriteWidth - 4, 4, 1);
 		break;
 	}
 	
@@ -751,11 +751,11 @@ function sprite_reload_sprite() {
 ///@desc This function is used to draw text in the battle scene. It's just a way of safely ensuring that when text
 /// is drawn with a centered alignment, it corrects if the width of the string being drawn is an odd number (can't draw
 /// pixels at decimal values)
-function spar_draw_text(_x, _y, _text) {
+function draw_text_pixel_perfect(_x, _y, _text, _scale) {
 	var xx = _x;
 	var yy = _y;
 	var tt = _text;
-	
+	var ss = _scale;
 	if ((string_width(tt) / 2) mod 2 != 0) {
 		xx -= 1;	
 	}
@@ -764,7 +764,7 @@ function spar_draw_text(_x, _y, _text) {
 		yy -= 1;	
 	}
 	
-	draw_text(xx, yy, tt);
+	draw_text_transformed(xx, yy, tt, ss, ss, 0);
 }
 
 function action_check_spell(_action) {

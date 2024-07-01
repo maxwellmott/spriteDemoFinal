@@ -212,19 +212,6 @@ function get_physical_damage(_atkr, _targ, _spellPower) {
 	return damage;
 }
 	
-function get_faster_sprite(_sprite1, _sprite2) {
-	var s1 = _sprite1;
-	var s2 = _sprite2;
-	
-	var spd1 = sprite_get_stat(spriteParams.agility, s1);
-	var spd2 = sprite_get_stat(spriteParams.agility, s2);
-	
-	if (spd1 > spd2)	return s1;
-	if (spd2 > spd1)	return s2;
-	
-	if (spd2 == spd1)	return -1;
-}
-
 function get_psychic_damage(_atkStat, _resStat, _power) {
 	// physical damage but use their best and worst stat respectively	
 }

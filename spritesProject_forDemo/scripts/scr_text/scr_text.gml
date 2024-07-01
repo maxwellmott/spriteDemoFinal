@@ -7,11 +7,14 @@
 /// to make this function more dynamic, you'll need to find a way to get the
 /// approximate size of a letter in the font you'll be using and store that in
 /// fontLetterWidth.
-function format_text(_string, _width) {	
-	var length = string_length(_string);
+function format_text(_string, _width, _fontSize, _scale) {	
+	var fs = _fontSize;
+
 	var str		= _string;
 	var width	= _width;
+	var scale	= _scale;
 	
+	var currentLine = "";
 	var substring = "";
 	var nextSpace = 0;
 	var nextWord = "";
@@ -21,55 +24,51 @@ function format_text(_string, _width) {
 	
 	var spaceCount = string_count(" ", str);
 	
-	var currentLineCharCount = 0;
-	var fontLetterWidth = 4;
-	
 	repeat (spaceCount) {
 		// get the position of the next space
 		nextSpace = string_pos(" ", str);
 		
 		// copy the next word
-		nextWord = string_copy(str, 1, nextSpace);
+		nextWord = string_copy(str, 1, nextSpace - 1);
 		
 		// get the prospective width of the substring
-		testString = substring + nextWord;
-		testWidth = (currentLineCharCount + nextSpace) * fontLetterWidth;
+		testString = currentLine + nextWord;
+		testWidth = string_length(testString) * fs;
 		
 		// check if it's greater than the width of the textbox
 		if (testWidth > width) {
 			// if so, add a new line and the nextWord
+			substring += currentLine;
 			substring += "\n";
-			substring += nextWord;
-			substring += " ";
-			
-			// reset the currentLineCharCount
-			currentLineCharCount = nextSpace;
+			currentLine = nextWord;
+			currentLine += " ";
 		}
 		else {
 			// else, add the nextWord
-			substring += nextWord;
-			currentLineCharCount += nextSpace;
+			currentLine += nextWord;
+			currentLine += " ";
 		}
 		
 		// delete the nextWord from the original string
 		str = string_delete(str, 1, nextSpace);
 	}
 	
+	// copy currentLine to substring since that might not have happened
+	substring += currentLine;
+	
 	// there should still be one word left, so we'll
 	// find it and copy it here
 	var l = string_length(str);
 	
 	if (l > 0) {
-		testString = substring + str;
-		testWidth = (currentLineCharCount + l) * fontLetterWidth;
+		testString = currentLine + str;
+		testWidth = string_length(testString) * fs;
 		
 		if (testWidth > width) {
 			substring += "\n";
-			substring += str;
 		}
-		else {
-			substring += str;	
-		}
+		
+		substring += str;	
 	}
 	
 	return substring;

@@ -10,6 +10,8 @@
 		-not clearing the HPMP surface
 		-flashing bar and MP bar sometimes go 
 			over the limit
+		-drain health call is selecting drain
+			magic effect function
 		
 				---INCOMPLETE---
 		-win/lose screen

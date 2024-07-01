@@ -7,12 +7,12 @@ in each of the "last thoughts" notes to follow.
 
 BATTLE SCENE TODO:
 
-	-spellFX script							2 POINTS
-	-spellFX functions						5 POINTS
-	-make spell UI adhere to knownSpells	4 POINTS
+	-spell info display						2 POINTS				2 POINTS DONE	[6/29]
+	-spellFX screen functions				5 POINTS
+	-make spell UI adhere to knownSpells	4 POINTS				
 	-prototype turn selection algorithm		3 POINTS				
 	-add spell animations					4 POINTS				4 POINTS DONE	[2/20]
-	-finish spells and effects				2 POINTS				
+	-finish spells and effects				2 POINTS				2 POINTS DONE	[SOMETIME IN MAY]			
 	-add abilities							4 POINTS				
 	-priority spells						2 POINTS				2 POINTS DONE	[2/18]
 	-add all new sprites					2 POINTS				2 POINTS DONE	[2/14]				
@@ -33,10 +33,10 @@ BATTLE SCENE TODO:
 	-complete nearby list functionality		1 POINT					1 POINT DONE	[2/18]
 	-switch out all sprite artwork			2 POINTS				2 POINTS DONE	[2/16]
 	-agility sort							3 POINTS				3 POINTS DONE	[2/18]
-	-build teambuilder						5 POINTS				
-	-build spellBookBuilder					5 POINTS
-	-build onlineLobby						5 POINTS
-	-test client for private rooms			5 POINTS
+	-build teambuilder						5 POINTS				5 POINTS DONE	[SOMETIME IN APRIL]
+	-build spellBookBuilder					5 POINTS				5 POINTS DONE	[SOMETIME IN APRIL]
+	-build onlineLobby						5 POINTS				5 POINTS DONE	[SOMETIME IN MAY]
+	-test client for private rooms			5 POINTS				5 POINTS DONE	[SOMETIME IN MAY]
 	-test client for matchmaking			5 POINTS
 	
 	*demo scripts cannot be built until full versions are complete (npcs, sprites, spells, abilities)
@@ -306,3 +306,16 @@ COMING BACK FROM PLAYTEST BUILD
 			I'm going to start another note called spars remaining so that I can log bugs and unfinished code!
 			
 			Great job getting this up and running, playtesting is right around the corner!
+			
+	6/29
+	
+			I got most of the spell info display working. The last issues are within the format_text function. I can't
+			seem to find a way to accurately and dynamically check the width of a string. There are a lot of kinks to work
+			out with this. I think it may come down to doing kerning in a different way. Some of the positioning looks weird,
+			I wonder if it's because I have all of the characters set to the far right of their respective panel as opposed to
+			being centered.
+			
+	6/30
+			I changed the format text function again and now it mostly works. I realized also that I don't need to draw the name
+			on the info display, so I can either rework the layout to make more room for the description, or think of a way to use
+			that space otherwise.

@@ -1,0 +1,14 @@
+list of effects
+-list by priority (what do we have already,
+					what NEEDS to be in the demo vs
+					what would be nice to have)
+-information about each effect and its context
+
+
+-get a build ready for yiming so that he can see all the effects
+	and spells for himself
+
+-fix background effect
+	-have sprites fade out
+	-have a different "screen" effect paired with each effect and spell animation
+	-sprites flash when getting hit or when taking damaged

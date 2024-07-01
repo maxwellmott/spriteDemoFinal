@@ -62,3 +62,9 @@ if (global.start) {
 	global.opponent = npcs.mercurioGallant;
 	spar_begin_ingame();
 }
+
+if (global.overworld) {
+	if (global.back) {
+		room_transition(x, y, facing, rm_onlineLobby);
+	}
+}

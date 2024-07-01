@@ -1,15 +1,15 @@
-Placeholder ,Solar Flare,The caster of this spell will emit a burning glow of pure fire energy. The holy light will imbue each of the caster's allies with the Blessing of the Warrior.,LORE
-Placeholder ,Tidal Force,This spell generates a powerful gravity around the caster. The target's Allie's will all be forced into a new position.,LORE
-Placeholder ,Nebula Storm,This spell causes a cataclysm of pure storm energy. Falling stars will hex each of the target's allies.,LORE
-Placeholder ,Tectonic Shift,The caster of this spell will command Sphera's plates to shift and slide. The quaking earth will cause each of the target's allies to become bound.,LORE
-Placeholder ,Fireball,The caster of this spell will hurl a flaming orb toward the target.,LORE
-Placeholder ,Holy Water,"This spell does a small amount of damage to its target, but its primary purpose is to heal the caster's team.",LORE
-Placeholder ,Shock,The caster of this sprite will produce a burst of storm energy. The blast causes its target to become bound.,LORE
-Placeholder ,Decay,This spell uses the corrosive properties of earth energy to eat away at the target apparition. A fraction of the depleted energy will be used to restore the caster's team.,LORE
-Placeholder ,Expel Force,The caster of this spell will use some magic energy to produce a destructive burst using it's physical body. ,LORE
-Placeholder ,Lady Solanu's Grace,This spell summons a pool of ancient healing energy. The caster's team will be healed and each ally will be granted the Blessing of the Tree.,LORE
-Placeholder ,Typhoon,The caster of this spell will generate a small tornado and send it toward the target. The target will be imbued with the Curse of the Warrior. ,LORE
-Placeholder ,Healing Light,The caster of this spell will produce a warm glow that completely restores the health of their team.,LORE
+Placeholder ,Solar Flare,A legendary FIRE spell that grants all enemies CURSE OF THE WARRIOR,LORE
+Placeholder ,Tidal Force,A legendary WATER spell that forces the target's team to SWAP,LORE
+Placeholder ,Nebula Storm,A legendary STORM spell that HEXES all enemies,LORE
+Placeholder ,Tectonic Shift,A legendary EARTH spell that BINDS all enemies,LORE
+Placeholder ,Fireball,A standard yet powerful FIRE spell,LORE
+Placeholder ,Holy Water,A standard WATER spell that HEALS the caster,LORE
+Placeholder ,Shock,A standard STORM spell that BINDS the target,LORE
+Placeholder ,Decay,A standard EARTH spell that DRAINS HEALTH from the target,LORE
+Placeholder ,Expel Force,A standard yet powerful PHYSICAL spell,LORE
+Placeholder ,Lady Solanu's Grace,A standard TRICK spell that HEALS the caster's team and grants allies BLESSING OF THE TREE,LORE
+Placeholder ,Typhoon,A standard STORM spell that grants target CURSE OF THE TREE,LORE
+Placeholder ,Healing Light,A standard TRICK spell that HEALS the caster and makes them INVULNERABLE,LORE
 Placeholder ,Rubur's Water Cannon,This spell projects a destructive blast of water energy. ,LORE
 Placeholder ,Rubur's Grapple,The caster of this spell will use their physical form to totally apprehend the target. The target will become bound.,LORE
 Placeholder ,Lusia's Harvest Spell,This spell uses pure earth energy to generate abundant flora and cause it to grow rapidly. The arena will change to a forest.,LORE
