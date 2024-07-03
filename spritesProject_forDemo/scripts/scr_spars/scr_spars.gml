@@ -750,12 +750,13 @@ function sprite_reload_sprite() {
 
 ///@desc This function is used to draw text in the battle scene. It's just a way of safely ensuring that when text
 /// is drawn with a centered alignment, it corrects if the width of the string being drawn is an odd number (can't draw
-/// pixels at decimal values)
+/// pixels at decimal values) This should only be used when drawing text with a center and/or middle alignment
 function draw_text_pixel_perfect(_x, _y, _text, _scale) {
 	var xx = _x;
 	var yy = _y;
 	var tt = _text;
 	var ss = _scale;
+	
 	if ((string_width(tt) / 2) mod 2 != 0) {
 		xx -= 1;	
 	}

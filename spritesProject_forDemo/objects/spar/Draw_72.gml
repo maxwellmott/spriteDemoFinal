@@ -16,7 +16,14 @@
 		if (totalSelectionCost > 0)
 		|| (potentialCost > 0) {
 			var costRatio = (totalSelectionCost + potentialCost) / MAX_MP;
-			draw_sprite_stretched(spr_sparFlashingSliver, image_index, mpBarX, mpBarY, barWidth * costRatio, barHeight);	
+			if (costRatio > player.currentMP)	costRatio = player.currentMP;
+			
+			var fBarSize	= barWidth * costRatio;
+			var fBarX		= mpBarX + (barWidth - fBarSize);
+
+			var mpBuffer	= barWidth - (barWidth * playerMagicRatio);
+			
+			draw_sprite_stretched(spr_sparFlashingSliver, image_index, fBarX - mpBuffer, mpBarY, fBarSize, barHeight);
 		}
 	
 	surface_reset_target();
@@ -24,7 +31,7 @@
 	surface_set_target(enemyBarSurface);
 		var enemyHealthRatio	= enemyDisplayHP / MAX_HP;
 		var enemyMagicRatio		= enemyDisplayMP / MAX_MP;
-		
+	 
 		draw_sprite(spr_sparBar, 0, hpBarX - 1, hpBarY - 1);
 		draw_sprite(spr_sparBar, 0, mpBarX - 1, mpBarY - 1);
 			

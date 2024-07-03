@@ -319,3 +319,10 @@ COMING BACK FROM PLAYTEST BUILD
 			I changed the format text function again and now it mostly works. I realized also that I don't need to draw the name
 			on the info display, so I can either rework the layout to make more room for the description, or think of a way to use
 			that space otherwise.
+			
+	7/1
+			I finished the spell display and finished migrating assets over for the build I'm sending to Yiming
+			
+			It's time to implement the new effect that occurs during spell animations. Refer to the YimingTalkNotes
+			for exact details on what should happen. Look into the fastest way to draw things in grayscale in gms2
+		

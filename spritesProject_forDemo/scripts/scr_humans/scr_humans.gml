@@ -183,7 +183,7 @@ function get_interactable() {
 
 	if interactable != noone {
 		global.speaker	= interactable;
-		global.dialogue	= execute_return(interactable.responseFunction);
+		global.dialogue	= interactable.responseFunction();
 		return interactions.talk;
 	}
 

@@ -28,7 +28,7 @@
   ],
   "name":"spr_spellBook",
   "nineSlice":null,
-  "origin":4,
+  "origin":9,
   "parent":{
     "name":"UI",
     "path":"folders/Sprites/SPARS/UI.yy",
@@ -96,7 +96,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":32,
-    "yorigin":36,
+    "yorigin":32,
   },
   "swatchColours":null,
   "swfPrecision":2.525,

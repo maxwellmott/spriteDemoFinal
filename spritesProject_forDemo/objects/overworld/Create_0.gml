@@ -117,9 +117,6 @@ var i = 0; repeat (ds_list_size(npcList)) {
 // create overworldDraw object
 if !(instance_exists(overworldDraw)) instance_create_depth(0, 0, get_layer_depth(LAYER.meta), overworldDraw);
 
-// create sceneryPlacingTool
-//if !(instance_exists(sceneryPlacingTool))instance_create_depth(mouse_x, mouse_y, get_layer_depth(LAYER.meta), sceneryPlacingTool);
-
 lightsOn = false;
 
 /*
@@ -127,5 +124,7 @@ if (is_debug_overlay_open()) {
 	instance_create_depth(x, y, get_layer_depth(LAYER.meta), sceneryPlacingTool);	
 }
 */
+
+//create_once(mouse_x, mouse_y, LAYER.mouse, tileChecker_debug);
 
 global.roomBuilt = true;

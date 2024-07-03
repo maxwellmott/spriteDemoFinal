@@ -1,4 +1,13 @@
-				------BUGS------
+			TODAY:
+				-flashing bar is on the wrong side of the player's HPMP bars
+				-statuses drawn in incorrect positions
+				-potentialMPCost not resetting after closing spellMenu
+				-action selection not resetting after selecting new sprite from selectionMenu
+				-swappartner action not corrected after reselecting
+				-knownSpells check/indication
+				-
+			
+			------BUGS------
 		-flashing bar is on the wrong
 			side of the player's HPMP bars
 		-flashing bar flashes twice as fast
@@ -6,14 +15,20 @@
 		-statuses drawn in incorrect positions
 			(probably a draw origin thing)
 		-hover menu is drawn in the wrong
-			position
+			position (and looks generally ugly)
 		-not clearing the HPMP surface
 		-flashing bar and MP bar sometimes go 
 			over the limit
 		-drain health call is selecting drain
 			magic effect function
+		-potentialMPCost not resetting after closing spellMenu
+		-action selection not resetting after selecting new sprite from selectionMenu
+		-swappartner action not corrected after reselecting
 		
 				---INCOMPLETE---
+		-turnBegin animation
+		-spellFX corrections via yiming notes
+		-battle start animation
 		-win/lose screen
 		-ability functions
 		-ability grid
@@ -26,15 +41,14 @@
 			reselecting an action
 		-names not drawn
 		-titles not drawn
-		-no turn timer
-		-no turn counter
+		-turn timer
+		-knownSpells check/indication
+		
 		-(ONLINE) no turn grid file builder/saver
 		-(ONLINE) no server reconnect logic
 		-(ONLINE) no server log
 		
 		
 				---UNBALANCED---
-		-fireball should cost less
+		-basic attacks should do more damage
 		-resting should regain less
-		-basic attacks should do more
-		-

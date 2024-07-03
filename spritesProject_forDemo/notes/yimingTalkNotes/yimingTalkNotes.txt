@@ -12,3 +12,6 @@ list of effects
 	-have sprites fade out
 	-have a different "screen" effect paired with each effect and spell animation
 	-sprites flash when getting hit or when taking damaged
+	
+	
+	

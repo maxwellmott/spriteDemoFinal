@@ -82,7 +82,6 @@ function tile_meeting(_x, _y, _tilemap, _checker) {
 			// check if there is tile data at (tileX, tileY)
 			var _tile = tile_get_index(tilemap_get(_tm, tileX, tileY));
 			if (_tile) {
-				
 				// set the checker's x and y to perfectly overlay the tile in question
 				_checker.x = tileX * tilemap_get_tile_width(_tm);
 				_checker.y = tileY * tilemap_get_tile_height(_tm);
@@ -91,7 +90,9 @@ function tile_meeting(_x, _y, _tilemap, _checker) {
 				_checker.image_index = _tile;
 				
 				// return true if there is a collision
-				if (place_meeting(_x, _y, _checker)) {return true;}
+				if (place_meeting(_x, _y, _checker)) {
+					return true;
+				}
 			}
 		}
 	}
