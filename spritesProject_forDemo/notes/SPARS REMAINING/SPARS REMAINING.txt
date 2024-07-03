@@ -1,29 +1,18 @@
 			TODAY:
-				-flashing bar is on the wrong side of the player's HPMP bars
-				-statuses drawn in incorrect positions
-				-potentialMPCost not resetting after closing spellMenu
-				-action selection not resetting after selecting new sprite from selectionMenu
-				-swappartner action not corrected after reselecting
 				-knownSpells check/indication
-				-
-			
+				-action reselection not resetting totalSelectionCost
+				-drain health call is selecting drain magic effect function
+				-names not drawn
+				-titles not drawn
+				-hover menu is drawn in the wrong positions and looks ugly
+				-spellFX corrections via yiming's notes
+				
 			------BUGS------
-		-flashing bar is on the wrong
-			side of the player's HPMP bars
-		-flashing bar flashes twice as fast
-			on second turn
-		-statuses drawn in incorrect positions
-			(probably a draw origin thing)
+		-action reselection not resetting totalSelectionCost
 		-hover menu is drawn in the wrong
 			position (and looks generally ugly)
-		-not clearing the HPMP surface
-		-flashing bar and MP bar sometimes go 
-			over the limit
 		-drain health call is selecting drain
 			magic effect function
-		-potentialMPCost not resetting after closing spellMenu
-		-action selection not resetting after selecting new sprite from selectionMenu
-		-swappartner action not corrected after reselecting
 		
 				---INCOMPLETE---
 		-turnBegin animation
@@ -35,10 +24,8 @@
 		-ability check functions
 		-effect check functions
 		effect/ability check calls
-		-damage alteration check
+		-damage alteration (damage effect spells list + damage effect check)
 		-ready display
-		-correcting swap partner when
-			reselecting an action
 		-names not drawn
 		-titles not drawn
 		-turn timer
@@ -50,5 +37,3 @@
 		
 		
 				---UNBALANCED---
-		-basic attacks should do more damage
-		-resting should regain less

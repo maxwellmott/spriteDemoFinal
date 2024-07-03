@@ -283,6 +283,8 @@ switch (sparPhase) {
 	
 	#region SELECTION PHASE
 		case sparPhases.select:
+			sprite_index = spr_sparFlashingSliver;	
+		
 			// use a switch statement to manage all selectionPhases
 			switch(selectionPhase) {
 				case selectionPhases.ally:

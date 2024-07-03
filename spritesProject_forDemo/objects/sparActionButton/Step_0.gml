@@ -1,6 +1,9 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+// constantly reset selected sprite in case it changes
+sprite = player.selectedAlly;
+
 if (instance_exists(sparActionMenu)) {
 	// check if mouse is hovering over button
 	if (collision_rectangle(bboxLeft, bboxTop, bboxRight, bboxBottom, mouse, false, true)) {

@@ -23,9 +23,6 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 			// set global.action
 			global.action = currentSpell + sparActions.height;
 			
-			spar.totalSelectionCost += spar.potentialCost;
-			spar.potentialCost = 0;
-			
 			// check if range is self
 			if (spellRange == ranges.onlySelf) {
 				// if so, set action and target to indicate self-targeting spell

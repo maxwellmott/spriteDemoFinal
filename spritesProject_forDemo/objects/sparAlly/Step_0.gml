@@ -28,10 +28,7 @@ if (spar.sparPhase == sparPhases.select) {
 			if (global.action == sparActions.swap)	{
 				if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {				
 					if (swap_set_potential_cost(player.selectedAlly, id)) {
-						if (global.click) {
-							spar.totalSelectionCost += spar.potentialCost;
-							spar.potentialCost = 0;
-							
+						if (global.click) {							
 							spar_set_target();
 							spar.selectionPhase = selectionPhases.ally;
 						}

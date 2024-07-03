@@ -124,6 +124,18 @@ function spar_set_action() {
 		break;
 		
 		case sparActions.dodge:
+			if (sprite.selectedAction == sparActions.swap) {
+				var t = spar.spriteList[| sprite.selectedTarget];
+				
+				with (t) {
+					readyDisplay = "";
+					readyDisplayBuilt = false;	
+					selectedAction = -4;
+					selectedTarget = -4;
+					turnReady = false;
+				}
+			}
+		
 			sprite.readyDisplayBuilt = false;
 			sprite.selectedTarget = -1;
 			sprite.selectedAction = action;
@@ -137,6 +149,17 @@ function spar_set_action() {
 		break;
 		
 		case sparActions.rest:
+			if (sprite.selectedAction == sparActions.swap) {
+				var t = spar.spriteList[| sprite.selectedTarget];
+				with (t) {
+					readyDisplay = "";
+					readyDisplayBuilt = false;
+					selectedAction = -4;
+					selectedTarget = -4;
+					turnReady = false;
+				}
+			}
+		
 			var r = (REST_BASE_MP_REGEN * 72.5);
 			var c = player.currentMP;
 			
@@ -587,25 +610,62 @@ function sprite_build_ready_display() {
 /// the spotNum of the sprite being clicked, respectively. (This function should only
 /// be called by a sprite being clicked during target selection).
 function spar_set_target() {
+	if (player.selectedAlly.selectedAction == sparActions.swap) {
+		var t = spar.spriteList[| player.selectedAlly.selectedTarget];
+		
+		with (t) {
+			readyDisplay = "";
+			readyDisplayBuilt = false;
+			selectedAction = -4;
+			selectedTarget = -4;
+			turnReady = false;
+		}
+	}
+	
 	player.selectedAlly.readyDisplayBuilt = false;
 	player.selectedAlly.selectedAction = global.action;
 	player.selectedAlly.selectedTarget = spotNum;
 	player.selectedAlly.turnReady = true;
 	
 	if (global.action == sparActions.swap) {
+		if (selectedAction == sparActions.swap) {
+			var t = spar.spriteList[| selectedTarget];
+			
+			with (t) {
+				readyDisplay = "";
+				readyDisplayBuilt = false;
+				selectedAction = -4;	
+				selectedTarget = -4;
+				turnReady = false;
+			}
+		}
+		
 		readyDisplayBuilt = false;
 		selectedAction = global.action;
 		selectedTarget = player.selectedAlly.spotNum;
 		turnReady = true;
-		
-		
 	}
+	
+	spar.totalSelectionCost += spar.potentialCost;
+	spar.potentialCost = 0;
 }
 
 ///@desc This function sets the selected ally's action and target with global.action
 /// and the macro indicating a self targeting action. This function can be called whenever
 /// you are ready to do this as it doesn't make any local references.
 function self_target_set() {
+	if (player.selectedAlly.selectedAction == sparActions.swap) {
+		var t = spar.spriteList[| player.selectedAlly.selectedTarget];	
+		
+		with (t) {
+			readyDisplay = "";
+			readyDisplayBuilt = false;
+			selectedAction = -4;
+			selectedTarget = -4;
+			turnReady = false;
+		}
+	}
+	
 	player.selectedAlly.readyDisplayBuilt = false;
 	player.selectedAlly.selectedAction = global.action;
 	player.selectedAlly.selectedTarget = -1;
