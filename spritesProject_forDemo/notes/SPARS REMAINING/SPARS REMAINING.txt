@@ -1,35 +1,34 @@
 			TODAY:
-				-knownSpells check/indication
+				-selecting a spell then selecting swap with a different sprite resets the totalSelectionCost
+				-lady solanu's grace creates a bug in the effect alert object
 				-action reselection not resetting totalSelectionCost
 				-drain health call is selecting drain magic effect function
 				-names not drawn
 				-titles not drawn
 				-hover menu is drawn in the wrong positions and looks ugly
-				-spellFX corrections via yiming's notes
 				
 			------BUGS------
+		-selecting a spell then selecting swap with a different sprite resets the totalSelectionCost
+		-lady solanu's grace creates a bug in the effect alert object
 		-action reselection not resetting totalSelectionCost
-		-hover menu is drawn in the wrong
-			position (and looks generally ugly)
-		-drain health call is selecting drain
-			magic effect function
+		-hover menu is drawn in the wrong position (and looks generally ugly)
+		-drain health call is selecting drain magic effect function
+		-selecting a swap and a rest keeps the rest from restoring MP. Sometimes swaps don't charge MP.
 		
 				---INCOMPLETE---
 		-turnBegin animation
-		-spellFX corrections via yiming notes
 		-battle start animation
 		-win/lose screen
 		-ability functions
 		-ability grid
 		-ability check functions
 		-effect check functions
-		effect/ability check calls
+		-effect/ability check calls
 		-damage alteration (damage effect spells list + damage effect check)
 		-ready display
 		-names not drawn
 		-titles not drawn
 		-turn timer
-		-knownSpells check/indication
 		
 		-(ONLINE) no turn grid file builder/saver
 		-(ONLINE) no server reconnect logic

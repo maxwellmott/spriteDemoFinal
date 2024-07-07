@@ -53,16 +53,16 @@ var i = 0; repeat (8) {
 		spriteFrame = image_index;
 	}	else _spriteFrame = 0;
 	
-	// check if inst is an enemy or an ally
-	if (i < 4) {
-		// draw sprite
-		draw_sprite(inst.sprite, spriteFrame, inst.x, inst.y);
+	// check if sprite is flashing
+	if (inst.flashRate != -1) {
+		// check if its a flash frame
+		if (global.gameTime mod inst.flashRate <= 4) {
+			draw_sprite_ext(inst.sprite, spriteFrame, inst.x, inst.y, inst.xscale, 1, 0, c_white, inst.alpha);
+		}
+	}	else	{
+		// else draw the sprite normally
+		draw_sprite_ext(inst.sprite, spriteFrame, inst.x, inst.y, inst.xscale, 1, 0, c_white, inst.alpha);
 	}
-	else {
-		// draw sprite flipped
-		draw_sprite_ext(inst.sprite, spriteFrame, inst.x, inst.y, -1, 1, 0, c_white, inst.alpha);
-	}
-
 	
 	// if sprite has any status effects, draw the indicators
 	if (inst.hexed) draw_sprite(spr_sparHexed, 0, inst.hexedX, inst.hexedY);
@@ -142,13 +142,34 @@ draw_set_alpha(1.0);
 		if !(sparSpellMenu.drawFlip) && (sparSpellMenu.frame == 5) {
 			draw_set_font(spellbookFont);
 			
-			draw_sprite(spr_spellBookIconSheet, sparSpellMenu.currentSpell, sparSpellMenu.x, sparSpellMenu.y + 4);
-			
+			// if spell cannot be used, draw it in grayscale
+			if (ds_list_find_index(sparSpellMenu.usable_spells, sparSpellMenu.currentSpell) == -1) {
+				gpu_set_fog(true, c_black, 0, 666);
+				draw_sprite(sparSpellMenu.sprite, sparSpellMenu.frame, sparSpellMenu.x, sparSpellMenu.y);
+				draw_sprite(spr_spellBookIconSheet, sparSpellMenu.currentSpell, sparSpellMenu.x, sparSpellMenu.y + 4);
+				gpu_set_fog(false, c_gray, 0, 100);
+				
+				 draw_sprite(spr_unusableSpell, 0, sparSpellMenu.x, sparSpellMenu.y + 8);
+			}	else	{
+				// else draw it normally
+				draw_sprite(spr_spellBookIconSheet, sparSpellMenu.currentSpell, sparSpellMenu.x, sparSpellMenu.y + 4);
+			}
 			draw_sprite(spr_spellRangeIndicator, sparSpellMenu.spellRange, sparSpellMenu.rangeDrawX, sparSpellMenu.rangeDrawY);
 			draw_sprite(spr_spellTypeIndicator, sparSpellMenu.spellType, sparSpellMenu.typeDrawX, sparSpellMenu.typeDrawY);
 			
-			draw_text_pixel_perfect(sparSpellMenu.powerDrawX, sparSpellMenu.powerDrawY, string(sparSpellMenu.spellPower), 0.5);
-			draw_text_pixel_perfect(sparSpellMenu.costDrawX, sparSpellMenu.costDrawY, string(sparSpellMenu.spellCost), 0.5);
+			// check if power is greater than 0
+			if (sparSpellMenu.spellPower > 0) {
+				draw_text_pixel_perfect(sparSpellMenu.powerDrawX, sparSpellMenu.powerDrawY, string(sparSpellMenu.spellPower), 0.5);
+			}	else	{
+				draw_text_pixel_perfect(sparSpellMenu.powerDrawX, sparSpellMenu.powerDrawY + 1, "--", 0.5);	
+			}
+			
+			// check if cost is greater than 0
+			if (sparSpellMenu.spellCost > 0) {
+				draw_text_pixel_perfect(sparSpellMenu.costDrawX, sparSpellMenu.costDrawY, string(sparSpellMenu.spellCost), 0.5);	
+			}	else	{
+				draw_text_pixel_perfect(sparSpellMenu.costDrawX, sparSpellMenu.costDrawY, "--", 0.5);	
+			}
 			
 			draw_set_halign(fa_left);
 			draw_set_valign(fa_top);
@@ -167,18 +188,36 @@ draw_set_alpha(1.0);
 #endregion
 
 #region SPELL FX DARK LAYER
-	// check if the action processor is present
 	if (instance_exists(sparActionProcessor)) {
-		// set alpha to match shadeAlpha
+		// set alpha to sparActionProcessor.shadeAlpha
 		draw_set_alpha(sparActionProcessor.shadeAlpha);
 		
-		// draw the spell shade surface
-		draw_surface(spellShadeSurface, 0, 0);
+		// draw rectangle
+		draw_rectangle_color(0, 0, guiWidth, guiHeight, c_black, c_black, c_black, c_black, false);
 		
 		// reset alpha
 		draw_set_alpha(1.0);
+		
+		// set fog distance (it decrements from 1000 - 750 relative to shadeAlphaMax's incrementing) this causes
+		// the gray to slowly fade in
+		var fd = 1000 - ((sparActionProcessor.shadeAlpha / sparActionProcessor.shadeAlphaMax) * 250);
+		
+		// get active sprite and target sprite
+		var a = sparActionProcessor.activeSprite;
+		var t = sparActionProcessor.targetSprite;
+		
+		// draw target sprite normal
+		draw_sprite_ext(t.sprite, 0, t.x, t.y, t.xscale, 1, 0, c_white, 1.0);
+		
+		// draw target sprite at shadeAlpha with gray coloration
+		draw_sprite_ext(t.sprite, 0, t.x, t.y, t.xscale, 1, 0, c_gray, sparActionProcessor.shadeAlpha);
+		
+		// check if active sprite is the same as target sprite
+		if (a != t) {
+			// if not, draw active sprite
+			draw_sprite_ext(a.sprite, 0, a.x, a.y, a.xscale, 1, 0, c_white, 1.0);
+		}
 	}
-
 #endregion
 
 #region SPELL FX

@@ -97,6 +97,13 @@ if (instance_exists(sparRestProcessor))
 	}
 }
 
+if (instance_exists(sparActionProcessor)) {
+	if (sparActionProcessor.activeSprite != id)
+	&& (sparActionProcessor.targetSprite != id) {
+		alpha = 1.0 - sparActionProcessor.shadeAlpha;
+	}
+}
+
 if !(instance_exists(sparRestProcessor))
 && !(instance_exists(sparSpellFX)) {
 	if (alpha < 1.0)	alpha += 0.05;

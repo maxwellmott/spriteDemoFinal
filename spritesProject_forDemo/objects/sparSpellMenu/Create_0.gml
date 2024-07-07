@@ -4,6 +4,8 @@
 sprite = spr_spellBook;
 infoDisplaySprite = spr_sparSpellInfoDisplay;
 
+usable_spells = player.selectedAlly.usable_spells;
+
 frame		= 0;
 frameMax	= 5;
 
@@ -56,17 +58,17 @@ infoDisplayY = (guiHeight / 2);
 infoDisplayAlpha = 0.0;
 
 // initialize draw positions for spell params 
-rangeDrawX = infoDisplayX - (idsw / 2) + 16;
+rangeDrawX = infoDisplayX - (idsw / 2) + 31;
 rangeDrawY = infoDisplayY - 14;
 
-powerDrawX = rangeDrawX + 26;
+powerDrawX = rangeDrawX + 41;
 powerDrawY = rangeDrawY + 2;
 
-costDrawX = powerDrawX + 26;
+costDrawX = powerDrawX + 39;
 costDrawY = powerDrawY;
 
-typeDrawX = costDrawX + 26;
+typeDrawX = costDrawX + 40;
 typeDrawY = rangeDrawY;
 
 descDrawX = infoDisplayX - 86;
-descDrawY = infoDisplayY - 5;
+descDrawY = infoDisplayY - 7;

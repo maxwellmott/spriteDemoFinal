@@ -544,6 +544,7 @@
     {"id":{"name":"spr_titleScreenCliffs","path":"sprites/spr_titleScreenCliffs/spr_titleScreenCliffs.yy",},},
     {"id":{"name":"spr_titleScreenWaves","path":"sprites/spr_titleScreenWaves/spr_titleScreenWaves.yy",},},
     {"id":{"name":"spr_transportBubble","path":"sprites/spr_transportBubble/spr_transportBubble.yy",},},
+    {"id":{"name":"spr_unusableSpell","path":"sprites/spr_unusableSpell/spr_unusableSpell.yy",},},
     {"id":{"name":"spr_uprooterBattle","path":"sprites/spr_uprooterBattle/spr_uprooterBattle.yy",},},
     {"id":{"name":"spr_verdmanFarmsCollidableFrames","path":"sprites/spr_verdmanFarmsCollidableFrames/spr_verdmanFarmsCollidableFrames.yy",},},
     {"id":{"name":"spr_verdmanFarmsCollidableTiles","path":"sprites/spr_verdmanFarmsCollidableTiles/spr_verdmanFarmsCollidableTiles.yy",},},

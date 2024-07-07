@@ -41,35 +41,3 @@
 	surface_reset_target();
 
 #endregion
-
-#region SPELL SHADE SURFACES
-
-if (instance_exists(sparActionProcessor)) {
-		// check if the acton processor is in the fading in phase
-		if (sparActionProcessor.state >= ACTION_PROCESSOR_STATES.FADING_IN) {
-			
-			// set surface
-			surface_set_target(spellShadeSurface);
-			
-
-			// draw shade
-			draw_rectangle_color(0, 0, guiWidth, guiHeight, COL_BLACK, COL_BLACK, COL_BLACK, COL_BLACK, false);
-			
-			// set blendmode to subtractive for holepunching
-			gpu_set_blendmode(bm_subtract);
-			
-			// draw holepunches for activeSprite and targetSprite
-			draw_sprite(activeSpriteCutout, 0, sparActionProcessor.activeSprite.x, sparActionProcessor.activeSprite.y);
-			
-			if (sparActionProcessor.activeSprite != sparActionProcessor.targetSprite) {
-				draw_sprite(activeSpriteCutout, 0, sparActionProcessor.targetSprite.x, sparActionProcessor.targetSprite.y);
-			}
-
-			// set blendmode back to normal
-			gpu_set_blendmode(bm_normal);	
-			
-			// reset surface
-			surface_reset_target();
-		}
-}
-#endregion

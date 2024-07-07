@@ -326,3 +326,36 @@ COMING BACK FROM PLAYTEST BUILD
 			It's time to implement the new effect that occurs during spell animations. Refer to the YimingTalkNotes
 			for exact details on what should happen. Look into the fastest way to draw things in grayscale in gms2
 		
+	7/6
+			Checking in on this document. 
+			
+			I'm currently working through the list of everything left in the battle scene that I'm keeping on the 
+			SPARS REMAINING note document. Today I finished up all of the changes Yiming and I had talked about. 
+			
+			This is what the list looks like as I'm typing this:
+			
+								------BUGS------
+				-selecting a spell then selecting swap with a different sprite resets the totalSelectionCost
+				-lady solanu's grace creates a bug in the effect alert object
+				-action reselection not resetting totalSelectionCost
+				-hover menu is drawn in the wrong position (and looks generally ugly)
+				-drain health call is selecting drain magic effect function
+				-selecting a swap and a rest keeps the rest from restoring MP. Sometimes swaps don't charge MP.
+				
+						---INCOMPLETE---
+				-turnBegin animation
+				-battle start animation
+				-win/lose screen
+				-ability functions
+				-ability grid
+				-ability check functions
+				-effect check functions
+				-effect/ability check calls
+				-damage alteration (damage effect spells list + damage effect check)
+				-ready display
+				-names not drawn
+				-titles not drawn
+				-turn timer
+				
+			Good luck <3 Things are looking great!!
+			

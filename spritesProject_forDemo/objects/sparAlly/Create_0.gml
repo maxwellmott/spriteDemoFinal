@@ -1,6 +1,9 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+// initialize xscale
+xscale = 1;
+
 // initialize alpha
 alpha = 1.0;
 
@@ -141,3 +144,5 @@ hailMary = false;
 dividing = false;
 multiplying = false;
 coefficient = -1;
+
+flashRate = -1;

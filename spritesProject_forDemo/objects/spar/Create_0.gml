@@ -225,5 +225,3 @@ potentialCost = 0;
 totalSelectionCost = 0;
 
 effectAlertList = ds_list_create();
-
-spellShadeSurface = surface_create(guiWidth, guiHeight);

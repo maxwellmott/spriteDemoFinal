@@ -48,6 +48,15 @@ if (instance_exists(sparRestProcessor))
 	}
 }
 
+if (instance_exists(sparSpellFX)) {
+	if (sparActionProcessor.activeSprite != id)
+	&& (sparActionProcessor.targetSprite != id) {
+		if (alpha > 0.0) {alpha -= 0.05;}
+	}	else	{
+		if (alpha < 1.0) {alpha += 0.05;}	
+	}
+}
+
 if !(instance_exists(sparRestProcessor))
 && !(instance_exists(sparSpellFX)) {
 	if (alpha < 1.0)	alpha += 0.05;

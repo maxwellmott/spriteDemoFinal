@@ -19,25 +19,28 @@ if (x > targetX) && (frame > 0) {
 
 if (x == targetX) && (targetX == spriteWidth / 2) {
 	if (spell_set_potential_cost(spellCost)) {
-		if (global.select) {			
-			// set global.action
-			global.action = currentSpell + sparActions.height;
-			
-			// check if range is self
-			if (spellRange == ranges.onlySelf) {
-				// if so, set action and target to indicate self-targeting spell
-				self_target_set();
+		if (global.select) {	
+			// check if the current spell is on the usable spells list
+			if (ds_list_find_index(usable_spells, currentSpell) != -1) {
+				// set global.action
+				global.action = currentSpell + sparActions.height;
 				
-				// set next phase
-				nextPhase = selectionPhases.ally;
-			}
-			else {
-				// if not self range, set action normally
-				spar_set_spell();	
-			}
+				// check if range is self
+				if (spellRange == ranges.onlySelf) {
+					// if so, set action and target to indicate self-targeting spell
+					self_target_set();
+					
+					// set next phase
+					nextPhase = selectionPhases.ally;
+				}
+				else {
+					// if not self range, set action normally
+					spar_set_spell();	
+				}
 			
-			// close book
-			targetX = 0 - (spriteWidth / 2);
+				// close book
+				targetX = 0 - (spriteWidth / 2);
+			}
 		}
 	}
 	else {

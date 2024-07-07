@@ -376,6 +376,48 @@ ds_list_destroy(spellFXList);
 
 #endregion
 
+// enum containing IDs for different rates of flashing
+enum FLASHING_RATES {
+	VERY_SLOW,
+	SLOW,
+	MODERATE,
+	FAST,
+	VERY_FAST,
+	HEIGHT
+}
+
+///@desc This function takes an ID from the FLASHING_RATES enumerator
+/// and returns a value to be used in a mod equation to make a sprite flicker
+/// a different color
+function flash_rate_get_mod_value(_flashRate) {
+	var fr = _flashRate;
+	
+	switch (fr) {
+		case FLASHING_RATES.VERY_SLOW:	return	60;	break;
+		case FLASHING_RATES.SLOW:		return	40;	break;
+		case FLASHING_RATES.MODERATE:	return	30;	break;
+		case FLASHING_RATES.FAST:		return	20;	break;
+		case FLASHING_RATES.VERY_FAST:	return	10;	break;	
+	}
+}
+
+///@desc This function checks sparActionProcessor.damage and then
+/// sets the target's flashRate according to how much damage was dealt
+function flash_rate_set_from_damage() {
+	var d = damage;
+	var t = targetSprite;
+	
+	if (d > 0)		t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.VERY_SLOW);
+	if (d > 25)		t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.SLOW);
+	if (d > 75)		t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.MODERATE);
+	if (d > 150)	t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.FAST);
+	if (d > 250)	t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.VERY_FAST);
+	
+	global.gameTime += (global.gameTime mod t.flashRate);
+	
+	t.alarm[0] = (t.flashRate * 5);
+}
+
 #region SPELL ANIMATIONS
 
 var animationsList = ds_list_create();
