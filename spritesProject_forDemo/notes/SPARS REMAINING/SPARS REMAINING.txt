@@ -33,6 +33,5 @@
 		-(ONLINE) no turn grid file builder/saver
 		-(ONLINE) no server reconnect logic
 		-(ONLINE) no server log
-		
-		
+
 				---UNBALANCED---

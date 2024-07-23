@@ -12,6 +12,5 @@ if (global.select) {
 
 // if animation finishes,				destroy object
 if (spar.image_index >= maxFrame) {
-		ds_list_delete(spar.effectAlertList, 0);
 		instance_destroy(id);
 }

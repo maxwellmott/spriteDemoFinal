@@ -68,10 +68,10 @@ teamString = "";
 teamList = ds_list_create();
 
 // ONLY FOR TESTING
-teamList[| 0] = SPRITES.PONDILE;
-teamList[| 1] = SPRITES.HACHACHACHA;
-teamList[| 2] = SPRITES.PODRIC;
-teamList[| 3] = SPRITES.GLIDRAKE;
+teamList[| 0] = SPRITES.PODRIC;
+teamList[| 1] = SPRITES.EXONOLITH;
+teamList[| 2] = SPRITES.BOOKISH;
+teamList[| 3] = SPRITES.JOE;
 
 // for testing purposes only
 teamString = encode_list(teamList);

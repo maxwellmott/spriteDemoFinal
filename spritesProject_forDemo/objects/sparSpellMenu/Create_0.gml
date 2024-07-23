@@ -28,6 +28,8 @@ spellRange		=	-1;
 spellPower		=	0;
 spellCost		=	0;
 
+enoughMP = false;
+
 spellbook_load_spell_params();
 
 pageFlip = false;
@@ -72,3 +74,9 @@ typeDrawY = rangeDrawY;
 
 descDrawX = infoDisplayX - 86;
 descDrawY = infoDisplayY - 7;
+
+if (player.selectedAlly.selectedAction >= sparActions.height) {
+	var c = spell_get_cost(player.selectedAlly.selectedAction - sparActions.height);
+	
+	spar.potentialCost -= c;		
+}

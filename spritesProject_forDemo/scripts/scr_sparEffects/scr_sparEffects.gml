@@ -600,7 +600,9 @@ function fully_restore_hp(_targetPlayer) {
 		effectedPlayer = t;
 		subject = t.name;
 		t.currentHP = MAX_HP;
-	}	else	instance_destroy(id);
+	}	else	{	
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: fully restores targetPlayer's MP

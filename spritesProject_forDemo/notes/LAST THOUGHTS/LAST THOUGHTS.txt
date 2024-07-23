@@ -359,3 +359,30 @@ COMING BACK FROM PLAYTEST BUILD
 				
 			Good luck <3 Things are looking great!!
 			
+			
+	7/15
+	
+			TODAY I WAS WORKING THROUGH THE BUG THAT OCCURS AFTER USING LADY SOLANUS GRACE.
+			
+			THE PROBLEM:	CHECKING FOR SPELL FAILURE ONCE EFFECT ALERT HAS BEEN CREATED IS NOT GOOD
+			SOLUTION:		MOVED THE SPELL FAILURE CHECK TO THE SPELL FUNCTION FOR LADY SOLANUS GRACE (ALSO FIXED HEALING LIGHT AND VOLCANIC ERUPTION)
+			REMAINING:		STILL CHECKS FOR FAILURE TO EARLY TO SKIP THE ANIMATION. STILL NEED TO CORRECT ALL OTHER SPELLS WITH A FAILURE CONDITION.
+			
+			completed solving the bug. I moved the spellEffect call earlier in the action processor. This creates a new issue that I will add to the list of spar bugs
+			
+				NEW ISSUE:	spells that take damage into consideration must calculate damage within the spell function since the call now occurs before the damage calc.
+								another option could be calcing damage in the create event and only applying it if necessary (this is optimal but might be difficult)
+							
+							
+	7/22
+			TODAY I WAS WORKING THROUGH THE RESETTING OF TOTAL SELECTION COST DEPENDING ON DIFFERENT TURN SELECTION CHANGES.
+			
+			SO FAR I'VE GOTTEN MOST OF THEM HAMMERED OUT. THERE ARE STILL A FEW REMAINING BUT IT'S HARD TO KEEP TRACK SO I'M GOING TO MAKE A LIST HERE
+			
+			
+			
+			SPRITE |	PREVIOUS ACTION		|	NEW ACTION			//										CORRECTION
+			selAlly			swapping				any									subtract swap cost from totalSelectionCost. reset swapPartner's selection params.
+			selAlly			spell					any									subtract original spellCost from totalSelectionCost.
+					
+			

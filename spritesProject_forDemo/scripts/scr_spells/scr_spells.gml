@@ -216,6 +216,11 @@ function lady_solanus_grace() {
 	// get caster's team
 	var t = activeSprite.team;
 	
+	if (t.currentHP == MAX_HP) {
+		sparActionProcessor.spellFailed = true;
+		return -1;
+	}	
+	
 	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, t);
 	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE);
 }
@@ -230,10 +235,15 @@ function typhoon() {
 }
 
 ///@desc SPELL FUNCTION: fully heals the caster's team and make's caster INVULNERABLE
-function healing_light() {
+function healing_light() {	
 	var c = activeSprite;
 	var t = activeSprite.team;
 	var a = round(MAX_HP / 2);
+	
+	if (t.currentHP == MAX_HP) {
+		sparActionProcessor.spellFailed = true;
+		return -1;
+	}
 	
 	spar_effect_push_alert(SPAR_EFFECTS.SET_INVULNERABLE, c);
 	spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t, a);
@@ -791,6 +801,11 @@ function full_thrust() {
 ///@desc SPELL FUNCTION: fails unless arena is volcano. destroys the arena
 /// summons miasma on the target's side of the field
 function volcanic_eruption() {
+	if (spar.currentArena != arenas.volcano) {
+		sparActionProcessor.spellFailed = true;
+		return -1;
+	}
+	
 	spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
 	
 	var t = targetSprite.team;
@@ -955,6 +970,8 @@ function spellbook_load_spell_params() {
 	spellCost		= player.spellBookGrid[# SPELL_PARAMS.COST,			index];
 
 	description = format_text(description, descWidth, 7, 0.5);
+	
+	enoughMP = spell_set_potential_cost(spellCost);
 }
 
 ///@desc This function is meant to be called by the sparActionProcessor whenever a spell is being cast

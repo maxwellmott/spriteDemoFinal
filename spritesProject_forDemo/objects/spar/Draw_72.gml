@@ -14,7 +14,7 @@
 		draw_sprite_stretched(spr_sparMagicSliver,	0, mpBarX,	mpBarY,	barWidth * playerMagicRatio,	barHeight);
 		
 		if (totalSelectionCost > 0)
-		|| (potentialCost > 0) {
+		|| ((totalSelectionCost + potentialCost) > 0) {
 			var costRatio = (totalSelectionCost + potentialCost) / MAX_MP;
 			if (costRatio > player.currentMP)	costRatio = player.currentMP;
 			

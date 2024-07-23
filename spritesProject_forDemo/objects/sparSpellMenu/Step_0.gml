@@ -18,7 +18,7 @@ if (x > targetX) && (frame > 0) {
 }
 
 if (x == targetX) && (targetX == spriteWidth / 2) {
-	if (spell_set_potential_cost(spellCost)) {
+	if (enoughMP) {
 		if (global.select) {	
 			// check if the current spell is on the usable spells list
 			if (ds_list_find_index(usable_spells, currentSpell) != -1) {

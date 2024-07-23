@@ -3,7 +3,16 @@
 
 if (state == ACTION_PROCESSOR_STATES.ANNOUNCING)
 && (global.select) {
-	state = ACTION_PROCESSOR_STATES.FADING_IN;
+	if (spellEffect >= 0) {
+		spellEffect();
+	}
+	
+	if (spellFailed) {
+		spar.turnMsg = "But the spell failed!";
+		state = ACTION_PROCESSOR_STATES.INPUT_PAUSE;
+	}	else	{
+		state = ACTION_PROCESSOR_STATES.FADING_IN;
+	}
 }
 
 if (state == ACTION_PROCESSOR_STATES.FADING_IN) {
@@ -153,10 +162,7 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 		}
 	}
 	// or spell
-	else {
-		// call effect function
-		spellEffect();
-		
+	else {		
 		if !(dodgeSuccess) {
 			// apply damage and change turnMsg
 			var t = targetSprite.team;

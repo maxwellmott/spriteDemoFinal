@@ -109,8 +109,39 @@ enum sparTypes {
 	height
 }
 
+function spell_get_cost(_spellID) {
+	// store args in locals
+	var sid = _spellID;
+	
+	// create temp grid
+	var g = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
+	
+	// decode spell grid
+	decode_grid(global.allSpells, g);
+	
+	// get spell cost
+	var sc = g[# SPELL_PARAMS.COST, sid];
+	
+	// delete temp grid
+	ds_grid_destroy(g);
+	
+	// return spell cost
+	return sc;
+}
+
 function spar_set_action() {	
 	global.action = action;
+	
+	var sa = player.selectedAlly;
+	if (sa.selectedAction == sparActions.rest) {
+		spar.totalSelectionCost += round(72.5 * REST_BASE_MP_REGEN);
+	}
+	
+	if (sa.selectedAction >= sparActions.height) {
+		var c = spell_get_cost(sa.selectedAction - sparActions.height);
+		
+		spar.totalSelectionCost -= c;
+	}
 	
 	switch (action) {
 		case sparActions.attack:
@@ -141,9 +172,10 @@ function spar_set_action() {
 			sprite.selectedAction = action;
 			sprite.turnReady = true;
 			spar.selectionPhase = selectionPhases.ally;
+			
 		break;
 		
-		case sparActions.swap:
+		case sparActions.swap:		
 			global.targetRange = ranges.anyAlly;
 			spar.selectionPhase = selectionPhases.target;
 		break;
@@ -160,12 +192,7 @@ function spar_set_action() {
 				}
 			}
 		
-			var r = (REST_BASE_MP_REGEN * 72.5);
-			var c = player.currentMP;
-			
-			if (r + c > MAX_MP)	r = MAX_MP - c;
-		
-			spar.totalSelectionCost -= r;
+			spar.totalSelectionCost -= round(72.5 * REST_BASE_MP_REGEN);
 			sprite.readyDisplayBuilt = false;
 			sprite.selectedTarget = -1;
 			sprite.selectedAction = action;
@@ -181,7 +208,7 @@ function spar_set_action() {
 
 function spar_set_spell() {
 	// set selectedAction to currentSpell
-	player.selectedAlly.selectedAction = currentSpell;
+	global.action = currentSpell;
 	
 	// set spellRange for target selection
 	global.targetRange = spellRange;
@@ -609,11 +636,55 @@ function sprite_build_ready_display() {
 ///@desc This function sets the selected ally's action and target with global.action and
 /// the spotNum of the sprite being clicked, respectively. (This function should only
 /// be called by a sprite being clicked during target selection).
-function spar_set_target() {
+function spar_set_target() {	
+	if (selectedAction >= sparActions.height) {
+		var c = spell_get_cost(selectedAction - sparActions.height);
+		
+		spar.totalSelectionCost -= c;		
+	}	
+
 	if (player.selectedAlly.selectedAction == sparActions.swap) {
+		var p = player.selectedAlly;
+		
+		var mpc = swap_get_cost(id, p);
+		
+		spar.totalSelectionCost -= mpc;
+		
 		var t = spar.spriteList[| player.selectedAlly.selectedTarget];
 		
 		with (t) {
+			readyDisplay = "";
+			readyDisplayBuilt = false;
+			selectedAction = -4;
+			selectedTarget = -4;
+			turnReady = false;
+		}
+	}
+	
+	if (global.action == sparActions.swap) {
+		if (selectedAction >= sparActions.height) {
+			var mpc = spell_get_cost(selectedAction - sparActions.height);
+			
+			spar.totalSelectionCost -= mpc;
+		}
+	}
+	
+	if (ds_list_find_index(spar.allyList, id) >= 0) {
+		if (selectedAction == sparActions.swap) {
+			var t = spar.spriteList[| selectedTarget];
+			
+			var mpc = swap_get_cost(id, t);
+			
+			spar.totalSelectionCost -= mpc;
+			
+			with (t) {
+				readyDisplay = "";
+				readyDisplayBuilt = false;
+				selectedAction = -4;
+				selectedTarget = -4;
+				turnReady = false;
+			}
+			
 			readyDisplay = "";
 			readyDisplayBuilt = false;
 			selectedAction = -4;
@@ -640,6 +711,10 @@ function spar_set_target() {
 			}
 		}
 		
+		if (selectedAction == sparActions.rest) {
+			spar.totalSelectionCost += round(72.5 * REST_BASE_MP_REGEN);
+		}
+		
 		readyDisplayBuilt = false;
 		selectedAction = global.action;
 		selectedTarget = player.selectedAlly.spotNum;
@@ -654,8 +729,19 @@ function spar_set_target() {
 /// and the macro indicating a self targeting action. This function can be called whenever
 /// you are ready to do this as it doesn't make any local references.
 function self_target_set() {
+	if (player.selectedAlly.selectedAction >= sparActions.height) {
+		var c = spell_get_cost(player.selectedAlly.selectedAction - sparActions.height);
+		
+		spar.totalSelectionCost -= c;		
+	}	
+	
 	if (player.selectedAlly.selectedAction == sparActions.swap) {
 		var t = spar.spriteList[| player.selectedAlly.selectedTarget];	
+		var p = player.selectedAlly;
+		
+		var c = swap_get_cost(t, p);
+		
+		spar.totalSelectionCost -= c;
 		
 		with (t) {
 			readyDisplay = "";
@@ -926,6 +1012,7 @@ function spell_set_potential_cost(_spellCost) {
 		return 1;
 	}
 	else {
+		spar.potentialCost = MAX_MP - spar.totalSelectionCost;
 		return 0;	
 	}
 }
