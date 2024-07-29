@@ -15,7 +15,7 @@
 		
 		if (totalSelectionCost > 0)
 		|| ((totalSelectionCost + potentialCost) > 0) {
-			var costRatio = (totalSelectionCost + potentialCost) / MAX_MP;
+			var costRatio = ((totalSelectionCost + potentialCost) - global.mpCostDiff) / MAX_MP;
 			if (costRatio > player.currentMP)	costRatio = player.currentMP;
 			
 			var fBarSize	= barWidth * costRatio;

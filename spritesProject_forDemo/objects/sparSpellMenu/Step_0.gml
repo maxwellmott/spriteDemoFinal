@@ -51,6 +51,7 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 	
 	if (global.back) {
 		spar.potentialCost = 0;
+		global.mpCostDiff = 0;
 		
 		// set next phase
 		nextPhase = selectionPhases.ally;
@@ -80,8 +81,6 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 			
 			// get spell params
 			spellbook_load_spell_params();
-			
-			spar.potentialCost = spellCost;
 		}
 	}
 	
@@ -106,8 +105,6 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 			
 			// get spell params
 			spellbook_load_spell_params();
-			
-			spar.potentialCost = spellCost;
 		}
 	}
 }

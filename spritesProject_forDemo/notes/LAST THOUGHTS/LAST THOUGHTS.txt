@@ -385,4 +385,13 @@ COMING BACK FROM PLAYTEST BUILD
 			selAlly			swapping				any									subtract swap cost from totalSelectionCost. reset swapPartner's selection params.
 			selAlly			spell					any									subtract original spellCost from totalSelectionCost.
 					
+					
+	7/29
+	
+			Okay. Everything is a mess now. A lot of weird bugs are occurring. It's time to clean up the spar scripts and then do some in depth debugging. Be ready to rework
+			systems if you need to. Currently the most bugs are produced when switching around different selections. There is also a bug wherein selecting fireball results in
+			selecting to rest.
+			
+			Good luck <3
+			
 			
