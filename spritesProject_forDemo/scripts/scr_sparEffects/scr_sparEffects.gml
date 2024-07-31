@@ -596,7 +596,7 @@ function clear_mindset(_target) {
 function fully_restore_hp(_targetPlayer) {
 	var t = _targetPlayer;
 	
-	if (t.currentHP != MAX_HP) {
+	if (t.currentHP < MAX_HP) {
 		effectedPlayer = t;
 		subject = t.name;
 		t.currentHP = MAX_HP;
@@ -1309,7 +1309,7 @@ function bestow_mindset_team(_targetPlayer, _mindset) {
 	}
 	
 	// if no sprites were effected, destroy spar effect alert
-	if (ds_list_size(effectedSprites <= 0)) {
+	if (ds_list_size(effectedSprites) <= 0) {
 		instance_destroy(id);
 	}
 }

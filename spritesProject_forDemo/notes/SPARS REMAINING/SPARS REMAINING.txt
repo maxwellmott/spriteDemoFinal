@@ -45,3 +45,5 @@
 		a sprite selects to rest.
 		
 		Lady Solanu's grace still doesn't work also. You have to damage your teammates a bit to test it.
+		
+		KEEP WORKING THROUGH SOLANUS

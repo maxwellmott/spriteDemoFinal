@@ -52,9 +52,15 @@ spar.turnMsg = alertText;
 
 maxFrame = sprite_get_number(animation) - 1;
 
+entireField = false;
 drawingMultiple = false;
 
-if (ds_list_size(effectedSprites) > 1)	drawingMultiple = true;
+if (effectedPlayer >= 0) {
+	entireField = true;
+}
+else {
+	if (ds_list_size(effectedSprites) > 1)	drawingMultiple = true;
+}
 
 drawX = -1;
 drawY = -1;

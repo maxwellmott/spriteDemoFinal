@@ -279,7 +279,7 @@ function waterlog() {
 function air_pressure() {
 	var t = targetSprite.team;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, -1 * MINDSETS.TREE);
 }
 
 ///@desc SPELL FUNCTION: removes all curses and hindrances from caster's side of the field and 
