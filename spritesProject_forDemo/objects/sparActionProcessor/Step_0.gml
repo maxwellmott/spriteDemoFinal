@@ -1,6 +1,24 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+
+// if waiting for input
+if (state == ACTION_PROCESSOR_STATES.INPUT_PAUSE) {
+	
+	// fade out darkAlpha
+	if (shadeAlpha >= 0) {
+		shadeAlpha -= 0.05;	
+	}
+	
+	// check if hpmp bars are up to date and
+	// shadeAlpha is at 0
+	if (spar_check_hpmp()) 
+	&& (shadeAlpha <= 0.0) {
+		// if select button is clicked, destroy self
+		if (global.select)	instance_destroy(id);	
+	}
+}
+
 if (state == ACTION_PROCESSOR_STATES.ANNOUNCING)
 && (global.select) {
 	if (spellEffect >= 0) {
@@ -9,7 +27,7 @@ if (state == ACTION_PROCESSOR_STATES.ANNOUNCING)
 	
 	if (spellFailed) {
 		spar.turnMsg = "But the spell failed!";
-		state = ACTION_PROCESSOR_STATES.INPUT_PAUSE;
+		alarm[0] = 24; 
 	}	else	{
 		state = ACTION_PROCESSOR_STATES.FADING_IN;
 	}
@@ -183,21 +201,4 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 	
 	// regardless of anything else, after the rest is finished, move to input pause
 	state = ACTION_PROCESSOR_STATES.INPUT_PAUSE;
-}
-
-// if waiting for input
-if (state == ACTION_PROCESSOR_STATES.INPUT_PAUSE) {
-	
-	// fade out darkAlpha
-	if (shadeAlpha >= 0) {
-		shadeAlpha -= 0.05;	
-	}
-	
-	// check if hpmp bars are up to date and
-	// shadeAlpha is at 0
-	if (spar_check_hpmp()) 
-	&& (shadeAlpha <= 0.0) {
-		// if select button is clicked, destroy self
-		if (global.select)	instance_destroy(id);	
-	}
 }

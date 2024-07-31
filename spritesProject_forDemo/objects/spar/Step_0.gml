@@ -332,16 +332,14 @@ switch (sparPhase) {
 							selectionMsg = "Select a sprite within range to target with a basic attack";
 						break;
 						
-						case sparActions.spell:
-							selectionMsg = "Select a sprite within range to target with a spell";
-						break;
-						
 						case sparActions.swap:
 							selectionMsg = "Select the sprite with whom " + player.selectedAlly.name + " should swap";
 							
 							if (global.hoverSprite < 0)	potentialCost = 0;
 						break;
 					}
+					
+					if (a >= sparActions.height)	selectionMsg = "Select a sprite within range to target with a spell";
 					
 					// handle backspace input
 					if (global.back) {

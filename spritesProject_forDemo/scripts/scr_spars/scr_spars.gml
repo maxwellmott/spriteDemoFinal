@@ -209,7 +209,7 @@ function spar_set_action() {
 
 function spar_set_spell() {
 	// set selectedAction to currentSpell
-	global.action = currentSpell;
+	global.action = currentSpell + sparActions.height;
 	
 	// set spellRange for target selection
 	global.targetRange = spellRange;
@@ -641,7 +641,7 @@ function spar_set_target() {
 	// check if target selection is for a swap
 	if (global.action == sparActions.swap) {
 		// check if the sprite being selected as a swap target has already selected a swap
-		if (selectedAction = sparActions.swap) {
+		if (selectedAction == sparActions.swap) {
 			// get the instance id of the previously selected swap partner
 			var pid = spar.allyList[| selectedTarget];
 			
