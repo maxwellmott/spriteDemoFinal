@@ -90,7 +90,7 @@ bbRight		= x + 32;
 
 // initialize draw positions for indicators
 hexedY		= x - 16;
-mindsetY	= x;
+mindsetX	= x;
 boundX		= x + 16;
 
 boundY		= guiHeight - 88;

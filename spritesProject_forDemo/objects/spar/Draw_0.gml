@@ -202,20 +202,36 @@ draw_set_alpha(1.0);
 		// the gray to slowly fade in
 		var fd = 1000 - ((sparActionProcessor.shadeAlpha / sparActionProcessor.shadeAlphaMax) * 250);
 		
-		// get active sprite and target sprite
-		var a = sparActionProcessor.activeSprite;
-		var t = sparActionProcessor.targetSprite;
+		// store global.spellTargetTeam in a local var
+		var stt = global.spellTargetTeam;
 		
-		// draw target sprite normal
-		draw_sprite_ext(t.sprite, 0, t.x, t.y, t.xscale, 1, 0, c_white, 1.0);
+		// check if an instance id is being stored in stt
+		if (stt > 0) {
+			if (stt == playerOne) {
+				var i = 0;	repeat (ds_list_size(allyList)) {
+					var sid = allyList[| i];
+					
+					draw_sprite_ext(sid.sprite, 0, sid.x, sid.y, sid.xscale, 1, 0, c_white, 1.0);
+					
+					i++;
+				}
+			}
+		}	else	{
+			// get active sprite and target sprite
+			var a = sparActionProcessor.activeSprite;
+			var t = sparActionProcessor.targetSprite;
 		
-		// draw target sprite at shadeAlpha with gray coloration
-		draw_sprite_ext(t.sprite, 0, t.x, t.y, t.xscale, 1, 0, c_gray, sparActionProcessor.shadeAlpha);
+			// draw target sprite normal
+			draw_sprite_ext(t.sprite, 0, t.x, t.y, t.xscale, 1, 0, c_white, 1.0);
 		
-		// check if active sprite is the same as target sprite
-		if (a != t) {
-			// if not, draw active sprite
-			draw_sprite_ext(a.sprite, 0, a.x, a.y, a.xscale, 1, 0, c_white, 1.0);
+			// draw target sprite at shadeAlpha with gray coloration
+			draw_sprite_ext(t.sprite, 0, t.x, t.y, t.xscale, 1, 0, c_gray, sparActionProcessor.shadeAlpha);
+		
+			// check if active sprite is the same as target sprite
+			if (a != t) {
+				// if not, draw active sprite
+				draw_sprite_ext(a.sprite, 0, a.x, a.y, a.xscale, 1, 0, c_white, 1.0);
+			}
 		}
 	}
 #endregion

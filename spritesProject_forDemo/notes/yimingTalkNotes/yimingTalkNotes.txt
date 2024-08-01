@@ -15,3 +15,16 @@ list of effects
 	
 	
 	
+
+
+			WHATS LEFT 
+			
+	okay, here's a list of what I need to do before I can send
+	a build to yiming:
+	
+		-	add spellbook builder and teambuilder to the overworld (just add hotkeys for them for now)
+		-	add descriptions to spellbook builder
+		-	add spellbook menu artwork to the spellbook builder
+		-	add all spell animations and effect animations that he's completed thus far!
+		
+		

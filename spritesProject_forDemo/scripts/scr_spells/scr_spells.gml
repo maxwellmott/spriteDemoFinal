@@ -4,6 +4,12 @@
 //
 #macro AMANDS_BLAST		400
 
+// this variable can be used to store the instance id of the player
+// being targeted by a spell such as lady solanus grace. This will be
+// checked in the draw event of the spar object to see how sprites should
+// be drawn during the spellFX animation.
+global.spellTargetTeam = -4;
+
 // spell ids enum
 enum SPELLS {
 	SOLAR_FLARE,
@@ -215,6 +221,8 @@ function expel_force() {
 function lady_solanus_grace() {
 	// get caster's team
 	var t = activeSprite.team;
+	
+	global.spellTargetTeam = t;
 	
 	if (t.currentHP == MAX_HP) {
 		sparActionProcessor.spellFailed = true;

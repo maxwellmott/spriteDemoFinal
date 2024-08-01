@@ -638,6 +638,12 @@ function sprite_build_ready_display() {
 /// the spotNum of the sprite being clicked, respectively. (This function should only
 /// be called by a sprite being clicked during target selection).
 function spar_set_target() {
+	// check if target selection is for a spell
+	if (selectedAction >= sparActions.height) {
+		// add potentialCost to totalSelectionCost
+		spar.totalSelectionCost += spar.potentialCost;
+	}
+	
 	// check if target selection is for a swap
 	if (global.action == sparActions.swap) {
 		// check if the sprite being selected as a swap target has already selected a swap
