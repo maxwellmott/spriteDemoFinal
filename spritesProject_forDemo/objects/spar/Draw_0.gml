@@ -221,11 +221,12 @@ draw_set_alpha(1.0);
 			var a = sparActionProcessor.activeSprite;
 			var t = sparActionProcessor.targetSprite;
 		
-			// draw target sprite normal
-			draw_sprite_ext(t.sprite, 0, t.x, t.y, t.xscale, 1, 0, c_white, 1.0);
+			gpu_set_fog(true, c_white, 0.0, 1.0);
 		
-			// draw target sprite at shadeAlpha with gray coloration
-			draw_sprite_ext(t.sprite, 0, t.x, t.y, t.xscale, 1, 0, c_gray, sparActionProcessor.shadeAlpha);
+			// draw target sprite normal
+			draw_sprite_ext(t.sprite, 0, t.x, t.y, t.xscale, 1, 0, c_white, sparActionProcessor.shadeAlpha);
+			
+			gpu_set_fog(false, c_white, 0.0, 1.0);
 		
 			// check if active sprite is the same as target sprite
 			if (a != t) {

@@ -11,9 +11,24 @@ target = sparActionProcessor.targetSprite;
 spellID = sparActionProcessor.currentSpell;
 
 #region BASIC ATTACK
-if (spellID < 0) {
+if (spellID < 0) {	
+	// set spellFX function
+	spellFX = -1;
 	
-	instance_destroy(id);
+	// set spellAnimation
+	spellAnimation = spr_spellFX_basicAttack;
+	
+	// get frameCount
+	frameCount = sprite_get_number(spellAnimation) - 1;
+	
+	// set animation built-ins for spar object
+	spar.sprite_index = spellAnimation;
+	spar.image_speed = 1;
+	spar.image_index = 0;
+	
+	// set the positioning for the animation
+	drawX = target.x;
+	drawY = target.y;
 }
 #endregion 
 

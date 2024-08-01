@@ -442,6 +442,7 @@
     {"id":{"name":"spr_spellFX_amands_energy_blast","path":"sprites/spr_spellFX_amands_energy_blast/spr_spellFX_amands_energy_blast.yy",},},
     {"id":{"name":"spr_spellFX_arc_blast","path":"sprites/spr_spellFX_arc_blast/spr_spellFX_arc_blast.yy",},},
     {"id":{"name":"spr_spellFX_ball_lightning","path":"sprites/spr_spellFX_ball_lightning/spr_spellFX_ball_lightning.yy",},},
+    {"id":{"name":"spr_spellFX_basicAttack","path":"sprites/spr_spellFX_basicAttack/spr_spellFX_basicAttack.yy",},},
     {"id":{"name":"spr_spellFX_broadcast_data","path":"sprites/spr_spellFX_broadcast_data/spr_spellFX_broadcast_data.yy",},},
     {"id":{"name":"spr_spellFX_burn_out","path":"sprites/spr_spellFX_burn_out/spr_spellFX_burn_out.yy",},},
     {"id":{"name":"spr_spellFX_channel_essence","path":"sprites/spr_spellFX_channel_essence/spr_spellFX_channel_essence.yy",},},

@@ -372,6 +372,7 @@
     {"name":"spr_spellFX_amands_energy_blast","order":40,"path":"sprites/spr_spellFX_amands_energy_blast/spr_spellFX_amands_energy_blast.yy",},
     {"name":"spr_spellFX_arc_blast","order":35,"path":"sprites/spr_spellFX_arc_blast/spr_spellFX_arc_blast.yy",},
     {"name":"spr_spellFX_ball_lightning","order":30,"path":"sprites/spr_spellFX_ball_lightning/spr_spellFX_ball_lightning.yy",},
+    {"name":"spr_spellFX_basicAttack","order":77,"path":"sprites/spr_spellFX_basicAttack/spr_spellFX_basicAttack.yy",},
     {"name":"spr_spellFX_broadcast_data","order":70,"path":"sprites/spr_spellFX_broadcast_data/spr_spellFX_broadcast_data.yy",},
     {"name":"spr_spellFX_burn_out","order":58,"path":"sprites/spr_spellFX_burn_out/spr_spellFX_burn_out.yy",},
     {"name":"spr_spellFX_channel_essence","order":42,"path":"sprites/spr_spellFX_channel_essence/spr_spellFX_channel_essence.yy",},
