@@ -103,7 +103,7 @@ global.roomBuilt = true;
 
 // initialize selectionMsgX and selectionMsgY
 selectionMsgX = guiWidth / 2;
-selectionMsgY = (guiHeight / 2) - 11;
+selectionMsgY = (guiHeight / 2) - 7;
 
 // initialize selectionMsg
 selectionMsg = "";

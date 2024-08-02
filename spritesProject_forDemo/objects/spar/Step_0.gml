@@ -8,10 +8,22 @@ if (onlineWaiting) {
 	if !(global.gameTime mod 480)	request_turn_begin();
 }
 
-// check if there are any effect alerts waiting to be
-// announced and displayed
-if (ds_list_size(effectAlertList) > 0) {
-	create_once(0, 0, LAYER.meta, sparEffectAlert);
+// check if sprites are done flashing
+if (check_sprites_done_flashing()) {
+	// check if hpmp bars are up to date
+	if (spar_check_hpmp()) {
+		// check if there is still a spell being processed
+		if !(instance_exists(sparActionProcessor)) {
+			// check if there is still a spell being animated
+			if !(instance_exists(sparSpellFX)) {
+				// check if there are any effect alerts waiting to be
+				// announced and displayed
+				if (ds_list_size(effectAlertList) > 0)  {
+					create_once(0, 0, LAYER.meta, sparEffectAlert);
+				}
+			}
+		}
+	}
 }
 
 // spar phase switch statement
@@ -64,8 +76,20 @@ switch (sparPhase) {
 					sprite_index = spr_sparSwapCloud;
 					image_speed = 1;
 					
-					// if so, create the sparSwapProcessor
-					create_once(0, 0, LAYER.meta, sparSwapProcessor);
+					// check if sprites are done flashing
+					if (check_sprites_done_flashing()) {
+						// check if HPMP bars are up to date
+						if (spar_check_hpmp()) {
+							// check that there are no sparEffectAlerts
+							if (ds_list_size(effectAlertList) == 0) {
+								// if so, create the sparSwapProcessor
+								create_once(0, 0, LAYER.meta, sparSwapProcessor);
+							}
+						}
+						else {
+							spar_correct_hpmp();	
+						}
+					}
 				}
 				else {
 					if !(instance_exists(sparSwapProcessor))	processPhase = PROCESS_PHASES.REST;
@@ -80,8 +104,14 @@ switch (sparPhase) {
 					sprite_index = spr_sparRestEye;
 					image_speed = 1;
 					
-					// if so, create the sparRestProcessor
-					create_once(0, 0, LAYER.meta, sparRestProcessor);
+					// check that sprites are done flashing
+					if (check_sprites_done_flashing()) {
+						// check that there are no effect alerts
+						if (ds_list_size(effectAlertList) == 0) {
+							// if so, create the sparRestProcessor
+							create_once(0, 0, LAYER.meta, sparRestProcessor);
+						}
+					}
 				}
 				
 				if !(instance_exists(sparRestProcessor))
@@ -102,8 +132,17 @@ switch (sparPhase) {
 					sprite_index = spr_sparDodge;
 					image_speed = 1;
 					
-					// if so, create the sparDodgeAnnouncer
-					create_once(0, 0, LAYER.meta, sparDodgeAnnouncer);
+					// check that HPMP bars are up to date
+					if (spar_check_hpmp()) {
+						// check that no sprites are flashing
+						if (check_sprites_done_flashing()) {
+							// check that there are no sparEffectAlerts
+							if (ds_list_size(effectAlertList) == 0) {
+								// if so, create the sparDodgeAnnouncer
+								create_once(0, 0, LAYER.meta, sparDodgeAnnouncer);
+							}
+						}
+					}
 				}
 				else {
 					if !(instance_exists(sparDodgeAnnouncer))	processPhase = PROCESS_PHASES.PRIORITY;	
@@ -111,164 +150,183 @@ switch (sparPhase) {
 			break;
 			
 			case PROCESS_PHASES.PRIORITY:
-				spar_correct_hpmp();
-			
-				// check if the actionProcessor is already active
-				if !(instance_exists(sparActionProcessor)) {
-					// create a variable to store the highest stat found so far
-					var highest = 0;
-					
-					// create a variable to store the nextSprite
-					var nextSprite = -1;
-					
-					var i = 0;	repeat (ds_grid_height(turnGrid)) {
-						// get the current spotnum
-						var sn = turnGrid[# selectionPhases.ally, i];
-						
-						// get the current instance
-						var inst = spriteList[| sn];
-						
-						// get action
-						var a = turnGrid[# selectionPhases.action, i];
-						
-						// check if action is a spell
-						if (action_check_spell(a)) {
-							// get spellID
-							var sid = action_get_spell_id(a);
-							
-							// create the priority list
-							var pl = ds_list_create();
-							decode_list(global.prioritySpellList, pl);
-							
-							// check if the spell id is on the priority list
-							if (ds_list_find_index(pl, sid) >= 0) {
-								// use a switch statement to check the proper stat
-								// depending on the current arena
-								switch (currentArena) {
-									case arenas.ocean:
-										if (inst.currentWater > highest) {
-											highest		= inst.currentWater;
-											nextSprite	= i;
-										}
-									break;
+				// check if HPMP bars are up to date
+				if (spar_check_hpmp()) {
+					// check if all sprites are done flashing
+					if (check_sprites_done_flashing()) {
+						// check that there are no effectAlerts
+						if (ds_list_size(effectAlertList) == 0) {
+							// check if the actionProcessor is already active
+							if !(instance_exists(sparActionProcessor)) {
+								// create a variable to store the highest stat found so far
+								var highest = 0;
+								
+								// create a variable to store the nextSprite
+								var nextSprite = -1;
+								
+								var i = 0;	repeat (ds_grid_height(turnGrid)) {
+									// get the current spotnum
+									var sn = turnGrid[# selectionPhases.ally, i];
 									
-									case arenas.stratosphere:
-										if (inst.currentStorm > highest) {
-											highest		= inst.currentStorm;
-											nextSprite	= i;
-										}
-									break;
+									// get the current instance
+									var inst = spriteList[| sn];
 									
-									default:
-										if (inst.currentAgility > highest) {
-											highest		= inst.currentAgility;
-											nextSprite	= i;
+									// get action
+									var a = turnGrid[# selectionPhases.action, i];
+									
+									// check if action is a spell
+									if (action_check_spell(a)) {
+										// get spellID
+										var sid = action_get_spell_id(a);
+										
+										// create the priority list
+										var pl = ds_list_create();
+										decode_list(global.prioritySpellList, pl);
+										
+										// check if the spell id is on the priority list
+										if (ds_list_find_index(pl, sid) >= 0) {
+											// use a switch statement to check the proper stat
+											// depending on the current arena
+											switch (currentArena) {
+												case arenas.ocean:
+													if (inst.currentWater > highest) {
+														highest		= inst.currentWater;
+														nextSprite	= i;
+													}
+												break;
+												
+												case arenas.stratosphere:
+													if (inst.currentStorm > highest) {
+														highest		= inst.currentStorm;
+														nextSprite	= i;
+													}
+												break;
+												
+												default:
+													if (inst.currentAgility > highest) {
+														highest		= inst.currentAgility;
+														nextSprite	= i;
+													}
+												break;
+											}								
 										}
-									break;
-								}								
+										
+										ds_list_destroy(pl);
+									}
+									
+									// increment i
+									i++;
+								}
+								
+								// check if nextSprite was ever set
+								if (nextSprite >= 0) {
+									// if so, set turnRow to equal nextSprite
+									turnRow = nextSprite;
+									
+									// create the sparActionProcessor
+									create_once(0, 0, LAYER.meta, sparActionProcessor);
+									
+								}	else	processPhase = PROCESS_PHASES.ATTACK;
 							}
-							
-							ds_list_destroy(pl);
 						}
-						
-						// increment i
-						i++;
 					}
-					
-					// check if nextSprite was ever set
-					if (nextSprite >= 0) {
-						// if so, set turnRow to equal nextSprite
-						turnRow = nextSprite;
-						
-						// create the sparActionProcessor
-						create_once(0, 0, LAYER.meta, sparActionProcessor);
-						
-					}	else	processPhase = PROCESS_PHASES.ATTACK;
 				}
+				else	{
+					spar_correct_hpmp();	
+				}
+							
 				
 			break;
 			
 			case PROCESS_PHASES.ATTACK:
-			
-				spar_correct_hpmp();
-			
-				if !(instance_exists(sparActionProcessor)) {
-					// initialize a variable to store whether there are actions left to process
-					var actionsRemaining = false;
-					
-					// use a repeat loop to check the whole grid for remaining actions
-					var i = 0;	repeat (ds_grid_height(turnGrid)) {
-						var a = turnGrid[# selectionPhases.action, i];
-						
-						// check if the action has been processed and reset to -1 already
-						if (a >= 0) {
-							// if so, set actionsRemaining to true and break the loop
-							actionsRemaining = true;
-							break;
-						}
-						
-						// increment i
-						i++;
-					}
-					
-					// check if there are actionsRemaining
-					if (actionsRemaining) {
-						// create a variable to store the highest stat so far
-						var highest = 0;
-						
-						// create a variable to store the turnRow of the next sprite who should act
-						var nextSprite = -1;
-						
-						// use a repeat loop to find the fastest sprite who still needs
-						// to take their turn
-						var i = 0;	repeat (ds_grid_height(turnGrid)) {
-							// check if the next action on the grid has been reset to -1 already
-							var a = turnGrid[# selectionPhases.action, i];
-							if (a >= 0) {
-								// get current spotNum
-								var sn = turnGrid[# selectionPhases.ally, i];
+				// check that HPMP bars are up to date
+				if (spar_check_hpmp()) {
+					// check that all sprites are done flashing
+					if (check_sprites_done_flashing()) {
+						// check that there are no sparEffect alerts
+						if (ds_list_size(effectAlertList) == 0) {
+							if !(instance_exists(sparActionProcessor)) {
+								// initialize a variable to store whether there are actions left to process
+								var actionsRemaining = false;
 								
-								// get the current instance
-								var inst = spriteList[| sn];
+								// use a repeat loop to check the whole grid for remaining actions
+								var i = 0;	repeat (ds_grid_height(turnGrid)) {
+									var a = turnGrid[# selectionPhases.action, i];
+									
+									// check if the action has been processed and reset to -1 already
+									if (a >= 0) {
+										// if so, set actionsRemaining to true and break the loop
+										actionsRemaining = true;
+										break;
+									}
+									
+									// increment i
+									i++;
+								}
 								
-								// use a switch statement to check the proper stat
-								// depending on the arena
-								switch (currentArena) {
-									case arenas.ocean:
-										if (inst.currentWater > highest) {
-											highest		= inst.currentWater;
-											nextSprite	= i;
-										}
-									break;
+								// check if there are actionsRemaining
+								if (actionsRemaining) {
+									// create a variable to store the highest stat so far
+									var highest = 0;
 									
-									case arenas.stratosphere:
-										if (inst.currentStorm > highest) {
-											highest		= inst.currentStorm;
-											nextSprite	= i;
-										}
-									break;
+									// create a variable to store the turnRow of the next sprite who should act
+									var nextSprite = -1;
 									
-									default:
-										if (inst.currentAgility > highest) {
-											highest		= inst.currentAgility;
-											nextSprite	= i;
+									// use a repeat loop to find the fastest sprite who still needs
+									// to take their turn
+									var i = 0;	repeat (ds_grid_height(turnGrid)) {
+										// check if the next action on the grid has been reset to -1 already
+										var a = turnGrid[# selectionPhases.action, i];
+										if (a >= 0) {
+											// get current spotNum
+											var sn = turnGrid[# selectionPhases.ally, i];
+											
+											// get the current instance
+											var inst = spriteList[| sn];
+											
+											// use a switch statement to check the proper stat
+											// depending on the arena
+											switch (currentArena) {
+												case arenas.ocean:
+													if (inst.currentWater > highest) {
+														highest		= inst.currentWater;
+														nextSprite	= i;
+													}
+												break;
+												
+												case arenas.stratosphere:
+													if (inst.currentStorm > highest) {
+														highest		= inst.currentStorm;
+														nextSprite	= i;
+													}
+												break;
+												
+												default:
+													if (inst.currentAgility > highest) {
+														highest		= inst.currentAgility;
+														nextSprite	= i;
+													}
+												break;
+											}		
 										}
-									break;
-								}		
-							}
+										
+										// increment i
+										i++;
+									}
+									
+									// set turnRow to match the nextSprite variable
+									turnRow = nextSprite;
+									
+									// create the sparActionProcessor
+									create_once(0, 0, LAYER.meta, sparActionProcessor);
+									
+								}	else	processPhase = PROCESS_PHASES.END;
 							
-							// increment i
-							i++;
+							}
 						}
-						
-						// set turnRow to match the nextSprite variable
-						turnRow = nextSprite;
-						
-						// create the sparActionProcessor
-						create_once(0, 0, LAYER.meta, sparActionProcessor);
-						
-					}	else	processPhase = PROCESS_PHASES.END;
-				
+					}
+				}	else	{
+					spar_correct_hpmp();	
 				}
 				
 			break;

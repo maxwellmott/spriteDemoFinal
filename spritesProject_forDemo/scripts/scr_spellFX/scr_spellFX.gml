@@ -393,11 +393,11 @@ function flash_rate_get_mod_value(_flashRate) {
 	var fr = _flashRate;
 	
 	switch (fr) {
-		case FLASHING_RATES.VERY_SLOW:	return	60;	break;
-		case FLASHING_RATES.SLOW:		return	40;	break;
-		case FLASHING_RATES.MODERATE:	return	30;	break;
-		case FLASHING_RATES.FAST:		return	20;	break;
-		case FLASHING_RATES.VERY_FAST:	return	10;	break;	
+		case FLASHING_RATES.VERY_SLOW:	return	45;	break;
+		case FLASHING_RATES.SLOW:		return	30;	break;
+		case FLASHING_RATES.MODERATE:	return	20;	break;
+		case FLASHING_RATES.FAST:		return	10;	break;
+		case FLASHING_RATES.VERY_FAST:	return	5;	break;	
 	}
 }
 
@@ -407,11 +407,13 @@ function flash_rate_set_from_damage() {
 	var d = damage;
 	var t = targetSprite;
 	
-	if (d > 0)		t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.VERY_SLOW);
-	if (d > 25)		t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.SLOW);
-	if (d > 75)		t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.MODERATE);
-	if (d > 150)	t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.FAST);
-	if (d > 250)	t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.VERY_FAST);
+	t.flashNum = 0;
+	
+	if (d > 0)		t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.VERY_SLOW);	t.flashCount = 1;
+	if (d > 25)		t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.SLOW);		t.flashCount = 2;
+	if (d > 75)		t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.MODERATE);	t.flashCount = 3;
+	if (d > 150)	t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.FAST);		t.flashCount = 4;
+	if (d > 250)	t.flashRate = flash_rate_get_mod_value(FLASHING_RATES.VERY_FAST);	t.flashCount = 5;
 	
 	global.gameTime += (global.gameTime mod t.flashRate);
 	

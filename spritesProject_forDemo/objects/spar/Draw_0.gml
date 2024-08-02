@@ -55,9 +55,23 @@ var i = 0; repeat (8) {
 	
 	// check if sprite is flashing
 	if (inst.flashRate != -1) {
+		if (inst.flashNum == 0)		global.gameTime -= global.gameTime mod inst.flashRate;
+		
 		// check if its a flash frame
 		if (global.gameTime mod inst.flashRate <= 4) {
+			// if this is the first frame of a flash of visibility, increment the flashNum by 1
+			if (global.gameTime mod inst.flashRate == 0)		inst.flashNum += 1;
+			
 			draw_sprite_ext(inst.sprite, spriteFrame, inst.x, inst.y, inst.xscale, 1, 0, c_white, inst.alpha);
+			
+			// if this is the last frame of a flash of visibility, and the flashNum has already 
+			// reached the flashCount, set the alarm to reset the flash variables
+			if (global.gameTime mod inst.flashRate == 4)
+			&& (inst.flashNum == inst.flashCount) {
+				inst.flashNum = 0;
+				inst.flashRate = -1;
+				inst.flashCount = -1;
+			}
 		}
 	}	else	{
 		// else draw the sprite normally

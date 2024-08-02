@@ -1055,6 +1055,31 @@ function correct_uiAlpha() {
 	&& (uiAlpha > 0.0)	uiAlpha -= 0.05;
 }
 
+///@desc This function returns true if NO sprites are
+/// flashing. It sets a variable to true at the beginning and
+/// only changes it to false if one of the sprites in the spar is
+/// flashing.
+function check_sprites_done_flashing() {
+	// set boolean var to true
+	var doneFlashing = true;
+	
+	var i = 0;	repeat (ds_list_size(spar.spriteList)) {
+		var inst = spar.spriteList[| i];
+		
+		// if flashRate has been set
+		if (inst.flashRate != -1) {
+			// set doneFlashing to false
+			doneFlashing = false;
+			
+			// return doneFlashing
+			return doneFlashing;
+		}
+		
+		i++;
+	}
+	
+	return doneFlashing;
+}
 	
 ///@desc This function accepts an integer 1-8 and returns a string of that number's name.
 /// This is meant specifically for the rest, dodge, and swap processors (hence the casing of the text).

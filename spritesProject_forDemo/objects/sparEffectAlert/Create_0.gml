@@ -50,8 +50,6 @@ effect_alert_build_text();
 
 spar.turnMsg = alertText;
 
-maxFrame = sprite_get_number(animation) - 1;
-
 entireField = false;
 drawingMultiple = false;
 

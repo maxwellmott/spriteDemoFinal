@@ -25,6 +25,5 @@ list of effects
 		-	add spellbook builder and teambuilder to the overworld (just add hotkeys for them for now)
 		-	add descriptions to spellbook builder
 		-	add spellbook menu artwork to the spellbook builder
-		-	add all spell animations and effect animations that he's completed thus far!
-		
-		
+		-	replace hoverMenu stats with symbols and fix positioning
+		-	give player access to all spells in demo

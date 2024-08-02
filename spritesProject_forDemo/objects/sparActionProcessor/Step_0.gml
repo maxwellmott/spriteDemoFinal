@@ -13,7 +13,8 @@ if (state == ACTION_PROCESSOR_STATES.INPUT_PAUSE) {
 	// check if hpmp bars are up to date and
 	// shadeAlpha is at 0
 	if (spar_check_hpmp()) 
-	&& (shadeAlpha <= 0.0) {
+	&& (shadeAlpha <= 0.0) 
+	&& (check_sprites_done_flashing()) {
 		// if select button is clicked, destroy self
 		if (global.select)	instance_destroy(id);	
 	}
@@ -156,7 +157,7 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 		else {
 			spar.turnMsg = activeSprite.name + " didn't have the energy to make a move...";
 			
-			instance_destroy(id);
+			state = ACTION_PROCESSOR_STATES.INPUT_PAUSE;
 		}
 	}
 }

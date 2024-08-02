@@ -145,4 +145,6 @@ dividing = false;
 multiplying = false;
 coefficient = -1;
 
+flashNum = 0;
+flashCount = -1;
 flashRate = -1;

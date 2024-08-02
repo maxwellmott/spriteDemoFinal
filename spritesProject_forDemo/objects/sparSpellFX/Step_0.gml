@@ -1,2 +1,2 @@
-// if animation finishes,				destroy object
-if (spar.image_index >= frameCount)		instance_destroy(id);
+// if animation finishes,							destroy object						set flash rate inside sparActionProcessor
+if (spar.image_index >= spar.image_number - 1)		instance_destroy(id);				with (sparActionProcessor)	flash_rate_set_from_damage();

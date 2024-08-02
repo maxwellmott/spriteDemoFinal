@@ -39,7 +39,7 @@ switch (action) {
 }
 
 // set y
-y = 115;
+y = 118;
 
 // add id to list of action buttons
 sparActionMenu.actionButtons[| action] = id;

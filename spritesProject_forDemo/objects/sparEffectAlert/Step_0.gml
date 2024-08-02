@@ -11,6 +11,7 @@ if (global.select) {
 }
 
 // if animation finishes,				destroy object
-if (spar.image_index >= maxFrame) {
+if (spar.image_index >= spar.image_number - 1) 
+&& (spar.sprite_index == animation) {
 		instance_destroy(id);
 }

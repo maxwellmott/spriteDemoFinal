@@ -54,9 +54,6 @@ spellAnimation = string_digits(list[| spellID]);
 // destroy temp list
 ds_list_destroy(list);
 
-// get frameCount
-frameCount = sprite_get_number(spellAnimation) - 1;
-
 // set animation built-ins for spar object
 spar.sprite_index = spellAnimation;
 spar.image_speed = 1;
