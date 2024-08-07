@@ -54,6 +54,13 @@ switch (state) {
 					state = transitionStates.fadingOut;
 				break;
 				
+				case rm_spellbookBuilder:
+					global.overworld = false;
+					create_once(0, 0, LAYER.meta, spellBookBuilder);
+					create_once(0, 0, LAYER.ui, mouse);
+					state = transitionStates.fadingOut;
+				break;
+				
 				case rm_onlineLobby:
 					global.overworld = false;
 					create_once(0, 0, LAYER.meta, onlineLobby);

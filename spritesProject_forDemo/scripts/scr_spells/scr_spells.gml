@@ -969,7 +969,8 @@ global.allSpells = encode_grid(global.spellGrid);
 
 ///@desc This function is meant to be called by the spellbook whenever there is a new currentSpell.
 function spellbook_load_spell_params() {	
-	// use currentSpell to get all params
+	// use index to get all params
+	currentSpell	= player.spellBookGrid[# SPELL_PARAMS.ID,			index];
 	name			= player.spellBookGrid[# SPELL_PARAMS.NAME,			index];
 	description		= player.spellBookGrid[# SPELL_PARAMS.DESCRIPTION,	index];
 	spellType		= player.spellBookGrid[# SPELL_PARAMS.TYPE,			index];

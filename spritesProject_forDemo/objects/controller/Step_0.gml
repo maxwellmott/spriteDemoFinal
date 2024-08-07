@@ -57,7 +57,7 @@ switch(global.controllerType) {
 			}
 		}
 		
-		global.shiftPressed		=	keyboard_check_direct(vk_shift);
+		global.shiftPressed		=	keyboard_check(vk_shift);
 		global.shiftReleased	=	keyboard_check_released(vk_shift);
 		
 		global.click		=	device_mouse_check_button_released(0, mb_any);

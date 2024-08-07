@@ -157,6 +157,12 @@ if !(onlineWaiting) {
 			client_set_match_ready();	
 			onlineWaiting = true;
 		}
+		else	{
+			player.spellBookString = "";
+			player.spellBookString = encode_list(spellBookList);
+			
+			room_transition(player.x, player.y, player.facing, rm_overworld);
+		}
 	}
 }
 

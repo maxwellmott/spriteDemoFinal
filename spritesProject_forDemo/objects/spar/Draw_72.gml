@@ -1,3 +1,6 @@
+if !(surface_exists(playerBarSurface))		playerBarSurface = surface_create(48, 16);
+if !(surface_exists(enemyBarSurface))		enemyBarSurface = surface_create(48, 16);
+
 #region PLAYER BAR SURFACES
 
 	var barWidth	= sprite_get_width(spr_sparBar) - 2;

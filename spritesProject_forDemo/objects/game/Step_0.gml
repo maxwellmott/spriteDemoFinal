@@ -24,6 +24,6 @@ if (room == rm_gameStart) {
 	create_once(room_width / 2, room_height / 2, LAYER.sprites, splashScreen);
 }
 
-if global.overworld && (keyboard_check_direct(vk_shift)) debugDraw = !debugDraw;
+//if global.overworld && (global.shiftReleased) debugDraw = !debugDraw;
 
 //if !(global.gameTime mod 16)	drawNums = string(fps_real);

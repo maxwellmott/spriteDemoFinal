@@ -58,13 +58,24 @@ if (instance_exists(overworld)) {
 #endregion
 
 // for debugging only
-if (global.start) {
-	global.opponent = npcs.mercurioGallant;
-	spar_begin_ingame();
-}
-
-if (global.overworld) {
-	if (global.back) {
-		room_transition(x, y, facing, rm_onlineLobby);
-	}
+if (global.overworld)	{	
+	if (global.shiftPressed)	{	
+		if (global.start)		{
+			room_transition(x, y, facing, rm_teambuilder);	
+		}
+	
+		if (global.back)		{
+			room_transition(x, y, facing, rm_spellbookBuilder);
+		}
+	}	
+	else	{
+	 	if (global.start)		{
+	 		global.opponent = npcs.mercurioGallant;
+			spar_begin_ingame();
+	 	}
+	 
+	 	if (global.back)		{
+	 		room_transition(x, y, facing, rm_onlineLobby);
+	 	}
+	 }
 }

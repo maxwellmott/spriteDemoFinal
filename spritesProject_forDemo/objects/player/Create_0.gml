@@ -29,7 +29,7 @@ tm_collidables	= -1;
 // initialize time for new game
 seconds = 0;
 minutes = 58;
-hours	= 23;
+hours	= 20;
 day		= 14;
 weekday	= weekdays.famelsun;
 season	= seasons.daysOfBones;
@@ -76,29 +76,24 @@ teamList[| 3] = SPRITES.JOE;
 // for testing purposes only
 teamString = encode_list(teamList);
 
-// for testing purposes only
-var dl = ds_list_create();
+// destroy teamList
+ds_list_destroy(teamList);
 
-ds_list_add(dl,		SPRITES.PONDILE,
-					SPRITES.HACHACHACHA,
-					SPRITES.SPARMATE,
-					SPRITES.FISTICOGS,
-					SPRITES.GEMBO,
-					SPRITES.CLEANSAGE,
-					SPRITES.ARRAYNGE,
-					SPRITES.PLEEP,
-					SPRITES.GLIDRAKE,
-					SPRITES.EXONOLITH,
-					SPRITES.NEEDLEPAW,
-					SPRITES.CHROMOSILOS,
-					SPRITES.DOMINO
-);
+// for testing purposes only
+talismanList = ds_list_create();
+
+var i = 0;	repeat (SPRITES.HEIGHT)	{
+	talismanList[| i] = i;
+
+	i++;	
+}
 
 // initialize talismanString
-talismanString = encode_list(dl);
+talismanString = "";
 
-// initialize talismanList
-talismanList = ds_list_create();
+talismanString = encode_list(talismanList);
+
+ds_list_destroy(talismanString);
 
 // initialize wardrobeString
 wardrobeString = "";
@@ -106,11 +101,22 @@ wardrobeString = "";
 // initialize wardrobeList
 wardrobeList = ds_list_create();
 
+// initialize knownSpells
+knownSpells = ds_list_create();
+
+// for testing purposes only
+var i = 0;	repeat (SPELLS.HEIGHT)	{
+	knownSpells[| i] = i;
+	
+	i++;	
+}
+
 // initialize knownSpellString
 knownSpellString = "";
 
-// initialize knownSpells
-knownSpells = ds_list_create();
+knownSpellString = encode_list(knownSpells);
+
+ds_list_destroy(knownSpells);
 
 // initialize spellBookString
 spellBookString = "";
@@ -130,7 +136,7 @@ spellBook[| 0] = SPELLS.FIREBALL;
 
 spellBookString = encode_list(spellBook);
 
-knownSpellString = encode_list(spellBook);
+ds_list_destroy(spellBook);
 
 // initialize contactString
 contactString = "";

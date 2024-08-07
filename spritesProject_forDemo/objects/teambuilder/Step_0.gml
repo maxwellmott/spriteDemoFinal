@@ -185,10 +185,7 @@ if (selectedNameSlot > rosterHeight - 1)	selectedNameSlot = rosterHeight - 1;
 	if !(instance_exists(onlineEnemy)) {
 		if (global.start) {
 			if (ds_list_size(teamList) == 4)
-			&& (selectedSpriteSlot == -1) {	
-				// set player.teamList
-				player.teamList = teamList;
-				
+			&& (selectedSpriteSlot == -1) {			
 				// set player.teamString
 				player.teamString = "";
 				player.teamString = encode_list(teamList);

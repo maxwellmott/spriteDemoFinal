@@ -431,6 +431,10 @@ function human_build_spellBookGrid() {
 	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
 	decode_grid(global.allSpells, grid);
 
+	// build spellBook list
+	spellBook = ds_list_create();
+	decode_list(spellBookString, spellBook);
+
 	// use a repeat loop to add the info for each spell in spellBook
 	var i = 0;	repeat (SPELLMAX) {
 		// get id
@@ -440,6 +444,15 @@ function human_build_spellBookGrid() {
 		var j = 0;	repeat (SPELL_PARAMS.HEIGHT) {
 			// set proper value
 			spellBookGrid[# j,	i] = grid[# j, spellID];
+			
+			if (j == SPELL_PARAMS.EFFECT)
+			|| (j == SPELL_PARAMS.DODGEABLE)
+			|| (j == SPELL_PARAMS.POWER)
+			|| (j == SPELL_PARAMS.RANGE)
+			|| (j == SPELL_PARAMS.ID)
+			|| (j == SPELL_PARAMS.TYPE)	{
+				spellBookGrid[# j, i] = real(string_digits(spellBookGrid[# j, i]));	
+			}
 			
 			// increment j
 			j++;

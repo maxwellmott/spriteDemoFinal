@@ -235,14 +235,21 @@ function enemyAI_get_params() {
 	// use npcID to get params
 	talismanString	= grid[# npcParams.talismans,	ID];
 	name			= grid[# npcParams.name,		ID];
-	spellString		= grid[# npcParams.spells,		ID];
+	spellBookString	= grid[# npcParams.spells,		ID];
 	
 	// decode talismanString and spellString
 	decode_list(talismanString, roster);
-	decode_list(spellString, spellBook);
 	
 	// delete temporary grid
 	ds_grid_destroy(grid);
+}
+
+// this function is commented out for now. Once I start doing the ingame AI
+// logic, this function will call some pre-written logic for the enemy in question. It will
+// use their chosen team as well as the player's "favorites" to select a list of spells to
+// use during the match.
+function enemyAI_set_spellbook() {
+	
 }
 
 function enemyAI_set_team() {
@@ -655,7 +662,7 @@ function spar_set_target() {
 			var c = swap_get_cost(id, pid);
 			
 			// remove the cost of the previously selected swap from the totalSelectionCost
-			spar.totalSelectionCost -= mpc;
+			spar.totalSelectionCost -= c;
 			
 			// reset all of the values set for the previously selected swap partner
 			with (pid) {

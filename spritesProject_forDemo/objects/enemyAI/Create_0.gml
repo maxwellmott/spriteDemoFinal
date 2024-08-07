@@ -9,6 +9,15 @@ name = "";
 // initialize teamString
 talismanString = "";
 
+// initialize knownSpells
+knownSpells = ds_list_create();
+
+// initialize spellBookString
+spellBookString = "";
+
+// initialize knownSpells string
+knownSpellString = "";
+
 // initialize spellString
 spellString = "";
 

@@ -39,9 +39,12 @@ else {
 playerOne.enemy = playerTwo;
 playerTwo.enemy = playerOne;
 
-// set player's spellBookGrid
+// set player's spellBookGrid and
+// decode their teamList
 with (playerOne) {
 	human_build_spellBookGrid();	
+	teamList = ds_list_create();
+	decode_list(teamString, teamList);
 }
 
 // create all allies and enemies

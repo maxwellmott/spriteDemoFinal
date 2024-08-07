@@ -150,10 +150,10 @@ switch (sparPhase) {
 			break;
 			
 			case PROCESS_PHASES.PRIORITY:
-				// check if HPMP bars are up to date
-				if (spar_check_hpmp()) {
-					// check if all sprites are done flashing
-					if (check_sprites_done_flashing()) {
+				// check if all sprites are done flashing
+				if (check_sprites_done_flashing()) {
+					// check if HPMP bars are up to date
+					if (spar_check_hpmp()) {
 						// check that there are no effectAlerts
 						if (ds_list_size(effectAlertList) == 0) {
 							// check if the actionProcessor is already active
@@ -229,20 +229,20 @@ switch (sparPhase) {
 								}	else	processPhase = PROCESS_PHASES.ATTACK;
 							}
 						}
+					}	else	{
+						spar_correct_hpmp();
 					}
 				}
-				else	{
-					spar_correct_hpmp();	
-				}
+				
 							
 				
 			break;
 			
 			case PROCESS_PHASES.ATTACK:
-				// check that HPMP bars are up to date
-				if (spar_check_hpmp()) {
-					// check that all sprites are done flashing
-					if (check_sprites_done_flashing()) {
+				// check that all sprites are done flashing
+				if (check_sprites_done_flashing()) {
+					// check that HPMP bars are up to date
+					if (spar_check_hpmp()) {
 						// check that there are no sparEffect alerts
 						if (ds_list_size(effectAlertList) == 0) {
 							if !(instance_exists(sparActionProcessor)) {
@@ -323,10 +323,10 @@ switch (sparPhase) {
 								}	else	processPhase = PROCESS_PHASES.END;
 							
 							}
-						}
+						}	
+					}	else	{
+						spar_correct_hpmp();
 					}
-				}	else	{
-					spar_correct_hpmp();	
 				}
 				
 			break;

@@ -35,15 +35,3 @@
 		-(ONLINE) no server log
 
 				---UNBALANCED---
-				
-				
-				
-			7/31 Note	
-				
-		Still some bugs with the flashing MP bar. I need to figure out a way to clearly communicate
-		how much total MP will be lost at the end of the turn. The whole thing stopbs being drawn if
-		a sprite selects to rest.
-		
-		Lady Solanu's grace still doesn't work also. You have to damage your teammates a bit to test it.
-		
-		KEEP WORKING THROUGH SOLANUS
