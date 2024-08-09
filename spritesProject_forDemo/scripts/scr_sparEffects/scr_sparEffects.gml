@@ -276,7 +276,7 @@ enum SPAR_EFFECTS {
 	FORCE_WORST_LUCK_TEAM,
 	FORCE_BEST_LUCK_GLOBAL,
 	FORCE_WORST_LUCK_GLOBAL,
-	SET_HAIL_MARY,
+	SET_HAIL_SPHERA,
 	BERSERK_IGNORE_HEXED,
 	BERSERK_IGNORE_BOUND,
 	INVULNERABLE_IGNORE_STATUS,
@@ -2985,7 +2985,7 @@ function energy_blast_self(_targetPlayer, _damage) {
 }
 
 ///@desc SPAR EFFECT: sets hail mary as true for the target player
-function set_hail_mary(_targetPlayer) {
+function set_hail_sphera(_targetPlayer) {
 	var t = _targetPlayer;
 	
 	effectedPlayer = t;

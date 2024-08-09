@@ -1132,3 +1132,13 @@ function get_current_stat() {
 function get_current_stat_elemental() {
 	return -1;
 }
+
+function spar_check_complete() {
+	if (playerOne.currentHP <= 0)
+	|| (playerTwo.currentHP <= 0) {
+		return true;	
+	}
+	else	{
+		return false;	
+	}
+}

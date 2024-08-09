@@ -17,7 +17,7 @@ if (displayingSpellSelector) {
 	// draw spellInfo
 	draw_sprite(spr_spellInfoBanner, 0, infoBannerX, infoBannerY);
 	
-	draw_text(infoBannerX, infoBannerY, spellInfoString);
+	draw_text(infoBannerX, infoBannerY + 1.5, spellInfoString);
 	
 	// draw addSpellButton
 	draw_sprite(spr_addSpellButton, addButtonFrame, addSpellButtonX, addSpellButtonY);

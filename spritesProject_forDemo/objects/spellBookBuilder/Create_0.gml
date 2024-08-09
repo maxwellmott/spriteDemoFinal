@@ -63,8 +63,6 @@ squareBarY = 75;
 infoBannerX = 64;
 infoBannerY = 154;
 
-spellInfoString = "";
-
 rightArrowFrame = 0;
 leftArrowFrame = 0;
 
@@ -80,6 +78,10 @@ changingSpell = false;
 currentSpellIndex = 0;
 
 currentSpellID = knownSpellList[| currentSpellIndex];
+
+infoBannerWidth = sprite_get_width(spr_spellInfoBanner);
+
+spellInfoString = format_text(spellGrid[# SPELL_PARAMS.DESCRIPTION, currentSpellID], infoBannerWidth, 6, 1);
 
 // initialize displayingSpellSelector
 addButtonFrame = 0;

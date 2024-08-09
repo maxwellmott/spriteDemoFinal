@@ -2,73 +2,74 @@ Placeholder ,Solar Flare,A legendary FIRE spell that grants all enemies CURSE OF
 Placeholder ,Tidal Force,A legendary WATER spell that forces the target's team to SWAP,LORE
 Placeholder ,Nebula Storm,A legendary STORM spell that HEXES all enemies,LORE
 Placeholder ,Tectonic Shift,A legendary EARTH spell that BINDS all enemies,LORE
-Placeholder ,Fireball,A standard yet powerful FIRE spell,LORE
+Placeholder ,Fireball,A standard FIRE spell with no additional effect,LORE
 Placeholder ,Holy Water,A standard WATER spell that HEALS the caster,LORE
 Placeholder ,Shock,A standard STORM spell that BINDS the target,LORE
 Placeholder ,Decay,A standard EARTH spell that DRAINS HEALTH from the target,LORE
-Placeholder ,Expel Force,A standard yet powerful PHYSICAL spell,LORE
+Placeholder ,Expel Force,A standard PHYSICAL spell with no additional effect,LORE
 Placeholder ,Lady Solanu's Grace,A standard TRICK spell that HEALS the caster's team and grants allies BLESSING OF THE TREE,LORE
 Placeholder ,Typhoon,A standard STORM spell that grants target CURSE OF THE TREE,LORE
 Placeholder ,Healing Light,A standard TRICK spell that HEALS the caster and makes them INVULNERABLE,LORE
-Placeholder ,Rubur's Water Cannon,This spell projects a destructive blast of water energy. ,LORE
-Placeholder ,Rubur's Grapple,The caster of this spell will use their physical form to totally apprehend the target. The target will become bound.,LORE
-Placeholder ,Lusia's Harvest Spell,This spell uses pure earth energy to generate abundant flora and cause it to grow rapidly. The arena will change to a forest.,LORE
-Placeholder ,Waterlog,This spell will cause the target to become weighed down by water energy. This will grant the target the Curse of the Tree and cannot be dodged.,LORE
-Placeholder ,Air Pressure,This spell crushes the enemy with the intense weight of the sky. All nearby enemies will be granted the Curse of the Tree.,LORE
-Placeholder ,Superbloom ,This spell will cause earth energy to sprout from all the negativity plaguing the arena. All curses and hindrances will be removed.,LORE
-Placeholder ,Rapid Strike,The caster of this spell will use magic energy to launch their apparition toward the target. This gives the caster a high chance of attacking first.,LORE
-Placeholder ,Looming Danger,The caster of this spell foretells of a terrible fate. A powerful energy blast will befall the target's team after 3 turns.,LORE
-Placeholder ,Intercept,"The caster of this spell will project their apparition before the target, causing them to take any spells or attacks in their target's stead.",LORE
-Placeholder ,Steam Bath,This spell releases a warm blanket of water energy that calms the caster's team. All allies' curses will turn into blessings.,LORE
-Placeholder ,Undertow,The caster of this spell attacks the target from behind with a rush of water energy. This grants the target the Curse of the Imp.,LORE
-Placeholder ,Empathize,This spell allows the caster to fully understand the target's perspective for a moment. The caster will adopt the target's mindset.,LORE
-Placeholder ,Hellfire,This spell releases a shadowy flame from beneath the target. All of the target's nearby allies will become hexed.,LORE
-Placeholder ,Ball Lightning,"The caster of this spell will wait until the end of the turn to attack. Until then, any storm spells will be drawn to the caster and add to the power of the spell.",LORE
-Placeholder ,Quicksand,This spell causes the earth beneath the target to soften and begin to absorb their apparition. This causes the target to be bound.,LORE
-Placeholder ,Lord Mogradth's Rage,The caster of this spell will embody pure evil and cover the target with a blanket of negativity. The target and all their nearby allies will become hexed and bound.,LORE
-Placeholder ,Drain Lifeforce,The caster of this spell will latch onto the target and begin to siphon their energy. Energy depleted by this spell will be used to restore the caster's team.,LORE
-Placeholder ,Pyrokinesis,The caster of this spell will connect with the target telepathically and flood the channel with destructive energy. The caster will take a fraction of the damage.,LORE
-Placeholder ,Downpour,This spell causes water energy to cascade down on the arena. This summons the effect of rust on the target's side of the field.,LORE
-Placeholder ,Arc Blast,This spell sends a powerful burst of storm energy from the caster to the target. This grants the target the Curse of the Imp and it cannot be dodged.,LORE
-Placeholder ,Hikam's Winter Spell,"This spell uses the forest's bounty to bolster their team's defenses. It fails unless the arena is forest. This resets the arena, fully restores the caster's MP and HP, and grants the Blessing of the Tree to all of the caster's allies.",LORE
-Placeholder ,Osmosis,The caster of this spell absorbs energy by siphoning the target's water essence. This will restore the caster's team's HP.,LORE
-Placeholder ,Flash Freeze,This spell causes the target to suddenly freeze over. This causes the target to become bound and cannot be dodged.,LORE
-Placeholder ,Landslide,This spell causes the earth beneath the target to quake and split apart. This resets the arena and grants the Curse of the Warrior to the target and their nearby allies.,LORE
-Placeholder ,Amand's Energy Blast,The caster of this spell generates an Energy Blast within the target's space. The power of the blast is relative to the caster's luck for the turn.,LORE
-Placeholder ,Shift Perspective,The caster of this spell searches the target's consciousness for any frays and uses that weak point to flip their mindset.,LORE
-Placeholder ,Psychic Impact,"The caster of this spell searches the target for a weak point, then delivers an attack that exploits that weak point.",LORE
-Placeholder ,Tremor,This spell causes the entire arena to quake until the ground beneath the target completely breaks open.,LORE
-Placeholder ,Skydive,"This spell allows the caster to become totally invulnerable. At the end of the turn, the caster then takes the chance to deliver a high speed attack to the target.",LORE
-Placeholder ,Destructive Blow,The caster of this spell delivers an attack to the target that is imbued with energy that is dedicated to shattering material structures. This attack is more effective against mechanical sprites.,LORE
-Placeholder ,Purifying Flame,The caster of this spell summons a flame designed to banish spirits. This is more effective against astral sprites.,LORE
-Placeholder ,Jabul's Fight Song,The caster of this spell sings a magical song that stokes the spirits of their nearby allies. This restores some of their teams HP and grants the Blessing of the Warrior to the caster and all nearby allies.,LORE
-Placeholder ,Noxious Fumes,This spell produces a powerful flame with a toxic smoke. This summons miasma on the target's side of the field.,LORE
-Placeholder ,Crecia's Crystal Spikes,This spell summons magical crystals from the beneath the target. This causes the target to become hexed.,LORE
-Placeholder ,Psychic Fissure,The caster of this spell attacks the target's weak spot with a destructive blast. The caster takes half of the damage done to the target.,LORE
-Placeholder ,Rearrange,This spell creates a confusing energy about the enemy's side of the field. The opposing sprites have their positions randomly swapped.,LORE
-Placeholder ,Sneak Attack,"The caster of this spell attempts to dodge any spells or attacks targeting them this turn. If they are successful in dodging, they deliver a powerful attack to their target at the end of the turn.",LORE
-Placeholder ,Deflective Shield,This spell generates a magical field around the caster which will deflect any spells back to their caster.,LORE
-Placeholder ,Dion's Parry,"The caster of this spell waits to be targeted by an attack. Once they are attacked, the spell is cast. This ignores any damage done to the caster and halves the target's resistance when retaliating.",LORE
-Placeholder ,Dion's Gambling Blast,The caster of this spell generates an Energy Blast of random power against either the caster's team or the enemy team. The power of the blast is completely random.,LORE
-Placeholder ,Dion's Barter Trick,The caster of this spell trades a quarter of their team's current HP for half of the enemy's current MP.,LORE
-Placeholder ,Magnetic Pulse,This spell produces a powerful blast of pure storm energy. The electromagnetic waves produced by the spell will summon hum on the target's side of the field.,LORE
-Placeholder ,Burn Out,The caster of this spell puts all of their fire energy into one powerful attack. This leaves the target imbued with the Curse of the Mother.,LORE
-Placeholder ,Stinkbomb,The caster of this spell emits an explosion of earth energy. This volatile mixture of natural essences will summon miasma on both sides of the field.,LORE
-Placeholder ,Wind Slice,The caster of this spell hurls a razor-sharp blast of air toward the target. This causes the target to be imbued with the Curse of the Imp.,LORE
-Placeholder ,Channel Essence,This spell spreads the pure essence of the caster around the field. This causes the arena to reflect the caster's elemental bias.,LORE
-Placeholder ,Sphera's Curse,This spell summons an ancient hatred buried within the planet. This causes the arena to exploit the target's elemental bias.,LORE
-Placeholder ,Crecia's Crystal Wind,The caster of this spell creates a mist of small magical crystals and hurls it at the target. This hexes the target and their nearby allies.,LORE
-Placeholder ,Lava Spire,This spell unleashes a tower of magma from beneath the target. This causes the arena to change to a volcano.,LORE
-Placeholder ,Endless River,This spell unleashes a rush of water from beneath the target. This causes the arena to become an ocean.,LORE
-Placeholder ,Cloud Break,This spell creates a burst of wind so powerful that it causes the sky above the target to break open. This changes the arena to the stratosphere.,LORE
-Placeholder ,Telekinetic Blast,The caster of this spell unleashes a powerful mental attack on the target. This causes the target to become hexed.,LORE
-Placeholder ,Destabilizing Blow,The caster of this spell shatters the constitution of the target. This causes the target to become imbued with the Curse of the Imp.,LORE
-Placeholder ,Full Thrust,"The caster of this spell uses all of their power to attack the target, throwing the caster completely off balance. This causes the caster to become bound.",LORE
-Placeholder,Volcanic Eruption,"This spell uses the destructive volcano to attack the enemy team and shatter their defenses. It fails unless the arena is volcano. This resets the arena, summons miasma on the target's side of the field, and grants all enemy sprites the Curse of the Mother.",LORE
-Placeholder ,Broadcast Data,The caster of this spell uses magical channels to distribute information to their allies to help create an advantage. This causes all allies to have perfect luck for the rest of the turn.,LORE
-Placeholder ,Collapse Space,This spell creates a crushing weight as it folds space itself. This resets the arena and causes all enemy sprites to become bound.,LORE
-Placeholder ,Expand Time,The caster of this spell compresses the temporal dimension in an attempt to give their team an advantage. This causes all enemy sprites to have the worst possible luck until the end of the turn.,LORE
-Placeholder,Sphera's Demise,This spell fills the field with the stench of death as it eradicates the essence of nature. This resets the arena and causes all enemy sprites to become hexed.,LORE
-Placeholder,Time Loop,The caster of this spell sends the target's mind back to its state from the prior turn. The target is forced to repeat their actions from the last turn.,LORE
-Placeholder,Eradicate,The caster of this spell produces a supermassive gravity at the beginning of the turn. This anomaly absorbs any spells cast during the turn before imploding and unleashing an Energy Blast with power relative to the amount of spells it absorbed.,LORE
-,,,LORE
+Placeholder ,Rubur's Water Cannon,A powerful WATER spell with no additional effect,LORE
+Placeholder ,Rubur's Grapple,A standard PHYSICAL spell that BINDS the target,LORE
+Placeholder ,Lusia's Harvest Spell,A powerful EARTH spell that changes the arena to FOREST,LORE
+Placeholder ,Waterlog,A standard WATER spell that grants the target the CURSE OF THE TREE,LORE
+Placeholder ,Air Pressure,A skillful STORM spell that grants the target and nearby allies the CURSE OF THE TREE,LORE
+Placeholder ,Superbloom ,A skillful EARTH spell that removes all CURSES and HINDRANCES from the caster's side of the field,LORE
+Placeholder ,Rapid Strike,A skillful PHYSICAL spell that usually attacks first,LORE
+Placeholder ,Looming Danger,A skillful TRICK spell that summons an ENERGY BLAST against the target's team after 2 turns,LORE
+Placeholder ,Intercept,A skillful TRICK spell by which the caster takes the target's place for the turn,LORE
+Placeholder ,Steam Bath,A skillful WATER spell that removes all HINDRANCES for the caster and sets RUST for the target,LORE
+Placeholder ,Undertow,A powerful WATER spell that grants the target the CURSE OF THE IMP,LORE
+Placeholder ,Empathize,A skillful TRICK spell that copies the target's MINDSET,LORE
+Placeholder ,Hellfire,A dark FIRE spell that HEXES the caster and all sprites on the target's team,LORE
+Placeholder ,Ball Lightning,A powerful STORM spell that steals the power of other STORM spells,LORE
+Placeholder ,Quicksand,A dark EARTH spell that BINDS the target,LORE
+Placeholder ,Lord Mogradth's Rage,A dark TRICK spell that HEXES and BINDS all enemies,LORE
+Placeholder ,Drain Lifeforce,A dark PHYSICAL spell that DRAINS HEALTH from THE TARGET,LORE
+Placeholder ,Pyrokinesis,A powerful FIRE spell that deals  a fraction of damage to the caster,LORE
+Placeholder ,Downpour,A powerful WATER spell that creates RUST on the target's side of the field,LORE
+Placeholder ,Arc Blast,A dark STORM spell that grants the target the CURSE OF THE IMP,LORE
+Placeholder ,Hikam's Winter Spell,A historic EARTH spell that destroys the FOREST to buff the caster's team,LORE
+Placeholder ,Osmosis,A dark WATER spell that copies the target's MINDSET and DRAINS their HEALTH,LORE
+Placeholder ,Flash Freeze,A specialized WATER spell that BINDS the target,LORE
+Placeholder ,Landslide,A specialized EARTH spell that RESETS the ARENA,LORE
+Placeholder ,Amand's Energy Blast,A historic TRICK spell that hits the target with an ENERGY BLAST,LORE
+Placeholder ,Shift Perspective,A specialized TRICK spell that SHIFTS the target's MINDSET,LORE
+Placeholder ,Psychic Impact,A powerful TRICK spell that attacks the target's weak spot,LORE
+Placeholder ,Tremor,A powerful EARTH spell that RESETS the ARENA and deals a fraction of damage to the caster,LORE
+Placeholder ,Skydive,A specialized PHYSICAL spell wherein the caster flies above the field until their attack at the end of the turn,LORE
+Placeholder ,Destructive Blow,A dark PHYSICAL spell that deals extra damage when changing MECHANICAL sprites to NATURAL,LORE
+Placeholder ,Purifying Flame,A specialized FIRE spell that deals extra damage when changing ASTRAL sprites to NATURAL,LORE
+Placeholder ,Jabul's Fight Song,A historic TRICK spell that HEALS the caster's team and drives all nearby sprites BERSERK,LORE
+Placeholder ,Noxious Fumes,A standard FIRE spell that creates MIASMA on the target's side of the field,LORE
+Placeholder ,Crecia's Crystal Spikes,A historic EARTH spell that HEXES the target,LORE
+Placeholder ,Psychic Fissure,A notorious TRICK spell that deals heavy psychic damage to the target and caster,LORE
+Placeholder ,Rearrange,A notorious TRICK spell that forces all the target's allies to SWAP,LORE
+Placeholder ,Sneak Attack,"A notorious PHYSICAL spell wherein the caster DODGES, and finally attacks if undamaged",LORE
+Placeholder ,Deflective Shield,A specialized TRICK spell that DEFLECTS spells back at their caster,LORE
+Placeholder ,Dion's Parry,A notorious PHYSICAL spell wherein the caster deals a heavy blow if attacked,LORE
+Placeholder ,Dion's Gambling Blast,A historic TRICK spell that creates an ENERGY BLAST with random power and target,LORE
+Placeholder ,Dion's Barter Trick,A notorious TRICK spell that trades HEALTH with the target,LORE
+Placeholder ,Magnetic Pulse,A notorious STORM spell that creates HUM on the target's side of the field,LORE
+Placeholder ,Burn Out,A dangerous FIRE spell that grants the caster the CURSE OF THE MOTHER,LORE
+Placeholder ,Stinkbomb,A notorious EARTH spell that creates MIASMA on both sides of the field,LORE
+Placeholder ,Wind Slice,A dangerous STORM spell that grants the target the CURSE OF THE IMP,LORE
+Placeholder ,Channel Essence,A resourceful TRICK spell that makes the ARENA suit the caster,LORE
+Placeholder ,Sphera's Curse,A resourceful TRICK spell that makes the ARENA exploit the target's weakness,LORE
+Placeholder ,Crecia's Crystal Wind,A notorious EARTH spell that HEXES the target and all their nearby allies,LORE
+Placeholder ,Lava Spire,A resourceful FIRE spell that changes the ARENA to VOLCANO,LORE
+Placeholder ,Endless River,A resourceful WATER spell that changes the ARENA to OCEAN,LORE
+Placeholder ,Cloud Break,A resourceful STORM spell that changes the ARENA to SKY,LORE
+Placeholder ,Telekinetic Blast,A masterful PHYSICAL spell that HEXES the target,LORE
+Placeholder ,Knock Over,A notorious PHYSICAL spell that grants the target the CURSE OF THE IMP,LORE
+Placeholder ,Full Thrust,A dangerous PHYSICAL spell that BINDS the caster,LORE
+Placeholder,Volcanic Eruption,A powerful FIRE spell that destroys the VOLCANO and creates MIASMA on the target's side of the field,LORE
+Placeholder ,Broadcast Data,A transcendent TRICK spell that blesses all allies with perfect luck,LORE
+Placeholder ,Collapse Space,A transcendent TRICK spell that DESTROYS the ARENA and HEXES all enemies,LORE
+Placeholder ,Expand Time,A transcendent TRICK spell that curses all enemies with horrible luck,LORE
+Placeholder,Sphera's Demise,A transcendent TRICK spell that DESTROYS the ARENA and BINDS all enemies,LORE
+Placeholder,Time Loop,A cosmic TRICK spell that forces the enemy to repeat this turn,LORE
+Placeholder,Eradicate,A cosmic TRICK spell that absorbs powerful from other spells,LORE
+Placeholder,Dark Deal,A despicable TRICK spell that sets both teams' MAGIC to 0,LORE
+Placeholder,Hail Sphera,A glorious TRICK spell that puts everything on the next turn,

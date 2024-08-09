@@ -58,7 +58,8 @@ if (instance_exists(overworld)) {
 #endregion
 
 // for debugging only
-if (global.overworld)	{	
+if (global.overworld)	
+&& !(instance_exists(menu)) {	
 	if (global.shiftPressed)	{	
 		if (global.start)		{
 			room_transition(x, y, facing, rm_teambuilder);	

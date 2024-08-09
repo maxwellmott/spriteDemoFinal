@@ -212,6 +212,57 @@ function get_physical_damage(_atkr, _targ, _spellPower) {
 	return damage;
 }
 	
-function get_psychic_damage(_atkStat, _resStat, _power) {
-	// physical damage but use their best and worst stat respectively	
+function get_psychic_damage(_atkr, _targ, _power) {
+	// store args in locals	
+	var atkr = _atkr;
+	var targ = _targ;
+	var powr = _power;
+	
+	var atkStat = atkr.currentPower;
+	var resStat = targ.currentPower;
+	
+	// deduce optimum stats
+	var i = 0;	repeat (5) {
+		switch (i) {
+			case 0:
+				if (atkr.currentResist > atkStat)	atkStat = atkr.currentResist;
+				if (targ.currentResist < resStat)	resStat = targ.currentResist;
+			break;
+			
+			case 1:
+				if (atkr.currentFire > atkStat)		atkStat = atkr.currentFire;
+				if (targ.currentFire < resStat)		resStat = targ.currentFire;
+			break;
+			
+			case 2:
+				if (atkr.currentWater > atkStat)	atkStat = atkr.currentWater;
+				if (targ.currentWater < resStat)	resStat = targ.currentWater;
+			break;
+			
+			case 3:
+				if (atkr.currentStorm > atkStat)	atkStat = atkr.currentStorm;
+				if (targ.currentStorm < resStat)	resStat = targ.currentStorm;
+			break;
+			
+			case 4:
+				if (atkr.currentEarth > atkStat)	atkStat = atkr.currentEarth;
+				if (targ.currentEarth < resStat)	resStat = targ.currentEarth;
+			break;
+		}
+	
+		i++;
+	}
+	
+	// check luckRolls
+	var atkrLuck = atkr.luckRoll;
+	var targLuck = targ.luckRoll;
+	
+	// get the ratio that determines the output
+	var damageRatio = (atkStat * atkrLuck) / (resStat * targLuck);
+	
+	// calculate damage
+	var d = sp * damageRatio = powr * damageRatio;
+	
+	// return damage
+	return d;
 }

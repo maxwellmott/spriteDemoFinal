@@ -85,6 +85,8 @@ enum SPELLS {
 	SPHERAS_DEMISE,
 	TIME_LOOP,
 	ERADICATE,
+	DARK_DEAL,
+	HAIL_SPHERA,
 	HEIGHT
 }
 	
@@ -580,6 +582,7 @@ function purifying_flame() {
 function jabuls_fight_song() {
 	var c = activeSprite;
 	
+	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, c);
 	spar_effect_push_alert(SPAR_EFFECTS.SET_BERSERK_NEARBY_SPRITES, c);
 }
 
@@ -664,7 +667,7 @@ function dions_gambling_blast() {
 	}
 }
 
-///@desc SPELL FUNCTION: trades half of the caster's current HP for a quarter of the target's current HP
+///@desc SPELL FUNCTION: gives half caster's current HP to target team, then takes a third of target's current HP
 function dions_barter_trick() {
 	// trade half of the caster's current HP for a third of the enemy's current HP
 	
@@ -877,11 +880,11 @@ function dark_deal() {
 
 /// SPELL FUNCTION: sets user team's HP to 1, ends the turn. Sets a variable indicating
 /// that the whole team should become invulnerable at the beginning of the next turn
-function hail_mary() {
+function hail_sphera() {
 	var c = activeSprite.team;
 	
 	spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, c.currentHP);
-	spar_effect_push_alert(SPAR_EFFECTS.SET_HAIL_MARY, c);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HAIL_SPHERA, c);
 	spar_effect_push_alert(SPAR_EFFECTS.FORCE_TURN_END);
 }
 
@@ -960,7 +963,8 @@ master_grid_add_spell(		SPELLS.EXPAND_TIME,				textGrid[# 1, SPELLS.EXPAND_TIME]
 master_grid_add_spell(		SPELLS.SPHERAS_DEMISE,			textGrid[# 1, SPELLS.SPHERAS_DEMISE],			textGrid[# 2, SPELLS.SPHERAS_DEMISE],			textGrid[# 3, SPELLS.SPHERAS_DEMISE],			SPELL_TYPES.TRICK,		0,		60,		ranges.onlySelf,			spheras_demise,			false);
 master_grid_add_spell(		SPELLS.TIME_LOOP,				textGrid[# 1, SPELLS.TIME_LOOP],				textGrid[# 2, SPELLS.TIME_LOOP],				textGrid[# 3, SPELLS.TIME_LOOP],				SPELL_TYPES.TRICK,		0,		50,		ranges.anySprite,			time_loop,				false);
 master_grid_add_spell(		SPELLS.ERADICATE,				textGrid[# 1, SPELLS.ERADICATE],				textGrid[# 2, SPELLS.ERADICATE],				textGrid[# 3, SPELLS.ERADICATE],				SPELL_TYPES.TRICK,		0,		65,		ranges.onlySelf,			eradicate,				false);
-
+master_grid_add_spell(		SPELLS.DARK_DEAL,				textGrid[# 1, SPELLS.DARK_DEAL],				textGrid[# 2, SPELLS.DARK_DEAL],				textGrid[# 3, SPELLS.DARK_DEAL],				SPELL_TYPES.TRICK,		0,		1,		ranges.onlySelf,			dark_deal,				false);
+master_grid_add_spell(		SPELLS.HAIL_SPHERA,				textGrid[# 1, SPELLS.HAIL_SPHERA],				textGrid[# 2, SPELLS.HAIL_SPHERA],				textGrid[# 3, SPELLS.HAIL_SPHERA],				SPELL_TYPES.TRICK,		0,		60,		ranges.onlySelf,			hail_sphera,			false);			
 // encode spell grid
 global.allSpells = encode_grid(global.spellGrid);
 

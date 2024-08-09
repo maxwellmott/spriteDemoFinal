@@ -76,6 +76,7 @@ if !(onlineWaiting) {
 		// reset currentSpellID and currentSpellName
 		currentSpellID = knownSpellList[| currentSpellIndex];
 		currentSpellName = spellGrid[# SPELL_PARAMS.NAME, currentSpellID];
+		spellInfoString = format_text(spellGrid[# SPELL_PARAMS.DESCRIPTION, currentSpellID], infoBannerWidth, 5.5, 1);
 	
 	}
 	

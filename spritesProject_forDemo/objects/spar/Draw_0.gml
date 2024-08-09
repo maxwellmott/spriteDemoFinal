@@ -321,7 +321,6 @@ draw_set_alpha(1.0);
 			if (global.shiftPressed) {
 				draw_set_font(plainFont);
 				draw_set_halign(fa_center);
-				draw_set_valign(fa_bottom);
 				draw_set_color(COL_WHITE);
 				
 				var hs = global.hoverSprite;
@@ -333,29 +332,33 @@ draw_set_alpha(1.0);
 				draw_sprite(spr_sparHoverMenuNameplate, 0, hoverMenu_nameplateX, hoverMenu_nameplateY);
 				
 				// draw name
-				draw_text_pixel_perfect(hoverMenu_nameplateX, hoverMenu_nameplateY, hs.name, 1);
+				draw_text_pixel_perfect(hoverMenu_nameplateX, hoverMenu_nameplateY + 3.5, hs.name, 1);
 				
 				draw_set_color(COL_BLACK);
 				
 				draw_set_halign(fa_left);
+				draw_set_valign(fa_middle);
 				
 				// draw alignment and size
-				draw_text_pixel_perfect(hoverMenu_alignmentX,	hoverMenu_alignmentY,	"TYPE   " + sprite_get_size_string(hs.currentAlign), 1);
-				draw_text_pixel_perfect(hoverMenu_sizeX,			hoverMenu_sizeY,		"SIZE   " + sprite_get_size_string(hs.currentSize), 1);
+				draw_text_pixel_perfect(hoverMenu_alignmentX,	hoverMenu_alignmentY + 3,	"TYPE   " + sprite_get_size_string(hs.currentAlign), 1);
+				draw_text_pixel_perfect(hoverMenu_sizeX,			hoverMenu_sizeY + 4,	"SIZE   " + sprite_get_size_string(hs.currentSize), 1);
 				
 				draw_set_halign(fa_center);
 				
 				#region DRAW POWER
 				
+					// draw indicator plate
+					draw_sprite(spr_indicatorPlate, 0, hoverMenu_columnOneX, hoverMenu_rowOneY);
+				
 					// draw label
-					draw_text_pixel_perfect(hoverMenu_columnOneX,		hoverMenu_rowOneY,		"POWER", 1);
+					draw_sprite(spr_statIndicator, 4, hoverMenu_columnOneX, hoverMenu_rowOneY);
 					
 					// check if the stat has been changed at all
 					if (hs.currentPower < hs.basePower) draw_set_color(c_red);
 					if (hs.currentPower > hs.basePower) draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnOneX,		hoverMenu_rowTwoY,		string(hs.currentPower), 1);
+					draw_text_pixel_perfect(hoverMenu_columnOneX + 12,		hoverMenu_rowTwoY + 0.5,		string(hs.currentPower), 1);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -364,15 +367,18 @@ draw_set_alpha(1.0);
 				
 				#region DRAW RESISTANCE
 				
+					// draw indicator plate
+					draw_sprite(spr_indicatorPlate, 0, hoverMenu_columnOneX, hoverMenu_rowThreeY);
+				
 					// draw label
-					draw_text_pixel_perfect(hoverMenu_columnOneX,		hoverMenu_rowThreeY,	"RESIST", 1);
+					draw_sprite(spr_statIndicator, 5, hoverMenu_columnOneX, hoverMenu_rowThreeY);
 					
 					// check if the stat has been changed at all
 					if (hs.currentResist < hs.baseResist)	draw_set_color(c_red);
 					if (hs.currentResist > hs.baseResist)	draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnOneX,		hoverMenu_rowFourY,		string(hs.currentResist), 1);
+					draw_text_pixel_perfect(hoverMenu_columnOneX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentResist), 1);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -381,15 +387,18 @@ draw_set_alpha(1.0);
 				
 				#region DRAW AGILITY
 				
+					// draw indicator plate
+					draw_sprite(spr_indicatorPlate, 0, hoverMenu_columnTwoX, hoverMenu_rowOneY);
+				
 					// draw label
-					draw_text_pixel_perfect(hoverMenu_columnTwoX,			hoverMenu_rowOneY,		"AGILITY", 1);
+					draw_sprite(spr_statIndicator, 6, hoverMenu_columnTwoX, hoverMenu_rowOneY);
 					
 					// check if the stat has been changed at all
 					if (hs.currentAgility < hs.baseAgility)	draw_set_color(c_red);
 					if (hs.currentAgility > hs.baseAgility)	draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnTwoX,		hoverMenu_rowTwoY,		string(hs.currentAgility), 1);
+					draw_text_pixel_perfect(hoverMenu_columnTwoX + 12,		hoverMenu_rowTwoY + 0.5,		string(hs.currentAgility), 1);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -398,15 +407,18 @@ draw_set_alpha(1.0);
 				
 				#region DRAW LUCK
 				
+					// draw indicator plate
+					draw_sprite(spr_indicatorPlate, 0, hoverMenu_columnTwoX, hoverMenu_rowThreeY);
+				
 					// draw label
-					draw_text_pixel_perfect(hoverMenu_columnTwoX,		hoverMenu_rowThreeY,	"LUCK", 1);
+					draw_sprite(spr_statIndicator, 7, hoverMenu_columnTwoX, hoverMenu_rowThreeY);
 					
 					// check if the stat has been changed at all
 					if (hs.currentLuck < hs.baseLuck)		draw_set_color(c_red);
 					if (hs.currentLuck > hs.baseLuck)		draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnTwoX,		hoverMenu_rowFourY,		string(hs.currentLuck), 1);
+					draw_text_pixel_perfect(hoverMenu_columnTwoX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentLuck), 1);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -415,15 +427,18 @@ draw_set_alpha(1.0);
 				
 				#region DRAW FIRE
 				
+					// draw indicator plate
+					draw_sprite(spr_indicatorPlate, 0, hoverMenu_columnThreeX, hoverMenu_rowOneY);
+				
 					// draw label
-					draw_text_pixel_perfect(hoverMenu_columnThreeX,		hoverMenu_rowOneY,		"FIRE", 1);
+					draw_sprite(spr_statIndicator, 0, hoverMenu_columnThreeX, hoverMenu_rowOneY);
 					
 					// check if the stat has been changed at all
 					if (hs.currentFire < hs.baseFire)		draw_set_color(c_red);
 					if (hs.currentFire > hs.baseFire)		draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnThreeX,		hoverMenu_rowTwoY,		string(hs.currentFire), 1);
+					draw_text_pixel_perfect(hoverMenu_columnThreeX + 12,		hoverMenu_rowTwoY + 0.5,		string(hs.currentFire), 1);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -432,15 +447,18 @@ draw_set_alpha(1.0);
 				
 				#region DRAW WATER
 				
+					// draw indicator plate
+					draw_sprite(spr_indicatorPlate, 0, hoverMenu_columnThreeX, hoverMenu_rowThreeY);
+				
 					// draw label
-					draw_text_pixel_perfect(hoverMenu_columnThreeX,		hoverMenu_rowThreeY,	"WATER", 1);
+					draw_sprite(spr_statIndicator, 1, hoverMenu_columnThreeX, hoverMenu_rowThreeY);
 					
 					// check if the stat has been changed at all
 					if (hs.currentWater < hs.baseWater)		draw_set_color(c_red);
 					if (hs.currentWater > hs.baseWater)		draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnThreeX,		hoverMenu_rowFourY,		string(hs.currentWater), 1);
+					draw_text_pixel_perfect(hoverMenu_columnThreeX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentWater), 1);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -448,16 +466,19 @@ draw_set_alpha(1.0);
 				#endregion
 				
 				#region DRAW STORM
+				
+					// draw indicator plate
+					draw_sprite(spr_indicatorPlate, 0, hoverMenu_columnFourX, hoverMenu_rowOneY);
 
 					// draw the label
-					draw_text_pixel_perfect(hoverMenu_columnFourX,		hoverMenu_rowOneY,		"STORM", 1);
+					draw_sprite(spr_statIndicator, 2, hoverMenu_columnFourX, hoverMenu_rowOneY);
 					
 					// check if the stat has been changed at all
 					if (hs.currentStorm < hs.baseStorm)		draw_set_color(c_red);
 					if (hs.currentStorm > hs.baseStorm)		draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnFourX,		hoverMenu_rowTwoY,		string(hs.currentStorm), 1);
+					draw_text_pixel_perfect(hoverMenu_columnFourX + 12,		hoverMenu_rowTwoY + 0.5,		string(hs.currentStorm), 1);
 					
 					// reset the color to black
 					draw_set_color(COL_BLACK);
@@ -466,15 +487,18 @@ draw_set_alpha(1.0);
 				
 				#region DRAW EARTH
 				
+					// draw indicator plate
+					draw_sprite(spr_indicatorPlate, 0, hoverMenu_columnFourX, hoverMenu_rowThreeY);
+				
 					// draw label
-					draw_text_pixel_perfect(hoverMenu_columnFourX,		hoverMenu_rowThreeY,	"EARTH", 1);
+					draw_sprite(spr_statIndicator, 3, hoverMenu_columnFourX, hoverMenu_rowThreeY);
 					
 					// check if the stat has been changed at all
 					if (hs.currentEarth < hs.baseEarth)		draw_set_color(c_red);
 					if (hs.currentStorm > hs.baseStorm)		draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnFourX,		hoverMenu_rowFourY,		string(hs.currentEarth), 1);
+					draw_text_pixel_perfect(hoverMenu_columnFourX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentEarth), 1);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -496,5 +520,19 @@ draw_set_alpha(1.0);
 			draw_sprite(spr_sparReadyButton,	frame,	x7,	y);
 			draw_sprite(spr_sparReadyButton,	frame,	x8, y);
 		}
+	}
+#endregion
+
+#region WIN LOSE DISPLAY
+	if (instance_exists(winLoseDisplay)) {
+		draw_set_alpha(0.5);
+		draw_rectangle_color(0, 0, guiWidth, guiHeight, c_black, c_black, c_black, c_black, false);
+		
+		draw_set_halign(fa_center);
+		draw_set_valign(fa_middle);
+		
+		draw_set_alpha(1.0);
+		
+		draw_text_pixel_perfect(guiWidth / 2, guiHeight / 2, winLoseDisplay.text, 1);
 	}
 #endregion

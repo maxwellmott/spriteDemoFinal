@@ -22,5 +22,4 @@ list of effects
 	okay, here's a list of what I need to do before I can send
 	a build to yiming:
 	
-		-	add descriptions to spellbook builder
-		-	replace hoverMenu stats with symbols and fix positioning
+		-	win/lose functionality
