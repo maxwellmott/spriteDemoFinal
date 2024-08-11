@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_effectChecks",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_effectChecks",
+  "parent":{
+    "name":"SPARRING",
+    "path":"folders/Scripts/SPARRING.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

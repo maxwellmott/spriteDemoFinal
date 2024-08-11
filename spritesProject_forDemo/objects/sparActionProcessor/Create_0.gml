@@ -77,3 +77,33 @@ shadeAlpha = 0.0;
 shadeAlphaMax = 0.9;
 
 spellFailed = false;
+
+//		******CALCULATE DAMAGE******	
+// if this is a basic attack
+if (currentSpell < 0) {
+	// calculate damage
+	damage = get_physical_damage(activeSprite, targetSprite, BASIC_ATTACK_POWER);
+}
+
+// if this is a spell
+if (currentSpell >= 0) {
+	// calculate physical damage if it's a physical spell
+	if (spellType == SPELL_TYPES.PHYSICAL) {
+		// calculate damage
+		damage = get_physical_damage(activeSprite, targetSprite, spellPower);
+	}
+	// set damage to 0 if it's a trick spell
+	else if (spellType == SPELL_TYPES.TRICK) {
+		damage = 0;	
+	}
+	// calculate elemental damage if it's an elemental spell
+	else {
+		// calculate damage
+		damage = get_elemental_damage(targetSprite, activeSprite, spellType, spellPower);
+	}		
+	// calculate psychic damage if it's psychic impact or psychic fissure
+	if (currentSpell == SPELLS.PSYCHIC_FISSURE)
+	|| (currentSpell == SPELLS.PSYCHIC_IMPACT) {
+		damage = get_psychic_damage(activeSprite, targetSprite, spellPower);	
+	}
+}

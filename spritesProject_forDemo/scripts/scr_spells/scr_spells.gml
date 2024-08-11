@@ -191,7 +191,10 @@ function fireball() {
 ///@desc SPELL FUNCTION: deals extra damage if the sprite is of type: ASTRAL
 function holy_water() {
 	if !(dodgeSuccess) {
-		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL, 1.5);
+		if (targetSprite.currentAlign == ALIGNMENTS.ASTRAL) {
+			damage = damage * 1.5;
+			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL, activeSprite);
+		}
 	}
 }
 
@@ -206,7 +209,7 @@ function shock() {
 
 ///@desc SPELL FUNCTION: restores half of health depleted (dodgeable)
 function decay() {
-	if (dodgeSuccess == false) {
+	if !(dodgeSuccess) {
 		var t = activeSprite.team;
 		var d = round(damage / 2);
 		
@@ -412,7 +415,7 @@ function lord_mogradths_rage() {
 
 ///@desc SPELL FUNCTION: restores half of the health depleted from target (dodgeable)
 function drain_lifeforce() {
-	if (dodgeSuccess == false) {
+	if !(dodgeSuccess) {
 		var t = activeSprite.team;
 		var d = round(damage / 2);
 		
@@ -424,9 +427,9 @@ function drain_lifeforce() {
 function pyrokinesis() {
 	var t = activeSprite.team;
 	
-	var d = get_elemental_damage(targetSprite, activeSprite, spellType, spellPower);
+	var d = damage / 3;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, t, d / 3);
+	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, t, d);
 }
 
 ///@desc SPELL FUNCTION: summons rust on the target's side of the field
@@ -519,9 +522,8 @@ function psychic_impact() {
 	if !(dodgeSuccess) {
 		var c = activeSprite;
 		var t = targetSprite;
-		var p = 120;
-		
-		spar_effect_push_alert(SPAR_EFFECTS.PSYCHIC_ATTACK, c, t, p);
+
+		spar_effect_push_alert(SPAR_EFFECTS.PSYCHIC_ATTACK, c, t);
 	}
 }
 
@@ -532,9 +534,9 @@ function tremor() {
 	}
 	
 	var t = activeSprite.team;
-	var d = get_elemental_damage(targetSprite, activeSprite, spellType, spellPower);
+	var d = damage / 3;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, t, d / 3);
+	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, t, d);
 }
 
 ///@desc SPELL FUNCTION: the caster of this spell flies into the sky and becomes invulnerable
@@ -554,11 +556,12 @@ function destructive_blow() {
 	var t = targetSprite;
 	
 	if (t.currentAlign == ALIGNMENTS.MECHANICAL) {
-		var m = 1.5;
 		var t = targetSprite;
 		var a = ALIGNMENTS.NATURAL;
 		
-		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_MECHANICAL, m);
+		damage = damage * 1.5;
+		
+		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_MECHANICAL);
 		spar_effect_push_alert(SPAR_EFFECTS.CHANGE_ALIGNMENT, t, a);
 	}
 }
@@ -569,11 +572,12 @@ function purifying_flame() {
 	var t = targetSprite;
 	
 	if (t.currentAlign == ALIGNMENTS.ASTRAL) {
-		var m = 1.5;
 		var t = targetSprite;
 		var a = ALIGNMENTS.NATURAL;
 		
-		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL, m);
+		damage = damage * 1.5;
+		
+		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL);
 		spar_effect_push_alert(SPAR_EFFECTS.CHANGE_ALIGNMENT, t, a);
 	}
 }
@@ -605,15 +609,14 @@ function crecias_crystal_spikes() {
 function psychic_fissure() {
 	var c = activeSprite;
 	var t = targetSprite;
-	var p = 150;
-
-	var d = get_psychic_damage(c, t, p);
+	
+	var d = damage / 3;
 	
 	if !(dodgeSuccess) {
-		spar_effect_push_alert(SPAR_EFFECTS.PSYCHIC_ATTACK, c, t, p);
+		spar_effect_push_alert(SPAR_EFFECTS.PSYCHIC_ATTACK, c, t);
 	}
 	
-	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, c.team, d / 3);
+	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, c.team, d);
 }
 
 ///@desc SPELL FUNCTION: splits the target team into two pairs and swaps them

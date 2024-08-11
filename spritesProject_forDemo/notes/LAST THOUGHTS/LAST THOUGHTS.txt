@@ -7,36 +7,36 @@ in each of the "last thoughts" notes to follow.
 
 BATTLE SCENE TODO:
 
-	-spell info display						2 POINTS				2 POINTS DONE	[6/29]
-	-spellFX screen functions				5 POINTS
-	-make spell UI adhere to knownSpells	4 POINTS				
+	-spell info display						2 POINTS				2 POINTS DONE
+	-spellFX screen functions				5 POINTS				5 POINTS DONE
+	-make spell UI adhere to knownSpells	4 POINTS				4 POINTS DONE
 	-prototype turn selection algorithm		3 POINTS				
-	-add spell animations					4 POINTS				4 POINTS DONE	[2/20]
-	-finish spells and effects				2 POINTS				2 POINTS DONE	[SOMETIME IN MAY]			
+	-add spell animations					4 POINTS				4 POINTS DONE
+	-finish spells and effects				2 POINTS				2 POINTS DONE
 	-add abilities							4 POINTS				
-	-priority spells						2 POINTS				2 POINTS DONE	[2/18]
-	-add all new sprites					2 POINTS				2 POINTS DONE	[2/14]				
+	-priority spells						2 POINTS				2 POINTS DONE
+	-add all new sprites					2 POINTS				2 POINTS DONE
 	-create demo scripts*					2 POINTS
-	-program spellbook icons				1 POINT					1 POINT DONE	[1/24]
-	-program sparSwapProcessor				2 POINTS				2 POINTS DONE	[1/20]
-	-program sparRestProcessor				2 POINTS				2 POINTS DONE	[2/02]
-	-program sparDodgeProcessor				2 POINTS				2 POINTS DONE	[2/05]
-	-add turn number screen					2 POINTS
-	-finish sparActionProcessor				4 POINTS				4 POINTS DONE	[2/17]
-	-create turn message functionality		1 POINT					1 POINT DONE	[2/05]
-	-fix ready display						2 POINTS				2 POINTS DONE	[1/16]
-	-fix fonts								3 POINTS				3 POINTS DONE	[2/05]		
+	-program spellbook icons				1 POINT					1 POINT DONE
+	-program sparSwapProcessor				2 POINTS				2 POINTS DONE
+	-program sparRestProcessor				2 POINTS				2 POINTS DONE
+	-program sparDodgeProcessor				2 POINTS				2 POINTS DONE
+	-add turn number screen					2 POINTS				
+	-finish sparActionProcessor				4 POINTS				4 POINTS DONE
+	-create turn message functionality		1 POINT					1 POINT DONE
+	-fix ready display						2 POINTS				2 POINTS DONE
+	-fix fonts								3 POINTS				3 POINTS DONE
 	-build audio manager					3 POINTS
 	-add music								4 POINTS
-	-add all SFX							4 POINTS
-	-add hp and mp bars						1 POINT					1 POINT DONE	[1/16]
-	-complete nearby list functionality		1 POINT					1 POINT DONE	[2/18]
-	-switch out all sprite artwork			2 POINTS				2 POINTS DONE	[2/16]
-	-agility sort							3 POINTS				3 POINTS DONE	[2/18]
-	-build teambuilder						5 POINTS				5 POINTS DONE	[SOMETIME IN APRIL]
-	-build spellBookBuilder					5 POINTS				5 POINTS DONE	[SOMETIME IN APRIL]
-	-build onlineLobby						5 POINTS				5 POINTS DONE	[SOMETIME IN MAY]
-	-test client for private rooms			5 POINTS				5 POINTS DONE	[SOMETIME IN MAY]
+	-add all SFX							4 POINTS				4 POINTS DONE
+	-add hp and mp bars						1 POINT					1 POINT DONE
+	-complete nearby list functionality		1 POINT					1 POINT DONE
+	-switch out all sprite artwork			2 POINTS				2 POINTS DONE
+	-agility sort							3 POINTS				3 POINTS DONE
+	-build teambuilder						5 POINTS				5 POINTS DONE
+	-build spellBookBuilder					5 POINTS				5 POINTS DONE
+	-build onlineLobby						5 POINTS				5 POINTS DONE
+	-test client for private rooms			5 POINTS				5 POINTS DONE
 	-test client for matchmaking			5 POINTS
 	
 	*demo scripts cannot be built until full versions are complete (npcs, sprites, spells, abilities)
@@ -394,4 +394,15 @@ COMING BACK FROM PLAYTEST BUILD
 			
 			Good luck <3
 			
+	
+	8/11
+			Okay, things are looking quite good!
 			
+			Last thing I was working on:
+					Finished a few corrections regarding damage. NOTE-- this might have left me with some issues RE the subject and object of some sparEffectAlerts because I had thought
+				it was no longer necessary to pass those arguments within the spar_effect_push_alert function call in some of the spell functions. I think I fixed them all, but I might
+				have missed one or two.
+				
+					After I finished all of that, I was working on the effectCheck functions in scr_effectChecks. These functions are all meant to be called at different times during the
+				spar (for example, spar_check_miasma would be called at the beginning of each turn). When you log on next, just get back to work on this script. Once this is finished, you
+				can start finishing up all of the ability functions. Then the ability check functions, then place the ability check functions in their proper place!

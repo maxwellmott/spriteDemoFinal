@@ -114,9 +114,6 @@ if (state == ACTION_PROCESSOR_STATES.WAIT_FOR_FX) {
 if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 	//			IF THIS IS A BASIC ATTACK
 	if (currentSpell < 0) {
-		// calculate damage
-		damage = get_physical_damage(activeSprite, targetSprite, BASIC_ATTACK_POWER);
-		
 		// check for dodge
 		if (targetSprite.dodging) {
 			dodgeSuccess = get_dodge_success();
@@ -131,21 +128,6 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 		
 			// subtract spellCost from player's MP
 			activeSprite.team.currentMP -= spellCost;
-		
-			// calculate physical damage if it's a physical spell
-			if (spellType == SPELL_TYPES.PHYSICAL) {
-				// calculate damage
-				damage = get_physical_damage(activeSprite, targetSprite, spellPower);
-			}
-			// set damage to 0 if it's a trick spell
-			else if (spellType == SPELL_TYPES.TRICK) {
-				damage = 0;	
-			}
-			// calculate elemental damage if it's an elemental spell
-			else {
-				// calculate damage
-				damage = get_elemental_damage(targetSprite, activeSprite, spellType, spellPower);
-			}
 			
 			// check for dodge
 			if (targetSprite.dodging) {

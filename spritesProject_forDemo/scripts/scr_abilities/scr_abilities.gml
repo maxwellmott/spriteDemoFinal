@@ -2,7 +2,37 @@
 
 // enum containing ability params
 
-// enum containing ability types
+// enum that contains all types of ability checks. This mostly exists
+// so that abilities have a way of indicating when they should be activated
+enum ABILITY_CHECKS {
+	TURN_BEGIN,
+	SWAP_ATTEMPT,
+	SWAP_SUCCESS,
+	SPRITE_RESTING,
+	SPELL_ATTEMPT,
+	SPELL_SUCCESS,
+	BASIC_ATTACK_ATTEMPT,
+	BASIC_ATTACK_SUCCESS,
+	DODGE_ATTEMPT,
+	DODGE_SUCCESS,
+	ARENA_CHANGE,
+	HP_CHANGE,
+	MP_CHANGE,
+	HINDRANCE_CHANGE,
+	MINDSET_CHANGE,
+	STATUS_CHANGE,
+	ALIGNMENT_CHANGE,
+	SIZE_CHANGE,
+	DAMAGE_CHANGE,
+	TURN_END,
+	ABILITY_CHANGE,
+	TARGET_CHANGE,
+	DAMAGE_AVOIDED,
+	EFFECT_AVOIDED,
+	ABILITY_ACTIVATED,
+	EFFECT_ACTIVATED,
+	HEIGHT
+}
 
 #region CREATE ALL ABILITY EFFECT FUNCTIONS
 

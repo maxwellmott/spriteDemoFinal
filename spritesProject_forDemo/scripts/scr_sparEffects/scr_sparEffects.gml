@@ -119,6 +119,15 @@ enum HINDRANCES {
 	HEIGHT
 }
 
+// enum that contains all spar statuses
+enum STATUSES {
+	HEXED,
+	BOUND,
+	INVULNERABLE,
+	BERSERK,
+	HEIGHT
+}
+
 // enum that contains all spar mindsets
 enum MINDSETS {
 	MOTHER,
@@ -293,6 +302,8 @@ enum SPAR_EFFECTS {
 	END_INVULNERABLE_NEARBY_SPRITES,
 	END_INVULNERABLE_TEAM,
 	END_INVULNERABLE_GLOBAL,
+	RESTORE_ALIGNMENT,
+	RESTORE_SIZE,
 	HEIGHT
 }
 
@@ -2204,7 +2215,6 @@ function volcano_water_decrease_damage() {
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that the damage was altered after the fact
 function volcano_fire_increase_damage() {
-	
 }
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
@@ -2872,6 +2882,7 @@ function multiply_healing(_healingSprite) {
 ///@desc SPAR EFFECT: this effect is simply a means of notifying the player
 /// that the damage was altered after the fact
 function multiply_damage() {
+	
 }
 
 ///@desc SPAR EFFECT: this effect is simply a means of notifying the player
@@ -3298,6 +3309,21 @@ function end_invulnerable_global() {
 	}		
 }
 
+
+///@desc SPAR EFFECT: restores alignment to original
+function restore_alignment(_inst) {
+	var inst = _inst;
+	
+	inst.currentAlign = inst.baseAlign;
+}
+
+///@desc SPAR EFFECT: restores size to original
+function restore_size(_inst) {
+	var inst = _inst;
+	
+	inst.currentSize = inst.baseSize;
+}
+
 // get text from csv file
 var textGrid = load_csv("SPAR_EFFECTS_ENGLISH.csv");
 
@@ -3464,6 +3490,8 @@ master_grid_add_spar_effect(SPAR_EFFECTS.END_INVULNERABLE_NEARBY_ENEMIES,	textGr
 master_grid_add_spar_effect(SPAR_EFFECTS.END_INVULNERABLE_NEARBY_SPRITES,	textGrid[# 1, SPAR_EFFECTS.END_INVULNERABLE_NEARBY_SPRITES],	end_invulnerable_nearby_sprites,	sparFX_clearStatus);
 master_grid_add_spar_effect(SPAR_EFFECTS.END_INVULNERABLE_TEAM,				textGrid[# 1, SPAR_EFFECTS.END_INVULNERABLE_TEAM],				end_invulnerable_team,				sparFX_clearStatus);
 master_grid_add_spar_effect(SPAR_EFFECTS.END_INVULNERABLE_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.END_INVULNERABLE_GLOBAL],			end_invulnerable_global,			sparFX_clearStatus);
+master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_ALIGNMENT,					textGrid[# 1, SPAR_EFFECTS.RESTORE_ALIGNMENT],					restore_alignment,					sparFX_clearStatus);
+master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_SIZE,						textGrid[# 1, SPAR_EFFECTS.RESTORE_SIZE],						restore_size,						sparFX_clearStatus);
 #endregion
 
 // encode the spar effect grid

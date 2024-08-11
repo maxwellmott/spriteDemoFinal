@@ -387,6 +387,10 @@ function sprite_process_rest(_instanceID) {
 	var mpRegen = round(REST_BASE_MP_REGEN * lr);
 	
 	restore_mp(t, mpRegen);
+	
+	if (inst.currentAlign != inst.baseAlign)	spar_effect_push_alert(SPAR_EFFECTS.RESTORE_ALIGNMENT, inst);
+	
+	if (inst.currentSize != inst.baseSize)		spar_effect_push_alert(SPAR_EFFECTS.RESTORE_SIZE, inst);
 }
 
 ///@desc This function is meant to be called outside of the spar object to see if
