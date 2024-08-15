@@ -90,7 +90,7 @@ enum ranges {
 enum arenas {
 	volcano,
 	ocean,
-	stratosphere,
+	skies,
 	forest,
 	height
 }

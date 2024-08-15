@@ -412,3 +412,11 @@ COMING BACK FROM PLAYTEST BUILD
 		and complete all of them. Once you've done that, just global search for each function to make sure it's being called in all of the right places.
 		
 			None of this has been tested so for, but once the rest of the functions are finished and in place, start testing out each effect!
+			
+		Here is a short list of things I know I need to do:
+			-finish effectCheck functions
+			-create artwork for berserk and invulnerable
+			-do all function calls for checks that occur during selection (bound, hexed, berserk, etc)
+			-add undertow, typhoon, and magnetic pulse to priority spells and change undertow and typhoon to force_swap (make sure MAGpulse has higher power than purifying flame)
+			-make all ability functions and check functions!
+			-make a spar_effect for ability calls so that they can always show the same alert animation and formatted text "__'s ability, _______ was triggered!"

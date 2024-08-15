@@ -39,6 +39,11 @@ switch (sparPhase) {
 		playerOne.ready = false;
 		playerTwo.ready = false;
 		
+		spar_check_sneaking_deal_damage();
+		spar_check_skydiving_deal_damage();		
+		spar_check_effect_timers();
+		spar_check_timed_blasts();
+		
 		sparPhase = sparPhases.turnBegin;
 
 	break;
@@ -195,7 +200,7 @@ switch (sparPhase) {
 													}
 												break;
 												
-												case arenas.stratosphere:
+												case arenas.skies:
 													if (inst.currentStorm > highest) {
 														highest		= inst.currentStorm;
 														nextSprite	= i;
@@ -294,7 +299,7 @@ switch (sparPhase) {
 													}
 												break;
 												
-												case arenas.stratosphere:
+												case arenas.skies:
 													if (inst.currentStorm > highest) {
 														highest		= inst.currentStorm;
 														nextSprite	= i;
@@ -437,7 +442,8 @@ switch (sparPhase) {
 	
 	#region TURN BEGIN PHASE
 		case sparPhases.turnBegin:
-			
+			spar_check_hail_mary();
+			spar_check_miasma();	
 		
 			sparPhase = sparPhases.select;
 		break;

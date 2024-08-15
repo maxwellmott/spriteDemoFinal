@@ -782,7 +782,7 @@ function endless_river() {
 	spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_OCEAN);
 }
 
-///@desc SPELL FUNCTION: changes the arena to STRATOSPHERE
+///@desc SPELL FUNCTION: changes the arena to SKIES
 function cloud_break() {
 	spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_STRATOS);
 }

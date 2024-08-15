@@ -107,6 +107,15 @@ if (currentSpell >= 0) {
 		// check for astral caster
 		spar_check_astral_caster(activeSprite);
 		
+		// check for arena effects
+		spar_check_arena_effects(spellType);
+		
+		// check for the natural arena boost
+		spar_check_natural_arena_boost(activeSprite);
+		
+		// check for hum
+		spar_check_hum(activeSprite);
+		
 		// calculate damage
 		damage = get_elemental_damage(targetSprite, activeSprite, spellType, spellPower);
 	}		

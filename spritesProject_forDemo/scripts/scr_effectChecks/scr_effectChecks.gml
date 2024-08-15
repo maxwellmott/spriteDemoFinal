@@ -62,16 +62,35 @@ function spar_check_effect_timers() {
 
 ///@desc This function checks the grid of timed blasts for any entries. If there are any 
 /// timed blasts currently active, it will either decrement the count, or set off the blast
-function check_timed_blasts() {
+function spar_check_timed_blasts() {
+	// get the height of the blastGrid
+	var h = blastCount;
 	
+	// use a repeat loop to check each entry on the grid
+	var i = 0;	repeat (h) {
+		// get all columns of the current row
+		var timr = timedBlastGrid[# 0, i];
+		
+		// check if time is up
+		if (timr == 0) {
+			spar_effect_push_alert(SPAR_EFFECTS.BLAST_TIMER_GO_OFF, i);
+		}
+		
+		// increment i
+		i++;
+	}
+	
+	// push an alert to decrement the count of all blasts
+	spar_effect_push_alert(SPAR_EFFECTS.BLAST_TIMERS_DECREMENT_COUNT);
 }
 
 ///@desc This function is called before damage is calculated in the processor. It simply adjusts
-/// 
+/// the damageMultiplierIndex and then pushes a corresponding notification
 function spar_check_astral_caster(_atkr) {
 	var atkr = _atkr;
 	
-	if (atkr.currentAlign == ALIGNMENTS.ASTRAL)	{
+	if (atkr.currentAlign == ALIGNMENTS.ASTRAL)	
+	&& (targ.team.hum) {
 		global.damageMultiplierIndex += 1;	
 		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL, atkr);
 	}
@@ -83,14 +102,24 @@ function spar_check_astral_caster(_atkr) {
 function spar_check_mechanical_target(_targ) {
 	var targ = _targ;
 	
-	if (targ.currentAlign == ALIGNMENTS.MECHANICAL) {
+	if (targ.currentAlign == ALIGNMENTS.MECHANICAL) 
+	&& !(targ.team.rust) {
 		global.damageMultiplierIndex -= 1;	
 		spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE_MECHANICAL, targ);
 	}
 }
 
-function spar_check_natural_arena_boost() {
+///@desc This function is called before damage is calculated in the processor. It simply adjusts
+/// the damageMultiplierIndex and then pushes a corresponding notification
+function spar_check_natural_arena_boost(_atkr) {
+	if (global.arena != -1) {
+		var atkr = _atkr;
 	
+		if (atkr.currentAlign == ALIGNMENTS.NATURAL) {
+			global.damageMultiplierIndex += 1;
+			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_NATURAL, atkr);
+		}
+	}
 }
 
 ///@desc This function should be called by the actionProcessor whenever a sprite is being targeted
@@ -115,20 +144,119 @@ function spar_check_parrying() {
 	return targetSprite.parrying;
 }
 
-function spar_check_arena_effects() {
+///@desc This function should be called before calculating elemental damage. It checks the given spellType
+/// as well as the current arena and then alters the DMI accordingly.
+function spar_check_arena_effects(_spellType) {
+	var st = _spellType;
 	
+	// check if arena is not normal
+	if (global.arena != -1) {
+		// use a switch statement to check for each arena type
+		switch (global.arena) {
+			case arenas.volcano:
+				// check if currentSpell is a water spell
+				if (st == SPELL_TYPES.WATER) {
+					global.damageMultiplierIndex -= 2;
+					spar_effect_push_alert(SPAR_EFFECTS.VOLCANO_WATER_DECREASE_DAMAGE);
+				}
+				
+				// check if currentSpell is a fire spell
+				if (st == SPELL_TYPES.FIRE) {
+					global.damageMultiplierIndex += 2;
+					spar_effect_push_alert(SPAR_EFFECTS.VOLCANO_FIRE_INCREASE_DAMAGE);
+				}
+			break;
+			
+			case arenas.ocean:
+				// check if currentSpell is a fire spell
+				if (st == SPELL_TYPES.FIRE) {
+					global.damageMultiplierIndex -= 2;
+					spar_effect_push_alert(SPAR_EFFECTS.OCEAN_FIRE_DECREASE_DAMAGE);
+				}
+				
+				// check if currentSpell is a water spell
+				if (st == SPELL_TYPES.WATER) {
+					global.damageMultiplierIndex += 2;
+					spar_effect_push_alert(SPAR_EFFECTS.OCEAN_WATER_INCREASE_DAMAGE);
+				}
+				
+				// check if currentSpell is a storm spell
+				if (st == SPELL_TYPES.STORM) {
+					global.damageMultiplierIndex += 2;
+					spar_effect_push_alert(SPAR_EFFECTS.OCEAN_STORM_INCREASE_DAMAGE);
+				}
+			break;
+			
+			case arenas.skies:
+				// check if currentSpell is an earth spell
+				if (st == SPELL_TYPES.EARTH) {
+					global.damageMultiplierIndex -= 2;
+					spar_effect_push_alert(SPAR_EFFECTS.STRATOS_EARTH_DECREASE_DAMAGE);
+				}
+				
+				// check if currentSpell is a storm spell
+				if (st == SPELL_TYPES.STORM) {
+					global.damageMultiplierIndex += 2;
+					spar_effect_push_alert(SPAR_EFFECTS.STRATOS_STORM_INCREASE_DAMAGE);
+				}
+			break;
+			
+			case arenas.forest:
+				// check if currentSpell is an earth spell
+				if (st == SPELL_TYPES.EARTH) {
+					global.damageMultiplierIndex += 2;
+					spar_effect_push_alert(SPAR_EFFECTS.FOREST_EARTH_INCREASE_DAMAGE);
+				}
+				
+				// check if currentSpell is a fire spell
+				if (st == SPELL_TYPES.FIRE) {
+					global.damageMultiplierIndex += 2;
+					spar_effect_push_alert(SPAR_EFFECTS.FOREST_FIRE_INCREASE_DAMAGE);
+				}
+			break;
+		}
+	}
 }
 
-function spar_check_rust() {
+///@desc This function should be called before calculating physical damage. It checks if there
+/// is rust and if the given target is of the mechanical alignment and then alters the DMI if necessary.
+function spar_check_rust(_targ) {
+	var targ = _targ;
 	
+	if (targ.team.rust) {
+		if (targ.currentAlign == ALIGNMENTS.MECHANICAL) {
+			global.damageMultiplierIndex += 1;
+			spar_effect_push_alert(SPAR_EFFECTS.APPLY_RUST, targ);
+		}
+	}
 }
 
-function spar_check_hum() {
+///@desc This function should be called before calculating elemental damage. It checks if there
+/// is hum and if the given target is of the astral alignment and then alters the DMI if necessary.
+function spar_check_hum(_atkr) {
+	var atkr = _atkr;
 	
+	if (atkr.team.hum) {
+		if (atkr.currentAlign == ALIGNMENTS.ASTRAL) {
+			global.damageMultiplierIndex -= 1;	
+			spar_effect_push_alert(SPAR_EFFECTS.APPLY_HUM, atkr);
+		}
+	}
 }
 
-function spar_check_hexed() {
+///@desc This function should be called whenever a spell is being selected by the player or being cast
+/// in the actionProcessor. It performs a check to see if the given sprite is hexed, if so, it will
+/// notify the player that they are. (If the actionProcessor exists, it will destroy it)
+function spar_check_hexed(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if inst is hexed
+	if (inst.hexed) {
+		spar_effect_push_alert(SPAR_EFFECTS.APPLY_HEXED, inst);
+		
+		destroy_if_possible(sparActionProcessor);
+	}
 }
 
 ///@desc This function should be called whenever a SWAP is about to occur (forced or not). It
@@ -173,8 +301,48 @@ function spar_check_berserk(_inst) {
 	return inst.berserk;
 }
 
-function spar_check_mindset() {
+///@desc This function should be called by the sparAlly and sparEnemy object's once per frame. If their
+/// mindset isn't normal, it should adjust their stats relative to their base stats.
+function sprite_check_mindset() {
+	if (mindset < 0) {
+		switch (abs(mindset)) {
+			case MINDSETS.IMP:
+				currentResistance = round(baseResistance * 0.67);
+			break;
+			
+			case MINDSETS.MOTHER:
+				currentPower = round(basePower * 0.67);
+			break;
+			
+			case MINDSETS.TREE:
+				currentLuck = round(baseLuck * 0.33);
+			break;
+			
+			case MINDSETS.WARRIOR:
+				currentAgility = round(baseAgility * 0.5);
+			break;
+		}
+	}
 	
+	if (mindset > 0) {
+		switch (abs(mindset)) {
+			case MINDSETS.IMP:
+				currentAgility = round(baseAgility * 2);
+			break;
+			
+			case MINDSETS.MOTHER:
+				currentLuck = round(baseLuck * 3);
+			break;
+			
+			case MINDSETS.TREE:
+				currentResistance = round(baseResistance * 1.5);
+			break;
+			
+			case MINDSETS.WARRIOR:
+				currentPower = round(basePower * 1.5);
+			break;
+		}
+	}
 }
 
 function spar_check_multiply() {
@@ -185,20 +353,72 @@ function spar_check_divide() {
 	
 }
 
+///@desc This function should be called by the spar object at the end
+/// of each turn. It checks the skydiving grid for any skydivers. If
+/// necessary, it will check to see if they are successful and then push
+/// the appropriate alert. (It then clears and resizes the skydiveGrid)
 function spar_check_skydiving_deal_damage() {
-	// check for skydives on the grid
+	// get the height of the grid
+	var h = skydiveCount;
 	
-	// if the skydiver is still flying, deal damage
+	// use a repeat loop to check each item on the grid
+	var i = 0;	repeat (h) {
+		// get the atkr and targ of the current skydive
+		var atkr = skydiveGrid[# 0, i];
+		var targ = skydiveGrid[# 1, i];
+		
+		// check if the skydiver is still flying
+		if (atkr.flying) {
+			// push skydive effect alert
+			spar_effect_push_alert(SPAR_EFFECTS.SKYDIVE_APPLY_DAMAGE, atkr, targ);
+		}
+		// else push skydive fail alert
+		else	spar_effect_push_alert(SPAR_EFFECTS.SKYDIVE_FAILURE, atkr);
+		
+		// increment i
+		i++;
+	}
+
+	// clear the grid and resize it
+	ds_grid_clear(skydiveGrid, -1);
+	ds_grid_resize(skydiveGrid, 2, 0);
 	
-	// else, push skydive failure effect alert
+	// reset skydiveCount
+	skydiveCount = 0;
 }
 
+///@desc This function should be called by the spar object at the end 
+/// of each turn. It checks the sneakAttack grid for any sneak attacks. If
+/// necessary, it will check to see if they are successful and then push 
+/// the appropriate alert. (It then clears and resizes the SneakAttackGrid)
 function spar_check_sneaking_deal_damage() {
-	// check for sneak attacks on the grid
+	// get the height of the grid
+	var h = sneakAttackCount;
 	
-	// if the sneak attacker is still sneaking, deal damage
+	// use a repeat loop to check each item of the grid
+	var i = 0;	repeat (h) {
+		// get the atkr and targ of the current sneakAttack
+		var atkr = sneakAttackGrid[# 0, i];
+		var targ = sneakAttackGrid[# 1, i];
+		
+		// check if the sneakAttacker is still sneaking
+		if (atkr.sneaking) {
+			// push sneak attack effect alert
+			spar_effect_push_alert(SPAR_EFFECTS.SNEAK_ATTACK_APPLY_DAMAGE, atkr, targ);
+		}
+		// else push sneak attack fail alert
+		else	spar_effect_push_alert(SPAR_EFFECTS.SNEAK_ATTACK_FAILURE, atkr);
+		
+		// increment i
+		i++;
+	}
 	
-	// else, push sneak attack failure effect alert
+	// clear the grid and resize it
+	ds_grid_clear(sneakAttackGrid, -1);
+	ds_grid_resize(sneakAttackGrid, 2, 0);
+	
+	// reset sneakAttackCount
+	sneakAttackCount = 0;
 }
 
 ///@desc This function is called by the actionProcessor whenever spell damage is about
@@ -224,6 +444,9 @@ function spar_check_deflective(_atkr, _targ, _powr) {
 	else	return false;
 }
 
+///@desc This function is called by the actionProcessor whenever a storm spell is being
+/// used. It performs a check to see if there is ball lightning active. If so, it pushes
+/// the appropriate alert and then destroys the actionProcessor.
 function spar_check_ball_lightning_absorb_spell() {
 	
 }

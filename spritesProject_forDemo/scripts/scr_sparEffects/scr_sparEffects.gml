@@ -232,6 +232,7 @@ enum SPAR_EFFECTS {
 	DECREASE_DAMAGE_ASTRAL,
 	VOLCANO_WATER_DECREASE_DAMAGE,
 	VOLCANO_FIRE_INCREASE_DAMAGE,
+	OCEAN_FIRE_DECREASE_DAMAGE,
 	OCEAN_STORM_INCREASE_DAMAGE,
 	OCEAN_WATER_INCREASE_DAMAGE,
 	STRATOS_EARTH_DECREASE_DAMAGE,
@@ -334,8 +335,8 @@ function arena_change_ocean() {
 
 ///@desc SPAR EFFECT: sets the current ARENA to STRATOS
 function arena_change_stratos() {
-	if (spar.currentArena != arenas.stratosphere) {
-		spar.currentArena = arenas.stratosphere;
+	if (spar.currentArena != arenas.skies) {
+		spar.currentArena = arenas.skies;
 	}	else	instance_destroy(id);
 }
 
@@ -682,9 +683,9 @@ function grid_add_timed_blast(_counter, _power, _targetPlayer) {
 	// add the params of the blast to the blast grid
 	var count = spar.blastCount;
 	
-	spar.timedBlasts[# 0, count] = c;
-	spar.timedBlasts[# 1, count] = p;
-	spar.timedBlasts[# 2, count] = t;
+	spar.timedBlastGrid[# 0, count] = c;
+	spar.timedBlastGrid[# 1, count] = p;
+	spar.timedBlastGrid[# 2, count] = t;
 	
 	// increment the blast count
 	spar.blastCount++;	
@@ -729,9 +730,9 @@ function blast_timer_go_off(_blastNum) {
 	var n = _blastNum;
 	
 	// get all blast params
-	var c = spar.timedBlasts[# 0, n];
-	var p = spar.timedBlasts[# 1, n];
-	var t = spar.timedBlasts[# 2, n];
+	var c = spar.timedBlastGrid[# 0, n];
+	var p = spar.timedBlastGrid[# 1, n];
+	var t = spar.timedBlastGrid[# 2, n];
 	
 	// create the energy blast
 	spar_effect_push_alert(SPAR_EFFECTS.ENERGY_BLAST, t, p);
@@ -740,24 +741,27 @@ function blast_timer_go_off(_blastNum) {
 	spar.blastCount--;
 	
 	// check if this is the last entry
-	if (n != ds_grid_height(spar.timedBlasts)) {
-		var i = 1;	repeat (ds_grid_height(spar.timedBlasts) - n) {
-			spar.timedBlasts[# 0, n] =	spar.timedBlasts[# 0, n + i];
-			spar.timedBlasts[# 1, n] =	spar.timedBlasts[# 1, n + i];
-			spar.timedBlasts[# 2, n] =	spar.timedBlasts[# 2, n + i];
+	if (n != ds_grid_height(spar.timedBlastGrid)) {
+		// if this was not the last entry, move each of the other entries
+		// up one step
+		var i = 1;	repeat (ds_grid_height(spar.timedBlastGrid) - n) {
+			spar.timedBlastGrid[# 0, n] =	spar.timedBlastGrid[# 0, n + i];
+			spar.timedBlastGrid[# 1, n] =	spar.timedBlastGrid[# 1, n + i];
+			spar.timedBlastGrid[# 2, n] =	spar.timedBlastGrid[# 2, n + i];
 			
+			// increment i
 			i++;
 		}
 	}
 	
 	// resize the timedBlast grid
-	ds_grid_resize(spar.timedBlasts, 3, spar.blastCount);
+	ds_grid_resize(spar.timedBlastGrid, 3, spar.blastCount);
 }
 
 ///@desc SPAR EFFECT: drops the counter for each blast timer down one tick
 function blast_timers_decrement_count() {
 	var i = 0;	repeat (spar.blastCount) {
-		spar.timedBlasts[# 0, i] -= 1;
+		spar.timedBlastGrid[# 0, i] -= 1;
 		
 		i++;
 	}
@@ -2332,6 +2336,11 @@ function volcano_water_decrease_damage() {
 /// that the damage was altered after the fact
 function volcano_fire_increase_damage() {
 }
+	
+///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
+/// that the damage was altered after the fact
+function ocean_fire_decrease_damage() {	
+}
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that the damage was altered after the fact
@@ -3492,6 +3501,9 @@ function skydive_apply_damage(_atkr, _targ) {
 		// check for a mechanical target
 		spar_check_mechanical_target(targ);
 		
+		// check for rust
+		spar_check_rust(targ);
+		
 		// calculate damage
 		var d = get_physical_damage(atkr, targ, 120);
 	
@@ -3512,6 +3524,9 @@ function sneak_attack_apply_damage(_atkr, _targ) {
 	if !(targ.invulnerable) {
 		// check for a mechanical target
 		spar_check_mechanical_target(targ);
+		
+		// check for rust
+		spar_check_rust(targ);
 		
 		// calculate damage
 		var d = get_physical_damage(atkr, targ, 120);

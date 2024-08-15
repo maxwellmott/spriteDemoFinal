@@ -1,6 +1,9 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+// check for mindset
+sprite_check_mindset();
+
 #region HANDLE ALLY AND TARGET SELECTION
 
 // check if the player is selecting a sprite to command
