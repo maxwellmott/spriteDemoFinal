@@ -13,6 +13,9 @@ currentAction = noone;
 // initialize dodgeSuccess
 dodgeSuccess = false;
 
+// initialize damageMultiplierIndex
+damageMultiplierIndex = 0;
+
 // initialize damage
 damage = 0;
 
@@ -89,6 +92,9 @@ if (currentSpell < 0) {
 if (currentSpell >= 0) {
 	// calculate physical damage if it's a physical spell
 	if (spellType == SPELL_TYPES.PHYSICAL) {
+		// check for mechanical target
+		spar_check_mechanical_target(targetSprite);
+		
 		// calculate damage
 		damage = get_physical_damage(activeSprite, targetSprite, spellPower);
 	}
@@ -98,6 +104,9 @@ if (currentSpell >= 0) {
 	}
 	// calculate elemental damage if it's an elemental spell
 	else {
+		// check for astral caster
+		spar_check_astral_caster(activeSprite);
+		
 		// calculate damage
 		damage = get_elemental_damage(targetSprite, activeSprite, spellType, spellPower);
 	}		

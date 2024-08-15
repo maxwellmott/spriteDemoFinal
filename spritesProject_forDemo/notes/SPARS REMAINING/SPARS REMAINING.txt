@@ -11,6 +11,7 @@
 		-names not drawn
 		-titles not drawn
 		-turn timer
+		-update spar effect text grid
 		
 		-(ONLINE) no turn grid file builder/saver
 		-(ONLINE) no server reconnect logic

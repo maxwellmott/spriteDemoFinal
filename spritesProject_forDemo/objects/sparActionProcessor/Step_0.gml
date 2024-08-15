@@ -44,78 +44,84 @@ if (state == ACTION_PROCESSOR_STATES.FADING_IN) {
 }
 
 if (state == ACTION_PROCESSOR_STATES.WAIT_FOR_FX) {
-	
-	// check if physical spell
-	if (spellType == SPELL_TYPES.PHYSICAL) || (currentSpell < 0) {
-		// set pose 
-		activeSprite.currentPose = SPRITE_POSES.ATTACK;
-	}
-	// if not physical spell
-	else {
-		// set pose
-		activeSprite.currentPose = SPRITE_POSES.SPELL;	
-	}
-	
-	// if there was a successful dodge
-	if (dodgeSuccess) {
-		
-		// if dodge has started
-		if (dodgeStarted) {
-			// and if spar frame has reached dodgeFrameCount
-			 if (spar.image_index >= dodgeFrameCount) {
-				 // stop dodge animation
-				dodgeStopped = true;	 
-			 }
+	if !(spar_check_invulnerable(targetSprite)) {
+		// check if physical spell
+		if (spellType == SPELL_TYPES.PHYSICAL) || (currentSpell < 0) {
+			// set pose 
+			activeSprite.currentPose = SPRITE_POSES.ATTACK;
+		}
+		// if not physical spell
+		else {
+			// set pose
+			activeSprite.currentPose = SPRITE_POSES.SPELL;	
 		}
 		
-		// if dodge animation has not been started
-		if !(dodgeStarted) {
- 		// change sprite to dodge animation
-		targetSprite.sprite = spr_sparDodge;
-		
-		// prepare spar object to draw dodge animation
-		sprite_index = spr_sparDodge;
-		image_speed = 1;		
-		
-		// reset spar's image_index
-		spar.image_index = 0;
-		
-		// set animationStarted to true
-		dodgeStarted = true;
-		}
-
-		// if animation is complete, switch sprite back and increment dodgeCount
-		if (dodgeStopped) {
-			with (targetSprite) {
-				// reset params
-				sprite_load_parameters();	
-				
-				// increment dodgeCount
+		// if there was a successful dodge
+		if (dodgeSuccess) {
+			// increment dodgeCount for targetSprite
+			targetSprite.dodgeCount += 1;
+			
+			// if dodge has started
+			if (dodgeStarted) {
+				// and if spar frame has reached dodgeFrameCount
+				 if (spar.image_index >= dodgeFrameCount) {
+					 // stop dodge animation
+					dodgeStopped = true;	 
+				 }
 			}
 			
-			// move to display msg state
-			state = ACTION_PROCESSOR_STATES.DISPLAY_MSG;
-		}	
-	}
-	
-	// if there was no successful dodge
-	else {
+			// if dodge animation has not been started
+			if !(dodgeStarted) {
+ 			// change sprite to dodge animation
+			targetSprite.sprite = spr_sparDodge;
+			
+			// prepare spar object to draw dodge animation
+			sprite_index = spr_sparDodge;
+			image_speed = 1;		
+			
+			// reset spar's image_index
+			spar.image_index = 0;
+			
+			// set animationStarted to true
+			dodgeStarted = true;
+			}
 		
-		// if this is not a self targeting spell
-		if (targetSprite != activeSprite) {
-			// set target sprite's pose to hurt
-			targetSprite.currentPose = SPRITE_POSES.HURT;
-		}	
-		// create spellFX
-		create_once(0, 0, LAYER.meta, sparSpellFX);
+			// if animation is complete, switch sprite back and increment dodgeCount
+			if (dodgeStopped) {
+				with (targetSprite) {
+					// reset params
+					sprite_load_parameters();	
+					
+					// increment dodgeCount
+				}
+				
+				// move to display msg state
+				state = ACTION_PROCESSOR_STATES.DISPLAY_MSG;
+			}	
+		}
+		
+		// if there was no successful dodge
+		else {
+			
+			// if this is not a self targeting spell
+			if (targetSprite != activeSprite) {
+				// set target sprite's pose to hurt
+				targetSprite.currentPose = SPRITE_POSES.HURT;
+			}	
+			// create spellFX
+			create_once(0, 0, LAYER.meta, sparSpellFX);
+		}
 	}
+	// if target invulnerable, destroy processor
+	else		instance_destroy(id);
 }
 
 if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 	//			IF THIS IS A BASIC ATTACK
 	if (currentSpell < 0) {
 		// check for dodge
-		if (targetSprite.dodging) {
+		if (targetSprite.dodging) 
+		|| (targetSprite.sneaking) {
 			dodgeSuccess = get_dodge_success();
 		}
 		
@@ -130,7 +136,8 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 			activeSprite.team.currentMP -= spellCost;
 			
 			// check for dodge
-			if (targetSprite.dodging) {
+			if (targetSprite.dodging) 
+			|| (targetSprite.sneaking) {
 				dodgeSuccess = get_dodge_success();
 			}
 			
@@ -149,31 +156,59 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 	// check if basic attack
 	if (currentSpell < 0) {
 		if !(dodgeSuccess) {
-			// apply damage and change turnMsg
-			var t = targetSprite.team;
+			if !(spar_check_parrying()) {
+				// turn off dodging/sneaking for targetSprite
+				if (targetSprite.dodging)
+				|| (targetSprite.sneaking) {
+					targetSprite.dodging = false;
+					targetSprite.sneaking = false;
+				}
+				
+				// apply damage and change turnMsg
+				var t = targetSprite.team;
+				
+				deplete_hp(t, damage);
+				
+				spar.turnMsg = activeSprite.name + " attacked " + targetSprite.name;
 			
-			deplete_hp(t, damage);
-			
-			spar.turnMsg = activeSprite.name + " attacked " + targetSprite.name;
-		
-		}
-		else {
-			// change turnMsg
-			spar.turnMsg = targetSprite.name + " dodged " + activeSprite.name + "'s attack";
-		}
+			}
+			else {				
+				// change turnMsg
+				spar.turnMsg = targetSprite.name + " dodged " + activeSprite.name + "'s attack";
+			}
+		// if target was parrying, destroy the processor
+		}	else	instance_destroy(id);
 	}
 	// or spell
 	else {		
 		if !(dodgeSuccess) {
-			// apply damage and change turnMsg
-			var t = targetSprite.team;
-			
-			deplete_hp(t, damage);
-			
-			if (targetSprite != activeSprite) {
-				spar.turnMsg = activeSprite.name + " cast " + spellName + " against " + targetSprite.name;
-			}	else {
-				spar.turnMs = activeSprite.name + " cast " + spellName;	
+			if !(spar_check_parrying()) {
+				// if this is an elemental spell:
+				if (spellType < SPELL_TYPES.PHYSICAL) {
+					// if target is deflective:
+					if (spar_check_deflective(activeSprite, targetSprite, damage * 1.3)) {
+						// destroy processor
+						instance_destroy(id);
+					}
+				}
+				
+				// turn off dodging/sneaking for targetSprite
+				if (targetSprite.dodging) 
+				|| (targetSprite.sneaking) {
+					targetSprite.dodging	= false;
+					targetSprite.sneaking	= false;
+				}
+				
+				// apply damage and change turnMsg
+				var t = targetSprite.team;
+				
+				deplete_hp(t, damage);
+				
+				if (targetSprite != activeSprite) {
+					spar.turnMsg = activeSprite.name + " cast " + spellName + " against " + targetSprite.name;
+				}	else {
+					spar.turnMs = activeSprite.name + " cast " + spellName;	
+				}
 			}
 		}
 		else {

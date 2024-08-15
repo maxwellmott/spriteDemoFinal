@@ -406,3 +406,9 @@ COMING BACK FROM PLAYTEST BUILD
 					After I finished all of that, I was working on the effectCheck functions in scr_effectChecks. These functions are all meant to be called at different times during the
 				spar (for example, spar_check_miasma would be called at the beginning of each turn). When you log on next, just get back to work on this script. Once this is finished, you
 				can start finishing up all of the ability functions. Then the ability check functions, then place the ability check functions in their proper place!
+				
+	8/14
+			I got a lot of work done with the effect check system. Most of the remaining checks are obvious, you just need to go through the functions on the effectCheck script
+		and complete all of them. Once you've done that, just global search for each function to make sure it's being called in all of the right places.
+		
+			None of this has been tested so for, but once the rest of the functions are finished and in place, start testing out each effect!

@@ -1653,6 +1653,17 @@ function sprite_load_parameters() {
 	baseLuck			= real(grid[# SPRITE_PARAMS.LUCK,		spriteID]);
 	baseSize			= real(grid[# SPRITE_PARAMS.SIZE,		spriteID]);
 	
+	currentPower		= basePower;
+	currentResistance	= baseResistance;
+	currentFire			= baseFire;
+	currentWater		= baseWater;
+	currentStorm		= baseStorm;
+	currentEarth		= baseEarth;
+	currentAgility		= baseAgility;
+	currentLuck			= baseLuck;
+	currentAlign		= baseAlign;
+	currentSize			= baseSize;
+	
 	// decode spell list
 	decode_list(spellString, usable_spells);
 	

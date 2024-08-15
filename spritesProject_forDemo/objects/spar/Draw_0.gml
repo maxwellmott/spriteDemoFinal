@@ -374,11 +374,11 @@ draw_set_alpha(1.0);
 					draw_sprite(spr_statIndicator, 5, hoverMenu_columnOneX, hoverMenu_rowThreeY);
 					
 					// check if the stat has been changed at all
-					if (hs.currentResist < hs.baseResist)	draw_set_color(c_red);
-					if (hs.currentResist > hs.baseResist)	draw_set_color(c_green);
+					if (hs.currentResistance< hs.baseResistance)	draw_set_color(c_red);
+					if (hs.currentResistance> hs.baseResistance)	draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnOneX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentResist), 1);
+					draw_text_pixel_perfect(hoverMenu_columnOneX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentResistance), 1);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -495,7 +495,7 @@ draw_set_alpha(1.0);
 					
 					// check if the stat has been changed at all
 					if (hs.currentEarth < hs.baseEarth)		draw_set_color(c_red);
-					if (hs.currentStorm > hs.baseStorm)		draw_set_color(c_green);
+					if (hs.currentEarth > hs.baseEarth)		draw_set_color(c_green);
 					
 					// draw stat
 					draw_text_pixel_perfect(hoverMenu_columnFourX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentEarth), 1);

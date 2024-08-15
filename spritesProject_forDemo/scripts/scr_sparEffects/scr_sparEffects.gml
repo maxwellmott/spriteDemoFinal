@@ -261,10 +261,9 @@ enum SPAR_EFFECTS {
 	SET_INVULNERABLE_NEARBY_SPRITES,
 	SET_INVULNERABLE_TEAM,
 	SET_INVULNERABLE_GLOBAL,
-	SKYDIVE_AVOID_DAMAGE,
-	INVULNERABLE_AVOID_DAMAGE,
 	SET_PARRYING,
 	APPLY_PARRY,
+	IGNORE_PARRY,
 	SET_DIVIDING,
 	SET_MULTIPLYING,
 	DIVIDE_HEALING,
@@ -286,10 +285,9 @@ enum SPAR_EFFECTS {
 	FORCE_BEST_LUCK_GLOBAL,
 	FORCE_WORST_LUCK_GLOBAL,
 	SET_HAIL_SPHERA,
-	BERSERK_IGNORE_HEXED,
-	BERSERK_IGNORE_BOUND,
-	INVULNERABLE_IGNORE_STATUS,
 	BERSERK_INCREASE_DAMAGE,
+	APPLY_BERSERK,
+	APPLY_INVULNERABLE,
 	END_BERSERK,
 	END_BERSERK_NEARBY_ALLIES,
 	END_BERSERK_NEARBY_ENEMIES,
@@ -304,6 +302,10 @@ enum SPAR_EFFECTS {
 	END_INVULNERABLE_GLOBAL,
 	RESTORE_ALIGNMENT,
 	RESTORE_SIZE,
+	SKYDIVE_APPLY_DAMAGE,
+	SNEAK_ATTACK_APPLY_DAMAGE,
+	SKYDIVE_FAILURE,
+	SNEAK_ATTACK_FAILURE,
 	HEIGHT
 }
 
@@ -506,34 +508,27 @@ function deplete_hp_nonlethal(_targetPlayer, _amount) {
 function set_bound(_target) {
 	var t = _target;
 	if !(t.bound) {
-		if (t.invulnerable)		{
-			spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-			instance_destroy(id);
-		}
-		else					{
-			ds_list_add(effectedSprites, t);
-			subject = t.name;
-			t.bound = true;
-		}
-		
-	}	else	instance_destroy(id);
+		if !(spar_check_invulnerable(t)) {
+			if !(spar_check_berserk(t)) {
+				ds_list_add(effectedSprites, t);
+				subject = t.name;
+				t.bound = true;
+			}	else	instance_destroy(id);
+		}	else	instance_destroy(id);
+	}	else	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: sets HEXED to true for the target sprite
 function set_hexed(_target) {
 	var t = _target;
-	
-	if !(t.hexed) {
-		if (t.invulnerable)		{
-			spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-			instance_destroy(id);
-		}
-		else					{
-			ds_list_add(effectedSprites, t);
-			subject = t.name;
-			t.hexed = true;
-		}
-		
+	if !(t.bound) {
+		if !(spar_check_invulnerable(t)) {
+			if !(spar_check_berserk(t)) {
+				ds_list_add(effectedSprites, t);
+				subject = t.name;
+				t.bound = true;
+			}	else	instance_destroy(id);
+		}	else	instance_destroy(id);
 	}	else	instance_destroy(id);
 }
 
@@ -778,7 +773,8 @@ function apply_miasma(_effectedTeam) {
 	// check for natural sprites to increase damage
 	// and add to effectedSprites list
 	var i = 0;	repeat (4) {
-		if (t[| i].currentAlign == ALIGNMENTS.NATURAL) {
+		if (t[| i].currentAlign == ALIGNMENTS.NATURAL) 
+		&& !(t[| i].invulnerable) {
 			effectedSprites += t[| i];
 			
 			d += 125;
@@ -856,24 +852,80 @@ function force_swap(_targetSprite) {
 	// store target's sprite ID
 	var tsid	= il[| tsn].spriteID;
 	
-	// swap sprite IDs
-	
-	var temp	= psid;
-	psid		= tsid;
-	tsid		= temp;
-	
+	// add target and swapper to effectedSprites, store tt.name in subject
 	ds_list_add(effectedSprites, t, il[| psn]);
-	subject = tt.name;
+	subject = tt.name;	
+	
+	// if neither swapper is bound:
+	if !(spar_check_bound(psid)) {
+		if !(spar_check_bound(tsid)) {
+			// if neither swapper is invulnerable
+			if !(spar_check_invulnerable(psid)) {
+				if !(spar_check_invulnerable(tsid)) {
+					// reset all necessary vars for both sprites
+					with (tsid) {
+						dodging			= false;
+						hexed			= false;
+						berserk			= false;
+						mindset			= 0;
+						parrying		= false;	
+						deflective		= false;
+						sneaking		= false;
+					}
+					
+					with (psid) {
+						dodging			= false;
+						hexed			= false;
+						berserk			= false;
+						mindset			= 0;
+						parrying		= false;
+						deflective		= false;
+						sneaking		= false;	
+					}
+					
+					// swap list positions
+					il[| psn]	= tsid;
+					il[| tsn]	= psid;	
+					
+					// create temp var for psid
+					var temp	= psid;	
+					
+					// swap sprite IDs
+					psid		= tsid;
+					tsid		= temp;		
+					
+					// load params for each swapper
+					with (psid)		sprite_load_parameters();
+					with (tsid)		sprite_load_parameters();
+				}
+			}
+		}	
+	}	
 	
 	// delete lists
 	ds_list_destroy(l);
 	ds_list_destroy(il);
 }
 
+
 ///@desc SPAR EFFECT: forces the target team to split into two groups randomly
 /// and perform swaps
 function force_swap_team(_targetPlayer) {
 	randomize();
+		
+	if !(spar_check_bound(psid)) {
+		if !(spar_check_bound(tsid)) {
+			
+		}
+		else {
+			spar_effect_push_alert(SPAR_EFFECTS.APPLY_BOUND, psid);	
+		}
+	}
+	else {
+		if (spar_check_bound(psid)) {
+			spar_effect_push_alert(SPAR_EFFECTS.APPLY_BOUND, tsid);	
+		}
+	}		
 		
 	// get target's spot number
 	var ct = _targetPlayer;
@@ -927,9 +979,51 @@ function force_swap_team(_targetPlayer) {
 	// store target's sprite ID
 	var tsid	= il[| tsn].spriteID;
 	
-	// swap sprite IDs
-	il[| psn].spriteID = tsid;
-	il[| tsn].spriteID = psid;
+	// if neither swapper is bound:
+	if !(spar_check_bound(psid)) {
+		if !(spar_check_bound(tsid)) {
+			// if neither swapper is invulnerable:
+			if !(spar_check_invulnerable(psid)) {
+				if !(spar_check_invulnerable(tsid)) {
+					// reset all necessary vars for both sprites
+					with (tsid) {
+						dodging			= false;
+						hexed			= false;
+						berserk			= false;
+						mindset			= 0;
+						parrying		= false;	
+						deflective		= false;
+						sneaking		= false;
+					}
+					
+					with (psid) {
+						dodging			= false;
+						hexed			= false;
+						berserk			= false;
+						mindset			= 0;
+						parrying		= false;
+						deflective		= false;
+						sneaking		= false;	
+					}
+					
+					// swap sprite IDs
+					psid		= tsid;
+					tsid		= temp;
+					
+					// swap list positions
+					il[| psn]	= tsid;
+					il[| tsn]	= psid;	
+					
+					// create temp var for psid
+					var temp	= psid;	
+					
+					// load params for both swappers
+					with (psid)		sprite_load_parameters();
+					with (tsid)		sprite_load_parameters();
+				}
+			}
+		}
+	}
 	
 	// delete lists
 	ds_list_destroy(l);
@@ -989,17 +1083,59 @@ function force_swap_global() {
 		// copy appropriate list
 		if (tt == spar.playerOne)	ds_list_copy(il, spar.allyList);
 		if (tt == spar.playerTwo)	ds_list_copy(il, spar.enemyList);
-		
+			
 		// store swap partner's sprite ID
 		var psid	= il[| psn].spriteID;
 		
 		// store target's sprite ID
 		var tsid	= il[| tsn].spriteID;
 		
-		// swap sprite IDs
-		il[| psn].spriteID = tsid;
-		il[| tsn].spriteID = psid;
-		
+		// if neither swapper is bound:
+		if !(spar_check_bound(psid)) {
+			if !(spar_check_bound(tsid)) {
+				// if neither swapper is invulnerable
+				if !(spar_check_invulnerable(psid)) {
+					if !(spar_check_invulnerable(tsid)) {		
+						// reset all necessary vars for both sprites
+						with (tsid) {
+							dodging			= false;
+							hexed			= false;
+							berserk			= false;
+							mindset			= 0;
+							parrying		= false;	
+							deflective		= false;
+							sneaking		= false;
+						}
+						
+						with (psid) {
+							dodging			= false;
+							hexed			= false;
+							berserk			= false;
+							mindset			= 0;
+							parrying		= false;
+							deflective		= false;
+							sneaking		= false;	
+						}
+						
+						// swap list positions
+						il[| psn]	= tsid;
+						il[| tsn]	= psid;	
+						
+						// create temp var for psid
+						var temp	= psid;	
+						
+						// swap sprite IDs
+						psid		= tsid;
+						tsid		= temp;
+						
+						// load params for both swappers
+						with (psid)		sprite_load_parameters();
+						with (tsid)		sprite_load_parameters();
+					}
+				}
+			}
+		}		
+				
 		// delete lists
 		ds_list_destroy(l);
 		ds_list_destroy(il);
@@ -1810,13 +1946,11 @@ function set_hexed_nearby_allies(_target) {
 		var inst = t.nearbyAllies[| i];
 		
 		if !(inst.hexed) {
-			if (inst.invulnerable) {
-				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-			}	else if (inst.berserk) {
-				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_HEXED);
-			}	else {
-				ds_list_add(effectedSprites, inst);
-				inst.hexed = true;
+			if !(spar_check_invulnerable(inst)) {
+				if !(spar_check_berserk(inst))	{
+					ds_list_add(effectedSprites, inst);
+					inst.hexed = true;
+				}
 			}
 		}
 		
@@ -1842,13 +1976,11 @@ function set_hexed_nearby_enemies(_target) {
 		var inst = t.nearbyEnemies[| i];
 		
 		if !(inst.hexed) {
-			if (inst.invulnerable) {
-				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-			}	else if (inst.berserk) {
-				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_HEXED);
-			}	else {
-				ds_list_add(effectedSprites, inst);
-				inst.hexed = true;
+			if !(spar_check_invulnerable(inst)) {
+				if !(spar_check_berserk(inst))	{
+					ds_list_add(effectedSprites, inst);
+					inst.hexed = true;
+				}
 			}
 		}
 		
@@ -1874,13 +2006,11 @@ function set_hexed_nearby_sprites(_target) {
 		var inst = t.nearbySprites[| i];
 		
 		if !(inst.hexed) {
-			if (inst.invulnerable) {
-				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-			}	else if (inst.berserk) {
-				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_HEXED);
-			}	else {
-				ds_list_add(effectedSprites, inst);
-				inst.hexed = true;
+			if !(spar_check_invulnerable(inst)) {
+				if !(spar_check_berserk(inst))	{
+					ds_list_add(effectedSprites, inst);
+					inst.hexed = true;
+				}
 			}
 		}
 		
@@ -1910,13 +2040,11 @@ function set_hexed_team(_targetPlayer) {
 		var inst = list[| i];
 		
 		if !(inst.hexed) {
-			if (inst.invulnerable) {
-				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-			}	else if (inst.berserk) {
-				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_HEXED);
-			}	else {
-				ds_list_add(effectedSprites, inst);
-				inst.hexed = true;
+			if !(spar_check_invulnerable(inst)) {
+				if !(spar_check_berserk(inst))	{
+					ds_list_add(effectedSprites, inst);
+					inst.hexed = true;
+				}
 			}
 		}
 		
@@ -1943,13 +2071,11 @@ function set_hexed_global() {
 			var inst = list[| j];
 			
 			if !(inst.hexed) {
-				if (inst.invulnerable) {
-					spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-				}	else if (inst.berserk) {
-					spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_HEXED);
-				}	else {
-					ds_list_add(effectedSprites, inst);
-					inst.hexed = true;
+				if !(spar_check_invulnerable(inst)) {
+					if !(spar_check_berserk(inst))	{
+						ds_list_add(effectedSprites, inst);
+						inst.hexed = true;
+					}
 				}
 			}
 			j++;
@@ -1974,15 +2100,13 @@ function set_bound_nearby_allies(_target) {
 	// their mindset cleared
 	var i = 0;	repeat (ds_list_size(t.nearbyAllies[|i])) {
 		var inst = t.nearbyAllies[| i];
-		
+
 		if !(inst.bound) {
-			if (inst.invulnerable) {
-				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-			}	else if (inst.berserk) {
-				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_BOUND);
-			}	else {
-				ds_list_add(effectedSprites, inst);
-				inst.bound = true;
+			if !(spar_check_invulnerable(inst)) {
+				if !(spar_check_berserk(inst))	{
+					ds_list_add(effectedSprites, inst);
+					inst.bound = true;
+				}
 			}
 		}
 		
@@ -2008,13 +2132,11 @@ function set_bound_nearby_enemies(_target) {
 		var inst = t.nearbyEnemies[| i];
 		
 		if !(inst.bound) {
-			if (inst.invulnerable) {
-				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-			}	else if (inst.berserk) {
-				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_BOUND);
-			}	else {
-				ds_list_add(effectedSprites, inst);
-				inst.bound = true;
+			if !(spar_check_invulnerable(inst)) {
+				if !(spar_check_berserk(inst))	{
+					ds_list_add(effectedSprites, inst);
+					inst.bound = true;
+				}
 			}
 		}
 		
@@ -2040,13 +2162,11 @@ function set_bound_nearby_sprites(_target) {
 		var inst = t.nearbySprites[| i];
 		
 		if !(inst.bound) {
-			if (inst.invulnerable) {
-				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-			}	else if (inst.berserk) {
-				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_BOUND);
-			}	else {
-				ds_list_add(effectedSprites, inst);
-				inst.bound = true;
+			if !(spar_check_invulnerable(inst)) {
+				if !(spar_check_berserk(inst))	{
+					ds_list_add(effectedSprites, inst);
+					inst.bound = true;
+				}
 			}
 		}
 		
@@ -2076,13 +2196,11 @@ function set_bound_team(_targetPlayer) {
 		var inst = list[| i];
 		
 		if !(inst.bound) {
-			if (inst.invulnerable) {
-				spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-			}	else if (inst.berserk) {
-				spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_BOUND);
-			}	else {
-				ds_list_add(effectedSprites, inst);
-				inst.bound = true;
+			if !(spar_check_invulnerable(inst)) {
+				if !(spar_check_berserk(inst))	{
+					ds_list_add(effectedSprites, inst);
+					inst.bound = true;
+				}
 			}
 		}
 		
@@ -2109,13 +2227,11 @@ function set_bound_global() {
 			var inst = list[| j];
 			
 			if !(inst.bound) {
-				if (inst.invulnerable) {
-					spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-				}	else if (inst.berserk) {
-					spar_effect_push_alert(SPAR_EFFECTS.BERSERK_IGNORE_BOUND);
-				}	else {
-					ds_list_add(effectedSprites, inst);
-					inst.bound = true;
+				if !(spar_check_invulnerable(inst)) {
+					if !(spar_check_berserk(inst))	{
+						ds_list_add(effectedSprites, inst);
+						inst.bound = true;
+					}
 				}
 			}
 			
@@ -2414,26 +2530,25 @@ function set_berserk_nearby_allies(_target) {
 	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
 		var inst = t.nearbyAllies[| i];
 		
-		// check if sprite is invulnerable
-		if (inst.invulnerable) {
-			// if so, ignore berserk
-			spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-		}	else	{
-			// check that sprite is not berserk already
-			if !(inst.berserk) {
-				// if it is not, clear hexed and bound if necessary
+		// check if berserk or invulnerable
+		if !(inst.berserk) {
+			if !(spar_check_invulnerable(inst)) {
+				// if other statuses present, reset them
 				if (inst.bound)		inst.bound = false;
 				if (inst.hexed)		inst.hexed = false;
 				
-				// set berserk to true
+				// set berserk and berserkCounter
 				inst.berserk = true;
+				inst.berserkCounter = 1;
 				
-			// if already berserk
-			}	else {
-				// reset berserk counter
-				inst.berserkCounter = 0;
+				// add sprite ID to effectedSprites
+				ds_list_add(effectedSprites, inst);
 			}
-		
+			// if already berserk
+		}	else	{
+			inst.berserkCounter = 1;
+			
+			// add sprite ID to effectedSprites
 			ds_list_add(effectedSprites, inst);
 		}
 		
@@ -2458,26 +2573,25 @@ function set_berserk_nearby_enemies(_target) {
 	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
 		var inst = t.nearbyEnemies[| i];
 		
-		// check if sprite is invulnerable
-		if (inst.invulnerable) {
-			// if so, ignore berserk
-			spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-		}	else	{
-			// check that sprite is not berserk already
-			if !(inst.berserk) {
-				// if it is not, clear hexed and bound if necessary
+		// check if berserk or invulnerable
+		if !(inst.berserk) {
+			if !(spar_check_invulnerable(inst)) {
+				// if other statuses present, reset them
 				if (inst.bound)		inst.bound = false;
 				if (inst.hexed)		inst.hexed = false;
 				
-				// set berserk to true
+				// set berserk and berserkCounter
 				inst.berserk = true;
+				inst.berserkCounter = 1;
 				
-			// if already berserk
-			}	else {
-				// reset berserk counter
-				inst.berserkCounter = 0;
+				// add sprite ID to effectedSprites
+				ds_list_add(effectedSprites, inst);
 			}
-		
+			// if already berserk
+		}	else	{
+			inst.berserkCounter = 1;
+			
+			// add sprite ID to effectedSprites
 			ds_list_add(effectedSprites, inst);
 		}
 		
@@ -2502,26 +2616,25 @@ function set_berserk_nearby_sprites(_target) {
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
 		var inst = t.nearbySprites[| i];
 		
-		// check if sprite is invulnerable
-		if (inst.invulnerable) {
-			// if so, ignore berserk
-			spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-		}	else	{
-			// check that sprite is not berserk already
-			if !(inst.berserk) {
-				// if it is not, clear hexed and bound if necessary
+		// check if berserk or invulnerable
+		if !(inst.berserk) {
+			if !(spar_check_invulnerable(inst)) {
+				// if other statuses present, reset them
 				if (inst.bound)		inst.bound = false;
 				if (inst.hexed)		inst.hexed = false;
 				
-				// set berserk to true
+				// set berserk and berserkCounter
 				inst.berserk = true;
+				inst.berserkCounter = 1;
 				
-			// if already berserk
-			}	else {
-				// reset berserk counter
-				inst.berserkCounter = 0;
+				// add sprite ID to effectedSprites
+				ds_list_add(effectedSprites, inst);
 			}
-		
+			// if already berserk
+		}	else	{
+			inst.berserkCounter = 1;
+			
+			// add sprite ID to effectedSprites
 			ds_list_add(effectedSprites, inst);
 		}
 		
@@ -2550,26 +2663,25 @@ function set_berserk_team(_targetPlayer) {
 	var i = 0;	repeat (ds_list_size(list)) {
 		var inst = list[| i];
 		
-		// check if sprite is invulnerable
-		if (inst.invulnerable) {
-			// if so, ignore berserk
-			spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-		}	else	{
-			// check that sprite is not berserk already
-			if !(inst.berserk) {
-				// if it is not, clear hexed and bound if necessary
+		// check if berserk or invulnerable
+		if !(inst.berserk) {
+			if !(spar_check_invulnerable(inst)) {
+				// if other statuses present, reset them
 				if (inst.bound)		inst.bound = false;
 				if (inst.hexed)		inst.hexed = false;
 				
-				// set berserk to true
+				// set berserk and berserkCounter
 				inst.berserk = true;
+				inst.berserkCounter = 1;
 				
-			// if already berserk
-			}	else {
-				// reset berserk counter
-				inst.berserkCounter = 0;
+				// add sprite ID to effectedSprites
+				ds_list_add(effectedSprites, inst);
 			}
-		
+			// if already berserk
+		}	else	{
+			inst.berserkCounter = 1;
+			
+			// add sprite ID to effectedSprites
 			ds_list_add(effectedSprites, inst);
 		}
 		
@@ -2595,26 +2707,25 @@ function set_berserk_global() {
 			var j = 0;	repeat (ds_list_size(list)) {
 				var inst = list[| j];
 				
-				// check if sprite is invulnerable
-				if (inst.invulnerable) {
-					// if so, ignore berserk
-					spar_effect_push_alert(SPAR_EFFECTS.INVULNERABLE_IGNORE_STATUS);
-				}	else	{
-					// check that sprite is not berserk already
-					if !(inst.berserk) {
-						// if it is not, clear hexed and bound if necessary
+				// check if berserk or invulnerable
+				if !(inst.berserk) {
+					if !(spar_check_invulnerable(inst)) {
+						// if other statuses present, reset them
 						if (inst.bound)		inst.bound = false;
 						if (inst.hexed)		inst.hexed = false;
 						
-						// set berserk to true
+						// set berserk and berserkCounter
 						inst.berserk = true;
+						inst.berserkCounter = 1;
 						
-					// if already berserk
-					}	else {
-						// reset berserk counter
-						inst.berserkCounter = 0;
+						// add sprite ID to effectedSprites
+						ds_list_add(effectedSprites, inst);
 					}
-				
+					// if already berserk
+				}	else	{
+					inst.berserkCounter = 1;
+					
+					// add sprite ID to effectedSprites
 					ds_list_add(effectedSprites, inst);
 				}
 				
@@ -2634,14 +2745,16 @@ function set_berserk_global() {
 function set_invulnerable(_target) {
 	var t = _target;
 	
-	ds_list_add(effectedSprites, t);
-	subject = t.name;
-	
 	if !(t.invulnerable) {
-		if (t.bound)	t.bound = false;
-		if (t.hexed)	t.hexed = false;
+		ds_list_add(effectedSprites, t);
+		subject = t.name;		
+		
+		if (t.berserk)	t.berserk	= false;
+		if (t.bound)	t.bound		= false;
+		if (t.hexed)	t.hexed		= false;
 		
 		t.invulnerable = true;
+		t.invulnerableCounter = 1;
 	}	else	instance_destroy(id);
 }
 
@@ -2660,10 +2773,12 @@ function set_invulnerable_nearby_allies(_target) {
 		if !(inst.invulnerable) {
 			ds_list_add(effectedSprites, inst);
 			
-			if (t.bound)	t.bound = false;
-			if (t.hexed)	t.hexed = false;
-			
+			if (inst.berserk)	inst.berserk	= false;
+			if (inst.bound)		inst.bound		= false;
+			if (inst.hexed)		inst.hexed		= false;
+		
 			inst.invulnerable = true;
+			inst.invulnerableCounter = 1;
 		}
 		
 		i++;
@@ -2688,11 +2803,13 @@ function set_invulnerable_nearby_enemies(_target) {
 		var inst = t.nearbyEnemies[| i];
 		
 		if !(inst.invulnerable) {
-			ds_list_add(effectedSprites, inst);
+			ds_list_add(effectedSprites, inst);		
+			if (inst.berserk)	inst.berserk	= false;
+			if (inst.bound)		inst.bound		= false;
+			if (inst.hexed)		inst.hexed		= false;
+			
 			inst.invulnerable = true;
-		
-			if (t.bound)	t.bound = false;
-			if (t.hexed)	t.hexed = false;
+			inst.invulnerableCounter = false;
 		}
 		
 		i++;
@@ -2717,11 +2834,13 @@ function set_invulnerable_nearby_sprites(_target) {
 		var inst = t.nearbySprites[| i];
 		
 		if !(inst.invulnerable) {
-			ds_list_add(effectedSprites, inst);
-			inst.invulnerable = true;
+			ds_list_add(effectedSprites, inst);			
+			if (inst.berserk)	inst.berserk	= false;
+			if (inst.bound)		inst.bound		= false;
+			if (inst.hexed)		inst.hexed		= false;
 			
-			if (t.bound)	t.bound = false;
-			if (t.hexed)	t.hexed = false;
+			inst.invulnerable = true;
+			inst.invulnerableCounter = 1;
 		}
 		
 		i++;
@@ -2750,11 +2869,13 @@ function set_invulnerable_team(_targetPlayer) {
 		var inst = list[| i];
 		
 		if !(inst.invulnerable) {
-			ds_list_add(effectedSprites, inst);
-			inst.invulnerable = true;
+			ds_list_add(effectedSprites, inst);			
+			if (inst.berserk)	inst.berserk	= false;
+			if (inst.bound)		inst.bound		= false;
+			if (inst.hexed)		inst.hexed		= false;
 			
-			if (t.bound)	t.bound = false;
-			if (t.hexed)	t.hexed = false;
+			inst.invulnerable = true;
+			inst.invulnerableCounter = 1;
 		}
 		
 		i++;
@@ -2780,11 +2901,13 @@ function set_invulnerable_global() {
 			var inst = list[| j];
 			
 			if !(inst.invulnerable) {
-				ds_list_add(effectedSprites, inst);
-				inst.invulnerable = true;
+				ds_list_add(effectedSprites, inst);			
+				if (inst.berserk)	inst.berserk	= false;
+				if (inst.bound)		inst.bound		= false;
+				if (inst.hexed)		inst.hexed		= false;
 				
-				if (t.bound)	t.bound = false;
-				if (t.hexed)	t.hexed = false;
+				inst.invulnerable = true;
+				inst.invulnerableCounter = 1;
 			}
 			
 			j++;
@@ -2801,16 +2924,7 @@ function set_invulnerable_global() {
 
 ///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
 /// that the damage was altered after the fact
-function skydive_avoid_damage(_skydiveSprite) {
-	var c = _skydiveSprite;
-	
-	ds_list_add(effectedSprites, c);
-	subject = c.name;
-}
-
-///@desc SPAR EFFECT: this effect is simply here as a way of notifying the player
-/// that the damage was altered after the fact
-function invulnerable_avoid_damage(_invulnSprite) {
+function apply_invulnerable(_invulnSprite) {
 	var c = _invulnSprite;
 	
 	ds_list_add(effectedSprites, c);
@@ -2830,16 +2944,31 @@ function set_parrying(_caster) {
 ///@desc SPAR EFFECT: determines what the damage would have been
 /// if the sprite were not parrying, then depletes that amount of damage from
 /// the attacking sprite's team after multiplying it by 1.5*
-function apply_parry(_attackingSprite, _parryingSprite) {
+function apply_parry(_attackingSprite, _parryingSprite, _damage) {
 	var t = _attackingSprite;
 	var c = _parryingSprite;
+	var d = _damage;
 	
 	ds_list_add(effectedSprites, c);
 	subject = c.name;
 	
-	var d = get_physical_damage(t, c, BASIC_ATTACK_POWER);
+	t.team.currentHP -= d * 2.5;
+}
+
+///@desc SPAR EFFECT: various things might cause a parry to fail, such as
+/// the attacking sprite being invulnerable. This just creates a different
+/// animation and posts a specific message, while also dealing slightly increased
+/// damage
+function ignore_parry(_attackingSprite, _parryingSprite, _damage) {
+	var t = _parryingSprite;
+	var c = _attackingSprite;
+	var d = _damage;
 	
-	t.team.currentHPl -= (d * 1.5);
+	ds_list_add(effectedSprites, t);
+	subject = c.name;
+	object = t.name;
+	
+	t.team.currentHP -= d * 1.3;
 }
 
 ///@desc SPAR EFFECT: sets DIVIDING to true for the target sprite
@@ -2909,13 +3038,30 @@ function set_deflective(_caster) {
 	}	else	instance_destroy(id);
 }
 
-///@desc SPAR EFFECT: this effect is simply a means of notifying the player
-/// that the spell was altered after the fact
-function deflect_spell(_caster) {
-	var c = _caster;
+///@desc SPAR EFFECT: apply boosted elemental damage
+/// against the caster
+function deflect_spell() {
+	var c = activeSprite;
+	var t = targetSprite;
 	
-	ds_list_add(effectedSprites, c);
-	subject = c.name;
+	// calculate spell damage
+	var d = damage * 1.3;
+	
+	// check if caster is also deflective
+	if !(spar_check_deflective(t, c, d)) {
+		c.team.currentHP -= d;
+	
+		ds_list_add(effectedSprites, c);
+		subject = t.name;
+		object = c.name;
+	}
+	// else, post a new deflection
+	else	{
+		spar_effect_push_alert(SPAR_EFFECTS.DEFLECT_SPELL, t, c, d);
+		
+		// destroy effect alert
+		instance_destroy(id);
+	}
 }
 
 ///@desc SPAR EFFECT: forces the turn to end immediately
@@ -2951,7 +3097,7 @@ function psychic_attack(_caster, _target, _power) {
 	
 	var s2 = get_current_stat_elemental(get_worst_elemental_stat(c));
 	
-	if (t.currentResist		< s2)	s2 = t.currentResist;
+	if (t.currentResist		< s2)	s2 = t.currentResistance;
 	if (t.currentAgility	< s2)	s2 = t.currentAgility;
 	
 	var d = get_psychic_damage(s1, s2, p);
@@ -3022,6 +3168,7 @@ function end_berserk(_target) {
 		ds_list_add(effectedSprites, t);
 		subject = t.name;
 		t.berserk = false;
+		t.berserkCounter = 0;
 	}	else	instance_destroy(id);
 }
 
@@ -3040,6 +3187,7 @@ function end_berserk_nearby_allies(_target) {
 		if (inst.berserk) {
 			ds_list_add(effectedSprites, inst);
 			inst.berserk = false;
+			inst.berserkCounter = 0;
 		}
 		
 		i++;
@@ -3066,6 +3214,7 @@ function end_berserk_nearby_enemies(_target) {
 		if (inst.berserk) {
 			ds_list_add(effectedSprites, inst);
 			inst.berserk = false;
+			inst.berserkCounter = 0;
 		}
 		
 		i++;
@@ -3092,6 +3241,7 @@ function end_berserk_nearby_sprites(_target) {
 		if (inst.berserk) {
 			ds_list_add(effectedSprites, inst);
 			inst.berserk = false;
+			inst.berserkCounter = 0;
 		}
 		
 		i++;
@@ -3122,6 +3272,7 @@ function end_berserk_team(_targetPlayer) {
 		if (inst.berserk) {
 			ds_list_add(effectedSprites, inst);
 			inst.berserk = false;
+			inst.berserkCounter = 0;
 		}
 		
 		i++;
@@ -3149,6 +3300,7 @@ function end_berserk_global() {
 			if (inst.berserk) {
 				ds_list_add(effectedSprites, inst);
 				inst.berserk = false;
+				inst.berserkCounter = 0;
 			}
 			j++;
 		}
@@ -3169,6 +3321,7 @@ function end_invulnerable(_target) {
 		ds_list_add(effectedSprites, t);
 		subject = t.name;
 		t.invulnerable = false;	
+		t.invulnerableCounter = 0;
 	}	else	instance_destroy(id);
 }
 
@@ -3187,6 +3340,7 @@ function end_invulnerable_nearby_allies(_target) {
 		if (inst.invulnerable) {
 			ds_list_add(effectedSprites, inst);
 			inst.invulnerable = false;
+			inst.invulnerableCounter = 0;
 		}
 		
 		i++;
@@ -3214,6 +3368,7 @@ function end_invulnerable_nearby_enemies(_target) {
 		if (inst.invulnerable) {
 			ds_list_add(effectedSprites, inst);
 			inst.invulnerable = false;
+			inst.invulnerableCounter = 0;
 		}
 		
 		i++;
@@ -3240,6 +3395,7 @@ function end_invulnerable_nearby_sprites(_target) {
 		if (inst.invulnerable) {
 			ds_list_add(effectedSprites, inst);
 			inst.invulnerable = false;
+			inst.invulnerableCounter = 0;
 		}
 		
 		i++;
@@ -3270,6 +3426,7 @@ function end_invulnerable_team(_target) {
 		if (inst.invulnerable) {
 			ds_list_add(effectedSprites, inst);
 			inst.invulnerable = false;
+			inst.invulnerableCounter = 0;
 		}
 		
 		i++;
@@ -3297,6 +3454,7 @@ function end_invulnerable_global() {
 			if (inst.invulnerable) {
 				ds_list_add(effectedSprites, inst);
 				inst.invulnerable = false;
+				inst.invulnerableCounter = 0;
 			}
 			j++;
 		}
@@ -3308,7 +3466,6 @@ function end_invulnerable_global() {
 		instance_destroy(id);
 	}		
 }
-
 
 ///@desc SPAR EFFECT: restores alignment to original
 function restore_alignment(_inst) {
@@ -3322,6 +3479,72 @@ function restore_size(_inst) {
 	var inst = _inst;
 	
 	inst.currentSize = inst.baseSize;
+}
+
+///@desc SPAR EFFECT: applies the damage from a skydive
+function skydive_apply_damage(_atkr, _targ) {
+	// store args in locals
+	var atkr = _atkr;
+	var targ = _targ;
+	
+	// if target is not invulnerable:
+	if !(targ.invulnerable) {
+		// check for a mechanical target
+		spar_check_mechanical_target(targ);
+		
+		// calculate damage
+		var d = get_physical_damage(atkr, targ, 120);
+	
+		// apply damage
+		targ.team.currentHP -= d;
+	}
+	// if target is invulnerable, apply invulnerable
+	else	spar_effect_push_alert(SPAR_EFFECTS.APPLY_INVULNERABLE, targ);
+}
+
+///@desc SPAR EFFECT: applies the damage from a sneak attack
+function sneak_attack_apply_damage(_atkr, _targ) {
+	// store args in locals
+	var atkr = _atkr;
+	var targ = _targ;
+	
+	// if target is not invulnerable:
+	if !(targ.invulnerable) {
+		// check for a mechanical target
+		spar_check_mechanical_target(targ);
+		
+		// calculate damage
+		var d = get_physical_damage(atkr, targ, 120);
+		
+		// initialize dodgeCountMultiplier
+		var dcm = 1;
+		
+		// increment dcm
+		if (atkr.dodgeCount > 0) {
+			dcm = 1.15;
+			
+			dcm += (0.1 * (atkr.dodgeCount - 1));
+		}
+		
+		// apply damage
+		targ.team.currentHP -= round(d * dcm);
+	}
+	// if target is invulnerable, apply invulnerable
+	else	spar_effect_push_alert(SPAR_EFFECTS.APPLY_INVULNERABLE, targ);
+}
+
+///@desc SPAR EFFECT: announces that the skydive failed
+function skydive_failure(_inst) {
+	subject = _inst.name;
+	
+	ds_list_add(effectedSprites, _inst);
+}
+
+///@desc SPAR EFFECT: announces that teh sneak attack failed
+function sneak_attack_failure(_inst) {
+	subject = _inst.name;
+	
+	ds_list_add(effectedSprites, _inst);
 }
 
 // get text from csv file
@@ -3465,8 +3688,6 @@ master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE_NEARBY_ENEMIES,	textGr
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE_NEARBY_SPRITES,	textGrid[# 1, SPAR_EFFECTS.SET_INVULNERABLE_NEARBY_SPRITES],	set_invulnerable_nearby_sprites,	sparFX_invulnerable);
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE_TEAM,				textGrid[# 1, SPAR_EFFECTS.SET_INVULNERABLE_TEAM],				set_invulnerable_team,				sparFX_invulnerable);
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.SET_INVULNERABLE_GLOBAL],			set_invulnerable_global,			sparFX_invulnerable);
-master_grid_add_spar_effect(SPAR_EFFECTS.SKYDIVE_AVOID_DAMAGE,				textGrid[# 1, SPAR_EFFECTS.SKYDIVE_AVOID_DAMAGE],				skydive_avoid_damage,				sparFX_skydive);
-master_grid_add_spar_effect(SPAR_EFFECTS.INVULNERABLE_AVOID_DAMAGE,			textGrid[# 1, SPAR_EFFECTS.INVULNERABLE_AVOID_DAMAGE],			invulnerable_avoid_damage,			sparFX_invulnerable);
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_PARRYING,						textGrid[# 1, SPAR_EFFECTS.SET_PARRYING],						set_parrying,						sparFX_parry);
 master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_PARRY,						textGrid[# 1, SPAR_EFFECTS.APPLY_PARRY],						apply_parry,						sparFX_takeDamage);
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_DIVIDING,						textGrid[# 1, SPAR_EFFECTS.SET_DIVIDING],						set_dividing,						sparFX_divide);
@@ -3492,6 +3713,7 @@ master_grid_add_spar_effect(SPAR_EFFECTS.END_INVULNERABLE_TEAM,				textGrid[# 1,
 master_grid_add_spar_effect(SPAR_EFFECTS.END_INVULNERABLE_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.END_INVULNERABLE_GLOBAL],			end_invulnerable_global,			sparFX_clearStatus);
 master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_ALIGNMENT,					textGrid[# 1, SPAR_EFFECTS.RESTORE_ALIGNMENT],					restore_alignment,					sparFX_clearStatus);
 master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_SIZE,						textGrid[# 1, SPAR_EFFECTS.RESTORE_SIZE],						restore_size,						sparFX_clearStatus);
+master_grid_add_spar_effect();
 #endregion
 
 // encode the spar effect grid

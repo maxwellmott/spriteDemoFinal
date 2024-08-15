@@ -109,7 +109,7 @@ enum SPELL_PARAMS {
 	var priorityList = ds_list_create();
 	
 	// populate priority list
-	ds_list_add(priorityList,	SPELLS.SHOCK,		SPELLS.RAPID_STRIKE,		SPELLS.BALL_LIGHTNING,		SPELLS.FLASH_FREEZE,	SPELLS.SNEAK_ATTACK,
+	ds_list_add(priorityList,	SPELLS.SHOCK,		SPELLS.RAPID_STRIKE,		SPELLS.FLASH_FREEZE,	SPELLS.SNEAK_ATTACK,
 								SPELLS.SKYDIVE,		SPELLS.DEFLECTIVE_SHIELD,	SPELLS.DIONS_PARRY,		SPELLS.TIME_LOOP,		SPELLS.ERADICATE);
 								
 	// encode priority list
@@ -941,7 +941,7 @@ master_grid_add_spell(		SPELLS.NOXIOUS_FUMES,			textGrid[# 1, SPELLS.NOXIOUS_FUM
 master_grid_add_spell(		SPELLS.CRECIAS_CRYSTAL_SPIKES,	textGrid[# 1, SPELLS.CRECIAS_CRYSTAL_SPIKES],	textGrid[# 2, SPELLS.CRECIAS_CRYSTAL_SPIKES],	textGrid[# 3, SPELLS.CRECIAS_CRYSTAL_SPIKES],	SPELL_TYPES.EARTH,		120,	65,		ranges.nearestThreeSprites,	crecias_crystal_spikes,	false);
 master_grid_add_spell(		SPELLS.PSYCHIC_FISSURE,			textGrid[# 1, SPELLS.PSYCHIC_FISSURE],			textGrid[# 2, SPELLS.PSYCHIC_FISSURE],			textGrid[# 3, SPELLS.PSYCHIC_FISSURE],			SPELL_TYPES.TRICK,		130,	60,		ranges.anySprite,			psychic_fissure,		true);
 master_grid_add_spell(		SPELLS.REARRANGE,				textGrid[# 1, SPELLS.REARRANGE],				textGrid[# 2, SPELLS.REARRANGE],				textGrid[# 3, SPELLS.REARRANGE],				SPELL_TYPES.TRICK,		0,		40,		ranges.nearestThreeSprites,	rearrange,				true);
-master_grid_add_spell(		SPELLS.SNEAK_ATTACK,			textGrid[# 1, SPELLS.SNEAK_ATTACK],				textGrid[# 2, SPELLS.SNEAK_ATTACK],				textGrid[# 3, SPELLS.SNEAK_ATTACK],				SPELL_TYPES.PHYSICAL,	100,	50,		ranges.nearestFiveSprites,	sneak_attack,			false);
+master_grid_add_spell(		SPELLS.SNEAK_ATTACK,			textGrid[# 1, SPELLS.SNEAK_ATTACK],				textGrid[# 2, SPELLS.SNEAK_ATTACK],				textGrid[# 3, SPELLS.SNEAK_ATTACK],				SPELL_TYPES.PHYSICAL,	120,	50,		ranges.nearestFiveSprites,	sneak_attack,			false);
 master_grid_add_spell(		SPELLS.DEFLECTIVE_SHIELD,		textGrid[# 1, SPELLS.DEFLECTIVE_SHIELD],		textGrid[# 2, SPELLS.DEFLECTIVE_SHIELD],		textGrid[# 3, SPELLS.DEFLECTIVE_SHIELD],		SPELL_TYPES.TRICK,		0,		50,		ranges.onlySelf,			deflective_shield,		false);
 master_grid_add_spell(		SPELLS.DIONS_PARRY,				textGrid[# 1, SPELLS.DIONS_PARRY],				textGrid[# 2, SPELLS.DIONS_PARRY],				textGrid[# 3, SPELLS.DIONS_PARRY],				SPELL_TYPES.PHYSICAL,	135,	40,		ranges.onlySelf,			dions_parry,			false);
 master_grid_add_spell(		SPELLS.DIONS_GAMBLING_BLAST,	textGrid[# 1, SPELLS.DIONS_GAMBLING_BLAST],		textGrid[# 2, SPELLS.DIONS_GAMBLING_BLAST],		textGrid[# 3, SPELLS.DIONS_GAMBLING_BLAST],		SPELL_TYPES.TRICK,		0,		35,		ranges.onlySelf,			dions_gambling_blast,	false);

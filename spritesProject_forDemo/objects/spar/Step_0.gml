@@ -332,6 +332,10 @@ switch (sparPhase) {
 			break;
 			
 			case PROCESS_PHASES.END:
+				// reset dodging var for all sprites
+				with (sparAlly)		dodging = false;	dodgeCount = 0;
+				with (sparEnemy)	dodging = false;	dodgeCount = 0;
+			
 				sparPhase = sparPhases.turnEnd;
 			break;
 		}

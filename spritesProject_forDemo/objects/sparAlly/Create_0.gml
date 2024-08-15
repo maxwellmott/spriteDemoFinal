@@ -52,16 +52,16 @@ baseAlign	= -1;
 sprite_load_parameters();
 
 // initialize current stats
-currentPower	= basePower;
-currentResist	= baseResist;
-currentAgility	= baseAgility;
-currentLuck		= baseLuck;
-currentFire		= baseFire;
-currentWater	= baseWater;
-currentStorm	= baseStorm;
-currentEarth	= baseEarth;
-currentSize		= baseSize;
-currentAlign	= baseAlign;
+currentPower		= basePower;
+currentResistance	= baseResistance;
+currentAgility		= baseAgility;
+currentLuck			= baseLuck;
+currentFire			= baseFire;
+currentWater		= baseWater;
+currentStorm		= baseStorm;
+currentEarth		= baseEarth;
+currentSize			= baseSize;
+currentAlign		= baseAlign;
 
 // initialize mindset (set to 0 since negative IDs= curses)
 mindset = 0;
@@ -123,6 +123,8 @@ blackHoleCount = 0;
 ballLightningActive = false;
 ballLightningCount = 0;
 
+newTeamListPos = -1;
+newGlobalListPos = -1;
 newSpriteID = -1;
 
 parrying = false;
@@ -131,6 +133,8 @@ swapping	= false;
 resting		= false;
 dodging		= false;
 
+dodgeCount = 0;
+
 luckRoll = 0;
 
 currentPose = SPRITE_POSES.IDLE;
@@ -138,12 +142,6 @@ currentPose = SPRITE_POSES.IDLE;
 flying			= false;
 deflective		= false;
 sneaking		= false;
-
-hailMary = false;
-
-dividing = false;
-multiplying = false;
-coefficient = -1;
 
 flashNum = 0;
 flashCount = -1;

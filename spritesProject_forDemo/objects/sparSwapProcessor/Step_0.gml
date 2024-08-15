@@ -20,8 +20,19 @@ if (global.select) {
 		
 		// reset all of this sprites parameters
 		with (inst) {
+			if (team == player) {
+				spar.allyList[| newTeamListPos] = id;	
+			}
+			else {
+				spar.enemyList[| newTeamListPos] = id;	
+			}
+			
+			spar.spriteList[| newGlobalListPos] = id;
 			spriteID = newSpriteID;
-			newSpriteID = -1;
+
+			newSpriteID			= -1;
+			newTeamListPos		= -1;
+			newGlobalListPos	= -1;
 			swapping = false;
 			sprite_load_parameters();
 		}

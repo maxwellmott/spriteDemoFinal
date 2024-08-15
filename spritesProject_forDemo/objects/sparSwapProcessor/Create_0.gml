@@ -14,23 +14,49 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 	
 	// check if the action is a swap
 	if (a == sparActions.swap) {
-		// if so, set the sprite's swapping var to true
-		inst.swapping = true;
-		
-		// get the target
+		// get their swap partner's ID
 		var t = spar.turnGrid[# selectionPhases.target, i];
-		
-		// get the target's instance id
-		var targ = spar.spriteList[| t];
-		
-		// set the sprite's newSpriteID to equal their target
-		inst.newSpriteID = targ.spriteID;
-		
-		// add the instance id to the swapList
-		ds_list_add(swapList, inst);
-		
-		// set this sprite's action to -1 on the turn grid
-		spar.turnGrid[# selectionPhases.action, i] = -1;
+		var pid = spar.spriteList[| t];
+		if !(spar_check_bound(inst))	{
+			if	!(spar_check_bound(pid))	{
+				// if swapping and neither are bound, 
+				// set the sprite's swapping var to true
+				inst.swapping = true;
+				
+				// reset all statuses
+				inst.hexed			= false;
+				inst.invulnerable	= false;
+				inst.berserk		= false;
+				inst.mindset		= 0;
+			
+				// get the target
+				var t = spar.turnGrid[# selectionPhases.target, i];
+			
+				// get the target's instance id
+				var targ = spar.spriteList[| t];
+			
+				// set the sprite's new vars to equal their targets current vals
+				inst.newSpriteID		= targ.spriteID;
+				inst.newTeamListPos		= targ.spotNum;
+				inst.newGlobalListPos	=	ds_list_find_index(spar.spriteList, targ);
+			
+				// add the instance id to the swapList
+				ds_list_add(swapList, inst);
+			
+				// set this sprite's action to -1 on the turn grid
+				spar.turnGrid[# selectionPhases.action, i] = -1;
+			}
+			else	{
+				// set both swappers' action to -1 on the turn grid
+				spar.turnGrid[# selectionPhases.action, i] = -1;
+				spar.turnGrid[# selectionPhases.action, t] = -1;
+			}
+		}
+		else	{
+				// set both swappers' action to -1 on the turn grid
+				spar.turnGrid[# selectionPhases.action, i] = -1;
+				spar.turnGrid[# selectionPhases.action, t] = -1;
+		}
 	}
 	
 	i++;

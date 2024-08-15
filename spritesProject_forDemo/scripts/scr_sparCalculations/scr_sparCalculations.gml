@@ -1,9 +1,10 @@
 #macro MAX_LUCK		1075
 #macro MIN_LUCK		725
 
-global.averageWeaknesses	= ds_list_create();
-global.averageStrengths		= ds_list_create();
-global.agilityOdds			= 0;
+global.averageWeaknesses		= ds_list_create();
+global.averageStrengths			= ds_list_create();
+global.agilityOdds				= 0;
+global.damageMultiplierIndex	= 0;
 
 enum elements {
 	fire,
@@ -179,8 +180,11 @@ function get_elemental_damage(_targ, _atkr, _lmnt, _spellPower) {
 	var weaknessRatio	= weakStatTarg * targLuck / 100;		// increase in stat produces INCREASE in output
 	var resistanceRatio	= 100 / strongStatTarg * targLuck;		// increase in stat produces DECREASE in output
 
+	// get damage multiplier from dmi
+	var m = get_multiplier_from_index();
+
 	// calculate damage
-	var damage = sp * casterRatio * affinityRatio * weaknessRatio * resistanceRatio;
+	var damage = sp * casterRatio * affinityRatio * weaknessRatio * resistanceRatio * m;
 	
 	// return damage
 	return damage;
@@ -205,8 +209,11 @@ function get_physical_damage(_atkr, _targ, _spellPower) {
 	// get the ratio that determines the damage output
 	var damageRatio = (atkrPow * atkrLuck) / (targRes * targLuck);
 	
+	// get damage multiplier from dmi
+	var m = get_multiplier_from_index();	
+	
 	// calculate damage
-	var damage = sp * damageRatio;
+	var damage = sp * damageRatio * m;
 	
 	// return damage multiplied by average luck
 	return damage;
@@ -225,8 +232,8 @@ function get_psychic_damage(_atkr, _targ, _power) {
 	var i = 0;	repeat (5) {
 		switch (i) {
 			case 0:
-				if (atkr.currentResist > atkStat)	atkStat = atkr.currentResist;
-				if (targ.currentResist < resStat)	resStat = targ.currentResist;
+				if (atkr.currentResistance> atkStat)	atkStat = atkr.currentResistance;
+				if (targ.currentResistance< resStat)	resStat = targ.currentResistance;
 			break;
 			
 			case 1:
@@ -260,9 +267,30 @@ function get_psychic_damage(_atkr, _targ, _power) {
 	// get the ratio that determines the output
 	var damageRatio = (atkStat * atkrLuck) / (resStat * targLuck);
 	
+	// get damage multiplier from dmi
+	var m = get_multiplier_from_index();
+	
 	// calculate damage
-	var d = sp * damageRatio = powr * damageRatio;
+	var d = powr * damageRatio * m;
 	
 	// return damage
 	return d;
+}
+
+///@desc This function should be called right before the damage calc functions return the damage. It 
+/// performs an algorithm that will return a damage multiplier relative to the multiplierIndex (it will
+/// then reset the multiplierIndex)
+function get_multiplier_from_index() {	
+	// store globals in locals
+	var dmi = global.damageMultiplierIndex;
+	
+	// use dmi to get multiplier
+	var m = 1;
+	m += (dmi * 0.2);
+	
+	// reset the dmi
+	global.damageMultiplierIndex = 0;
+	
+	// return the multiplier
+	return m;
 }
