@@ -72,3 +72,5 @@ enemy = noone;
 human_build_spellBookGrid();
 
 ready = false;
+
+hailSphera = false;

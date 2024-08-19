@@ -388,6 +388,8 @@ function sprite_process_rest(_instanceID) {
 	
 	restore_mp(t, mpRegen);
 	
+	if (inst.berserk)							spar_effect_push_alert(SPAR_EFFECTS.END_BERSERK, inst);
+	
 	if (inst.currentAlign != inst.baseAlign)	spar_effect_push_alert(SPAR_EFFECTS.RESTORE_ALIGNMENT, inst);
 	
 	if (inst.currentSize != inst.baseSize)		spar_effect_push_alert(SPAR_EFFECTS.RESTORE_SIZE, inst);

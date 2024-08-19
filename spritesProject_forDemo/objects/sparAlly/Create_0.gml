@@ -119,9 +119,11 @@ nearbySprites	= ds_list_create();
 
 blackHoleActive = false;
 blackHoleCount = 0;
+blackHoleTarget = -1;
 
 ballLightningActive = false;
 ballLightningCount = 0;
+ballLightningTarget = -1;
 
 newTeamListPos = -1;
 newGlobalListPos = -1;

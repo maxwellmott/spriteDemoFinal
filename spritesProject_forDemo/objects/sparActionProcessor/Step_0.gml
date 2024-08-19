@@ -153,7 +153,7 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 
 // check if current state is display msg
 if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
-	// check if basic attack
+	// BASIC ATTACK
 	if (currentSpell < 0) {
 		if !(dodgeSuccess) {
 			if !(spar_check_parrying()) {
@@ -163,6 +163,9 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 					targetSprite.dodging = false;
 					targetSprite.sneaking = false;
 				}
+				
+				// check for berserk damage increase
+				spar_check_berserk_increase_damage(activeSprite);
 				
 				// apply damage and change turnMsg
 				var t = targetSprite.team;
@@ -179,11 +182,17 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 		// if target was parrying, destroy the processor
 		}	else	instance_destroy(id);
 	}
-	// or spell
-	else {		
+	// SPELL
+	else {	
+		spar_check_black_hole_absorb_spell();
+		spar_check_ball_lightning_absorb_spell();
+		
 		if !(dodgeSuccess) {
 			if !(spar_check_parrying()) {
-				// if this is an elemental spell:
+				// check if the caster of this spell is hexed
+				spar_check_hexed(activeSprite);
+				
+				// if this is an elemental or trick spell:
 				if (spellType < SPELL_TYPES.PHYSICAL) {
 					// if target is deflective:
 					if (spar_check_deflective(activeSprite, targetSprite, damage * 1.3)) {

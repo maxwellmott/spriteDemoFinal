@@ -33,6 +33,4 @@ enemy = noone;
 
 ready = false;
 
-
-
-
+hailSphera = false;

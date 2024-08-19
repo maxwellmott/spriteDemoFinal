@@ -66,22 +66,24 @@ function spar_check_timed_blasts() {
 	// get the height of the blastGrid
 	var h = blastCount;
 	
-	// use a repeat loop to check each entry on the grid
-	var i = 0;	repeat (h) {
-		// get all columns of the current row
-		var timr = timedBlastGrid[# 0, i];
-		
-		// check if time is up
-		if (timr == 0) {
-			spar_effect_push_alert(SPAR_EFFECTS.BLAST_TIMER_GO_OFF, i);
+	// check if blastCount is at least 1
+	if (blastCount > 0) {
+		// use a repeat loop to check each entry on the grid
+		var i = 0;	repeat (h) {
+			// get all columns of the current row
+			var timr = timedBlastGrid[# 0, i];
+			
+			// check if time is up
+			if (timr == 0) {
+				spar_effect_push_alert(SPAR_EFFECTS.BLAST_TIMER_GO_OFF, i);
+			}
+			
+			// increment i
+			i++;
 		}
-		
-		// increment i
-		i++;
+		// push an alert to decrement the count of all blasts
+		spar_effect_push_alert(SPAR_EFFECTS.BLAST_TIMERS_DECREMENT_COUNT);	
 	}
-	
-	// push an alert to decrement the count of all blasts
-	spar_effect_push_alert(SPAR_EFFECTS.BLAST_TIMERS_DECREMENT_COUNT);
 }
 
 ///@desc This function is called before damage is calculated in the processor. It simply adjusts
@@ -256,6 +258,9 @@ function spar_check_hexed(_inst) {
 		spar_effect_push_alert(SPAR_EFFECTS.APPLY_HEXED, inst);
 		
 		destroy_if_possible(sparActionProcessor);
+		
+		// return true
+		return true;
 	}
 }
 
@@ -299,6 +304,22 @@ function spar_check_berserk(_inst) {
 	
 	// return berserk
 	return inst.berserk;
+}
+
+///@desc This function checks if the sprite using a basic attack is berserk and if so increases
+/// the DMI by 1
+function spar_check_berserk_increase_damage(_inst) {
+	// store args in locals
+	var inst = _inst;
+	
+	
+	if (inst.berserk) {
+		// increase DMI
+		global.damageMultiplierIndex++;	
+
+		// post spar effect alert
+		spar_effect_push_alert(SPAR_EFFECTS.BERSERK_INCREASE_DAMAGE, inst);
+	}
 }
 
 ///@desc This function should be called by the sparAlly and sparEnemy object's once per frame. If their
@@ -448,21 +469,140 @@ function spar_check_deflective(_atkr, _targ, _powr) {
 /// used. It performs a check to see if there is ball lightning active. If so, it pushes
 /// the appropriate alert and then destroys the actionProcessor.
 function spar_check_ball_lightning_absorb_spell() {
-	
+	if (spellType == SPELL_TYPES.STORM) {
+		var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
+			var inst = spar.spriteList[| i];
+			
+			if (inst.ballLightningActive) {
+				spar_effect_push_alert(SPAR_EFFECTS.BALL_LIGHTNING_ABSORB_SPELL, inst);
+				
+				// destroy the actionProcessor
+				instance_destroy(id);
+			}
+			
+			i++;
+		}
+	}
 }
 
+///@desc This function is called by the spar object at the end of the turn. It performs
+/// a check to see if there are any sprites casting ball lightning. It then calculates and
+/// applies the damage.
 function spar_check_ball_lightning_deal_damage() {
+	var i = 0;	repeat (ds_grid_height(turnGrid)) {
+		// get current instance
+		var inst = spriteList[| i];
 	
+		// check if inst has ballLightningActive
+		if (inst.ballLightningActive) {
+			// check if caster has become hexed
+			if (spar_check_hexed(inst)) {
+				inst.ballLightningCount = 0;
+				inst.ballLightningActive = false;
+				inst.ballLightningTarget = -1;
+				
+				return true;
+			}
+			
+			// check if this is an astral sprite
+			spar_check_astral_caster(inst);
+			
+			// check if hum is active
+			spar_check_hum(inst);
+			
+			// check for arena effects
+			spar_check_arena_effects(SPELL_TYPES.STORM);
+			
+			// check for natural arena boost
+			spar_check_natural_arena_boost(inst);
+			
+			// store ballLightning's base spellPower in a local var
+			var sp = 80;
+			
+			// 20 to spell power for every spell absorbed
+			sp += 20 * inst.ballLightningCount;
+			
+			// post effect alert
+			spar_effect_push_alert(SPAR_EFFECTS.BALL_LIGHTNING_APPLY_DAMAGE, inst, inst.ballLightningTarget, sp);
+		}
+	
+		// increment i
+		i++;
+	}
 }
 
+///@desc This function is called by the actionProcessor whenever a spell is being used. It
+/// performs a check to see if there is ball lightning active. If so, it pushes the appropriate
+/// alert and then destroys the actionProcessor
 function spar_check_black_hole_absorb_spell() {
+	var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
+		// get current inst
+		var inst = spar.spriteList[| i];
+		
+		// check if inst has black hole active
+		if (inst.blackHoleActive) {
+			spar_effect_push_alert(SPAR_EFFECTS.BLACK_HOLE_ABSORB_SPELL, inst);
+			
+			// destroy the actionProcessor
+			instance_destroy(id);
+		}
 	
+		// increment i
+		i++;
+	}
 }
 
+///@desc This function is called by the spar object at the end of the turn. It performs
+/// a check to see if there are any sprites castign black hole. It then calculates and applies
+/// the damage.
 function spar_check_black_hole_deal_damage() {
-	
+	var i = 0;	repeat (ds_grid_height(turnGrid)) {
+		// get current instance
+		var inst = spriteList[| i];
+		
+		// check if inst has black hole active
+		if (inst.blackHoleActive) {
+			// check if the caster has become hexed
+			if (spar_check_hexed(inst)) {
+				inst.blackHoleCount = 0;
+				inst.blackHoleActive = false;
+				inst.blackHoleTarget = -1;
+				
+				return true;
+			}
+		}
+		// check for natural arena boost
+		spar_check_natural_arena_boost(inst);
+		
+		// store blackHole's power in a local var
+		var sp = 0;
+		
+		// add 40 to spell power for every spell absorbed
+		sp += 40 * inst.blackHoleCount;
+		
+		if (sp > 0) {
+			// calculate damage
+			var d = get_physical_damage(inst, inst.blackHoleTarget, sp);
+		
+			// apply damage
+			deplete_hp(inst.blackHoleTarget.team, d);
+		}
+	}
 }
 
-function spar_check_hail_mary() {
+///@desc This function is called by the spar object at the beginning of the turn. It performs
+/// a check to see if either player has hailSphera set to true. If so, it pushes an alert to
+/// set all sprites to invulnerable for that player's team
+function spar_check_hail_sphera() {
+	// check if player one has hail mary active
+	if (playerOne.hailSphera) {
+		// if so, push hail mary effect for player one
+		spar_effect_push_alert(SPAR_EFFECTS.HAIL_SPHERA_SET_INVULNERABLE, playerOne);
+	}
 	
+	// check if player two has hail mary active
+	if (playerTwo.hailSphera) {
+		// if so, push hail mary effect for player two
+		spar_effect_push_alert(SPAR_EFFECTS.HAIL_SPHERA_SET_INVULNERABLE, playerTwo);
+	}
 }

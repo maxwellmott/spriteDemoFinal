@@ -286,6 +286,7 @@ enum SPAR_EFFECTS {
 	FORCE_BEST_LUCK_GLOBAL,
 	FORCE_WORST_LUCK_GLOBAL,
 	SET_HAIL_SPHERA,
+	HAIL_SPHERA_SET_INVULNERABLE,
 	BERSERK_INCREASE_DAMAGE,
 	APPLY_BERSERK,
 	APPLY_INVULNERABLE,
@@ -392,7 +393,7 @@ function energy_blast(_targetPlayer, _damage) {
 	var t = _targetPlayer;
 	var d = _damage;
 	
-	t.currentHP -= d;
+	deplete_hp(t, d);
 	
 	subject = t.name;
 	effectedPlayer = t;
@@ -2272,8 +2273,8 @@ function apply_bound(_effectedSprite) {
 function energy_blast_global(_damage) {
 	var d = _damage;
 	
-	spar.playerOne.currentHP -= d;
-	spar.playerTwo.currentHP -= d;
+	deplete_hp(spar.playerOne, d);
+	deplete_hp(spar.playerTwo, d);
 	
 	effectedPlayer = BOTH_PLAYERS_EFFECTED;
 }
@@ -2438,14 +2439,16 @@ function replace_target(_caster, _target) {
 }
 
 ///@desc SPAR EFFECT: set ballLightningActive to true for the casting sprite
-function ball_lightning_set_active(_caster) {
+function ball_lightning_set_active(_caster, _target) {
 	var c = _caster;
+	var t = _target;
 	
 	ds_list_add(effectedSprites, c);
 	subject = c.name;
 	
 	c.ballLightningActive = true;
 	c.ballLightningCount = 1;
+	c.ballLightningTarget = t;
 }
 
 ///@desc SPAR EFFECT: increase ballLightningCount for the ball lightning sprite
@@ -2459,27 +2462,33 @@ function ball_lightning_absorb_spell(_blSprite) {
 }
 
 ///@desc SPAR EFFECT: apply the damage from the ball lightning
-function ball_lightning_apply_damage(_blSprite, _count) {
-	var t = _blSprite.enemy;
-	var c = _count;
+function ball_lightning_apply_damage(_atkr, _targ, _spellPower) {
+	var c = _atkr;
+	var t = _targ;
+	var sp = _spellPower;
 	
-	effectedPlayer = t;
-	subject = _blSprite.name;
+	ds_list_add(effectedSprites, t);
+	subject = c.name;
+	object = t.name;
 	
-	var p = c * 150;
+	// calculate damage
+	var d = get_elemental_damage(t, c, elements.storm, sp);
 	
-	t.currentHP -= p;
+	// apply damage
+	deplete_hp(t.team, d);
 }
 
 ///@desc SPAR EFFECT: set blackHoleActive to true for the casting sprite
-function black_hole_set_active(_caster) {
+function black_hole_set_active(_caster, _target) {
 	var c = _caster;
+	var t = _target;
 	
 	ds_list_add(effectedSprites, c);
 	subject = c.name;
 	
 	c.blackHoleActive = true;
 	c.blackHoleCount = 1;
+	c.blackHoleTarget = t;
 }
 
 ///@desc SPAR EFFECT: increase blackHoleCount for the black hole sprite
@@ -2493,16 +2502,20 @@ function black_hole_absorb_spell(_bhSprite) {
 }
 
 ///@desc SPAR EFFECT: apply the damage from the black hole
-function black_hole_apply_damage(_bhSprite, _count) {
-	var t = _bhSprite.enemy;
-	var c = _count;
+function black_hole_apply_damage(_atkr, _targ, _spellPower) {
+	var c = _atkr;
+	var t = _targ;
+	var sp = _spellPower;
 	
-	effectedPlayer = t;
+	ds_list_add(effectedSprites, t);
 	subject = c.name;
+	object = t.name;
 	
-	var p = c * 85;
+	// calculate damage
+	var d = get_physical_damage(t, c, sp);
 	
-	t.currentHP -= p;
+	// apply damage
+	deplete_hp(t.team, d);
 }
 
 ///@desc SPAR EFFECT: apply recoil damage to the player
@@ -2513,7 +2526,7 @@ function apply_self_damage(_targetPlayer, _amount) {
 	effectedPlayer = t;
 	subject = t.name;
 	
-	t.currentHP -= a;
+	deplete_hp(t, a);
 }
 
 ///@desc SPAR EFFECT: set BERSERK to true for the target
@@ -2961,7 +2974,7 @@ function apply_parry(_attackingSprite, _parryingSprite, _damage) {
 	ds_list_add(effectedSprites, c);
 	subject = c.name;
 	
-	t.team.currentHP -= d * 2.5;
+	deplete_hp(t.team, d * 2.5);
 }
 
 ///@desc SPAR EFFECT: various things might cause a parry to fail, such as
@@ -2977,7 +2990,7 @@ function ignore_parry(_attackingSprite, _parryingSprite, _damage) {
 	subject = c.name;
 	object = t.name;
 	
-	t.team.currentHP -= d * 1.3;
+	deplete_hp(t.team, d* 1.3);
 }
 
 ///@desc SPAR EFFECT: sets DIVIDING to true for the target sprite
@@ -3058,7 +3071,7 @@ function deflect_spell() {
 	
 	// check if caster is also deflective
 	if !(spar_check_deflective(t, c, d)) {
-		c.team.currentHP -= d;
+		deplete_hp(t.team, d);
 	
 		ds_list_add(effectedSprites, c);
 		subject = t.name;
@@ -3090,28 +3103,14 @@ function repeat_last_turn(_targetTeam) {
 
 ///@desc SPAR EFFECT: applies damage calculated using the caster's best stat
 /// and the target's worst stat
-function psychic_attack(_caster, _target, _power) {
+function psychic_attack(_caster, _target) {
 	var c = _caster;
 	var t = _target;
-	var p = _power;
+
+	ds_list_add(effectedSprites, t);
 	
-	ds_list_add(effectedSprites, c, t);
 	subject = c.name;
 	object = t.name;
-	
-	var s1 = get_current_stat_elemental(get_best_elemental_stat(c));
-	
-	if (c.currentPower		> s1)	s1 = c.currentPower;
-	if (c.currentAgility	> s1)	s1 = c.currentAgility;
-	
-	var s2 = get_current_stat_elemental(get_worst_elemental_stat(c));
-	
-	if (t.currentResist		< s2)	s2 = t.currentResistance;
-	if (t.currentAgility	< s2)	s2 = t.currentAgility;
-	
-	var d = get_psychic_damage(s1, s2, p);
-	
-	t.team.currentHP -= d;
 }
 
 ///@desc SPAR EFFECT: changes the target's alignment to the given alignment
@@ -3147,7 +3146,7 @@ function energy_blast_self(_targetPlayer, _damage) {
 	effectedPlayer = t;
 	subject = t.name;
 	
-	t.currentHP -= d;
+	deplete_hp(t, d);
 }
 
 ///@desc SPAR EFFECT: sets hail mary as true for the target player
@@ -3157,7 +3156,38 @@ function set_hail_sphera(_targetPlayer) {
 	effectedPlayer = t;
 	subject = t.name;
 	
-	t.hailMary = true;
+	t.hailSphera = true;
+}
+
+///@desc SPAR EFFECT: sets all sprites on hail mary player's team to invulnerable
+function hail_mary_set_invulnerable(_targetPlayer) {
+	var t = _targetPlayer;
+	
+	subject = t.name;
+	
+	if (t == spar.playerOne) {
+		var i = 0;	repeat (ds_list_size(spar.allyList)) {
+			var inst = spar.allyList[| i];
+			
+			inst.invulnerable = true;
+			inst.invulnerableCount = 1;
+			
+			i++;
+		}
+	}
+	
+	if (t == spar.playerTwo) {
+		var i = 0;	repeat (ds_list_size(spar.enemyList)) {
+			var inst = spar.enemyList[| i];
+			
+			inst.invulnerable = true;
+			inst.invulnerableCount = 1;
+			
+			i++;
+		}
+	}
+	
+	t.hailSphera = false;
 }
 
 ///@desc SPAR EFFECT: this effect is simply a means of notifying the player
@@ -3508,7 +3538,7 @@ function skydive_apply_damage(_atkr, _targ) {
 		var d = get_physical_damage(atkr, targ, 120);
 	
 		// apply damage
-		targ.team.currentHP -= d;
+		deplete_hp(targ.team, d);
 	}
 	// if target is invulnerable, apply invulnerable
 	else	spar_effect_push_alert(SPAR_EFFECTS.APPLY_INVULNERABLE, targ);
@@ -3541,8 +3571,11 @@ function sneak_attack_apply_damage(_atkr, _targ) {
 			dcm += (0.1 * (atkr.dodgeCount - 1));
 		}
 		
+		// modify damage
+		d = round(d * dcm);
+		
 		// apply damage
-		targ.team.currentHP -= round(d * dcm);
+		deplete_hp(targ.team, d);
 	}
 	// if target is invulnerable, apply invulnerable
 	else	spar_effect_push_alert(SPAR_EFFECTS.APPLY_INVULNERABLE, targ);
@@ -3728,7 +3761,6 @@ master_grid_add_spar_effect(SPAR_EFFECTS.END_INVULNERABLE_TEAM,				textGrid[# 1,
 master_grid_add_spar_effect(SPAR_EFFECTS.END_INVULNERABLE_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.END_INVULNERABLE_GLOBAL],			end_invulnerable_global,			sparFX_clearStatus);
 master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_ALIGNMENT,					textGrid[# 1, SPAR_EFFECTS.RESTORE_ALIGNMENT],					restore_alignment,					sparFX_clearStatus);
 master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_SIZE,						textGrid[# 1, SPAR_EFFECTS.RESTORE_SIZE],						restore_size,						sparFX_clearStatus);
-master_grid_add_spar_effect();
 #endregion
 
 // encode the spar effect grid

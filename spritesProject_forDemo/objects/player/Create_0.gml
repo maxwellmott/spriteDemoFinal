@@ -220,3 +220,5 @@ clientID	= -1;
 clientType	= -1;
 clientScope	= -1;
 roomID		= -1;
+
+hailSphera = false;

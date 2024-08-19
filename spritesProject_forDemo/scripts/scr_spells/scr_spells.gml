@@ -393,8 +393,9 @@ function hellfire() {
 /// a priority spell.
 function ball_lightning() {
 	var c = activeSprite;
+	var t = targetSprite;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.BALL_LIGHTNING_SET_ACTIVE, c);
+	spar_effect_push_alert(SPAR_EFFECTS.BALL_LIGHTNING_SET_ACTIVE, c, t);
 }
 
 ///@desc SPELL FUNCTION: binds the target
@@ -516,7 +517,8 @@ function shift_perspective() {
 	}
 }
 
-///@desc SPELL FUNCTION: THIS FUNCTION IS STILL UNFINISHED
+///@desc SPELL FUNCTION: damage will be appropriately calculated for psychic spells. This
+/// is just a means of notifying the player!
 function psychic_impact() {
 	// find target's weak spot and attack them there
 	if !(dodgeSuccess) {
@@ -867,8 +869,9 @@ function time_loop() {
 ///@desc SPELL FUNCTION: creates a black hole that absorbs all spells
 function eradicate() {
 	var c = activeSprite;
+	var t = targetSprite;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.BLACK_HOLE_SET_ACTIVE, c);
+	spar_effect_push_alert(SPAR_EFFECTS.BLACK_HOLE_SET_ACTIVE, c, t);
 }
 
 // SPELL FUNCTION: sets both teams' MP to 0

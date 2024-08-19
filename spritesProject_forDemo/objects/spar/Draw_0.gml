@@ -114,7 +114,8 @@ draw_set_alpha(1.0);
 #endregion
 
 #region SELECTION INTERFACE
-	if !(instance_exists(sparReadyButton)) {
+	if !(instance_exists(sparReadyButton)) 
+	&& !(instance_exists(sparEffectAlert)) {
 		draw_set_font(plainFont);
 		
 		// draw selectionMenu

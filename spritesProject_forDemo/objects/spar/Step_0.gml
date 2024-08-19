@@ -38,9 +38,11 @@ switch (sparPhase) {
 		
 		playerOne.ready = false;
 		playerTwo.ready = false;
-		
+	
 		spar_check_sneaking_deal_damage();
 		spar_check_skydiving_deal_damage();		
+		spar_check_black_hole_deal_damage();
+		spar_check_ball_lightning_deal_damage();
 		spar_check_effect_timers();
 		spar_check_timed_blasts();
 		
@@ -442,7 +444,7 @@ switch (sparPhase) {
 	
 	#region TURN BEGIN PHASE
 		case sparPhases.turnBegin:
-			spar_check_hail_mary();
+			spar_check_hail_sphera();
 			spar_check_miasma();	
 		
 			sparPhase = sparPhases.select;
