@@ -35,10 +35,8 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 				// get the target's instance id
 				var targ = spar.spriteList[| t];
 			
-				// set the sprite's new vars to equal their targets current vals
+				// set the sprite's new ID to equal their targets current ID
 				inst.newSpriteID		= targ.spriteID;
-				inst.newTeamListPos		= targ.spotNum;
-				inst.newGlobalListPos	=	ds_list_find_index(spar.spriteList, targ);
 			
 				// add the instance id to the swapList
 				ds_list_add(swapList, inst);

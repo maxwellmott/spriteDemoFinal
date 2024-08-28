@@ -419,3 +419,6 @@ COMING BACK FROM PLAYTEST BUILD
 			-add undertow, typhoon, and magnetic pulse to priority spells and change undertow and typhoon to force_swap (make sure MAGpulse has higher power than purifying flame)
 			-make all ability functions and check functions!
 			-make a spar_effect for ability calls so that they can always show the same alert animation and formatted text "__'s ability, _______ was triggered!"
+			
+	8/19
+		Running into a weird bug. Recreate by attempting to swap the same sprite twice in one match. Watch spar.allyList and spar.teamList. Also check ready display before second swap

@@ -92,7 +92,7 @@ function spar_check_astral_caster(_atkr) {
 	var atkr = _atkr;
 	
 	if (atkr.currentAlign == ALIGNMENTS.ASTRAL)	
-	&& (targ.team.hum) {
+	&& (atkr.team.hum) {
 		global.damageMultiplierIndex += 1;	
 		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL, atkr);
 	}

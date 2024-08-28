@@ -1,4 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-instance_destroy(sparActionButton);
+with (sparActionButton) {
+	instance_destroy(id);	
+}

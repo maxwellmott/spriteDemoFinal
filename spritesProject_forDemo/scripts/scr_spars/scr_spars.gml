@@ -436,7 +436,7 @@ function spar_correct_hpmp() {
 }
 
 ///@desc This function is called by an ally or enemy object to set that sprite's
-/// list of inRangeSprites depending on the range of the spell in question.
+/// list of inRangeSprites depending on the range of the action in question.
 function inRangeSprites_rebuild(_sprite, _range) {
 	var s = _sprite;
 	var r = _range;
@@ -592,7 +592,7 @@ function all_sprites_get_luck_roll() {
 /// upcoming action phase.
 function sprite_build_ready_display() {	
 	if (selectedTarget != -1) {
-		var num = spar.spriteList[| selectedTarget].allyNum;
+		var num = selectedTarget;
 		var numString = "";
 		
 		switch (num) {

@@ -126,22 +126,27 @@ draw_set_alpha(1.0);
 			}
 		}
 		
-		// if there is an action button, draw all the buttons
-		if (instance_exists(sparActionButton)) {
-			var count = instance_number(sparActionButton);
+		// check if sparActionMenu exists
+		if (instance_exists(sparActionMenu)) {
+			// if there is an action button, draw all the buttons
+			if (instance_exists(sparActionButton)) {
+				var count = instance_number(sparActionButton);
+				
+				var i = 0;	repeat (count) {
+					if !(instance_exists(sparActionMenu))	break;
+					
+					var inst = sparActionMenu.actionButtons[| i];
+					
+					draw_sprite(spr_sparActionButton, inst.frame, inst.x, inst.y);
+					draw_set_color(inst.textColor);
+					
+					draw_text_pixel_perfect(inst.x, inst.y + 3, inst.name, 1);
+					
+					i++;
+				}
 			
-			var i = 0;	repeat (count) {
-				var inst = sparActionMenu.actionButtons[| i];
-				
-				draw_sprite(spr_sparActionButton, inst.frame, inst.x, inst.y);
-				draw_set_color(inst.textColor);
-				
-				draw_text_pixel_perfect(inst.x, inst.y + 3, inst.name, 1);
-				
-				i++;
+				draw_set_color(COL_BLACK);
 			}
-			
-			draw_set_color(COL_BLACK);
 		}
 	}
 #endregion
@@ -341,8 +346,8 @@ draw_set_alpha(1.0);
 				draw_set_valign(fa_middle);
 				
 				// draw alignment and size
-				draw_text_pixel_perfect(hoverMenu_alignmentX,	hoverMenu_alignmentY + 3,	"TYPE   " + sprite_get_size_string(hs.currentAlign), 1);
-				draw_text_pixel_perfect(hoverMenu_sizeX,			hoverMenu_sizeY + 4,	"SIZE   " + sprite_get_size_string(hs.currentSize), 1);
+				draw_text(hoverMenu_alignmentX,		hoverMenu_alignmentY + 2,	"TYPE   " + sprite_get_alignment_string(hs.currentAlign));
+				draw_text(hoverMenu_sizeX,			hoverMenu_sizeY + 3,		"SIZE   " + sprite_get_size_string(hs.currentSize));
 				
 				draw_set_halign(fa_center);
 				

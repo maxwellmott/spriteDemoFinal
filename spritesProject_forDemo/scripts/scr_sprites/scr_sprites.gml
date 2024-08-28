@@ -52,7 +52,7 @@ enum SPRITES {
 	CRAGMA,
 	WYRMPOOL,
 	CORVOLT,
-	CHROMOSILOS,
+	CHROMALIODON,
 	CENOTOMB,
 	NINTOX,
 	STEWARDRAKE,
@@ -1295,10 +1295,10 @@ enum SPRITE_POSES {
 		);
 	#endregion
 	
-	#region		CHROMOSILOS
-		var chromosilosSpells = ds_list_create();
+	#region		CHROMALIODON
+		var chromaliodonSpells = ds_list_create();
 		
-		ds_list_add(chromosilosSpells,
+		ds_list_add(chromaliodonSpells,
 			SPELLS.TECTONIC_SHIFT,
 			SPELLS.FIREBALL,
 			SPELLS.SHOCK,
@@ -1607,7 +1607,7 @@ sprite_add_to_grid(SPRITES.CLEANSAGE,		"Cleansage",		spr_cleansageBattle,	ALIGNM
 sprite_add_to_grid(SPRITES.WYRMPOOL,		"Wyrmpool",			spr_wyrmpoolBattle,		ALIGNMENTS.ASTRAL,		encode_list(wyrmpoolSpells),		140,	130,	60,		160,	135,	45,		80,		125,	SPRITE_SIZES.X_LARGE);
 sprite_add_to_grid(SPRITES.CRAGMA,			"Cragma",			spr_cragmaBattle,		ALIGNMENTS.NATURAL,		encode_list(cragmaSpells),			145,	150,	170,	65,		65,		135,	35,		100,	SPRITE_SIZES.LARGE);
 sprite_add_to_grid(SPRITES.CORVOLT,			"Corvolt",			spr_corvoltBattle,		ALIGNMENTS.NATURAL,		encode_list(corvoltSpells),			100,	145,	60,		135,	150,	70,		110,	100,	SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.CHROMOSILOS,		"Chromosilos",		spr_chromosilosBattle,	ALIGNMENTS.MECHANICAL,	encode_list(chromosilosSpells),		185,	125,	120,	70,		55,		160,	70,		75,		SPRITE_SIZES.X_LARGE);
+sprite_add_to_grid(SPRITES.CHROMALIODON,		"Chromosilos",		spr_chromaliodonBattle,	ALIGNMENTS.MECHANICAL,	encode_list(chromaliodonSpells),		185,	125,	120,	70,		55,		160,	70,		75,		SPRITE_SIZES.X_LARGE);
 sprite_add_to_grid(SPRITES.DOMINO,			"Domino",			spr_dominoBattle,		ALIGNMENTS.MECHANICAL,	encode_list(dominoSpells),			135,	50,		65,		65,		65,		65,		140,	150,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.ANACHRONAUT,		"Anachronaut",		spr_anachronautBattle,	ALIGNMENTS.MECHANICAL,	encode_list(anachronautSpells),		50,		55,		120,	120,	120,	120,	170,	100,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.OMNOST,			"Omnost",			spr_omnostBattle,		-1,						encode_list(omnostSpells),			50,		80,		110,	110,	150,	110,	70,		150,	SPRITE_SIZES.X_LARGE);

@@ -6,13 +6,20 @@
 // so that abilities have a way of indicating when they should be activated
 enum ABILITY_CHECKS {
 	TURN_BEGIN,
+	TARGET_SELECTION,
+	TURN_PROCESS,
 	SWAP_ATTEMPT,
 	SWAP_SUCCESS,
 	SPRITE_RESTING,
 	SPELL_ATTEMPT,
+	SPELL_DAMAGE_CALC,
 	SPELL_SUCCESS,
 	BASIC_ATTACK_ATTEMPT,
+	BASIC_ATTACK_DAMAGE_CALC,
 	BASIC_ATTACK_SUCCESS,
+	DAMAGE_ATTEMPT,
+	DAMAGE_CALC,
+	DAMAGE_SUCCESS,
 	DODGE_ATTEMPT,
 	DODGE_SUCCESS,
 	ARENA_CHANGE,
@@ -31,221 +38,468 @@ enum ABILITY_CHECKS {
 	EFFECT_AVOIDED,
 	ABILITY_ACTIVATED,
 	EFFECT_ACTIVATED,
+	APPLY_MIASMA,
+	APPLY_HEXED,
+	APPLY_BOUND,
 	HEIGHT
 }
 
 #region CREATE ALL ABILITY EFFECT FUNCTIONS
 
-///@desc ABILITY FUNCTION: This function is called when a sprite
-/// with this ability is targeted by a basic attack or a spell. If 
-/// they are not already attempting to dodge, they will do a dodge check.
-function battle_instinct() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called at the end of 
-/// each turn by a sprite that has this ability. Every fourth turn,
-/// a flat amount of damage is dealt to the opposing team depending
-/// on the current luck roll of the sprite with this ability.
-function unstable_power() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called when a sprite
-/// with this ability is targeted by a basic attack. The attacking
-/// sprite's team takes a flat amount of damage
+///@desc ABILITY FUNCTION -- HACHA CHACHA:
+/// TYPE: BASIC ATTACK SUCCESS
+/// If this sprite is hit with a BASIC ATTACK, the opposing sprite
+/// takes a flat amount of SELF DAMAGE.
 function hot_to_the_touch() {
 	
 }
 
-///@desc ABILITY FUNCTION: This function is called when the arena
-/// is of type: ocean and a sprite with this ability is targeted by
-/// a spell or a basic attack. The sprite with this ability
-/// automatically dodges
-function oily_hyde() {
+///@desc ABILITY FUNCTION -- DIIPSY:
+/// TYPE: ACTION ATTEMPT:
+/// If ARENA is OCEAN and this sprite is targeted by a dodgeable
+/// SPELL or BASIC ATTACK, it will automatically DODGE
+function wavy_dance() {
 		
 }
 
-///@desc ABILITY FUNCTION: This function is called at the beginning
-/// of each turn by a sprite with this ability. A ninth spell is 
-/// randomly selected from their team's knownSpells list and added
-/// to the spellBook
-function well_read() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called when a sprite with
-/// this ability is targeted by a STORM spell. Damage is negated and
-/// this sprite gains the Blessing of the Warrior
-function supercharged() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called when a sprite with
-/// this ability is targeted by basic attack or physical spell. This sprite
-/// takes half damage
-function unbreakable_shell() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called in the step event of
-/// a sprite with this ability. This ability constantly ensures that 
-/// HUM is present on both sides of the field
-function magnetic_field() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called when a sprite with
-/// this ability is targeted by an EARTH spell. Damage is negated and
-/// their team's health is fully regenerated
-function farm_to_table() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called when a sprite
-/// with this ability is targeted by a spell. The caster of the
-/// spell becomes the target
-function reflection() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability at the beginning of each turn. The sprite with this
-/// ability gains a randomly selected blessing that is different from
-/// whichever one it has currently
-function gift_of_song() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability at the beginning of each turn if the arena is of Type:
-/// Ocean. This sprite gains the Blessing of the Imp
-function surfs_up() {
-		 
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability at the end of each turn. All of this sprite's allies'
-/// curses are shifted to their respective blessings
-function joyous_spirit() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability when one of their nearby allies is hit by an attack.
-/// This sprite deals 1.5* damage for the rest of the turn
-function power_of_friendship() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability at the beginning of each turn if the arena is of Type:
-/// Stratosphere. This sprite gains the Blessing of the Imp
+///@desc ABILITY FUNCTION -- GLIDRAKE:
+/// TYPE: SPELL ATTEMPT
+/// If this sprite is targeted by a STORM spell, they ignore damage and receive
+/// the BLESSING OF THE IMP.
 function storm_surfer() {
 	
 }
 
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability at the end of each turn. All nearby enemies become
-/// HEXED
-function creep_out() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability when they are targeted by a physical spell or basic 
-/// attack
-function absorptive_body() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability when they use a basic attack. The damage output is
-/// multiplied by 1.5*
-function dual_wield() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with this
-/// ability at the end of every turn if MIASMA is active on their side
-/// of the field. This sprite's team instead regains the health they
-/// would have lost from MIASMA
-function herbal_concoction() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability if they are targeted by a basic attack. They force
-/// their attacker to switch with a randomly selected ally.
-function sort_away() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability whenever a sprite attempts to ddoge their attacks
-/// and spells. The dodge always automatically fails
-function all_seeing_eyes() {
-		
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability at the end of each turn. Their team automatically
-/// restores up to 30 MP
-function free_refills() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability at the end of each turn. Every fifth turn, this
-/// sprite deals a flat amount of damage to both players.
-function short_fuse() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability at the beginning of each turn. It sets a variable
-/// that causes the turn selection to skip over any allies that 
-/// would move before the sprite with this ability. After this sprite
-/// makes their move, their allies all follow suit in order of agility
-function synchronized_soldiers() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability whenever they are targeted by a FIRE spell, or cast
-/// a FIRE spell against a different sprite. They receive no damage
-/// from fire spells and they deal 1.5* damage when casting them
-function fiery_aura() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability whenever they meditate. If the arena is not already
-/// of type: Ocean, it becomes so
-function aquatic_essence() {
-	
-}
-
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability whenever they do damage to a sprite of the type:
-/// MECHANICAL. They deal 1.5* damage to sprites of that type
+///@desc ABILITY FUNCTION -- PODRIC:
+/// TYPE: BASIC ATTACK ATTEMPT:
+/// This sprite's BASIC ATTACKS deal 1.5 damage against non-NATURAL
+/// sprites.
 function natures_reclamation() {
 		
 }
 
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability whenever they meditate. This sprite and all of their
-/// allies gain the Blessing of the Tree.
+
+///@desc ABILITY FUNCTION -- SPARMATE:
+/// TYPE: BASIC ATTACK ATTEMPT:
+/// If this sprite is targeted by a BASIC ATTACK or PHYSICAL SPELL,
+/// it performs a DODGE check. If the sprite is set to dodge, it 
+/// performs an additional check.
+function battle_instinct() {
+	
+}
+///@desc ABILITY FUNCTION -- CRUSTULAR:
+/// TYPE: ACTION SUCCESS
+/// If this sprite is targeted by a basic attack or physical spell, they
+/// will receive half damage.
+function unbreakable_shell() {
+	
+}
+
+///@desc ABILITY FUNCTION -- FISTICOGS:
+/// TYPE: SPELL SUCCESS
+/// If this sprite is hit by a STORM SPELL, their MINDSET changes to the
+/// BLESSING OF THE WARRIOR.
+function supercharged() {
+	
+}
+
+///@desc ABILITY FUNCTION -- BOOKISH:
+/// TYPE: TURN BEGIN
+/// This sprite adds a ninth SPELL to their team's spellbook, it changes
+/// randomly each turn (always one of the player's known spells)
+function well_read() {
+	
+}
+
+///@desc ABILITY FUNCTION -- PLEEP:
+/// TYPE: ACTION SUCCESS
+/// If one of this sprite's nearby allies are targeted for an attack, damage 
+/// is cut in half and both sprites gain BLESSING OF THE WARRIOR.
+function power_of_friendship() {
+	
+}
+
+///@desc ABILITY FUNCTION -- FISHMONGER:
+/// TYPE: BASIC ATTACK ATTEMPT
+/// If the ARENA is OCEAN, this sprite's BASIC ATTACKS deal 1.5 damage and
+/// are undodgeable.
+function undersea_predator() {
+	
+}
+
+///@desc ABILITY FUNCTION -- GEMBO:
+/// TYPE: TURN BEGIN
+/// Every fifth turn, this sprite creates an ENERGY BLAST against
+/// both players.
+function unstable_power() {
+	
+}
+
+///@desc ABILITY FUNCTION -- JOE:
+/// TYPE: TURN END
+/// This sprite RESTORES 30 MP at the end of each turn.
+function free_refills() {
+	
+}
+
+///@desc ABILITY FUNCTION -- MIRREFRACT:
+/// TYPE: SPELL ATTEMPT
+/// If this sprite is targeted by a SPELL, it switches itself with the caster
+/// and makes them become the target.
+function reflective_surface() {
+	
+}
+
+///@desc ABILITY FUNCTION -- FLOOPWALKER:
+/// TYPE: SPELL ATTEMPT
+/// If this sprite uses a SPELL, the ARENA becomes FOREST and the DMI is increased
+/// by 2.
+function flowery_spirit() {
+	
+}
+
+///@desc ABILITY FUNCTION -- SONGBIRD:
+/// TYPE: TURN BEGIN
+/// This sprite receives a random BLESSING at the beginning of each turn.
+function gift_of_song() {
+	
+}
+
+///@desc ABILITY FUNCTION -- SHREDATOR:
+/// TYPE: BASIC ATTACK ATEMPT
+/// If the ARENA is OCEAN, and this sprite attempts a BASIC ATTACK, the DMI is
+/// increased by 2.
+function hang_ten() {
+		 
+}
+
+///@desc ABILITY FUNCTION -- FURVOR:
+/// TYPE: BASIC ATTACK ATTEMPT
+/// This sprite's BASIC ATTACKS deal 1.5 damage aginst NATURAL sprites.
+function territorial_hunter() {
+		
+}
+
+///@desc ABILITY FUNCTION -- GASTRONIMO:
+/// TYPE: SPELL SUCCESS
+/// If this sprite is hit by an EARTH SPELL, their team instead RESTORES
+/// the amount of HEALTH that would have been lost.
+function natural_ingredients() {
+	
+}
+
+///@desc ABILITY FUNCTION -- DURENDOUX:
+/// TYPE: ACTION SUCCESS
+/// If this sprite is hit with a basic attack or physical spell, the attacker
+/// becomes BOUND.
+function absorptive_body() {
+	
+}
+
+///@desc ABILITY FUNCTION -- STAGEFRITE:
+/// TYPE: TURN BEGIN
+/// All of this sprite's nearby sprites become HEXED at the beginning of each turn.
+function creep_out() {
+	
+}
+
+///@desc ABILITY FUNCTION -- SCROOTINEYES:
+/// TYPE: TARGET SELECTION
+/// This sprite has increased RANGE for all ELEMENTAL and TRICK SPELLS.
+function all_seeing_eyes() {
+		
+}
+
+///@desc ABILITY FUNCTION -- ARRAYNGE:
+/// TYPE: ACTION SUCCESS
+/// If this sprite is hit with a basic attack or physical spell, the attacker
+/// is forced to swap with a random ally.
+function sort_away() {
+	
+}
+
+///@desc ABILITY FUNCTION -- TICKDOFF:
+/// TYPE: TURN END
+/// This sprite becomes BERSERK at the end of every fifth turn.
+function short_fuse() {
+	
+}
+
+///@desc ABILITY FUNCTION -- FORTUGA:
+/// TYPE: ACTION ATTEMPT
+/// If one of this sprite's nearby allies is targeted by a PHYSICAL SPELL or
+/// BASIC ATTACK, they will take the target's place.
+function offer_refuge() {
+	
+}
+
+///@desc ABILITY FUNCTION -- SPYOTIS:
+/// TYPE: TURN BEGIN
+/// This sprite sets HUM on both sides of the field at the beginning of each
+/// turn.
+function signal_jammer() {
+	
+}
+
+///@desc ABILITY FUNCTION -- DRUMLINE:
+/// TYPE: TURN PROCESS
+/// This sprite's allies attack in order of the teamList.
+function synchronized_soldiers() {
+	
+}
+
+///@desc ABILITY FUNCTION -- REVOLTURE:
+/// TYPE: APPLY MIASMA
+/// This sprite's team RESTORES HEALTH from MIASMA instead of taking damage
+function herbal_concoction() {
+	
+}
+
+///@desc ABILITY FUNCTION -- CLEANSAGE:
+/// TYPE: REST SUCCESS
+/// When this sprite RESTS, it removes all HINDRANCES for their team
+/// and RESTORES 250 HP.
 function healing_haze() {
 	
 }
 
-///@desc ABILITY FUNCTION: This function is called by a sprite with
-/// this ability whenever they target another sprite of type: NATURAL
-/// for an attack or spell. Their attacks do 1.5* damage against sprites
-/// of that type
-function territorial_hunter() {
-		
+///@desc ABILITY FUNCTION -- FLOTSO:
+/// TYPE: REST SUCCESS
+/// If this sprite RESTS, the ARENA becomes OCEAN.
+function aquatic_essence() {
+	
+}
+
+///@desc ABILITY FUNCTION -- HEATSUNE:
+/// TYPE: SPELL ATTEMPT
+/// If this sprite casts a FIRE SPELL, the DMI is first increased by 1.
+function fiery_aura() {
+	
+}
+
+///@desc ABILITY FUNCTION -- BLITZKRANE:
+/// TYPE: ACTION SUCCESS
+/// If this sprite is hit with a damaging SPELL or BASIC ATTACK,
+/// the ARENA changes to SKY.
+function thundrous_cry() {
+	
+}
+
+///@desc ABILITY FUNCTION -- EXONOLITH:
+/// TYPE: BASIC ATTACK DAMAGE CALC
+/// If this sprite uses a BASIC ATTACK, their RESISTANCE is used for
+/// damage calc instead of POWER.
+function massive_body() {
+	
+}
+
+///@desc ABILITY FUNCTION -- PUGILOON:
+/// TYPE: ACTION DAMAGE CALC
+/// If this sprite's team has less than half of their max HP, their 
+/// BASIC ATTACKS and PHYSICAL SPELLS deal 2* damage.
+function underdog() {
+	
+}
+
+///@desc ABILITY FUNCTION -- MR SUDSY
+/// TYPE: TURN END
+/// This sprite clears all HINDRANCES and CURSES for their team at the
+/// end of each turn.
+function keeping_tidy() {
+	
+}
+
+///@desc ABILITY FUNCTION -- DEMOLITOPS:
+/// TYPE: BASIC ATTACK DAMAGE CALC
+/// This sprite's BASIC ATTACKS deal 2* damage against MECHANICAL sprites.
+function wrecking_ball() {
+	
+}
+
+///@desc ABILITY FUNCTION -- DOORMAUS:
+/// TYPE: REST SUCCESS
+/// If this sprite rests, they will automatically SWAP with another sprite at
+/// no cost.
+function drift_away() {
+	
+}
+
+///@desc ABILITY FUNCTION -- ZEPHIRA
+/// TYPE: SPELL SUCCESS
+/// If this sprite successfully casts a TRICK SPELL, their target's team
+/// takes 200 HP.
+function trickster_faerie() {
+	
+}
+
+///@desc ABILITY FUNCTION -- CANUKI
+/// TYPE: SPELL SUCCESS
+/// Whenever a nearby sprite casts a SPELL, half of the MP used to cast is
+/// absorbed by this sprite.
+function dumpster_diver() {
+	
+}
+
+///@desc ABILITY FUNCTION -- JACKHAMMER
+/// TYPE: TARGET SELECTION
+/// This sprite can target any other sprite with a BASIC ATTACK.
+function spring_loaded() {
+	
+}
+
+///@desc ABILITY FUNCTION -- SPLASHGUARD
+/// TYPE: SPELL ATTEMPT
+/// If any of this sprite's allies are targeted with a WATER SPELL, this
+/// sprite will take their place as the target.
+function flood_shelter() {
+	
+}
+
+///@desc ABILITY FUNCTION -- UPROOTER
+/// TYPE: APPLY BOUND
+/// This sprite can swap even when BOUND.
+function propogate() {
+	
+}
+
+///@desc ABILITY FUNCTION -- CAPN CLOPS
+/// TYPE: TURN END
+/// If this sprite's team has less than half HP, it fully restores
+/// their MP at the end of the turn.
+function redeeming_quality() {
+	
+}
+
+///@desc ABILITY FUNCTION -- PLASMASS
+/// TYPE: SPELL ATTEMPT
+/// When this sprite casts a FIRE or STORM spell, the DMI is increased
+/// by 1.
+function powerhouse() {
+	
+}
+
+///@desc ABILITY FUNCTION -- OBSIDUAL:
+/// TYPE: BASIC ATTACK DAMAGE CALC
+/// This sprite's BASIC ATTACKS deal 1.3* damage.
+function dual_wield() {
+	
+}
+
+///@desc ABILITY FUNCTION -- NINTOX:
+/// TYPE: ACTION ATTEMPT
+/// If MIASMA is present on this sprite's side of the field, they perform a
+/// DODGE check whenever targeted by a damaging spell or basic attack.
+function shadowy_fiend() {
+	
+}
+
+///@desc ABILITY FUNCTION -- CHROMALIODON
+/// TYPE: ACTION ATTEMPT
+/// If a MECHANICAL sprite targets this sprite with a BASIC ATTACK OR
+/// PHYSICAL SPELL, this sprite RESTORES HP equal to the damage it would
+/// have taken and causes the SPELL to fail.
+function metal_muncher() {
+	
+}
+
+///@desc ABILITY FUNCTION -- CRAGMA
+/// TYPE: BASIC ATTACK DAMAGE CALC
+/// This sprite's basic attacks use the FIRE stat for damage calc instead of
+/// the POWER stat.
+function volcanic_mass() {
+	
+}
+
+///@desc ABILITY FUNCTION -- CORVOLT
+/// TYPE: TURN START
+/// If the ARENA is SKY, all of this sprite's nearby allies will become
+/// INVULNERABLE at the beginning of each turn.
+function eye_of_the_storm() {
+	
+}
+
+///@desc ABILITY FUNCTION -- WYRMPOOL
+/// TYPE: TURN START
+/// If the ARENA is OCEAN, all of this sprite's nearby enemies will become
+/// BOUND at the beginning of each turn.
+function centripetal_force() {
+	
+}
+
+///@desc ABILITY FUNCTION -- CENOTOMB
+/// TYPE: BASIC ATTACK ATTEMPT 
+/// This sprite's BASIC ATTACKS deal 2* damage while HEXED
+function pure_malice() {
+	
+}
+
+///@desc ABILITY FUNCTION -- STEWARDRAKE
+/// TYPE: ACTION ATTEMPT
+/// This sprite's nearby allies always take 2/3* damage
+function guardian_angel() {
+	
+}
+
+///@desc ABILITY FUNCTION -- DOMINO
+/// TYPE: BASIC ATTACK SUCCESS
+/// When this sprite hits another with a basic attack, that sprite
+/// will take their place as target for the rest of the turn.
+function ring_leader() {
+	
+}
+
+///@desc ABILITY FUNCTION -- ANACHRONAUT
+/// TYPE: SPELL ATTEMPT
+/// All ancient and time based spells will automatically fail when this
+/// sprite is present
+function time_police() {
+	
+}
+
+///@desc ABILITY FUNCTION -- SHPUPO
+/// TYPE: SPELL SUCCESS
+/// This sprite ignores the secondary effect of all SPELLS
+function space_cadet() {
+	
+}
+
+///@desc ABILITY FUNCTION -- NEEDLEPAW
+/// TYPE: ACTION ATTEMPT
+/// This sprite forces all enemy sprites to have their LUCK locked at the
+/// lowest possible value
+function bad_omen() {
+	
+}
+
+///@desc ABILITY FUNCTION -- OMNOST
+/// TYPE: SPELL ATTEMPT
+/// When this sprite casts ELEMENTAL SPELLS, the DMI is increased by 2. When
+/// this sprite is targeted by ELEMENTAL SPELLS, the DMI is decreased by 2.
+function all_knowing() {
+	
+}
+
+///@desc ABILITY FUNCTION -- PRISMATTER
+/// TYPE: ACTION ATTEMPT
+/// When this sprite casts PHYSICAL SPELLS or uses BASIC ATTACKS, the DMI is 
+/// increased by 1. When this sprite is targeted by PHYSICAL SPELLS or BASIC
+/// ATTACKS, the DMI is decreased by 1.
+function bend_physics() {
+	
+}
+
+///@desc ABILITY FUNCTION -- KRONARC
+/// TYPE: TURN PROCESS
+/// This sprite always moves absolute first (before all priority spells)
+function compress_time() {
+	
+}
+
+///@desc ABILITY FUNCTION -- COSMALCOS
+/// TYPE: SPELL ATTEMPT
+/// All SPELLS that target this sprite will automatically fail.
+function end_of_days() {
+	
 }
 
 #endregion

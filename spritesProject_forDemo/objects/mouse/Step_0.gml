@@ -39,10 +39,10 @@ if (instance_exists(spar)) {
 		if (spar.selectionPhase == selectionPhases.target) {
 			// check if hoverSprite is on the list of out of range spots
 			if (ds_list_find_index(spar.inRangeSprites, global.hoverSprite) == -1) {
-				// check if frame is less than 3
-				if (frame < 3) {
-					// if so, add 3 to frame
-					frame += 3;
+				// check if frame is not 3
+				if (frame != 3) {
+					// if so, change frame to 3
+					frame = 3;
 				}
 			}
 		}

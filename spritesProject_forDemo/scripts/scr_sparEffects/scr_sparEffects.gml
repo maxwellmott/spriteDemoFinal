@@ -515,6 +515,7 @@ function set_bound(_target) {
 				ds_list_add(effectedSprites, t);
 				subject = t.name;
 				t.bound = true;
+				t.boundCounter = 1;
 			}	else	instance_destroy(id);
 		}	else	instance_destroy(id);
 	}	else	instance_destroy(id);	
@@ -528,7 +529,8 @@ function set_hexed(_target) {
 			if !(spar_check_berserk(t)) {
 				ds_list_add(effectedSprites, t);
 				subject = t.name;
-				t.bound = true;
+				t.hexed = true;
+				t.hexedCounter = 1;
 			}	else	instance_destroy(id);
 		}	else	instance_destroy(id);
 	}	else	instance_destroy(id);
@@ -542,6 +544,7 @@ function remove_bound(_target) {
 		ds_list_add(effectedSprites, t);
 		subject = t.name;
 		t.bound = false;
+		t.boundCounter = 0;
 	}	else	instance_destroy(id);
 }
 
@@ -553,6 +556,7 @@ function remove_hexed(_target) {
 		ds_list_add(effectedSprites, t);
 		subject = t.name;
 		t.hexed  = false;
+		t.hexedCounter = 0;
 	}	else	instance_destroy(id);
 }
 
@@ -1955,6 +1959,7 @@ function set_hexed_nearby_allies(_target) {
 				if !(spar_check_berserk(inst))	{
 					ds_list_add(effectedSprites, inst);
 					inst.hexed = true;
+					inst.hexedCounter = 1;
 				}
 			}
 		}
@@ -1985,6 +1990,7 @@ function set_hexed_nearby_enemies(_target) {
 				if !(spar_check_berserk(inst))	{
 					ds_list_add(effectedSprites, inst);
 					inst.hexed = true;
+					inst.hexedCounter = 1;
 				}
 			}
 		}
@@ -2015,6 +2021,7 @@ function set_hexed_nearby_sprites(_target) {
 				if !(spar_check_berserk(inst))	{
 					ds_list_add(effectedSprites, inst);
 					inst.hexed = true;
+					inst.hexedCounter = 1;
 				}
 			}
 		}
@@ -2049,6 +2056,7 @@ function set_hexed_team(_targetPlayer) {
 				if !(spar_check_berserk(inst))	{
 					ds_list_add(effectedSprites, inst);
 					inst.hexed = true;
+					inst.hexedCounter = 1;
 				}
 			}
 		}
@@ -2080,6 +2088,7 @@ function set_hexed_global() {
 					if !(spar_check_berserk(inst))	{
 						ds_list_add(effectedSprites, inst);
 						inst.hexed = true;
+						inst.hexedCounter = 1;
 					}
 				}
 			}
@@ -2111,6 +2120,7 @@ function set_bound_nearby_allies(_target) {
 				if !(spar_check_berserk(inst))	{
 					ds_list_add(effectedSprites, inst);
 					inst.bound = true;
+					inst.boundCounter = 1;
 				}
 			}
 		}
@@ -2141,6 +2151,7 @@ function set_bound_nearby_enemies(_target) {
 				if !(spar_check_berserk(inst))	{
 					ds_list_add(effectedSprites, inst);
 					inst.bound = true;
+					inst.boundCounter = 1;
 				}
 			}
 		}
@@ -2171,6 +2182,7 @@ function set_bound_nearby_sprites(_target) {
 				if !(spar_check_berserk(inst))	{
 					ds_list_add(effectedSprites, inst);
 					inst.bound = true;
+					inst.boundCounter = 1;
 				}
 			}
 		}
@@ -2205,6 +2217,7 @@ function set_bound_team(_targetPlayer) {
 				if !(spar_check_berserk(inst))	{
 					ds_list_add(effectedSprites, inst);
 					inst.bound = true;
+					inst.boundCounter = 1;
 				}
 			}
 		}
@@ -2236,6 +2249,7 @@ function set_bound_global() {
 					if !(spar_check_berserk(inst))	{
 						ds_list_add(effectedSprites, inst);
 						inst.bound = true;
+						inst.boundCounter = 1;
 					}
 				}
 			}
@@ -2831,7 +2845,7 @@ function set_invulnerable_nearby_enemies(_target) {
 			if (inst.hexed)		inst.hexed		= false;
 			
 			inst.invulnerable = true;
-			inst.invulnerableCounter = false;
+			inst.invulnerableCounter = 1;
 		}
 		
 		i++;

@@ -125,8 +125,6 @@ ballLightningActive = false;
 ballLightningCount = 0;
 ballLightningTarget = -1;
 
-newTeamListPos = -1;
-newGlobalListPos = -1;
 newSpriteID = -1;
 
 parrying	= true;

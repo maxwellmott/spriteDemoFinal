@@ -1,3 +1,16 @@
+#region SPELL FX
+
+var spellFXList = ds_list_create();
+
+// encode the list
+global.allSpellFX = encode_list(spellFXList);
+
+// delete the temporary ds_list
+ds_list_destroy(spellFXList);
+
+#endregion
+
+
 // enum containing IDs for different rates of flashing
 enum FLASHING_RATES {
 	VERY_SLOW,
