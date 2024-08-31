@@ -1,6 +1,102 @@
+///@desc This function takes an abilityType 
+/// ID and the instance ID of a sprite. It then
+/// checks to see if the given sprite’s ability 
+/// is of the given abilityType. If so, it
+/// executes the sprite’s ability function 
+function ability_check(_sprite, _abilityType, _sprite2) {
+	// store args in locals
+	var s = _sprite;
+	var t = _abilityType;
+
+	// store the potential third argument as the second sprite
+	var s2 = argument[2];
+
+	// get sprite's ability type
+	var st = s.currentAbilityType;
+	
+	// check if ability type matches the given one
+	if (st == t) {
+		if (s2 >= 0) {
+			// push a spar effect alert containing the spriteID
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, s, s2);		
+		}
+		else {
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, s, -1);	
+		}
+	}
+}
+
 // enum containing ability IDs
+enum ABILITIES {
+	HOT_TO_THE_TOUCH,
+	WAVY_DANCE,
+	STORM_SURFER,
+	NATURES_RECLAMATION,
+	BATTLE_INSTINCT,
+	UNBREAKABLE_SHELL,
+	SUPERCHARGED,
+	WELL_READ,
+	POWER_OF_FRIENDSHIP,
+	UNDERSEA_PREDATOR,
+	UNSTABLE_POWER,
+	FREE_REFILLS,
+	REFLECTIVE_SURFACE,
+	FLOWERY_SPIRIT,
+	GIFT_OF_SONG,
+	HANG_TEN,
+	TERRITORIAL_HUNTER,
+	NATURAL_INGREDIENTS,
+	ABSORPTIVE_BODY,
+	CREEP_OUT,
+	NEW_ABILITY_1,
+	ALL_SEEING_EYES,
+	SORT_AWAY,
+	SHORT_FUSE,
+	OFFER_REFUGE,
+	SIGNAL_JAMMER,
+	SYNCHRONIZED_SOLDIERS,
+	HERBAL_CONCOCTION,
+	HEALING_HAZE,
+	AQUATIC_ESSENCE,
+	FIERY_AURA,
+	THUNDROUS_CRY,
+	MASSIVE_BODY,
+	UNDERDOG,
+	KEEPING_TIDY,
+	WRECKING_BALL,
+	DRIFT_AWAY,
+	TRICKSTER_FAERIE,
+	DUMPSTER_DIVER,
+	SPRING_LOADED,
+	FLOOD_SHELTER,
+	PROPOGATE,
+	NEW_ABILITY_2,
+	REDEEMING_QUALITIES,
+	GENERATOR,
+	DUAL_WIELD,
+	SHADOWY_FIEND,
+	METAL_MUNCHER,
+	VOLCANIC_MASS,
+	EYE_OF_THE_STORM,
+	NEW_ABILITY_3,
+	CENTRIPETAL_FORCE,
+	NEW_ABILITY_4,
+	PURE_MALICE,
+	GUARDIAN_ANGEL,
+	NEW_ABILITY_5,
+	RING_LEADER,
+	TIME_POLICE,
+	SPACE_CADET,
+	BAD_OMEN,
+	ALL_KNOWING,
+	BEND_PHYSICS,
+	COMPRESS_TIME,
+	END_OF_DAYS,
+	HEIGHT
+}
 
 // enum containing ability params
+
 
 // enum that contains all types of ability checks. This mostly exists
 // so that abilities have a way of indicating when they should be activated
@@ -87,6 +183,7 @@ function natures_reclamation() {
 function battle_instinct() {
 	
 }
+	
 ///@desc ABILITY FUNCTION -- CRUSTULAR:
 /// TYPE: ACTION SUCCESS
 /// If this sprite is targeted by a basic attack or physical spell, they
@@ -374,7 +471,7 @@ function redeeming_quality() {
 /// TYPE: SPELL ATTEMPT
 /// When this sprite casts a FIRE or STORM spell, the DMI is increased
 /// by 1.
-function powerhouse() {
+function generator() {
 	
 }
 

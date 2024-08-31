@@ -1,7 +1,7 @@
 placeholder,The ARENA has been transformed into a roaring VOLCANO!
 placeholder,The ARENA has become swallowed by an endless OCEAN!
-placeholder,The ARENA has become shrouded by an overgrown FOREST!
 placeholder,The ARENA seems to have been lifted up into the CLOUDS!
+placeholder,The ARENA has become shrouded by an overgrown FOREST!
 placeholder,The ARENA was returned to NORMAL!
 placeholder,_'s side of the field has been covered in a toxic MIASMA!
 placeholder,_'s side of the field has been plagued by an incessant HUM!
@@ -33,7 +33,7 @@ placeholder,All HINDRANCES were cleared from the field!
 placeholder,A timer began going off!
 placeholder,A timer is getting closer to 0. . . 
 placeholder,_'s NATURAL allies took some damage from the MIASMA!
-placeholder,_'s ASTRAL allies' powers are weakened by the HUM!
+placeholder,_'s ASTRAL allies deal less damage due to HUM!
 placeholder,_' MECHANICAL allies take more damage due to RUST!
 placeholder,_ was forced to SWAP positions with another SPRITE!
 placeholder,_'s  allies were all forced to SWAP positions!
@@ -84,20 +84,23 @@ placeholder,All SPRITEs on the field have become BOUND!
 placeholder,_ is HEXED and cannot cast SPELLs!
 placeholder,_ is BOUND and cannot SWAP positions!
 placeholder,Both players were struck by an ENERGY BLAST!
+placeholder,_ dealt increased damage!
+placeholder,_ took decreased damage!
 placeholder,_'s attack did increased damage due to the target's NATURAL alignment!
 placeholder,_'s attack did decreased damage due to the target's NATURAL alignment!
 placeholder,_'s attack did increased damage due to the target's MECHANICAL alignment!
 placeholder,_'s attack did decreased damage due to the target's MECHANICAL alignment!
 placeholder,_'s attack did increased damage due to the target's ASTRAL alignment!
 placeholder,_'s attack did decreased damage due to the target's ASTRAL alignment!
-placeholder,The power of WATER SPELLs is decreased due to the surrounding VOLCANO!
-placeholder,The power of FIRE SPELLs is increased due to the surrounding VOLCANO!
-placeholder,The power of STORM SPELLs is increased due to the surrounding OCEAN!
-placeholder,The power of WATER SPELLs is increased due to the surrounding OCEAN!
-placeholder,The power of EARTH SPELLs is decreased due to the surrounding CLOUDS!
-placeholder,The power of STORM SPELLs is increased due to the surrounding CLOUDS!
-placeholder,The power of FIRE SPELLs is increased due to the surrounding FOREST!
-placeholder,The power of EARTH SPELLs is increased due to the surrounding FOREST!
+placeholder,_'s attack did decreased damage due to the surrounding VOLCANO!
+placeholder,_'s attack did increased damage due to the surrounding VOLCANO!
+placeholder,_'s attack did decreased damage due to the surround OCEAN!
+placeholder,_'s attack did increased damage due to the surrounding OCEAN!
+placeholder,_'s attack did increased damage due to the surrounding OCEAN!
+placeholder,_'s attack did decreased damage due to the surrounding CLOUDS!
+placeholder,_'s attack did increased damage due to the surrounding CLOUDS!
+placeholder,_'s attack did increased damage due to the surrounding FOREST!
+placeholder,_'s attack did increased damage due to the surrounding FOREST!
 placeholder,"The elements of the ARENA were destroyed, returning it to its NORMAL state!"
 placeholder,Some health was drained from the target!
 placeholder,Some magic was drained from the target!
@@ -121,10 +124,9 @@ placeholder,All enemies near _ have become INVULNERABLE and will ignore all dama
 placeholder,All SPRITEs near _ have become INVULNERABLE and will ignore all damage and status effects!
 placeholder,All _'s allies have become INVULNERABLE and will ignore all damage and status effects!
 placeholder,All SPRITEs on the field have become INVULNERABLE and will ignore all damage and status effects!
-placeholder,_ is high in the sky avoiding all attacks!
-placeholder,_ is INVULNERABLE and cannot take damage!
 placeholder,_ has prepared to PARRY an attack!
 placeholder,_ successfully PARRIED the attack!
+placeholder,_'s PARRY was totally ignored!
 placeholder,Any damage or healing done by _ will have its magnitude DIVIDED!
 placeholder,Any damage or healing done by _ will have its magnitude MULTIPLIED!
 placeholder,The magnitude of the healing was DIVIDED!
@@ -143,13 +145,12 @@ placeholder,_'s LUCK became as good as possible!
 placeholder,_'s LUCK became as bad as possible!
 placeholder,_'s LUCK became as good as possible!
 placeholder,_'s LUCK became as bad as possible!
-placeholder,Everyone's luck became as good as possible!
-placeholder,Everyone's luck became as bad as possible!
+placeholder,Everyone's LUCK became as good as possible!
+placeholder,Everyone's LUCK became as bad as possible!
 placeholder,_ is attempting to go all in on the next turn!
-placeholder,_ is going BERSERK and cannot become HEXED!
-placeholder,_ is going BERSERK and cannot become BOUND!
-placeholder,_ is INVULNERABLE and is immune to status effects!
+placeholder,All  _'s allies became INVULNERABLE!
 placeholder,_ is going BERSERK!
+placeholder,_ is INVULNERABLE and is immune to status effects!
 placeholder,_ has calmed down and is no longer going BERSERK!
 placeholder,All allies near _ have calmed down and are no longer going BERSERK!
 placeholder,All enemies near _ have calmed down and are no longer going BERSERK!
@@ -162,3 +163,10 @@ placeholder,All enemies near _ are no longer INVULNERABLE!
 placeholder,All SPRITEs near _ are no longer INVULNERABLE!
 placeholder,All _'s allies are no longer INVULNERABLE!
 placeholder,All SPRITEs on the field are no longer INVULNERABLE!
+placeholder,_ returned to their original ALIGNMENT!
+placeholder,_ returned to their original SIZE!
+placeholder,_ dove from the sky and attacked!
+placeholder,_ leapt from the shadows and attacked!
+placeholder,_ failed to complete their attack. . .
+placeholder,_ failed to complete their attack. . . 
+placeholder,_'s ability was activated!

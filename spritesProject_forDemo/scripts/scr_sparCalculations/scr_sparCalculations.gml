@@ -14,6 +14,58 @@ enum elements {
 	height
 }
 
+///@desc This function can be called to process the actual increase to current HP
+/// that occurs when restoring HP
+function restore_hp(_player, _amount) {
+	var p = _player;
+	var a = _amount;
+	
+	if ((p.currentHP + a) > MAX_HP) {
+		a = MAX_HP - p.currentHP;	
+	}
+	
+	p.currentHP += a;
+}
+
+///@desc This function can be called to process the actual increase to current MP
+/// that occurs when restoring MP
+function restore_mp(_player, _amount) {
+	var p = _player;
+	var a = _amount;
+	
+	if ((p.currentMP + a) > MAX_MP) {
+		a = MAX_MP - p.currentMP;	
+	}
+	
+	p.currentMP += a;
+}
+
+///@desc This function can be called to process the actual decrease to current HP
+/// that occurs when depleting HP
+function deplete_hp(_player, _amount) {
+	var p = _player;
+	var a = _amount;
+	
+	if ((p.currentHP - a) < 0) {
+		a = p.currentHP;	
+	}
+	
+	p.currentHP -= a;
+}
+
+///@desc This function can be called to process the actual decrease to current MP
+/// that occurs when depleting MP
+function deplete_mp(_player, _amount) {
+	var p = _player;
+	var a = _amount;
+	
+	if ((p.currentMP - a) < 0) {
+		a = p.currentMP;	
+	}
+	
+	p.currentMP -= a;
+}
+
 ///@desc This function takes a size value from the SPRITE_SIZES and returns
 /// a value to use when calculating dodge success
 function get_size_val(_size) {
@@ -107,8 +159,8 @@ function roll_for_luck(_luckTier) {
 	
 	var highestRoll = 0;
 	
-	var luckFloor = 725;
-	var luckCeiling = 1075;
+	var luckFloor = MIN_LUCK;
+	var luckCeiling = MAX_LUCK;
 	
 	repeat (lt ) {
 		randomize();

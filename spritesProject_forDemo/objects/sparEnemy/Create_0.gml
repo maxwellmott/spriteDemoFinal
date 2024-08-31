@@ -37,31 +37,37 @@ usable_spells = ds_list_create();
 ability = noone;
 
 // initialize base stats
-basePower	= -1;
-baseResist	= -1;
-baseAgility = -1;
-baseLuck	= -1;
-baseFire	= -1;
-baseWater	= -1;
-baseStorm	= -1;
-baseEarth	= -1;
-baseSize	= -1;
-baseAlign	= -1;
+basePower			= -1;
+baseResist			= -1;
+baseAgility			= -1;
+baseLuck			= -1;
+baseFire			= -1;
+baseWater			= -1;
+baseStorm			= -1;
+baseEarth			= -1;
+baseSize			= -1;
+baseAlign			= -1;
+baseAbility			= -1;
+baseAbilityType		= -1;
+baseAbilityFunction = -1;
 
 // load sprite parameters
 sprite_load_parameters();
 
 // initialize current stats
-currentPower		= basePower;
-currentResistance	= baseResistance;
-currentAgility		= baseAgility;
-currentLuck			= baseLuck;
-currentFire			= baseFire;
-currentWater		= baseWater;
-currentStorm		= baseStorm;
-currentEarth		= baseEarth;
-currentSize			= baseSize;
-currentAlign		= baseAlign;
+currentPower			= basePower;
+currentResistance		= baseResistance;
+currentAgility			= baseAgility;
+currentLuck				= baseLuck;
+currentFire				= baseFire;
+currentWater			= baseWater;
+currentStorm			= baseStorm;
+currentEarth			= baseEarth;
+currentSize				= baseSize;
+currentAlign			= baseAlign;
+currentAbility			= baseAbility;
+currentAbilityType		= baseAbilityType;
+currentAbilityFunction	= baseAbilityFunction;
 
 // initialize mindset (set to 0 since negative IDs= curses)
 mindset = 0;

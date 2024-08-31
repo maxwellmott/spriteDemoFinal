@@ -27,7 +27,7 @@ BATTLE SCENE TODO:
 	-fix ready display						2 POINTS				2 POINTS DONE
 	-fix fonts								3 POINTS				3 POINTS DONE
 	-build audio manager					3 POINTS
-	-add music								4 POINTS
+	-add music								4 POINTS				
 	-add all SFX							4 POINTS				4 POINTS DONE
 	-add hp and mp bars						1 POINT					1 POINT DONE
 	-complete nearby list functionality		1 POINT					1 POINT DONE
@@ -422,3 +422,6 @@ COMING BACK FROM PLAYTEST BUILD
 			
 	8/19
 		Running into a weird bug. Recreate by attempting to swap the same sprite twice in one match. Watch spar.allyList and spar.teamList. Also check ready display before second swap
+		
+	8/30
+		Finish the ability script and add place all ability check calls

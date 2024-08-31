@@ -1,6 +1,6 @@
 {
   "$GMSprite":"",
-  "%Name":"spr_chromosilosBattle",
+  "%Name":"spr_chromaliodonBattle",
   "bboxMode":0,
   "bbox_bottom":55,
   "bbox_left":0,
@@ -24,7 +24,7 @@
   "layers":[
     {"$GMImageLayer":"","%Name":"cd981344-5526-4c52-a5ab-cad6a219aa61","blendMode":0,"displayName":"default","isLocked":false,"name":"cd981344-5526-4c52-a5ab-cad6a219aa61","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"spr_chromosilosBattle",
+  "name":"spr_chromaliodonBattle",
   "nineSlice":null,
   "origin":4,
   "parent":{
@@ -36,7 +36,7 @@
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"",
-    "%Name":"spr_chromosilosBattle",
+    "%Name":"spr_chromaliodonBattle",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -60,7 +60,7 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"spr_chromosilosBattle",
+    "name":"spr_chromaliodonBattle",
     "playback":1,
     "playbackSpeed":30.0,
     "playbackSpeedType":0,
@@ -72,16 +72,16 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"0e3bab0c-e3cd-42c6-9818-279ef1775a24","path":"sprites/spr_chromosilosBattle/spr_chromosilosBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"0e3bab0c-e3cd-42c6-9818-279ef1775a24","path":"sprites/spr_chromaliodonBattle/spr_chromaliodonBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"5df041ad-dc15-4cf9-a8d1-94d55599ea74","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"8e2978ba-6775-486d-9b29-f15e255f750e","path":"sprites/spr_chromosilosBattle/spr_chromosilosBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"8e2978ba-6775-486d-9b29-f15e255f750e","path":"sprites/spr_chromaliodonBattle/spr_chromaliodonBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"bf2c04d4-b7ee-4435-a222-0e7b4b778fca","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"87cc0a93-c0b1-4625-b2c4-0af297a981e3","path":"sprites/spr_chromosilosBattle/spr_chromosilosBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"87cc0a93-c0b1-4625-b2c4-0af297a981e3","path":"sprites/spr_chromaliodonBattle/spr_chromaliodonBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"b18ccfe1-49ea-46b8-b58d-b1f5753adba6","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"7f11c8ca-6019-4917-811c-1f62b72fcb01","path":"sprites/spr_chromosilosBattle/spr_chromosilosBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"7f11c8ca-6019-4917-811c-1f62b72fcb01","path":"sprites/spr_chromaliodonBattle/spr_chromaliodonBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"a5a5983a-9745-4203-84b8-7b7167fa0d81","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
