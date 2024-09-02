@@ -425,3 +425,11 @@ COMING BACK FROM PLAYTEST BUILD
 		
 	8/30
 		Finish the ability script and add place all ability check calls
+		
+	9/1	
+		Abilities What's Left:
+			- build ability grid
+			- add ability loading to sprite_load_parameters
+			- finish all ability functions
+			- add ability name animation
+			- test

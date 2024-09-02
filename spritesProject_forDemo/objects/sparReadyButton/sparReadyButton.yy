@@ -9,8 +9,8 @@
   "name":"sparReadyButton",
   "overriddenProperties":[],
   "parent":{
-    "name":"spars",
-    "path":"folders/Objects/spars.yy",
+    "name":"UI",
+    "path":"folders/Objects/spars/UI.yy",
   },
   "parentObjectId":null,
   "persistent":false,

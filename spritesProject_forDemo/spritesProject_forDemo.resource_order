@@ -133,7 +133,7 @@
     {"name":"sparDodgeAnnouncer","order":1,"path":"objects/sparDodgeAnnouncer/sparDodgeAnnouncer.yy",},
     {"name":"sparEffectAlert","order":9,"path":"objects/sparEffectAlert/sparEffectAlert.yy",},
     {"name":"sparEnemy","order":1,"path":"objects/sparEnemy/sparEnemy.yy",},
-    {"name":"sparReadyButton","order":1,"path":"objects/sparReadyButton/sparReadyButton.yy",},
+    {"name":"sparReadyButton","order":4,"path":"objects/sparReadyButton/sparReadyButton.yy",},
     {"name":"sparRestProcessor","order":2,"path":"objects/sparRestProcessor/sparRestProcessor.yy",},
     {"name":"sparSpellFX","order":7,"path":"objects/sparSpellFX/sparSpellFX.yy",},
     {"name":"sparSpellMenu","order":2,"path":"objects/sparSpellMenu/sparSpellMenu.yy",},

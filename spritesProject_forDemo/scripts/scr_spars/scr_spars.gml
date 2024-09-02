@@ -268,10 +268,6 @@ function enemyAI_set_team() {
 /// This function is where the ally sprites get their luck for the turn.
 function player_submit_turn() {	
 	
-	if (instance_exists(onlineEnemy)) {
-		var onlineGrid = ds_grid_create(4, 4);
-	}
-	
 	var onlineGrid = ds_grid_create(4, 4);
 	
 	var i = 0;	repeat (4) {
@@ -315,7 +311,7 @@ function player_submit_turn() {
 		
 		buffer_write(spar.onlineBuffer, buffer_text, dataJson);
 		
-		network_send_udp_raw(spar.client, SERVER_ADDRESS, 80, spar.onlineBuffer, buffer_tell(spar.onlineBuffer));
+		network_send_udp_raw(spar.client, SERVER_ADDRESS, PORT_NUM, spar.onlineBuffer, buffer_tell(spar.onlineBuffer));
 		
 		spar.onlineWaiting = true;	
 	}
