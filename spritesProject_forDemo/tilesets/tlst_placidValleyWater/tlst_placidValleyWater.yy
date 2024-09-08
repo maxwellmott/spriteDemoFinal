@@ -1,5 +1,5 @@
 {
-  "$GMTileSet":"",
+  "$GMTileSet":"v1",
   "%Name":"tlst_placidValleyWater",
   "autoTileSets":[],
   "macroPageTiles":{
@@ -26,15 +26,17 @@
     "name":"Default",
     "path":"texturegroups/Default",
   },
-  "tileAnimation":{
-    "FrameData":[
-      0,0,0,0,0,0,0,0,1,2,1,3,4,5,6,7,2,1,3,4,5,6,7,1,3,4,5,6,7,1,2,1,4,5,6,7,1,2,1,3,5,6,7,1,2,1,3,4,6,7,
-      1,2,1,3,4,5,7,1,2,1,3,4,5,6,
-    ],
-    "SerialiseFrameCount":8,
-  },
   "tileAnimationFrames":[
-    {"$GMTileAnimation":"","%Name":"placidValleyWaterAnimation","frames":[1,2,1,3,4,5,6,7,],"name":"placidValleyWaterAnimation","resourceType":"GMTileAnimation","resourceVersion":"2.0",},
+    {"$GMTileAnimation":"","%Name":"placidValleyWaterAnimation","frames":[
+        1,
+        2,
+        1,
+        3,
+        4,
+        5,
+        6,
+        7,
+      ],"name":"placidValleyWaterAnimation","resourceType":"GMTileAnimation","resourceVersion":"2.0",},
   ],
   "tileAnimationSpeed":4.0,
   "tileHeight":32,

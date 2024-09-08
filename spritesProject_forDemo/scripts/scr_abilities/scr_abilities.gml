@@ -96,7 +96,14 @@ enum ABILITIES {
 }
 
 // enum containing ability params
-
+enum ABILITY_PARAMS {
+	ID,
+	NAME,
+	DESCRIPTION,
+	TYPE,
+	EFFECT_FUNCTION,
+	HEIGHT	
+}
 
 // enum that contains all types of ability checks. This mostly exists
 // so that abilities have a way of indicating when they should be activated
@@ -463,7 +470,7 @@ function propogate() {
 /// TYPE: TURN END
 /// If this sprite's team has less than half HP, it fully restores
 /// their MP at the end of the turn.
-function redeeming_quality() {
+function redeeming_qualities() {
 	
 }
 
@@ -602,3 +609,87 @@ function end_of_days() {
 #endregion
 
 // get all text params from csv file
+var textGrid = load_csv("ABILITIES_ENGLISH.csv");
+
+// create abilityGrid
+global.abilityGrid = ds_grid_create(ABILITY_PARAMS.HEIGHT, ABILITIES.HEIGHT);
+
+// create master grid add function
+function master_grid_add_ability(_ID) {
+	// store args in locals
+	var ID = _ID;
+	
+	// use a repeat loop to post all params to the grid
+	var i = 0;	repeat (ABILITY_PARAMS.HEIGHT) {
+		ds_grid_add(global.abilityGrid, argument[i], ID);
+		
+		// increment
+		i++;
+	}
+}
+	
+// add all abilities to abilityGrid
+master_grid_add_ability(ABILITIES.HOT_TO_THE_TOUCH,			textGrid[# 1, ABILITIES.HOT_TO_THE_TOUCH],			textGrid[# 2, ABILITIES.HOT_TO_THE_TOUCH],		ABILITY_CHECKS.BASIC_ATTACK_ATTEMPT,		hot_to_the_touch);
+master_grid_add_ability(ABILITIES.WAVY_DANCE,				textGrid[# 1, ABILITIES.WAVY_DANCE],				textGrid[# 2, ABILITIES.WAVY_DANCE],			ABILITY_CHECKS.DAMAGE_ATTEMPT,				wavy_dance);
+master_grid_add_ability(ABILITIES.STORM_SURFER,				textGrid[# 1, ABILITIES.STORM_SURFER],				textGrid[# 2, ABILITIES.STORM_SURFER],			ABILITY_CHECKS.SPELL_ATTEMPT,				storm_surfer);
+master_grid_add_ability(ABILITIES.NATURES_RECLAMATION,		textGrid[# 1, ABILITIES.NATURES_RECLAMATION],		textGrid[# 2, ABILITIES.NATURES_RECLAMATION],	ABILITY_CHECKS.BASIC_ATTACK_ATTEMPT,		natures_reclamation);
+master_grid_add_ability(ABILITIES.BATTLE_INSTINCT,			textGrid[# 1, ABILITIES.BATTLE_INSTINCT],			textGrid[# 2, ABILITIES.BATTLE_INSTINCT],		ABILITY_CHECKS.BASIC_ATTACK_ATTEMPT,		battle_instinct);
+master_grid_add_ability(ABILITIES.UNBREAKABLE_SHELL,		textGrid[# 1, ABILITIES.UNBREAKABLE_SHELL],			textGrid[# 2, ABILITIES.UNBREAKABLE_SHELL],		ABILITY_CHECKS.DAMAGE_SUCCESS,				unbreakable_shell);
+master_grid_add_ability(ABILITIES.SUPERCHARGED,				textGrid[# 1, ABILITIES.SUPERCHARGED],				textGrid[# 2, ABILITIES.SUPERCHARGED],			ABILITY_CHECKS.SPELL_SUCCESS,				supercharged);
+master_grid_add_ability(ABILITIES.WELL_READ,				textGrid[# 1, ABILITIES.WELL_READ],					textGrid[# 2, ABILITIES.WELL_READ],				ABILITY_CHECKS.TURN_BEGIN,					well_read);
+master_grid_add_ability(ABILITIES.POWER_OF_FRIENDSHIP,		textGrid[# 1, ABILITIES.POWER_OF_FRIENDSHIP],		textGrid[# 2, ABILITIES.POWER_OF_FRIENDSHIP],	ABILITY_CHECKS.DAMAGE_SUCCESS,				power_of_friendship);
+master_grid_add_ability(ABILITIES.UNDERSEA_PREDATOR,		textGrid[# 1, ABILITIES.UNDERSEA_PREDATOR],			textGrid[# 2, ABILITIES.UNDERSEA_PREDATOR],		ABILITY_CHECKS.BASIC_ATTACK_ATTEMPT,		undersea_predator);
+master_grid_add_ability(ABILITIES.UNSTABLE_POWER,			textGrid[# 1, ABILITIES.UNSTABLE_POWER],			textGrid[# 2, ABILITIES.UNSTABLE_POWER],		ABILITY_CHECKS.TURN_BEGIN,					unstable_power);
+master_grid_add_ability(ABILITIES.FREE_REFILLS,				textGrid[# 1, ABILITIES.FREE_REFILLS],				textGrid[# 2, ABILITIES.FREE_REFILLS],			ABILITY_CHECKS.TURN_END,					free_refills);
+master_grid_add_ability(ABILITIES.REFLECTIVE_SURFACE,		textGrid[# 1, ABILITIES.REFLECTIVE_SURFACE],		textGrid[# 2, ABILITIES.REFLECTIVE_SURFACE],	ABILITY_CHECKS.SPELL_ATTEMPT,				reflective_surface);
+master_grid_add_ability(ABILITIES.FLOWERY_SPIRIT,			textGrid[# 1, ABILITIES.FLOWERY_SPIRIT],			textGrid[# 2, ABILITIES.FLOWERY_SPIRIT],		ABILITY_CHECKS.SPELL_ATTEMPT,				flowery_spirit);
+master_grid_add_ability(ABILITIES.GIFT_OF_SONG,				textGrid[# 1, ABILITIES.GIFT_OF_SONG],				textGrid[# 2, ABILITIES.GIFT_OF_SONG],			ABILITY_CHECKS.TURN_BEGIN,					gift_of_song);
+master_grid_add_ability(ABILITIES.HANG_TEN,					textGrid[# 1, ABILITIES.HANG_TEN],					textGrid[# 2, ABILITIES.HANG_TEN],				ABILITY_CHECKS.BASIC_ATTACK_ATTEMPT,		hang_ten);
+master_grid_add_ability(ABILITIES.TERRITORIAL_HUNTER,		textGrid[# 1, ABILITIES.TERRITORIAL_HUNTER],		textGrid[# 2, ABILITIES.TERRITORIAL_HUNTER],	ABILITY_CHECKS.BASIC_ATTACK_ATTEMPT,		territorial_hunter);
+master_grid_add_ability(ABILITIES.NATURAL_INGREDIENTS,		textGrid[# 1, ABILITIES.NATURAL_INGREDIENTS],		textGrid[# 2, ABILITIES.NATURAL_INGREDIENTS],	ABILITY_CHECKS.SPELL_SUCCESS,				natural_ingredients);
+master_grid_add_ability(ABILITIES.ABSORPTIVE_BODY,			textGrid[# 1, ABILITIES.ABSORPTIVE_BODY],			textGrid[# 2, ABILITIES.ABSORPTIVE_BODY],		ABILITY_CHECKS.DAMAGE_SUCCESS,				absorptive_body);
+master_grid_add_ability(ABILITIES.CREEP_OUT,				textGrid[# 1, ABILITIES.CREEP_OUT],					textGrid[# 2, ABILITIES.CREEP_OUT],				ABILITY_CHECKS.TURN_BEGIN,					creep_out);
+master_grid_add_ability(ABILITIES.NEW_ABILITY_1,			textGrid[# 1, ABILITIES.NEW_ABILITY_1],				textGrid[# 2, ABILITIES.NEW_ABILITY_1],			-1,											noone);
+master_grid_add_ability(ABILITIES.ALL_SEEING_EYES,			textGrid[# 1, ABILITIES.ALL_SEEING_EYES],			textGrid[# 2, ABILITIES.ALL_SEEING_EYES],		ABILITY_CHECKS.TARGET_SELECTION,			all_seeing_eyes);	
+master_grid_add_ability(ABILITIES.SORT_AWAY,				textGrid[# 1, ABILITIES.SORT_AWAY],					textGrid[# 2, ABILITIES.SORT_AWAY],				ABILITY_CHECKS.DAMAGE_SUCCESS,				sort_away);
+master_grid_add_ability(ABILITIES.SHORT_FUSE,				textGrid[# 1, ABILITIES.SHORT_FUSE],				textGrid[# 2, ABILITIES.SHORT_FUSE],			ABILITY_CHECKS.TURN_END,					short_fuse);
+master_grid_add_ability(ABILITIES.OFFER_REFUGE,				textGrid[# 1, ABILITIES.OFFER_REFUGE],				textGrid[# 2, ABILITIES.OFFER_REFUGE],			ABILITY_CHECKS.DAMAGE_ATTEMPT,				offer_refuge);
+master_grid_add_ability(ABILITIES.SIGNAL_JAMMER,			textGrid[# 1, ABILITIES.SIGNAL_JAMMER],				textGrid[# 2, ABILITIES.SIGNAL_JAMMER],			ABILITY_CHECKS.TURN_BEGIN,					signal_jammer);
+master_grid_add_ability(ABILITIES.SYNCHRONIZED_SOLDIERS,	textGrid[# 1, ABILITIES.SYNCHRONIZED_SOLDIERS],		textGrid[# 2, ABILITIES.SYNCHRONIZED_SOLDIERS],	ABILITY_CHECKS.TURN_PROCESS,				synchronized_soldiers);
+master_grid_add_ability(ABILITIES.HERBAL_CONCOCTION,		textGrid[# 1, ABILITIES.HERBAL_CONCOCTION],			textGrid[# 2, ABILITIES.HERBAL_CONCOCTION],		ABILITY_CHECKS.APPLY_MIASMA,				herbal_concoction);
+master_grid_add_ability(ABILITIES.HEALING_HAZE,				textGrid[# 1, ABILITIES.HEALING_HAZE],				textGrid[# 2, ABILITIES.HEALING_HAZE],			ABILITY_CHECKS.SPRITE_RESTING,				healing_haze);
+master_grid_add_ability(ABILITIES.AQUATIC_ESSENCE,			textGrid[# 1, ABILITIES.AQUATIC_ESSENCE],			textGrid[# 2, ABILITIES.AQUATIC_ESSENCE],		ABILITY_CHECKS.SPRITE_RESTING,				aquatic_essence);
+master_grid_add_ability(ABILITIES.FIERY_AURA,				textGrid[# 1, ABILITIES.FIERY_AURA],				textGrid[# 2, ABILITIES.FIERY_AURA],			ABILITY_CHECKS.SPELL_ATTEMPT,				fiery_aura);
+master_grid_add_ability(ABILITIES.THUNDROUS_CRY,			textGrid[# 1, ABILITIES.THUNDROUS_CRY],				textGrid[# 2, ABILITIES.THUNDROUS_CRY],			ABILITY_CHECKS.DAMAGE_SUCCESS,				thundrous_cry);
+master_grid_add_ability(ABILITIES.MASSIVE_BODY,				textGrid[# 1, ABILITIES.MASSIVE_BODY],				textGrid[# 2, ABILITIES.MASSIVE_BODY],			ABILITY_CHECKS.BASIC_ATTACK_DAMAGE_CALC,	massive_body);
+master_grid_add_ability(ABILITIES.UNDERDOG,					textGrid[# 1, ABILITIES.UNDERDOG],					textGrid[# 2, ABILITIES.UNDERDOG],				ABILITY_CHECKS.DAMAGE_CALC,					underdog);
+master_grid_add_ability(ABILITIES.KEEPING_TIDY,				textGrid[# 1, ABILITIES.KEEPING_TIDY],				textGrid[# 2, ABILITIES.KEEPING_TIDY],			ABILITY_CHECKS.TURN_END,					keeping_tidy);
+master_grid_add_ability(ABILITIES.WRECKING_BALL,			textGrid[# 1, ABILITIES.WRECKING_BALL],				textGrid[# 2, ABILITIES.WRECKING_BALL],			ABILITY_CHECKS.BASIC_ATTACK_DAMAGE_CALC,	wrecking_ball);
+master_grid_add_ability(ABILITIES.DRIFT_AWAY,				textGrid[# 1, ABILITIES.DRIFT_AWAY],				textGrid[# 2, ABILITIES.DRIFT_AWAY],			ABILITY_CHECKS.SPRITE_RESTING,				drift_away);
+master_grid_add_ability(ABILITIES.TRICKSTER_FAERIE,			textGrid[# 1, ABILITIES.TRICKSTER_FAERIE],			textGrid[# 2, ABILITIES.TRICKSTER_FAERIE],		ABILITY_CHECKS.SPELL_SUCCESS,				trickster_faerie);
+master_grid_add_ability(ABILITIES.DUMPSTER_DIVER,			textGrid[# 1, ABILITIES.DUMPSTER_DIVER],			textGrid[# 2, ABILITIES.DUMPSTER_DIVER],		ABILITY_CHECKS.SPELL_SUCCESS,				dumpster_diver);
+master_grid_add_ability(ABILITIES.SPRING_LOADED,			textGrid[# 1, ABILITIES.SPRING_LOADED],				textGrid[# 2, ABILITIES.SPRING_LOADED],			ABILITY_CHECKS.TARGET_SELECTION,			spring_loaded);
+master_grid_add_ability(ABILITIES.FLOOD_SHELTER,			textGrid[# 1, ABILITIES.FLOOD_SHELTER],				textGrid[# 2, ABILITIES.FLOOD_SHELTER],			ABILITY_CHECKS.DAMAGE_ATTEMPT,				flood_shelter);
+master_grid_add_ability(ABILITIES.PROPOGATE,				textGrid[# 1, ABILITIES.PROPOGATE],					textGrid[# 2, ABILITIES.PROPOGATE],				ABILITY_CHECKS.APPLY_BOUND,					propogate);
+master_grid_add_ability(ABILITIES.NEW_ABILITY_2,			textGrid[# 1, ABILITIES.NEW_ABILITY_2],				textGrid[# 2, ABILITIES.NEW_ABILITY_2],			-1,											noone);
+master_grid_add_ability(ABILITIES.REDEEMING_QUALITIES,		textGrid[# 1, ABILITIES.REDEEMING_QUALITIES],		textGrid[# 2, ABILITIES.REDEEMING_QUALITIES],	ABILITY_CHECKS.TURN_END,					redeeming_qualities);
+master_grid_add_ability(ABILITIES.GENERATOR,				textGrid[# 1, ABILITIES.GENERATOR],					textGrid[# 2, ABILITIES.GENERATOR],				ABILITY_CHECKS.SPELL_ATTEMPT,				generator);
+master_grid_add_ability(ABILITIES.DUAL_WIELD,				textGrid[# 1, ABILITIES.DUAL_WIELD],				textGrid[# 2, ABILITIES.DUAL_WIELD],			ABILITY_CHECKS.BASIC_ATTACK_DAMAGE_CALC,	dual_wield);
+master_grid_add_ability(ABILITIES.SHADOWY_FIEND,			textGrid[# 1, ABILITIES.SHADOWY_FIEND],				textGrid[# 2, ABILITIES.SHADOWY_FIEND],			ABILITY_CHECKS.DAMAGE_ATTEMPT,				shadowy_fiend);
+master_grid_add_ability(ABILITIES.METAL_MUNCHER,			textGrid[# 1, ABILITIES.METAL_MUNCHER],				textGrid[# 2, ABILITIES.METAL_MUNCHER],			ABILITY_CHECKS.DAMAGE_ATTEMPT,				metal_muncher);
+master_grid_add_ability(ABILITIES.VOLCANIC_MASS,			textGrid[# 1, ABILITIES.VOLCANIC_MASS],				textGrid[# 2, ABILITIES.VOLCANIC_MASS],			ABILITY_CHECKS.BASIC_ATTACK_DAMAGE_CALC,	volcanic_mass);
+master_grid_add_ability(ABILITIES.EYE_OF_THE_STORM,			textGrid[# 1, ABILITIES.EYE_OF_THE_STORM],			textGrid[# 2, ABILITIES.EYE_OF_THE_STORM],		ABILITY_CHECKS.TURN_BEGIN,					eye_of_the_storm);
+master_grid_add_ability(ABILITIES.NEW_ABILITY_3,			textGrid[# 1, ABILITIES.NEW_ABILITY_3],				textGrid[# 2, ABILITIES.NEW_ABILITY_3],			-1,											noone);
+master_grid_add_ability(ABILITIES.CENTRIPETAL_FORCE,		textGrid[# 1, ABILITIES.CENTRIPETAL_FORCE],			textGrid[# 2, ABILITIES.CENTRIPETAL_FORCE],		ABILITY_CHECKS.TURN_BEGIN,					centripetal_force);
+master_grid_add_ability(ABILITIES.NEW_ABILITY_4,			textGrid[# 1, ABILITIES.NEW_ABILITY_4],				textGrid[# 2, ABILITIES.NEW_ABILITY_4],			-1,											noone);
+master_grid_add_ability(ABILITIES.PURE_MALICE,				textGrid[# 1, ABILITIES.PURE_MALICE],				textGrid[# 2, ABILITIES.PURE_MALICE],			ABILITY_CHECKS.BASIC_ATTACK_DAMAGE_CALC,	pure_malice);
+master_grid_add_ability(ABILITIES.GUARDIAN_ANGEL,			textGrid[# 1, ABILITIES.GUARDIAN_ANGEL],			textGrid[# 2, ABILITIES.GUARDIAN_ANGEL],		ABILITY_CHECKS.DAMAGE_ATTEMPT,				guardian_angel);
+master_grid_add_ability(ABILITIES.NEW_ABILITY_5,			textGrid[# 1, ABILITIES.NEW_ABILITY_5],				textGrid[# 2, ABILITIES.NEW_ABILITY_5],			-1,											noone);
+master_grid_add_ability(ABILITIES.RING_LEADER,				textGrid[# 1, ABILITIES.RING_LEADER],				textGrid[# 2, ABILITIES.RING_LEADER],			ABILITY_CHECKS.BASIC_ATTACK_SUCCESS,		ring_leader);
+master_grid_add_ability(ABILITIES.TIME_POLICE,				textGrid[# 1, ABILITIES.TIME_POLICE],				textGrid[# 2, ABILITIES.TIME_POLICE],			ABILITY_CHECKS.SPELL_ATTEMPT,				time_police);
+master_grid_add_ability(ABILITIES.SPACE_CADET,				textGrid[# 1, ABILITIES.SPACE_CADET],				textGrid[# 2, ABILITIES.SPACE_CADET],			ABILITY_CHECKS.SPELL_SUCCESS,				space_cadet);
+master_grid_add_ability(ABILITIES.BAD_OMEN,					textGrid[# 1, ABILITIES.BAD_OMEN],					textGrid[# 2, ABILITIES.BAD_OMEN],				ABILITY_CHECKS.DAMAGE_ATTEMPT,				bad_omen);
+master_grid_add_ability(ABILITIES.ALL_KNOWING,				textGrid[# 1, ABILITIES.ALL_KNOWING],				textGrid[# 2, ABILITIES.ALL_KNOWING],			ABILITY_CHECKS.SPELL_ATTEMPT,				all_knowing);
+master_grid_add_ability(ABILITIES.BEND_PHYSICS,				textGrid[# 1, ABILITIES.BEND_PHYSICS],				textGrid[# 2, ABILITIES.BEND_PHYSICS],			ABILITY_CHECKS.DAMAGE_ATTEMPT,				bend_physics);
+master_grid_add_ability(ABILITIES.COMPRESS_TIME,			textGrid[# 1, ABILITIES.COMPRESS_TIME],				textGrid[# 2, ABILITIES.COMPRESS_TIME],			ABILITY_CHECKS.TURN_PROCESS,				compress_time);
+master_grid_add_ability(ABILITIES.END_OF_DAYS,				textGrid[# 1, ABILITIES.END_OF_DAYS],				textGrid[# 2, ABILITIES.END_OF_DAYS],			ABILITY_CHECKS.SPELL_ATTEMPT,				end_of_days);
