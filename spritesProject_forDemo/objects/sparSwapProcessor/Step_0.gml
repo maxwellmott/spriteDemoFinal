@@ -18,6 +18,10 @@ if (global.select) {
 				// charge the MP cost
 				inst.team.currentMP -= c;
 			}
+			
+			// maintain sprite mindsets during swap
+			var m1 = inst.mindset;
+			var m2 = partnerInst.mindset;
 		
 			// reset all of this sprites parameters
 			with (inst) {
@@ -35,6 +39,10 @@ if (global.select) {
 				swapping = false;
 				sprite_load_parameters();
 			}
+			
+			// swap their mindsets to maintain
+			inst.mindset = m2;
+			partnerInst. mindset = m1;
 		}
 		
 		i++;

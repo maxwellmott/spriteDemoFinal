@@ -6,56 +6,62 @@ enum ALIGNMENTS {
 }
 
 enum SPRITES {
-	SPARMATE,
-	GEMBO,
 	HACHACHACHA,
-	PONDILE,
-	BOOKISH,
-	FISTICOGS,
+	DIIPSY,
+	GLIDRAKE,
+	PODRIC,
+	SPARMATE,
 	CRUSTULAR,
-	EXONOLITH,
-	GASTRONIMO,
+	FISTICOGS,
+	BOOKISH,
+	PLEEP,
+	FISHMONGER,
+	GEMBO,
+	JOE,
 	MIRREFRACT,
+	FLOOPWALKER,
 	SONGBIRD,
 	SHREDATOR,
+	FURVOR,
+	GASTRONIMO,
 	DURENDOUX,
-	OBSIDUAL,
-	GLIDRAKE,
 	STAGEFRITE,
-	PLEEP,
-	FLOOPWALKER,
-	DRUMLINE,
+	NEW_SPRITE1,
+	SCROOTINEYES,
 	ARRAYNGE,
 	TICKDOFF,
-	JOE,
-	SCROOTINEYES,
-	REVOLTURE,
-	HEATSUNE,
-	FLOTSU,
-	BLITZKRANE,
-	PODRIC,
-	DOORMAUS,
-	CLEANSAGE,
-	PUGILOON,
-	CAPNCLOPS,
 	FORTUGA,
-	FURVOR,
-	SPLASHGUARD,
+	SPYOTIS,
+	DRUMLINE,
+	REVOLTURE,
+	CLEANSAGE,
+	FLOTSU,
+	HEATSUNE,
+	BLITZKRANE,
+	EXONOLITH,
+	PUGILOON,
 	MRSUDSY,
-	JACKHAMMER,
-	CANUKI,
 	DEMOLITOPS,
-	FISHMONGER,
+	DOORMAUS,
 	ZEPHIRA,
+	CANUKI,
+	JACKHAMMER,
+	SPLASHGUARD,
 	UPROOTER,
+	NEW_SPRITE2,
+	CAPNCLOPS,
 	PLASMASS,
-	CRAGMA,
-	WYRMPOOL,
-	CORVOLT,
-	CHROMALIODON,
-	CENOTOMB,
+	OBSIDUAL,
 	NINTOX,
+	CHROMALIODON,
+	CRAGMA,
+	CORVOLT,
+	WYRMPOOL,
+	NEW_SPRITE3,
+	NEW_SPRITE4,
+	CENOTOMB,
 	STEWARDRAKE,
+	NEW_SPRITE5,
 	DOMINO,
 	ANACHRONAUT,
 	SHPUPO,
@@ -71,6 +77,7 @@ enum SPRITE_PARAMS {
 	ID,
 	NAME,
 	SPRITE,
+	ABILITY,
 	ALIGNMENT,
 	SPELL_LIST,
 	POWER,
@@ -103,6 +110,100 @@ enum SPRITE_POSES {
 }
 
 #region	CREATE ALL SPELL LISTS
+
+	#region		DIIPSY
+		var diipsySpells = ds_list_create();
+		
+		ds_list_add(diipsySpells,
+			SPELLS.TIDAL_FORCE,
+			SPELLS.HOLY_WATER,
+			SPELLS.SHOCK,
+			SPELLS.DECAY,
+			SPELLS.TYPHOON,
+			SPELLS.RUBURS_GRAPPLE,
+			SPELLS.RUBURS_WATER_CANNON,
+			SPELLS.WATERLOG,
+			SPELLS.UNDERTOW,
+			SPELLS.EMPATHIZE,
+			SPELLS.DOWNPOUR,
+			SPELLS.OSMOSIS,
+			SPELLS.LANDSLIDE,
+			SPELLS.NOXIOUS_FUMES,
+			SPELLS.ENDLESS_RIVER,
+			SPELLS.CLOUD_BREAK,
+			SPELLS.HAIL_SPHERA
+		);
+		
+	#endregion
+	
+	#region		SPYOTIS
+		var spyotisSpells = ds_list_create();
+		
+		ds_list_add(spyotisSpells,
+			SPELLS.EXPEL_FORCE,
+			SPELLS.TYPHOON,
+			SPELLS.AIR_PRESSURE,
+			SPELLS.RAPID_STRIKE,
+			SPELLS.LOOMING_DANGER,
+			SPELLS.INTERCEPT,
+			SPELLS.EMPATHIZE,
+			SPELLS.LORD_MOGRADTHS_RAGE,
+			SPELLS.DRAIN_LIFEFORCE,
+			SPELLS.MAGNETIC_PULSE,
+			SPELLS.WIND_SLICE,
+			SPELLS.CHANNEL_ESSENCE,
+			SPELLS.SPHERAS_CURSE,
+			SPELLS.CRECIAS_CRYSTAL_WIND,
+			SPELLS.CLOUD_BREAK,
+			SPELLS.DARK_DEAL
+		);
+		
+	#endregion
+	
+	#region		NEW SPRITE 1
+		var newSprite1Spells = ds_list_create();
+		
+		ds_list_add(newSprite1Spells,
+			-1	
+		);
+		
+	#endregion
+	
+	#region		NEW SPRITE 2
+		var newSprite2Spells = ds_list_create();
+				
+		ds_list_add(newSprite2Spells,
+			-1
+		);
+				
+	#endregion
+	
+	#region		NEW SPRITE 3
+		var newSprite3Spells = ds_list_create();
+				
+		ds_list_add(newSprite3Spells,
+			-1	
+		);
+					
+	#endregion
+	
+	#region		NEW SPRITE 4
+		var newSprite4Spells = ds_list_create();
+						
+		ds_list_add(newSprite4Spells,
+			-1			
+		);
+								
+	#endregion
+	
+	#region		NEW SPRITE 5
+		var newSprite5Spells = ds_list_create();
+						
+		ds_list_add(newSprite5Spells,
+			-1			
+		);
+							
+	#endregion
 
 	#region		SPARMATE
 		var sparmateSpells = ds_list_create();
@@ -427,22 +528,6 @@ enum SPRITE_POSES {
 		);
 	#endregion
 	
-	#region		pondile
-		var pondileSpells = ds_list_create();
-		
-		ds_list_add(pondileSpells,
-			SPELLS.DECAY,
-			SPELLS.TYPHOON,
-			SPELLS.RUBURS_WATER_CANNON,
-			SPELLS.WATERLOG,
-			SPELLS.RAPID_STRIKE,
-			SPELLS.QUICKSAND,
-			SPELLS.DOWNPOUR,
-			SPELLS.LANDSLIDE,
-			SPELLS.ENDLESS_RIVER
-		);
-	#endregion
-
 	#region		HACHA-CHACHA
 		var hachaSpells = ds_list_create();
 		
@@ -1555,65 +1640,71 @@ function sprite_add_to_grid(_ID) {
 }
 	
 #region ALL SPRITE DATA
-//					ID						NAME				SPRITE					ALIGNMENT				USABLE SPELLS						POWER	RES		FIRE	WATER	STORM	EARTH	AGL		LUCK	SIZE
-sprite_add_to_grid(SPRITES.SPARMATE,		"Sparmate",			spr_sparmateBattle,		ALIGNMENTS.ASTRAL,		encode_list(sparmateSpells),		180,	110,	65,		95,		70,		100,	145,	100,	SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.FISTICOGS,		"Fisticogs",		spr_fisticogsBattle,	ALIGNMENTS.MECHANICAL,	encode_list(fisticogsSpells),		170,	145,	95,		55,		95,		125,	90,		80,		SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.CRUSTULAR,		"Crustular",		spr_crustularBattle,	ALIGNMENTS.NATURAL,		encode_list(crustularSpells),		185,	120,	70,		150,	70,		90,		65,		90,		SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.OBSIDUAL,		"Obsidual",			spr_obsidualBattle,		ALIGNMENTS.NATURAL,		encode_list(obsidualSpells),		170,	90,		150,	60,		60,		160,	130,	50,		SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.STAGEFRITE,		"Stagefrite",		spr_stagefriteBattle,	ALIGNMENTS.ASTRAL,		encode_list(stagefriteSpells),		80,		90,		85,		85,		85,		85,		135,	150,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.REVOLTURE,		"Revolture",		spr_revoltureBattle,	ALIGNMENTS.MECHANICAL,	encode_list(revoltureSpells),		105,	140,	75,		70,		85,		80,		85,		75,		SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.PUGILOON,		"Pugiloon",			spr_pugiloonBattle,		ALIGNMENTS.NATURAL,		encode_list(pugiloonSpells),		145,	80,		90,		100,	115,	75,		155,	80,		SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.SPLASHGUARD,		"Splashguard",		spr_splashguardBattle,	ALIGNMENTS.NATURAL,		encode_list(splashguardSpells),		60,		60,		50,		165,	110,	95,		125,	100,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.DEMOLITOPS,		"Demolitops",		spr_demolitopsBattle,	ALIGNMENTS.ASTRAL,		encode_list(demolitopsSpells),		180,	110,	160,	75,		60,		110,	90,		100,	SPRITE_SIZES.X_LARGE);
-sprite_add_to_grid(SPRITES.UPROOTER,		"Uprooter",			spr_uprooterBattle,		ALIGNMENTS.NATURAL,		encode_list(uprooterSpells),		155,	170,	50,		90,		60,		165,	75,		75,		SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.NINTOX,			"Nintox",			spr_nintoxBattle,		ALIGNMENTS.MECHANICAL,	encode_list(nintoxSpells),			160,	85,		120,	90,		100,	120,	170,	100,	SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.SHPUPO,			"Shpupo",			spr_shpupoBattle,		ALIGNMENTS.ASTRAL,		encode_list(shpupoSpells),			120,	80,		80,		125,	100,	100,	175,	60,		SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.GEMBO,			"Gembo",			spr_gemboBattle,		ALIGNMENTS.ASTRAL,		encode_list(gemboSpells),			130,	130,	90,		90,		90,		90,		90,		90,		SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.PONDILE,			"Pondile",			spr_pondileBattle,		ALIGNMENTS.NATURAL,		encode_list(pondileSpells),			110,	75,		70,		140,	90,		90,		115,	80,		SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.HACHACHACHA,		"Hacha-Chacha",		spr_hachaChachaBattle,	ALIGNMENTS.NATURAL,		encode_list(hachaSpells),			80,		50,		170,	75,		75,		110,	90,		150,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.PODRIC,			"Podric",			spr_podricBattle,		ALIGNMENTS.NATURAL,		encode_list(podricSpells),			175,	70,		50,		105,	50,		165,	160,	100,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.NEEDLEPAW,		"Needlepaw",		spr_needlepawBattle,	ALIGNMENTS.ASTRAL,		encode_list(needlepawSpells),		155,	55,		110,	50,		90,		110,	180,	50,		SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.MRSUDSY,			"Mr Sudsy",			spr_mrSudsyBattle,		ALIGNMENTS.MECHANICAL,	encode_list(sudsySpells),			60,		60,		50,		160,	60,		60,		160,	150,	SPRITE_SIZES.X_SMALL);
-sprite_add_to_grid(SPRITES.BOOKISH,			"Bookish",			spr_bookishBattle,		ALIGNMENTS.MECHANICAL,	encode_list(bookishSpells),			50,		45,		120,	120,	135,	120,	95,		90,		SPRITE_SIZES.X_SMALL);
-sprite_add_to_grid(SPRITES.PLEEP,			"Pleep",			spr_pleepBattle,		ALIGNMENTS.ASTRAL,		encode_list(pleepSpells),			130,	65,		115,	70,		155,	50,		115,	100,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.GLIDRAKE,		"Glidrake",			spr_glidrakeBattle,		ALIGNMENTS.NATURAL,		encode_list(glidrakeSpells),		115,	60,		130,	65,		165,	50,		150,	90,		SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.FURVOR,			"Furvor",			spr_furvorBattle,		ALIGNMENTS.NATURAL,		encode_list(furvorSpells),			160,	110,	110,	55,		85,		125,	140,	80,		SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.ZEPHIRA,			"Zephira",			spr_zephiraBattle,		ALIGNMENTS.ASTRAL,		encode_list(zephiraSpells),			120,	60,		70,		90,		160,	130,	165,	100,	SPRITE_SIZES.X_SMALL);
-sprite_add_to_grid(SPRITES.FISHMONGER,		"Fishmonger",		spr_fishmongerBattle,	ALIGNMENTS.NATURAL,		encode_list(fishmongerSpells),		165,	130,	60,		165,	90,		80,		95,		80,		SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.SONGBIRD,		"Songbird",			spr_songbirdBattle,		ALIGNMENTS.ASTRAL,		encode_list(songbirdSpells),		70,		90,		65,		85,		105,	85,		120,	185,	SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.EXONOLITH,		"Exonolith",		spr_exonolithBattle,	ALIGNMENTS.ASTRAL,		encode_list(exonolithSpells),		70,		210,	90,		60,		90,		140,	50,		100,	SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.DRUMLINE,		"Drumline",			spr_drumlineBattle,		ALIGNMENTS.MECHANICAL,	encode_list(drumlineSpells),		100,	160,	85,		65,		90,		90,		120,	150,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.MIRREFRACT,		"Mirrefract",		spr_mirrefractBattle,	ALIGNMENTS.MECHANICAL,	encode_list(mirrefractSpells),		150,	85,		80,		50,		120,	90,		110,	85,		SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.FORTUGA,			"Fortuga",			spr_fortugaBattle,		ALIGNMENTS.NATURAL,		encode_list(fortugaSpells),			90,		190,	65,		155,	75,		135,	45,		100,	SPRITE_SIZES.X_LARGE);
-sprite_add_to_grid(SPRITES.TICKDOFF,		"Tickdoff",			spr_tikdoffBattle,		ALIGNMENTS.MECHANICAL,	encode_list(tikdoffSpells),			130,	75,		190,	50,		110,	60,		120,	85,		SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.ARRAYNGE,		"Arraynge",			spr_arrayngeBattle,		ALIGNMENTS.MECHANICAL,	encode_list(arrayngeSpells),		45,		65,		120,	70,		150,	70,		145,	100,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.SCROOTINEYES,	"Scrootineyes",		spr_scrootineyesBattle,	ALIGNMENTS.NATURAL,		encode_list(scrootineyesSpells),	140,	120,	70,		55,		125,	70,		105,	120,	SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.JOE,				"Joe",				spr_joeBattle,			ALIGNMENTS.MECHANICAL,	encode_list(joeSpells),				170,	100,	110,	110,	70,		85,		100,	85,		SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.CANUKI,			"Canuki",			spr_canukiBattle,		ALIGNMENTS.NATURAL,		encode_list(canukiSpells),			145,	165,	70,		70,		70,		120,	80,		85,		SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.GASTRONIMO,		"Gastronimo",		spr_gastronimoBattle,	ALIGNMENTS.MECHANICAL,	encode_list(gastronimoSpells),		140,	140,	100,	100,	70,		100,	60,		100,	SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.FLOTSU,			"Flotsu",			spr_flotsuBattle,		ALIGNMENTS.NATURAL,		encode_list(flotsuSpells),			90,		135,	50,		180,	100,	85,		60,		100,	SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.BLITZKRANE,		"Blitzkrane",		spr_blitzkraneBattle,	ALIGNMENTS.ASTRAL,		encode_list(blitzkraneSpells),		150,	105,	85,		90,		165,	70,		145,	75,		SPRITE_SIZES.X_LARGE);
-sprite_add_to_grid(SPRITES.HEATSUNE,		"Heatsune",			spr_heatsuneBattle,		ALIGNMENTS.ASTRAL,		encode_list(heatsuneSpells),		120,	70,		185,	50,		125,	100,	175,	85,		SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.FLOOPWALKER,		"Floopwalker",		spr_floopwalkerBattle,	ALIGNMENTS.ASTRAL,		encode_list(floopwalkerSpells),		65,		120,	90,		90,		100,	130,	120,	125,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.STEWARDRAKE,		"Stewardrake",		spr_stewardrakeBattle,	ALIGNMENTS.ASTRAL,		encode_list(stewardrakeSpells),		80,		155,	120,	90,		135,	90,		115,	100,	SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.DOORMAUS,		"Doormaus",			spr_doormausBattle,		ALIGNMENTS.ASTRAL,		encode_list(doormausSpells),		50,		65,		95,		95,		110,	95,		185,	100,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.PLASMASS,		"Plasmass",			spr_plasmassBattle,		ALIGNMENTS.MECHANICAL,	encode_list(plasmassSpells),		130,	75,		120,	45,		195,	45,		170,	50,		SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.SHREDATOR,		"Shredator",		spr_shredatorBattle,	ALIGNMENTS.NATURAL,		encode_list(shredatorSpells),		175,	110,	50,		165,	95,		75,		150,	75,		SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.JACKHAMMER,		"Jackhammer",		spr_jackhammerBattle,	ALIGNMENTS.ASTRAL,		encode_list(jackhammerSpells),		175,	135,	50,		60,		60,		70,		160,	150,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.CAPNCLOPS,		"Cap'n Clops",		spr_capnClopsBattle,	ALIGNMENTS.NATURAL,		encode_list(stinklopsSpells),		150,	150,	95,		70,		70,		125,	90,		35,		SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.DURENDOUX,		"Durendoux",		spr_durendouxBattle,	ALIGNMENTS.ASTRAL,		encode_list(durendouxSpells),		150,	200,	90,		90,		40,		140,	45,		150,	SPRITE_SIZES.MEDIUM);
-sprite_add_to_grid(SPRITES.CENOTOMB,		"Cenotomb",			spr_cenotombBattle,		ALIGNMENTS.ASTRAL,		encode_list(cenotombSpells),		160,	95,		135,	55,		105,	100,	75,		100,	SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.CLEANSAGE,		"Cleansage",		spr_cleansageBattle,	ALIGNMENTS.ASTRAL,		encode_list(cleansageSpells),		70,		125,	135,	60,		105,	140,	55,		80,		SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.WYRMPOOL,		"Wyrmpool",			spr_wyrmpoolBattle,		ALIGNMENTS.ASTRAL,		encode_list(wyrmpoolSpells),		140,	130,	60,		160,	135,	45,		80,		125,	SPRITE_SIZES.X_LARGE);
-sprite_add_to_grid(SPRITES.CRAGMA,			"Cragma",			spr_cragmaBattle,		ALIGNMENTS.NATURAL,		encode_list(cragmaSpells),			145,	150,	170,	65,		65,		135,	35,		100,	SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.CORVOLT,			"Corvolt",			spr_corvoltBattle,		ALIGNMENTS.NATURAL,		encode_list(corvoltSpells),			100,	145,	60,		135,	150,	70,		110,	100,	SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.CHROMALIODON,		"Chromosilos",	spr_chromaliodonBattle,	ALIGNMENTS.MECHANICAL,	encode_list(chromaliodonSpells),	185,	125,	120,	70,		55,		160,	70,		75,		SPRITE_SIZES.X_LARGE);
-sprite_add_to_grid(SPRITES.DOMINO,			"Domino",			spr_dominoBattle,		ALIGNMENTS.MECHANICAL,	encode_list(dominoSpells),			135,	50,		65,		65,		65,		65,		140,	150,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.ANACHRONAUT,		"Anachronaut",		spr_anachronautBattle,	ALIGNMENTS.MECHANICAL,	encode_list(anachronautSpells),		50,		55,		120,	120,	120,	120,	170,	100,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.OMNOST,			"Omnost",			spr_omnostBattle,		-1,						encode_list(omnostSpells),			50,		80,		110,	110,	150,	110,	70,		150,	SPRITE_SIZES.X_LARGE);
-sprite_add_to_grid(SPRITES.PRISMATTER,		"Prismatter",		spr_prismatterBattle,	-1,						encode_list(prismatterSpells),		180,	145,	40,		135,	40,		135,	75,		35,		SPRITE_SIZES.X_LARGE);
-sprite_add_to_grid(SPRITES.KRONARC,			"Kronarc",			spr_kronarcBattle,		-1,						encode_list(kronarcSpells),			80,		120,	120,	120,	120,	120,	95,		150,	SPRITE_SIZES.X_LARGE);
-sprite_add_to_grid(SPRITES.COSMALCOS,		"Cosmalcos",		spr_cosmalcosBattle,	-1,						encode_list(cosmalcosSpells),		120,	195,	50,		50,		50,		50,		30,		150,	SPRITE_SIZES.X_LARGE);
+//					ID						NAME				SPRITE					ABILITY								ALIGNMENT			USABLE SPELLS						POWER	RES		FIRE	WATER	STORM	EARTH	AGL		LUCK	SIZE
+sprite_add_to_grid(SPRITES.HACHACHACHA,		"Hacha-Chacha",		spr_hachaChachaBattle,	ABILITIES.HOT_TO_THE_TOUCH,			ALIGNMENTS.NATURAL,		encode_list(hachaSpells),			80,		50,		170,	75,		75,		110,	90,		150,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.DIIPSY,			"Diipsy",			spr_diipsyBattle,		ABILITIES.WAVY_DANCE,				ALIGNMENTS.NATURAL,		encode_list(diipsySpells),			50,		105,	85,		165,	140,	95,		125,	100,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.GLIDRAKE,		"Glidrake",			spr_glidrakeBattle,		ABILITIES.STORM_SURFER,				ALIGNMENTS.NATURAL,		encode_list(glidrakeSpells),		115,	60,		130,	65,		165,	50,		150,	90,		SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.PODRIC,			"Podric",			spr_podricBattle,		ABILITIES.NATURES_RECLAMATION,		ALIGNMENTS.NATURAL,		encode_list(podricSpells),			175,	70,		50,		105,	50,		165,	160,	100,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.SPARMATE,		"Sparmate",			spr_sparmateBattle,		ABILITIES.BATTLE_INSTINCT,			ALIGNMENTS.ASTRAL,		encode_list(sparmateSpells),		180,	110,	65,		95,		70,		100,	145,	100,	SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.CRUSTULAR,		"Crustular",		spr_crustularBattle,	ABILITIES.UNBREAKABLE_SHELL,		ALIGNMENTS.NATURAL,		encode_list(crustularSpells),		185,	120,	70,		150,	70,		90,		65,		90,		SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.FISTICOGS,		"Fisticogs",		spr_fisticogsBattle,	ABILITIES.SUPERCHARGED,				ALIGNMENTS.MECHANICAL,	encode_list(fisticogsSpells),		170,	145,	95,		55,		95,		125,	90,		80,		SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.BOOKISH,			"Bookish",			spr_bookishBattle,		ABILITIES.WELL_READ,				ALIGNMENTS.MECHANICAL,	encode_list(bookishSpells),			50,		45,		120,	120,	135,	120,	95,		90,		SPRITE_SIZES.X_SMALL);
+sprite_add_to_grid(SPRITES.PLEEP,			"Pleep",			spr_pleepBattle,		ABILITIES.POWER_OF_FRIENDSHIP,		ALIGNMENTS.ASTRAL,		encode_list(pleepSpells),			130,	65,		115,	70,		155,	50,		115,	100,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.FISHMONGER,		"Fishmonger",		spr_fishmongerBattle,	ABILITIES.UNDERSEA_PREDATOR,		ALIGNMENTS.NATURAL,		encode_list(fishmongerSpells),		165,	130,	60,		165,	90,		80,		95,		80,		SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.GEMBO,			"Gembo",			spr_gemboBattle,		ABILITIES.UNSTABLE_POWER,			ALIGNMENTS.ASTRAL,		encode_list(gemboSpells),			130,	130,	90,		90,		90,		90,		90,		90,		SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.JOE,				"Joe",				spr_joeBattle,			ABILITIES.FREE_REFILLS,				ALIGNMENTS.MECHANICAL,	encode_list(joeSpells),				170,	100,	110,	110,	70,		85,		100,	85,		SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.MIRREFRACT,		"Mirrefract",		spr_mirrefractBattle,	ABILITIES.REFLECTIVE_SURFACE,		ALIGNMENTS.MECHANICAL,	encode_list(mirrefractSpells),		150,	85,		80,		50,		120,	90,		110,	85,		SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.FLOOPWALKER,		"Floopwalker",		spr_floopwalkerBattle,	ABILITIES.FLOWERY_SPIRIT,			ALIGNMENTS.ASTRAL,		encode_list(floopwalkerSpells),		65,		120,	90,		90,		100,	130,	120,	125,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.SONGBIRD,		"Songbird",			rspr_songbirdBattle,	ABILITIES.GIFT_OF_SONG,				ALIGNMENTS.ASTRAL,		encode_list(songbirdSpells),		70,		90,		65,		85,		105,	85,		120,	185,	SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.SHREDATOR,		"Shredator",		spr_shredatorBattle,	ABILITIES.HANG_TEN,					ALIGNMENTS.NATURAL,		encode_list(shredatorSpells),		175,	110,	50,		165,	95,		75,		150,	75,		SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.FURVOR,			"Furvor",			spr_furvorBattle,		ABILITIES.TERRITORIAL_HUNTER,		ALIGNMENTS.NATURAL,		encode_list(furvorSpells),			160,	110,	110,	55,		85,		125,	140,	80,		SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.GASTRONIMO,		"Gastronimo",		spr_gastronimoBattle,	ABILITIES.NATURAL_INGREDIENTS,		ALIGNMENTS.MECHANICAL,	encode_list(gastronimoSpells),		140,	140,	100,	100,	70,		100,	60,		100,	SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.DURENDOUX,		"Durendoux",		spr_durendouxBattle,	ABILITIES.ABSORPTIVE_BODY,			ALIGNMENTS.ASTRAL,		encode_list(durendouxSpells),		150,	200,	90,		90,		40,		140,	45,		150,	SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.STAGEFRITE,		"Stagefrite",		spr_stagefriteBattle,	ABILITIES.CREEP_OUT,				ALIGNMENTS.ASTRAL,		encode_list(stagefriteSpells),		80,		90,		85,		85,		85,		85,		135,	150,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.NEW_SPRITE1,		"NEW SPRITE",		noone,					ABILITIES.NEW_ABILITY_1,			-1,						encode_list(newSprite1Spells),		-1,		-1,		-1,		-1,		-1,		-1,		-1,		-1,		-1);
+sprite_add_to_grid(SPRITES.SCROOTINEYES,	"Scrootineyes",		spr_scrootineyesBattle,	ABILITIES.ALL_SEEING_EYES,			ALIGNMENTS.NATURAL,		encode_list(scrootineyesSpells),	140,	120,	70,		55,		125,	70,		105,	120,	SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.ARRAYNGE,		"Arraynge",			spr_arrayngeBattle,		ABILITIES.SORT_AWAY,				ALIGNMENTS.MECHANICAL,	encode_list(arrayngeSpells),		45,		65,		120,	70,		150,	70,		145,	100,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.TICKDOFF,		"Tickdoff",			spr_tikdoffBattle,		ABILITIES.SHORT_FUSE,				ALIGNMENTS.MECHANICAL,	encode_list(tikdoffSpells),			130,	75,		190,	50,		110,	60,		120,	85,		SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.FORTUGA,			"Fortuga",			spr_fortugaBattle,		ABILITIES.OFFER_REFUGE,				ALIGNMENTS.NATURAL,		encode_list(fortugaSpells),			90,		190,	65,		155,	75,		135,	45,		100,	SPRITE_SIZES.X_LARGE);
+sprite_add_to_grid(SPRITES.SPYOTIS,			"Spyotis",			spr_spyotisBattle,		ABILITIES.SIGNAL_JAMMER,			ALIGNMENTS.MECHANICAL,	encode_list(spyotisSpells),			125,	85,		85,		105,	170,	125,	190,	150,	SPRITE_SIZES.X_SMALL);
+sprite_add_to_grid(SPRITES.DRUMLINE,		"Drumline",			spr_drumlineBattle,		ABILITIES.SYNCHRONIZED_SOLDIERS,	ALIGNMENTS.MECHANICAL,	encode_list(drumlineSpells),		100,	160,	85,		65,		90,		90,		120,	150,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.REVOLTURE,		"Revolture",		spr_revoltureBattle,	ABILITIES.HERBAL_CONCOCTION,		ALIGNMENTS.MECHANICAL,	encode_list(revoltureSpells),		105,	140,	75,		70,		85,		80,		85,		75,		SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.CLEANSAGE,		"Cleansage",		spr_cleansageBattle,	ABILITIES.HEALING_HAZE,				ALIGNMENTS.ASTRAL,		encode_list(cleansageSpells),		70,		125,	135,	60,		105,	140,	55,		80,		SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.FLOTSU,			"Flotsu",			spr_flotsuBattle,		ABILITIES.AQUATIC_ESSENCE,			ALIGNMENTS.NATURAL,		encode_list(flotsuSpells),			90,		135,	50,		180,	100,	85,		60,		100,	SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.HEATSUNE,		"Heatsune",			spr_heatsuneBattle,		ABILITIES.FIERY_AURA,				ALIGNMENTS.ASTRAL,		encode_list(heatsuneSpells),		120,	70,		185,	50,		125,	100,	175,	85,		SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.BLITZKRANE,		"Blitzkrane",		spr_blitzkraneBattle,	ABILITIES.THUNDROUS_CRY,			ALIGNMENTS.ASTRAL,		encode_list(blitzkraneSpells),		150,	105,	85,		90,		165,	70,		145,	75,		SPRITE_SIZES.X_LARGE);
+sprite_add_to_grid(SPRITES.EXONOLITH,		"Exonolith",		spr_exonolithBattle,	ABILITIES.MASSIVE_BODY,				ALIGNMENTS.ASTRAL,		encode_list(exonolithSpells),		70,		210,	90,		60,		90,		140,	50,		100,	SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.PUGILOON,		"Pugiloon",			spr_pugiloonBattle,		ABILITIES.UNDERDOG,					ALIGNMENTS.NATURAL,		encode_list(pugiloonSpells),		145,	80,		90,		100,	115,	75,		155,	80,		SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.MRSUDSY,			"Mr Sudsy",			spr_mrSudsyBattle,		ABILITIES.KEEPING_TIDY,				ALIGNMENTS.MECHANICAL,	encode_list(sudsySpells),			60,		60,		50,		160,	60,		60,		160,	150,	SPRITE_SIZES.X_SMALL);
+sprite_add_to_grid(SPRITES.DEMOLITOPS,		"Demolitops",		spr_demolitopsBattle,	ABILITIES.WRECKING_BALL,			ALIGNMENTS.ASTRAL,		encode_list(demolitopsSpells),		180,	110,	160,	75,		60,		110,	90,		100,	SPRITE_SIZES.X_LARGE);
+sprite_add_to_grid(SPRITES.DOORMAUS,		"Doormaus",			spr_doormausBattle,		ABILITIES.DRIFT_AWAY,				ALIGNMENTS.ASTRAL,		encode_list(doormausSpells),		50,		65,		95,		95,		110,	95,		185,	100,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.ZEPHIRA,			"Zephira",			spr_zephiraBattle,		ABILITIES.TRICKSTER_FAERIE,			ALIGNMENTS.ASTRAL,		encode_list(zephiraSpells),			120,	60,		70,		90,		160,	130,	165,	100,	SPRITE_SIZES.X_SMALL);
+sprite_add_to_grid(SPRITES.CANUKI,			"Canuki",			spr_canukiBattle,		ABILITIES.DUMPSTER_DIVER,			ALIGNMENTS.NATURAL,		encode_list(canukiSpells),			145,	165,	70,		70,		70,		120,	80,		85,		SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.JACKHAMMER,		"Jackhammer",		spr_jackhammerBattle,	ABILITIES.SPRING_LOADED,			ALIGNMENTS.ASTRAL,		encode_list(jackhammerSpells),		175,	135,	50,		60,		60,		70,		160,	150,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.SPLASHGUARD,		"Splashguard",		spr_splashguardBattle,	ABILITIES.FLOOD_SHELTER,			ALIGNMENTS.NATURAL,		encode_list(splashguardSpells),		60,		60,		50,		165,	110,	95,		125,	100,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.UPROOTER,		"Uprooter",			spr_uprooterBattle,		ABILITIES.PROPOGATE,				ALIGNMENTS.NATURAL,		encode_list(uprooterSpells),		155,	170,	50,		90,		60,		165,	75,		75,		SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.NEW_SPRITE2,		"NEW SPRITE",		noone,					ABILITIES.NEW_ABILITY_2,			-1,						encode_list(newSprite2Spells),		-1,		-1,		-1,		-1,		-1,		-1,		-1,		-1,		-1);
+sprite_add_to_grid(SPRITES.CAPNCLOPS,		"Cap'n Clops",		spr_capnClopsBattle,	ABILITIES.REDEEMING_QUALITIES,		ALIGNMENTS.NATURAL,		encode_list(stinklopsSpells),		150,	150,	95,		70,		70,		125,	90,		35,		SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.PLASMASS,		"Plasmass",			spr_plasmassBattle,		ABILITIES.GENERATOR,				ALIGNMENTS.MECHANICAL,	encode_list(plasmassSpells),		130,	75,		120,	45,		195,	45,		170,	50,		SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.OBSIDUAL,		"Obsidual",			spr_obsidualBattle,		ABILITIES.DUAL_WIELD,				ALIGNMENTS.NATURAL,		encode_list(obsidualSpells),		170,	90,		150,	60,		60,		160,	130,	50,		SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.NINTOX,			"Nintox",			spr_nintoxBattle,		ABILITIES.SHADOWY_FIEND,			ALIGNMENTS.MECHANICAL,	encode_list(nintoxSpells),			160,	85,		120,	90,		100,	120,	170,	100,	SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.CHROMALIODON,	"Chromosilos",		spr_chromaliodonBattle,	ABILITIES.METAL_MUNCHER,			ALIGNMENTS.MECHANICAL,	encode_list(chromaliodonSpells),	185,	125,	120,	70,		55,		160,	70,		75,		SPRITE_SIZES.X_LARGE);
+sprite_add_to_grid(SPRITES.CRAGMA,			"Cragma",			spr_cragmaBattle,		ABILITIES.VOLCANIC_MASS,			ALIGNMENTS.NATURAL,		encode_list(cragmaSpells),			145,	150,	170,	65,		65,		135,	35,		100,	SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.CORVOLT,			"Corvolt",			spr_corvoltBattle,		ABILITIES.EYE_OF_THE_STORM,			ALIGNMENTS.NATURAL,		encode_list(corvoltSpells),			100,	145,	60,		135,	150,	70,		110,	100,	SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.WYRMPOOL,		"Wyrmpool",			spr_wyrmpoolBattle,		ABILITIES.NEW_ABILITY_3,			ALIGNMENTS.ASTRAL,		encode_list(wyrmpoolSpells),		140,	130,	60,		160,	135,	45,		80,		125,	SPRITE_SIZES.X_LARGE);
+sprite_add_to_grid(SPRITES.NEW_SPRITE3,		"NEW SPRITE",		noone,					ABILITIES.CENTRIPETAL_FORCE,		-1,						encode_list(newSprite3Spells),		-1,		-1,		-1,		-1,		-1,		-1,		-1,		-1,		-1);
+sprite_add_to_grid(SPRITES.NEW_SPRITE4,		"NEW SPRITE",		noone,					ABILITIES.NEW_ABILITY_4,			-1,						encode_list(newSprite4Spells),		-1,		-1,		-1,		-1,		-1,		-1,		-1,		-1,		-1);
+sprite_add_to_grid(SPRITES.CENOTOMB,		"Cenotomb",			spr_cenotombBattle,		ABILITIES.PURE_MALICE,				ALIGNMENTS.ASTRAL,		encode_list(cenotombSpells),		160,	95,		135,	55,		105,	100,	75,		100,	SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.STEWARDRAKE,		"Stewardrake",		spr_stewardrakeBattle,	ABILITIES.GUARDIAN_ANGEL,			ALIGNMENTS.ASTRAL,		encode_list(stewardrakeSpells),		80,		155,	120,	90,		135,	90,		115,	100,	SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.NEW_SPRITE5,		"NEW SPRITE",		noone,					ABILITIES.NEW_ABILITY_5,			-1,						encode_list(newSprite5Spells),		-1,		-1,		-1,		-1,		-1,		-1,		-1,		-1,		-1);
+sprite_add_to_grid(SPRITES.DOMINO,			"Domino",			spr_dominoBattle,		ABILITIES.RING_LEADER,				ALIGNMENTS.MECHANICAL,	encode_list(dominoSpells),			135,	50,		65,		65,		65,		65,		140,	150,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.ANACHRONAUT,		"Anachronaut",		spr_anachronautBattle,	ABILITIES.TIME_POLICE,				ALIGNMENTS.MECHANICAL,	encode_list(anachronautSpells),		50,		55,		120,	120,	120,	120,	170,	100,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.SHPUPO,			"Shpupo",			spr_shpupoBattle,		ABILITIES.SPACE_CADET,				ALIGNMENTS.ASTRAL,		encode_list(shpupoSpells),			120,	80,		80,		125,	100,	100,	175,	60,		SPRITE_SIZES.MEDIUM);
+sprite_add_to_grid(SPRITES.NEEDLEPAW,		"Needlepaw",		spr_needlepawBattle,	ABILITIES.BAD_OMEN,					ALIGNMENTS.ASTRAL,		encode_list(needlepawSpells),		155,	55,		110,	50,		90,		110,	180,	50,		SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.OMNOST,			"Omnost",			spr_omnostBattle,		ABILITIES.ALL_KNOWING,				ALIGNMENTS.ASTRAL,		encode_list(omnostSpells),			50,		80,		110,	110,	150,	110,	70,		150,	SPRITE_SIZES.X_LARGE);
+sprite_add_to_grid(SPRITES.PRISMATTER,		"Prismatter",		spr_prismatterBattle,	ABILITIES.BEND_PHYSICS,				ALIGNMENTS.NATURAL,		encode_list(prismatterSpells),		180,	145,	40,		135,	40,		135,	75,		35,		SPRITE_SIZES.X_LARGE);
+sprite_add_to_grid(SPRITES.KRONARC,			"Kronarc",			spr_kronarcBattle,		ABILITIES.COMPRESS_TIME,			ALIGNMENTS.MECHANICAL,	encode_list(kronarcSpells),			80,		120,	120,	120,	120,	120,	95,		150,	SPRITE_SIZES.X_LARGE);
+sprite_add_to_grid(SPRITES.COSMALCOS,		"Cosmalcos",		spr_cosmalcosBattle,	ABILITIES.END_OF_DAYS,				-1,						encode_list(cosmalcosSpells),		120,	195,	50,		50,		50,		50,		30,		150,	SPRITE_SIZES.X_LARGE);
 
 #endregion
 
@@ -1664,11 +1755,22 @@ function sprite_load_parameters() {
 	currentAlign		= baseAlign;
 	currentSize			= baseSize;
 	
+	baseAbility			= real(grid[# SPRITE_PARAMS.ABILITY,	spriteID]);
+	
+	// decode ability grid
+	var abltGrid = ds_grid_create(ABILITY_PARAMS.HEIGHT, ABILITIES.HEIGHT);
+	decode_grid(global.allAbilities, grid);
+	
+	baseAbilityType		= real(abltGrid[# ABILITY_PARAMS.TYPE,				baseAbility]);
+	baseAbilityName		= real(abltGrid[# ABILITY_PARAMS.NAME,				baseAbility]);
+	baseAbilityFunction = real(abltGrid[# ABILITY_PARAMS.EFFECT_FUNCTION,	baseAbility]);
+	
 	// decode spell list
 	decode_list(spellString, usable_spells);
 	
-	// delete sprite grid
+	// delete sprite grid and ability grid
 	ds_grid_destroy(grid);
+	ds_grid_destroy(abltGrid);
 }
 
 function sprite_get_alignment_string(_alignment) {

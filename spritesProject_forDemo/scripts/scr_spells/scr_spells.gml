@@ -1000,11 +1000,12 @@ function processor_load_spell_params() {
 	decode_grid(global.allSpells, grid);
 	
 	// use currentSpell to get all params
-	spellName	= grid[# SPELL_PARAMS.NAME,			currentSpell];
-	spellCost	= real(grid[# SPELL_PARAMS.COST,	currentSpell]);
-	spellType	= real(grid[# SPELL_PARAMS.TYPE,	currentSpell]);
-	spellPower	= real(grid[# SPELL_PARAMS.POWER,	currentSpell]);
-	spellEffect	= real(string_digits(grid[# SPELL_PARAMS.EFFECT,	currentSpell]));
+	spellName		= grid[# SPELL_PARAMS.NAME,							currentSpell];
+	spellCost		= real(grid[# SPELL_PARAMS.COST,					currentSpell]);
+	spellType		= real(grid[# SPELL_PARAMS.TYPE,					currentSpell]);
+	spellPower		= real(grid[# SPELL_PARAMS.POWER,					currentSpell]);
+	spellEffect		= real(string_digits(grid[# SPELL_PARAMS.EFFECT,	currentSpell]));
+	spellDodgeable = real(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
 }
 
 function action_get_spell_id(_action) {

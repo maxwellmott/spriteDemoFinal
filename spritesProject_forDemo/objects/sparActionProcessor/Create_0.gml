@@ -28,6 +28,7 @@ spellCost		= noone;
 spellType		= noone;
 spellPower		= noone;
 spellEffect		= noone;
+spellDodgeable	= noone;
 
 // get turnRow
 turnRow = spar.turnRow;

@@ -129,7 +129,10 @@ function spar_check_natural_arena_boost(_atkr) {
 /// If so, it posts the attacker, target, and damage to a sparEffectAlert and returns TRUE, else returns FALSE
 function spar_check_parrying() {
 	// if this is an elemental or trick spell, just return false
-	if (spellType != SPELL_TYPES.PHYSICAL)		return false;
+	if (spellType != SPELL_TYPES.PHYSICAL)
+	&& (spellType >= 0) {
+		return false;
+	}
 	
 	// check if targetSprite is parrying
 	if (targetSprite.parrying) {

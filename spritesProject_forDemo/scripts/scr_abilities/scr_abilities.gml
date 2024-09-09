@@ -144,6 +144,7 @@ enum ABILITY_CHECKS {
 	APPLY_MIASMA,
 	APPLY_HEXED,
 	APPLY_BOUND,
+	MP_SPENT,
 	HEIGHT
 }
 
@@ -216,9 +217,9 @@ function well_read() {
 }
 
 ///@desc ABILITY FUNCTION -- PLEEP:
-/// TYPE: ACTION SUCCESS
+/// TYPE: DAMAGE CALC
 /// If one of this sprite's nearby allies are targeted for an attack, damage 
-/// is cut in half and both sprites gain BLESSING OF THE WARRIOR.
+/// is cut in half.
 function power_of_friendship() {
 	
 }
@@ -437,8 +438,8 @@ function trickster_faerie() {
 }
 
 ///@desc ABILITY FUNCTION -- CANUKI
-/// TYPE: SPELL SUCCESS
-/// Whenever a nearby sprite casts a SPELL, half of the MP used to cast is
+/// TYPE: MP SPENDING
+/// Whenever a nearby sprite spends MP, half of the MP used to cast is
 /// absorbed by this sprite.
 function dumpster_diver() {
 	
@@ -446,7 +447,8 @@ function dumpster_diver() {
 
 ///@desc ABILITY FUNCTION -- JACKHAMMER
 /// TYPE: TARGET SELECTION
-/// This sprite can target any other sprite with a BASIC ATTACK.
+/// This sprite can target any other sprite with a BASIC ATTACK
+/// or PHYSICAL SPELL
 function spring_loaded() {
 	
 }
@@ -524,7 +526,7 @@ function eye_of_the_storm() {
 
 ///@desc ABILITY FUNCTION -- WYRMPOOL
 /// TYPE: TURN START
-/// If the ARENA is OCEAN, all of this sprite's nearby enemies will become
+/// If the ARENA is OCEAN, all of this sprite's nearby sprites will become
 /// BOUND at the beginning of each turn.
 function centripetal_force() {
 	
@@ -621,7 +623,7 @@ function master_grid_add_ability(_ID) {
 	
 	// use a repeat loop to post all params to the grid
 	var i = 0;	repeat (ABILITY_PARAMS.HEIGHT) {
-		ds_grid_add(global.abilityGrid, argument[i], ID);
+		ds_grid_add(global.abilityGrid, i, ID, argument[i]);
 		
 		// increment
 		i++;
@@ -637,7 +639,7 @@ master_grid_add_ability(ABILITIES.BATTLE_INSTINCT,			textGrid[# 1, ABILITIES.BAT
 master_grid_add_ability(ABILITIES.UNBREAKABLE_SHELL,		textGrid[# 1, ABILITIES.UNBREAKABLE_SHELL],			textGrid[# 2, ABILITIES.UNBREAKABLE_SHELL],		ABILITY_CHECKS.DAMAGE_SUCCESS,				unbreakable_shell);
 master_grid_add_ability(ABILITIES.SUPERCHARGED,				textGrid[# 1, ABILITIES.SUPERCHARGED],				textGrid[# 2, ABILITIES.SUPERCHARGED],			ABILITY_CHECKS.SPELL_SUCCESS,				supercharged);
 master_grid_add_ability(ABILITIES.WELL_READ,				textGrid[# 1, ABILITIES.WELL_READ],					textGrid[# 2, ABILITIES.WELL_READ],				ABILITY_CHECKS.TURN_BEGIN,					well_read);
-master_grid_add_ability(ABILITIES.POWER_OF_FRIENDSHIP,		textGrid[# 1, ABILITIES.POWER_OF_FRIENDSHIP],		textGrid[# 2, ABILITIES.POWER_OF_FRIENDSHIP],	ABILITY_CHECKS.DAMAGE_SUCCESS,				power_of_friendship);
+master_grid_add_ability(ABILITIES.POWER_OF_FRIENDSHIP,		textGrid[# 1, ABILITIES.POWER_OF_FRIENDSHIP],		textGrid[# 2, ABILITIES.POWER_OF_FRIENDSHIP],	ABILITY_CHECKS.DAMAGE_CALC,					power_of_friendship);
 master_grid_add_ability(ABILITIES.UNDERSEA_PREDATOR,		textGrid[# 1, ABILITIES.UNDERSEA_PREDATOR],			textGrid[# 2, ABILITIES.UNDERSEA_PREDATOR],		ABILITY_CHECKS.BASIC_ATTACK_ATTEMPT,		undersea_predator);
 master_grid_add_ability(ABILITIES.UNSTABLE_POWER,			textGrid[# 1, ABILITIES.UNSTABLE_POWER],			textGrid[# 2, ABILITIES.UNSTABLE_POWER],		ABILITY_CHECKS.TURN_BEGIN,					unstable_power);
 master_grid_add_ability(ABILITIES.FREE_REFILLS,				textGrid[# 1, ABILITIES.FREE_REFILLS],				textGrid[# 2, ABILITIES.FREE_REFILLS],			ABILITY_CHECKS.TURN_END,					free_refills);
@@ -667,7 +669,7 @@ master_grid_add_ability(ABILITIES.KEEPING_TIDY,				textGrid[# 1, ABILITIES.KEEPI
 master_grid_add_ability(ABILITIES.WRECKING_BALL,			textGrid[# 1, ABILITIES.WRECKING_BALL],				textGrid[# 2, ABILITIES.WRECKING_BALL],			ABILITY_CHECKS.BASIC_ATTACK_DAMAGE_CALC,	wrecking_ball);
 master_grid_add_ability(ABILITIES.DRIFT_AWAY,				textGrid[# 1, ABILITIES.DRIFT_AWAY],				textGrid[# 2, ABILITIES.DRIFT_AWAY],			ABILITY_CHECKS.SPRITE_RESTING,				drift_away);
 master_grid_add_ability(ABILITIES.TRICKSTER_FAERIE,			textGrid[# 1, ABILITIES.TRICKSTER_FAERIE],			textGrid[# 2, ABILITIES.TRICKSTER_FAERIE],		ABILITY_CHECKS.SPELL_SUCCESS,				trickster_faerie);
-master_grid_add_ability(ABILITIES.DUMPSTER_DIVER,			textGrid[# 1, ABILITIES.DUMPSTER_DIVER],			textGrid[# 2, ABILITIES.DUMPSTER_DIVER],		ABILITY_CHECKS.SPELL_SUCCESS,				dumpster_diver);
+master_grid_add_ability(ABILITIES.DUMPSTER_DIVER,			textGrid[# 1, ABILITIES.DUMPSTER_DIVER],			textGrid[# 2, ABILITIES.DUMPSTER_DIVER],		ABILITY_CHECKS.MP_SPENT,					dumpster_diver);
 master_grid_add_ability(ABILITIES.SPRING_LOADED,			textGrid[# 1, ABILITIES.SPRING_LOADED],				textGrid[# 2, ABILITIES.SPRING_LOADED],			ABILITY_CHECKS.TARGET_SELECTION,			spring_loaded);
 master_grid_add_ability(ABILITIES.FLOOD_SHELTER,			textGrid[# 1, ABILITIES.FLOOD_SHELTER],				textGrid[# 2, ABILITIES.FLOOD_SHELTER],			ABILITY_CHECKS.DAMAGE_ATTEMPT,				flood_shelter);
 master_grid_add_ability(ABILITIES.PROPOGATE,				textGrid[# 1, ABILITIES.PROPOGATE],					textGrid[# 2, ABILITIES.PROPOGATE],				ABILITY_CHECKS.APPLY_BOUND,					propogate);
@@ -693,3 +695,10 @@ master_grid_add_ability(ABILITIES.ALL_KNOWING,				textGrid[# 1, ABILITIES.ALL_KN
 master_grid_add_ability(ABILITIES.BEND_PHYSICS,				textGrid[# 1, ABILITIES.BEND_PHYSICS],				textGrid[# 2, ABILITIES.BEND_PHYSICS],			ABILITY_CHECKS.DAMAGE_ATTEMPT,				bend_physics);
 master_grid_add_ability(ABILITIES.COMPRESS_TIME,			textGrid[# 1, ABILITIES.COMPRESS_TIME],				textGrid[# 2, ABILITIES.COMPRESS_TIME],			ABILITY_CHECKS.TURN_PROCESS,				compress_time);
 master_grid_add_ability(ABILITIES.END_OF_DAYS,				textGrid[# 1, ABILITIES.END_OF_DAYS],				textGrid[# 2, ABILITIES.END_OF_DAYS],			ABILITY_CHECKS.SPELL_ATTEMPT,				end_of_days);
+
+// encode the ability grid
+global.allAbilities = encode_grid(abilityGrid);
+
+// destroy the ability grid and textGrid
+ds_grid_destroy(global.abilityGrid);
+ds_grid_destroy(textGrid);

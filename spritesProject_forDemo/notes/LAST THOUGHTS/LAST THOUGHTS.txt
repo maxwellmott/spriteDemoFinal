@@ -428,9 +428,9 @@ COMING BACK FROM PLAYTEST BUILD
 		
 	9/1	
 		Abilities What's Left:
-			- add ability loading to sprite_load_parameters
-			- add descriptions to ABILITIES_ENGLISH.CSV
 			- place all ability checks
 			- finish all ability functions (make sure these work seamlessly--proper references etc-- with the check function)
 			- add ability name animation
 			- test
+			
+		-add weak elemental spells that provide solid buffs

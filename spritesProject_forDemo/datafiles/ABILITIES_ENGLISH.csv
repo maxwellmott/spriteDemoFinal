@@ -1,64 +1,64 @@
-﻿placeholder,Hot to the Touch
-placeholder,Wavy Dance
-placeholder,Storm Surfer
-placeholder,Natures Reclamation
-placeholder,Battle Instinct
-placeholder,Unbreakable Shell
-placeholder,Supercharged
-placeholder,Well Read
-placeholder,Power of Friendship
-placeholder,Undersea Predator
-placeholder,Unstable Power
-placeholder,Free Refills
-placeholder,Reflective Surface
-placeholder,Flowery Spirit
-placeholder,Gift of Song
-placeholder,Hang Ten
-placeholder,Territorial Hunter
-placeholder,Natural Ingredients
-placeholder,Absorptive Body
-placeholder,Creep Out
-placeholder,
-placeholder,All Seeing Eyes
-placeholder,Sort Away
-placeholder,Short Fuse
-placeholder,Offer Refuge
-placeholder,Signal Jammer
-placeholder,Synchronized Soldiers
-placeholder,Herbal Concoction
-placeholder,Healing Haze
-placeholder, Aquatic Essence
-placeholder,Fiery Aura
-placeholder,Thundrous Cry
-placeholder,Massive Body
-placeholder,Underdog
-placeholder,Keeping Tidy
-placeholder,Wrecking Ball
-placeholder,Drift Away
-placeholder,Trickster Faerie
-placeholder,Dumpster Diver
-placeholder,Spring Loaded
-placeholder,Flood Shelter
-placeholder,Propogate
-placeholder,
-placeholder,Redeeming Quality
-placeholder,Generator
-placeholder,Dual Wield
-placeholder,Shadowy Fiend
-placeholder,Metal Muncher
-placeholder,Volcanic Mass
-placeholder,Eye of the Storm
-placeholder,
-placeholder,Centripetal Force
-placeholder,
-placeholder,Pure Malice
-placeholder,Guardian Angel
-placeholder,
-placeholder,Ring Leader
-placeholder,Time Police
-placeholder,Space Cadet
-placeholder,Bad Omen
-placeholder,All Knowing
-placeholder,Bend Physics
-placeholder,Compress Time
-placeholder,End of Days
+﻿placeholder,Hot to the Touch,Deals damage to PHYSICAL attackers.
+placeholder,Wavy Dance,Dodges attacks in OCEAN.
+placeholder,Storm Surfer,Absorbs STORM SPELLS as a BLESSING.
+placeholder,Natures Reclamation,Boosts damage against non-NATURAL sprites.
+placeholder,Battle Instinct,Dodges PHYSICAL attacks.
+placeholder,Unbreakable Shell,Receives decreased PHYSICAL damage.
+placeholder,Supercharged,Absorbs STORM SPELLS as a BLESSING.
+placeholder,Well Read,Grants an extra SPELL.
+placeholder,Power of Friendship,Halves damage taken by nearby allies.
+placeholder,Undersea Predator,Boosts BASIC ATTACKS in OCEAN.
+placeholder,Unstable Power,Continuous TIMED BLAST.
+placeholder,Free Refills,Restores MP each turn.
+placeholder,Reflective Surface,DEFLECTS all SPELLS.
+placeholder,Flowery Spirit,SPELLS are extremely powerful. . .
+placeholder,Gift of Song,Grants a random BLESSING.
+placeholder,Hang Ten,Boosts PHYSICAL damage in OCEAN.
+placeholder,Territorial Hunter,Boosts damage against NATURAL sprites.
+placeholder,Natural Ingredients,Absorbs EARTH SPELLS as HP.
+placeholder,Absorptive Body,PHYSICAL attackers become BOUND.
+placeholder,Creep Out,HEXES nearby sprites each turn.
+placeholder,,
+placeholder,All Seeing Eyes,Increases the RANGE of non-PHYSICAL spells.
+placeholder,Sort Away,Forces attackers to SWAP.
+placeholder,Short Fuse,Occasionally becomes BERSERK.
+placeholder,Offer Refuge,Takes PHYSICAL damage for nearby allies.
+placeholder,Signal Jammer,Continuous HUM.
+placeholder,Synchronized Soldiers,Allies attack in order of position.
+placeholder,Herbal Concoction,Restores HP from MIASMA.
+placeholder,Healing Haze,RESTING removes HINDRANCES and restores HP.
+placeholder, Aquatic Essence,RESTING summons OCEAN.
+placeholder,Fiery Aura,Boosts FIRE damage.
+placeholder,Thundrous Cry,PHYSICAL damage summons CLOUDS.
+placeholder,Massive Body,BASIC ATTACKS use RESISTANCE.
+placeholder,Underdog,Low HP boosts PHYSICAL damage.
+placeholder,Keeping Tidy,Removes HINDRANCES and CURSES each turn.
+placeholder,Wrecking Ball,Boosts BASIC ATTACKs against MECHANICAL sprites.
+placeholder,Drift Away,RESTING forces a SWAP.
+placeholder,Trickster Faerie,TRICK spells deal flat damage.
+placeholder,Dumpster Diver,Absorbs some of the MP spent by nearby sprites.
+placeholder,Spring Loaded,Increases the RANGE of PHYSICAL attacks.
+placeholder,Flood Shelter,Takes WATER damage for all allies.
+placeholder,Propogate,This sprite can always SWAP.
+placeholder,,
+placeholder,Redeeming Qualities,Restores MP when HP is low.
+placeholder,Generator,Boosts FIRE and STORM damage.
+placeholder,Dual Wield,Boosts BASIC ATTACK damage.
+placeholder,Shadowy Fiend,Dodges in MIASMA.
+placeholder,Metal Muncher,Absorbs PHYSICAL damage from MECHANICAL sprites.
+placeholder,Volcanic Mass,BASIC ATTACKS use FIRE.
+placeholder,Eye of the Storm,CLOUDS make nearby sprites INVULNERABLE.
+placeholder,,
+placeholder,Centripetal Force,Nearby sprites are BOUND in OCEAN.
+placeholder,,
+placeholder,Pure Malice,Boosts BASIC ATTACKS while HEXED.
+placeholder,Guardian Angel,Nearby allies take decreased damage.
+placeholder,,
+placeholder,Ring Leader,BASIC ATTACK targets take damage for this sprite.
+placeholder,Time Police,Forces ANCIENT and TIME SPELLS to fail.
+placeholder,Space Cadet,Ignores effects when targeted by SPELLS.
+placeholder,Bad Omen,Forces enemy sprites to have terrible LUCK.
+placeholder,All Knowing,Takes decreased ELEMENTAL damage and deals increased.
+placeholder,Bend Physics,Takes decreased PHYSICAL damage and deals increased.
+placeholder,Compress Time,This sprite always moves absolutely first.
+placeholder,End of Days,All SPELLS that target this sprite will always fail.

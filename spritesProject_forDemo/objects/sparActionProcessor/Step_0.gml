@@ -120,9 +120,11 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 	//			IF THIS IS A BASIC ATTACK
 	if (currentSpell < 0) {
 		// check for dodge
-		if (targetSprite.dodging) 
-		|| (targetSprite.sneaking) {
-			dodgeSuccess = get_dodge_success();
+		if (spellDodgeable) {
+			if (targetSprite.dodging) 
+			|| (targetSprite.sneaking) {
+				dodgeSuccess = get_dodge_success();
+			}
 		}
 		
 		state = ACTION_PROCESSOR_STATES.WAIT_FOR_FX;
@@ -138,7 +140,9 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 			// check for dodge
 			if (targetSprite.dodging) 
 			|| (targetSprite.sneaking) {
-				dodgeSuccess = get_dodge_success();
+				if (spellDodgeable) {
+					dodgeSuccess = get_dodge_success();
+				}
 			}
 			
 			state = ACTION_PROCESSOR_STATES.WAIT_FOR_FX;
@@ -175,12 +179,14 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 				spar.turnMsg = activeSprite.name + " attacked " + targetSprite.name;
 			
 			}
+			// if target was parrying, destroy the processor
 			else {				
-				// change turnMsg
-				spar.turnMsg = targetSprite.name + " dodged " + activeSprite.name + "'s attack";
+				instance_destroy(id);				
 			}
-		// if target was parrying, destroy the processor
-		}	else	instance_destroy(id);
+		// if target dodged change turnMsg
+		}	else {
+			spar.turnMsg = targetSprite.name + " dodged " + activeSprite.name + "'s attack";
+		}
 	}
 	// SPELL
 	else {	

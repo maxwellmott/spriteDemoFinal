@@ -49,6 +49,7 @@ baseSize			= -1;
 baseAlign			= -1;
 baseAbility			= -1;
 baseAbilityType		= -1;
+baseAbilityName		= -1;
 baseAbilityFunction = -1;
 
 // load sprite parameters
@@ -67,6 +68,7 @@ currentSize				= baseSize;
 currentAlign			= baseAlign;
 currentAbility			= baseAbility;
 currentAbilityType		= baseAbilityType;
+currentAbilityName		= baseAbilityName;
 currentAbilityFunction	= baseAbilityFunction;
 
 // initialize mindset (set to 0 since negative IDs= curses)
