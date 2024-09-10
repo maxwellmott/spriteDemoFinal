@@ -35,8 +35,8 @@ if !(turningPage) {
 	
 	draw_set_color(textColor);
 	
-	draw_text_transformed(leftPageX, textY, leftPageText, 0.5, 0.5, 0);
-	draw_text_transformed(rightPageX, textY, rightPageText, 0.5, 0.5, 0);
+	draw_text(leftPageX, textY, leftPageText);
+	draw_text(rightPageX, textY, rightPageText);
 	
 	draw_set_color(c_white);
 	

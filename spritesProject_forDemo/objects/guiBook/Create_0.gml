@@ -17,8 +17,8 @@ leftPageX	= 12;
 
 textY = 30;
 
-pageHeight	= 324;
-pageWidth	= 218;
+pageHeight	= 162;
+pageWidth	= 109;
 
 pageIndex		= 0;
 leftPageNum		= 0;

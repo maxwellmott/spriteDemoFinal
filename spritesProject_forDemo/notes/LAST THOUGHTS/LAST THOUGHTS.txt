@@ -434,3 +434,5 @@ COMING BACK FROM PLAYTEST BUILD
 			- test
 			
 		-add weak elemental spells that provide solid buffs
+		
+		sidestepped to work through some bugs with the books system. There are still some left. Keep chipping away at this on the side!

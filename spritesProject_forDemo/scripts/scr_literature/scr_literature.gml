@@ -1,29 +1,32 @@
 // enumerator containing literature IDs
 enum literatureIDs {
-	inhumanEntities,
-	twmFirstEdition,
-	twmSecondEdition,
-	twmThirdEdition,
-	sparmastersHandbook,
+	inhumanEntities,					//a book describing everything about sprites from a scientific perspective
+	twmFirstEdition,					//prince tony's trials??
+	twmSecondEdition,					//
+	twmThirdEdition,					//
+	sparmastersHandbook,				//book on everything you need to know regarding cosmic spars
 	illuminiad,							//high level magic book
-	sacriLibriI,						//the standard book for learning magic
-	sacriLibriII,
-	sacriLibriIII,
-	sacriLibriIV,
-	sacriLibriV,
-	epicOfTheAeons,						//genesis
-	phremnsBirth,
-	ASTRALDoctrine,						//bible
-	threeWitchesGrimoireVol1,
-	threeWitchesGrimoireVol2,
-	threeWitchesGrimoireVol3,
-	cosmicTreatise,
-	knightsOfAlcompasVol1,
-	knightsOfAlcompasVol2,
-	knightsOfAlcompasVol3,
-	aBookOnSprites1,
-	aBookOnSprites2,
-	aBookOnSprites3,
+	sacriLibriI,						//the standard scrolls for learning magic--introductory volume
+	sacriLibriII,						//volume on the elements and their roles in nature
+	sacriLibriIII,						//volume on life energy (MP) and how healing and trick spells work (mind over matter)
+	sacriLibriIV,						//volume on the way that magic closes the circle
+	sacriLibriV,						//volume on how to live magically
+	epicOfTheAeons,						//genesis as told by the dwarven plates
+	phremnsBirth,						//book that blends science with myth and attempts to explain dwarven plates found on Stackrock.
+	mysticalDoctrine,					//bible as told by the dwarven plates
+	threeWitchesGrimoireVol1,			//books on giving into chaos and tapping into your innate magical powers--volume on how you aren't really anywhere
+	threeWitchesGrimoireVol2,			//volume on how if you tried to consider every possible factor you would never stop counting variables
+	threeWitchesGrimoireVol3,			//volume on how giving up or not giving up will not change anything for you but the way you see the world. But by the time you finish this book, you understand that your view of the world is everything
+	cosmicTreatise,						//translation of dwarven scroll that seems to describe the predicament regarding the mystical wall around stackrock.
+	legendsOfStackrockVol1,				//encyclopedia of the most important events. year 0-249
+	legendsOfStackrockVol2,				//years 250-499
+	legendsOfStackrockVol3,				//years 500-749
+	legendsOfStackrockVol4,				//years 750-999
+	legendsOfStackrockVol5,				//years 1000-1250
+	sousVide,							//a trippy, amateur book that describes the way that the sprite dimension works
+	aBookOnSprites1,					//ethnographies written by a woodsman who loved sprites--volume on appearances
+	aBookOnSprites2,					//volume on abilities and behaviors
+	aBookOnSprites3,					//volume on their general nature and role in the surrounding ecosystems--including social and industrial ecosystems!
 	height
 }
 
@@ -151,6 +154,7 @@ function book_build_text(_string) {
 				text = string_delete(text, 1, 1);
 				 
 				// increment currentPage and reset currentLine
+				substring = "";
 				currentPage++;
 				pages[|currentPage] = "";
 				currentLine = 1;
