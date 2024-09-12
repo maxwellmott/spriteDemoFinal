@@ -10,10 +10,10 @@ placeholder,_ was struck by an ENERGY BLAST!
 placeholder,_ was granted the *!
 placeholder,_'s MINDSET was shifted!
 placeholder,_'s MINDSET was copied!
-placeholder,_ restored some HP!
 placeholder,_ restored some MP!
-placeholder,_ lost some HP!
+placeholder,_ restored some HP!
 placeholder,_ lost some MP!
+placeholder,_ lost some HP!
 placeholder,_ lost some HP!
 placeholder,_ became BOUND!
 placeholder,_ became HEXED!
@@ -149,6 +149,7 @@ placeholder,Everyone's LUCK became as good as possible!
 placeholder,Everyone's LUCK became as bad as possible!
 placeholder,_ is attempting to go all in on the next turn!
 placeholder,All  _'s allies became INVULNERABLE!
+placeholder,_ is going BERSERK!
 placeholder,_ is going BERSERK!
 placeholder,_ is INVULNERABLE and is immune to status effects!
 placeholder,_ has calmed down and is no longer going BERSERK!

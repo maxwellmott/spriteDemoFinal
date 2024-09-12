@@ -187,12 +187,16 @@ function hot_to_the_touch(_inst) {
 	var selfDamageVal = 125;
 	
 	// check if the given sprite is the current targetSprite
-	if (inst == targetSprite) {
-		// push spar effect alert for activate ability
-		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, targetSprite);
+	if (inst == sparActionProcessor.targetSprite) {
+		// check that this is a basic attack or physical spell
+		if (sparActionProcessor.currentSpell == -1) 
+		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
+			// push spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 		
-		// push spar effect alert for apply self damage
-		spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, activeSprite.team, selfDamageVal);
+			// push spar effect alert for apply self damage
+			spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, sparActionProcessor.activeSprite.team, selfDamageVal);
+		}
 	}
 }
 
@@ -201,7 +205,23 @@ function hot_to_the_touch(_inst) {
 /// If ARENA is OCEAN and this sprite is targeted by a dodgeable
 /// SPELL or BASIC ATTACK, it will automatically DODGE
 function wavy_dance(_inst) {
-		
+	// store args in locals
+	var inst = _inst;
+	
+	// check if this sprite is the target
+	if (inst == sparActionProcessor.targetSprite) {
+		// check if the arena is OCEAN
+		if (spar.currentArena == arenas.ocean) {
+			// check if the spell is dodgeable
+			if (spellDodgeable) {
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// if so, set dodgeSuccess to true
+				dodgeSuccess = true;
+			}
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- GLIDRAKE:

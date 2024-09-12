@@ -260,21 +260,23 @@ draw_set_alpha(1.0);
 	}
 #endregion
 
-#region SPELL FX
+#region SPELL FX / SPAR FX
 	if (instance_exists(sparSpellFX)) {
 		draw_sprite(sparSpellFX.spellAnimation, image_index, sparSpellFX.drawX, sparSpellFX.drawY);
 	}
 	
 	if (instance_exists(sparEffectAlert)) 
 	&& (sparEffectAlert.drawReady) {
-		if (sparEffectAlert.drawingMultiple) {
-			var i = 0;	repeat (ds_list_size(sparEffectAlert.effectedSprites)) {
-				draw_sprite(sparEffectAlert.animation, image_index, sparEffectAlert.effectedSprites[| i].x, sparEffectAlert.effectedSprites[| i].y);
-				
-				i++;
+		if (sparEffectAlert.animation >= 0) {
+			if (sparEffectAlert.drawingMultiple) {
+				var i = 0;	repeat (ds_list_size(sparEffectAlert.effectedSprites)) {
+					draw_sprite(sparEffectAlert.animation, image_index, sparEffectAlert.effectedSprites[| i].x, sparEffectAlert.effectedSprites[| i].y);
+					
+					i++;
+				}
+			}	else {
+				draw_sprite(sparEffectAlert.animation, image_index, sparEffectAlert.drawX, sparEffectAlert.drawY);	
 			}
-		}	else {
-			draw_sprite(sparEffectAlert.animation, image_index, sparEffectAlert.drawX, sparEffectAlert.drawY);	
 		}
 	}
 #endregion

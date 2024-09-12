@@ -25,8 +25,8 @@ var effectGrid = ds_grid_create(SPAR_EFFECT_PARAMS.HEIGHT, SPAR_EFFECTS.HEIGHT);
 decode_grid(global.allSparEffects, effectGrid);
 
 effectFunction	= real(string_digits(effectGrid[# SPAR_EFFECT_PARAMS.EFFECT_FUNCTION,	effectID]));
-alertText		= effectGrid[# SPAR_EFFECT_PARAMS.ALERT_TEXT,		effectID];
-animation		= real(string_digits(effectGrid[# SPAR_EFFECT_PARAMS.ANIMATION,		effectID]));
+alertText		= effectGrid[# SPAR_EFFECT_PARAMS.ALERT_TEXT,							effectID];
+animation		= real(effectGrid[# SPAR_EFFECT_PARAMS.ANIMATION,						effectID]);
 
 if (ds_list_size(alertParams) == 5) {
 	effectFunction(global.argumentList[| 0], global.argumentList[| 1], global.argumentList[| 2], global.argumentList[| 3]);

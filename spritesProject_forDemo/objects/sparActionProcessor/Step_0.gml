@@ -126,7 +126,9 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 		if (spellDodgeable) {
 			if (targetSprite.dodging) 
 			|| (targetSprite.sneaking) {
-				dodgeSuccess = get_dodge_success();
+				if !(dodgeSuccess) {
+					dodgeSuccess = get_dodge_success();
+				}
 			}
 		}
 		
@@ -144,7 +146,9 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 			if (targetSprite.dodging) 
 			|| (targetSprite.sneaking) {
 				if (spellDodgeable) {
-					dodgeSuccess = get_dodge_success();
+					if !(dodgeSuccess) {
+						dodgeSuccess = get_dodge_success();
+					}
 				}
 			}
 			
