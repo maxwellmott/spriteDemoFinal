@@ -26,6 +26,70 @@ function ability_check(_sprite, _abilityType, _sprite2) {
 	}
 }
 
+///@desc This function takes an abilityType
+/// ID and processes a check for that abilityType
+/// for each sprite in order of agility, water, or
+/// storm stat depending on the arena type
+function all_sprites_ability_check(_abilityType) {
+	// store args in locals
+	var t = _abilityType;
+
+	// ids of all sprites whos abilities have been checked
+	var spritesChecked = ds_list_create();
+	
+	// while there are still sprites to check	
+	while (ds_list_size(spritesChecked) < 8) {
+		// the highest stat checked so far
+		var highest = 0;
+		
+		// ID of the sprite with the highest stat checked so far
+		var highestID = -1;
+		
+		// perform an ability check on every sprite
+		var i = 0;	repeat (spriteList) {
+			// get current sprite
+			var inst = spriteList[| i];
+		
+			// if current sprite is not on the list of checked sprites
+			if (ds_list_find_index(spritesChecked, inst) == -1) {
+				// if arena is normal
+				if (spar.currentArena == -1) {
+					if (inst.currentAgility > highest) {
+						highestID = inst;
+						highest = inst.currentAgility;
+					}
+				}
+				
+				// if arena is OCEAN
+				if (spar.currentArena == arenas.ocean) {
+					if (inst.currentWater > highest) {
+						highestID = inst;
+						highest = inst.currentWater;
+					}
+				}
+				
+				// if arena is CLOUDS
+				if (spar.currentArena == arenas.skies) {
+					if (inst.currentStorm > highest) {
+						highestID = inst;
+						highest = inst.currentStorm;
+					}
+				}
+			}
+	
+			i++;
+		}
+		
+		// perform an agility check on the next fastest sprite
+		ability_check(highestID, t, -1);
+		
+		ds_list_add(spritesChecked, inst);
+	}
+	
+	// destroy list
+	ds_list_destroy(spritesChecked);
+}
+
 // enum containing ability IDs
 enum ABILITIES {
 	HOT_TO_THE_TOUCH,
@@ -108,38 +172,20 @@ enum ABILITY_PARAMS {
 // enum that contains all types of ability checks. This mostly exists
 // so that abilities have a way of indicating when they should be activated
 enum ABILITY_CHECKS {
-	TURN_BEGIN,
-	TARGET_SELECTION,
-	TURN_PROCESS,
-	SWAP_ATTEMPT,
-	SWAP_SUCCESS,
-	SPRITE_RESTING,
-	ACTION_BEGIN,
-	DAMAGE_CALC,
-	ACTION_SUCCESS,
-	DODGE_ATTEMPT,
-	DODGE_SUCCESS,
-	ARENA_CHANGE,
-	HP_CHANGE,
-	MP_CHANGE,
-	HINDRANCE_CHANGE,
-	MINDSET_CHANGE,
-	STATUS_CHANGE,
-	ALIGNMENT_CHANGE,
-	SIZE_CHANGE,
-	DAMAGE_CHANGE,
-	TURN_END,
-	ABILITY_CHANGE,
-	TARGET_CHANGE,
-	DAMAGE_AVOIDED,
-	EFFECT_AVOIDED,
-	ABILITY_ACTIVATED,
-	EFFECT_ACTIVATED,
-	APPLY_MIASMA,
-	APPLY_HEXED,
-	APPLY_BOUND,
-	MP_SPENT,
-	HEIGHT
+	TURN_BEGIN,				// CHECK PLACED
+	TARGET_SELECTION,		// CHECK PLACED
+	PRIORITY_CHECK,			// CHECK PLACED
+	SWAP_ATTEMPT,			// CHECK PLACED
+	SWAP_SUCCESS,			// CHECK PLACED
+	SPRITE_RESTING,			// 
+	ACTION_BEGIN,			//
+	DAMAGE_CALC,			//
+	ACTION_SUCCESS,			//
+	TURN_END,				//
+	APPLY_MIASMA,			// CHECK PLACED
+	APPLY_BOUND,			//
+	MP_SPENT,				//
+	HEIGHT					//
 }
 
 #region CREATE ALL ABILITY EFFECT FUNCTIONS
@@ -175,7 +221,6 @@ function storm_surfer() {
 function natures_reclamation() {
 		
 }
-
 
 ///@desc ABILITY FUNCTION -- SPARMATE:
 /// TYPE: BASIC ATTACK ATTEMPT:
@@ -651,7 +696,7 @@ master_grid_add_ability(ABILITIES.SORT_AWAY,				textGrid[# 1, ABILITIES.SORT_AWA
 master_grid_add_ability(ABILITIES.SHORT_FUSE,				textGrid[# 1, ABILITIES.SHORT_FUSE],				textGrid[# 2, ABILITIES.SHORT_FUSE],			ABILITY_CHECKS.TURN_END,					short_fuse);
 master_grid_add_ability(ABILITIES.OFFER_REFUGE,				textGrid[# 1, ABILITIES.OFFER_REFUGE],				textGrid[# 2, ABILITIES.OFFER_REFUGE],			ABILITY_CHECKS.ACTION_BEGIN,				offer_refuge);
 master_grid_add_ability(ABILITIES.SIGNAL_JAMMER,			textGrid[# 1, ABILITIES.SIGNAL_JAMMER],				textGrid[# 2, ABILITIES.SIGNAL_JAMMER],			ABILITY_CHECKS.TURN_BEGIN,					signal_jammer);
-master_grid_add_ability(ABILITIES.SYNCHRONIZED_SOLDIERS,	textGrid[# 1, ABILITIES.SYNCHRONIZED_SOLDIERS],		textGrid[# 2, ABILITIES.SYNCHRONIZED_SOLDIERS],	ABILITY_CHECKS.TURN_PROCESS,				synchronized_soldiers);
+master_grid_add_ability(ABILITIES.SYNCHRONIZED_SOLDIERS,	textGrid[# 1, ABILITIES.SYNCHRONIZED_SOLDIERS],		textGrid[# 2, ABILITIES.SYNCHRONIZED_SOLDIERS],	ABILITY_CHECKS.PRIORITY_CHECK,				synchronized_soldiers);
 master_grid_add_ability(ABILITIES.HERBAL_CONCOCTION,		textGrid[# 1, ABILITIES.HERBAL_CONCOCTION],			textGrid[# 2, ABILITIES.HERBAL_CONCOCTION],		ABILITY_CHECKS.APPLY_MIASMA,				herbal_concoction);
 master_grid_add_ability(ABILITIES.HEALING_HAZE,				textGrid[# 1, ABILITIES.HEALING_HAZE],				textGrid[# 2, ABILITIES.HEALING_HAZE],			ABILITY_CHECKS.SPRITE_RESTING,				healing_haze);
 master_grid_add_ability(ABILITIES.AQUATIC_ESSENCE,			textGrid[# 1, ABILITIES.AQUATIC_ESSENCE],			textGrid[# 2, ABILITIES.AQUATIC_ESSENCE],		ABILITY_CHECKS.SPRITE_RESTING,				aquatic_essence);
@@ -687,7 +732,7 @@ master_grid_add_ability(ABILITIES.SPACE_CADET,				textGrid[# 1, ABILITIES.SPACE_
 master_grid_add_ability(ABILITIES.BAD_OMEN,					textGrid[# 1, ABILITIES.BAD_OMEN],					textGrid[# 2, ABILITIES.BAD_OMEN],				ABILITY_CHECKS.ACTION_BEGIN,				bad_omen);
 master_grid_add_ability(ABILITIES.ALL_KNOWING,				textGrid[# 1, ABILITIES.ALL_KNOWING],				textGrid[# 2, ABILITIES.ALL_KNOWING],			ABILITY_CHECKS.ACTION_BEGIN,				all_knowing);
 master_grid_add_ability(ABILITIES.BEND_PHYSICS,				textGrid[# 1, ABILITIES.BEND_PHYSICS],				textGrid[# 2, ABILITIES.BEND_PHYSICS],			ABILITY_CHECKS.ACTION_BEGIN,				bend_physics);
-master_grid_add_ability(ABILITIES.COMPRESS_TIME,			textGrid[# 1, ABILITIES.COMPRESS_TIME],				textGrid[# 2, ABILITIES.COMPRESS_TIME],			ABILITY_CHECKS.TURN_PROCESS,				compress_time);
+master_grid_add_ability(ABILITIES.COMPRESS_TIME,			textGrid[# 1, ABILITIES.COMPRESS_TIME],				textGrid[# 2, ABILITIES.COMPRESS_TIME],			ABILITY_CHECKS.PRIORITY_CHECK,				compress_time);
 master_grid_add_ability(ABILITIES.END_OF_DAYS,				textGrid[# 1, ABILITIES.END_OF_DAYS],				textGrid[# 2, ABILITIES.END_OF_DAYS],			ABILITY_CHECKS.ACTION_BEGIN,				end_of_days);
 
 // encode the ability grid

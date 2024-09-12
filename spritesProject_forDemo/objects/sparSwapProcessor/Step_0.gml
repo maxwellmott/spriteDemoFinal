@@ -48,5 +48,7 @@ if (global.select) {
 		i++;
 	}
 	
+	all_sprites_ability_check(ABILITY_CHECKS.SWAP_SUCCESS);
+	
 	instance_destroy(id);
 }

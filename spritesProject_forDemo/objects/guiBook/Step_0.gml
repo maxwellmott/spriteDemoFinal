@@ -15,7 +15,7 @@ if !(bookBuilt) && (ID >= 0) {
 }
 
 if !(turningPage) {	
-	if (pageIndex < ds_list_size(pages) div 2) {
+	if (pageIndex < (ds_list_size(pages) div 2) -1) {
 		if (global.menu_right) {
 			pageIndex++;
 			turningPageRight = true;	

@@ -156,13 +156,21 @@ switch (sparPhase) {
 				}
 			break;
 			
-			case PROCESS_PHASES.PRIORITY:
+			case PROCESS_PHASES.PRIORITY:			
 				// check if all sprites are done flashing
 				if (check_sprites_done_flashing()) {
 					// check if HPMP bars are up to date
 					if (spar_check_hpmp()) {
 						// check that there are no effectAlerts
-						if (ds_list_size(effectAlertList) == 0) {
+						if (ds_list_size(effectAlertList) == 0) {	
+							// check that the ability check hasn't been performed yet
+							if !(abilityChecked_priorityCheck) {
+								// perform an ability check for priority check
+								all_sprites_ability_check(ABILITY_CHECKS.PRIORITY_CHECK);
+								
+								abilityChecked_priorityCheck = true;
+							}
+							
 							// check if the actionProcessor is already active
 							if !(instance_exists(sparActionProcessor)) {
 								// create a variable to store the highest stat found so far
@@ -200,6 +208,78 @@ switch (sparPhase) {
 														highest		= inst.currentWater;
 														nextSprite	= i;
 													}
+													
+													if (inst.currentWater == highest) {
+														if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
+															highest = inst.currentWater;
+															nextSprite = i;
+														}
+														
+														if (inst.luckRoll == spriteList[| nextSprite].luckRoll) {
+															// if this is an online match
+															if (instance_exists(onlineEnemy)) {
+																// check for whose sprite this is
+																var t = inst.team;
+																
+																// check if these sprites are both on different teams
+																if !(t == spriteList[| nextSprite.team]) {
+																	// create a boolean to end the while loop below
+																	var finished = false;
+																	
+																	// get both client IDs
+																	var pcid = player.clientID;
+																	var ecid = onlineEnemy.clientID;
+																	
+																	// figure out which is higher than the other
+																	var low = pcid;
+																	var high = ecid;
+																	
+																	if (ecid > pcid) {
+																		low = ecid;
+																		high = pcid;
+																	}
+																	
+																	// use a while loop to repeat until there isn't a tie
+																	while !(finished) {
+																		// get a random int between them
+																		var r = irandom_range(low, high);
+																		
+																		var pdiff = abs(pcid - r);
+																		var ediff = abs(ecid - r);
+																		
+																		if (t == player) {
+																			if (pdiff < ediff) {
+																				highest = inst.currentWater;
+																				nextSprite = i;
+																			}
+																		}
+																		
+																		if (t == onlineEnemy) {
+																			if (ediff < pdiff) {
+																				highest = inst.currentWater;
+																				nextSprite = i;
+																			}
+																		}
+																		
+																		// if there wasn't a tie, break the loop
+																		if (ediff != pdiff)	finished = true;
+																	}
+																}
+															}
+															// if this is a local match
+															else {
+																// in local matches, the tie always goes to the npc
+																var t = inst.team;
+																
+																if (t == playerTwo) {
+																	if (spriteList[| nextSprite].team != t) {
+																		highest = inst.currentWater;
+																		nextSprite = i;
+																	}
+																}
+															}
+														}
+													}
 												break;
 												
 												case arenas.skies:
@@ -207,12 +287,156 @@ switch (sparPhase) {
 														highest		= inst.currentStorm;
 														nextSprite	= i;
 													}
+													
+													if (inst.currentStorm == highest) {
+														if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
+															highest = inst.currentStorm;
+															nextSprite = i;
+														}
+														
+														if (inst.luckRoll == spriteList[| nextSprite].luckRoll) {
+															// if this is an online match
+															if (instance_exists(onlineEnemy)) {
+																// check for whose sprite this is
+																var t = inst.team;
+																
+																// check if these sprites are both on different teams
+																if !(t == spriteList[| nextSprite.team]) {
+																	// create a boolean to end the while loop below
+																	var finished = false;
+																	
+																	// get both client IDs
+																	var pcid = player.clientID;
+																	var ecid = onlineEnemy.clientID;
+																	
+																	// figure out which is higher than the other
+																	var low = pcid;
+																	var high = ecid;
+																	
+																	if (ecid > pcid) {
+																		low = ecid;
+																		high = pcid;
+																	}
+																	
+																	// use a while loop to repeat until there isn't a tie
+																	while !(finished) {
+																		// get a random int between them
+																		var r = irandom_range(low, high);
+																		
+																		var pdiff = abs(pcid - r);
+																		var ediff = abs(ecid - r);
+																		
+																		if (t == player) {
+																			if (pdiff < ediff) {
+																				highest = inst.currentStorm;
+																				nextSprite = i;
+																			}
+																		}
+																		
+																		if (t == onlineEnemy) {
+																			if (ediff < pdiff) {
+																				highest = inst.currentStorm;
+																				nextSprite = i;
+																			}
+																		}
+																		
+																		// if there wasn't a tie, break the loop
+																		if (ediff != pdiff)	finished = true;
+																	}
+																}
+															}
+															// if this is a local match
+															else {
+																// in local matches, the tie always goes to the npc
+																var t = inst.team;
+																
+																if (t == playerTwo) {
+																	if (spriteList[| nextSprite].team != t) {
+																		highest = inst.currentStorm;
+																		nextSprite = i;
+																	}
+																}
+															}
+														}
+													}
 												break;
 												
 												default:
 													if (inst.currentAgility > highest) {
 														highest		= inst.currentAgility;
 														nextSprite	= i;
+													}
+													
+													if (inst.currentAgility == highest) {
+														if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
+															highest = inst.currentAgility;
+															nextSprite = i;
+														}
+														
+														if (inst.luckRoll == spriteList[| nextSprite].luckRoll) {
+															// if this is an online match
+															if (instance_exists(onlineEnemy)) {
+																// check for whose sprite this is
+																var t = inst.team;
+																
+																// check if these sprites are both on different teams
+																if !(t == spriteList[| nextSprite.team]) {
+																	// create a boolean to end the while loop below
+																	var finished = false;
+																	
+																	// get both client IDs
+																	var pcid = player.clientID;
+																	var ecid = onlineEnemy.clientID;
+																	
+																	// figure out which is higher than the other
+																	var low = pcid;
+																	var high = ecid;
+																	
+																	if (ecid > pcid) {
+																		low = ecid;
+																		high = pcid;
+																	}
+																	
+																	// use a while loop to repeat until there isn't a tie
+																	while !(finished) {
+																		// get a random int between them
+																		var r = irandom_range(low, high);
+																		
+																		var pdiff = abs(pcid - r);
+																		var ediff = abs(ecid - r);
+																		
+																		if (t == player) {
+																			if (pdiff < ediff) {
+																				highest = inst.currentAgility;
+																				nextSprite = i;
+																			}
+																		}
+																		
+																		if (t == onlineEnemy) {
+																			if (ediff < pdiff) {
+																				highest = inst.currentAgility;
+																				nextSprite = i;
+																			}
+																		}
+																		
+																		// if there wasn't a tie, break the loop
+																		if (ediff != pdiff)	finished = true;
+																	}
+																}
+															}
+															// if this is a local match
+															else {
+																// in local matches, the tie always goes to the npc
+																var t = inst.team;
+																
+																if (t == playerTwo) {
+																	if (spriteList[| nextSprite].team != t) {
+																		highest = inst.currentAgility
+																		nextSprite = i;
+																	}
+																}
+															}
+														}
 													}
 												break;
 											}								
@@ -246,6 +470,9 @@ switch (sparPhase) {
 			break;
 			
 			case PROCESS_PHASES.ATTACK:
+				// reset abilityChecked_priorityCheck
+				abilityChecked_priorityCheck = false;
+				
 				// check that all sprites are done flashing
 				if (check_sprites_done_flashing()) {
 					// check that HPMP bars are up to date
@@ -299,6 +526,13 @@ switch (sparPhase) {
 														highest		= inst.currentWater;
 														nextSprite	= i;
 													}
+													
+													if (inst.currentWater == highest) {
+														if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
+															highest = inst.currentWater;
+															nextSprite = i;
+														}
+													}
 												break;
 												
 												case arenas.skies:
@@ -306,12 +540,26 @@ switch (sparPhase) {
 														highest		= inst.currentStorm;
 														nextSprite	= i;
 													}
+													
+													if (inst.currentStorm == highest) {
+														if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
+															highest = inst.currentStorm;
+															nextSprite = i;
+														}
+													}
 												break;
 												
 												default:
 													if (inst.currentAgility > highest) {
 														highest		= inst.currentAgility;
 														nextSprite	= i;
+														
+														if (inst.currentAgility == highest) {
+															if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
+																highest = inst.currentAgility;
+																nextSprite = i;
+															}
+														}
 													}
 												break;
 											}		
@@ -444,9 +692,12 @@ switch (sparPhase) {
 	
 	#region TURN BEGIN PHASE
 		case sparPhases.turnBegin:
+			// perform an ability check for turn begin
+			all_sprites_ability_check(ABILITY_CHECKS.TURN_BEGIN);
+		
 			spar_check_hail_sphera();
 			spar_check_miasma();	
-		
+			
 			sparPhase = sparPhases.select;
 		break;
 	#endregion

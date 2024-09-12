@@ -25,9 +25,8 @@ if !(turningPage) {
 		var i = 0; repeat (headingCount) {
 			if (string_digits(headingGrid[# 3, i]) div 2 == pageIndex) {
 				draw_text(headingGrid[# 1, i], headingGrid[# 2, i], headingGrid[# 0, i]);
-
-				i++;
 			}
+		i++;
 		}
 	}
 

@@ -1,9 +1,12 @@
 // enumerator containing literature IDs
 enum literatureIDs {
 	inhumanEntities,					//a book describing everything about sprites from a scientific perspective
-	twmFirstEdition,					//prince tony's trials??
+	twmFirstEdition,					//scrolls abt fake jesus. Changing over time to show how politics shape the narratives fed to people. needs to be actually named, I'm not sure what that acronym is lmao
 	twmSecondEdition,					//
 	twmThirdEdition,					//
+	twmFourthEdition,					//
+	twmFifthEdition,					//
+	pureMagic,							//a slightly narrative book on wavephones, the way they work and their significance in magic
 	sparmastersHandbook,				//book on everything you need to know regarding cosmic spars
 	illuminiad,							//high level magic book
 	sacriLibriI,						//the standard scrolls for learning magic--introductory volume
@@ -127,11 +130,13 @@ function book_build_text(_string) {
 	
 	var currentLine = 1;
 	var currentPage = 1;
+	var newPage = true;
 	
 	var height = string_height(text);
-	var maxLines = (pageHeight div height) - 1;
+	var maxLines = (pageHeight div height);
 	
-	pages[| currentPage] = "";
+	pages[| 0] = "";
+	pages[| 1] = "";
 
 	while (string_length(text) > 0) {		
 		// if the text signals to start a new line, add the substring to the current page,
@@ -154,9 +159,10 @@ function book_build_text(_string) {
 				text = string_delete(text, 1, 1);
 				 
 				// increment currentPage and reset currentLine
-				substring = "";
+				newPage = true;
 				currentPage++;
 				pages[|currentPage] = "";
+				pages[|currentPage + 1] = "";
 				currentLine = 1;
 			}
 		
@@ -176,14 +182,14 @@ function book_build_text(_string) {
 				
 				// get the x and y position for the heading
 				var headingY = (height * (currentLine - 1)) + textY;
-				if !(currentPage mod 2) var headingX = rightPageX + (pageWidth / 2);
-					else var headingX = leftPageX + (pageWidth / 2);
+				if !(currentPage mod 2) var headingX = leftPageX + (pageWidth / 2);
+					else var headingX = rightPageX + (pageWidth / 2);
 					
 				var newGridY = headingCount + 1;
 				ds_grid_resize(headingGrid, 4, newGridY);	
 					
 				// add all heading parameters to headingGrid
-				headingGrid[# 0, headingCount] = headingString;
+				headingGrid[# 0, headingCount] = format_text(headingString, pageWidth, 4, 1);
 				headingGrid[# 1, headingCount] = headingX;
 				headingGrid[# 2, headingCount] = headingY;
 				headingGrid[# 3, headingCount] = currentPage;
@@ -210,11 +216,13 @@ function book_build_text(_string) {
 				var imageID		= real(string_digits(spriteIDs[|imageIndex]));
 				var imageHeight = sprite_get_height(imageID);
 				
-				var linesNeeded = (imageHeight div height) + 1;
+				var linesNeeded = (imageHeight div height);
 				
-				if (currentLine + linesNeeded + 2) > maxLines {
+				if (currentLine + linesNeeded) > maxLines {
+					newPage = true;
 					currentPage++;
 					pages[|currentPage] = "";
+					pages[|currentPage + 1] = "";
 					currentLine = 1;
 				}
 				
@@ -223,8 +231,8 @@ function book_build_text(_string) {
 				
 				// get the x and y at which to draw the image
 				var imageY = (height * (currentLine)) + textY;
-				if !(currentPage mod 2) var imageX = leftPageX + (pageWidth / 4);
-					else var imageX = rightPageX + (pageWidth / 4);
+				if !(currentPage mod 2) var imageX = leftPageX + (pageWidth / 2);
+					else var imageX = rightPageX + (pageWidth / 2);
 					
 				// resize image grid
 				var newGridY = imageCount + 1;
@@ -256,10 +264,18 @@ function book_build_text(_string) {
 				if (string_char_at(text, 2) == "+") || (string_char_at(text, 2) == "|") || (string_char_at(text, 2) == "*") || (string_char_at(text, 2) == "%") {
 					text = string_delete(text, 1, 1);	
 				}	else {
-	// FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE	
-	// FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE FIRST BUG OCCURS HERE				
 					// add the first space to the substring
-					pages[|currentPage] = string_insert(" ", pages[| currentPage], string_length(pages[| currentPage]));
+					var ll = string_length(pages[| currentPage]);
+					
+					if (newPage) {
+						ll += 1;
+						
+						pages[|currentPage] = string_insert(" ", pages[| currentPage], ll);
+						
+						newPage = false;
+					}
+					
+					pages[|currentPage] = string_insert(" ", pages[| currentPage], ll);
 				
 					// delete the first space
 					text = string_delete(text, 1, 1);
@@ -285,10 +301,12 @@ function book_build_text(_string) {
 						}	else {
 								// initialize next page
 								pages[| currentPage + 1] = "";
+								pages[| currentPage + 2] = "";
 								
 								// add the nextWord to the next page
-								pages[| currentPage + 1] = string_insert(nextWord, pages[|currentPage + 1], 1);
+								pages[| currentPage + 1] = nextWord;
 								
+								newPage = true;
 								currentLine = 1;
 								currentPage++;
 						}
@@ -296,7 +314,8 @@ function book_build_text(_string) {
 							// add the nextWord to the currentPage
 							pages[| currentPage] = string_insert(nextWord, pages[|currentPage], string_length(pages[|currentPage]));								
 					}	
-					text = string_delete(text, 1, wordLength);	
+					text = string_delete(text, 1, wordLength);
+					substring = "";
 				}				
 			}
 	}

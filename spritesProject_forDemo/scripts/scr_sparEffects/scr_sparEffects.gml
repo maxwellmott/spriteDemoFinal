@@ -796,10 +796,16 @@ function apply_miasma(_effectedTeam) {
 		i++;
 	}
 	
+	// perform an ability check for apply miasma
+	all_sprites_ability_check(ABILITY_CHECKS.APPLY_MIASMA);
+	
 	// check that damage was increased at least once before applying
 	if (d > 0) {
 		spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP, t, d);
-	}	else	instance_destroy(id);
+	}
+	else if (d < 0) {
+		spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t, (d * -1));
+	}
 }
 
 ///@desc SPAR EFFECT: applies negation of ELEMENTAL damage from HUM
@@ -860,14 +866,20 @@ function force_swap(_targetSprite) {
 	if (tt == spar.playerTwo)	ds_list_copy(il, spar.enemyList);
 	
 	// store swap partner's sprite ID
-	var psid	= il[| psn].spriteID;
+	var psid	= il[| psn];
 	
 	// store target's sprite ID
-	var tsid	= il[| tsn].spriteID;
+	var tsid	= il[| tsn];
 	
 	// add target and swapper to effectedSprites, store tt.name in subject
 	ds_list_add(effectedSprites, t, il[| psn]);
 	subject = tt.name;	
+	
+	// perform an ability check for a swap attempt for the psid
+	ability_check(psid, ABILITY_CHECKS.SWAP_ATTEMPT, tsid);
+	
+	// perform an ability check for a swap attempt for the tsid
+	ability_check(tsid, ABILITY_CHECKS.SWAP_ATTEMPT, psid);
 	
 	// if neither swapper is bound:
 	if !(spar_check_bound(psid)) {
@@ -875,12 +887,15 @@ function force_swap(_targetSprite) {
 			// if neither swapper is invulnerable
 			if !(spar_check_invulnerable(psid)) {
 				if !(spar_check_invulnerable(tsid)) {
+					// retain mindset to maintain through swap
+					var m1 = psid.mindset;
+					var m2 = tsid.mindset;
+					
 					// reset all necessary vars for both sprites
 					with (tsid) {
 						dodging			= false;
 						hexed			= false;
 						berserk			= false;
-						mindset			= 0;
 						parrying		= false;	
 						deflective		= false;
 						sneaking		= false;
@@ -890,31 +905,33 @@ function force_swap(_targetSprite) {
 						dodging			= false;
 						hexed			= false;
 						berserk			= false;
-						mindset			= 0;
 						parrying		= false;
 						deflective		= false;
 						sneaking		= false;	
 					}
 					
-					// swap list positions
-					il[| psn]	= tsid;
-					il[| tsn]	= psid;	
-					
 					// create temp var for psid
-					var temp	= psid;	
+					var temp	= psid.spriteID;	
 					
 					// swap sprite IDs
-					psid		= tsid;
-					tsid		= temp;		
+					psid.spriteID	= tsid.spriteID;
+					tsid.spriteID	= temp;		
 					
 					// load params for each swapper
 					with (psid)		sprite_load_parameters();
 					with (tsid)		sprite_load_parameters();
+									
+					// swap mindsets
+					psid.mindset = m2;
+					tsid.mindset = m1;
 				}
 			}
 		}	
 	}	
 	
+	// perform an ability check for swap success
+	all_sprites_ability_check(ABILITY_CHECKS.SWAP_SUCCESS);
+
 	// delete lists
 	ds_list_destroy(l);
 	ds_list_destroy(il);
@@ -985,11 +1002,17 @@ function force_swap_team(_targetPlayer) {
 	if (tt == spar.playerOne)	ds_list_copy(il, spar.allyList);
 	if (tt == spar.playerTwo)	ds_list_copy(il, spar.enemyList);
 	
-	// store swap partner's sprite ID
-	var psid	= il[| psn].spriteID;
+	// store swap partner's ID
+	var psid	= il[| psn];
 	
-	// store target's sprite ID
-	var tsid	= il[| tsn].spriteID;
+	// store target's ID
+	var tsid	= il[| tsn];
+	
+	// perform an ability check for swap attempt for psid
+	ability_check(psid, ABILITY_CHECKS.SWAP_ATTEMPT, tsid);
+	
+	// perform an ability check for swap attempt for tsid
+	ability_check(tsid, ABILITY_CHECKS.SWAP_ATTEMPT, psid);
 	
 	// if neither swapper is bound:
 	if !(spar_check_bound(psid)) {
@@ -997,12 +1020,15 @@ function force_swap_team(_targetPlayer) {
 			// if neither swapper is invulnerable:
 			if !(spar_check_invulnerable(psid)) {
 				if !(spar_check_invulnerable(tsid)) {
+					// retain mindset to maintain through swap
+					var m1 = psid.mindset;
+					var m2 = tsid.mindset;
+					
 					// reset all necessary vars for both sprites
 					with (tsid) {
 						dodging			= false;
 						hexed			= false;
 						berserk			= false;
-						mindset			= 0;
 						parrying		= false;	
 						deflective		= false;
 						sneaking		= false;
@@ -1012,30 +1038,30 @@ function force_swap_team(_targetPlayer) {
 						dodging			= false;
 						hexed			= false;
 						berserk			= false;
-						mindset			= 0;
 						parrying		= false;
 						deflective		= false;
 						sneaking		= false;	
 					}
 					
 					// swap sprite IDs
-					psid		= tsid;
-					tsid		= temp;
-					
-					// swap list positions
-					il[| psn]	= tsid;
-					il[| tsn]	= psid;	
-					
-					// create temp var for psid
-					var temp	= psid;	
-					
+					var temp		= tsid.spriteID;
+					tsid.spriteID	= psid.spriteID;
+					psid.spriteID	= temp;
+										
 					// load params for both swappers
 					with (psid)		sprite_load_parameters();
 					with (tsid)		sprite_load_parameters();
+					
+					// swap mindsets
+					psid.mindset = m2;
+					tsid.mindset = m1;
 				}
 			}
 		}
 	}
+	
+	// perform an ability check for swap success
+	all_sprites_ability_check(ABILITY_CHECKS.SWAP_SUCCESS);
 	
 	// delete lists
 	ds_list_destroy(l);
@@ -1096,11 +1122,11 @@ function force_swap_global() {
 		if (tt == spar.playerOne)	ds_list_copy(il, spar.allyList);
 		if (tt == spar.playerTwo)	ds_list_copy(il, spar.enemyList);
 			
-		// store swap partner's sprite ID
-		var psid	= il[| psn].spriteID;
+		// store swap partner's ID
+		var psid	= il[| psn];
 		
-		// store target's sprite ID
-		var tsid	= il[| tsn].spriteID;
+		// store target's ID
+		var tsid	= il[| tsn];
 		
 		// if neither swapper is bound:
 		if !(spar_check_bound(psid)) {
@@ -1108,12 +1134,15 @@ function force_swap_global() {
 				// if neither swapper is invulnerable
 				if !(spar_check_invulnerable(psid)) {
 					if !(spar_check_invulnerable(tsid)) {		
+						// retain mindset to maintain through swap
+						var m1 = psid.mindset;
+						var m2 = tsid.mindset;
+						
 						// reset all necessary vars for both sprites
 						with (tsid) {
 							dodging			= false;
 							hexed			= false;
 							berserk			= false;
-							mindset			= 0;
 							parrying		= false;	
 							deflective		= false;
 							sneaking		= false;
@@ -1123,7 +1152,6 @@ function force_swap_global() {
 							dodging			= false;
 							hexed			= false;
 							berserk			= false;
-							mindset			= 0;
 							parrying		= false;
 							deflective		= false;
 							sneaking		= false;	
@@ -1134,19 +1162,26 @@ function force_swap_global() {
 						il[| tsn]	= psid;	
 						
 						// create temp var for psid
-						var temp	= psid;	
+						var temp	= psid.spriteID;	
 						
 						// swap sprite IDs
-						psid		= tsid;
-						tsid		= temp;
+						psid.spriteID		= tsid.spriteID;
+						tsid.spriteID		= temp;
 						
 						// load params for both swappers
 						with (psid)		sprite_load_parameters();
 						with (tsid)		sprite_load_parameters();
+						
+						// swap mindsets
+						psid.mindset = m2;
+						tsid.mindset = m1;
 					}
 				}
 			}
 		}		
+		
+		// perform an ability check for swap success
+		all_sprites_ability_check(ABILITY_CHECKS.SWAP_SUCCESS);
 				
 		// delete lists
 		ds_list_destroy(l);

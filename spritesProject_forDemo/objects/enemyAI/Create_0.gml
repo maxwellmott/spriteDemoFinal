@@ -74,3 +74,6 @@ human_build_spellBookGrid();
 ready = false;
 
 hailSphera = false;
+
+// boolean representing whether this player has a sprite with synchronized soldiers on their team
+synchronizedSoldiersActive = false;

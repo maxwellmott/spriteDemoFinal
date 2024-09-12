@@ -436,3 +436,11 @@ COMING BACK FROM PLAYTEST BUILD
 		-add weak elemental spells that provide solid buffs
 		
 		sidestepped to work through some bugs with the books system. There are still some left. Keep chipping away at this on the side!
+		
+	9/12
+		I've begun placing ability checks.
+		
+		I also made a function that performs an ability check on each sprite in order of agility. I'll have to add "tie-breaking" code here.
+		
+		Another thing I need to note is that I'm considering replacing any singular ability_check calls with all_sprites_ability_check and simply
+		beginning each ability function with a check for that sprite's involvement.

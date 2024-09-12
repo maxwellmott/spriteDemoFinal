@@ -201,7 +201,10 @@ function spar_set_action() {
 			spar.selectionPhase = selectionPhases.ally;
 		break;
 	}
-	
+
+	// perform an ability check for target selection
+	ability_check(sprite, ABILITY_CHECKS.TARGET_SELECTION, -1);
+
 	inRangeSprites_rebuild(sprite, global.targetRange);
 
 	instance_destroy(sparActionMenu);
@@ -216,6 +219,9 @@ function spar_set_spell() {
 	
 	// set next selectionPhase
 	spar.selectionPhase = selectionPhases.target;
+	
+	// perform an ability check for target selection
+	ability_check(player.selectedAlly, ABILITY_CHECKS.TARGET_SELECTION, -1);
 	
 	inRangeSprites_rebuild(player.selectedAlly, global.targetRange);
 	

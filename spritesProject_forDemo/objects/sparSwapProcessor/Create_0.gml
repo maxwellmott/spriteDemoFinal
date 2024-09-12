@@ -17,6 +17,13 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 		// get their swap partner's ID
 		var t = spar.turnGrid[# selectionPhases.target, i];
 		var pid = spar.spriteList[| t];
+		
+		// perform an ability check for swap attempt for inst
+		ability_check(inst, ABILITY_CHECKS.SWAP_ATTEMPT, pid);
+		
+		// perform an ability check for swap attempt for pid
+		ability_check(pid, ABILITY_CHECKS.SWAP_ATTEMPT, inst);
+		
 		if !(spar_check_bound(inst))	{
 			if	!(spar_check_bound(pid))	{
 				// if swapping and neither are bound, 
@@ -27,7 +34,7 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 				inst.hexed			= false;
 				inst.invulnerable	= false;
 				inst.berserk		= false;
-				inst.mindset		= 0;
+
 			
 				// get the target
 				var t = spar.turnGrid[# selectionPhases.target, i];
