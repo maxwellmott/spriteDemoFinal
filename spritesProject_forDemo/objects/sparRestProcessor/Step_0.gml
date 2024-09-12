@@ -20,6 +20,9 @@ if (global.select)
 	spar.image_index = 0;
 }
 
+// perform an ability check for sprite resting
+ability_check(ABILITY_TYPES.SPRITE_RESTING);
+
 // check if it's time to stop the animation
 if (animationStarted) {
 	 if (spar.image_index >= restFrameCount) {

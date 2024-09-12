@@ -1,7 +1,7 @@
 if (global.select) {
-	var i = 0;	repeat (ds_list_size(swapList)) {
+	var i = 0;	repeat (ds_list_size(global.swapList)) {
 		// get sprite's instance id
-		var inst = swapList[| i];
+		var inst = global.swapList[| i];
 		
 		if (inst.swapping) {
 			var swapperSpotNum = inst.spotNum;
@@ -48,7 +48,7 @@ if (global.select) {
 		i++;
 	}
 	
-	all_sprites_ability_check(ABILITY_CHECKS.SWAP_SUCCESS);
+	ability_check(ABILITY_TYPES.SWAP_SUCCESS);
 	
 	instance_destroy(id);
 }

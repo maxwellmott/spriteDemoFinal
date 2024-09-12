@@ -428,7 +428,6 @@ COMING BACK FROM PLAYTEST BUILD
 		
 	9/1	
 		Abilities What's Left:
-			- place all ability checks
 			- finish all ability functions (make sure these work seamlessly--proper references etc-- with the check function)
 			- add ability name animation
 			- test
@@ -437,10 +436,15 @@ COMING BACK FROM PLAYTEST BUILD
 		
 		sidestepped to work through some bugs with the books system. There are still some left. Keep chipping away at this on the side!
 		
-	9/12
+	9/11
 		I've begun placing ability checks.
 		
 		I also made a function that performs an ability check on each sprite in order of agility. I'll have to add "tie-breaking" code here.
 		
-		Another thing I need to note is that I'm considering replacing any singular ability_check calls with all_sprites_ability_check and simply
+		Another thing I need to note is that I'm considering replacing any singular ability_check calls with ability_check and simply
 		beginning each ability function with a check for that sprite's involvement.
+		
+	9/12
+		placed all ability checks and tested hot_to_the_touch which is the only ability function I've coded thus far.
+		
+		There is a bug that occurs when hacha chacha casts a spell.

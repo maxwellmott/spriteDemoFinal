@@ -68,7 +68,7 @@ teamString = "";
 teamList = ds_list_create();
 
 // ONLY FOR TESTING
-teamList[| 0] = SPRITES.PODRIC;
+teamList[| 0] = SPRITES.HACHACHACHA;
 teamList[| 1] = SPRITES.EXONOLITH;
 teamList[| 2] = SPRITES.BOOKISH;
 teamList[| 3] = SPRITES.JOE;

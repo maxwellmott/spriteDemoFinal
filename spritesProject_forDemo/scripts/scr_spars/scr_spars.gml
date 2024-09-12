@@ -203,7 +203,7 @@ function spar_set_action() {
 	}
 
 	// perform an ability check for target selection
-	ability_check(sprite, ABILITY_CHECKS.TARGET_SELECTION, -1);
+	ability_check(ABILITY_TYPES.TARGET_SELECTION);
 
 	inRangeSprites_rebuild(sprite, global.targetRange);
 
@@ -221,7 +221,7 @@ function spar_set_spell() {
 	spar.selectionPhase = selectionPhases.target;
 	
 	// perform an ability check for target selection
-	ability_check(player.selectedAlly, ABILITY_CHECKS.TARGET_SELECTION, -1);
+	ability_check(ABILITY_TYPES.TARGET_SELECTION);
 	
 	inRangeSprites_rebuild(player.selectedAlly, global.targetRange);
 	

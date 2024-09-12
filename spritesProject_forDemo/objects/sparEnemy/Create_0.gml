@@ -135,7 +135,7 @@ ballLightningTarget = -1;
 
 newSpriteID = -1;
 
-parrying	= true;
+parrying	= false;
 
 swapping	= false;
 resting		= false;

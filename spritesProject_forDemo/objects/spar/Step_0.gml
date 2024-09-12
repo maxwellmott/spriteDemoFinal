@@ -46,6 +46,9 @@ switch (sparPhase) {
 		spar_check_effect_timers();
 		spar_check_timed_blasts();
 		
+		// perform an ability check for turn end
+		ability_check(ABILITY_TYPES.TURN_END);
+		
 		sparPhase = sparPhases.turnBegin;
 
 	break;
@@ -166,7 +169,7 @@ switch (sparPhase) {
 							// check that the ability check hasn't been performed yet
 							if !(abilityChecked_priorityCheck) {
 								// perform an ability check for priority check
-								all_sprites_ability_check(ABILITY_CHECKS.PRIORITY_CHECK);
+								ability_check(ABILITY_TYPES.PRIORITY_CHECK);
 								
 								abilityChecked_priorityCheck = true;
 							}
@@ -693,7 +696,7 @@ switch (sparPhase) {
 	#region TURN BEGIN PHASE
 		case sparPhases.turnBegin:
 			// perform an ability check for turn begin
-			all_sprites_ability_check(ABILITY_CHECKS.TURN_BEGIN);
+			ability_check(ABILITY_TYPES.TURN_BEGIN);
 		
 			spar_check_hail_sphera();
 			spar_check_miasma();	

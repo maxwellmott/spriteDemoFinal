@@ -30,6 +30,9 @@ if (state == ACTION_PROCESSOR_STATES.ANNOUNCING)
 		spar.turnMsg = "But the spell failed!";
 		alarm[0] = 24; 
 	}	else	{
+		// perform an ability check for spell success
+		ability_check(ABILITY_TYPES.ACTION_SUCCESS);
+		
 		state = ACTION_PROCESSOR_STATES.FADING_IN;
 	}
 }

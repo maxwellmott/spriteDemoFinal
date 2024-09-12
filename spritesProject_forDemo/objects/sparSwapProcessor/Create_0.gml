@@ -1,5 +1,5 @@
 // create a list of all the sprites who are swapping this turn
-swapList = ds_list_create();
+global.swapList = ds_list_create();
 
 // populate the list
 var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
@@ -18,11 +18,8 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 		var t = spar.turnGrid[# selectionPhases.target, i];
 		var pid = spar.spriteList[| t];
 		
-		// perform an ability check for swap attempt for inst
-		ability_check(inst, ABILITY_CHECKS.SWAP_ATTEMPT, pid);
-		
-		// perform an ability check for swap attempt for pid
-		ability_check(pid, ABILITY_CHECKS.SWAP_ATTEMPT, inst);
+		// perform an ability check for swap attempt
+		ability_check(ABILITY_TYPES.SWAP_ATTEMPT);
 		
 		if !(spar_check_bound(inst))	{
 			if	!(spar_check_bound(pid))	{
@@ -45,8 +42,8 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 				// set the sprite's new ID to equal their targets current ID
 				inst.newSpriteID		= targ.spriteID;
 			
-				// add the instance id to the swapList
-				ds_list_add(swapList, inst);
+				// add the instance id to the global.swapList
+				ds_list_add(global.swapList, inst);
 			
 				// set this sprite's action to -1 on the turn grid
 				spar.turnGrid[# selectionPhases.action, i] = -1;
@@ -68,4 +65,4 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 }
 
 // load swap turn message
-spar.turnMsg = turn_message_get_number_text(ds_list_size(swapList)) + " sprites are swapping position";
+spar.turnMsg = turn_message_get_number_text(ds_list_size(global.swapList)) + " sprites are swapping position";

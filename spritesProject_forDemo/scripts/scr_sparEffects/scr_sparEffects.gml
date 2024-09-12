@@ -1,5 +1,9 @@
 #macro BOTH_PLAYERS_EFFECTED		-49
 
+// swap list needs to be held globally because it needs to be referenced
+// the same way in two different events
+global.swapList = -1;
+
 ///@desc This function asks for one argument--the ID of an effect from the SPAR_EFFECTS
 /// enum--but it is meant to be overloaded with any arguments that the given function
 /// requires. This function is called by spells and abilities and different checks that 
@@ -797,7 +801,7 @@ function apply_miasma(_effectedTeam) {
 	}
 	
 	// perform an ability check for apply miasma
-	all_sprites_ability_check(ABILITY_CHECKS.APPLY_MIASMA);
+	ability_check(ABILITY_TYPES.APPLY_MIASMA);
 	
 	// check that damage was increased at least once before applying
 	if (d > 0) {
@@ -835,6 +839,9 @@ function apply_rust(_targetSprite) {
 function force_swap(_targetSprite) {
 	randomize();
 	
+	// initialize global.swapList
+	global.swapList = ds_list_create();
+	
 	// get target's spot number
 	var t = _targetSprite;
 	var tsn = t.spotNum;
@@ -865,21 +872,21 @@ function force_swap(_targetSprite) {
 	if (tt == spar.playerOne)	ds_list_copy(il, spar.allyList);
 	if (tt == spar.playerTwo)	ds_list_copy(il, spar.enemyList);
 	
-	// store swap partner's sprite ID
+	// store swap partner's ID
 	var psid	= il[| psn];
 	
-	// store target's sprite ID
+	// store target's ID
 	var tsid	= il[| tsn];
+	
+	// add both swappers to global.swapList
+	ds_list_add(global.swapList, psid, tsid);
 	
 	// add target and swapper to effectedSprites, store tt.name in subject
 	ds_list_add(effectedSprites, t, il[| psn]);
 	subject = tt.name;	
 	
-	// perform an ability check for a swap attempt for the psid
-	ability_check(psid, ABILITY_CHECKS.SWAP_ATTEMPT, tsid);
-	
-	// perform an ability check for a swap attempt for the tsid
-	ability_check(tsid, ABILITY_CHECKS.SWAP_ATTEMPT, psid);
+	// perform an ability check for swap attempt
+	ability_check(ABILITY_TYPES.SWAP_ATTEMPT);
 	
 	// if neither swapper is bound:
 	if !(spar_check_bound(psid)) {
@@ -930,17 +937,21 @@ function force_swap(_targetSprite) {
 	}	
 	
 	// perform an ability check for swap success
-	all_sprites_ability_check(ABILITY_CHECKS.SWAP_SUCCESS);
+	ability_check(ABILITY_TYPES.SWAP_SUCCESS);
 
 	// delete lists
 	ds_list_destroy(l);
 	ds_list_destroy(il);
+	ds_list_destroy(global.swapList);
 }
 
 ///@desc SPAR EFFECT: forces the target team to split into two groups randomly
 /// and perform swaps
 function force_swap_team(_targetPlayer) {
 	randomize();
+		
+	// initialize global.swapList
+	global.swapList = ds_list_create();
 		
 	if !(spar_check_bound(psid)) {
 		if !(spar_check_bound(tsid)) {
@@ -1008,11 +1019,14 @@ function force_swap_team(_targetPlayer) {
 	// store target's ID
 	var tsid	= il[| tsn];
 	
+	// add both sprites to global.swapList
+	ds_list_add(global.swapList, psid, tsid);
+	
 	// perform an ability check for swap attempt for psid
-	ability_check(psid, ABILITY_CHECKS.SWAP_ATTEMPT, tsid);
+	ability_check(psid, ABILITY_TYPES.SWAP_ATTEMPT, tsid);
 	
 	// perform an ability check for swap attempt for tsid
-	ability_check(tsid, ABILITY_CHECKS.SWAP_ATTEMPT, psid);
+	ability_check(tsid, ABILITY_TYPES.SWAP_ATTEMPT, psid);
 	
 	// if neither swapper is bound:
 	if !(spar_check_bound(psid)) {
@@ -1061,17 +1075,21 @@ function force_swap_team(_targetPlayer) {
 	}
 	
 	// perform an ability check for swap success
-	all_sprites_ability_check(ABILITY_CHECKS.SWAP_SUCCESS);
+	ability_check(ABILITY_TYPES.SWAP_SUCCESS);
 	
 	// delete lists
 	ds_list_destroy(l);
 	ds_list_destroy(il);
+	ds_list_destroy(global.swapList);
 
 }
 
 ///@desc SPAR EFFECT: forces both teams to perform swaps with all their sprites
 function force_swap_global() {
 	var ct = -1;
+	
+	// initialize global.swapList
+	global.swapList = ds_list_create();
 	
 	effectedPlayer = BOTH_PLAYERS_EFFECTED;
 	
@@ -1128,6 +1146,12 @@ function force_swap_global() {
 		// store target's ID
 		var tsid	= il[| tsn];
 		
+		// add both sprites to global.swapList
+		ds_list_add(global.swapList, psid, tsid);
+		
+		// perform an ability check for swap attempt
+		ability_check(ABILITY_TYPES.SWAP_ATTEMPT);
+		
 		// if neither swapper is bound:
 		if !(spar_check_bound(psid)) {
 			if !(spar_check_bound(tsid)) {
@@ -1181,11 +1205,12 @@ function force_swap_global() {
 		}		
 		
 		// perform an ability check for swap success
-		all_sprites_ability_check(ABILITY_CHECKS.SWAP_SUCCESS);
+		ability_check(ABILITY_TYPES.SWAP_SUCCESS);
 				
 		// delete lists
 		ds_list_destroy(l);
 		ds_list_destroy(il);
+		ds_list_destroy(global.swapList);
 		
 		// increment i
 		i++;

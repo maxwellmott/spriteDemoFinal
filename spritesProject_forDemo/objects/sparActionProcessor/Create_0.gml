@@ -82,6 +82,9 @@ shadeAlphaMax = 0.9;
 
 spellFailed = false;
 
+// perform an ability check for action begin
+ability_check(ABILITY_TYPES.ACTION_BEGIN);
+
 //		******CALCULATE DAMAGE******	
 // if this is a basic attack
 if (currentSpell < 0) {

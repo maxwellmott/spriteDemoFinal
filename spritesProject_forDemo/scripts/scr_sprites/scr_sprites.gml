@@ -1759,10 +1759,10 @@ function sprite_load_parameters() {
 	
 	// decode ability grid
 	var abltGrid = ds_grid_create(ABILITY_PARAMS.HEIGHT, ABILITIES.HEIGHT);
-	decode_grid(global.allAbilities, grid);
+	decode_grid(global.allAbilities, abltGrid);
 	
 	baseAbilityType		= real(abltGrid[# ABILITY_PARAMS.TYPE,				baseAbility]);
-	baseAbilityName		= real(abltGrid[# ABILITY_PARAMS.NAME,				baseAbility]);
+	baseAbilityName		= abltGrid[# ABILITY_PARAMS.NAME,				baseAbility];
 	baseAbilityFunction = real(abltGrid[# ABILITY_PARAMS.EFFECT_FUNCTION,	baseAbility]);
 	
 	// decode spell list

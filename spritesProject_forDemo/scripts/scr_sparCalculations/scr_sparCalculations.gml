@@ -25,6 +25,9 @@ function restore_hp(_player, _amount) {
 	}
 	
 	p.currentHP += a;
+	
+	// perform an ability check for hp restored
+	ability_check(ABILITY_TYPES.HP_RESTORED);
 }
 
 ///@desc This function can be called to process the actual increase to current MP
@@ -38,6 +41,9 @@ function restore_mp(_player, _amount) {
 	}
 	
 	p.currentMP += a;
+	
+	// perform an ability check for mp restored
+	ability_check(ABILITY_TYPES.MP_RESTORED);
 }
 
 ///@desc This function can be called to process the actual decrease to current HP
@@ -51,6 +57,9 @@ function deplete_hp(_player, _amount) {
 	}
 	
 	p.currentHP -= a;
+	
+	// perform an ability check for hp depleted
+	ability_check(ABILITY_TYPES.HP_DEPLETED);
 }
 
 ///@desc This function can be called to process the actual decrease to current MP
@@ -64,6 +73,9 @@ function deplete_mp(_player, _amount) {
 	}
 	
 	p.currentMP -= a;
+	
+	// perform an ability check for mp depleted
+	ability_check(ABILITY_TYPES.MP_DEPLETED);
 }
 
 ///@desc This function takes a size value from the SPRITE_SIZES and returns
@@ -324,6 +336,9 @@ function get_psychic_damage(_atkr, _targ, _power) {
 	
 	// calculate damage
 	var d = powr * damageRatio * m;
+	
+	// perform an ability check for damage calc
+	ability_check(ABILITY_TYPES.DAMAGE_CALC);
 	
 	// return damage
 	return d;
