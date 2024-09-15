@@ -1762,7 +1762,7 @@ function sprite_load_parameters() {
 	decode_grid(global.allAbilities, abltGrid);
 	
 	baseAbilityType		= real(abltGrid[# ABILITY_PARAMS.TYPE,				baseAbility]);
-	baseAbilityName		= abltGrid[# ABILITY_PARAMS.NAME,				baseAbility];
+	baseAbilityName		= abltGrid[# ABILITY_PARAMS.NAME,					baseAbility];
 	baseAbilityFunction = real(abltGrid[# ABILITY_PARAMS.EFFECT_FUNCTION,	baseAbility]);
 	
 	// decode spell list
@@ -1787,10 +1787,39 @@ function sprite_get_size_string(_size) {
 	var s = _size;
 	
 	switch (s) {
-		case SPRITE_SIZES.X_SMALL:	return "X-SMALL";
+		case SPRITE_SIZES.X_SMALL:		return "X-SMALL";
 		case SPRITE_SIZES.SMALL:		return "SMALL";
-		case SPRITE_SIZES.MEDIUM:	return "MEDIUM";
+		case SPRITE_SIZES.MEDIUM:		return "MEDIUM";
 		case SPRITE_SIZES.LARGE:		return "LARGE";
-		case SPRITE_SIZES.X_LARGE:	return "X-LARGE";
+		case SPRITE_SIZES.X_LARGE:		return "X-LARGE";
 	}
+}
+
+function teambuilder_get_sprite_parameters() {
+	var sid = -1;
+	
+	if (talismanList[| selectedNameSlot] != "-1") {
+		sid = talismanList[| selectedNameSlot];	
+	}
+
+	currentSprite		= spriteGrid[# SPRITE_PARAMS.SPRITE,		sid];
+	currentFire			= spriteGrid[# SPRITE_PARAMS.FIRE,			sid];
+	currentWater		= spriteGrid[# SPRITE_PARAMS.WATER,			sid];
+	currentStorm		= spriteGrid[# SPRITE_PARAMS.STORM,			sid];
+	currentEarth		= spriteGrid[# SPRITE_PARAMS.EARTH,			sid];
+	currentAgility		= spriteGrid[# SPRITE_PARAMS.AGILITY,		sid];
+	currentAlign		= spriteGrid[# SPRITE_PARAMS.ALIGNMENT,		sid];
+	currentSize			= spriteGrid[# SPRITE_PARAMS.SIZE,			sid];
+	currentAbility		= spriteGrid[# SPRITE_PARAMS.ABILITY,		sid];
+	currentPower		= spriteGrid[# SPRITE_PARAMS.POWER,			sid];
+	currentResistance	= spriteGrid[# SPRITE_PARAMS.RESISTANCE,	sid];
+	currentLuck			= spriteGrid[# SPRITE_PARAMS.LUCK,			sid];
+	
+	var abltGrid = ds_grid_create(ABILITY_PARAMS.HEIGHT, ABILITIES.HEIGHT);
+	decode_grid(global.allAbilities, abltGrid);
+	
+	currentAbilityDesc	= abltGrid[# ABILITY_PARAMS.DESCRIPTION,	currentAbility];
+	currentAbilityName	= abltGrid[# ABILITY_PARAMS.NAME,			currentAbility];
+	
+	ds_grid_destroy(abltGrid);
 }

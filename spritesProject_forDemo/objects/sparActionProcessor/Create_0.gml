@@ -54,16 +54,15 @@ if (currentSpell >= 0) {
 }
 
 enum ACTION_PROCESSOR_STATES {
-	ANNOUNCING,
 	FADING_IN,
 	CALCULATING,
 	WAIT_FOR_FX,
 	DISPLAY_MSG,
-	INPUT_PAUSE,
+	APPLY_DAMAGE,
 	HEIGHT
 }
 
-state = ACTION_PROCESSOR_STATES.ANNOUNCING;
+state = ACTION_PROCESSOR_STATES.FADING_IN;
 
 if (currentSpell >= 0) {
 	spar.turnMsg = activeSprite.name + " is preparing to cast a spell";

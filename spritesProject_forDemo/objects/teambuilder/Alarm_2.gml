@@ -1,1 +1,2 @@
-selectorFrame = 0;
+recentSelection = false;
+selectedSpriteSlot = -1;

@@ -84,6 +84,8 @@ var i = 0; repeat (8) {
 	// if sprite has any status effects, draw the indicators
 	if (inst.hexed) draw_sprite(spr_sparHexed, 0, inst.hexedX, inst.hexedY);
 	if (inst.bound) draw_sprite(spr_sparBound, 0, inst.boundX, inst.boundY);
+	if (inst.invulnerable)	draw_sprite(spr_sparInvulnerable,	0, inst.hexedX, inst.hexedY);
+	if (inst.berserk)		draw_sprite(spr_sparBerserk,		0, inst.hexedX, inst.hexedY);
 	
 	// if sprite has a curse or blessing, draw the indicator
 	if (inst.mindset > 0) draw_sprite(spr_sparBlessings,	abs(inst.mindset) - 1,	inst.mindsetX, inst.mindsetY);
@@ -97,7 +99,7 @@ var i = 0; repeat (8) {
 		draw_set_font(plainFont);
 		
 		draw_sprite(spr_readyDisplayBox, 0, inst.x, inst.y);
-		draw_text_pixel_perfect(inst.x - 27, inst.y - 15, inst.readyDisplay, 1);
+		draw_text_pixel_perfect(inst.x - 27, inst.y - 15, inst.readyDisplay, 7, sprite_get_width(spr_readyDisplayBox) - 4);
 	}
 	
 	// reset halign and valign
@@ -122,7 +124,7 @@ draw_set_alpha(1.0);
 		if (sparPhase == sparPhases.select) {
 			draw_sprite(spr_sparSelectionMenu, 0, selectionMsgX, selectionMsgY);
 			if !(instance_exists(sparReadyButton)) {
-				draw_text_pixel_perfect(selectionMsgX, selectionMsgY, selectionMsg, 1);
+				draw_text_pixel_perfect(selectionMsgX, selectionMsgY, selectionMsg, 1, 256);
 			}
 		}
 		
@@ -140,7 +142,7 @@ draw_set_alpha(1.0);
 					draw_sprite(spr_sparActionButton, inst.frame, inst.x, inst.y);
 					draw_set_color(inst.textColor);
 					
-					draw_text_pixel_perfect(inst.x, inst.y + 3, inst.name, 1);
+					draw_text_pixel_perfect(inst.x, inst.y + 3, inst.name, 1, 256);
 					
 					i++;
 				}
@@ -182,22 +184,22 @@ draw_set_alpha(1.0);
 			
 			// check if power is greater than 0
 			if (sparSpellMenu.spellPower > 0) {
-				draw_text_pixel_perfect(sparSpellMenu.powerDrawX, sparSpellMenu.powerDrawY, string(sparSpellMenu.spellPower), 0.5);
+				draw_text_pixel_perfect(sparSpellMenu.powerDrawX, sparSpellMenu.powerDrawY, string(sparSpellMenu.spellPower), 1, 256);
 			}	else	{
-				draw_text_pixel_perfect(sparSpellMenu.powerDrawX, sparSpellMenu.powerDrawY + 1, "--", 0.5);	
+				draw_text_pixel_perfect(sparSpellMenu.powerDrawX, sparSpellMenu.powerDrawY + 1, "--", 1, 256);	
 			}
 			
 			// check if cost is greater than 0
 			if (sparSpellMenu.spellCost > 0) {
-				draw_text_pixel_perfect(sparSpellMenu.costDrawX, sparSpellMenu.costDrawY, string(sparSpellMenu.spellCost), 0.5);	
+				draw_text_pixel_perfect(sparSpellMenu.costDrawX, sparSpellMenu.costDrawY, string(sparSpellMenu.spellCost), 1, 256);	
 			}	else	{
-				draw_text_pixel_perfect(sparSpellMenu.costDrawX, sparSpellMenu.costDrawY, "--", 0.5);	
+				draw_text_pixel_perfect(sparSpellMenu.costDrawX, sparSpellMenu.costDrawY, "--", 1, 256);	
 			}
 			
 			draw_set_halign(fa_left);
 			draw_set_valign(fa_top);
 			
-			draw_text_transformed(sparSpellMenu.descDrawX, sparSpellMenu.descDrawY, sparSpellMenu.description, 0.5, 0.5, 0);
+			draw_text_pixel_perfect(sparSpellMenu.descDrawX, sparSpellMenu.descDrawY, sparSpellMenu.description, 1, 256);
 			
 			draw_set_halign(fa_center);
 			draw_set_valign(fa_middle);
@@ -316,7 +318,7 @@ draw_set_alpha(1.0);
 		draw_set_font(plainFont);
 		
 		draw_sprite(spr_sparTurnMessage, 0, turnMsgX, turnMsgY);
-		draw_text_pixel_perfect(turnMsgX, turnMsgY, turnMsg, 1);
+		draw_text_pixel_perfect(turnMsgX, turnMsgY, turnMsg, 1, 256);
 	}
 
 	draw_set_alpha(1.0);
@@ -340,7 +342,7 @@ draw_set_alpha(1.0);
 				draw_sprite(spr_sparHoverMenuNameplate, 0, hoverMenu_nameplateX, hoverMenu_nameplateY);
 				
 				// draw name
-				draw_text_pixel_perfect(hoverMenu_nameplateX, hoverMenu_nameplateY + 3.5, hs.name, 1);
+				draw_text_pixel_perfect(hoverMenu_nameplateX, hoverMenu_nameplateY + 3.5, hs.name, 1, 256);
 				
 				draw_set_color(COL_BLACK);
 				
@@ -366,7 +368,7 @@ draw_set_alpha(1.0);
 					if (hs.currentPower > hs.basePower) draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnOneX + 12,		hoverMenu_rowTwoY + 0.5,		string(hs.currentPower), 1);
+					draw_text_pixel_perfect(hoverMenu_columnOneX + 12,		hoverMenu_rowTwoY + 0.5,		string(hs.currentPower), 1, 256);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -386,7 +388,7 @@ draw_set_alpha(1.0);
 					if (hs.currentResistance> hs.baseResistance)	draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnOneX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentResistance), 1);
+					draw_text_pixel_perfect(hoverMenu_columnOneX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentResistance), 1, 256);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -406,7 +408,7 @@ draw_set_alpha(1.0);
 					if (hs.currentAgility > hs.baseAgility)	draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnTwoX + 12,		hoverMenu_rowTwoY + 0.5,		string(hs.currentAgility), 1);
+					draw_text_pixel_perfect(hoverMenu_columnTwoX + 12,		hoverMenu_rowTwoY + 0.5,		string(hs.currentAgility), 1, 256);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -426,7 +428,7 @@ draw_set_alpha(1.0);
 					if (hs.currentLuck > hs.baseLuck)		draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnTwoX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentLuck), 1);
+					draw_text_pixel_perfect(hoverMenu_columnTwoX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentLuck), 1, 256);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -446,7 +448,7 @@ draw_set_alpha(1.0);
 					if (hs.currentFire > hs.baseFire)		draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnThreeX + 12,		hoverMenu_rowTwoY + 0.5,		string(hs.currentFire), 1);
+					draw_text_pixel_perfect(hoverMenu_columnThreeX + 12,		hoverMenu_rowTwoY + 0.5,		string(hs.currentFire), 1, 256);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -466,7 +468,7 @@ draw_set_alpha(1.0);
 					if (hs.currentWater > hs.baseWater)		draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnThreeX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentWater), 1);
+					draw_text_pixel_perfect(hoverMenu_columnThreeX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentWater), 1, 256);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -486,7 +488,7 @@ draw_set_alpha(1.0);
 					if (hs.currentStorm > hs.baseStorm)		draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnFourX + 12,		hoverMenu_rowTwoY + 0.5,		string(hs.currentStorm), 1);
+					draw_text_pixel_perfect(hoverMenu_columnFourX + 12,		hoverMenu_rowTwoY + 0.5,		string(hs.currentStorm), 1, 256);
 					
 					// reset the color to black
 					draw_set_color(COL_BLACK);
@@ -506,7 +508,7 @@ draw_set_alpha(1.0);
 					if (hs.currentEarth > hs.baseEarth)		draw_set_color(c_green);
 					
 					// draw stat
-					draw_text_pixel_perfect(hoverMenu_columnFourX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentEarth), 1);
+					draw_text_pixel_perfect(hoverMenu_columnFourX + 12,		hoverMenu_rowFourY + 0.5,		string(hs.currentEarth), 1, 256);
 					
 					// reset color to black
 					draw_set_color(COL_BLACK);
@@ -531,6 +533,27 @@ draw_set_alpha(1.0);
 	}
 #endregion
 
+#region WAITING FOR OTHER PLAYER
+
+if (onlineWaiting) {
+	draw_set_alpha(0.5);
+	
+	draw_rectangle_color(0, 0, guiWidth, guiHeight, COL_BLACK, COL_BLACK, COL_BLACK, COL_BLACK, false);
+	
+	draw_set(fa_center, fa_middle, 1.0, COL_WHITE);
+	var str = "Waiting for other player";
+	
+	var modVar = global.gameTime mod 56;
+	
+	if (modVar < 14)	str += ".";
+	if (modVar < 28)	str += "..";
+	if (modVar < 42)	str += "...";
+	
+	draw_text_pixel_perfect(guiWidth / 2, guiHeight / 2, str, 1, 256);
+}
+
+#endregion
+
 #region WIN LOSE DISPLAY
 	if (instance_exists(winLoseDisplay)) {
 		draw_set_alpha(0.5);
@@ -541,6 +564,6 @@ draw_set_alpha(1.0);
 		
 		draw_set_alpha(1.0);
 		
-		draw_text_pixel_perfect(guiWidth / 2, guiHeight / 2, winLoseDisplay.text, 1);
+		draw_text_pixel_perfect(guiWidth / 2, guiHeight / 2, winLoseDisplay.text, 1, 256);
 	}
 #endregion

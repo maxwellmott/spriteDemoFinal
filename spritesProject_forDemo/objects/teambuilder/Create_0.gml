@@ -23,26 +23,26 @@ var i = 0;	repeat (ds_list_size(talismanList)) {
 }
 
 // initialize visible row count
-visibleRowCount = 3;
+visibleRowCount = 4;
 
 // set spriteslot positions
-spriteSlotOneX		= 32;
+spriteSlotOneX		= 33;
 spriteSlotTwoX		= 96;
-spriteSlotThreeX	= 160;
-spriteSlotFourX		= 224;
+spriteSlotThreeX	= 159;
+spriteSlotFourX		= 222;
 
-spriteSlotY			= 192;
+spriteSlotY			= 212;
 
 // set nameslot positions
-nameSlotColumnOne	= 48;
-nameSlotColumnTwo	= 128;
-nameSlotColumnThree	= 208;
+nameSlotColumnOne	= 39;
+nameSlotColumnTwo	= 119;
 
-nameSlotRowOne		= 17;
-nameSlotRowTwo		= 48;
-nameSlotRowThree	= 80;
-nameSlotRowFour		= 112;
-nameSlotRowFive		= 141;
+nameSlotRowOne		= 24;
+nameSlotRowTwo		= 44;
+nameSlotRowThree	= 76;
+nameSlotRowFour		= 108;
+nameSlotRowFive		= 140;
+nameSlotRowSix		= 160;
 
 // set bbox dimensions for spriteslots
 var w = sprite_get_width(spr_teambuilderSpriteSlot);
@@ -70,8 +70,8 @@ selectedSpriteSlot = -1;
 selectedNameSlot = 0;
 
 // set rowWidth and columnHeight
-rowWidth = 3;
-columnHeight = 3;
+rowWidth = 2;
+columnHeight = 4;
 
 // get rosterHeight
 rosterHeight = ds_list_size(talismanList);
@@ -97,6 +97,7 @@ rowTwoFrame			= 0;
 rowThreeFrame		= 0;
 rowFourFrame		= 0;
 rowFiveFrame		= 0;
+rowSixFrame			= 0;
 
 // initialize "last" variables
 lastBottomRowNum	= bottomRowNum;
@@ -120,33 +121,31 @@ selectorIndex = selectedNameSlot - start;
 
 // intialize selectorX and selectorY
 switch (selectorIndex) {
-	case 0:		selectorX = nameSlotColumnOne;		 selectorY = nameSlotRowTwo;	break;
-	case 1:		selectorX = nameSlotColumnTwo;		 selectorY = nameSlotRowTwo;	break;
-	case 2:		selectorX = nameSlotColumnThree;	 selectorY = nameSlotRowTwo;	break;
+	case 0:		selectorX = nameSlotColumnOne;		selectorY = nameSlotRowTwo;		break;
+	case 1:		selectorX = nameSlotColumnTwo;		selectorY = nameSlotRowTwo;		break;
 	
-	case 3:		selectorX = nameSlotColumnOne;		 selectorY = nameSlotRowThree;	break;
-	case 4:		selectorX = nameSlotColumnTwo;		 selectorY = nameSlotRowThree;	break;
-	case 5:		selectorX = nameSlotColumnThree;	 selectorY = nameSlotRowThree;	break;
+	case 2:		selectorX = nameSlotColumnOne;		selectorY = nameSlotRowThree;	break;
+	case 3:		selectorX = nameSlotColumnTwo;		selectorY = nameSlotRowThree;	break;
 	
-	case 6:		selectorX = nameSlotColumnOne;		 selectorY = nameSlotRowFour;	break;
-	case 7:		selectorX = nameSlotColumnTwo;		 selectorY = nameSlotRowFour;	break;
-	case 8:		selectorX = nameSlotColumnThree;	 selectorY = nameSlotRowFour;	break;
+	case 4:		selectorX = nameSlotColumnOne;		selectorY = nameSlotRowFour;	break;
+	case 5:		selectorX = nameSlotColumnTwo;		selectorY = nameSlotRowFour;	break;
+	
+	case 6:		selectorX = nameSlotColumnOne;		selectorY = nameSlotRowFive;	break; 
+	case 7:		selectorX = nameSlotColumnTwo;		selectorY = nameSlotRowFive;	break;
 }
-
-selectorFrame = 0;
-
-selectorBufferWidth = (sprite_get_width(spr_teambuilderNameSlot) / 2) + (sprite_get_width(spr_teambuilderSelector) / 2);
 
 rowShiftNum = 0;
 
-acceptString = "";
+msg = "";
+msgX = 79;
+msgY = 12;
 
 if (global.controllerType == controllerTypes.keyboard) {
-	acceptString = "PRESS ENTER TO ACCEPT";
+	msg = "PRESS ENTER TO ACCEPT";
 }
 
 if (global.controllerType == controllerTypes.gamepad) {
-	acceptString = "PRESS START TO ACCEPT";	
+	msg = "PRESS START TO ACCEPT";	
 }
 
 acceptStringX = guiWidth / 2;
@@ -155,3 +154,42 @@ acceptStringY = 152;
 asHeight = 9;
 
 onlineWaiting = false;
+
+recentSelection = false;
+
+currentSprite		=	-1;
+currentFire			=	-1;
+currentWater		=	-1;
+currentStorm		=	-1;
+currentEarth		=	-1;
+currentAgility		=	-1;
+currentAlign		=	-1;
+currentSize			=	-1;
+currentAbility		=	-1;
+currentPower		=	-1;
+currentResistance	=	-1;
+currentLuck			=	-1;
+
+currentAbilityDesc	=	-1;
+currentAbilityName	=	-1
+
+abilityDescWidth = 89;
+
+teambuilder_get_sprite_parameters();
+
+currentSpriteX = 208;
+currentSpriteY = 36;
+
+statColumnOne = 173;
+statColumnTwo = 221;
+
+statRowOne = 77;
+statRowTwo = 89;
+statRowThree = 101;
+statRowFour = 113;
+
+abilityNameX = 206;
+abilityNameY = 134;
+
+abilityDescX = 208;
+abilityDescY = 154;

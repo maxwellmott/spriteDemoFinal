@@ -1,21 +1,31 @@
 
 // check if onlineWaiting
 if !(onlineWaiting) {
-	// reset acceptString in case controller type changed
-	if (global.controllerType == controllerTypes.keyboard) {
-		acceptString = "PRESS ENTER TO ACCEPT";
-	}
+	if (selectedSpriteSlot == -1) {
+		// reset msg in case controller type changed
+		if (global.controllerType == controllerTypes.keyboard) {
+			msg = "PRESS ENTER TO ACCEPT";
+		}
 	
-	if (global.controllerType == controllerTypes.gamepad) {
-		acceptString = "PRESS START TO ACCEPT";	
+		if (global.controllerType == controllerTypes.gamepad) {
+			msg = "PRESS START TO ACCEPT";
+		}
 	}
+	else {
+		if !(recentSelection) {
+			msg = "SELECT A SPRITE!";	
+		}	
+		else {
+			msg = "SPRITE SELECTED!";	
+		}
+	}	
 	
 	// set next alarm for cascading alarm system
 	if (optionsChangingUp) 
 	|| (optionsChangingDown) {
 		if (alarm[0] == -1)	alarm[0] = alarmTime;	
 	}
-	
+			
 	#region MANAGE SELECTOR MOVEMENT
 if !(optionsChangingUp)
 	&& !(optionsChangingDown) {
@@ -23,7 +33,7 @@ if !(optionsChangingUp)
 	&& (currentRow > 0) {
 		selectedNameSlot -= rowWidth;
 		
-		if (selectorIndex <= 2) {
+		if (selectorIndex <= 1) {
 			// set rowOneFrame to 1
 			rowOneFrame = 1;
 			
@@ -39,7 +49,7 @@ if !(optionsChangingUp)
 	}
 	
 	if (global.menu_down)
-	&& (selectedNameSlot + 3 < rosterHeight) {
+	&& (selectedNameSlot + 2 < rosterHeight) {
 		selectedNameSlot += rowWidth;
 		
 		if (selectorIndex >= 6) {
@@ -80,7 +90,7 @@ if !(optionsChangingUp)
 	&& (selectedNameSlot < rosterHeight - 1) {
 		selectedNameSlot += 1;
 		
-		if (selectorIndex == 8) {
+		if (selectorIndex == 7) {
 			// set rowFiveFrame to 1
 			rowFiveFrame = 1;
 			
@@ -107,26 +117,25 @@ if (selectedNameSlot > rosterHeight - 1)	selectedNameSlot = rosterHeight - 1;
 	currentColumn = (rowWidth - 1) - ((selectedNameSlot + 1) mod rowWidth);
 	
 	#region CORRECT SELECTOR INDEX AND POSIITON
-	if (selectorFrame == 0) {
+	if !(recentSelection) {
 		// reset selectorIndex
 		var start = (bottomRowNum * rowWidth);
 		
 		selectorIndex = selectedNameSlot - start;
 		
-		// reset selectorX and selectorY
 		switch (selectorIndex) {
-			case 0:		selectorX = nameSlotColumnOne;		 selectorY = nameSlotRowTwo;	break;
-			case 1:		selectorX = nameSlotColumnTwo;		 selectorY = nameSlotRowTwo;	break;
-			case 2:		selectorX = nameSlotColumnThree;	 selectorY = nameSlotRowTwo;	break;
+			case 0:		selectorX = nameSlotColumnOne;		selectorY = nameSlotRowTwo;		break;
+			case 1:		selectorX = nameSlotColumnTwo;		selectorY = nameSlotRowTwo;		break;
 			
-			case 3:		selectorX = nameSlotColumnOne;		 selectorY = nameSlotRowThree;	break;
-			case 4:		selectorX = nameSlotColumnTwo;		 selectorY = nameSlotRowThree;	break;
-			case 5:		selectorX = nameSlotColumnThree;	 selectorY = nameSlotRowThree;	break;
+			case 2:		selectorX = nameSlotColumnOne;		selectorY = nameSlotRowThree;	break;
+			case 3:		selectorX = nameSlotColumnTwo;		selectorY = nameSlotRowThree;	break;
 			
-			case 6:		selectorX = nameSlotColumnOne;		 selectorY = nameSlotRowFour;	break;
-			case 7:		selectorX = nameSlotColumnTwo;		 selectorY = nameSlotRowFour;	break;
-			case 8:		selectorX = nameSlotColumnThree;	 selectorY = nameSlotRowFour;	break;
-		}
+			case 4:		selectorX = nameSlotColumnOne;		selectorY = nameSlotRowFour;	break;
+			case 5:		selectorX = nameSlotColumnTwo;		selectorY = nameSlotRowFour;	break;
+			
+			case 6:		selectorX = nameSlotColumnOne;		selectorY = nameSlotRowFive;	break; 
+			case 7:		selectorX = nameSlotColumnTwo;		selectorY = nameSlotRowFive;	break;
+		}		
 	}
 #endregion
 	
@@ -165,13 +174,12 @@ if (selectedNameSlot > rosterHeight - 1)	selectedNameSlot = rosterHeight - 1;
 		// manage nameSlot selection
 		if (global.select) {
 			if (selectedSpriteSlot >= 0) 
-			&& (selectorFrame == 0) {
-				selectorFrame = 1;
+			&& !(recentSelection) {
+				recentSelection = true;
 				alarm[2] = 24;
 				
 				if (ds_list_find_index(teamList, talismanList[| selectedNameSlot]) == -1) {
 					teamList[| selectedSpriteSlot] = talismanList[| selectedNameSlot];
-					selectedSpriteSlot = -1;
 				}
 				else {
 					// load error SFX	
@@ -219,4 +227,8 @@ if (selectedNameSlot > rosterHeight - 1)	selectedNameSlot = rosterHeight - 1;
 if (onlineWaiting) {
 	// send a request for the enemy team every couple of seconds	
 	if (global.gameTime mod 120 == 0)	request_team_begin();
+}
+
+if !(recentSelection) {
+	teambuilder_get_sprite_parameters();	
 }

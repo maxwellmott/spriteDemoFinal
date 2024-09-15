@@ -95,14 +95,6 @@ enum arenas {
 	height
 }
 
-enum mindsets {
-	tree,
-	warrior,
-	mother,
-	imp,
-	height
-}
-
 enum sparTypes {
 	inGame,
 	localMulti,
@@ -621,29 +613,28 @@ function sprite_build_ready_display() {
 	switch (selectedAction) {
 		case sparActions.attack:
 			if (selectedTarget > 3) {
-				var substring = "attacking enemy " + numString;
-				readyDisplay = format_text(substring, spriteWidth - 4, 4, 1);
+				readyDisplay = "attacking enemy " + numString;
 			}
 			else {
-				var substring = "attacking ally " + numString;
-				readyDisplay = format_text(substring, spriteWidth - 4, 4, 1);
+				readyDisplay = "attacking ally " + numString;
 			}
 		break;
 		
 		case sparActions.dodge:
-			var substring = "dodging";
-			readyDisplay = format_text(substring, spriteWidth - 4, 4, 1);
+			readyDisplay = "dodging";
 		break;
 		
 		case sparActions.swap:
-			var substring = "swapping with ally " + numString;
-			readyDisplay = format_text(substring, spriteWidth - 4, 4, 1);
+			readyDisplay = "swapping with ally " + numString;
 		break;
 		
 		case sparActions.rest:
-			var substring = "resting";
-			readyDisplay = format_text(substring, spriteWidth - 4, 4, 1);
+			readyDisplay = "resting";
 		break;
+	}
+	
+	if (selectedAction >= sparActions.spell) {
+		readyDisplay = "casting " + player.spellBookGrid[# SPELL_PARAMS.NAME, ds_list_find_index(player.spellBook, selectedAction - sparActions.height)];
 	}
 	
 	readyDisplayBuilt = true;
@@ -930,11 +921,13 @@ function sprite_reload_sprite() {
 ///@desc This function is used to draw text in the battle scene. It's just a way of safely ensuring that when text
 /// is drawn with a centered alignment, it corrects if the width of the string being drawn is an odd number (can't draw
 /// pixels at decimal values) This should only be used when drawing text with a center and/or middle alignment
-function draw_text_pixel_perfect(_x, _y, _text, _scale) {
+/// This function also takes a separation and width value to ensure that the text is drawn fashionably.
+function draw_text_pixel_perfect(_x, _y, _text, _separation, _width) {
 	var xx = _x;
 	var yy = _y;
 	var tt = _text;
-	var ss = _scale;
+	var ss = _separation;
+	var ww = _width;
 	
 	if ((string_width(tt) / 2) mod 2 != 0) {
 		xx -= 1;	
@@ -944,7 +937,7 @@ function draw_text_pixel_perfect(_x, _y, _text, _scale) {
 		yy -= 1;	
 	}
 	
-	draw_text_transformed(xx, yy, tt, ss, ss, 0);
+	draw_text_ext(xx, yy, tt, ss, ww);
 }
 
 function action_check_spell(_action) {

@@ -40,8 +40,8 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_sparSwapCloud",
-    "path":"sprites/spr_sparSwapCloud/spr_sparSwapCloud.yy",
+    "name":"spr_teambuilderSelector",
+    "path":"sprites/spr_teambuilderSelector/spr_teambuilderSelector.yy",
   },
   "spriteMaskId":null,
   "visible":true,

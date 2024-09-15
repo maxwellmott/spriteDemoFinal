@@ -42,7 +42,7 @@ playerTwo.enemy = playerOne;
 // set player's spellBookGrid and
 // decode their teamList
 with (playerOne) {
-	human_build_spellBookGrid();	
+	player_build_spellBookGrid();	
 	teamList = ds_list_create();
 	decode_list(teamString, teamList);
 }
@@ -209,7 +209,7 @@ sneakAttackGrid = ds_grid_create(2, 0);
 
 sneakAttackCount = 0;
 
-uiAlpha = 0.0;
+uiAlpha = 1.0;
 
 if (instance_exists(onlineEnemy)) {
 

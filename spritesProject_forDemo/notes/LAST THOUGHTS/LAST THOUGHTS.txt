@@ -434,4 +434,8 @@ COMING BACK FROM PLAYTEST BUILD
 			
 		-add weak elemental spells that provide solid buffs
 		
-	9/13 removed some notes to clear space for the above list. Books are done. Ability checks are done.
+	9/13 removed some notes to clear space for the above list. Books are done. Ability checks are done.\
+	
+	9/15	
+			-FIX SPELLBOOK MENU FONT (pixel size 32, use arrows to make em size)
+			-FINISH REMOVING FORMAT_TEXT (find a workaround using draw_text_ext wherever you find format_text)

@@ -134,6 +134,7 @@ enum STATUSES {
 
 // enum that contains all spar mindsets
 enum MINDSETS {
+	NORMAL,
 	MOTHER,
 	WARRIOR,
 	IMP,
@@ -316,6 +317,7 @@ enum SPAR_EFFECTS {
 	SKYDIVE_FAILURE,
 	SNEAK_ATTACK_FAILURE,
 	ACTIVATE_ABILITY,
+	BONUS_SPELL,
 	HEIGHT
 }
 
@@ -3153,12 +3155,13 @@ function set_deflective(_caster) {
 
 ///@desc SPAR EFFECT: apply boosted elemental damage
 /// against the caster
-function deflect_spell() {
-	var c = activeSprite;
-	var t = targetSprite;
+function deflect_spell(_atkr, _targ, _damg) {
+	var c = _atkr;
+	var t = _targ;
+	var p = _damg;
 	
 	// calculate spell damage
-	var d = damage * 1.3;
+	var d = p * 1.3;
 	
 	// check if caster is also deflective
 	if !(spar_check_deflective(t, c, d)) {
@@ -3807,6 +3810,15 @@ function activate_ability(_sprite) {
 	subject = s.name;
 }
 
+///@desc SPAR EFFECT: announces that a spell was added to a player's spellbook
+function bonus_spell(_player) {
+	// store args in locals
+	var p = _player;
+	
+	// set subject
+	subject = p.name;
+}
+
 // get text from csv file
 var textGrid = load_csv("SPAR_EFFECTS_ENGLISH.csv");
 
@@ -3840,9 +3852,9 @@ master_grid_add_spar_effect(SPAR_EFFECTS.SHIFT_MINDSET,						textGrid[# 1, SPAR_
 master_grid_add_spar_effect(SPAR_EFFECTS.COPY_MINDSET,						textGrid[# 1, SPAR_EFFECTS.COPY_MINDSET],						copy_mindset,						sparFX_copyMindset);			
 master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_MP,						textGrid[# 1, SPAR_EFFECTS.RESTORE_MP],							restore_mp_spar_effect,				sparFX_restore);				
 master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_HP,						textGrid[# 1, SPAR_EFFECTS.RESTORE_HP],							restore_hp_spar_effect,				sparFX_restore);				
-master_grid_add_spar_effect(SPAR_EFFECTS.DEPLETE_MP,						textGrid[# 1, SPAR_EFFECTS.DEPLETE_MP],							deplete_mp_spar_effect,				noone);							
-master_grid_add_spar_effect(SPAR_EFFECTS.DEPLETE_HP,						textGrid[# 1, SPAR_EFFECTS.DEPLETE_HP],							deplete_hp_spar_effect,				noone);							
-master_grid_add_spar_effect(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL,				textGrid[# 1, SPAR_EFFECTS.DEPLETE_HP_NONLETHAL],				deplete_hp_nonlethal,				noone);							
+master_grid_add_spar_effect(SPAR_EFFECTS.DEPLETE_MP,						textGrid[# 1, SPAR_EFFECTS.DEPLETE_MP],							deplete_mp_spar_effect,				EMPTY_SPRITE);							
+master_grid_add_spar_effect(SPAR_EFFECTS.DEPLETE_HP,						textGrid[# 1, SPAR_EFFECTS.DEPLETE_HP],							deplete_hp_spar_effect,				EMPTY_SPRITE);							
+master_grid_add_spar_effect(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL,				textGrid[# 1, SPAR_EFFECTS.DEPLETE_HP_NONLETHAL],				deplete_hp_nonlethal,				EMPTY_SPRITE);							
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_BOUND,							textGrid[# 1, SPAR_EFFECTS.SET_BOUND],							set_bound,							sparFX_bound);					
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_HEXED,							textGrid[# 1, SPAR_EFFECTS.SET_HEXED],							set_hexed,							sparFX_hexed);					
 master_grid_add_spar_effect(SPAR_EFFECTS.REMOVE_BOUND,						textGrid[# 1, SPAR_EFFECTS.REMOVE_BOUND],						remove_bound,						sparFX_clearStatus);			
@@ -3939,7 +3951,7 @@ master_grid_add_spar_effect(SPAR_EFFECTS.BALL_LIGHTNING_APPLY_DAMAGE,		textGrid[
 master_grid_add_spar_effect(SPAR_EFFECTS.BLACK_HOLE_SET_ACTIVE,				textGrid[# 1, SPAR_EFFECTS.BLACK_HOLE_SET_ACTIVE],				black_hole_set_active,				sparFX_blackHole);				
 master_grid_add_spar_effect(SPAR_EFFECTS.BLACK_HOLE_ABSORB_SPELL,			textGrid[# 1, SPAR_EFFECTS.BLACK_HOLE_ABSORB_SPELL],			black_hole_absorb_spell,			sparFX_blackHole);				
 master_grid_add_spar_effect(SPAR_EFFECTS.BLACK_HOLE_APPLY_DAMAGE,			textGrid[# 1, SPAR_EFFECTS.BLACK_HOLE_APPLY_DAMAGE],			black_hole_apply_damage,			sparFX_energyBlast);			
-master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_SELF_DAMAGE,					textGrid[# 1, SPAR_EFFECTS.APPLY_SELF_DAMAGE],					apply_self_damage,					noone);							
+master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_SELF_DAMAGE,					textGrid[# 1, SPAR_EFFECTS.APPLY_SELF_DAMAGE],					apply_self_damage,					EMPTY_SPRITE);							
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_BERSERK,						textGrid[# 1, SPAR_EFFECTS.SET_BERSERK],						set_berserk,						sparFX_berserk);				
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_BERSERK_NEARBY_ALLIES,			textGrid[# 1, SPAR_EFFECTS.SET_BERSERK_NEARBY_ALLIES],			set_berserk_nearby_allies,			sparFX_berserk);				
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_BERSERK_NEARBY_ENEMIES,		textGrid[# 1, SPAR_EFFECTS.SET_BERSERK_NEARBY_ENEMIES],			set_berserk_nearby_enemies,			sparFX_berserk);				
@@ -3965,7 +3977,7 @@ master_grid_add_spar_effect(SPAR_EFFECTS.SET_DEFLECTIVE,					textGrid[# 1, SPAR_
 master_grid_add_spar_effect(SPAR_EFFECTS.DEFLECT_SPELL,						textGrid[# 1, SPAR_EFFECTS.DEFLECT_SPELL],						deflect_spell,						sparFX_deflect);				
 master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_TURN_END,					textGrid[# 1, SPAR_EFFECTS.FORCE_TURN_END],						force_turn_end,						sparFX_time);					
 master_grid_add_spar_effect(SPAR_EFFECTS.REPEAT_LAST_TURN,					textGrid[# 1, SPAR_EFFECTS.REPEAT_LAST_TURN],					repeat_last_turn,					sparFX_time);					
-master_grid_add_spar_effect(SPAR_EFFECTS.PSYCHIC_ATTACK,					textGrid[# 1, SPAR_EFFECTS.PSYCHIC_ATTACK],						psychic_attack,						noone);							
+master_grid_add_spar_effect(SPAR_EFFECTS.PSYCHIC_ATTACK,					textGrid[# 1, SPAR_EFFECTS.PSYCHIC_ATTACK],						psychic_attack,						EMPTY_SPRITE);							
 master_grid_add_spar_effect(SPAR_EFFECTS.CHANGE_ALIGNMENT,					textGrid[# 1, SPAR_EFFECTS.CHANGE_ALIGNMENT],					change_alignment,					sparFX_alignment);				
 master_grid_add_spar_effect(SPAR_EFFECTS.CHANGE_SIZE,						textGrid[# 1, SPAR_EFFECTS.CHANGE_SIZE],						change_size,						sparFX_size);					
 master_grid_add_spar_effect(SPAR_EFFECTS.ENERGY_BLAST_SELF,					textGrid[# 1, SPAR_EFFECTS.ENERGY_BLAST_SELF],					energy_blast_self,					sparFX_energyBlast);			
@@ -3975,7 +3987,7 @@ master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_BEST_LUCK_TEAM,				textGrid[# 1, 
 master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_WORST_LUCK_TEAM,				textGrid[# 1, SPAR_EFFECTS.FORCE_WORST_LUCK_TEAM],				force_worst_luck_team,				sparFX_luck);					
 master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_BEST_LUCK_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.FORCE_BEST_LUCK_GLOBAL],				force_best_luck_global,				sparFX_luck);					
 master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_WORST_LUCK_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.FORCE_WORST_LUCK_GLOBAL],			force_worst_luck_global,			sparFX_luck);					
-master_grid_add_spar_effect(SPAR_EFFECTS.SET_HAIL_SPHERA,					textGrid[# 1, SPAR_EFFECTS.SET_HAIL_SPHERA],					set_hail_sphera,					noone);							
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_HAIL_SPHERA,					textGrid[# 1, SPAR_EFFECTS.SET_HAIL_SPHERA],					set_hail_sphera,					EMPTY_SPRITE);							
 master_grid_add_spar_effect(SPAR_EFFECTS.HAIL_SPHERA_SET_INVULNERABLE,		textGrid[# 1, SPAR_EFFECTS.HAIL_SPHERA_SET_INVULNERABLE],		hail_sphera_set_invulnerable,		sparFX_invulnerable);			
 master_grid_add_spar_effect(SPAR_EFFECTS.BERSERK_INCREASE_DAMAGE,			textGrid[# 1, SPAR_EFFECTS.BERSERK_INCREASE_DAMAGE],			berserk_increase_damage,			sparFX_berserk);				
 master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_BERSERK,						textGrid[# 1, SPAR_EFFECTS.APPLY_BERSERK],						apply_berserk,						sparFX_berserk);				
@@ -3998,7 +4010,8 @@ master_grid_add_spar_effect(SPAR_EFFECTS.SKYDIVE_APPLY_DAMAGE,				textGrid[# 1, 
 master_grid_add_spar_effect(SPAR_EFFECTS.SNEAK_ATTACK_APPLY_DAMAGE,			textGrid[# 1, SPAR_EFFECTS.SNEAK_ATTACK_APPLY_DAMAGE],			sneak_attack_apply_damage,			sparFX_takeDamage);				
 master_grid_add_spar_effect(SPAR_EFFECTS.SKYDIVE_FAILURE,					textGrid[# 1, SPAR_EFFECTS.SKYDIVE_FAILURE],					skydive_failure,					sparFX_failure);				
 master_grid_add_spar_effect(SPAR_EFFECTS.SNEAK_ATTACK_FAILURE,				textGrid[# 1, SPAR_EFFECTS.SNEAK_ATTACK_FAILURE],				sneak_attack_failure,				sparFX_failure);				
-master_grid_add_spar_effect(SPAR_EFFECTS.ACTIVATE_ABILITY,					textGrid[# 1, SPAR_EFFECTS.ACTIVATE_ABILITY],					activate_ability,					noone);							
+master_grid_add_spar_effect(SPAR_EFFECTS.ACTIVATE_ABILITY,					textGrid[# 1, SPAR_EFFECTS.ACTIVATE_ABILITY],					activate_ability,					EMPTY_SPRITE);		
+master_grid_add_spar_effect(SPAR_EFFECTS.BONUS_SPELL,						textGrid[# 1, SPAR_EFFECTS.BONUS_SPELL],						bonus_spell,						EMPTY_SPRITE);
 #endregion
 
 // encode the spar effect grid

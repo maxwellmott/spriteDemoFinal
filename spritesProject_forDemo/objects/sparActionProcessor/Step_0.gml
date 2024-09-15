@@ -3,7 +3,7 @@
 
 
 // if waiting for input
-if (state == ACTION_PROCESSOR_STATES.INPUT_PAUSE) {
+if (state == ACTION_PROCESSOR_STATES.APPLY_DAMAGE) {
 	
 	// fade out darkAlpha
 	if (shadeAlpha >= 0) {
@@ -15,25 +15,7 @@ if (state == ACTION_PROCESSOR_STATES.INPUT_PAUSE) {
 	if (spar_check_hpmp()) 
 	&& (shadeAlpha <= 0.0) 
 	&& (check_sprites_done_flashing()) {
-		// if select button is clicked, destroy self
-		if (global.select)	instance_destroy(id);	
-	}
-}
-
-if (state == ACTION_PROCESSOR_STATES.ANNOUNCING)
-&& (global.select) {
-	if (spellEffect >= 0) {
-		spellEffect();
-	}
-	
-	if (spellFailed) {
-		spar.turnMsg = "But the spell failed!";
-		alarm[0] = 24; 
-	}	else	{
-		// perform an ability check for spell success
-		ability_check(ABILITY_TYPES.ACTION_SUCCESS);
-		
-		state = ACTION_PROCESSOR_STATES.FADING_IN;
+		instance_destroy(id);	
 	}
 }
 
@@ -157,7 +139,7 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 		else {
 			spar.turnMsg = activeSprite.name + " didn't have the energy to make a move...";
 			
-			state = ACTION_PROCESSOR_STATES.INPUT_PAUSE;
+			state = ACTION_PROCESSOR_STATES.APPLY_DAMAGE;
 		}
 	}
 }
@@ -205,14 +187,28 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 				// check if the caster of this spell is hexed
 				spar_check_hexed(activeSprite);
 				
-				// if this is an elemental or trick spell:
-				if (spellType < SPELL_TYPES.PHYSICAL) {
+				// if this is an elemental damage spell spell:
+				if (spellType < SPELL_TYPES.PHYSICAL) 
+				&& (spellPower > 0) {
 					// if target is deflective:
-					if (spar_check_deflective(activeSprite, targetSprite, damage * 1.3)) {
+					if (spar_check_deflective(activeSprite, targetSprite, damage)) {
 						// destroy processor
 						instance_destroy(id);
 					}
 				}
+				
+				if (spellEffect >= 0) {
+					spellEffect();
+				}
+				
+				if (spellFailed) {
+					spar.turnMsg = "But the spell failed!";
+					if (alarm[0] == -1)		alarm[0] = 24;	
+					exit;
+				}
+				
+				// perform an ability check for spell success
+				ability_check(ABILITY_TYPES.ACTION_SUCCESS);
 				
 				// turn off dodging/sneaking for targetSprite
 				if (targetSprite.dodging) 
@@ -240,5 +236,5 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 	}
 	
 	// regardless of anything else, after the rest is finished, move to input pause
-	state = ACTION_PROCESSOR_STATES.INPUT_PAUSE;
+	state = ACTION_PROCESSOR_STATES.APPLY_DAMAGE;
 }

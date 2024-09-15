@@ -17,7 +17,7 @@ if (displayingSpellSelector) {
 	// draw spellInfo
 	draw_sprite(spr_spellInfoBanner, 0, infoBannerX, infoBannerY);
 	
-	draw_text(infoBannerX, infoBannerY + 1.5, spellInfoString);
+	draw_text_pixel_perfect(infoBannerX, infoBannerY + 1.5, spellInfoString, 7, infoBannerWidth);
 	
 	// draw addSpellButton
 	draw_sprite(spr_addSpellButton, addButtonFrame, addSpellButtonX, addSpellButtonY);
@@ -161,5 +161,14 @@ if (onlineWaiting) {
 	
 	draw_rectangle_color(0, 0, guiWidth, guiHeight, COL_BLACK, COL_BLACK, COL_BLACK, COL_BLACK, false);
 	
-	draw_set_alpha(1.0);
+	draw_set(fa_center, fa_middle, 1.0, COL_WHITE);
+	var str = "Waiting for other player";
+	
+	var modVar = global.gameTime mod 56;
+	
+	if (modVar < 14)	str += ".";
+	if (modVar < 28)	str += "..";
+	if (modVar < 42)	str += "...";
+	
+	draw_text_pixel_perfect(guiWidth / 2, guiHeight / 2, str, 1, 256);
 }

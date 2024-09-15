@@ -59,6 +59,8 @@ modVar = 6;
 
 drawFlip = false;
 
+spellBookHeight = ds_list_size(player.spellBook);
+
 // spar spell info display params
 
 // initialize info display x and y 

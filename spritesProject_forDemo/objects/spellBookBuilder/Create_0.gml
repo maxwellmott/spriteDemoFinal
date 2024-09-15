@@ -81,7 +81,7 @@ currentSpellID = knownSpellList[| currentSpellIndex];
 
 infoBannerWidth = sprite_get_width(spr_spellInfoBanner);
 
-spellInfoString = format_text(spellGrid[# SPELL_PARAMS.DESCRIPTION, currentSpellID], infoBannerWidth, 6, 1);
+spellInfoString = spellGrid[# SPELL_PARAMS.DESCRIPTION, currentSpellID];
 
 // initialize displayingSpellSelector
 addButtonFrame = 0;

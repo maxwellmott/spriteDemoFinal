@@ -86,7 +86,7 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 	
 	if (global.menu_right) {
 		// check if index is at max
-		if (index < SPELLMAX - 1) {
+		if (index < spellBookHeight - 1) {
 			spar.potentialCost = 0;
 			
 			pageFlip = true;
