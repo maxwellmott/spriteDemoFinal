@@ -88,3 +88,7 @@ if !(drawingMultiple) {
 		}
 	}
 }
+
+// set the alarm that will start the animation if there is one or 
+// destroy the alert if there isn't one
+alarm[0] = 60;

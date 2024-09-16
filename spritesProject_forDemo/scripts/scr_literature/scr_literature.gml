@@ -132,8 +132,8 @@ function book_build_text(_string) {
 	var currentPage = 1;
 	var newPage = true;
 	
-	var height = string_height(text);
-	var maxLines = (pageHeight div height);
+	var height = fontHeight;
+	var maxLines = (pageHeight div height) - 3;
 	
 	pages[| 0] = "";
 	pages[| 1] = "";
@@ -189,7 +189,7 @@ function book_build_text(_string) {
 				ds_grid_resize(headingGrid, 4, newGridY);	
 					
 				// add all heading parameters to headingGrid
-				headingGrid[# 0, headingCount] = format_text(headingString, pageWidth, 4, 1);
+				headingGrid[# 0, headingCount] = headingString;
 				headingGrid[# 1, headingCount] = headingX;
 				headingGrid[# 2, headingCount] = headingY;
 				headingGrid[# 3, headingCount] = currentPage;

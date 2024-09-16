@@ -2,7 +2,11 @@
 
 // swap list needs to be held globally because it needs to be referenced
 // the same way in two different events
+// both of these global variables were created so that there was a way to reference
+// them in the middle of different processes without worrying about scope
 global.swapList = -1;
+global.miasmaDamage = 0;
+global.miasmaTeam = -1;
 
 ///@desc This function asks for one argument--the ID of an effect from the SPAR_EFFECTS
 /// enum--but it is meant to be overloaded with any arguments that the given function
@@ -318,6 +322,9 @@ enum SPAR_EFFECTS {
 	SNEAK_ATTACK_FAILURE,
 	ACTIVATE_ABILITY,
 	BONUS_SPELL,
+	IMPROVE_RANGE,
+	SYNCHRONIZE_SPRITES, 
+	ARBITRATE_TURN,
 	HEIGHT
 }
 
@@ -346,8 +353,8 @@ function arena_change_ocean() {
 
 ///@desc SPAR EFFECT: sets the current ARENA to STRATOS
 function arena_change_stratos() {
-	if (spar.currentArena != arenas.skies) {
-		spar.currentArena = arenas.skies;
+	if (spar.currentArena != arenas.clouds) {
+		spar.currentArena = arenas.clouds;
 	}	else	instance_destroy(id);
 }
 
@@ -785,7 +792,9 @@ function blast_timers_decrement_count() {
 ///@desc SPAR EFFECT: applies the damage from MIASMA
 function apply_miasma(_effectedTeam) {
 	var t = _effectedTeam;
-	var d = 0;
+	global.miasmaDamage = 0;
+	
+	global.miasmaTeam = t;
 	
 	subject = t.name;
 	
@@ -796,7 +805,7 @@ function apply_miasma(_effectedTeam) {
 		&& !(t[| i].invulnerable) {
 			effectedSprites += t[| i];
 			
-			d += 125;
+			global.miasmaDamage += 125;
 		}
 		
 		i++;
@@ -806,12 +815,15 @@ function apply_miasma(_effectedTeam) {
 	ability_check(ABILITY_TYPES.APPLY_MIASMA);
 	
 	// check that damage was increased at least once before applying
-	if (d > 0) {
-		spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP, t, d);
+	if (global.miasmaDamage > 0) {
+		spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP, t, global.miasmaDamage);
 	}
-	else if (d < 0) {
-		spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t, (d * -1));
+	else if (global.miasmaDamage < 0) {
+		spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t, (global.miasmaDamage * -1));
 	}
+	
+	global.miasmaDamage = 0;
+	global.miasmaTeam = -1;
 }
 
 ///@desc SPAR EFFECT: applies negation of ELEMENTAL damage from HUM
@@ -3819,6 +3831,67 @@ function bonus_spell(_player) {
 	subject = p.name;
 }
 
+///@desc SPAR EFFECT: announces that the sprite's range was improved
+function improve_range(_sprite) {
+	// store args in locals
+	var s = _sprite;
+	
+	// set subject
+	subject = s.name;
+	
+	// use a switch statement to correct range as necesssary
+	switch (global.targetRange) {
+		case ranges.nearestOneEnemy:
+			global.targetRange = ranges.anyEnemy;
+		break;
+		
+		case ranges.nearestTwoAllies:
+			global.targetRange = ranges.anyAlly;
+		break;
+		
+		case ranges.nearestThreeSprites:
+			global.targetRange = ranges.anySprite;
+		break;
+		
+		case ranges.nearestFiveSprites:
+			global.targetRange = ranges.anySprite;
+		break;
+		
+		case ranges.nearestThreeEnemies:
+			global.targetRange = ranges.anyEnemy;
+		break;
+	}
+}
+
+///@desc SPAR EFFECT: announces that the player's team will attack in order
+/// after setting synchronizedSoldiersActive to true for them
+function synchronize_sprites(_player) {
+	// store args in locals
+	var p = _player;
+	
+	// set subject
+	subject = p.name;
+	
+	// set synchronizedSoldiersActive to true
+	p.synchronizedSoldiersActive = true;
+}
+
+///@desc SPAR EFFECT: announces that the sprite will be performing their turn
+/// right away
+function arbitrate_turn(_sprite) {
+	// store args in locals
+	var s = _sprite;
+	
+	// set subject
+	subject = s.name;
+	
+	// set spar.turnRow to sprites spotNum
+	spar.turnRow = s.spotNum;
+	
+	// create sparActionProcessor
+	create_once(0, 0, LAYER.meta, sparActionProcessor);
+}
+
 // get text from csv file
 var textGrid = load_csv("SPAR_EFFECTS_ENGLISH.csv");
 
@@ -4012,6 +4085,9 @@ master_grid_add_spar_effect(SPAR_EFFECTS.SKYDIVE_FAILURE,					textGrid[# 1, SPAR
 master_grid_add_spar_effect(SPAR_EFFECTS.SNEAK_ATTACK_FAILURE,				textGrid[# 1, SPAR_EFFECTS.SNEAK_ATTACK_FAILURE],				sneak_attack_failure,				sparFX_failure);				
 master_grid_add_spar_effect(SPAR_EFFECTS.ACTIVATE_ABILITY,					textGrid[# 1, SPAR_EFFECTS.ACTIVATE_ABILITY],					activate_ability,					EMPTY_SPRITE);		
 master_grid_add_spar_effect(SPAR_EFFECTS.BONUS_SPELL,						textGrid[# 1, SPAR_EFFECTS.BONUS_SPELL],						bonus_spell,						EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.IMPROVE_RANGE,						textGrid[# 1, SPAR_EFFECTS.IMPROVE_RANGE],						improve_range,						EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.SYNCHRONIZE_SPRITES,				textGrid[# 1, SPAR_EFFECTS.SYNCHRONIZE_SPRITES],				synchronize_sprites,				EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.ARBITRATE_TURN,					textGrid[# 1, SPAR_EFFECTS.ARBITRATE_TURN],						arbitrate_turn,						EMPTY_SPRITE);
 #endregion
 
 // encode the spar effect grid

@@ -193,3 +193,15 @@ abilityNameY = 134;
 
 abilityDescX = 208;
 abilityDescY = 154;
+
+statCoverageScore = -1;
+spellUsageScore = -1;
+
+teambuilder_stat_coverage_calculate_score();
+teambuilder_spellbook_usage_calculate_score();
+
+statCoverageX = 52;
+statCoverageY = 191;
+
+spellUsageX = 201;
+spellUsageY = 191;

@@ -4,7 +4,7 @@
 /// storm stat depending on the arena type
 function ability_check(_abilityType) {
 	// store args in locals
-	var t = _abilityType;
+	var type = _abilityType;
 	
 	// get sprite list
 	var l = spar.spriteList;
@@ -24,17 +24,84 @@ function ability_check(_abilityType) {
 		var i = 0;	repeat (ds_list_size(l)) {
 			// get current sprite
 			var inst = l[| i];
+			
+			var t = inst.team;
 		
 			// if current sprite is not on the list of checked sprites
 			if (ds_list_find_index(spritesChecked, inst) == -1) {
 				// if arena is normal
 				if (spar.currentArena == -1) {
+					// if this sprite has higher Agility than the current highest
 					if (inst.currentAgility > highest) {
+						// set highestID to inst
 						highestID = inst;
+						
+						// set highest val to inst Agility
 						highest = inst.currentAgility;
 					}
 					
-					//@TODO ADD TIEBREAKING LOGIC
+					// tiebreaker logic for normal arena
+					// if inst is tied with the current highest's Agility
+					if (inst.currentAgility == highest) {
+						// check if inst has a higher luck roll
+						if (inst.luckRoll > highestID.luckRoll) {
+							// set highestID to inst
+							highestID = inst;
+							
+							// set highest val to inst agility
+							highest = inst.currentAgility;
+						}
+						
+						// if inst is tied with the current highest's luckroll
+						if (inst.luckRoll == highestID.luckRoll) {
+							// if this is an online match
+							if (instance_exists(onlineEnemy)) {
+								// check if these sprites are both on different teams
+								if !(t == highestID.team) {								
+									// initialize firstPlayer
+									var firstPlayer = -1;
+									
+									// determine who wins the tie using the turnCounter
+									// check if turnCounter is an even number
+									if (spar.turnCounter mod 2 == 0) {
+										// check if player is the host
+										if (spar.playerOne.clientType == CLIENT_TYPES.HOST) {
+											firstPlayer = spar.playerOne;	
+										}
+										// if player is not the host
+										else {
+											firstPlayer = spar.playerTwo;	
+										}
+									}
+									// if turnCounter is an odd number
+									else {
+										// check if player is the guest
+										if (spar.playerOne.clientType == CLIENT_TYPES.GUEST) {
+											firstPlayer = spar.playerOne;
+										}
+										// if player is not the guest
+										else {
+											firstPlayer = spar.playerTwo;	
+										}
+									}
+									
+									// set highest and highestID
+									highest = inst.currentAgility;
+									highestID = inst;
+								}
+							}
+							// if this is a local match
+							else {
+								if (t == spar.playerTwo) {
+									if (highestID.team != t) {
+										// set highest and highestID
+										highest = inst.currentAgility;
+										highestID = inst;
+									}
+								}
+							}
+						}
+					}
 				}
 				
 				// if arena is OCEAN
@@ -44,25 +111,147 @@ function ability_check(_abilityType) {
 						highest = inst.currentWater;
 					}
 					
-					//@TODO ADD TIEBREAKING LOGIC
+					// tiebreaker logic for ocean
+					// if inst is tied with the current highest's Water
+					if (inst.currentWater == highest) {
+						// check if inst has a higher luck roll
+						if (inst.luckRoll > highestID.luckRoll) {
+							// set highestID to inst
+							highestID = inst;
+							
+							// set highest val to inst Water
+							highest = inst.currentWater;
+						}
+						
+						// if inst is tied with the current highest's luckroll
+						if (inst.luckRoll == highestID.luckRoll) {
+							// if this is an online match
+							if (instance_exists(onlineEnemy)) {
+								// check if these sprites are both on different teams
+								if !(t == highestID.team) {								
+									// initialize firstPlayer
+									var firstPlayer = -1;
+									
+									// determine who wins the tie using the turnCounter
+									// check if turnCounter is an even number
+									if (spar.turnCounter mod 2 == 0) {
+										// check if player is the host
+										if (spar.playerOne.clientType == CLIENT_TYPES.HOST) {
+											firstPlayer = spar.playerOne;	
+										}
+										// if player is not the host
+										else {
+											firstPlayer = spar.playerTwo;	
+										}
+									}
+									// if turnCounter is an odd number
+									else {
+										// check if player is the guest
+										if (spar.playerOne.clientType == CLIENT_TYPES.GUEST) {
+											firstPlayer = spar.playerOne;
+										}
+										// if player is not the guest
+										else {
+											firstPlayer = spar.playerTwo;	
+										}
+									}
+									
+									// set highest and highestID
+									highest = inst.currentWater;
+									highestID = inst;
+								}
+							}
+							// if this is a local match
+							else {
+								if (t == spar.playerTwo) {
+									if (highestID.team != t) {
+										// set highest and highestID
+										highest = inst.currentWater;
+										highestID = inst;
+									}
+								}
+							}
+						}
+					}
 				}
 				
 				// if arena is CLOUDS
-				if (spar.currentArena == arenas.skies) {
+				if (spar.currentArena == arenas.clouds) {
 					if (inst.currentStorm > highest) {
 						highestID = inst;
 						highest = inst.currentStorm;
 					}
-					
-					//@TODO ADD TIEBREAKING LOGIC
 				}
+				
+				// tiebreaker ocean for clouds
+					// if inst is tied with the current highest's Storm
+					if (inst.currentStorm == highest) {
+						// check if inst has a higher luck roll
+						if (inst.luckRoll > highestID.luckRoll) {
+							// set highestID to inst
+							highestID = inst;
+							
+							// set highest val to inst Storm
+							highest = inst.currentStorm;
+						}
+						
+						// if inst is tied with the current highest's luckroll
+						if (inst.luckRoll == highestID.luckRoll) {
+							// if this is an online match
+							if (instance_exists(onlineEnemy)) {
+								// check if these sprites are both on different teams
+								if !(t == highestID.team) {								
+									// initialize firstPlayer
+									var firstPlayer = -1;
+									
+									// determine who wins the tie using the turnCounter
+									// check if turnCounter is an even number
+									if (spar.turnCounter mod 2 == 0) {
+										// check if player is the host
+										if (spar.playerOne.clientType == CLIENT_TYPES.HOST) {
+											firstPlayer = spar.playerOne;	
+										}
+										// if player is not the host
+										else {
+											firstPlayer = spar.playerTwo;	
+										}
+									}
+									// if turnCounter is an odd number
+									else {
+										// check if player is the guest
+										if (spar.playerOne.clientType == CLIENT_TYPES.GUEST) {
+											firstPlayer = spar.playerOne;
+										}
+										// if player is not the guest
+										else {
+											firstPlayer = spar.playerTwo;	
+										}
+									}
+									
+									// set highest and highestID
+									highest = inst.currentStorm;
+									highestID = inst;
+								}
+							}
+							// if this is a local match
+							else {
+								if (t == spar.playerTwo) {
+									if (highestID.team != t) {
+										// set highest and highestID
+										highest = inst.currentStorm;
+										highestID = inst;
+									}
+								}
+							}
+						}
+					}
 			}
 	
 			i++;
 		}
 		
-		// perform an agility check on the next fastest sprite
-		if (highestID.currentAbilityType == t) {
+		// perform an ability check on the next sprite
+		if (highestID.currentAbilityType == type) {
 			highestID.currentAbilityFunction(highestID);	
 		}
 		
@@ -662,7 +851,23 @@ function territorial_hunter(_inst) {
 /// If this sprite is hit by an EARTH SPELL, their team instead RESTORES
 /// the amount of HEALTH that would have been lost.
 function natural_ingredients(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is the target
+	if (inst == sparActionProcessor.targetSprite) {	
+		// check if it is an earth spell
+		if (sparActionProcessor.spellType == SPELL_TYPES.EARTH) {
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for restore HP
+			spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, sparActionProcessor.damage);
+			
+			// destroy the action processor
+			instance_destroy(sparActionProcessor);
+		}
+	}	
 }
 
 ///@desc ABILITY FUNCTION -- DURENDOUX:
@@ -670,21 +875,68 @@ function natural_ingredients(_inst) {
 /// If this sprite is hit with a basic attack or physical spell, the attacker
 /// becomes BOUND.
 function absorptive_body(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is the target
+	if (inst == sparActionProcessor.targetSprite) {
+		// check that it is a basic attack or physical spell
+		if (sparActionProcessor.currentSpell == -1) 
+		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for set bound
+			spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, sparActionProcessor.activeSprite);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- STAGEFRITE:
 /// TYPE: TURN BEGIN
 /// All of this sprite's nearby sprites become HEXED at the beginning of each turn.
 function creep_out(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// get nearby sprites list
+	var l = inst.nearbySprites;
+	
+	// push a spar effect alert for activate ability
+	spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+	
+	// push a spar effect alert for set hexed nearby sprites
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_NEARBY_SPRITES, inst);
 }
 
 ///@desc ABILITY FUNCTION -- SCROOTINEYES:
 /// TYPE: TARGET SELECTION
 /// This sprite has increased RANGE for all ELEMENTAL and TRICK SPELLS.
 function all_seeing_eyes(_inst) {
-		
+	// store args in locals
+	var inst = _inst;
+	
+	// check if this sprite is the selectedAlly
+	if (inst == player.selectedAlly) {
+		// check if it is using a trick or elemental spell
+		if (global.action >= sparActions.height) {
+			// build spell grid
+			var sg = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
+			decode_grid(global.allSpells, sg);
+			
+			// get spell type
+			var st = real(sg[# SPELL_PARAMS.TYPE, global.action - sparActions.height]);		
+			
+			// check if spell is elemental or trick spell
+			if (st != SPELL_TYPES.PHYSICAL) {
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for improve range
+				spar_effect_push_alert(SPAR_EFFECTS.IMPROVE_RANGE, inst);
+			}
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- ARRAYNGE:
@@ -692,14 +944,38 @@ function all_seeing_eyes(_inst) {
 /// If this sprite is hit with a basic attack or physical spell, the attacker
 /// is forced to swap with a random ally.
 function sort_away(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is the target
+	if (inst == sparActionProcessor.targetSprite) {
+		// check if it is a basic attack or physical spell
+		if (sparActionProcessor.currentSpell == -1) 
+		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {	
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for force swap
+			spar_effect_push_alert(SPAR_EFFECTS.FORCE_SWAP, sparActionProcessor.activeSprite);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- TICKDOFF:
 /// TYPE: TURN END
 /// This sprite becomes BERSERK at the end of every fifth turn.
 function short_fuse(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this turn is a multiple of 5
+	if (spar.turnCounter mod 5 == 0) {	
+		// push a spar effect alert for activate ability
+		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		
+		// push a spar effect alert for set berserk
+		spar_effect_push_alert(SPAR_EFFECTS.SET_BERSERK, inst);
+	}
 }
 
 ///@desc ABILITY FUNCTION -- FORTUGA:
@@ -707,7 +983,21 @@ function short_fuse(_inst) {
 /// If one of this sprite's nearby allies is targeted by a PHYSICAL SPELL or
 /// BASIC ATTACK, they will take the target's place.
 function offer_refuge(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if the target is one of this sprite's nearbyAllies
+	if (ds_list_find_index(inst.nearbyAllies, sparActionProcessor.targetSprite) != -1) {
+		// check if it is a basic attack or physical spell
+		if (sparActionProcessor.currentSpell == -1) 
+		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for replace target
+			spar_effect_push_alert(SPAR_EFFECTS.REPLACE_TARGET, inst, sparActionProcessor.targetSprite);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- SPYOTIS:
@@ -715,21 +1005,52 @@ function offer_refuge(_inst) {
 /// This sprite sets HUM on both sides of the field at the beginning of each
 /// turn.
 function signal_jammer(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check that HUM is inactive on at least one side of the field
+	if !(spar.playerOne.hum) 
+	|| !(spar.playerTwo.hum) {
+		// push a spar effect alert for activate ability
+		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		
+		// push a spar effect alert for set hum global
+		spar_effect_push_alert(SPAR_EFFECTS.SET_HUM_GLOBAL);
+	}
 }
 
 ///@desc ABILITY FUNCTION -- DRUMLINE:
-/// TYPE: TURN PROCESS
+/// TYPE: TURN BEGIN
 /// This sprite's allies attack in order of the teamList.
 function synchronized_soldiers(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// push a spar effect alert for activate ability
+	spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+	
+	// push a spar effect alert for synchronize sprites
+	spar_effect_push_alert(SPAR_EFFECTS.SYNCHRONIZE_SPRITES, inst.team);
 }
 
 ///@desc ABILITY FUNCTION -- REVOLTURE:
 /// TYPE: APPLY MIASMA
 /// This sprite's team RESTORES HEALTH from MIASMA instead of taking damage
 function herbal_concoction(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite's team is the miasmaTeam
+	if (inst.team == global.miasmaTeam) {
+		// check if global.miasmaDamge is greater than 0
+		if (global.miasmaDamage > 0) {
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY);
+			
+			// multiply global.miasmaDamage by -1
+			global.miasmaDamage = global.miasmaDamage * -1;
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- CLEANSAGE:
@@ -737,7 +1058,39 @@ function herbal_concoction(_inst) {
 /// When this sprite RESTS, it removes all HINDRANCES for their team
 /// and RESTORES 250 HP.
 function healing_haze(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	var activated = false;
+	
+	// check if this sprite is resting
+	if (inst.resting) {
+		// check if any hindrances are active for this sprite's team
+		if (inst.team.miasma) 
+		|| (inst.team.rust)
+		|| (inst.team.hum) {
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for clear hindrances
+			spar_effect_push_alert(SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES, inst.team);
+		
+			// set activated to true
+			activated = true;
+		}
+		
+		// check if this sprite's team has less than max hp
+		if (inst.team.currentHP < MAX_HP) {
+			// if ability wasn't already activated
+			if !(activated) {
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			}
+			
+			// push a spar effect alert for restore hp
+			spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, 250);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- FLOTSO:
@@ -1012,7 +1365,7 @@ master_grid_add_ability(ABILITIES.UNBREAKABLE_SHELL,		textGrid[# 1, ABILITIES.UN
 master_grid_add_ability(ABILITIES.SUPERCHARGED,				textGrid[# 1, ABILITIES.SUPERCHARGED],				textGrid[# 2, ABILITIES.SUPERCHARGED],			ABILITY_TYPES.ACTION_SUCCESS,			supercharged);
 master_grid_add_ability(ABILITIES.WELL_READ,				textGrid[# 1, ABILITIES.WELL_READ],					textGrid[# 2, ABILITIES.WELL_READ],				ABILITY_TYPES.TURN_BEGIN,				well_read);
 master_grid_add_ability(ABILITIES.POWER_OF_FRIENDSHIP,		textGrid[# 1, ABILITIES.POWER_OF_FRIENDSHIP],		textGrid[# 2, ABILITIES.POWER_OF_FRIENDSHIP],	ABILITY_TYPES.ACTION_SUCCESS,			power_of_friendship);
-master_grid_add_ability(ABILITIES.UNDERSEA_PREDATOR,		textGrid[# 1, ABILITIES.UNDERSEA_PREDATOR],			textGrid[# 2, ABILITIES.UNDERSEA_PREDATOR],		ABILITY_TYPES.ACTION_BEGIN,			undersea_predator);
+master_grid_add_ability(ABILITIES.UNDERSEA_PREDATOR,		textGrid[# 1, ABILITIES.UNDERSEA_PREDATOR],			textGrid[# 2, ABILITIES.UNDERSEA_PREDATOR],		ABILITY_TYPES.ACTION_BEGIN,				undersea_predator);
 master_grid_add_ability(ABILITIES.UNSTABLE_POWER,			textGrid[# 1, ABILITIES.UNSTABLE_POWER],			textGrid[# 2, ABILITIES.UNSTABLE_POWER],		ABILITY_TYPES.TURN_BEGIN,				unstable_power);
 master_grid_add_ability(ABILITIES.FREE_REFILLS,				textGrid[# 1, ABILITIES.FREE_REFILLS],				textGrid[# 2, ABILITIES.FREE_REFILLS],			ABILITY_TYPES.TURN_END,					free_refills);
 master_grid_add_ability(ABILITIES.REFLECTIVE_SURFACE,		textGrid[# 1, ABILITIES.REFLECTIVE_SURFACE],		textGrid[# 2, ABILITIES.REFLECTIVE_SURFACE],	ABILITY_TYPES.TURN_BEGIN,				reflective_surface);
@@ -1029,7 +1382,7 @@ master_grid_add_ability(ABILITIES.SORT_AWAY,				textGrid[# 1, ABILITIES.SORT_AWA
 master_grid_add_ability(ABILITIES.SHORT_FUSE,				textGrid[# 1, ABILITIES.SHORT_FUSE],				textGrid[# 2, ABILITIES.SHORT_FUSE],			ABILITY_TYPES.TURN_END,					short_fuse);
 master_grid_add_ability(ABILITIES.OFFER_REFUGE,				textGrid[# 1, ABILITIES.OFFER_REFUGE],				textGrid[# 2, ABILITIES.OFFER_REFUGE],			ABILITY_TYPES.ACTION_BEGIN,				offer_refuge);
 master_grid_add_ability(ABILITIES.SIGNAL_JAMMER,			textGrid[# 1, ABILITIES.SIGNAL_JAMMER],				textGrid[# 2, ABILITIES.SIGNAL_JAMMER],			ABILITY_TYPES.TURN_BEGIN,				signal_jammer);
-master_grid_add_ability(ABILITIES.SYNCHRONIZED_SOLDIERS,	textGrid[# 1, ABILITIES.SYNCHRONIZED_SOLDIERS],		textGrid[# 2, ABILITIES.SYNCHRONIZED_SOLDIERS],	ABILITY_TYPES.PRIORITY_CHECK,			synchronized_soldiers);
+master_grid_add_ability(ABILITIES.SYNCHRONIZED_SOLDIERS,	textGrid[# 1, ABILITIES.SYNCHRONIZED_SOLDIERS],		textGrid[# 2, ABILITIES.SYNCHRONIZED_SOLDIERS],	ABILITY_TYPES.TURN_BEGIN,				synchronized_soldiers);
 master_grid_add_ability(ABILITIES.HERBAL_CONCOCTION,		textGrid[# 1, ABILITIES.HERBAL_CONCOCTION],			textGrid[# 2, ABILITIES.HERBAL_CONCOCTION],		ABILITY_TYPES.APPLY_MIASMA,				herbal_concoction);
 master_grid_add_ability(ABILITIES.HEALING_HAZE,				textGrid[# 1, ABILITIES.HEALING_HAZE],				textGrid[# 2, ABILITIES.HEALING_HAZE],			ABILITY_TYPES.SPRITE_RESTING,			healing_haze);
 master_grid_add_ability(ABILITIES.AQUATIC_ESSENCE,			textGrid[# 1, ABILITIES.AQUATIC_ESSENCE],			textGrid[# 2, ABILITIES.AQUATIC_ESSENCE],		ABILITY_TYPES.SPRITE_RESTING,			aquatic_essence);

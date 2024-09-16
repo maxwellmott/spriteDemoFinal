@@ -1640,7 +1640,7 @@ function sprite_add_to_grid(_ID) {
 }
 	
 #region ALL SPRITE DATA
-//					ID						NAME				SPRITE					ABILITY								ALIGNMENT			USABLE SPELLS						POWER	RES		FIRE	WATER	STORM	EARTH	AGL		LUCK	SIZE
+//					ID						NAME				SPRITE					ABILITY								ALIGNMENT			USABLE SPELLS							POWER	RES		FIRE	WATER	STORM	EARTH	AGL		LUCK	SIZE
 sprite_add_to_grid(SPRITES.HACHACHACHA,		"Hacha-Chacha",		spr_hachaChachaBattle,	ABILITIES.HOT_TO_THE_TOUCH,			ALIGNMENTS.NATURAL,		encode_list(hachaSpells),			80,		50,		170,	75,		75,		110,	90,		150,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.DIIPSY,			"Diipsy",			spr_diipsyBattle,		ABILITIES.WAVY_DANCE,				ALIGNMENTS.NATURAL,		encode_list(diipsySpells),			50,		105,	85,		165,	140,	95,		125,	100,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.GLIDRAKE,		"Glidrake",			spr_glidrakeBattle,		ABILITIES.STORM_SURFER,				ALIGNMENTS.NATURAL,		encode_list(glidrakeSpells),		115,	60,		130,	65,		165,	50,		150,	90,		SPRITE_SIZES.MEDIUM);
@@ -1667,7 +1667,7 @@ sprite_add_to_grid(SPRITES.ARRAYNGE,		"Arraynge",			spr_arrayngeBattle,		ABILITI
 sprite_add_to_grid(SPRITES.TICKDOFF,		"Tickdoff",			spr_tikdoffBattle,		ABILITIES.SHORT_FUSE,				ALIGNMENTS.MECHANICAL,	encode_list(tikdoffSpells),			130,	75,		190,	50,		110,	60,		120,	85,		SPRITE_SIZES.LARGE);
 sprite_add_to_grid(SPRITES.FORTUGA,			"Fortuga",			spr_fortugaBattle,		ABILITIES.OFFER_REFUGE,				ALIGNMENTS.NATURAL,		encode_list(fortugaSpells),			90,		190,	65,		155,	75,		135,	45,		100,	SPRITE_SIZES.X_LARGE);
 sprite_add_to_grid(SPRITES.SPYOTIS,			"Spyotis",			spr_spyotisBattle,		ABILITIES.SIGNAL_JAMMER,			ALIGNMENTS.MECHANICAL,	encode_list(spyotisSpells),			125,	85,		85,		105,	170,	125,	190,	150,	SPRITE_SIZES.X_SMALL);
-sprite_add_to_grid(SPRITES.DRUMLINE,		"Drumline",			spr_drumlineBattle,		ABILITIES.SYNCHRONIZED_SOLDIERS,	ALIGNMENTS.MECHANICAL,	encode_list(drumlineSpells),		100,	160,	85,		65,		90,		90,		120,	150,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.DRUMLINE,		"Drumline",			spr_drumlineBattle,		ABILITIES.SYNCHRONIZED_SOLDIERS,	ALIGNMENTS.MECHANICAL,	encode_list(drumlineSpells),		100,	130,	80,		80,		80,		120,	140,	150,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.REVOLTURE,		"Revolture",		spr_revoltureBattle,	ABILITIES.HERBAL_CONCOCTION,		ALIGNMENTS.MECHANICAL,	encode_list(revoltureSpells),		105,	140,	75,		70,		85,		80,		85,		75,		SPRITE_SIZES.MEDIUM);
 sprite_add_to_grid(SPRITES.CLEANSAGE,		"Cleansage",		spr_cleansageBattle,	ABILITIES.HEALING_HAZE,				ALIGNMENTS.ASTRAL,		encode_list(cleansageSpells),		70,		125,	135,	60,		105,	140,	55,		80,		SPRITE_SIZES.LARGE);
 sprite_add_to_grid(SPRITES.FLOTSU,			"Flotsu",			spr_flotsuBattle,		ABILITIES.AQUATIC_ESSENCE,			ALIGNMENTS.NATURAL,		encode_list(flotsuSpells),			90,		135,	50,		180,	100,	85,		60,		100,	SPRITE_SIZES.LARGE);
@@ -1703,7 +1703,7 @@ sprite_add_to_grid(SPRITES.SHPUPO,			"Shpupo",			spr_shpupoBattle,		ABILITIES.SP
 sprite_add_to_grid(SPRITES.NEEDLEPAW,		"Needlepaw",		spr_needlepawBattle,	ABILITIES.BAD_OMEN,					ALIGNMENTS.ASTRAL,		encode_list(needlepawSpells),		155,	55,		110,	50,		90,		110,	180,	50,		SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.OMNOST,			"Omnost",			spr_omnostBattle,		ABILITIES.ALL_KNOWING,				ALIGNMENTS.ASTRAL,		encode_list(omnostSpells),			50,		80,		110,	110,	150,	110,	70,		150,	SPRITE_SIZES.X_LARGE);
 sprite_add_to_grid(SPRITES.PRISMATTER,		"Prismatter",		spr_prismatterBattle,	ABILITIES.BEND_PHYSICS,				ALIGNMENTS.NATURAL,		encode_list(prismatterSpells),		180,	145,	40,		135,	40,		135,	75,		35,		SPRITE_SIZES.X_LARGE);
-sprite_add_to_grid(SPRITES.KRONARC,			"Kronarc",			spr_kronarcBattle,		ABILITIES.COMPRESS_TIME,			ALIGNMENTS.MECHANICAL,	encode_list(kronarcSpells),			80,		120,	120,	120,	120,	120,	95,		150,	SPRITE_SIZES.X_LARGE);
+sprite_add_to_grid(SPRITES.KRONARC,			"Kronarc",			spr_kronarcBattle,		ABILITIES.COMPRESS_TIME,			ALIGNMENTS.MECHANICAL,	encode_list(kronarcSpells),			80,		120,	120,	120,	120,	120,	115,	150,	SPRITE_SIZES.X_LARGE);
 sprite_add_to_grid(SPRITES.COSMALCOS,		"Cosmalcos",		spr_cosmalcosBattle,	ABILITIES.END_OF_DAYS,				-1,						encode_list(cosmalcosSpells),		120,	195,	50,		50,		50,		50,		30,		150,	SPRITE_SIZES.X_LARGE);
 
 #endregion

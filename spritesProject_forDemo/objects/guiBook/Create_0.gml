@@ -12,13 +12,13 @@ font	= -1;
 pages		= ds_list_create();
 spriteIDs	= ds_list_create();
 
-rightPageX	= 135;
-leftPageX	= 12;
+rightPageX	= 138;
+leftPageX	= 15;
 
-textY = 30;
+textY = 29;
 
-pageHeight	= 162;
-pageWidth	= 109;
+pageHeight	= 160;
+pageWidth	= 104;
 
 pageIndex		= 0;
 leftPageNum		= 0;
@@ -43,3 +43,5 @@ imageCount		= 0;
 flipFrame = 0;
 
 textColor = $14506e;
+
+fontHeight = 8;

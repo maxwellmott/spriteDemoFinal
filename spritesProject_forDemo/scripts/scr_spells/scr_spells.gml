@@ -784,7 +784,7 @@ function endless_river() {
 	spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_OCEAN);
 }
 
-///@desc SPELL FUNCTION: changes the arena to SKIES
+///@desc SPELL FUNCTION: changes the arena to clouds
 function cloud_break() {
 	spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_STRATOS);
 }
@@ -987,8 +987,8 @@ function spellbook_load_spell_params() {
 	spellRange		= player.spellBookGrid[# SPELL_PARAMS.RANGE,		index];
 	spellPower		= player.spellBookGrid[# SPELL_PARAMS.POWER,		index];
 	spellCost		= player.spellBookGrid[# SPELL_PARAMS.COST,			index];
-
-	description = format_text(description, descWidth, 7, 0.5);
+	
+	description = string_insert("   ", description, 0);
 	
 	enoughMP = spell_set_potential_cost(spellCost);
 }

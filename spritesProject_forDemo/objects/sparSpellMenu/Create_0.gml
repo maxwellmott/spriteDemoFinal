@@ -66,6 +66,8 @@ spellBookHeight = ds_list_size(player.spellBook);
 // initialize info display x and y 
 var idsw = sprite_get_width(infoDisplaySprite);
 
+infoBannerWidth = idsw - 4;
+
 infoDisplayX = (idsw / 2) + spriteWidth + 4;
 infoDisplayY = (guiHeight / 2);
 
@@ -77,7 +79,7 @@ rangeDrawX = infoDisplayX - (idsw / 2) + 31;
 rangeDrawY = infoDisplayY - 14;
 
 powerDrawX = rangeDrawX + 41;
-powerDrawY = rangeDrawY + 2;
+powerDrawY = rangeDrawY - 2;
 
 costDrawX = powerDrawX + 39;
 costDrawY = powerDrawY;
@@ -86,4 +88,4 @@ typeDrawX = costDrawX + 40;
 typeDrawY = rangeDrawY;
 
 descDrawX = infoDisplayX - 86;
-descDrawY = infoDisplayY - 7;
+descDrawY = infoDisplayY - 16;

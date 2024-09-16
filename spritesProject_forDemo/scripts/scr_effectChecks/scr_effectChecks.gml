@@ -192,7 +192,7 @@ function spar_check_arena_effects(_spellType) {
 				}
 			break;
 			
-			case arenas.skies:
+			case arenas.clouds:
 				// check if currentSpell is an earth spell
 				if (st == SPELL_TYPES.EARTH) {
 					global.damageMultiplierIndex -= 2;

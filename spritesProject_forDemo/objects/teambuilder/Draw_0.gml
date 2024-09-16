@@ -201,6 +201,10 @@ if (currentSprite != "-4") {
 	draw_text_pixel_perfect(abilityDescX, abilityDescY, currentAbilityDesc, 8, abilityDescWidth);
 }
 
+// draw stat coverage and spell usage score marks
+draw_sprite(spr_scoreMarks, statCoverageScore,	statCoverageX,	statCoverageY);
+draw_sprite(spr_scoreMarks, spellUsageScore,	spellUsageX,	spellUsageY);
+
 if (onlineWaiting) {
 	draw_set_alpha(0.5);
 	

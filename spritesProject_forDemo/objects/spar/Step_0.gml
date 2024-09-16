@@ -38,7 +38,11 @@ switch (sparPhase) {
 		
 		playerOne.ready = false;
 		playerTwo.ready = false;
-	
+		
+		// set synchronizedSoldiersActive to false for both players
+		playerOne.synchronizedSoldiersActive = false; 
+		playerTwo.synchronizedSoldiersActive = false; 
+		
 		spar_check_sneaking_deal_damage();
 		spar_check_skydiving_deal_damage();		
 		spar_check_black_hole_deal_damage();
@@ -174,6 +178,112 @@ switch (sparPhase) {
 								abilityChecked_priorityCheck = true;
 							}
 							
+							// if both teams are synchronized, determine who will go first
+							// and then perform both players' turns in order
+							if (playerOne.synchronizedSoldiersActive) 
+							&& (playerTwo.synchronizedSoldiersActive) {
+								// initialize firstPlayer
+								var firstPlayer = -1;
+								var secondPlayer = -1;
+								
+								// determine who wins the tie using the turnCounter
+								// check if turnCounter is an even number
+								if (turnCounter mod 2 == 0) {
+									// check if player is the host
+									if (playerOne.clientType == CLIENT_TYPES.HOST) {
+										firstPlayer = playerOne;	
+										secondPlayer = playerTwo;
+									}
+									// if player is not the host
+									else {
+										firstPlayer = playerTwo;	
+										secondPlayer = playerOne;
+									}
+								}
+								// if turnCounter is an odd number
+								else {
+									// check if player is the guest
+									if (playerOne.clientType == CLIENT_TYPES.GUEST) {
+										firstPlayer = playerOne;
+										secondPlayer = playerTwo;
+									}
+									// if player is not the guest
+									else {
+										firstPlayer = playerTwo;	
+										secondPlayer = playerOne;
+									}
+								}
+								
+								// initialize first player list and second player list
+								var fpl = -1;
+								var spl = -1;
+								
+								// get first player list and second player list
+								if (firstPlayer == playerOne) {
+									fpl = allyList;
+									spl = enemyList;
+								}
+								else {
+									fpl = enemyList;
+									spl = allyList;
+								}
+								
+								// use a repeat loop to arbitrate all turns for first player
+								var i = 0;	repeat (ds_list_size(fpl)) {
+									var inst = fpl[| i];
+									
+									if (turnGrid[# selectionPhases.action, inst.spotNum] != -1) {
+										// push a spar effect alert for arbitrate turn
+										spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
+									}
+									
+									i++;
+								}
+								
+								// use a repeat loop to arbitrate all turns for second player
+								var i = 0;	repeat (ds_list_size(spl)) {
+									var inst = spl[| i];
+									
+									if (turnGrid[# selectionPhases.action, inst.spotNum] != -1) {
+										// push a spar effect alert for arbitrate turn
+										spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
+									}
+									
+									i++;
+								}
+							}
+							else {
+								// check if playerOne's sprites are synchronized
+								if (playerOne.synchronizedSoldiersActive) {
+									// use a repeat loop to arbitrate all turns
+									var i = 0;	repeat (ds_list_size(allyList)) {
+										var inst = allyList[| i];
+										
+										if (turnGrid[# selectionPhases.action, inst.spotNum] != -1) {
+											// push a spar effect alert for arbitrate turn
+											spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
+										}
+										
+										i++;
+									}
+								}
+								
+								// check if playerTwo's sprites are synchronized
+								if (playerTwo.synchronizedSoldiersActive) {
+									// use a repeat loop to arbitrate all turns
+									var i = 0;	repeat (ds_list_size(enemyList)) {
+										var inst = enemyList[| i];
+										
+										if (turnGrid[# selectionPhases.action, inst.spotNum] != -1) {
+											// push a spar effect alert for arbitrate turn
+											spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
+										}
+										
+										i++;
+									}
+								}
+							}
+							
 							// check if the actionProcessor is already active
 							if !(instance_exists(sparActionProcessor)) {
 								// create a variable to store the highest stat found so far
@@ -218,6 +328,7 @@ switch (sparPhase) {
 															nextSprite = i;
 														}
 														
+														// tiebreaker logic for ocean
 														if (inst.luckRoll == spriteList[| nextSprite].luckRoll) {
 															// if this is an online match
 															if (instance_exists(onlineEnemy)) {
@@ -225,48 +336,37 @@ switch (sparPhase) {
 																var t = inst.team;
 																
 																// check if these sprites are both on different teams
-																if !(t == spriteList[| nextSprite.team]) {
-																	// create a boolean to end the while loop below
-																	var finished = false;
+																if !(t == spriteList[| nextSprite].team) {																	
+																	// initialize firstPlayer
+																	var firstPlayer = -1;
 																	
-																	// get both client IDs
-																	var pcid = player.clientID;
-																	var ecid = onlineEnemy.clientID;
-																	
-																	// figure out which is higher than the other
-																	var low = pcid;
-																	var high = ecid;
-																	
-																	if (ecid > pcid) {
-																		low = ecid;
-																		high = pcid;
+																	// determine who wins the tie using the turnCounter
+																	// check if turnCounter is an even number
+																	if (turnCounter mod 2 == 0) {
+																		// check if player is the host
+																		if (playerOne.clientType == CLIENT_TYPES.HOST) {
+																			firstPlayer = playerOne;	
+																		}
+																		// if player is not the host
+																		else {
+																			firstPlayer = playerTwo;	
+																		}
+																	}
+																	// if turnCounter is an odd number
+																	else {
+																		// check if player is the guest
+																		if (playerOne.clientType == CLIENT_TYPES.GUEST) {
+																			firstPlayer = playerOne;
+																		}
+																		// if player is not the guest
+																		else {
+																			firstPlayer = playerTwo;	
+																		}
 																	}
 																	
-																	// use a while loop to repeat until there isn't a tie
-																	while !(finished) {
-																		// get a random int between them
-																		var r = irandom_range(low, high);
-																		
-																		var pdiff = abs(pcid - r);
-																		var ediff = abs(ecid - r);
-																		
-																		if (t == player) {
-																			if (pdiff < ediff) {
-																				highest = inst.currentWater;
-																				nextSprite = i;
-																			}
-																		}
-																		
-																		if (t == onlineEnemy) {
-																			if (ediff < pdiff) {
-																				highest = inst.currentWater;
-																				nextSprite = i;
-																			}
-																		}
-																		
-																		// if there wasn't a tie, break the loop
-																		if (ediff != pdiff)	finished = true;
-																	}
+																	// highest and nextSprite
+																	highest = inst.currentWater;
+																	nextSprite = i;
 																}
 															}
 															// if this is a local match
@@ -285,7 +385,7 @@ switch (sparPhase) {
 													}
 												break;
 												
-												case arenas.skies:
+												case arenas.clouds:
 													if (inst.currentStorm > highest) {
 														highest		= inst.currentStorm;
 														nextSprite	= i;
@@ -297,6 +397,7 @@ switch (sparPhase) {
 															nextSprite = i;
 														}
 														
+														// tiebreaker logic for clouds
 														if (inst.luckRoll == spriteList[| nextSprite].luckRoll) {
 															// if this is an online match
 															if (instance_exists(onlineEnemy)) {
@@ -304,48 +405,37 @@ switch (sparPhase) {
 																var t = inst.team;
 																
 																// check if these sprites are both on different teams
-																if !(t == spriteList[| nextSprite.team]) {
-																	// create a boolean to end the while loop below
-																	var finished = false;
+																if !(t == spriteList[| nextSprite].team) {								
+																	// initialize firstPlayer
+																	var firstPlayer = -1;
 																	
-																	// get both client IDs
-																	var pcid = player.clientID;
-																	var ecid = onlineEnemy.clientID;
-																	
-																	// figure out which is higher than the other
-																	var low = pcid;
-																	var high = ecid;
-																	
-																	if (ecid > pcid) {
-																		low = ecid;
-																		high = pcid;
+																	// determine who wins the tie using the turnCounter
+																	// check if turnCounter is an even number
+																	if (turnCounter mod 2 == 0) {
+																		// check if player is the host
+																		if (playerOne.clientType == CLIENT_TYPES.HOST) {
+																			firstPlayer = playerOne;	
+																		}
+																		// if player is not the host
+																		else {
+																			firstPlayer = playerTwo;	
+																		}
+																	}
+																	// if turnCounter is an odd number
+																	else {
+																		// check if player is the guest
+																		if (playerOne.clientType == CLIENT_TYPES.GUEST) {
+																			firstPlayer = playerOne;
+																		}
+																		// if player is not the guest
+																		else {
+																			firstPlayer = playerTwo;	
+																		}
 																	}
 																	
-																	// use a while loop to repeat until there isn't a tie
-																	while !(finished) {
-																		// get a random int between them
-																		var r = irandom_range(low, high);
-																		
-																		var pdiff = abs(pcid - r);
-																		var ediff = abs(ecid - r);
-																		
-																		if (t == player) {
-																			if (pdiff < ediff) {
-																				highest = inst.currentStorm;
-																				nextSprite = i;
-																			}
-																		}
-																		
-																		if (t == onlineEnemy) {
-																			if (ediff < pdiff) {
-																				highest = inst.currentStorm;
-																				nextSprite = i;
-																			}
-																		}
-																		
-																		// if there wasn't a tie, break the loop
-																		if (ediff != pdiff)	finished = true;
-																	}
+																	// highest and nextSprite
+																	highest = inst.currentStorm;
+																	nextSprite = i;
 																}
 															}
 															// if this is a local match
@@ -376,6 +466,7 @@ switch (sparPhase) {
 															nextSprite = i;
 														}
 														
+														// tiebreaker logic for normal arena
 														if (inst.luckRoll == spriteList[| nextSprite].luckRoll) {
 															// if this is an online match
 															if (instance_exists(onlineEnemy)) {
@@ -383,48 +474,37 @@ switch (sparPhase) {
 																var t = inst.team;
 																
 																// check if these sprites are both on different teams
-																if !(t == spriteList[| nextSprite.team]) {
-																	// create a boolean to end the while loop below
-																	var finished = false;
+																if !(t == spriteList[| nextSprite].team) {								
+																	// initialize firstPlayer
+																	var firstPlayer = -1;
 																	
-																	// get both client IDs
-																	var pcid = player.clientID;
-																	var ecid = onlineEnemy.clientID;
-																	
-																	// figure out which is higher than the other
-																	var low = pcid;
-																	var high = ecid;
-																	
-																	if (ecid > pcid) {
-																		low = ecid;
-																		high = pcid;
+																	// determine who wins the tie using the turnCounter
+																	// check if turnCounter is an even number
+																	if (turnCounter mod 2 == 0) {
+																		// check if player is the host
+																		if (playerOne.clientType == CLIENT_TYPES.HOST) {
+																			firstPlayer = playerOne;	
+																		}
+																		// if player is not the host
+																		else {
+																			firstPlayer = playerTwo;	
+																		}
+																	}
+																	// if turnCounter is an odd number
+																	else {
+																		// check if player is the guest
+																		if (playerOne.clientType == CLIENT_TYPES.GUEST) {
+																			firstPlayer = playerOne;
+																		}
+																		// if player is not the guest
+																		else {
+																			firstPlayer = playerTwo;	
+																		}
 																	}
 																	
-																	// use a while loop to repeat until there isn't a tie
-																	while !(finished) {
-																		// get a random int between them
-																		var r = irandom_range(low, high);
-																		
-																		var pdiff = abs(pcid - r);
-																		var ediff = abs(ecid - r);
-																		
-																		if (t == player) {
-																			if (pdiff < ediff) {
-																				highest = inst.currentAgility;
-																				nextSprite = i;
-																			}
-																		}
-																		
-																		if (t == onlineEnemy) {
-																			if (ediff < pdiff) {
-																				highest = inst.currentAgility;
-																				nextSprite = i;
-																			}
-																		}
-																		
-																		// if there wasn't a tie, break the loop
-																		if (ediff != pdiff)	finished = true;
-																	}
+																	// highest and nextSprite
+																	highest = inst.currentWater;
+																	nextSprite = i;
 																}
 															}
 															// if this is a local match
@@ -434,7 +514,7 @@ switch (sparPhase) {
 																
 																if (t == playerTwo) {
 																	if (spriteList[| nextSprite].team != t) {
-																		highest = inst.currentAgility
+																		highest = inst.currentAgility;
 																		nextSprite = i;
 																	}
 																}
@@ -538,7 +618,7 @@ switch (sparPhase) {
 													}
 												break;
 												
-												case arenas.skies:
+												case arenas.clouds:
 													if (inst.currentStorm > highest) {
 														highest		= inst.currentStorm;
 														nextSprite	= i;

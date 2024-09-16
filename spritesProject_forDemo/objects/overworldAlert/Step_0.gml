@@ -9,7 +9,6 @@ if !(ynPrompt) {
 }
 
 if !textFormatted {
-	text = format_text(text, 232, 4, 1);
 	textFormatted = true;
 }
 

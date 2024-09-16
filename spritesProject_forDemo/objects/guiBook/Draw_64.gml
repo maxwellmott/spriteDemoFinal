@@ -24,7 +24,7 @@ if !(turningPage) {
 	if (headingCount > 0) {
 		var i = 0; repeat (headingCount) {
 			if (string_digits(headingGrid[# 3, i]) div 2 == pageIndex) {
-				draw_text(headingGrid[# 1, i], headingGrid[# 2, i], headingGrid[# 0, i]);
+				draw_text_pixel_perfect(headingGrid[# 1, i], headingGrid[# 2, i], headingGrid[# 0, i], fontHeight + 1, pageWidth);
 			}
 		i++;
 		}
@@ -34,8 +34,8 @@ if !(turningPage) {
 	
 	draw_set_color(textColor);
 	
-	draw_text(leftPageX, textY, leftPageText);
-	draw_text(rightPageX, textY, rightPageText);
+	draw_text_pixel_perfect(leftPageX, textY, leftPageText, fontHeight + 1, 256);
+	draw_text_pixel_perfect(rightPageX, textY, rightPageText, fontHeight + 1, 256);
 	
 	draw_set_color(c_white);
 	

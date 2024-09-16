@@ -90,7 +90,7 @@ enum ranges {
 enum arenas {
 	volcano,
 	ocean,
-	skies,
+	clouds,
 	forest,
 	height
 }
@@ -197,7 +197,7 @@ function spar_set_action() {
 	// perform an ability check for target selection
 	ability_check(ABILITY_TYPES.TARGET_SELECTION);
 
-	inRangeSprites_rebuild(sprite, global.targetRange);
+	inRangeSprites_rebuild(sprite);
 
 	instance_destroy(sparActionMenu);
 }
@@ -215,7 +215,7 @@ function spar_set_spell() {
 	// perform an ability check for target selection
 	ability_check(ABILITY_TYPES.TARGET_SELECTION);
 	
-	inRangeSprites_rebuild(player.selectedAlly, global.targetRange);
+	inRangeSprites_rebuild(player.selectedAlly);
 	
 	// set next phase
 	nextPhase = selectionPhases.target;
@@ -431,9 +431,9 @@ function spar_correct_hpmp() {
 
 ///@desc This function is called by an ally or enemy object to set that sprite's
 /// list of inRangeSprites depending on the range of the action in question.
-function inRangeSprites_rebuild(_sprite, _range) {
+function inRangeSprites_rebuild(_sprite) {
 	var s = _sprite;
-	var r = _range;
+	var r = global.targetRange;
 	var spot = s.spotNum;
 	
 	ds_list_clear(spar.inRangeSprites);
@@ -633,7 +633,7 @@ function sprite_build_ready_display() {
 		break;
 	}
 	
-	if (selectedAction >= sparActions.spell) {
+	if (selectedAction >= sparActions.height) {
 		readyDisplay = "casting " + player.spellBookGrid[# SPELL_PARAMS.NAME, ds_list_find_index(player.spellBook, selectedAction - sparActions.height)];
 	}
 	
@@ -916,28 +916,6 @@ function sprite_reload_sprite() {
 	
 	// destroy grid
 	ds_grid_destroy(grid);
-}
-
-///@desc This function is used to draw text in the battle scene. It's just a way of safely ensuring that when text
-/// is drawn with a centered alignment, it corrects if the width of the string being drawn is an odd number (can't draw
-/// pixels at decimal values) This should only be used when drawing text with a center and/or middle alignment
-/// This function also takes a separation and width value to ensure that the text is drawn fashionably.
-function draw_text_pixel_perfect(_x, _y, _text, _separation, _width) {
-	var xx = _x;
-	var yy = _y;
-	var tt = _text;
-	var ss = _separation;
-	var ww = _width;
-	
-	if ((string_width(tt) / 2) mod 2 != 0) {
-		xx -= 1;	
-	}
-	
-	if ((string_height(tt) / 2) mod 2 != 0) {
-		yy -= 1;	
-	}
-	
-	draw_text_ext(xx, yy, tt, ss, ww);
 }
 
 function action_check_spell(_action) {

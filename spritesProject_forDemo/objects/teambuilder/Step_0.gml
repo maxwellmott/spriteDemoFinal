@@ -190,6 +190,10 @@ if (selectedNameSlot > rosterHeight - 1)	selectedNameSlot = rosterHeight - 1;
 	
 	#endregion
 	
+	if !(recentSelection) {
+		teambuilder_get_sprite_parameters();	
+	}
+	
 	if !(instance_exists(onlineEnemy)) {
 		if (global.start) {
 			if (ds_list_size(teamList) == 4)
@@ -227,8 +231,4 @@ if (selectedNameSlot > rosterHeight - 1)	selectedNameSlot = rosterHeight - 1;
 if (onlineWaiting) {
 	// send a request for the enemy team every couple of seconds	
 	if (global.gameTime mod 120 == 0)	request_team_begin();
-}
-
-if !(recentSelection) {
-	teambuilder_get_sprite_parameters();	
 }
