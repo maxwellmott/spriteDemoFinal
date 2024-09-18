@@ -5,6 +5,7 @@ global.averageWeaknesses		= ds_list_create();
 global.averageStrengths			= ds_list_create();
 global.agilityOdds				= 0;
 global.damageMultiplierIndex	= 0;
+global.mpSpendingSprite
 
 enum elements {
 	fire,
@@ -27,7 +28,7 @@ function restore_hp(_player, _amount) {
 	p.currentHP += a;
 	
 	// perform an ability check for hp restored
-	ability_check(ABILITY_TYPES.HP_RESTORED);
+	ability_check(ABILITY_TYPES.HP_RESTORED,);
 }
 
 ///@desc This function can be called to process the actual increase to current MP
@@ -275,6 +276,67 @@ function get_physical_damage(_atkr, _targ, _spellPower) {
 	
 	// get damage multiplier from dmi
 	var m = get_multiplier_from_index();	
+	
+	// calculate damage
+	var damage = sp * damageRatio * m;
+	
+	// return damage multiplied by average luck
+	return damage;
+}
+
+function arbitrate_physical_damage(_atkr, _targ, _spellType, _spellPower) {
+	// store args in locals
+	var atkr = _atkr;
+	var targ = _targ;
+	var st = _spellType;
+	var sp = _spellPower;
+	
+	// initialize atkStat and targStat
+	var atkStat = 0;
+	var targStat = 0;
+	
+	// use a switch statement to set atkStat and targStat
+	switch (st) {
+		case SPRITE_PARAMS.FIRE:
+			atkStat = atkr.currentFire;
+			targStat = atkr.currentFire;
+		break;
+		
+		case SPRITE_PARAMS.WATER:
+			atkStat = atkr.currentWater;
+			targStat = atkr.currentWater;
+		break;
+		
+		case SPRITE_PARAMS.STORM:
+			atkStat = atkr.currentStorm;
+			targStat = atkr.currentStorm;
+		break;
+		
+		case SPRITE_PARAMS.EARTH:
+			atkStat = atkr.currentEarth;
+			targStat = atkr.currentEarth;
+		break;
+		
+		case SPRITE_PARAMS.RESISTANCE:
+			atkStat = atkr.currentResistance;
+			targStat = atkr.currentResistance;
+		break;
+		
+		case SPRITE_PARAMS.AGILITY:
+			atkStat = atkr.currentAgility;
+			targStat = atkr.currentAgility;
+		break;
+	}
+	
+	// get attacker's and target's luck rolls
+	var atkrLuck = atkr.luckRoll;
+	var targLuck = targ.luckRoll;
+	
+	// calculate physical style damage ratio using the now set atkrStat and targStat
+	var damageRatio = (atkStat * atkrLuck) / (targStat * targLuck);
+	
+	// get damage multiplier from dmi
+	var m = get_multiplier_from_index();
 	
 	// calculate damage
 	var damage = sp * damageRatio * m;

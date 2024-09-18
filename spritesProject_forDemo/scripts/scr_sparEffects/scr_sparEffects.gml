@@ -7,6 +7,7 @@
 global.swapList = -1;
 global.miasmaDamage = 0;
 global.miasmaTeam = -1;
+global.mpSpendingSprite = -1;
 
 ///@desc This function asks for one argument--the ID of an effect from the SPAR_EFFECTS
 /// enum--but it is meant to be overloaded with any arguments that the given function
@@ -150,7 +151,7 @@ enum MINDSETS {
 enum SPAR_EFFECTS {
 	ARENA_CHANGE_VOLCANO,						
 	ARENA_CHANGE_OCEAN,
-	ARENA_CHANGE_STRATOS,
+	ARENA_CHANGE_CLOUDS,
 	ARENA_CHANGE_FOREST,
 	ARENA_CHANGE_NORMAL,
 	SET_MIASMA,
@@ -325,6 +326,12 @@ enum SPAR_EFFECTS {
 	IMPROVE_RANGE,
 	SYNCHRONIZE_SPRITES, 
 	ARBITRATE_TURN,
+	BASIC_ATTACK_FIRE,
+	BASIC_ATTACK_WATER,
+	BASIC_ATTACK_STORM,
+	BASIC_ATTACK_EARTH,
+	BASIC_ATTACK_RESISTANCE,
+	BASIC_ATTACK_AGILITY,
 	HEIGHT
 }
 
@@ -339,29 +346,29 @@ enum SPAR_EFFECT_PARAMS {
 
 ///@desc SPAR EFFECT: sets the current ARENA to VOLCANO
 function arena_change_volcano() {
-	if (spar.currentArena != arenas.volcano) {
-		spar.currentArena = arenas.volcano;
+	if (spar.currentArena != ARENAS.VOLCANO) {
+		spar.currentArena = ARENAS.VOLCANO;
 	}	else	instance_destroy(id);
 }
 
 ///@desc SPAR EFFECT: sets the current ARENA to OCEAN
 function arena_change_ocean() {
-	if (spar.currentArena != arenas.ocean) {
-		spar.currentArena = arenas.ocean;
+	if (spar.currentArena != ARENAS.OCEAN) {
+		spar.currentArena = ARENAS.OCEAN;
 	}	else	instance_destroy(id);
 }
 
 ///@desc SPAR EFFECT: sets the current ARENA to STRATOS
-function arena_change_stratos() {
-	if (spar.currentArena != arenas.clouds) {
-		spar.currentArena = arenas.clouds;
+function arena_change_clouds() {
+	if (spar.currentArena != ARENAS.CLOUDS) {
+		spar.currentArena = ARENAS.CLOUDS;
 	}	else	instance_destroy(id);
 }
 
 ///@desc SPAR EFFECT: sets the current ARENA to FOREST
 function arena_change_forest() {
-	if (spar.currentArena != arenas.forest) {
-		spar.currentArena = arenas.forest;
+	if (spar.currentArena != ARENAS.FOREST) {
+		spar.currentArena = ARENAS.FOREST;
 	}	else	instance_destroy(id);
 }
 
@@ -3892,6 +3899,60 @@ function arbitrate_turn(_sprite) {
 	create_once(0, 0, LAYER.meta, sparActionProcessor);
 }
 
+///@desc SPAR EFFECT: announces that damage was adjusted to use the attacker's FIRE stat
+function basic_attack_fire(_atkr) {
+	// store args in locals
+	var atkr = _atkr;
+	
+	// set subject
+	subject = atkr.name;
+}
+
+///@desc SPAR EFFECT: announces that damage was adjusted to use the attacker's WATER stat
+function basic_attack_water(_atkr) {
+	// store args in locals
+	var atkr = _atkr;
+	
+	// set subject
+	subject = atkr.name;
+}
+
+///@desc SPAR EFFECT: announces that damage was adjusted to use the attacker's STORM stat
+function basic_attack_storm(_atkr) {
+	// store args in locals
+	var atkr = _atkr;
+	
+	// set subject
+	subject = atkr.name;
+}
+
+///@desc SPAR EFFECT: announces that damage was adjusted to use the attacker's EARTH stat
+function basic_attack_earth(_atkr) {
+	// store args in locals
+	var atkr = _atkr;
+	
+	// set subject
+	subject = atkr.name;
+}
+
+///@desc SPAR EFFECT: announces that damage was adjusted to use the attacker's RESISTANCE stat
+function basic_attack_resistance(_atkr) {
+	// store args in locals
+	var atkr = _atkr;
+	
+	// set subject
+	subject = atkr.name;
+}
+
+///@desc SPAR EFFECT: announces that damage was adjusted to use the attacker's AGILITY stat
+function basic_attack_agility(_atkr) {
+	// store args in locals
+	var atkr = _atkr;
+	
+	// set subject
+	subject = atkr.name;
+}
+
 // get text from csv file
 var textGrid = load_csv("SPAR_EFFECTS_ENGLISH.csv");
 
@@ -3913,7 +3974,7 @@ function master_grid_add_spar_effect(_ID) {
 //							ID												ALERT TEXT														EFFECT FUNCTION						ANIMATION
 master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_VOLCANO,				textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_VOLCANO],				arena_change_volcano,				sparFX_arenaChange);			
 master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_OCEAN,				textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_OCEAN],					arena_change_ocean,					sparFX_arenaChange);			
-master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_STRATOS,				textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_STRATOS],				arena_change_stratos,				sparFX_arenaChange);			
+master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_CLOUDS,				textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_CLOUDS],				arena_change_clouds,				sparFX_arenaChange);			
 master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_FOREST,				textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_FOREST],				arena_change_forest,				sparFX_arenaChange);			
 master_grid_add_spar_effect(SPAR_EFFECTS.ARENA_CHANGE_NORMAL,				textGrid[# 1, SPAR_EFFECTS.ARENA_CHANGE_NORMAL],				arena_change_normal,				sparFX_arenaChange);			
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_MIASMA,						textGrid[# 1, SPAR_EFFECTS.SET_MIASMA],							set_miasma,							sparFX_miasma);					
@@ -4088,6 +4149,12 @@ master_grid_add_spar_effect(SPAR_EFFECTS.BONUS_SPELL,						textGrid[# 1, SPAR_EF
 master_grid_add_spar_effect(SPAR_EFFECTS.IMPROVE_RANGE,						textGrid[# 1, SPAR_EFFECTS.IMPROVE_RANGE],						improve_range,						EMPTY_SPRITE);
 master_grid_add_spar_effect(SPAR_EFFECTS.SYNCHRONIZE_SPRITES,				textGrid[# 1, SPAR_EFFECTS.SYNCHRONIZE_SPRITES],				synchronize_sprites,				EMPTY_SPRITE);
 master_grid_add_spar_effect(SPAR_EFFECTS.ARBITRATE_TURN,					textGrid[# 1, SPAR_EFFECTS.ARBITRATE_TURN],						arbitrate_turn,						EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.BASIC_ATTACK_FIRE,					textGrid[# 1, SPAR_EFFECTS.BASIC_ATTACK_FIRE],					basic_attack_fire,					EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.BASIC_ATTACK_WATER,				textGrid[# 1, SPAR_EFFECTS.BASIC_ATTACK_WATER],					basic_attack_water,					EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.BASIC_ATTACK_STORM,				textGrid[# 1, SPAR_EFFECTS.BASIC_ATTACK_STORM],					basic_attack_storm,					EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.BASIC_ATTACK_EARTH,				textGrid[# 1, SPAR_EFFECTS.BASIC_ATTACK_EARTH],					basic_attack_earth,					EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.BASIC_ATTACK_RESISTANCE,			textGrid[# 1, SPAR_EFFECTS.BASIC_ATTACK_RESISTANCE],			basic_attack_resistance,			EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.BASIC_ATTACK_AGILITY,				textGrid[# 1, SPAR_EFFECTS.BASIC_ATTACK_AGILITY],				basic_attack_agility,				EMPTY_SPRITE);
 #endregion
 
 // encode the spar effect grid

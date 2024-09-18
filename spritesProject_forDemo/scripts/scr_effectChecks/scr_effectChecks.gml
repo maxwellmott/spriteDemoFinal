@@ -158,7 +158,7 @@ function spar_check_arena_effects(_spellType) {
 	if (global.arena != -1) {
 		// use a switch statement to check for each arena type
 		switch (global.arena) {
-			case arenas.volcano:
+			case ARENAS.VOLCANO:
 				// check if currentSpell is a water spell
 				if (st == SPELL_TYPES.WATER) {
 					global.damageMultiplierIndex -= 2;
@@ -172,7 +172,7 @@ function spar_check_arena_effects(_spellType) {
 				}
 			break;
 			
-			case arenas.ocean:
+			case ARENAS.OCEAN:
 				// check if currentSpell is a fire spell
 				if (st == SPELL_TYPES.FIRE) {
 					global.damageMultiplierIndex -= 2;
@@ -192,7 +192,7 @@ function spar_check_arena_effects(_spellType) {
 				}
 			break;
 			
-			case arenas.clouds:
+			case ARENAS.CLOUDS:
 				// check if currentSpell is an earth spell
 				if (st == SPELL_TYPES.EARTH) {
 					global.damageMultiplierIndex -= 2;
@@ -206,7 +206,7 @@ function spar_check_arena_effects(_spellType) {
 				}
 			break;
 			
-			case arenas.forest:
+			case ARENAS.FOREST:
 				// check if currentSpell is an earth spell
 				if (st == SPELL_TYPES.EARTH) {
 					global.damageMultiplierIndex += 2;

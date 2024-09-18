@@ -105,7 +105,7 @@ function ability_check(_abilityType) {
 				}
 				
 				// if arena is OCEAN
-				if (spar.currentArena == arenas.ocean) {
+				if (spar.currentArena == ARENAS.OCEAN) {
 					if (inst.currentWater > highest) {
 						highestID = inst;
 						highest = inst.currentWater;
@@ -176,7 +176,7 @@ function ability_check(_abilityType) {
 				}
 				
 				// if arena is CLOUDS
-				if (spar.currentArena == arenas.clouds) {
+				if (spar.currentArena == ARENAS.CLOUDS) {
 					if (inst.currentStorm > highest) {
 						highestID = inst;
 						highest = inst.currentStorm;
@@ -400,7 +400,7 @@ function wavy_dance(_inst) {
 	// check if this sprite is the target
 	if (inst == sparActionProcessor.targetSprite) {
 		// check if the arena is OCEAN
-		if (spar.currentArena == arenas.ocean) {
+		if (spar.currentArena == ARENAS.OCEAN) {
 			// check if the spell is dodgeable
 			if (spellDodgeable) {
 				// push a spar effect alert for activate ability
@@ -642,7 +642,7 @@ function undersea_predator(_inst) {
 	var inst = _inst;
 	
 	// check if ocean is active
-	if (spar.currentArena == arenas.ocean) {
+	if (spar.currentArena == ARENAS.OCEAN) {
 		// check if this sprite is the attacker
 		if (inst == sparActionProcessor.activeSprite) {
 			// check if this is a damaging spell or basic attack
@@ -785,7 +785,7 @@ function hang_ten(_inst) {
 	var inst = _inst;
 	
 	// check if ocean is active
-	if (spar.currentArena == arenas.ocean) {
+	if (spar.currentArena == ARENAS.OCEAN) {
 		// check if this sprite is attacking
 		if (inst == sparActionProcessor.activeSprite) {
 			// check if it is a basic attack
@@ -1097,14 +1097,43 @@ function healing_haze(_inst) {
 /// TYPE: REST SUCCESS
 /// If this sprite RESTS, the ARENA becomes OCEAN.
 function aquatic_essence(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is resting
+	if (inst.resting) {
+		// check that the arena is not already ocean
+		if (spar.currentArena != ARENAS.OCEAN) {
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for arena change ocean
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_OCEAN);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- HEATSUNE:
 /// TYPE: SPELL ATTEMPT
-/// If this sprite casts a FIRE SPELL, the DMI is first increased by 1.
+/// If this sprite casts a FIRE SPELL, the DMI is first increased by 2.
 function fiery_aura(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is attacking
+	if (inst == sparActionProcessor.activeSprite) {
+		// check if it is a fire spell
+		if (sparActionProcessor.spellType == SPELL_TYPES.FIRE) {
+			// increase the DMI by 2
+			global.damageMultiplierIndex += 2;
+			
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for increase damage
+			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- BLITZKRANE:
@@ -1112,38 +1141,152 @@ function fiery_aura(_inst) {
 /// If this sprite is hit with a damaging SPELL or BASIC ATTACK,
 /// the ARENA changes to SKY.
 function thundrous_cry(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is the target
+	if (inst == sparActionProcessor.targetSprite) {
+		// check if it is a damaging spell or basic attack
+		if (sparActionProcessor.spellPower > 0) 
+		|| (sparActionProcessor.currentSpell == -1) {	
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for arena change clouds
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_CLOUDS);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- EXONOLITH:
-/// TYPE: BASIC ATTACK DAMAGE CALC
+/// TYPE: ACTION SUCCESS
 /// If this sprite uses a BASIC ATTACK, their RESISTANCE is used for
 /// damage calc instead of POWER.
 function massive_body(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is the attacker
+	if (inst == sparActionProcessor.activeSprite) {
+		// reset damage using arbitrate_physical_damage
+		sparActionProcessor.damage = arbitrate_physical_damage(inst, sparActionProcessor.targetSprite, SPRITE_PARAMS.RESISTANCE, BASIC_ATTACK_POWER);
+		
+		// push a spar effect alert for activate ability
+		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		
+		// push a spar effect alert for basic attack fire
+		spar_effect_push_alert(SPAR_EFFECTS.BASIC_ATTACK_FIRE, inst);
+	}
 }
 
 ///@desc ABILITY FUNCTION -- PUGILOON:
-/// TYPE: ACTION DAMAGE CALC
+/// TYPE: ACTION SUCCESS
 /// If this sprite's team has less than half of their max HP, their 
 /// BASIC ATTACKS and PHYSICAL SPELLS deal 2* damage.
 function underdog(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is attacking
+	if (inst == sparActionProcessor.activeSprite) {
+		// check if this sprite's team has 500 hp or less
+		if (inst.team.currentHP <= MAX_HP / 2) {
+			// boost damage by 2	
+			sparActionProcessor.damage = sparActionProcessor.damage * 2;
+			
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for increase damage
+			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- MR SUDSY
 /// TYPE: TURN END
-/// This sprite clears all HINDRANCES and CURSES for their team at the
+/// This sprite clears all HINDRANCES and shifts all CURSES for their team at the
 /// end of each turn.
 function keeping_tidy(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// initialize activated boolean
+	var activated = false;
+	
+	// check if there are any hindrances on this sprite's side of the field
+	if (inst.team.miasma)
+	|| (inst.team.hum) 
+	|| (inst.team.rust) {	
+		// push a spar effect alert for activate ability
+		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		
+		// push a spar effect alert for clear hindrances
+		spar_effect_push_alert(SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES, inst.team);
+		
+		// set activated to true
+		activated = true;
+	}
+	
+	// initialize curseCount
+	var curseCount = 0;
+	
+	// get necessary sprite ID list
+	var l = -1;
+	if (inst.team == player) {
+		l = spar.allyList;	
+	}
+	else {
+		l = spar.enemyList;
+	}
+	
+	// use a repeat loop to check if there are any curses on this sprite's side of the field
+	var i = 0;	repeat (ds_list_size(l)) {
+		var sid = l[| i];
+		
+		if (sid.mindset < 0) {
+			curseCount++;	
+		}
+		
+		i++;
+	}
+	
+	// check if there were curses present
+	if (curseCount > 0) {
+		// check if ability has already been activated
+		if !(activated) {	
+			// push a spar effect alert for ability activated
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		}
+		// push a spar effect alert for shift curses team
+		spar_effect_push_alert(SPAR_EFFECTS.SHIFT_CURSE_TEAM, inst.team);
+	}
 }
 
 ///@desc ABILITY FUNCTION -- DEMOLITOPS:
 /// TYPE: BASIC ATTACK DAMAGE CALC
 /// This sprite's BASIC ATTACKS deal 2* damage against MECHANICAL sprites.
 function wrecking_ball(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is attacking
+	if (inst == sparActionProcessor.activeSprite) {	
+		// check if it is a basic attack
+		if (sparActionProcessor.currentSpell == -1) {	
+			// check if the target is a MECHANICAL sprite
+			if (sparActionProcessor.targetSprite.currentAlign == ALIGNMENTS.MECHANICAL) {	
+				// increase the damage by 2
+				sparActionProcessor.damage = sparActionProcessor.damage * 2;
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for increase damage
+				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+			}
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- DOORMAUS:
@@ -1151,7 +1294,17 @@ function wrecking_ball(_inst) {
 /// If this sprite rests, they will automatically SWAP with another sprite at
 /// no cost.
 function drift_away(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is resting
+	if (inst.resting) {	
+		// push a spar effect alert for activate ability
+		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		
+		// push a spar effect alert for force swap
+		spar_effect_push_alert(SPAR_EFFECTS.FORCE_SWAP, inst);
+	}
 }
 
 ///@desc ABILITY FUNCTION -- ZEPHIRA
@@ -1159,7 +1312,21 @@ function drift_away(_inst) {
 /// If this sprite successfully casts a TRICK SPELL, their target's team
 /// takes 200 HP.
 function trickster_faerie(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is attacking
+	if (inst == sparActionProcessor.activeSprite) {	
+		// check if it is a trick spell that isn't self targeting
+		if (spellType == SPELL_TYPES.TRICK) 
+		&& (sparActionProcessor.targetSprite != -1) {	
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for deplete hp
+			spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP, sparActionProcessor.targetSprite, 200);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- CANUKI
@@ -1167,7 +1334,20 @@ function trickster_faerie(_inst) {
 /// Whenever a nearby sprite spends MP, half of the MP used to cast is
 /// absorbed by this sprite.
 function dumpster_diver(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if the depletion player is one of this sprite's nearby sprites
+	if (ds_list_find_index(inst.nearbySprites, global.mpSpendingSprite) != -1) {
+		// check if this sprite's team has less than MAX MP
+		if (inst.team.currentMP < MAX_MP) {
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for restore mp
+			spar_effect_push_alert(SPAR_EFFECTS.RESTORE_MP, inst.team, 10);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- JACKHAMMER
@@ -1175,7 +1355,36 @@ function dumpster_diver(_inst) {
 /// This sprite can target any other sprite with a BASIC ATTACK
 /// or PHYSICAL SPELL
 function spring_loaded(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is the selectedAlly
+	if (inst == player.selectedAlly) {
+		// check if it is a basic attack
+		if (global.action == sparActions.attack) {
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for improve range
+			spar_effect_push_alert(SPAR_EFFECTS.IMPROVE_RANGE, inst);
+		}
+		
+		// check if it is a spell
+		if (global.action >= sparActions.height) {
+			// build spell grid
+			var g = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
+			decode_grid(global.allSpells, g);
+			
+			// check if it is a physical spell
+			if (g[# SPELL_PARAMS.TYPE, global.action - sparActions.height] == SPELL_TYPES.PHYSICAL) {
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for improve range
+				spar_effect_push_alert(SPAR_EFFECTS.IMPROVE_RANGE, inst);
+			}
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- SPLASHGUARD
@@ -1183,14 +1392,47 @@ function spring_loaded(_inst) {
 /// If any of this sprite's allies are targeted with a WATER SPELL, this
 /// sprite will take their place as the target.
 function flood_shelter(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if the targetSprite is on this sprite's team
+	if (sparActionProcessor.targetSprite.team == inst.team) 
+	&& (sparActionProcessor.targetSprite != inst) {	
+		// check if it is a water spell
+		if (sparActionProcessor.spellType == SPELL_TYPES.WATER) {	
+			// push a spar effect for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect for replace target
+			spar_effect_push_alert(SPAR_EFFECTS.REPLACE_TARGET, inst, sparActionProcessor.targetSprite);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- UPROOTER
 /// TYPE: APPLY BOUND
-/// This sprite can swap even when BOUND.
+/// This sprite can swap even when BOUND or BERSERK.
 function propogate(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is on the swap list
+	if (ds_list_find_index(global.swapList, inst) != -1) {
+		// check if this sprite is bound or berserk
+		if (inst.bound) 
+		|| (inst.berserk) {	
+			// reset bound and boundCounter
+			bound = false;
+			boundCounter = 0;
+			
+			// reset berserk and berserkCounter
+			berserk = false;
+			berserkCounter = 0;
+			
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- CAPN CLOPS
@@ -1388,8 +1630,8 @@ master_grid_add_ability(ABILITIES.HEALING_HAZE,				textGrid[# 1, ABILITIES.HEALI
 master_grid_add_ability(ABILITIES.AQUATIC_ESSENCE,			textGrid[# 1, ABILITIES.AQUATIC_ESSENCE],			textGrid[# 2, ABILITIES.AQUATIC_ESSENCE],		ABILITY_TYPES.SPRITE_RESTING,			aquatic_essence);
 master_grid_add_ability(ABILITIES.FIERY_AURA,				textGrid[# 1, ABILITIES.FIERY_AURA],				textGrid[# 2, ABILITIES.FIERY_AURA],			ABILITY_TYPES.ACTION_BEGIN,				fiery_aura);
 master_grid_add_ability(ABILITIES.THUNDROUS_CRY,			textGrid[# 1, ABILITIES.THUNDROUS_CRY],				textGrid[# 2, ABILITIES.THUNDROUS_CRY],			ABILITY_TYPES.ACTION_SUCCESS,			thundrous_cry);
-master_grid_add_ability(ABILITIES.MASSIVE_BODY,				textGrid[# 1, ABILITIES.MASSIVE_BODY],				textGrid[# 2, ABILITIES.MASSIVE_BODY],			ABILITY_TYPES.DAMAGE_CALC,				massive_body);
-master_grid_add_ability(ABILITIES.UNDERDOG,					textGrid[# 1, ABILITIES.UNDERDOG],					textGrid[# 2, ABILITIES.UNDERDOG],				ABILITY_TYPES.DAMAGE_CALC,				underdog);
+master_grid_add_ability(ABILITIES.MASSIVE_BODY,				textGrid[# 1, ABILITIES.MASSIVE_BODY],				textGrid[# 2, ABILITIES.MASSIVE_BODY],			ABILITY_TYPES.ACTION_SUCCESS,			massive_body);
+master_grid_add_ability(ABILITIES.UNDERDOG,					textGrid[# 1, ABILITIES.UNDERDOG],					textGrid[# 2, ABILITIES.UNDERDOG],				ABILITY_TYPES.ACTION_SUCCESS,			underdog);
 master_grid_add_ability(ABILITIES.KEEPING_TIDY,				textGrid[# 1, ABILITIES.KEEPING_TIDY],				textGrid[# 2, ABILITIES.KEEPING_TIDY],			ABILITY_TYPES.TURN_END,					keeping_tidy);
 master_grid_add_ability(ABILITIES.WRECKING_BALL,			textGrid[# 1, ABILITIES.WRECKING_BALL],				textGrid[# 2, ABILITIES.WRECKING_BALL],			ABILITY_TYPES.DAMAGE_CALC,				wrecking_ball);
 master_grid_add_ability(ABILITIES.DRIFT_AWAY,				textGrid[# 1, ABILITIES.DRIFT_AWAY],				textGrid[# 2, ABILITIES.DRIFT_AWAY],			ABILITY_TYPES.SPRITE_RESTING,			drift_away);

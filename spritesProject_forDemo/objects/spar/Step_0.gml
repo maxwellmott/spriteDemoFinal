@@ -316,7 +316,7 @@ switch (sparPhase) {
 											// use a switch statement to check the proper stat
 											// depending on the current arena
 											switch (currentArena) {
-												case arenas.ocean:
+												case ARENAS.OCEAN:
 													if (inst.currentWater > highest) {
 														highest		= inst.currentWater;
 														nextSprite	= i;
@@ -385,7 +385,7 @@ switch (sparPhase) {
 													}
 												break;
 												
-												case arenas.clouds:
+												case ARENAS.CLOUDS:
 													if (inst.currentStorm > highest) {
 														highest		= inst.currentStorm;
 														nextSprite	= i;
@@ -604,7 +604,7 @@ switch (sparPhase) {
 											// use a switch statement to check the proper stat
 											// depending on the arena
 											switch (currentArena) {
-												case arenas.ocean:
+												case ARENAS.OCEAN:
 													if (inst.currentWater > highest) {
 														highest		= inst.currentWater;
 														nextSprite	= i;
@@ -618,7 +618,7 @@ switch (sparPhase) {
 													}
 												break;
 												
-												case arenas.clouds:
+												case ARENAS.CLOUDS:
 													if (inst.currentStorm > highest) {
 														highest		= inst.currentStorm;
 														nextSprite	= i;

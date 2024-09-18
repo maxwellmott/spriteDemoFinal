@@ -15,8 +15,14 @@ if (global.select) {
 				// if they have not, set the cost for the swap so you can charge the player's MP
 				var c = swap_get_cost(inst, partnerInst);
 			
+				// set mpSpendingSprite
+				global.mpSpendingSprite = inst;
+			
 				// charge the MP cost
-				inst.team.currentMP -= c;
+				deplete_mp(inst.team, c);
+				
+				// reset mpSpendingSprite
+				global.mpSpendingSprite = -1;
 			}
 			
 			// maintain sprite mindsets during swap

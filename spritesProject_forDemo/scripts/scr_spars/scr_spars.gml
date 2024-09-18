@@ -87,12 +87,12 @@ enum ranges {
 	height
 }
 
-enum arenas {
-	volcano,
-	ocean,
-	clouds,
-	forest,
-	height
+enum ARENAS {
+	VOLCANO,
+	OCEAN,
+	CLOUDS,
+	FOREST,
+	HEIGHT
 }
 
 enum sparTypes {

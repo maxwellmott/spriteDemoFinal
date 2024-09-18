@@ -733,7 +733,7 @@ function channel_essence() {
 		break;
 		
 		case elements.storm:
-			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_STRATOS);
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_CLOUDS);
 		break;
 		
 		case elements.earth:
@@ -754,7 +754,7 @@ function spheras_curse() {
 		break;
 		
 		case elements.water:
-			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_STRATOS);
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_CLOUDS);
 		break;
 		
 		case elements.storm:
@@ -786,7 +786,7 @@ function endless_river() {
 
 ///@desc SPELL FUNCTION: changes the arena to clouds
 function cloud_break() {
-	spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_STRATOS);
+	spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_CLOUDS);
 }
 
 ///@desc SPELL FUNCTION: hexes the target (dodgeable)
@@ -817,7 +817,7 @@ function full_thrust() {
 ///@desc SPELL FUNCTION: fails unless arena is volcano. destroys the arena
 /// summons miasma on the target's side of the field
 function volcanic_eruption() {
-	if (spar.currentArena != arenas.volcano) {
+	if (spar.currentArena != ARENAS.VOLCANO) {
 		sparActionProcessor.spellFailed = true;
 		return -1;
 	}

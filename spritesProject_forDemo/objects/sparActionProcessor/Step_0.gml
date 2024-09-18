@@ -121,8 +121,14 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 		// check if there is enough MP to cast the spell
 		if (activeSprite.team.currentMP - spellCost >= 0) {
 		
+			// set mpSpendingSprite
+			global.mpSpendingSprite = activeSprite;
+			
 			// subtract spellCost from player's MP
-			activeSprite.team.currentMP -= spellCost;
+			deplete_mp(activeSprite.team, spellCost);
+			
+			// reset mpSpendingSprite
+			global.mpSpendingSprite = -1;
 			
 			// check for dodge
 			if (targetSprite.dodging) 
