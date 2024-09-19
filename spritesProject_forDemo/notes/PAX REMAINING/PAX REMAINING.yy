@@ -1,7 +1,7 @@
 {
   "$GMNotes":"",
-  "%Name":"EFFECT CHECK SYSTEM",
-  "name":"EFFECT CHECK SYSTEM",
+  "%Name":"PAX REMAINING",
+  "name":"PAX REMAINING",
   "parent":{
     "name":"Notes",
     "path":"folders/Notes.yy",

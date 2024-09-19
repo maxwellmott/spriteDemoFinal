@@ -85,8 +85,8 @@
   "swatchColours":null,
   "swfPrecision":2.525,
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"tx_TEAMBUILDER",
+    "path":"texturegroups/tx_TEAMBUILDER",
   },
   "type":0,
   "VTile":false,

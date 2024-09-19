@@ -81,8 +81,8 @@
   "swatchColours":null,
   "swfPrecision":2.525,
   "textureGroupId":{
-    "name":"HumanAppearanceSheets",
-    "path":"texturegroups/HumanAppearanceSheets",
+    "name":"OverworldHumans",
+    "path":"texturegroups/OverworldHumans",
   },
   "type":0,
   "VTile":false,

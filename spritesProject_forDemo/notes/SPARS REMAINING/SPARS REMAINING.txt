@@ -1,20 +1,17 @@
 		 ******INCOMPLETE******
 		-turnBegin animation
-		-battle start animation
-		-win/lose screen
-		-ability functions
-		-ability grid
-		-ability check functions
-		-effect check functions
-		-effect/ability check calls
+		-battle start animatio
 		-ready display
 		-names not drawn
 		-titles not drawn
 		-turn timer
-		-update spar effect text grid
+		-hpmp timing
+		-flashing bar for negative mpCost
 		
 		-(ONLINE) no turn grid file builder/saver
 		-(ONLINE) no server reconnect logic
 		-(ONLINE) no server log
 
 		 ******UNBALANCED******
+		 
+		 --corrected on 9/19 before moving onto the overworld--

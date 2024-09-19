@@ -43,6 +43,9 @@ activeSprite	= spar.spriteList[| atkrSpotNum];
 if (targSpotNum >= 0)	targetSprite = spar.spriteList[| targSpotNum];
 else					targetSprite = activeSprite;
 
+// if action has already been performed, destroy this object
+if (currentAction == -1)	instance_destroy(id);
+
 // check if currentAction is a spell
 if action_check_spell(currentAction) {
 	currentSpell = action_get_spell_id(currentAction);

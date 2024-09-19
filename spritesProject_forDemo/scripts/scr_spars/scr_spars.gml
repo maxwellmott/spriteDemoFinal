@@ -1121,3 +1121,28 @@ function spar_check_complete() {
 		return false;	
 	}
 }
+
+function improve_range() {
+	// use a switch statement to correct range as necesssary
+	switch (global.targetRange) {
+		case ranges.nearestOneEnemy:
+			global.targetRange = ranges.anyEnemy;
+		break;
+		
+		case ranges.nearestTwoAllies:
+			global.targetRange = ranges.anyAlly;
+		break;
+		
+		case ranges.nearestThreeSprites:
+			global.targetRange = ranges.anySprite;
+		break;
+		
+		case ranges.nearestFiveSprites:
+			global.targetRange = ranges.anySprite;
+		break;
+		
+		case ranges.nearestThreeEnemies:
+			global.targetRange = ranges.anyEnemy;
+		break;
+	}	
+}

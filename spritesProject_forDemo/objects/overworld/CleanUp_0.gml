@@ -1,7 +1,5 @@
 ///@desc
 
-global.roomBuilt = false;
-
 instance_destroy(overworldDraw);
 instance_destroy(tileChecker_debug);
 instance_destroy(collidableTileChecker);

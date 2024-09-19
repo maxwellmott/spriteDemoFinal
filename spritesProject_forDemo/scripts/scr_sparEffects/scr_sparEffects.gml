@@ -3839,35 +3839,12 @@ function bonus_spell(_player) {
 }
 
 ///@desc SPAR EFFECT: announces that the sprite's range was improved
-function improve_range(_sprite) {
+function improve_range_spar_effect(_sprite) {
 	// store args in locals
 	var s = _sprite;
 	
 	// set subject
 	subject = s.name;
-	
-	// use a switch statement to correct range as necesssary
-	switch (global.targetRange) {
-		case ranges.nearestOneEnemy:
-			global.targetRange = ranges.anyEnemy;
-		break;
-		
-		case ranges.nearestTwoAllies:
-			global.targetRange = ranges.anyAlly;
-		break;
-		
-		case ranges.nearestThreeSprites:
-			global.targetRange = ranges.anySprite;
-		break;
-		
-		case ranges.nearestFiveSprites:
-			global.targetRange = ranges.anySprite;
-		break;
-		
-		case ranges.nearestThreeEnemies:
-			global.targetRange = ranges.anyEnemy;
-		break;
-	}
 }
 
 ///@desc SPAR EFFECT: announces that the player's team will attack in order
@@ -3888,6 +3865,9 @@ function synchronize_sprites(_player) {
 function arbitrate_turn(_sprite) {
 	// store args in locals
 	var s = _sprite;
+	
+	// check if this sprite has already acted
+	if (spar.turnGrid[# selectionPhases.action, s.spotNum] == -1)	instance_destroy(id);
 	
 	// set subject
 	subject = s.name;
@@ -4146,7 +4126,7 @@ master_grid_add_spar_effect(SPAR_EFFECTS.SKYDIVE_FAILURE,					textGrid[# 1, SPAR
 master_grid_add_spar_effect(SPAR_EFFECTS.SNEAK_ATTACK_FAILURE,				textGrid[# 1, SPAR_EFFECTS.SNEAK_ATTACK_FAILURE],				sneak_attack_failure,				sparFX_failure);				
 master_grid_add_spar_effect(SPAR_EFFECTS.ACTIVATE_ABILITY,					textGrid[# 1, SPAR_EFFECTS.ACTIVATE_ABILITY],					activate_ability,					EMPTY_SPRITE);		
 master_grid_add_spar_effect(SPAR_EFFECTS.BONUS_SPELL,						textGrid[# 1, SPAR_EFFECTS.BONUS_SPELL],						bonus_spell,						EMPTY_SPRITE);
-master_grid_add_spar_effect(SPAR_EFFECTS.IMPROVE_RANGE,						textGrid[# 1, SPAR_EFFECTS.IMPROVE_RANGE],						improve_range,						EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.IMPROVE_RANGE,						textGrid[# 1, SPAR_EFFECTS.IMPROVE_RANGE],						improve_range_spar_effect,			EMPTY_SPRITE);
 master_grid_add_spar_effect(SPAR_EFFECTS.SYNCHRONIZE_SPRITES,				textGrid[# 1, SPAR_EFFECTS.SYNCHRONIZE_SPRITES],				synchronize_sprites,				EMPTY_SPRITE);
 master_grid_add_spar_effect(SPAR_EFFECTS.ARBITRATE_TURN,					textGrid[# 1, SPAR_EFFECTS.ARBITRATE_TURN],						arbitrate_turn,						EMPTY_SPRITE);
 master_grid_add_spar_effect(SPAR_EFFECTS.BASIC_ATTACK_FIRE,					textGrid[# 1, SPAR_EFFECTS.BASIC_ATTACK_FIRE],					basic_attack_fire,					EMPTY_SPRITE);

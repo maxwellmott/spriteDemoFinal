@@ -1,6 +1,6 @@
 {
   "$GMSprite":"",
-  "%Name":"rspr_songbirdBattle",
+  "%Name":"spr_songbirdBattle",
   "bboxMode":0,
   "bbox_bottom":55,
   "bbox_left":1,
@@ -24,7 +24,7 @@
   "layers":[
     {"$GMImageLayer":"","%Name":"ee47043a-76b6-4918-b525-58ea421e6ff2","blendMode":0,"displayName":"default","isLocked":false,"name":"ee47043a-76b6-4918-b525-58ea421e6ff2","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
-  "name":"rspr_songbirdBattle",
+  "name":"spr_songbirdBattle",
   "nineSlice":null,
   "origin":4,
   "parent":{
@@ -36,7 +36,7 @@
   "resourceVersion":"2.0",
   "sequence":{
     "$GMSequence":"",
-    "%Name":"rspr_songbirdBattle",
+    "%Name":"spr_songbirdBattle",
     "autoRecord":true,
     "backdropHeight":768,
     "backdropImageOpacity":0.5,
@@ -60,7 +60,7 @@
       "resourceType":"KeyframeStore<MomentsEventKeyframe>",
       "resourceVersion":"2.0",
     },
-    "name":"rspr_songbirdBattle",
+    "name":"spr_songbirdBattle",
     "playback":1,
     "playbackSpeed":30.0,
     "playbackSpeedType":0,
@@ -72,16 +72,16 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"ba4cd1c4-8ee8-4887-9e90-92d0bddbfa0c","path":"sprites/rspr_songbirdBattle/rspr_songbirdBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"ba4cd1c4-8ee8-4887-9e90-92d0bddbfa0c","path":"sprites/spr_songbirdBattle/spr_songbirdBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"02041511-1cce-4951-8ab6-342add757096","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"e268ca0b-6136-4070-ae8b-8e9a93ce3868","path":"sprites/rspr_songbirdBattle/rspr_songbirdBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"e268ca0b-6136-4070-ae8b-8e9a93ce3868","path":"sprites/spr_songbirdBattle/spr_songbirdBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"12b4a573-f671-4579-b4c4-ff280014b8c3","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"4616e764-c3a0-4d26-ba7c-2f9ed009c03b","path":"sprites/rspr_songbirdBattle/rspr_songbirdBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"4616e764-c3a0-4d26-ba7c-2f9ed009c03b","path":"sprites/spr_songbirdBattle/spr_songbirdBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"c6469259-c29b-47a1-a86b-5841e819a4ff","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"69d88f3c-5459-4b2e-9128-9151485a00fd","path":"sprites/rspr_songbirdBattle/rspr_songbirdBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"69d88f3c-5459-4b2e-9128-9151485a00fd","path":"sprites/spr_songbirdBattle/spr_songbirdBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
               },"Disabled":false,"id":"542c0854-d531-469b-8fa9-1b968ffc294e","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
@@ -93,8 +93,8 @@
   "swatchColours":null,
   "swfPrecision":2.525,
   "textureGroupId":{
-    "name":"Default",
-    "path":"texturegroups/Default",
+    "name":"tx_SPAR",
+    "path":"texturegroups/tx_SPAR",
   },
   "type":0,
   "VTile":false,

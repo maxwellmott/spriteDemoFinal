@@ -30,6 +30,7 @@ draw_sprite(spr_teambuilderNameSlot,	rowFiveFrame,	nameSlotColumnOne,		nameSlotR
 draw_sprite(spr_teambuilderNameSlot,	rowFiveFrame,	nameSlotColumnTwo,		nameSlotRowFive);
 
 // check if changing at all
+
 if !(optionsChangingUp) 
 && !(optionsChangingDown) {
 	// set text params

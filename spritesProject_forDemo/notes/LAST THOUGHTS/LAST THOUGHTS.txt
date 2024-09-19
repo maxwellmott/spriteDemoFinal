@@ -441,4 +441,17 @@ COMING BACK FROM PLAYTEST BUILD
 		
 		You will likely need to make another global variable and a new spar effect for abilities that change the stat used to calculate basic attack damage (exonolith and cragma)
 	
-	
+		kronarc's arbitrate turn shouldn't happen twice if drumline is also present
+		
+		range improve is not working
+		
+	9/19
+		I have finished spars to the point that I need to now move onto the overworld.
+		
+		Since I'm just focusing on completing something that I can submit for pax, it's probably time for me
+		to move on to the overworld and make the demo feel more like an actual game. I'll create a list on a separate note that
+		broadly contains everything that must be completed before submitting to pax by nov 4th.
+		
+		I'll make another note that contains more specifically everything that needs fixing in the overworld.
+		
+		I also corrected the spars remaining note so that it only contains things that must still be completed/perfected at THIS point.

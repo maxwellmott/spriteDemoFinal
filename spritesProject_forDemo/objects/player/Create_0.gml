@@ -29,7 +29,7 @@ tm_collidables	= -1;
 // initialize time for new game
 seconds = 0;
 minutes = 58;
-hours	= 20;
+hours	= 23;
 day		= 14;
 weekday	= weekdays.famelsun;
 season	= seasons.daysOfBones;
@@ -70,7 +70,7 @@ teamList = ds_list_create();
 // ONLY FOR TESTING
 teamList[| 0] = SPRITES.HACHACHACHA;
 teamList[| 1] = SPRITES.DRUMLINE;
-teamList[| 2] = SPRITES.BOOKISH;
+teamList[| 2] = SPRITES.KRONARC;
 teamList[| 3] = SPRITES.JOE;
 
 // for testing purposes only

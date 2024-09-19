@@ -205,3 +205,7 @@ statCoverageY = 191;
 
 spellUsageX = 201;
 spellUsageY = 191;
+
+selectorMoved = false;
+
+global.roomBuilt = true;

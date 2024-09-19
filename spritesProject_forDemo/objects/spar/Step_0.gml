@@ -23,6 +23,9 @@ if (check_sprites_done_flashing()) {
 				}
 			}
 		}
+	}	
+	else	{
+		spar_correct_hpmp();	
 	}
 }
 
@@ -312,7 +315,8 @@ switch (sparPhase) {
 										decode_list(global.prioritySpellList, pl);
 										
 										// check if the spell id is on the priority list
-										if (ds_list_find_index(pl, sid) >= 0) {
+										if (ds_list_find_index(pl, sid) >= 0) 
+										&& !(inst.team.synchronizedSoldiersActive) {
 											// use a switch statement to check the proper stat
 											// depending on the current arena
 											switch (currentArena) {

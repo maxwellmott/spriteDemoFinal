@@ -33,6 +33,9 @@ if !(optionsChangingUp)
 	&& (currentRow > 0) {
 		selectedNameSlot -= rowWidth;
 		
+		// set selectorMoved to true
+		selectorMoved = true;
+		
 		if (selectorIndex <= 1) {
 			// set rowOneFrame to 1
 			rowOneFrame = 1;
@@ -51,6 +54,9 @@ if !(optionsChangingUp)
 	if (global.menu_down)
 	&& (selectedNameSlot + 2 < rosterHeight) {
 		selectedNameSlot += rowWidth;
+		
+		// set selectorMoved to true
+		selectorMoved = true;
 		
 		if (selectorIndex >= 6) {
 			// set rowFiveFrame to 1
@@ -71,6 +77,9 @@ if !(optionsChangingUp)
 	&& (selectedNameSlot > 0) {
 		selectedNameSlot -= 1;	
 		
+		// set selectorMoved to true
+		selectorMoved = true;
+		
 		if (selectorIndex == 0) {
 			// set rowOneFrame to 1
 			rowOneFrame = 1;
@@ -90,6 +99,9 @@ if !(optionsChangingUp)
 	&& (selectedNameSlot < rosterHeight - 1) {
 		selectedNameSlot += 1;
 		
+		// set selectorMoved to true
+		selectorMoved = true;
+		
 		if (selectorIndex == 7) {
 			// set rowFiveFrame to 1
 			rowFiveFrame = 1;
@@ -106,12 +118,14 @@ if !(optionsChangingUp)
 	}
 }
 
-// correct for overshooting the first or last name
-if (selectedNameSlot < 0)					selectedNameSlot = 0;
-if (selectedNameSlot > rosterHeight - 1)	selectedNameSlot = rosterHeight - 1;
-
 #endregion
-	
+
+if (selectorMoved) {
+
+	// correct for overshooting the first or last name
+	if (selectedNameSlot < 0)					selectedNameSlot = 0;
+	if (selectedNameSlot > rosterHeight - 1)	selectedNameSlot = rosterHeight - 1;
+
 	// reset currentRow and currentColumn
 	currentRow = selectedNameSlot div rowWidth;
 	currentColumn = (rowWidth - 1) - ((selectedNameSlot + 1) mod rowWidth);
@@ -137,7 +151,12 @@ if (selectedNameSlot > rosterHeight - 1)	selectedNameSlot = rosterHeight - 1;
 			case 7:		selectorX = nameSlotColumnTwo;		selectorY = nameSlotRowFive;	break;
 		}		
 	}
-#endregion
+	#endregion
+
+	teambuilder_get_sprite_parameters();
+	
+	selectorMoved = false;
+}
 	
 	#region MANAGE SELECTION
 	
@@ -189,10 +208,6 @@ if (selectedNameSlot > rosterHeight - 1)	selectedNameSlot = rosterHeight - 1;
 	}
 	
 	#endregion
-	
-	if !(recentSelection) {
-		teambuilder_get_sprite_parameters();	
-	}
 	
 	if !(instance_exists(onlineEnemy)) {
 		if (global.start) {

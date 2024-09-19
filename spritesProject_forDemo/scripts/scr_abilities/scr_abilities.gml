@@ -929,6 +929,8 @@ function all_seeing_eyes(_inst) {
 			
 			// check if spell is elemental or trick spell
 			if (st != SPELL_TYPES.PHYSICAL) {
+				improve_range();
+				
 				// push a spar effect alert for activate ability
 				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 				
@@ -1365,6 +1367,8 @@ function spring_loaded(_inst) {
 	if (inst == player.selectedAlly) {
 		// check if it is a basic attack
 		if (global.action == sparActions.attack) {
+			improve_range();
+			
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 			
@@ -1380,6 +1384,8 @@ function spring_loaded(_inst) {
 			
 			// check if it is a physical spell
 			if (g[# SPELL_PARAMS.TYPE, global.action - sparActions.height] == SPELL_TYPES.PHYSICAL) {
+				improve_range();
+				
 				// push a spar effect alert for activate ability
 				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 				
@@ -1835,13 +1841,16 @@ function compress_time(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if sprite has already taken it's turn
-	if (spar.turnGrid[# selectionPhases.action, inst.spotNum] != -1) {
-		// push a spar effect alert for activate ability
-		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-	
-		// push a spar effect alert for arbitrate turn
-		spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
+	// check that this sprite's team doesn't have synchronizedSoldiersActive
+	if !(inst.team.synchronizedSoldiersActive) {
+		// check if sprite has already taken it's turn
+		if (spar.turnGrid[# selectionPhases.action, inst.spotNum] != -1) {
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		
+			// push a spar effect alert for arbitrate turn
+			spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
+		}
 	}
 }
 

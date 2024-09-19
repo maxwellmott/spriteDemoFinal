@@ -92,7 +92,9 @@ switch (state) {
 	
 	case transitionStates.fadingOut:
 		if (global.roomBuilt) {
-			if (alpha > 0.0) {alpha -= 0.05;}
+			if (alpha > 0.0) {
+				alpha -= 0.05;
+			}
 			else {
 				instance_destroy(id);
 			}
