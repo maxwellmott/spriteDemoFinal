@@ -402,12 +402,12 @@ function wavy_dance(_inst) {
 		// check if the arena is OCEAN
 		if (spar.currentArena == ARENAS.OCEAN) {
 			// check if the spell is dodgeable
-			if (spellDodgeable) {
+			if (sparActionProcessor.spellDodgeable) {
 				// push a spar effect alert for activate ability
 				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 				
 				// if so, set dodgeSuccess to true
-				dodgeSuccess = true;
+				sparActionProcessor.dodgeSuccess = true;
 			}
 		}
 	}
@@ -506,7 +506,7 @@ function unbreakable_shell(_inst) {
 		if (sparActionProcessor.currentSpell == -1) 
 		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {	
 			// divide damage in half
-			sparActionProcessor.damage = sparActionProcessor.damage / 2;
+			sparActionProcessor.damage = round(sparActionProcessor.damage / 2);
 			
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
@@ -1168,14 +1168,17 @@ function massive_body(_inst) {
 	
 	// check if this sprite is the attacker
 	if (inst == sparActionProcessor.activeSprite) {
-		// reset damage using arbitrate_physical_damage
-		sparActionProcessor.damage = arbitrate_physical_damage(inst, sparActionProcessor.targetSprite, SPRITE_PARAMS.RESISTANCE, BASIC_ATTACK_POWER);
+		// check if this is a basic attack
+		if (sparActionProcessor.currentSpell == -1) {
+			// reset damage using arbitrate_physical_damage
+			sparActionProcessor.damage = arbitrate_physical_damage(inst, sparActionProcessor.targetSprite, SPRITE_PARAMS.RESISTANCE, BASIC_ATTACK_POWER);
 		
-		// push a spar effect alert for activate ability
-		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 		
-		// push a spar effect alert for basic attack fire
-		spar_effect_push_alert(SPAR_EFFECTS.BASIC_ATTACK_FIRE, inst);
+			// push a spar effect alert for basic attack fire
+			spar_effect_push_alert(SPAR_EFFECTS.BASIC_ATTACK_RESISTANCE, inst);
+		}
 	}
 }
 
@@ -1264,7 +1267,7 @@ function keeping_tidy(_inst) {
 }
 
 ///@desc ABILITY FUNCTION -- DEMOLITOPS:
-/// TYPE: BASIC ATTACK DAMAGE CALC
+/// TYPE: ACTION SUCCESS
 /// This sprite's BASIC ATTACKS deal 2* damage against MECHANICAL sprites.
 function wrecking_ball(_inst) {
 	// store args in locals
@@ -1422,12 +1425,12 @@ function propogate(_inst) {
 		if (inst.bound) 
 		|| (inst.berserk) {	
 			// reset bound and boundCounter
-			bound = false;
-			boundCounter = 0;
+			inst.bound = false;
+			inst.boundCounter = 0;
 			
 			// reset berserk and berserkCounter
-			berserk = false;
-			berserkCounter = 0;
+			inst.berserk = false;
+			inst.berserkCounter = 0;
 			
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
@@ -1440,7 +1443,17 @@ function propogate(_inst) {
 /// If this sprite's team has less than half HP, it fully restores
 /// their MP at the end of the turn.
 function redeeming_qualities(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite's team has half HP or less
+	if (inst.team.currentHP <= MAX_HP / 2) {	
+		// push a spar effect alert for activate ability
+		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		
+		// push a spar effect alert for restore mp
+		spar_effect_push_alert(SPAR_EFFECTS.RESTORE_MP, inst);
+	}
 }
 
 ///@desc ABILITY FUNCTION -- PLASMASS
@@ -1448,14 +1461,47 @@ function redeeming_qualities(_inst) {
 /// When this sprite casts a FIRE or STORM spell, the DMI is increased
 /// by 1.
 function generator(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is attacking
+	if (inst == sparActionProcessor.activeSprite) {
+		// check if it is a fire or storm spell
+		if (sparActionProcessor.spellType == SPELL_TYPES.FIRE) 
+		|| (sparActionProcessor.spellType == SPELL_TYPES.STORM) {	
+			// increase the dmi by 1
+			global.damageMultiplierIndex++;
+			
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for increase damage
+			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- OBSIDUAL:
-/// TYPE: BASIC ATTACK DAMAGE CALC
-/// This sprite's BASIC ATTACKS deal 1.3* damage.
+/// TYPE: ACTION SUCCESS
+/// This sprite's BASIC ATTACKS deal 2* damage.
 function dual_wield(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is attacking
+	if (inst == sparActionProcessor.activeSprite) {	
+		// check if it is a basic attack
+		if (sparActionProcessor.currentSpell == -1) {	
+			// multiply damage output by 2
+			sparActionProcessor.damage = sparActionProcessor.damage * 2;
+			
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for increase damage
+			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- NINTOX:
@@ -1463,7 +1509,27 @@ function dual_wield(_inst) {
 /// If MIASMA is present on this sprite's side of the field, they perform a
 /// DODGE check whenever targeted by a damaging spell or basic attack.
 function shadowy_fiend(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is being attacked
+	if (inst == sparActionProcessor.targetSprite) {
+		// check if it is a basic attack or damaging spell
+		if (sparActionProcessor.currentSpell == -1) 
+		|| (sparActionProcessor.spellPower > 0) {
+			// check if miasma is present on this sprite's side of the field
+			if (inst.team.miasma) {
+				// check if the spell is dodgeable
+				if (sparActionProcessor.spellDodgeable) {
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// if so, set dodgeSuccess to true
+					sparActionProcessor.dodgeSuccess = true;
+				}
+			}
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- CHROMALIODON
@@ -1472,23 +1538,69 @@ function shadowy_fiend(_inst) {
 /// PHYSICAL SPELL, this sprite RESTORES HP equal to the damage it would
 /// have taken and causes the SPELL to fail.
 function metal_muncher(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is the target
+	if (inst == sparActionProcessor.targetSprite) {
+		// check if it is a basic attack or physical spell
+		if (sparActionProcessor.currentSpell == -1) 
+		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {	
+			// check if the attacker is a mechanical sprite
+			if (sparActionProcessor.activeSprite.currentAlign == ALIGNMENTS.MECHANICAL) {
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for restore HP
+				spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, sparActionProcessor.damage);
+				
+				// destroy the action processor
+				instance_destroy(sparActionProcessor);
+			}
+		}
+	}	
 }
 
 ///@desc ABILITY FUNCTION -- CRAGMA
-/// TYPE: BASIC ATTACK DAMAGE CALC
+/// TYPE: ACTION SUCCESS
 /// This sprite's basic attacks use the FIRE stat for damage calc instead of
 /// the POWER stat.
 function volcanic_mass(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is attacking
+	if (inst == sparActionProcessor.activeSprite) {	
+		// check if it is a basic attack
+		if (sparActionProcessor.currentSpell == -1) {
+			// reset damage using arbitrate_physical_damage
+			sparActionProcessor.damage = arbitrate_physical_damage(inst, sparActionProcessor.targetSprite, SPRITE_PARAMS.FIRE, BASIC_ATTACK_POWER);
+			
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for basic attack fire
+			spar_effect_push_alert(SPAR_EFFECTS.BASIC_ATTACK_FIRE, inst);
+		}
+	}	
 }
 
 ///@desc ABILITY FUNCTION -- CORVOLT
 /// TYPE: TURN START
-/// If the ARENA is SKY, all of this sprite's nearby allies will become
+/// If the ARENA is CLOUDS, all of this sprite's nearby allies will become
 /// INVULNERABLE at the beginning of each turn.
 function eye_of_the_storm(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if the arena is clouds
+	if (spar.currentArena == ARENAS.CLOUDS) {	
+		// push a spar effect alert for activate ability
+		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		
+		// push a spar effect alert for set invulnerable nearby allies
+		spar_effect_push_alert(SPAR_EFFECTS.SET_INVULNERABLE_NEARBY_ALLIES, inst);
+	}
 }
 
 ///@desc ABILITY FUNCTION -- WYRMPOOL
@@ -1496,44 +1608,126 @@ function eye_of_the_storm(_inst) {
 /// If the ARENA is OCEAN, all of this sprite's nearby sprites will become
 /// BOUND at the beginning of each turn.
 function centripetal_force(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if the arena is ocean
+	if (spar.currentArena == ARENAS.OCEAN) {	
+		// push a spar effect alert for activate ability
+		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		
+		// push a spar effect alert for set bound nearby sprites
+		spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND_NEARBY_SPRITES, inst);
+	}
 }
 
 ///@desc ABILITY FUNCTION -- CENOTOMB
-/// TYPE: BASIC ATTACK ATTEMPT 
-/// This sprite's BASIC ATTACKS deal 2* damage while HEXED
+/// TYPE: ACTION SUCCESS
+/// This sprite's attacks deal 1.5* damage while HEXED
 function pure_malice(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is attacking
+	if (inst == sparActionProcessor.activeSprite) {
+		// check if it is a damaging spell or basic attack
+		if (sparActionProcessor.currentSpell == -1) 
+		|| (sparActionProcessor.spellPower > 0) {	
+			// check if it is HEXED
+			if (inst.hexed) {
+				// multiply damage by 1.5
+				sparActionProcessor.damage = round(sparActionProcessor.damage * 1.5);
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for increase damage
+				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+			}
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- STEWARDRAKE
-/// TYPE: ACTION ATTEMPT
-/// This sprite's nearby allies always take 2/3* damage
+/// TYPE: ACTION SUCCESS
+/// This sprite's teammates always take 0.75* damage
 function guardian_angel(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if the target is on this sprite's team
+	if (sparActionProcessor.targetSprite.team == inst.team) {
+		// check if damage is greater than 0
+		if  (sparActionProcessor.damage > 0) {
+			// multiply damage by 0.75
+			sparActionProcessor.damage = round(sparActionProcessor.damage * 0.75);
+			
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for decrease damage
+			spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, sparActionProcessor.targetSprite);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- DOMINO
-/// TYPE: BASIC ATTACK SUCCESS
+/// TYPE: ACTION SUCCESS
 /// When this sprite hits another with a basic attack, that sprite
 /// will take their place as target for the rest of the turn.
 function ring_leader(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is attacking
+	if (inst == sparActionProcessor.activeSprite) {	
+		// check if it is a basic attack
+		if (sparActionProcessor.currentSpell == -1) {	
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for replace target
+			spar_effect_push_alert(SPAR_EFFECTS.REPLACE_TARGET, sparActionProcessor.targetSprite, inst);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- ANACHRONAUT
-/// TYPE: SPELL ATTEMPT
+/// TYPE: ACTION ATTEMPT
 /// All ancient and time based spells will automatically fail when this
 /// sprite is present
 function time_police(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if it is a spell	
+	if (sparActionProcessor.currentSpell >= 0) {
+		// build ancientSpells list
+		var l = ds_list_create();
+		decode_list(global.ancientSpellList, l);
+		
+		// check if this spell is on the above list
+		if (ds_list_find_index(l, sparActionProcessor.currentSpell) != -1) {
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// force spell to fail
+			sparActionProcessor.spellFailed = true;
+		}
+		
+		// destroy temp list
+		ds_list_destroy(l);
+	}
 }
 
 ///@desc ABILITY FUNCTION -- SHPUPO
 /// TYPE: SPELL SUCCESS
 /// This sprite ignores the secondary effect of all SPELLS
 function space_cadet(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// come back to this one
 }
 
 ///@desc ABILITY FUNCTION -- NEEDLEPAW
@@ -1541,15 +1735,59 @@ function space_cadet(_inst) {
 /// This sprite forces all enemy sprites to have their LUCK locked at the
 /// lowest possible value
 function bad_omen(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// get the team opposing inst
+	var t = -1;
+	if (inst.team == player) {
+		t = spar.playerTwo;	
+	}	else {
+		t = spar.playerOne;	
+	}
+	
+	// push a spar effect for activate ability
+	spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+	
+	// push a spar effect alert for force worst luck team	
+	spar_effect_push_alert(SPAR_EFFECTS.FORCE_WORST_LUCK_TEAM, t);
 }
 
 ///@desc ABILITY FUNCTION -- OMNOST
 /// TYPE: SPELL ATTEMPT
-/// When this sprite casts ELEMENTAL SPELLS, the DMI is increased by 2. When
-/// this sprite is targeted by ELEMENTAL SPELLS, the DMI is decreased by 2.
+/// When this sprite casts ELEMENTAL SPELLS, the DMI is increased by 1. When
+/// this sprite is targeted by ELEMENTAL SPELLS, the DMI is decreased by 1.
 function all_knowing(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if it is an elemental spell
+	if (sparActionProcessor.spellType < SPELL_TYPES.PHYSICAL)
+	&& (sparActionProcessor.spellType > 0) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {
+			// increase the DMI by 1
+			global.damageMultiplierIndex++;
+			
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for increase damage	
+			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+		}
+		
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {
+			// decrease the DMI by 1
+			global.damageMultiplierIndex--;
+			
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for decrease damage
+			spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, inst);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- PRISMATTER
@@ -1558,21 +1796,73 @@ function all_knowing(_inst) {
 /// increased by 1. When this sprite is targeted by PHYSICAL SPELLS or BASIC
 /// ATTACKS, the DMI is decreased by 1.
 function bend_physics(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if it is a physical spell or basic attack
+	if (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) 
+	|| (sparActionProcessor.currentSpell == -1) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {
+			// increase the DMI by 1
+			global.damageMultiplierIndex++;
+			
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for increase damage	
+			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+		}
+		
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {
+			// decrease the DMI by 1
+			global.damageMultiplierIndex--;
+			
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for decrease damage
+			spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, inst);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- KRONARC
 /// TYPE: TURN PROCESS
 /// This sprite always moves absolute first (before all priority spells)
 function compress_time(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if sprite has already taken it's turn
+	if (spar.turnGrid[# selectionPhases.action, inst.spotNum] != -1) {
+		// push a spar effect alert for activate ability
+		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+	
+		// push a spar effect alert for arbitrate turn
+		spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
+	}
 }
 
 ///@desc ABILITY FUNCTION -- COSMALCOS
 /// TYPE: SPELL ATTEMPT
 /// All SPELLS that target this sprite will automatically fail.
 function end_of_days(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this sprite is the target
+	if (inst == sparActionProcessor.targetSprite) {
+		// check if it is a spell
+		if (sparActionProcessor.currentSpell < 0) {	
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// force the spell to fail
+			sparActionProcessor.spellFailed = true;
+		}
+	}
 }
 
 #endregion
@@ -1633,7 +1923,7 @@ master_grid_add_ability(ABILITIES.THUNDROUS_CRY,			textGrid[# 1, ABILITIES.THUND
 master_grid_add_ability(ABILITIES.MASSIVE_BODY,				textGrid[# 1, ABILITIES.MASSIVE_BODY],				textGrid[# 2, ABILITIES.MASSIVE_BODY],			ABILITY_TYPES.ACTION_SUCCESS,			massive_body);
 master_grid_add_ability(ABILITIES.UNDERDOG,					textGrid[# 1, ABILITIES.UNDERDOG],					textGrid[# 2, ABILITIES.UNDERDOG],				ABILITY_TYPES.ACTION_SUCCESS,			underdog);
 master_grid_add_ability(ABILITIES.KEEPING_TIDY,				textGrid[# 1, ABILITIES.KEEPING_TIDY],				textGrid[# 2, ABILITIES.KEEPING_TIDY],			ABILITY_TYPES.TURN_END,					keeping_tidy);
-master_grid_add_ability(ABILITIES.WRECKING_BALL,			textGrid[# 1, ABILITIES.WRECKING_BALL],				textGrid[# 2, ABILITIES.WRECKING_BALL],			ABILITY_TYPES.DAMAGE_CALC,				wrecking_ball);
+master_grid_add_ability(ABILITIES.WRECKING_BALL,			textGrid[# 1, ABILITIES.WRECKING_BALL],				textGrid[# 2, ABILITIES.WRECKING_BALL],			ABILITY_TYPES.ACTION_SUCCESS,			wrecking_ball);
 master_grid_add_ability(ABILITIES.DRIFT_AWAY,				textGrid[# 1, ABILITIES.DRIFT_AWAY],				textGrid[# 2, ABILITIES.DRIFT_AWAY],			ABILITY_TYPES.SPRITE_RESTING,			drift_away);
 master_grid_add_ability(ABILITIES.TRICKSTER_FAERIE,			textGrid[# 1, ABILITIES.TRICKSTER_FAERIE],			textGrid[# 2, ABILITIES.TRICKSTER_FAERIE],		ABILITY_TYPES.ACTION_SUCCESS,			trickster_faerie);
 master_grid_add_ability(ABILITIES.DUMPSTER_DIVER,			textGrid[# 1, ABILITIES.DUMPSTER_DIVER],			textGrid[# 2, ABILITIES.DUMPSTER_DIVER],		ABILITY_TYPES.MP_DEPLETED,				dumpster_diver);
@@ -1643,16 +1933,16 @@ master_grid_add_ability(ABILITIES.PROPOGATE,				textGrid[# 1, ABILITIES.PROPOGAT
 master_grid_add_ability(ABILITIES.NEW_ABILITY_2,			textGrid[# 1, ABILITIES.NEW_ABILITY_2],				textGrid[# 2, ABILITIES.NEW_ABILITY_2],			-1,										noone);
 master_grid_add_ability(ABILITIES.REDEEMING_QUALITIES,		textGrid[# 1, ABILITIES.REDEEMING_QUALITIES],		textGrid[# 2, ABILITIES.REDEEMING_QUALITIES],	ABILITY_TYPES.TURN_END,					redeeming_qualities);
 master_grid_add_ability(ABILITIES.GENERATOR,				textGrid[# 1, ABILITIES.GENERATOR],					textGrid[# 2, ABILITIES.GENERATOR],				ABILITY_TYPES.ACTION_BEGIN,				generator);
-master_grid_add_ability(ABILITIES.DUAL_WIELD,				textGrid[# 1, ABILITIES.DUAL_WIELD],				textGrid[# 2, ABILITIES.DUAL_WIELD],			ABILITY_TYPES.DAMAGE_CALC,				dual_wield);
+master_grid_add_ability(ABILITIES.DUAL_WIELD,				textGrid[# 1, ABILITIES.DUAL_WIELD],				textGrid[# 2, ABILITIES.DUAL_WIELD],			ABILITY_TYPES.ACTION_SUCCESS,			dual_wield);
 master_grid_add_ability(ABILITIES.SHADOWY_FIEND,			textGrid[# 1, ABILITIES.SHADOWY_FIEND],				textGrid[# 2, ABILITIES.SHADOWY_FIEND],			ABILITY_TYPES.ACTION_BEGIN,				shadowy_fiend);
-master_grid_add_ability(ABILITIES.METAL_MUNCHER,			textGrid[# 1, ABILITIES.METAL_MUNCHER],				textGrid[# 2, ABILITIES.METAL_MUNCHER],			ABILITY_TYPES.ACTION_BEGIN,				metal_muncher);
-master_grid_add_ability(ABILITIES.VOLCANIC_MASS,			textGrid[# 1, ABILITIES.VOLCANIC_MASS],				textGrid[# 2, ABILITIES.VOLCANIC_MASS],			ABILITY_TYPES.DAMAGE_CALC,				volcanic_mass);
+master_grid_add_ability(ABILITIES.METAL_MUNCHER,			textGrid[# 1, ABILITIES.METAL_MUNCHER],				textGrid[# 2, ABILITIES.METAL_MUNCHER],			ABILITY_TYPES.ACTION_SUCCESS,			metal_muncher);
+master_grid_add_ability(ABILITIES.VOLCANIC_MASS,			textGrid[# 1, ABILITIES.VOLCANIC_MASS],				textGrid[# 2, ABILITIES.VOLCANIC_MASS],			ABILITY_TYPES.ACTION_SUCCESS,			volcanic_mass);
 master_grid_add_ability(ABILITIES.EYE_OF_THE_STORM,			textGrid[# 1, ABILITIES.EYE_OF_THE_STORM],			textGrid[# 2, ABILITIES.EYE_OF_THE_STORM],		ABILITY_TYPES.TURN_BEGIN,				eye_of_the_storm);
 master_grid_add_ability(ABILITIES.NEW_ABILITY_3,			textGrid[# 1, ABILITIES.NEW_ABILITY_3],				textGrid[# 2, ABILITIES.NEW_ABILITY_3],			-1,										noone);
 master_grid_add_ability(ABILITIES.CENTRIPETAL_FORCE,		textGrid[# 1, ABILITIES.CENTRIPETAL_FORCE],			textGrid[# 2, ABILITIES.CENTRIPETAL_FORCE],		ABILITY_TYPES.TURN_BEGIN,				centripetal_force);
 master_grid_add_ability(ABILITIES.NEW_ABILITY_4,			textGrid[# 1, ABILITIES.NEW_ABILITY_4],				textGrid[# 2, ABILITIES.NEW_ABILITY_4],			-1,										noone);
-master_grid_add_ability(ABILITIES.PURE_MALICE,				textGrid[# 1, ABILITIES.PURE_MALICE],				textGrid[# 2, ABILITIES.PURE_MALICE],			ABILITY_TYPES.DAMAGE_CALC,				pure_malice);
-master_grid_add_ability(ABILITIES.GUARDIAN_ANGEL,			textGrid[# 1, ABILITIES.GUARDIAN_ANGEL],			textGrid[# 2, ABILITIES.GUARDIAN_ANGEL],		ABILITY_TYPES.ACTION_BEGIN,				guardian_angel);
+master_grid_add_ability(ABILITIES.PURE_MALICE,				textGrid[# 1, ABILITIES.PURE_MALICE],				textGrid[# 2, ABILITIES.PURE_MALICE],			ABILITY_TYPES.ACTION_SUCCESS,			pure_malice);
+master_grid_add_ability(ABILITIES.GUARDIAN_ANGEL,			textGrid[# 1, ABILITIES.GUARDIAN_ANGEL],			textGrid[# 2, ABILITIES.GUARDIAN_ANGEL],		ABILITY_TYPES.ACTION_SUCCESS,			guardian_angel);
 master_grid_add_ability(ABILITIES.NEW_ABILITY_5,			textGrid[# 1, ABILITIES.NEW_ABILITY_5],				textGrid[# 2, ABILITIES.NEW_ABILITY_5],			-1,										noone);
 master_grid_add_ability(ABILITIES.RING_LEADER,				textGrid[# 1, ABILITIES.RING_LEADER],				textGrid[# 2, ABILITIES.RING_LEADER],			ABILITY_TYPES.ACTION_SUCCESS,			ring_leader);
 master_grid_add_ability(ABILITIES.TIME_POLICE,				textGrid[# 1, ABILITIES.TIME_POLICE],				textGrid[# 2, ABILITIES.TIME_POLICE],			ABILITY_TYPES.ACTION_BEGIN,				time_police);

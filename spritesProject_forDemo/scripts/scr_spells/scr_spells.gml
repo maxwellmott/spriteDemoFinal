@@ -105,7 +105,7 @@ enum SPELL_PARAMS {
 	HEIGHT
 }
 
-#region BUILD PRIORITY LIST
+#region BUILD PRIORITY SPELLS LIST
 	var priorityList = ds_list_create();
 	
 	// populate priority list
@@ -118,6 +118,22 @@ enum SPELL_PARAMS {
 	// delete temp list
 	ds_list_destroy(priorityList);
 
+#endregion
+
+#region BUILD ANCIENT SPELLS LIST
+	var ancientList = ds_list_create();
+	
+	// populate ancientList
+	ds_list_add(ancientList,	SPELLS.BROADCAST_DATA,	SPELLS.COLLAPSE_SPACE,	SPELLS.EXPAND_TIME,		SPELLS.SPHERAS_DEMISE,
+								SPELLS.TIME_LOOP,		SPELLS.ERADICATE,		SPELLS.SOLAR_FLARE,		SPELLS.TIDAL_FORCE,
+								SPELLS.NEBULA_STORM,	SPELLS.TECTONIC_SHIFT);
+	
+	// encode ancient list
+	global.ancientSpellList = encode_list(ancientList);
+	
+	// delete temp list
+	ds_list_destroy(ancientList);
+	
 #endregion
 
 // declare spell types

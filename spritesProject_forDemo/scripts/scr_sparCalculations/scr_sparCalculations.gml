@@ -5,7 +5,6 @@ global.averageWeaknesses		= ds_list_create();
 global.averageStrengths			= ds_list_create();
 global.agilityOdds				= 0;
 global.damageMultiplierIndex	= 0;
-global.mpSpendingSprite
 
 enum elements {
 	fire,
