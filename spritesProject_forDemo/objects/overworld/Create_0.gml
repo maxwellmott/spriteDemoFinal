@@ -5,6 +5,12 @@ global.newRoom = -1;
 spritesCreated = false;
 sceneryCreated = false;
 
+// initialize lightningActive
+lightningActive = false;
+
+// initialize minutesSinceLightning
+minutesSinceLightning = 0;
+
 if !(layer_exists("Background"))	layer_create(get_layer_depth(LAYER.background),			"Background");
 if !(layer_exists("Ground"))		layer_create(get_layer_depth(LAYER.groundTiles),		"Ground");
 if !(layer_exists("Water"))			layer_create(get_layer_depth(LAYER.waterTiles),			"Water");
@@ -126,5 +132,9 @@ if (is_debug_overlay_open()) {
 */
 
 //create_once(mouse_x, mouse_y, LAYER.mouse, tileChecker_debug);
+
+// for testing only
+global.rainActive = true;
+audio_push_bgm(bgm_test);
 
 global.roomBuilt = true;

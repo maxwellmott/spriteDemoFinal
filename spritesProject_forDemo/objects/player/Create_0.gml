@@ -29,7 +29,7 @@ tm_collidables	= -1;
 // initialize time for new game
 seconds = 0;
 minutes = 58;
-hours	= 23;
+hours	= 10;
 day		= 14;
 weekday	= weekdays.famelsun;
 season	= seasons.daysOfBones;

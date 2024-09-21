@@ -74,3 +74,6 @@ human_set_depth();
 #endregion
 
 parametersLoaded	= false;
+
+emitterActive = false;
+emitterNum = -1;

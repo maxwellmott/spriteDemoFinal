@@ -1,0 +1,25 @@
+{
+  "$GMSound":"",
+  "%Name":"wps_test",
+  "audioGroupId":{
+    "name":"ag_WPS",
+    "path":"audiogroups/ag_WPS",
+  },
+  "bitDepth":1,
+  "bitRate":128,
+  "compression":1,
+  "conversionMode":0,
+  "duration":51.200047,
+  "name":"wps_test",
+  "parent":{
+    "name":"Sounds",
+    "path":"folders/Sounds.yy",
+  },
+  "preload":false,
+  "resourceType":"GMSound",
+  "resourceVersion":"2.0",
+  "sampleRate":44100,
+  "soundFile":"wps_test.wav",
+  "type":1,
+  "volume":1.0,
+}

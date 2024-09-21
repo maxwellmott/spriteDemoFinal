@@ -46,6 +46,17 @@ function increment_minutes() {
 	if (seconds >= 60) {
 		minutes += 1;
 		seconds -= 60;
+		
+		if (global.overworld) {
+			if (instance_exists(overworld)) {
+				with (overworld) {
+					if (global.rainActive)
+					&& !(lightningActive) {
+						minutesSinceLightning++;
+					}
+				}
+			}
+		}
 	}
 }
 

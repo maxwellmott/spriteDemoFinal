@@ -8,6 +8,7 @@ gpu_set_alphatestenable(false);
 // create camera and controller right away
 create_once(0, 0, LAYER.meta, controller);
 create_once(0, 0, LAYER.meta, camera);
+create_once(0, 0, LAYER.meta, audioManager);
 
 // disable surface depth handling
 surface_depth_disable(true);
@@ -30,3 +31,5 @@ if (is_debug_overlay_open()) {
 	start_new_game();	
 	show_debug_overlay(false);
 }
+
+bgmEffect = -1;
