@@ -7,18 +7,11 @@ currentSFX = -1;
 // the id of the bgm currently playing
 currentBGM = -1;
 
-// the id of a bgm that's supposed to play now
-newBGM = -1;
-
 // the volume of the bgm relative to the gross and selected volumes
 bgmGain = 1.0;
 
 // the volume of the sfx relative to the gross and selected volumes
 sfxGain = 1.0;
-
-// the volume of all audio as indicated by other factors in the game
-// such as room transitions
-grossGain = 1.0;
 
 // the volumes of all audio as indicated by the number selected by
 // the player in the options menu

@@ -797,11 +797,8 @@ correct_uiAlpha();
 if (check_sprites_done_flashing()) {
 	// check that hpmp bars are up to date
 	if (spar_check_hpmp()) {
-		// check that there are no spar effect alerts
-		if (ds_list_size(effectAlertList) == 0) {
-			if (spar_check_complete()) {
-				create_once(0, 0, LAYER.meta, winLoseDisplay);	
-			}
+		if (spar_check_complete()) {
+			create_once(0, 0, LAYER.meta, winLoseDisplay);	
 		}
 	}
 }

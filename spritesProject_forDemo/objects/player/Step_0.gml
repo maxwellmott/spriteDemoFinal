@@ -62,11 +62,11 @@ if (global.overworld)
 && !(instance_exists(menu)) {	
 	if (global.shiftPressed)	{	
 		if (global.start)		{
-			room_transition(x, y, facing, rm_teambuilder);	
+			room_transition(x, y, facing, rm_teambuilder, bgm_menuTheme);	
 		}
 	
 		if (global.back)		{
-			room_transition(x, y, facing, rm_spellbookBuilder);
+			room_transition(x, y, facing, rm_spellbookBuilder, bgm_menuTheme);
 		}
 	}	
 	else	{
@@ -76,7 +76,7 @@ if (global.overworld)
 	 	}
 	 
 	 	if (global.back)		{
-	 		room_transition(x, y, facing, rm_onlineLobby);
+	 		room_transition(x, y, facing, rm_onlineLobby, bgm_menuTheme);
 	 	}
 	 }
 }

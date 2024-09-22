@@ -237,5 +237,5 @@ function gate_check_player() {
 /// a transition.
 function spar_begin_ingame() {
 	global.sparType = sparTypes.inGame;
-	room_transition(200, 400, directions.south, rm_battleScene);
+	room_transition(200, 400, directions.south, rm_battleScene, bgm_sparNormal);
 }

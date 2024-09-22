@@ -1113,8 +1113,11 @@ function get_current_stat_elemental() {
 }
 
 function spar_check_complete() {
-	if (playerOne.currentHP <= 0)
-	|| (playerTwo.currentHP <= 0) {
+	if (spar.playerOne.currentHP <= 0)
+	|| (spar.playerTwo.currentHP <= 0) {
+		ds_list_clear(spar.effectAlertList);
+		
+		spar.sparPhase = sparPhases.height;
 		return true;	
 	}
 	else	{

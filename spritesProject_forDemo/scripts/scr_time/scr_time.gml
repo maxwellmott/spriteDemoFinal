@@ -73,7 +73,7 @@ function increment_hours() {
 function begin_day_change() {
 	if hours >= 24 
 	&& !(instance_exists(transitionManager)) {
-		room_transition(x, y, facing, rm_dayChange);	
+		room_transition(x, y, facing, rm_dayChange, bgm_dayChange);	
 	}
 }
 

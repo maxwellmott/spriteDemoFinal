@@ -30,13 +30,5 @@ function audio_push_emitter() {
 }
 
 function audio_push_sfx() {
-	
-}
 
-function audio_push_bgm(_bgmID) {
-	var bgmID = _bgmID;
-	
-	with (audioManager) {
-		newBGM = bgmID;	
-	}
 }

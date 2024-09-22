@@ -13,4 +13,6 @@ enum transitionStates {
 
 state = transitionStates.fadingIn;
 
+newBGM = global.newBGM;
+
 global.roomBuilt = false;

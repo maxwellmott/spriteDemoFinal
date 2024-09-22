@@ -133,8 +133,4 @@ if (is_debug_overlay_open()) {
 
 //create_once(mouse_x, mouse_y, LAYER.mouse, tileChecker_debug);
 
-// for testing only
-global.rainActive = true;
-audio_push_bgm(bgm_test);
-
 global.roomBuilt = true;

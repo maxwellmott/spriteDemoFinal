@@ -212,7 +212,7 @@ function client_request_team() {
 		
 		onlineEnemy.teamString = data[? "enemyTeam"];
 		
-		room_transition(player.x, player.y, player.facing, rm_spellbookBuilder);
+		room_transition(player.x, player.y, player.facing, rm_spellbookBuilder, bgm_menuTheme);
 	}
 	else {
 		show_debug_message("Enemy team has not yet been submitted...");	
@@ -302,7 +302,7 @@ function connection_test() {
 			show_debug_message("Connection test success!");
 			
 			// transition to teambuilder
-			room_transition(player.x, player.y, player.facing, rm_teambuilder);	
+			room_transition(player.x, player.y, player.facing, rm_teambuilder, bgm_menuTheme);	
 		}
 		
 	}
@@ -344,7 +344,7 @@ function check_enemy_ready() {
 	if (data[? "ready"]) {
 		show_debug_message("Both players are ready to begin!");
 		
-		room_transition(player.x, player.y, player.facing, rm_battleScene);
+		room_transition(player.x, player.y, player.facing, rm_battleScene, bgm_sparNormal);
 	}
 	else {
 		show_debug_message("Enemy is not yet ready to begin...");

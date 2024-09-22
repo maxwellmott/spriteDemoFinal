@@ -65,3 +65,5 @@ npcLocationList	= ds_list_create();
 day_change_build_location_list(npcLocationList);
 
 day_change_edit_npc_lists(npcLocationList);
+
+global.roomBuilt = true;

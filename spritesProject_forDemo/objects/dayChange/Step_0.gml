@@ -20,6 +20,6 @@ if !(global.roomBuilt) && (starsPlaced == starCount) {
 
 if (displaying == dcDisplay.height) {
 		if (global.select) {
-			room_transition(player.x, player.y, player.facing, rm_overworld);	
+			room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);
 		}
 }

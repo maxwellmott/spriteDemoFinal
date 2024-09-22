@@ -3,17 +3,19 @@ global.newX			= -1;
 global.newY			= -1;
 global.newRoom		= -1;
 global.roomBuilt	= false;
+global.newBGM		= -1;
 
 ///@desc This function is called whenever the game needs to transition to a totally
 /// different room. The function stores all the given arguments in the global vars
 /// initialized at the top of this page, then creates the transitionManager
-function room_transition(_newX, _newY, _newFacing, _newRoom) {
+function room_transition(_newX, _newY, _newFacing, _newRoom, _newBGM) {
 	if (instance_exists(transitionManager)) instance_destroy(transitionManager);
 
 	global.newX			= _newX;
 	global.newY			= _newY;
 	global.newFacing	= _newFacing;
 	global.newRoom		= _newRoom;
+	global.newBGM		= _newBGM;
 	
 	instance_create_depth(x, y, get_layer_depth(LAYER.meta), transitionManager);
 }

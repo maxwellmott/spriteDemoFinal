@@ -7,7 +7,7 @@ function start_new_game() {
 	create_once(0,	0, LAYER.sprites, player);
 	player.location = locations.miriabramExt;
 	
-	room_transition(256, 160, directions.south, rm_overworld);
+	room_transition(256, 160, directions.south, rm_overworld, bgm_springRelaxSunny);
 }
 
 ///@desc This function stores a given string of data in a buffer and then saves that buffer

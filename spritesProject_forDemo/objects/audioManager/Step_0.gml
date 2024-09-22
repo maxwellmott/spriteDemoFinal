@@ -12,45 +12,12 @@ if (currentSFX == -1) {
 // if there is sfx playing
 else {
 	// check if currentBGM's gain is higher than 0.6
+	/*
 	if (bgmGain > 0.6) {	
-		audio_sound_gain(currentBGM, 0.6, 160);	
+		bgmGain -= 0.05;
+		audio_sound_gain(currentBGM, bgmGain, 0);	
 	}
-}
-
-// check if newBGM is not -1
-if (newBGM != -1) {
-	// check if newBGM is not the same as currentBGM
-	if (newBGM != currentBGM) {
-		// check if currentBGM's gain is higher than 0	
-		if (bgmGain > 0.0) {
-			// decrement the gain
-			bgmGain -= 0.1;
-			
-			// set the new gain
-			audio_sound_gain(currentBGM, bgmGain, 0);
-		}
-		// if it is 0 or lower
-		if (bgmGain <= 0.0) {	
-			// start playing the newBGM
-			currentBGM = audio_play_sound(newBGM, 1, 0, bgmGain);
-			
-			// reset newBGM
-			newBGM = -1;
-		}
-	}
-}
-
-// check if there is not currentSFX and newBGM is not set
-if (currentSFX == -1)
-&& (newBGM == -1) {
-	// check if currentBGM's gain is lower than 1.0
-	if (bgmGain < 1.0) {
-		// increment the gain
-		bgmGain += 0.1;
-		
-		// set the new gain
-		audio_sound_gain(currentBGM, bgmGain, 0);
-	}
+	*/
 }
 
 // check if any emitters have been added to the emitterQueue

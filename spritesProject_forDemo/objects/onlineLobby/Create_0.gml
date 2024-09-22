@@ -83,3 +83,5 @@ roomStringY = 11;
 searchID = "";
 
 testActive = false;
+
+global.roomBuilt = true;

@@ -1,6 +1,11 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+// check if either player has lost
+if (spar_check_complete()) {
+	create_once(0, 0, LAYER.meta, winLoseDisplay);	
+}
+
 drawReady = false;
 
 subject = "";
