@@ -43,8 +43,37 @@ function spar_effect_push_alert(_effectID) {
 	// encode temporary list
 	var encList = encode_list(list);
 	
+	// get the current size of effectAlertList
+	var alertCount = ds_list_size(spar.effectAlertList);
+	
+	var listPos = alertCount;
+	
+	// check that the current alert is NOT of type "arbitrate_turn"
+	if (eid != SPAR_EFFECTS.ARBITRATE_TURN) {
+		// check if there are any alerts
+		if (alertCount > 0) {
+			// use a repeat loop to check each alert
+			var i = 0;	repeat (alertCount) {
+				var alert = spar.effectAlertList[| i];	
+				
+				// get the parameters of the current alert
+				var pl = ds_list_create();
+				decode_list(alert, pl);
+				
+				// check if the current alert is of type "arbitate_turn"
+				if (real(pl[| 0]) == SPAR_EFFECTS.ARBITRATE_TURN) {
+					// move this alert down one spot on the list
+					spar.effectAlertList[| i + 1] = alert;
+					
+					// decrement listPos
+					listPos -= 1;
+				}
+			}
+		}
+	}
+	
 	// push encoded list to alert list
-	ds_list_push(spar.effectAlertList, encList);
+	spar.effectAlertList[| listPos] = encList;
 }
 
 ///@desc This function is called in the create event of the sparEffectAlert object. The
@@ -974,20 +1003,6 @@ function force_swap_team(_targetPlayer) {
 	// initialize global.swapList
 	global.swapList = ds_list_create();
 		
-	if !(spar_check_bound(psid)) {
-		if !(spar_check_bound(tsid)) {
-			
-		}
-		else {
-			spar_effect_push_alert(SPAR_EFFECTS.APPLY_BOUND, psid);	
-		}
-	}
-	else {
-		if (spar_check_bound(psid)) {
-			spar_effect_push_alert(SPAR_EFFECTS.APPLY_BOUND, tsid);	
-		}
-	}		
-		
 	// get target's spot number
 	var ct = _targetPlayer;
 	
@@ -1040,21 +1055,15 @@ function force_swap_team(_targetPlayer) {
 	// store target's ID
 	var tsid	= il[| tsn];
 	
-	// add both sprites to global.swapList
-	ds_list_add(global.swapList, psid, tsid);
-	
-	// perform an ability check for swap attempt for psid
-	ability_check(psid, ABILITY_TYPES.SWAP_ATTEMPT, tsid);
-	
-	// perform an ability check for swap attempt for tsid
-	ability_check(tsid, ABILITY_TYPES.SWAP_ATTEMPT, psid);
-	
 	// if neither swapper is bound:
 	if !(spar_check_bound(psid)) {
 		if !(spar_check_bound(tsid)) {
 			// if neither swapper is invulnerable:
 			if !(spar_check_invulnerable(psid)) {
 				if !(spar_check_invulnerable(tsid)) {
+					// add both sprites to global.swapList
+					ds_list_add(global.swapList, psid, tsid);
+					
 					// retain mindset to maintain through swap
 					var m1 = psid.mindset;
 					var m2 = tsid.mindset;
@@ -1093,7 +1102,7 @@ function force_swap_team(_targetPlayer) {
 				}
 			}
 		}
-	}
+	}	
 	
 	// perform an ability check for swap success
 	ability_check(ABILITY_TYPES.SWAP_SUCCESS);
@@ -2540,10 +2549,10 @@ function replace_target(_caster, _target) {
 	object = t.name;
 	
 	var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
-		var _ID = spar.turnGrid[# selectionPhases.target, i];
+		var _ID = spar.turnGrid[# SELECTION_PHASES.TARGET, i];
 		
 		if (_ID == t.spotNum) {
-			spar.turnGrid[# selectionPhases.target, i] = c.spotNum;	
+			spar.turnGrid[# SELECTION_PHASES.TARGET, i] = c.spotNum;	
 		}
 		
 		i++;
@@ -3202,7 +3211,7 @@ function deflect_spell(_atkr, _targ, _damg) {
 ///@desc SPAR EFFECT: forces the turn to end immediately
 function force_turn_end() {
 	ds_grid_clear(spar.turnGrid, -1);
-	spar.sparPhase = sparPhases.turnEnd;
+	spar.sparPhase = SPAR_PHASES.TURN_END;
 }
 
 ///@desc SPAR EFFECT: forces the targetTeam to store these turn selections
@@ -3867,7 +3876,7 @@ function arbitrate_turn(_sprite) {
 	var s = _sprite;
 	
 	// check if this sprite has already acted
-	if (spar.turnGrid[# selectionPhases.action, s.spotNum] == -1)	instance_destroy(id);
+	if (spar.turnGrid[# SELECTION_PHASES.ACTION, s.spotNum] == -1)	instance_destroy(id);
 	
 	// set subject
 	subject = s.name;

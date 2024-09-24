@@ -203,7 +203,8 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 					}
 				}
 				
-				if (spellEffect >= 0) {
+				if (spellEffect >= 0)
+				&& !(spellFailed) {
 					spellEffect();
 				}
 				

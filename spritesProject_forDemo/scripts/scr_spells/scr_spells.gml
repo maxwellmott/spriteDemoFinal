@@ -444,7 +444,7 @@ function drain_lifeforce() {
 function pyrokinesis() {
 	var t = activeSprite.team;
 	
-	var d = damage / 3;
+	var d = round(damage / 3);
 	
 	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, t, d);
 }

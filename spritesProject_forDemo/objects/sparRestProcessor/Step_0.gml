@@ -1,4 +1,4 @@
-if (global.select) 
+if (restBegin) 
 && !(animationStarted) {
 	// replenish mp for each sprite using a repeat loop
 	var i = 0;	repeat (ds_list_size(restList)) {

@@ -31,11 +31,11 @@ if (check_sprites_done_flashing()) {
 
 // spar phase switch statement
 switch (sparPhase) {
-	case sparPhases.height:
+	case SPAR_PHASES.HEIGHT:
 	
 	break;
 	
-	case sparPhases.turnEnd:
+	case SPAR_PHASES.TURN_END:
 		turnProcessCount = 0;
 		processPhase = PROCESS_PHASES.SWAP;
 		
@@ -56,11 +56,13 @@ switch (sparPhase) {
 		// perform an ability check for turn end
 		ability_check(ABILITY_TYPES.TURN_END);
 		
-		sparPhase = sparPhases.turnBegin;
+		sparPhase = SPAR_PHASES.TURN_BEGIN;
 
 	break;
 	
-	case sparPhases.process:
+	case SPAR_PHASES.PROCESS:
+		// destroy readyButton if possible
+		destroy_if_possible(sparReadyButton);
 	
 		// reset all sprites' selection data
 		with (sparAlly) {
@@ -88,7 +90,7 @@ switch (sparPhase) {
 			break;
 			
 			case PROCESS_PHASES.SWAP:
-				if (ds_grid_value_exists(turnGrid, selectionPhases.action, 0, selectionPhases.action, h, sparActions.swap)) {
+				if (ds_grid_value_exists(turnGrid, SELECTION_PHASES.ACTION, 0, SELECTION_PHASES.ACTION, h, sparActions.swap)) {
 					// set these built-ins so that the gms2 animation works
 					sprite_index = spr_sparSwapCloud;
 					image_speed = 1;
@@ -116,7 +118,7 @@ switch (sparPhase) {
 			
 			case PROCESS_PHASES.REST:
 				// check if any sprites are resting
-				if (ds_grid_value_exists(turnGrid, selectionPhases.action, 0, selectionPhases.action, h, sparActions.rest)) {
+				if (ds_grid_value_exists(turnGrid, SELECTION_PHASES.ACTION, 0, SELECTION_PHASES.ACTION, h, sparActions.rest)) {
 					// set these built-ins so that the gms2 animation works
 					sprite_index = spr_sparRestEye;
 					image_speed = 1;
@@ -144,7 +146,7 @@ switch (sparPhase) {
 			
 			case PROCESS_PHASES.DODGE:
 				// check if any sprites are dodging
-				if (ds_grid_value_exists(turnGrid, selectionPhases.action, 0, selectionPhases.action, h, sparActions.dodge)) {
+				if (ds_grid_value_exists(turnGrid, SELECTION_PHASES.ACTION, 0, SELECTION_PHASES.ACTION, h, sparActions.dodge)) {
 					// set these built_ins so that the gms2 animation works
 					sprite_index = spr_sparDodge;
 					image_speed = 1;
@@ -235,7 +237,7 @@ switch (sparPhase) {
 								var i = 0;	repeat (ds_list_size(fpl)) {
 									var inst = fpl[| i];
 									
-									if (turnGrid[# selectionPhases.action, inst.spotNum] != -1) {
+									if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
 										// push a spar effect alert for arbitrate turn
 										spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
 									}
@@ -247,7 +249,7 @@ switch (sparPhase) {
 								var i = 0;	repeat (ds_list_size(spl)) {
 									var inst = spl[| i];
 									
-									if (turnGrid[# selectionPhases.action, inst.spotNum] != -1) {
+									if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
 										// push a spar effect alert for arbitrate turn
 										spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
 									}
@@ -262,7 +264,7 @@ switch (sparPhase) {
 									var i = 0;	repeat (ds_list_size(allyList)) {
 										var inst = allyList[| i];
 										
-										if (turnGrid[# selectionPhases.action, inst.spotNum] != -1) {
+										if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
 											// push a spar effect alert for arbitrate turn
 											spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
 										}
@@ -277,7 +279,7 @@ switch (sparPhase) {
 									var i = 0;	repeat (ds_list_size(enemyList)) {
 										var inst = enemyList[| i];
 										
-										if (turnGrid[# selectionPhases.action, inst.spotNum] != -1) {
+										if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
 											// push a spar effect alert for arbitrate turn
 											spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
 										}
@@ -297,13 +299,13 @@ switch (sparPhase) {
 								
 								var i = 0;	repeat (ds_grid_height(turnGrid)) {
 									// get the current spotnum
-									var sn = turnGrid[# selectionPhases.ally, i];
+									var sn = turnGrid[# SELECTION_PHASES.ALLY, i];
 									
 									// get the current instance
 									var inst = spriteList[| sn];
 									
 									// get action
-									var a = turnGrid[# selectionPhases.action, i];
+									var a = turnGrid[# SELECTION_PHASES.ACTION, i];
 									
 									// check if action is a spell
 									if (action_check_spell(a)) {
@@ -572,7 +574,7 @@ switch (sparPhase) {
 								
 								// use a repeat loop to check the whole grid for remaining actions
 								var i = 0;	repeat (ds_grid_height(turnGrid)) {
-									var a = turnGrid[# selectionPhases.action, i];
+									var a = turnGrid[# SELECTION_PHASES.ACTION, i];
 									
 									// check if the action has been processed and reset to -1 already
 									if (a >= 0) {
@@ -597,10 +599,10 @@ switch (sparPhase) {
 									// to take their turn
 									var i = 0;	repeat (ds_grid_height(turnGrid)) {
 										// check if the next action on the grid has been reset to -1 already
-										var a = turnGrid[# selectionPhases.action, i];
+										var a = turnGrid[# SELECTION_PHASES.ACTION, i];
 										if (a >= 0) {
 											// get current spotNum
-											var sn = turnGrid[# selectionPhases.ally, i];
+											var sn = turnGrid[# SELECTION_PHASES.ALLY, i];
 											
 											// get the current instance
 											var inst = spriteList[| sn];
@@ -678,7 +680,7 @@ switch (sparPhase) {
 				with (sparAlly)		dodging = false;	dodgeCount = 0;
 				with (sparEnemy)	dodging = false;	dodgeCount = 0;
 			
-				sparPhase = sparPhases.turnEnd;
+				sparPhase = SPAR_PHASES.TURN_END;
 			break;
 		}
 
@@ -686,12 +688,12 @@ switch (sparPhase) {
 	break;
 	
 	#region SELECTION PHASE
-		case sparPhases.select:
+		case SPAR_PHASES.SELECT:
 			sprite_index = spr_sparFlashingSliver;	
 		
-			// use a switch statement to manage all selectionPhases
+			// use a switch statement to manage all SELECTION_PHASES
 			switch(selectionPhase) {
-				case selectionPhases.ally:
+				case SELECTION_PHASES.ALLY:
 				
 					// set selection message
 					selectionMsg = "Select a sprite to command";
@@ -702,7 +704,7 @@ switch (sparPhase) {
 					}
 				break;
 				
-				case selectionPhases.action:
+				case SELECTION_PHASES.ACTION:
 					// destroy readyButton if it exists
 					destroy_if_possible(sparReadyButton);
 					
@@ -727,7 +729,7 @@ switch (sparPhase) {
 					}
 				break;
 				
-				case selectionPhases.target:
+				case SELECTION_PHASES.TARGET:
 					var a = global.action;
 					
 					// switch statement to set selectionMsg text
@@ -748,44 +750,52 @@ switch (sparPhase) {
 					// handle backspace input
 					if (global.back) {
 						potentialCost = 0;
-						selectionPhase = selectionPhases.action;
+						selectionPhase = SELECTION_PHASES.ACTION;
 					}
 				break;
 			}
 				
-			if (playerOne.ready) 
-			&& !(onlineWaiting) {
-				destroy_if_possible(sparReadyButton);
+			// check if player is ready
+			if (playerOne.ready) {
+				// check if this is an online match
+				if (playerTwo == onlineEnemy) {
+					// check if onlineWaiting is false
+					if !(onlineWaiting) {
+						// set onlineWaiting to true
+						onlineWaiting = true;
+					}
+					// if onlineWaiting is true
+					else {	
+						// check if it's been 5 seconds
+						if !(global.gameTime mod 300) {
+							// submit a request for the enemy turn data
+							request_turn_begin();
+						}
+					}
+				}
 				
-				if (instance_exists(onlineEnemy)) {
-					onlineWaiting = true;
+				// if player two is also ready
+				if (playerTwo.ready) {
+					onlineWaiting = false;
+					playerTwo.ready = false;
+					playerOne.ready = false;
+					
+					// move to the process phase
+					sparPhase = SPAR_PHASES.PROCESS;
 				}
-				else {
-					sparPhase = sparPhases.process;
-				}
-			}
-			
-			if (playerOne.ready)
-			&& (onlineWaiting) {
-				if !(global.gameTime mod 120)	request_turn_begin();	
-			}
-			
-			if (playerOne.ready)
-			&& (playerTwo.ready) {
-				sparPhase = sparPhases.process;
 			}
 		break;
 	#endregion
 	
 	#region TURN BEGIN PHASE
-		case sparPhases.turnBegin:
+		case SPAR_PHASES.TURN_BEGIN:
 			// perform an ability check for turn begin
 			ability_check(ABILITY_TYPES.TURN_BEGIN);
 		
 			spar_check_hail_sphera();
 			spar_check_miasma();	
 			
-			sparPhase = sparPhases.select;
+			sparPhase = SPAR_PHASES.SELECT;
 		break;
 	#endregion
 }

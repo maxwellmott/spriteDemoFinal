@@ -7,16 +7,16 @@ sprite_check_mindset();
 #region TARGET SELECTION
 
 // check if the player is selecting a target
-if (spar.sparPhase == sparPhases.select) {
+if (spar.sparPhase == SPAR_PHASES.SELECT) {
 	// check that it is the target phase
-	if (spar.selectionPhase == selectionPhases.target)
+	if (spar.selectionPhase == SELECTION_PHASES.TARGET)
 	&& (global.action != sparActions.swap) {
 		// if player clicks on sprite, set sprite as target
 		if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 			if (global.click) {
 				if (ds_list_find_index(spar.inRangeSprites, id) != -1){
 					spar_set_target();
-					spar.selectionPhase = selectionPhases.ally;
+					spar.selectionPhase = SELECTION_PHASES.ALLY;
 				}
 				
 				// @TODO else, load ERROR sound effect

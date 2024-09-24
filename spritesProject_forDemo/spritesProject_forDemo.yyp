@@ -369,6 +369,7 @@
     {"id":{"name":"spr_heatsuneBattle","path":"sprites/spr_heatsuneBattle/spr_heatsuneBattle.yy",},},
     {"id":{"name":"spr_indicatorPlate","path":"sprites/spr_indicatorPlate/spr_indicatorPlate.yy",},},
     {"id":{"name":"spr_inhumanEntities1","path":"sprites/spr_inhumanEntities1/spr_inhumanEntities1.yy",},},
+    {"id":{"name":"spr_inspectMenuBackdrop","path":"sprites/spr_inspectMenuBackdrop/spr_inspectMenuBackdrop.yy",},},
     {"id":{"name":"spr_jackhammerBattle","path":"sprites/spr_jackhammerBattle/spr_jackhammerBattle.yy",},},
     {"id":{"name":"spr_joeBattle","path":"sprites/spr_joeBattle/spr_joeBattle.yy",},},
     {"id":{"name":"spr_keypadCancelButton","path":"sprites/spr_keypadCancelButton/spr_keypadCancelButton.yy",},},

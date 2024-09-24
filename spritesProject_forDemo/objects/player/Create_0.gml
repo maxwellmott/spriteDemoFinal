@@ -61,24 +61,6 @@ appearance =	string(colors.skintone2) + "," +	string(outfits.overalls) + "," +	s
 // load player appearance
 player_load_appearance();
 
-// initialize teamString
-teamString = "";
-
-// initialize teamList
-teamList = ds_list_create();
-
-// ONLY FOR TESTING
-teamList[| 0] = SPRITES.HACHACHACHA;
-teamList[| 1] = SPRITES.DRUMLINE;
-teamList[| 2] = SPRITES.KRONARC;
-teamList[| 3] = SPRITES.JOE;
-
-// for testing purposes only
-teamString = encode_list(teamList);
-
-// destroy teamList
-ds_list_destroy(teamList);
-
 // for testing purposes only
 talismanList = ds_list_create();
 
@@ -87,6 +69,49 @@ var i = 0;	repeat (SPRITES.HEIGHT)	{
 
 	i++;	
 }
+
+var teamSet = false;
+
+while !(teamSet) {
+	// randomize talismanList
+	randomize_list(talismanList);
+
+	// initialize teamString
+	teamString = "";
+
+	// initialize teamList
+	teamList = ds_list_create();
+
+	// ONLY FOR TESTING
+	teamList[| 0] = talismanList[| 0];
+	teamList[| 1] = talismanList[| 1];
+	teamList[| 2] = talismanList[| 2];
+	teamList[| 3] = talismanList[| 3];
+
+	var newSpriteCount = 0;
+	
+	var i = 0;	repeat (4) {
+		var sid = teamList[| i];
+		
+		if (sid == SPRITES.NEW_SPRITE1)		newSpriteCount++;
+		if (sid == SPRITES.NEW_SPRITE2)		newSpriteCount++;
+		if (sid == SPRITES.NEW_SPRITE3)		newSpriteCount++;
+		if (sid == SPRITES.NEW_SPRITE4)		newSpriteCount++;
+		if (sid == SPRITES.NEW_SPRITE5)		newSpriteCount++;
+	
+		i++;
+	}
+	
+	if (newSpriteCount == 0) {
+		teamSet = true;	
+	}
+}
+
+// for testing purposes only
+teamString = encode_list(teamList);
+
+// destroy teamList
+ds_list_destroy(teamList);
 
 // initialize talismanString
 talismanString = "";
@@ -108,15 +133,11 @@ knownSpells = ds_list_create();
 var i = 0;	repeat (SPELLS.HEIGHT)	{
 	knownSpells[| i] = i;
 	
-	i++;	
+	i++;
 }
 
-// initialize knownSpellString
-knownSpellString = "";
-
-knownSpellString = encode_list(knownSpells);
-
-ds_list_destroy(knownSpells);
+//randomize knownSpells
+randomize_list(knownSpells);
 
 // initialize spellBookString
 spellBookString = "";
@@ -125,18 +146,25 @@ spellBookString = "";
 spellBook = ds_list_create();
 
 // ONLY FOR TESTING
-spellBook[| 7] = SPELLS.RUBURS_GRAPPLE;
-spellBook[| 6] = SPELLS.LADY_SOLANUS_GRACE;
-spellBook[| 5] = SPELLS.EXPEL_FORCE;
-spellBook[| 4] = SPELLS.HEALING_LIGHT;
-spellBook[| 3] = SPELLS.DECAY;
-spellBook[| 2] = SPELLS.SHOCK;
-spellBook[| 1] = SPELLS.HOLY_WATER;
-spellBook[| 0] = SPELLS.FIREBALL;
+spellBook[| 7] = knownSpells[| 7];
+spellBook[| 6] = knownSpells[| 6];
+spellBook[| 5] = knownSpells[| 5];
+spellBook[| 4] = knownSpells[| 4];
+spellBook[| 3] = knownSpells[| 3];
+spellBook[| 2] = knownSpells[| 2];
+spellBook[| 1] = knownSpells[| 1];
+spellBook[| 0] = knownSpells[| 0];
 
 spellBookString = encode_list(spellBook);
 
 ds_list_destroy(spellBook);
+
+// initialize knownSpellString
+knownSpellString = "";
+
+knownSpellString = encode_list(knownSpells);
+
+ds_list_destroy(knownSpells);
 
 // initialize contactString
 contactString = "";

@@ -5,11 +5,12 @@
 	 }
 }
  
-
-if (global.select) {
+if (dodgeBegin) 
+&& !(animationStarted) {
 	var i = 0; repeat (ds_list_size(dodgeList)) {
 		// change sprite to dodge animation
 		dodgeList[| i].sprite = spr_sparDodge;
+		
 		
 		// increment i
 		i++;

@@ -34,9 +34,9 @@ spellDodgeable	= noone;
 turnRow = spar.turnRow;
 
 // use turnRow to get params from turnGrid
-atkrSpotNum		= spar.turnGrid[# selectionPhases.ally,		turnRow];
-currentAction	= spar.turnGrid[# selectionPhases.action,	turnRow];
-targSpotNum		= spar.turnGrid[# selectionPhases.target,	turnRow];
+atkrSpotNum		= spar.turnGrid[# SELECTION_PHASES.ALLY,		turnRow];
+currentAction	= spar.turnGrid[# SELECTION_PHASES.ACTION,	turnRow];
+targSpotNum		= spar.turnGrid[# SELECTION_PHASES.TARGET,	turnRow];
 
 activeSprite	= spar.spriteList[| atkrSpotNum];
 

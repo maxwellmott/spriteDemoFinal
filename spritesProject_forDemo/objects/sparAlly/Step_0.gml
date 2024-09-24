@@ -7,24 +7,28 @@ sprite_check_mindset();
 #region HANDLE ALLY AND TARGET SELECTION
 
 // check if the player is selecting a sprite to command
-if (spar.sparPhase == sparPhases.select) {
+if (spar.sparPhase == SPAR_PHASES.SELECT) {
 	// check if it's either the select phase or the action phase
-	if (spar.selectionPhase == selectionPhases.ally) 
-	|| (spar.selectionPhase == selectionPhases.action) {
+	if (spar.selectionPhase == SELECTION_PHASES.ALLY) 
+	|| (spar.selectionPhase == SELECTION_PHASES.ACTION) {
 		// if player clicks on sprite, set sprite as selected
 		if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 			if (global.click) {
 				player.selectedAlly = id;
-				spar.selectionPhase = selectionPhases.action;
+				spar.selectionPhase = SELECTION_PHASES.ACTION;
+				
+				if (instance_exists(sparSpellMenu)) {
+					sparSpellMenu.usable_spells = player.selectedAlly.usable_spells;
+				}
 			}
 		}
 	}
 }
 
 // check if the player is selecting a target
-if (spar.sparPhase == sparPhases.select) {
+if (spar.sparPhase == SPAR_PHASES.SELECT) {
 	// check that it is the target phase
-	if (spar.selectionPhase == selectionPhases.target) {
+	if (spar.selectionPhase == SELECTION_PHASES.TARGET) {
 		// check that this sprite is not the selectedAlly
 		if (player.selectedAlly != id) {
 			// select for a swap
@@ -35,7 +39,7 @@ if (spar.sparPhase == sparPhases.select) {
 						if (swap_set_potential_cost(player.selectedAlly, id)) {
 							if (global.click) {							
 								spar_set_target();
-								spar.selectionPhase = selectionPhases.ally;
+								spar.selectionPhase = SELECTION_PHASES.ALLY;
 							}
 						}
 						else {
@@ -50,7 +54,7 @@ if (spar.sparPhase == sparPhases.select) {
 				if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 					if (global.click) {
 						spar_set_target();
-						spar.selectionPhase = selectionPhases.ally;
+						spar.selectionPhase = SELECTION_PHASES.ALLY;
 					}
 				}
 			}
@@ -72,7 +76,7 @@ if (selectedTarget != -4) {
 }
 
 // set ready display to false
-if (spar.sparPhase == sparPhases.process)
+if (spar.sparPhase == SPAR_PHASES.PROCESS)
 && (readyDisplayBuilt) {
 	readyDisplayBuilt = false;	
 }

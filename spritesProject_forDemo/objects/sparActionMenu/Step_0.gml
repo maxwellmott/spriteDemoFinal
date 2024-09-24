@@ -23,6 +23,6 @@ if (global.menu_left) {
 if (global.back) {
 	spar.potentialCost = 0;
 	player.selectedAlly = -1;
-	spar.selectionPhase = selectionPhases.ally;
+	spar.selectionPhase = SELECTION_PHASES.ALLY;
 	instance_destroy(self);
 }

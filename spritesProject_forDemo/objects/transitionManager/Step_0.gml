@@ -3,7 +3,7 @@
 switch (state) {
 	case transitionStates.fadingIn:
 		if (alpha < 1.0)	{
-			alpha += 0.01;
+			alpha += 0.05;
 			
 			if (newBGM != -1) {
 				audioManager.bgmGain = 1.0 - alpha;
@@ -101,7 +101,7 @@ switch (state) {
 	case transitionStates.fadingOut:
 		if (global.roomBuilt) {
 			if (alpha > 0.0) {
-				alpha -= 0.01;
+				alpha -= 0.05;
 			}
 			else {
 				instance_destroy(id);

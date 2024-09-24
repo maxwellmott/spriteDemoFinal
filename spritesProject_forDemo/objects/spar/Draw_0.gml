@@ -121,7 +121,7 @@ draw_set_alpha(1.0);
 		draw_set_font(plainFont);
 		
 		// draw selectionMenu
-		if (sparPhase == sparPhases.select) {
+		if (sparPhase == SPAR_PHASES.SELECT) {
 			draw_sprite(spr_sparSelectionMenu, 0, selectionMsgX, selectionMsgY);
 			if !(instance_exists(sparReadyButton)) {
 				draw_text_pixel_perfect(selectionMsgX, selectionMsgY, selectionMsg, 1, 256);
@@ -156,6 +156,14 @@ draw_set_alpha(1.0);
 #region SPELL MENU
 	// check that spellMenu exists
 	if (instance_exists(sparSpellMenu)) {
+		// get params for selection message
+		var sm = "What spell should " + player.selectedAlly.name + " cast?";
+		var smx = selectionMsgX;
+		var smy = selectionMsgY - (sprite_get_height(sparSpellMenu.sprite) / 2) + (sprite_get_height(spr_sparSelectionMenu) / 2);
+		
+		// draw selection message
+		draw_sprite(spr_sparSelectionMenu, 0, selectionMsgX, smy);
+		draw_text_pixel_perfect(selectionMsgX, smy, sm, 1, 256);
 		
 		// draw spellBook
 		draw_sprite(sparSpellMenu.sprite, sparSpellMenu.frame, sparSpellMenu.x, sparSpellMenu.y);
@@ -325,8 +333,8 @@ draw_set_alpha(1.0);
 #endregion
 
 #region HOVER MENU
-	if (sparPhase == sparPhases.select)
-	&& (selectionPhase != selectionPhases.action) {
+	if (sparPhase == SPAR_PHASES.SELECT)
+	&& (selectionPhase != SELECTION_PHASES.ACTION) {
 		if (global.hoverSprite != -1) {
 			if (global.shiftPressed) {
 				draw_set_font(plainFont);
@@ -336,7 +344,7 @@ draw_set_alpha(1.0);
 				var hs = global.hoverSprite;
 				
 				// draw message sprite
-				draw_sprite(spr_sparMessage, 0, turnMsgX, turnMsgY);
+				draw_sprite(spr_inspectMenuBackdrop, 0, turnMsgX, turnMsgY);
 				
 				// draw hoverMenu sprite
 				draw_sprite(spr_sparHoverMenuNameplate, 0, hoverMenu_nameplateX, hoverMenu_nameplateY);
@@ -514,12 +522,28 @@ draw_set_alpha(1.0);
 					draw_set_color(COL_BLACK);
 				
 				#endregion
+				
+				#region DRAW ABILITY INFO
+					
+					// set draw params
+					draw_set(fa_left, fa_top, 1.0, COL_BLACK);
+
+					// draw ability name
+					draw_text_pixel_perfect(hoverMenu_abilityNameX, hoverMenu_abilityNameY, hs.currentAbilityName, 1, guiWidth - 6);
+					
+					// set draw params
+					draw_set(fa_center, fa_top, 1.0, COL_BLACK);
+					
+					// draw ability desc
+					draw_text_pixel_perfect(hoverMenu_abilityDescX, hoverMenu_abilityDescY, hs.currentAbilityDesc, 1, guiWidth - 6);
+				#endregion
 			}
 		}
 	}
 	
 	// check that shift is not being pressed
-	if !(global.shiftPressed) {
+	if !(global.shiftPressed) 
+	&& !(onlineWaiting) {
 		with (sparReadyButton) {
 			draw_sprite(spr_sparReadyButton,	frame,	x1,	y);
 			draw_sprite(spr_sparReadyButton,	frame,	x2,	y);
@@ -545,9 +569,9 @@ if (onlineWaiting) {
 	
 	var modVar = global.gameTime mod 56;
 	
-	if (modVar < 14)	str += ".";
-	if (modVar < 28)	str += "..";
-	if (modVar < 42)	str += "...";
+	if (modVar < 14)		str += "...";
+	else if (modVar < 28)	str += "..";
+	else if (modVar < 42)	str += ".";
 	
 	draw_text_pixel_perfect(guiWidth / 2, guiHeight / 2, str, 1, 256);
 }

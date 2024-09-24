@@ -4,4 +4,4 @@
 targetSprite.currentPose = SPRITE_POSES.IDLE;
 activeSprite.currentPose = SPRITE_POSES.IDLE;
 spar.turnMsg = "";
-spar.turnGrid[# selectionPhases.action, turnRow] = -1;
+spar.turnGrid[# SELECTION_PHASES.ACTION, turnRow] = -1;

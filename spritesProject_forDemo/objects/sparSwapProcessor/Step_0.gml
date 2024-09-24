@@ -1,4 +1,4 @@
-if (global.select) {
+if (swapBegin) {
 	var i = 0;	repeat (ds_list_size(global.swapList)) {
 		// get sprite's instance id
 		var inst = global.swapList[| i];
@@ -7,7 +7,7 @@ if (global.select) {
 			var swapperSpotNum = inst.spotNum;
 		
 			// get swap partner inst
-			var partnerSpotNum	= spar.turnGrid[# selectionPhases.target, swapperSpotNum];
+			var partnerSpotNum	= spar.turnGrid[# SELECTION_PHASES.TARGET, swapperSpotNum];
 			var partnerInst		= spar.spriteList[| partnerSpotNum];
 		
 			// check if their swap partner has already processed their swap

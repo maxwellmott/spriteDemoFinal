@@ -166,9 +166,9 @@ if (onlineWaiting) {
 	
 	var modVar = global.gameTime mod 56;
 	
-	if (modVar < 14)	str += ".";
-	if (modVar < 28)	str += "..";
-	if (modVar < 42)	str += "...";
+	if (modVar < 14)		str += "...";
+	else if (modVar < 28)	str += "..";
+	else if (modVar < 42)	str += ".";
 	
 	draw_text_pixel_perfect(guiWidth / 2, guiHeight / 2, str, 1, 256);
 }

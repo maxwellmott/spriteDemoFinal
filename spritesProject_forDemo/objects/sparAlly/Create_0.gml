@@ -50,6 +50,7 @@ baseAlign			= -1;
 baseAbility			= -1;
 baseAbilityType		= -1;
 baseAbilityName		= -1;
+baseAbilityDesc		= -1;
 baseAbilityFunction = -1;
 
 // load sprite parameters
@@ -69,6 +70,7 @@ currentAlign			= baseAlign;
 currentAbility			= baseAbility;
 currentAbilityType		= baseAbilityType;
 currentAbilityName		= baseAbilityName;
+currentAbilityDesc		= baseAbilityDesc;
 currentAbilityFunction	= baseAbilityFunction;
 
 // initialize mindset (set to 0 since negative IDs= curses)
@@ -97,7 +99,7 @@ bbLeft		= x - 32;
 bbRight		= x + 32;
 
 // initialize draw positions for indicators
-hexedY		= x - 16;
+hexedX		= x - 16;
 mindsetX	= x;
 boundX		= x + 16;
 

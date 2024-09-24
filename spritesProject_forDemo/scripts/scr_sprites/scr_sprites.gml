@@ -1763,6 +1763,7 @@ function sprite_load_parameters() {
 	
 	baseAbilityType		= real(abltGrid[# ABILITY_PARAMS.TYPE,				baseAbility]);
 	baseAbilityName		= abltGrid[# ABILITY_PARAMS.NAME,					baseAbility];
+	baseAbilityDesc		= abltGrid[# ABILITY_PARAMS.DESCRIPTION,			baseAbility];
 	baseAbilityFunction = real(abltGrid[# ABILITY_PARAMS.EFFECT_FUNCTION,	baseAbility]);
 	
 	// decode spell list
@@ -1780,6 +1781,7 @@ function sprite_get_alignment_string(_alignment) {
 		case ALIGNMENTS.ASTRAL:		return "ASTRAL";
 		case ALIGNMENTS.MECHANICAL:	return "MECHANICAL";
 		case ALIGNMENTS.NATURAL:	return "NATURAL";
+		case -1:					return "???";
 	}
 }
 

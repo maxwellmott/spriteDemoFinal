@@ -237,10 +237,10 @@ function client_request_turn() {
 		
 			var inst = spar.spriteList[| 4 + i];
 			
-			var s =	g[# selectionPhases.ally,	i];
-			var a =	g[# selectionPhases.action,	i];
-			var t =	g[# selectionPhases.target,	i];
-			var l =	g[# selectionPhases.height,	i];
+			var s =	g[# SELECTION_PHASES.ALLY,	i];
+			var a =	g[# SELECTION_PHASES.ACTION,	i];
+			var t =	g[# SELECTION_PHASES.TARGET,	i];
+			var l =	g[# SELECTION_PHASES.HEIGHT,	i];
 			
 			if (t != "-1") {
 				t = real(t);
@@ -254,24 +254,23 @@ function client_request_turn() {
 			l = real(l);
 		
 			// add all turn data to spar.turnGrid
-			spar.turnGrid[# selectionPhases.ally,	inst.spotNum] = 4 + s;	
-			spar.turnGrid[# selectionPhases.action,	inst.spotNum] = a;
+			spar.turnGrid[# SELECTION_PHASES.ALLY,	inst.spotNum] = 4 + s;	
+			spar.turnGrid[# SELECTION_PHASES.ACTION,	inst.spotNum] = a;
 			
 			if (t > 3) {
-				spar.turnGrid[# selectionPhases.target, inst.spotNum] = t - 4;	
+				spar.turnGrid[# SELECTION_PHASES.TARGET, inst.spotNum] = t - 4;	
 			}
 			
 			if (t < 4) {
-				spar.turnGrid[# selectionPhases.target, inst.spotNum] = t + 4;	
+				spar.turnGrid[# SELECTION_PHASES.TARGET, inst.spotNum] = t + 4;	
 			}
 			
-			spar.turnGrid[# selectionPhases.height,	inst.spotNum] = l;
+			spar.turnGrid[# SELECTION_PHASES.HEIGHT,	inst.spotNum] = l;
 			
 			// increment i
 			i++;
 		}
-		
-		spar.onlineWaiting = false;
+
 		onlineEnemy.ready = true;
 	}
 	else {

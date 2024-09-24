@@ -10,8 +10,8 @@ if (instance_exists(spar)) {
 		var inst = spar.spriteList[| i];
 		
 		if (collision_rectangle(inst.bbLeft, inst.bbTop, inst.bbRight, inst.bbBottom, mouse, false, false)) {
-			if (spar.selectionPhase == selectionPhases.ally) 
-			|| (spar.selectionPhase == selectionPhases.target) {
+			if (spar.selectionPhase == SELECTION_PHASES.ALLY) 
+			|| (spar.selectionPhase == SELECTION_PHASES.TARGET) {
 				if (global.shiftPressed) frame = 2;
 				else frame = 0;
 				
@@ -36,7 +36,7 @@ if (instance_exists(spar)) {
 	// check if hoverSprite is currently set
 	if (global.hoverSprite != -1) {
 		// check if player is selecting a target
-		if (spar.selectionPhase == selectionPhases.target) {
+		if (spar.selectionPhase == SELECTION_PHASES.TARGET) {
 			// check if hoverSprite is on the list of out of range spots
 			if (ds_list_find_index(spar.inRangeSprites, global.hoverSprite) == -1) {
 				// check if frame is not 3

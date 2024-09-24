@@ -139,7 +139,7 @@ function spar_set_action() {
 	switch (action) {
 		case sparActions.attack:
 			global.targetRange = ranges.nearestFiveSprites;
-			spar.selectionPhase = selectionPhases.target;
+			spar.selectionPhase = SELECTION_PHASES.TARGET;
 		break;
 		
 		case sparActions.spell:
@@ -164,13 +164,13 @@ function spar_set_action() {
 			sprite.selectedTarget = -1;
 			sprite.selectedAction = action;
 			sprite.turnReady = true;
-			spar.selectionPhase = selectionPhases.ally;
+			spar.selectionPhase = SELECTION_PHASES.ALLY;
 			
 		break;
 		
 		case sparActions.swap:		
 			global.targetRange = ranges.anyAlly;
-			spar.selectionPhase = selectionPhases.target;
+			spar.selectionPhase = SELECTION_PHASES.TARGET;
 		break;
 		
 		case sparActions.rest:
@@ -190,7 +190,7 @@ function spar_set_action() {
 			sprite.selectedTarget = -1;
 			sprite.selectedAction = action;
 			sprite.turnReady = true;
-			spar.selectionPhase = selectionPhases.ally;
+			spar.selectionPhase = SELECTION_PHASES.ALLY;
 		break;
 	}
 
@@ -210,7 +210,7 @@ function spar_set_spell() {
 	global.targetRange = spellRange;
 	
 	// set next selectionPhase
-	spar.selectionPhase = selectionPhases.target;
+	spar.selectionPhase = SELECTION_PHASES.TARGET;
 	
 	// perform an ability check for target selection
 	ability_check(ABILITY_TYPES.TARGET_SELECTION);
@@ -218,7 +218,7 @@ function spar_set_spell() {
 	inRangeSprites_rebuild(player.selectedAlly);
 	
 	// set next phase
-	nextPhase = selectionPhases.target;
+	nextPhase = SELECTION_PHASES.TARGET;
 	
 	instance_destroy(sparSpellMenu);
 }
@@ -278,17 +278,17 @@ function player_submit_turn() {
 		var roll = roll_for_luck(lt);
 		
 		// add info to spar.turnGrid
-		spar.turnGrid[# selectionPhases.ally,		inst.spotNum]	= inst.spotNum;
-		spar.turnGrid[# selectionPhases.action,		inst.spotNum]	= inst.selectedAction;
-		spar.turnGrid[# selectionPhases.target,		inst.spotNum]	= inst.selectedTarget;
-		spar.turnGrid[# selectionPhases.height,		inst.spotNum]	= roll;
+		spar.turnGrid[# SELECTION_PHASES.ALLY,		inst.spotNum]	= inst.spotNum;
+		spar.turnGrid[# SELECTION_PHASES.ACTION,		inst.spotNum]	= inst.selectedAction;
+		spar.turnGrid[# SELECTION_PHASES.TARGET,		inst.spotNum]	= inst.selectedTarget;
+		spar.turnGrid[# SELECTION_PHASES.HEIGHT,		inst.spotNum]	= roll;
 		
 		if (instance_exists(onlineEnemy)) {
 			// add info to onlineGrid
-			onlineGrid[# selectionPhases.ally,		inst.spotNum]	= inst.spotNum;
-			onlineGrid[# selectionPhases.action,	inst.spotNum]	= inst.selectedAction;
-			onlineGrid[# selectionPhases.target,	inst.spotNum]	= inst.selectedTarget;
-			onlineGrid[# selectionPhases.height,	inst.spotNum]	= roll;		
+			onlineGrid[# SELECTION_PHASES.ALLY,		inst.spotNum]	= inst.spotNum;
+			onlineGrid[# SELECTION_PHASES.ACTION,	inst.spotNum]	= inst.selectedAction;
+			onlineGrid[# SELECTION_PHASES.TARGET,	inst.spotNum]	= inst.selectedTarget;
+			onlineGrid[# SELECTION_PHASES.HEIGHT,	inst.spotNum]	= roll;		
 		}
 		
 		// increment i
@@ -360,10 +360,10 @@ function local_enemy_submit_turn() {
 		var roll = roll_for_luck(lt);
 
 		// add info to grid
-		spar.turnGrid[# selectionPhases.ally,	inst.spotNum]		= inst.spotNum;
-		spar.turnGrid[# selectionPhases.action,	inst.spotNum]		= inst.selectedAction;
-		spar.turnGrid[# selectionPhases.target, inst.spotNum]		= inst.selectedTarget;
-		spar.turnGrid[# selectionPhases.height,	inst.spotNum]		= roll;
+		spar.turnGrid[# SELECTION_PHASES.ALLY,	inst.spotNum]		= inst.spotNum;
+		spar.turnGrid[# SELECTION_PHASES.ACTION,	inst.spotNum]		= inst.selectedAction;
+		spar.turnGrid[# SELECTION_PHASES.TARGET, inst.spotNum]		= inst.selectedTarget;
+		spar.turnGrid[# SELECTION_PHASES.HEIGHT,	inst.spotNum]		= roll;
 		
 		// increment i
 		i++;
@@ -571,9 +571,9 @@ function all_sprites_get_luck_roll() {
 		
 		var h = ds_grid_height(turnGrid);
 		
-		var rowNum = ds_grid_value_y(turnGrid, selectionPhases.ally, 0, selectionPhases.ally, h, sn);
+		var rowNum = ds_grid_value_y(turnGrid, SELECTION_PHASES.ALLY, 0, SELECTION_PHASES.ALLY, h, sn);
 		
-		var lr = turnGrid[# selectionPhases.height, rowNum];
+		var lr = turnGrid[# SELECTION_PHASES.HEIGHT, rowNum];
 		
 		inst.luckRoll = lr;
 		
@@ -1117,7 +1117,7 @@ function spar_check_complete() {
 	|| (spar.playerTwo.currentHP <= 0) {
 		ds_list_clear(spar.effectAlertList);
 		
-		spar.sparPhase = sparPhases.height;
+		spar.sparPhase = SPAR_PHASES.HEIGHT;
 		return true;	
 	}
 	else	{

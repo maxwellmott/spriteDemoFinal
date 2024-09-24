@@ -31,7 +31,7 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 					self_target_set();
 					
 					// set next phase
-					nextPhase = selectionPhases.ally;
+					nextPhase = SELECTION_PHASES.ALLY;
 				}
 				else {
 					// if not self range, set action normally
@@ -54,7 +54,7 @@ if (x == targetX) && (targetX == spriteWidth / 2) {
 		global.mpCostDiff = 0;
 		
 		// set next phase
-		nextPhase = selectionPhases.ally;
+		nextPhase = SELECTION_PHASES.ALLY;
 		
 		// close book
 		targetX = 0 - (spriteWidth / 2);

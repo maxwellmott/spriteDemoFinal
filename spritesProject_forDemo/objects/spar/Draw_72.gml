@@ -13,8 +13,21 @@ if !(surface_exists(enemyBarSurface))		enemyBarSurface = surface_create(48, 16);
 		draw_sprite(spr_sparBar, 0, hpBarX - 1, hpBarY - 1);
 		draw_sprite(spr_sparBar, 0, mpBarX - 1, mpBarY - 1);
 		
-		draw_sprite_stretched(spr_sparHealthSliver, 0, hpBarX,	hpBarY,	barWidth * playerHealthRatio,	barHeight);
-		draw_sprite_stretched(spr_sparMagicSliver,	0, mpBarX,	mpBarY,	barWidth * playerMagicRatio,	barHeight);
+		var hpScale = barWidth * playerHealthRatio;
+		var mpScale = barWidth * playerMagicRatio;
+		
+		if (hpScale < 1)
+		&& (hpScale > 0) {
+			hpScale = 1;
+		}
+		
+		if (mpScale < 1) 
+		&& (hpScale > 0) {
+			mpScale = 1;
+		}
+		
+		draw_sprite_stretched(spr_sparHealthSliver, 0, hpBarX,	hpBarY,	hpScale,	barHeight);
+		draw_sprite_stretched(spr_sparMagicSliver,	0, mpBarX,	mpBarY,	mpScale,	barHeight);
 		
 		if (totalSelectionCost > 0)
 		|| ((totalSelectionCost + potentialCost) > 0) {
@@ -37,9 +50,22 @@ if !(surface_exists(enemyBarSurface))		enemyBarSurface = surface_create(48, 16);
 	 
 		draw_sprite(spr_sparBar, 0, hpBarX - 1, hpBarY - 1);
 		draw_sprite(spr_sparBar, 0, mpBarX - 1, mpBarY - 1);
+		
+		hpScale = barWidth * enemyHealthRatio;
+		mpScale = barWidth * enemyMagicRatio;
+		
+		if (hpScale < 1)
+		&& (hpScale > 0) {
+			hpScale = 1;
+		}
+		
+		if (mpScale < 1) 
+		&& (hpScale > 0) {
+			mpScale = 1;
+		}
 			
-		draw_sprite_stretched(spr_sparHealthSliver, 0, hpBarX,	hpBarY,	barWidth * enemyHealthRatio,	barHeight);
-		draw_sprite_stretched(spr_sparMagicSliver,	0, mpBarX,	mpBarY,	barWidth * enemyMagicRatio,		barHeight);
+		draw_sprite_stretched(spr_sparHealthSliver, 0, hpBarX,	hpBarY,	hpScale,	barHeight);
+		draw_sprite_stretched(spr_sparMagicSliver,	0, mpBarX,	mpBarY,	mpScale,	barHeight);
 		
 	surface_reset_target();
 

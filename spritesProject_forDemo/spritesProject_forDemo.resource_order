@@ -303,6 +303,7 @@
     {"name":"spr_hachaChachaBattle","order":13,"path":"sprites/spr_hachaChachaBattle/spr_hachaChachaBattle.yy",},
     {"name":"spr_heatsuneBattle","order":40,"path":"sprites/spr_heatsuneBattle/spr_heatsuneBattle.yy",},
     {"name":"spr_indicatorPlate","order":34,"path":"sprites/spr_indicatorPlate/spr_indicatorPlate.yy",},
+    {"name":"spr_inspectMenuBackdrop","order":37,"path":"sprites/spr_inspectMenuBackdrop/spr_inspectMenuBackdrop.yy",},
     {"name":"spr_jackhammerBattle","order":43,"path":"sprites/spr_jackhammerBattle/spr_jackhammerBattle.yy",},
     {"name":"spr_joeBattle","order":44,"path":"sprites/spr_joeBattle/spr_joeBattle.yy",},
     {"name":"spr_keypadCheckButton","order":1,"path":"sprites/spr_keypadCheckButton/spr_keypadCheckButton.yy",},

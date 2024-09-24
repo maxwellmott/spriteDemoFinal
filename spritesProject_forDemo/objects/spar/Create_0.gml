@@ -54,27 +54,27 @@ repeat (4) {
 }
 
 // spar phases enum
-enum sparPhases {
-	turnBegin,
-	select,
-	process,
-	turnEnd,
-	height
+enum SPAR_PHASES {
+	TURN_BEGIN,
+	SELECT,
+	PROCESS,
+	TURN_END,
+	HEIGHT
 }
 
 // initialize spar phase
-sparPhase = sparPhases.turnBegin;
+sparPhase = SPAR_PHASES.TURN_BEGIN;
 
 // selection phases enum
-enum selectionPhases {
-	ally,
-	action,
-	target,
-	height
+enum SELECTION_PHASES {
+	ALLY,
+	ACTION,
+	TARGET,
+	HEIGHT
 }
 
 // initialize selectionPhase
-selectionPhase = selectionPhases.ally;
+selectionPhase = SELECTION_PHASES.ALLY;
 
 // initialize sparReady
 sparReady = false;
@@ -115,7 +115,7 @@ selectionMsg = "";
 currentArena = global.arena
 
 // initialize turnGrid	|	ACTIVE SPRITE	|	TARGET SPRITE	|	ACTION	|	LUCK ROLL	|
-turnGrid = ds_grid_create(selectionPhases.height + 1, 8);
+turnGrid = ds_grid_create(SELECTION_PHASES.HEIGHT + 1, 8);
 
 // initialize turnMsg
 turnMsg = "";
@@ -126,10 +126,10 @@ turnMsgY = guiHeight / 2;
 
 #region HOVER MENU POSITIONS
 hoverMenu_nameplateX	= 45;
-hoverMenu_nameplateY	= turnMsgY - 8;
+hoverMenu_nameplateY	= turnMsgY - 24;
 						
 hoverMenu_alignmentX	= 5;
-hoverMenu_alignmentY	= turnMsgY + 2;
+hoverMenu_alignmentY	= turnMsgY - 14;
 
 hoverMenu_sizeX			= hoverMenu_alignmentX;
 hoverMenu_sizeY			= hoverMenu_alignmentY + 7;
@@ -139,10 +139,16 @@ hoverMenu_columnTwoX	= hoverMenu_columnOneX + 39;
 hoverMenu_columnThreeX	= hoverMenu_columnTwoX + 39;
 hoverMenu_columnFourX	= hoverMenu_columnThreeX + 39;
 
-hoverMenu_rowOneY		= turnMsgY - 11;
+hoverMenu_rowOneY		= turnMsgY - 27;
 hoverMenu_rowTwoY		= hoverMenu_rowOneY + 7;
 hoverMenu_rowThreeY		= hoverMenu_rowTwoY + 7;
 hoverMenu_rowFourY		= hoverMenu_rowThreeY + 7;
+
+hoverMenu_abilityNameX	= turnMsgX - 91;
+hoverMenu_abilityNameY	= turnMsgY - 1;
+
+hoverMenu_abilityDescX	= turnMsgX;
+hoverMenu_abilityDescY	= turnMsgY + 13;
 
 #endregion
 

@@ -1728,12 +1728,25 @@ function time_police(_inst) {
 
 ///@desc ABILITY FUNCTION -- SHPUPO
 /// TYPE: SPELL SUCCESS
-/// This sprite ignores the secondary effect of all SPELLS
+/// This sprite ignores the secondary effect of all damaging SPELLS
 function space_cadet(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// come back to this one
+	// check if this sprite is the target
+	if (inst == sparActionProcessor.targetSprite) {
+		// check if it is a damaging spell
+		if (sparActionProcessor.spellPower > 0) {
+			// check if spellEffect is set
+			if (sparActionProcessor.spellEffect > 0) {
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// set the spellEffect to -1
+				sparActionProcessor.spellEffect = -1;
+			}
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- NEEDLEPAW
@@ -1844,7 +1857,7 @@ function compress_time(_inst) {
 	// check that this sprite's team doesn't have synchronizedSoldiersActive
 	if !(inst.team.synchronizedSoldiersActive) {
 		// check if sprite has already taken it's turn
-		if (spar.turnGrid[# selectionPhases.action, inst.spotNum] != -1) {
+		if (spar.turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 		
