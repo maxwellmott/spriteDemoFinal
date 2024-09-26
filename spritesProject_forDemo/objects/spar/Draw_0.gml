@@ -115,6 +115,19 @@ draw_set_alpha(1.0);
 
 #endregion
 
+#region DRAW ARENA DISPLAY
+
+	// check if arena is not normal
+	if (currentArena != -1) {
+		// draw arena tiled across the screen
+		draw_sprite(spr_sparArenas, currentArena, 0,				guiHeight / 2 - 16);
+		draw_sprite(spr_sparArenas, currentArena, guiWidth / 4,		guiHeight / 2 - 16);
+		draw_sprite(spr_sparArenas, currentArena, guiWidth / 2,		guiHeight / 2 - 16);
+		draw_sprite(spr_sparArenas, currentArena, guiWidth * 0.75,	guiHeight / 2 - 16);
+	}
+	
+#endregion
+
 #region SELECTION INTERFACE
 	if !(instance_exists(sparReadyButton)) 
 	&& !(instance_exists(sparEffectAlert)) {

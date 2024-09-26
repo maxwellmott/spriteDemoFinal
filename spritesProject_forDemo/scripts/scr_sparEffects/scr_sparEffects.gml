@@ -115,35 +115,35 @@ function get_mindset_name(_ID) {
 	var ID = _ID;
 	
 	switch (ID) {
-		case MINDSETS.IMP * -1: 
+		case MINDSETS.IMP_CURSE: 
 			return "CURSE OF THE IMP";
 		break;
 		
-		case MINDSETS.TREE * -1:
+		case MINDSETS.TREE_CURSE:
 			return "CURSE OF THE TREE";
 		break;
 		
-		case MINDSETS.WARRIOR * -1:
+		case MINDSETS.WARRIOR_CURSE:
 			return "CURSE OF THE WARRIOR";
 		break;
 		
-		case MINDSETS.MOTHER * -1:
+		case MINDSETS.MOTHER_CURSE:
 			return "CURSE OF THE MOTHER";
 		break;
 		
-		case MINDSETS.MOTHER:
+		case MINDSETS.MOTHER_BLESS:
 			return "BLESSING OF THE MOTHER";
 		break;
 		
-		case MINDSETS.WARRIOR:
+		case MINDSETS.WARRIOR_BLESS:
 			return "BLESSING OF THE WARRIOR";
 		break;
 		
-		case MINDSETS.TREE:
+		case MINDSETS.TREE_BLESS:
 			return "BLESSING OF THE TREE";
 		break;
 		
-		case MINDSETS.IMP:
+		case MINDSETS.IMP_BLESS:
 			return "BLESSING OF THE IMP";
 		break;
 	}
@@ -169,10 +169,14 @@ enum STATUSES {
 // enum that contains all spar mindsets
 enum MINDSETS {
 	NORMAL,
-	MOTHER,
-	WARRIOR,
-	IMP,
-	TREE,
+	MOTHER_BLESS,
+	WARRIOR_BLESS,
+	IMP_BLESS,
+	TREE_BLESS,
+	MOTHER_CURSE,
+	WARRIOR_CURSE,
+	IMP_CURSE,
+	TREE_CURSE,
 	HEIGHT
 }
 
@@ -834,12 +838,17 @@ function apply_miasma(_effectedTeam) {
 	
 	subject = t.name;
 	
+	// get correct list of sprites
+	var tl = -1;
+	if (t == spar.playerOne)	tl = spar.allyList;
+	if (t == spar.playerTwo)	tl = spar.enemyList;
+	
 	// check for natural sprites to increase damage
 	// and add to effectedSprites list
 	var i = 0;	repeat (4) {
-		if (t[| i].currentAlign == ALIGNMENTS.NATURAL) 
-		&& !(t[| i].invulnerable) {
-			effectedSprites += t[| i];
+		if (tl[| i].currentAlign == ALIGNMENTS.NATURAL) 
+		&& !(tl[| i].invulnerable) {
+			effectedSprites += tl[| i];
 			
 			global.miasmaDamage += 125;
 		}
@@ -1013,8 +1022,8 @@ function force_swap_team(_targetPlayer) {
 	var iil = ds_list_create();
 	
 	// find out which list to copy
-	if (ct == spar.playerOne)	ds_list_copy(iil, spar.enemyList);
-	if (ct == spar.playerTwo)	ds_list_copy(iil, spar.allyList);
+	if (ct == spar.playerOne)	ds_list_copy(iil, spar.allyList);
+	if (ct == spar.playerTwo)	ds_list_copy(iil, spar.enemyList);
 	
 	// get a random integer
 	var int = irandom_range(0, 3);
@@ -1022,6 +1031,9 @@ function force_swap_team(_targetPlayer) {
 	// set target as the list token at the index of the random integer
 	var t	= iil[| int];
 	var tsn = t.spotNum;
+	
+	// if this is the enemy team, subtract 4 from spotNum
+	if (ct == spar.playerTwo)	tsn -= 4;
 	
 	// get target team
 	var tt = t.team;
@@ -1134,8 +1146,8 @@ function force_swap_global() {
 		var iil = ds_list_create();
 		
 		// find out which list to copy
-		if (ct == spar.playerOne)	ds_list_copy(iil, spar.enemyList);
-		if (ct == spar.playerTwo)	ds_list_copy(iil, spar.allyList);
+		if (ct == spar.playerOne)	ds_list_copy(iil, spar.allyList);
+		if (ct == spar.playerTwo)	ds_list_copy(iil, spar.enemyList);
 		
 		// get a random integer
 		var int = irandom_range(0, 3);

@@ -250,6 +250,16 @@ function ability_check(_abilityType) {
 			i++;
 		}
 		
+		// check if this check happens in the sparActionProcessor
+		if (t >= ABILITY_TYPES.ACTION_BEGIN)
+		&& (t <= ABILITY_TYPES.ACTION_SUCCESS) {
+			// destroy temp list
+			ds_list_destroy(spritesChecked);
+			
+			// return -1
+			return -1;
+		}
+		
 		// perform an ability check on the next sprite
 		if (highestID.currentAbilityType == type) {
 			highestID.currentAbilityFunction(highestID);	
@@ -346,6 +356,7 @@ enum ABILITY_PARAMS {
 enum ABILITY_TYPES {
 	TURN_BEGIN,				// CHECK PLACED
 	TARGET_SELECTION,		// CHECK PLACED
+	PROCESS_BEGIN,			// CHECK PLACED
 	PRIORITY_CHECK,			// CHECK PLACED
 	SWAP_ATTEMPT,			// CHECK PLACED
 	SWAP_SUCCESS,			// CHECK PLACED
@@ -378,7 +389,7 @@ function hot_to_the_touch(_inst) {
 	// check if the given sprite is the current targetSprite
 	if (inst == sparActionProcessor.targetSprite) {
 		// check that this is a basic attack or physical spell
-		if (sparActionProcessor.currentSpell == -1) 
+		if (sparActionProcessor.currentSpell < 0) 
 		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
 			// push spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
@@ -429,7 +440,7 @@ function storm_surfer(_inst) {
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 			
 			// push a spar effect alert for granting the blessing of the imp
-			spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst, MINDSETS.IMP);
+			spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst, MINDSETS.IMP_BLESS);
 			
 			// force spell to fail
 			sparActionProcessor.spellFailed = true;
@@ -476,7 +487,7 @@ function battle_instinct(_inst) {
 	// check if this sprite is the target
 	if (inst == sparActionProcessor.targetSprite) {
 		// check if it is a basic attack or a physical spell
-		if (sparActionProcessor.currentSpell == -1) 
+		if (sparActionProcessor.currentSpell < 0) 
 		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
 			// perform a dodge check
 			with (sparActionProcessor) {
@@ -503,7 +514,7 @@ function unbreakable_shell(_inst) {
 	// check if this sprite is the target
 	if (inst == sparActionProcessor.targetSprite) {
 		// check if it is a basic attack or a physical spell
-		if (sparActionProcessor.currentSpell == -1) 
+		if (sparActionProcessor.currentSpell < 0) 
 		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {	
 			// divide damage in half
 			sparActionProcessor.damage = round(sparActionProcessor.damage / 2);
@@ -533,7 +544,7 @@ function supercharged(_inst) {
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 			
 			// push a spar effect alert for bestow mindset
-			spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst, MINDSETS.IMP);
+			spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst, MINDSETS.IMP_BLESS);
 			
 			// push a spar effect alert for restore hp
 			spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, sparActionProcessor.damage * 2);
@@ -646,7 +657,7 @@ function undersea_predator(_inst) {
 		// check if this sprite is the attacker
 		if (inst == sparActionProcessor.activeSprite) {
 			// check if this is a damaging spell or basic attack
-			if (sparActionProcessor.currentSpell == -1) 
+			if (sparActionProcessor.currentSpell < 0) 
 			|| (sparActionProcessor.spellPower > 0) {
 				// increase the DMI by 2
 				global.damageMultiplierIndex += 2;
@@ -773,7 +784,7 @@ function gift_of_song(_inst) {
 	spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 	
 	// push a spar effect alert for bestow mindset
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst. m);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst, m);
 }
 
 ///@desc ABILITY FUNCTION -- SHREDATOR:
@@ -789,7 +800,7 @@ function hang_ten(_inst) {
 		// check if this sprite is attacking
 		if (inst == sparActionProcessor.activeSprite) {
 			// check if it is a basic attack
-			if (sparActionProcessor.currentSpell == -1) {
+			if (sparActionProcessor.currentSpell < 0) {
 				// multiply damage by 2
 				with (sparActionProcessor) {
 					damage = damage * 2;	
@@ -881,7 +892,7 @@ function absorptive_body(_inst) {
 	// check if this sprite is the target
 	if (inst == sparActionProcessor.targetSprite) {
 		// check that it is a basic attack or physical spell
-		if (sparActionProcessor.currentSpell == -1) 
+		if (sparActionProcessor.currentSpell < 0) 
 		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
@@ -952,7 +963,7 @@ function sort_away(_inst) {
 	// check if this sprite is the target
 	if (inst == sparActionProcessor.targetSprite) {
 		// check if it is a basic attack or physical spell
-		if (sparActionProcessor.currentSpell == -1) 
+		if (sparActionProcessor.currentSpell < 0) 
 		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {	
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
@@ -991,7 +1002,7 @@ function offer_refuge(_inst) {
 	// check if the target is one of this sprite's nearbyAllies
 	if (ds_list_find_index(inst.nearbyAllies, sparActionProcessor.targetSprite) != -1) {
 		// check if it is a basic attack or physical spell
-		if (sparActionProcessor.currentSpell == -1) 
+		if (sparActionProcessor.currentSpell < 0) 
 		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
@@ -1150,7 +1161,7 @@ function thundrous_cry(_inst) {
 	if (inst == sparActionProcessor.targetSprite) {
 		// check if it is a damaging spell or basic attack
 		if (sparActionProcessor.spellPower > 0) 
-		|| (sparActionProcessor.currentSpell == -1) {	
+		|| (sparActionProcessor.currentSpell < 0) {	
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 			
@@ -1171,7 +1182,7 @@ function massive_body(_inst) {
 	// check if this sprite is the attacker
 	if (inst == sparActionProcessor.activeSprite) {
 		// check if this is a basic attack
-		if (sparActionProcessor.currentSpell == -1) {
+		if (sparActionProcessor.currentSpell < 0) {
 			// reset damage using arbitrate_physical_damage
 			sparActionProcessor.damage = arbitrate_physical_damage(inst, sparActionProcessor.targetSprite, SPRITE_PARAMS.RESISTANCE, BASIC_ATTACK_POWER);
 		
@@ -1278,7 +1289,7 @@ function wrecking_ball(_inst) {
 	// check if this sprite is attacking
 	if (inst == sparActionProcessor.activeSprite) {	
 		// check if it is a basic attack
-		if (sparActionProcessor.currentSpell == -1) {	
+		if (sparActionProcessor.currentSpell < 0) {	
 			// check if the target is a MECHANICAL sprite
 			if (sparActionProcessor.targetSprite.currentAlign == ALIGNMENTS.MECHANICAL) {	
 				// increase the damage by 2
@@ -1458,7 +1469,7 @@ function redeeming_qualities(_inst) {
 		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 		
 		// push a spar effect alert for restore mp
-		spar_effect_push_alert(SPAR_EFFECTS.RESTORE_MP, inst);
+		spar_effect_push_alert(SPAR_EFFECTS.RESTORE_MP, inst, 200);
 	}
 }
 
@@ -1497,7 +1508,7 @@ function dual_wield(_inst) {
 	// check if this sprite is attacking
 	if (inst == sparActionProcessor.activeSprite) {	
 		// check if it is a basic attack
-		if (sparActionProcessor.currentSpell == -1) {	
+		if (sparActionProcessor.currentSpell < 0) {	
 			// multiply damage output by 2
 			sparActionProcessor.damage = sparActionProcessor.damage * 2;
 			
@@ -1521,7 +1532,7 @@ function shadowy_fiend(_inst) {
 	// check if this sprite is being attacked
 	if (inst == sparActionProcessor.targetSprite) {
 		// check if it is a basic attack or damaging spell
-		if (sparActionProcessor.currentSpell == -1) 
+		if (sparActionProcessor.currentSpell < 0) 
 		|| (sparActionProcessor.spellPower > 0) {
 			// check if miasma is present on this sprite's side of the field
 			if (inst.team.miasma) {
@@ -1550,7 +1561,7 @@ function metal_muncher(_inst) {
 	// check if this sprite is the target
 	if (inst == sparActionProcessor.targetSprite) {
 		// check if it is a basic attack or physical spell
-		if (sparActionProcessor.currentSpell == -1) 
+		if (sparActionProcessor.currentSpell < 0) 
 		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {	
 			// check if the attacker is a mechanical sprite
 			if (sparActionProcessor.activeSprite.currentAlign == ALIGNMENTS.MECHANICAL) {
@@ -1578,7 +1589,7 @@ function volcanic_mass(_inst) {
 	// check if this sprite is attacking
 	if (inst == sparActionProcessor.activeSprite) {	
 		// check if it is a basic attack
-		if (sparActionProcessor.currentSpell == -1) {
+		if (sparActionProcessor.currentSpell < 0) {
 			// reset damage using arbitrate_physical_damage
 			sparActionProcessor.damage = arbitrate_physical_damage(inst, sparActionProcessor.targetSprite, SPRITE_PARAMS.FIRE, BASIC_ATTACK_POWER);
 			
@@ -1637,7 +1648,7 @@ function pure_malice(_inst) {
 	// check if this sprite is attacking
 	if (inst == sparActionProcessor.activeSprite) {
 		// check if it is a damaging spell or basic attack
-		if (sparActionProcessor.currentSpell == -1) 
+		if (sparActionProcessor.currentSpell < 0) 
 		|| (sparActionProcessor.spellPower > 0) {	
 			// check if it is HEXED
 			if (inst.hexed) {
@@ -1688,7 +1699,7 @@ function ring_leader(_inst) {
 	// check if this sprite is attacking
 	if (inst == sparActionProcessor.activeSprite) {	
 		// check if it is a basic attack
-		if (sparActionProcessor.currentSpell == -1) {	
+		if (sparActionProcessor.currentSpell < 0) {	
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 			
@@ -1820,7 +1831,7 @@ function bend_physics(_inst) {
 	
 	// check if it is a physical spell or basic attack
 	if (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) 
-	|| (sparActionProcessor.currentSpell == -1) {
+	|| (sparActionProcessor.currentSpell < 0) {
 		// check if this sprite is attacking
 		if (inst == sparActionProcessor.activeSprite) {
 			// increase the DMI by 1
@@ -1969,7 +1980,7 @@ master_grid_add_ability(ABILITIES.NEW_ABILITY_5,			textGrid[# 1, ABILITIES.NEW_A
 master_grid_add_ability(ABILITIES.RING_LEADER,				textGrid[# 1, ABILITIES.RING_LEADER],				textGrid[# 2, ABILITIES.RING_LEADER],			ABILITY_TYPES.ACTION_SUCCESS,			ring_leader);
 master_grid_add_ability(ABILITIES.TIME_POLICE,				textGrid[# 1, ABILITIES.TIME_POLICE],				textGrid[# 2, ABILITIES.TIME_POLICE],			ABILITY_TYPES.ACTION_BEGIN,				time_police);
 master_grid_add_ability(ABILITIES.SPACE_CADET,				textGrid[# 1, ABILITIES.SPACE_CADET],				textGrid[# 2, ABILITIES.SPACE_CADET],			ABILITY_TYPES.ACTION_SUCCESS,			space_cadet);
-master_grid_add_ability(ABILITIES.BAD_OMEN,					textGrid[# 1, ABILITIES.BAD_OMEN],					textGrid[# 2, ABILITIES.BAD_OMEN],				ABILITY_TYPES.ACTION_BEGIN,				bad_omen);
+master_grid_add_ability(ABILITIES.BAD_OMEN,					textGrid[# 1, ABILITIES.BAD_OMEN],					textGrid[# 2, ABILITIES.BAD_OMEN],				ABILITY_TYPES.PROCESS_BEGIN,			bad_omen);
 master_grid_add_ability(ABILITIES.ALL_KNOWING,				textGrid[# 1, ABILITIES.ALL_KNOWING],				textGrid[# 2, ABILITIES.ALL_KNOWING],			ABILITY_TYPES.ACTION_BEGIN,				all_knowing);
 master_grid_add_ability(ABILITIES.BEND_PHYSICS,				textGrid[# 1, ABILITIES.BEND_PHYSICS],				textGrid[# 2, ABILITIES.BEND_PHYSICS],			ABILITY_TYPES.ACTION_BEGIN,				bend_physics);
 master_grid_add_ability(ABILITIES.COMPRESS_TIME,			textGrid[# 1, ABILITIES.COMPRESS_TIME],				textGrid[# 2, ABILITIES.COMPRESS_TIME],			ABILITY_TYPES.PRIORITY_CHECK,			compress_time);

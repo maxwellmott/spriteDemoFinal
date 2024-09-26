@@ -330,19 +330,19 @@ function spar_check_berserk_increase_damage(_inst) {
 function sprite_check_mindset() {
 	if (mindset < 0) {
 		switch (abs(mindset)) {
-			case MINDSETS.IMP:
+			case MINDSETS.IMP_BLESS:
 				currentResistance = round(baseResistance * 0.67);
 			break;
 			
-			case MINDSETS.MOTHER:
+			case MINDSETS.MOTHER_BLESS:
 				currentPower = round(basePower * 0.67);
 			break;
 			
-			case MINDSETS.TREE:
+			case MINDSETS.TREE_BLESS:
 				currentLuck = round(baseLuck * 0.33);
 			break;
 			
-			case MINDSETS.WARRIOR:
+			case MINDSETS.WARRIOR_BLESS:
 				currentAgility = round(baseAgility * 0.5);
 			break;
 		}
@@ -350,19 +350,19 @@ function sprite_check_mindset() {
 	
 	if (mindset > 0) {
 		switch (abs(mindset)) {
-			case MINDSETS.IMP:
+			case MINDSETS.IMP_BLESS:
 				currentAgility = round(baseAgility * 2);
 			break;
 			
-			case MINDSETS.MOTHER:
+			case MINDSETS.MOTHER_BLESS:
 				currentLuck = round(baseLuck * 3);
 			break;
 			
-			case MINDSETS.TREE:
+			case MINDSETS.TREE_BLESS:
 				currentResistance = round(baseResistance * 1.5);
 			break;
 			
-			case MINDSETS.WARRIOR:
+			case MINDSETS.WARRIOR_BLESS:
 				currentPower = round(basePower * 1.5);
 			break;
 		}

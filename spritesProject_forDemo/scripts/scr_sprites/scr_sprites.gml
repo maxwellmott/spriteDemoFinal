@@ -1744,17 +1744,6 @@ function sprite_load_parameters() {
 	baseLuck			= real(grid[# SPRITE_PARAMS.LUCK,		spriteID]);
 	baseSize			= real(grid[# SPRITE_PARAMS.SIZE,		spriteID]);
 	
-	currentPower		= basePower;
-	currentResistance	= baseResistance;
-	currentFire			= baseFire;
-	currentWater		= baseWater;
-	currentStorm		= baseStorm;
-	currentEarth		= baseEarth;
-	currentAgility		= baseAgility;
-	currentLuck			= baseLuck;
-	currentAlign		= baseAlign;
-	currentSize			= baseSize;
-	
 	baseAbility			= real(grid[# SPRITE_PARAMS.ABILITY,	spriteID]);
 	
 	// decode ability grid
@@ -1765,6 +1754,23 @@ function sprite_load_parameters() {
 	baseAbilityName		= abltGrid[# ABILITY_PARAMS.NAME,					baseAbility];
 	baseAbilityDesc		= abltGrid[# ABILITY_PARAMS.DESCRIPTION,			baseAbility];
 	baseAbilityFunction = real(abltGrid[# ABILITY_PARAMS.EFFECT_FUNCTION,	baseAbility]);
+	
+	// set all current stats
+	currentPower			= basePower;
+	currentResistance		= baseResistance;
+	currentAgility			= baseAgility;
+	currentLuck				= baseLuck;
+	currentFire				= baseFire;
+	currentWater			= baseWater;
+	currentStorm			= baseStorm;
+	currentEarth			= baseEarth;
+	currentSize				= baseSize;
+	currentAlign			= baseAlign;
+	currentAbility			= baseAbility;
+	currentAbilityType		= baseAbilityType;
+	currentAbilityName		= baseAbilityName;
+	currentAbilityDesc		= baseAbilityDesc;
+	currentAbilityFunction	= baseAbilityFunction;	
 	
 	// decode spell list
 	decode_list(spellString, usable_spells);

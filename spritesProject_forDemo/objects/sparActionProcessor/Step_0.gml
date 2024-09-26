@@ -166,6 +166,11 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 				// check for berserk damage increase
 				spar_check_berserk_increase_damage(activeSprite);
 				
+				if !(spellFailed) {
+					// perform an ability check for spell success
+					ability_check(ABILITY_TYPES.ACTION_SUCCESS);						
+				}				
+				
 				// apply damage and change turnMsg
 				var t = targetSprite.team;
 				
@@ -203,6 +208,11 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 					}
 				}
 				
+				if !(spellFailed) {
+					// perform an ability check for spell success
+					ability_check(ABILITY_TYPES.ACTION_SUCCESS);						
+				}
+				
 				if (spellEffect >= 0)
 				&& !(spellFailed) {
 					spellEffect();
@@ -213,9 +223,6 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 					if (alarm[0] == -1)		alarm[0] = 24;	
 					exit;
 				}
-				
-				// perform an ability check for spell success
-				ability_check(ABILITY_TYPES.ACTION_SUCCESS);
 				
 				// turn off dodging/sneaking for targetSprite
 				if (targetSprite.dodging) 

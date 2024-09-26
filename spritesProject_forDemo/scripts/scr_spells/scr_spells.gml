@@ -171,7 +171,7 @@ function solar_flare() {
 	var t = targetSprite.team;
 	
 	// push spar effect and target team to alert list
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, -1 * (MINDSETS.WARRIOR));
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.WARRIOR_CURSE);
 }
 
 ///@desc SPELL FUNCTION: forces the target to swap (dodgeable)
@@ -251,7 +251,7 @@ function lady_solanus_grace() {
 	}	
 	
 	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, t);
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE_BLESS);
 }
 
 ///@desc SPELL FUNCTION: grants target curse of the tree (dodgeable)
@@ -259,7 +259,7 @@ function typhoon() {
 	if !(dodgeSuccess) {
 		var t = targetSprite;
 		
-		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.TREE);
+		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, MINDSETS.TREE_CURSE);
 	}
 }
 
@@ -301,14 +301,14 @@ function lusias_harvest_spell() {
 function waterlog() {
 	var t = targetSprite;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.TREE);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, MINDSETS.TREE_CURSE);
 }
 
 ///@desc SPELL FUNCTION: grants target and all nearby enemies the curse of the tree
 function air_pressure() {
 	var t = targetSprite.team;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, -1 * MINDSETS.TREE);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE_CURSE);
 }
 
 ///@desc SPELL FUNCTION: removes all curses and hindrances from caster's side of the field and 
@@ -355,7 +355,7 @@ function steam_bath() {
 	// get the caster's team
 	var t = c.team;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES, c);
+	spar_effect_push_alert(SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES, t);
 	
 	spar_effect_push_alert(SPAR_EFFECTS.SET_RUST, t);
 }
@@ -364,7 +364,7 @@ function steam_bath() {
 function undertow() {
 	var t = targetSprite;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP_BLESS);
 }
 
 ///@desc SPELL FUNCTION: adopts target's mindset and fully heals target or caster's team
@@ -460,7 +460,7 @@ function downpour() {
 function arc_blast() {
 	var t = targetSprite;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP_BLESS);
 }
 
 ///@desc SPELL FUNCTION: fails unless forest is active, removes forest, fully restores caster's
@@ -470,7 +470,7 @@ function hikams_winter_spell() {
 	
 	spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
 	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_MP, t);
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE_BLESS);
 }
 
 ///@desc SPELL FUNCTION: adopts the target's mindset. if curse, heal target team fully. If blessing, heal caster team fully
@@ -716,7 +716,7 @@ function magnetic_pulse() {
 function burn_out() {
 	var c = activeSprite;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, c, 0 - MINDSETS.MOTHER);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, c, 0 - MINDSETS.MOTHER_BLESS);
 }
 
 ///@desc SPELL FUNCTION: summons miasma on both sides of the field
@@ -729,7 +729,7 @@ function wind_slice() {
 	if !(dodgeSuccess) {
 		var t = targetSprite;
 		
-		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP);
+		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP_BLESS);
 	}
 }
 
@@ -819,7 +819,7 @@ function knock_over() {
 	if !(dodgeSuccess) {
 		var t = targetSprite;
 		
-		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP);
+		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP_BLESS);
 	}
 }
 

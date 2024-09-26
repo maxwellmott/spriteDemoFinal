@@ -38,7 +38,7 @@ ability = noone;
 
 // initialize base stats
 basePower			= -1;
-baseResist			= -1;
+baseResistance		= -1;
 baseAgility			= -1;
 baseLuck			= -1;
 baseFire			= -1;
@@ -52,9 +52,6 @@ baseAbilityType		= -1;
 baseAbilityName		= -1;
 baseAbilityDesc		= -1;
 baseAbilityFunction = -1;
-
-// load sprite parameters
-sprite_load_parameters();
 
 // initialize current stats
 currentPower			= basePower;
@@ -72,6 +69,9 @@ currentAbilityType		= baseAbilityType;
 currentAbilityName		= baseAbilityName;
 currentAbilityDesc		= baseAbilityDesc;
 currentAbilityFunction	= baseAbilityFunction;
+
+// load sprite parameters
+sprite_load_parameters();
 
 // initialize mindset (set to 0 since negative IDs= curses)
 mindset = 0;

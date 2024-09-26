@@ -64,7 +64,9 @@ if (effectedPlayer >= 0) {
 	entireField = true;
 }
 else {
-	if (ds_list_size(effectedSprites) > 1)	drawingMultiple = true;
+	if (effectedSprites > 0) {
+		if (ds_list_size(effectedSprites) > 1)	drawingMultiple = true;
+	}
 }
 
 drawX = -1;

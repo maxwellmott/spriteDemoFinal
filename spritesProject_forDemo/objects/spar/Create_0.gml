@@ -237,4 +237,14 @@ effectAlertList = ds_list_create();
 
 abilityChecked_priorityCheck = false;
 
+var i = 0;	repeat (ds_list_size(spriteList)) {
+	var inst = spriteList[| i];
+	
+	with (inst) {
+		sprite_build_nearby_lists();	
+	}
+
+	i++;	
+}
+
 global.roomBuilt = true;
