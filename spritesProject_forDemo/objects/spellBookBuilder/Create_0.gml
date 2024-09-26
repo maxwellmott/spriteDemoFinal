@@ -186,3 +186,5 @@ if (global.controllerType == controllerTypes.keyboard) {
 if (global.controllerType == controllerTypes.gamepad) {
 	acceptString = "PRESS START TO ACCEPT";	
 }
+
+global.roomBuilt = true;

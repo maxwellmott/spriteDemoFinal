@@ -30,7 +30,9 @@ function ability_check(_abilityType) {
 			// if current sprite is not on the list of checked sprites
 			if (ds_list_find_index(spritesChecked, inst) == -1) {
 				// if arena is normal
-				if (spar.currentArena == -1) {
+				if (spar.currentArena == -1) 
+				|| (spar.currentArena == ARENAS.FOREST) 
+				|| (spar.currentArena == ARENAS.VOLCANO) {
 					// if this sprite has higher Agility than the current highest
 					if (inst.currentAgility > highest) {
 						// set highestID to inst
@@ -253,11 +255,14 @@ function ability_check(_abilityType) {
 		// check if this check happens in the sparActionProcessor
 		if (t >= ABILITY_TYPES.ACTION_BEGIN)
 		&& (t <= ABILITY_TYPES.ACTION_SUCCESS) {
-			// destroy temp list
-			ds_list_destroy(spritesChecked);
+			// check if sparActionProcessor is gone
+			if !(instance_exists(sparActionProcessor)) {
+				// destroy temp list
+				ds_list_destroy(spritesChecked);
 			
-			// return -1
-			return -1;
+				// return -1
+				return -1;
+			}
 		}
 		
 		// perform an ability check on the next sprite
@@ -1004,11 +1009,11 @@ function offer_refuge(_inst) {
 		// check if it is a basic attack or physical spell
 		if (sparActionProcessor.currentSpell < 0) 
 		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
+			// set the targetSprite to inst
+			sparActionProcessor.targetSprite = inst;
+			
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for replace target
-			spar_effect_push_alert(SPAR_EFFECTS.REPLACE_TARGET, inst, sparActionProcessor.targetSprite);
 		}
 	}
 }
@@ -1888,7 +1893,7 @@ function end_of_days(_inst) {
 	// check if this sprite is the target
 	if (inst == sparActionProcessor.targetSprite) {
 		// check if it is a spell
-		if (sparActionProcessor.currentSpell < 0) {	
+		if (sparActionProcessor.currentSpell >= 0) {	
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 			
