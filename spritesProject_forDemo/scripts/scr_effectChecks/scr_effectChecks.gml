@@ -328,28 +328,25 @@ function spar_check_berserk_increase_damage(_inst) {
 ///@desc This function should be called by the sparAlly and sparEnemy object's once per frame. If their
 /// mindset isn't normal, it should adjust their stats relative to their base stats.
 function sprite_check_mindset() {
-	if (mindset < 0) {
-		switch (abs(mindset)) {
-			case MINDSETS.IMP_BLESS:
+	// check if this sprite has an abnormal mindset
+	if (mindset != MINDSETS.NORMAL) {
+		switch (mindset) {
+			case MINDSETS.IMP_CURSE:
 				currentResistance = round(baseResistance * 0.67);
 			break;
 			
-			case MINDSETS.MOTHER_BLESS:
+			case MINDSETS.MOTHER_CURSE:
 				currentPower = round(basePower * 0.67);
 			break;
 			
-			case MINDSETS.TREE_BLESS:
+			case MINDSETS.TREE_CURSE:
 				currentLuck = round(baseLuck * 0.33);
 			break;
 			
-			case MINDSETS.WARRIOR_BLESS:
+			case MINDSETS.WARRIOR_CURSE:
 				currentAgility = round(baseAgility * 0.5);
 			break;
-		}
-	}
-	
-	if (mindset > 0) {
-		switch (abs(mindset)) {
+
 			case MINDSETS.IMP_BLESS:
 				currentAgility = round(baseAgility * 2);
 			break;

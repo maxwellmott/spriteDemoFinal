@@ -88,8 +88,13 @@ var i = 0; repeat (8) {
 	if (inst.berserk)		draw_sprite(spr_sparBerserk,		0, inst.hexedX, inst.hexedY);
 	
 	// if sprite has a curse or blessing, draw the indicator
-	if (inst.mindset > 0) draw_sprite(spr_sparBlessings,	abs(inst.mindset) - 1,	inst.mindsetX, inst.mindsetY);
-	if (inst.mindset < 0) draw_sprite(spr_sparCurses,		abs(inst.mindset) - 1,	inst.mindsetX, inst.mindsetY);
+	if (inst.mindset != MINDSETS.NORMAL) {
+		// if it is a blessing
+		if (inst.mindset < MINDSETS.TREE_CURSE)	 draw_sprite(spr_sparBlessings,	inst.mindset - 1,	inst.mindsetX, inst.mindsetY);
+		
+		// if it is a curse
+		if (inst.mindset >= MINDSETS.TREE_CURSE)	draw_sprite(spr_sparCurses,		inst.mindset - 5,	inst.mindsetX, inst.mindsetY);
+	}
 
 	// if sprite's readyDisplay is built, draw the box and the text
 	if (inst.readyDisplayBuilt) {
