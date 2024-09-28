@@ -1,174 +1,117 @@
-/// @description Insert description here
-// You can write your code in this editor
-
-draw_set(fa_center, fa_middle, 1.0, COL_BLACK);
-
-// draw background
+// draw spellbookbuilder background
 draw_sprite(spr_spellBookBuilderBackground, 0, 0, 0);
 
-if (displayingSpellSelector) {
-	// draw arrows
-	if (currentSpellIndex > 0)				draw_sprite_ext(spr_spellSelectorArrow, leftArrowFrame,		leftArrowX,		arrowY, 1, 1, 0, c_white, 1.0);
-	if (currentSpellIndex < spellCount - 1)	draw_sprite_ext(spr_spellSelectorArrow, rightArrowFrame,	rightArrowX,	arrowY, -1, 1, 0, c_white, 1.0);
+// set color to black
+draw_set_color(COL_BLACK);
+
+// draw category incidator
+if !(categoryChanging) {
+	draw_text_pixel_perfect(36, 27, categoryString, 10, 256);
+}
+else	{
+	draw_sprite(spr_spellBookCategoryFlash, 0, categoryFlashX, categoryFlashY);
+}
+
+// draw currently selected spells
+var i = 0;	repeat (8) {
+	// get x and y for nameslot
+	var sx = nameSlotLefts[| i];
+	var sy = nameSlotTops[| i];
 	
-	// draw square bar
-	draw_sprite(spr_selectorSquareBar, 0, squareBarX, squareBarY);
+	// get x and y for text
+	var tx = round(sx + (nameSlotWidth / 2));
+	var ty = round(sy + (nameSlotHeight / 2) + 2);
 	
-	// draw spellInfo
-	draw_sprite(spr_spellInfoBanner, 0, infoBannerX, infoBannerY);
-	
-	draw_text_pixel_perfect(infoBannerX, infoBannerY + 1.5, spellInfoString, 7, infoBannerWidth);
-	
-	// draw addSpellButton
-	draw_sprite(spr_addSpellButton, addButtonFrame, addSpellButtonX, addSpellButtonY);
-	
-	// draw name slots
-	draw_sprite(spr_spriteNameDisplay, 0, spriteNameSlotX, spriteNameSlotOneY);
-	draw_sprite(spr_spriteNameDisplay, 0, spriteNameSlotX, spriteNameSlotTwoY);
-	draw_sprite(spr_spriteNameDisplay, 0, spriteNameSlotX, spriteNameSlotThreeY);
-	draw_sprite(spr_spriteNameDisplay, 0, spriteNameSlotX, spriteNameSlotFourY);
-	
-	// draw names and spellChecks
-	var i = 0;	repeat (4)	{
-		switch (i) {
-			case 0:
-				var ssy = spriteNameSlotOneY; 
-			break;
-			
-			case 1:
-				var ssy = spriteNameSlotTwoY;
-			break;
-			
-			case 2:
-				var ssy = spriteNameSlotThreeY;
-			break;
-			
-			case 3:
-				var ssy = spriteNameSlotFourY;
-			break;
-		}
+	// check if selectedSpellSlot is i
+	if (i == selectedSpellSlot) {
+		// draw the name slot
+		draw_sprite(spr_spellBookNameSlot, 1, sx, sy);
 		
-		var sn = spriteNameList[| i];
-		var sl = usableSpellsLists[| i];
+		// indicate that it is time to select
+		draw_text_pixel_perfect(tx, ty, "Press Space to Select the Above Spell", 10, nameSlotWidth - 4);
+	}
+	// if selectedSpell is not i
+	else {
+		// draw the name slot
+		draw_sprite(spr_spellBookNameSlot, 0, sx, sy);
 		
-		// draw name slot
-		draw_sprite(spr_spriteNameDisplay, 0, spriteNameSlotX, ssy);
-		
-		// draw name
-		draw_text(spriteNameSlotX, ssy, sn);
-		
-		// check if sprite can use current spell
-		if (ds_list_find_index(sl, currentSpellID) >= 0) {
-			// draw spell check
-			draw_sprite(spr_usableSpellCheck, 0, usableSpellCheckX, ssy)
-		}
-		
-		
-		i++;
+		// draw the name
+		draw_text_pixel_perfect(tx, ty, spellGrid[# SPELL_PARAMS.NAME, spellBookList[| i]], 10, nameSlotWidth - 4);
 	}
 	
-	// draw spell name
-	draw_sprite(spr_spellNameDisplay, 0, spellNameX, spellNameY);
-	draw_text(spellNameX, spellNameY, currentSpellName);
+	// increment i
+	i++;
 }
 
-if !(displayingSpellSelector) {
-	// draw delete buttons
-	draw_sprite(spr_removeSpellButton, deleteOneFrame,		deleteColumnOne, nameSlotRowOne);
-	draw_sprite(spr_removeSpellButton, deleteTwoFrame,		deleteColumnTwo, nameSlotRowOne);
-	
-	draw_sprite(spr_removeSpellButton, deleteThreeFrame,	deleteColumnOne, nameSlotRowTwo);
-	draw_sprite(spr_removeSpellButton, deleteFourFrame,		deleteColumnTwo, nameSlotRowTwo);
-	
-	draw_sprite(spr_removeSpellButton, deleteFiveFrame,		deleteColumnOne, nameSlotRowThree);
-	draw_sprite(spr_removeSpellButton, deleteSixFrame,		deleteColumnTwo, nameSlotRowThree);
-	
-	draw_sprite(spr_removeSpellButton, deleteSevenFrame,	deleteColumnOne, nameSlotRowFour);
-	draw_sprite(spr_removeSpellButton, deleteEightFrame,	deleteColumnTwo, nameSlotRowFour);
-	
-	// draw name slots
-	draw_sprite(spr_displaySpellNameBanner, 0, nameSlotColumnOne, nameSlotRowOne);
-	draw_sprite(spr_displaySpellNameBanner, 0, nameSlotColumnTwo, nameSlotRowOne);
-	
-	draw_sprite(spr_displaySpellNameBanner, 0, nameSlotColumnOne, nameSlotRowTwo);
-	draw_sprite(spr_displaySpellNameBanner, 0, nameSlotColumnTwo, nameSlotRowTwo);
-	
-	draw_sprite(spr_displaySpellNameBanner, 0, nameSlotColumnOne, nameSlotRowThree);
-	draw_sprite(spr_displaySpellNameBanner, 0, nameSlotColumnTwo, nameSlotRowThree);
-	
-	draw_sprite(spr_displaySpellNameBanner, 0, nameSlotColumnOne, nameSlotRowFour);
-	draw_sprite(spr_displaySpellNameBanner, 0, nameSlotColumnTwo, nameSlotRowFour);
-	
-	// draw info slots
-	draw_sprite(spr_displaySpellBanner, 0, infoSlotColumnOne, infoSlotRowOne);
-	draw_sprite(spr_displaySpellBanner, 0, infoSlotColumnTwo, infoSlotRowOne);
-	
-	draw_sprite(spr_displaySpellBanner, 0, infoSlotColumnOne, infoSlotRowTwo);
-	draw_sprite(spr_displaySpellBanner, 0, infoSlotColumnTwo, infoSlotRowTwo);
-
-	draw_sprite(spr_displaySpellBanner, 0, infoSlotColumnOne, infoSlotRowThree);
-	draw_sprite(spr_displaySpellBanner, 0, infoSlotColumnTwo, infoSlotRowThree);
-
-	draw_sprite(spr_displaySpellBanner, 0, infoSlotColumnOne, infoSlotRowFour);
-	draw_sprite(spr_displaySpellBanner, 0, infoSlotColumnTwo, infoSlotRowFour);	
-	
-	// draw names
-	var i = 0;	repeat (SPELLMAX) {
-		if (spellBookList[| i] >= 0) {
+// draw compatible ally names
+var i = 0;	repeat (4) {
+	// check if the current spell is on this sprite's usableSpells list
+	if (ds_list_find_index(usableSpellsLists[| i], currentSpell) != -1) {
+		// get nameSlotWidth
+		var w = 60;
 		
-			var xx = 0;
-			var yy = 0;
-			var sn = "";
-			
-			switch (i) {
-				case 0:	xx = nameSlotColumnOne;	yy = nameSlotRowOne;	break;
-				case 1: xx = nameSlotColumnTwo; yy = nameSlotRowOne;	break;
-				case 2: xx = nameSlotColumnOne; yy = nameSlotRowTwo;	break;
-				case 3: xx = nameSlotColumnTwo; yy = nameSlotRowTwo;	break;
-				case 4: xx = nameSlotColumnOne; yy = nameSlotRowThree;	break;
-				case 5: xx = nameSlotColumnTwo; yy = nameSlotRowThree;	break;
-				case 6: xx = nameSlotColumnOne; yy = nameSlotRowFour;	break;
-				case 7: xx = nameSlotColumnTwo;	yy = nameSlotRowFour;	break;
-			}
-			
-			sn = spellGrid[# SPELL_PARAMS.NAME, spellBookList[| i]];
-			
-			draw_text(xx, yy, sn);
-			
-			// draw spell info
-				
-		}
+		// set x and y
+		var nx = ((w / 2) + 1) + (i * ((guiWidth -2) / 4));
+		var ny = 215;
 		
-		i++;
+		// set draw params
+		draw_set(fa_center, fa_middle, 1.0, COL_BLACK);
+		
+		// draw this sprite's name
+		draw_text_pixel_perfect(nx, ny, spriteNameList[| i], 8, ((guiWidth - 2) / 4));
 	}
 	
-	// draw ditherBars
-	draw_sprite(spr_displayDitherBar, 0, ditherBarX, ditherBarOneY);
-	draw_sprite(spr_displayDitherBar, 0, ditherBarX, ditherBarTwoY);
-	draw_sprite(spr_displayDitherBar, 0, ditherBarX, ditherBarThreeY);
-	draw_sprite(spr_displayDitherBar, 0, ditherBarX, ditherBarFourY);
-	draw_sprite(spr_displayDitherBar, 0, ditherBarX, ditherBarFiveY);
-	
-	// draw squareWalls
-	draw_sprite(spr_displaySquareBar, 0, squareWallX, infoSlotRowOne);
-	draw_sprite(spr_displaySquareBar, 0, squareWallX, infoSlotRowTwo);
-	draw_sprite(spr_displaySquareBar, 0, squareWallX, infoSlotRowThree);
-	draw_sprite(spr_displaySquareBar, 0, squareWallX, infoSlotRowFour);
+	// increment i
+	i++;
 }
 
-if (onlineWaiting) {
-	draw_set_alpha(0.5);
+// set shadeAlpha
+draw_set_alpha(shadeAlpha);
+
+// draw shade rectangle
+draw_rectangle_color(0, 0, guiWidth, guiHeight, c_black, c_black, c_black, c_black, false);
+
+// reset alpha
+draw_set_alpha(1.0);
+
+// draw spellBook
+draw_sprite(spellBookSprite, spellBookFrame, spellBookX, spellBookY);
+
+// if the book is open and the page isn't being flipped, draw the current spell icon and all spell params
+if !(drawFlip) && (spellBookFrame == 5) {
+	draw_set_font(spellbookFont);
 	
-	draw_rectangle_color(0, 0, guiWidth, guiHeight, COL_BLACK, COL_BLACK, COL_BLACK, COL_BLACK, false);
+	draw_sprite(spr_spellBookIconSheet, currentSpell, spellBookX, spellBookY + 4);
+
+	draw_sprite(spr_spellRangeIndicator, spellRange, rangeDrawX, rangeDrawY);
+	draw_sprite(spr_spellTypeIndicator, spellType, typeDrawX, typeDrawY);
 	
-	draw_set(fa_center, fa_middle, 1.0, COL_WHITE);
-	var str = "Waiting for other player";
+	// check if power is greater than 0
+	if (spellPower > 0) {
+		draw_text_pixel_perfect(powerDrawX, powerDrawY, string(spellPower), 1, 256);
+	}	else	{
+		draw_text_pixel_perfect(powerDrawX, powerDrawY + 1, "--", 1, 256);	
+	}
 	
-	var modVar = global.gameTime mod 56;
+	// check if cost is greater than 0
+	if (spellCost > 0) {
+		draw_text_pixel_perfect(costDrawX, costDrawY, string(spellCost), 1, 256);
+	}	else	{
+		draw_text_pixel_perfect(costDrawX, costDrawY + 1, "--", 1, 256);	
+	}
 	
-	if (modVar < 14)		str += "...";
-	else if (modVar < 28)	str += "..";
-	else if (modVar < 42)	str += ".";
+	draw_set_halign(fa_left);
+	draw_set_valign(fa_top);
 	
-	draw_text_pixel_perfect(guiWidth / 2, guiHeight / 2, str, 1, 256);
+	draw_text_pixel_perfect(descDrawX, descDrawY, description, 8, infoBannerWidth);
+	
+	draw_set_halign(fa_center);
+	draw_set_valign(fa_middle);
 }
+
+// check if pageFlip is happening
+if (drawFlip) {
+	draw_sprite(spr_spellBookPageFlip, flipFrame, spellBookX, spellBookY);
+}
+
+

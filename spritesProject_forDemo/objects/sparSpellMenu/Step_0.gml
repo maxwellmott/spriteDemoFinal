@@ -17,95 +17,104 @@ if (x > targetX) && (frame > 0) {
 	if !(global.gameTime mod 4) frame--;
 }
 
-if (x == targetX) && (targetX == spriteWidth / 2) {
-	if (enoughMP) {
-		if (global.select) {	
-			// check if the current spell is on the usable spells list
-			if (ds_list_find_index(usable_spells, currentSpell) != -1) {
-				// set global.action
-				global.action = currentSpell + sparActions.height;
-				
-				// check if range is self
-				if (spellRange == ranges.onlySelf) {
-					// if so, set action and target to indicate self-targeting spell
-					self_target_set();
+if (x == targetX) 
+&& (targetX == spriteWidth / 2) {
+	if (infoDisplayAlpha >= 1.0) {
+		if (enoughMP) {
+			if (global.select) {	
+				// check if the current spell is on the usable spells list
+				if (ds_list_find_index(usable_spells, currentSpell) != -1) {
+					// set global.action
+					global.action = currentSpell + sparActions.height;
 					
-					// set next phase
-					nextPhase = SELECTION_PHASES.ALLY;
+					// check if range is self
+					if (spellRange == ranges.onlySelf) {
+						// if so, set action and target to indicate self-targeting spell
+						self_target_set();
+						
+						// set next phase
+						nextPhase = SELECTION_PHASES.ALLY;
+					}
+					else {
+						// if not self range, set action normally
+						spar_set_spell();	
+					}
+				
+					// close book
+					targetX = 0 - (spriteWidth / 2);
 				}
-				else {
-					// if not self range, set action normally
-					spar_set_spell();	
-				}
+			}
+		}
+		else {
+			if (global.select) {
+				// indicate that the player does not have enough MP	
+			}
+		}
+		
+		if (global.back) {
+			spar.potentialCost = 0;
+			global.mpCostDiff = 0;
 			
-				// close book
-				targetX = 0 - (spriteWidth / 2);
+			// set next phase
+			nextPhase = SELECTION_PHASES.ALLY;
+			
+			// close book
+			targetX = 0 - (spriteWidth / 2);
+		}
+		
+		if !(pageFlip) {
+			if (global.menu_left) {
+				// check if index is at 0
+				if (index > 0) {
+					spar.potentialCost = 0;
+					
+					pageFlip = true;
+					
+					// set flipLeft to true
+					flipLeft = true;
+					
+					// set flipFrame to 1
+					flipFrame = flipMax;
+					
+					// if not, decrement index
+					index--;
+				
+					// set current spell
+					currentSpell = player.spellBook[| index];
+					
+						// get spell params
+				spellbook_load_spell_params();
+				}
+			}
+		
+			if (global.menu_right) {
+				// check if index is at max
+				if (index < spellBookHeight - 1) {
+					spar.potentialCost = 0;
+					
+					pageFlip = true;
+						
+					// set flipRight to true
+					flipRight = true;
+				
+					// set flipFrame to 0
+					flipFrame = 0;
+					
+					// if not, increment index
+					index++;
+					
+					// set current spell
+					currentSpell = player.spellBook[| index];
+					
+					// get spell params
+					spellbook_load_spell_params();
+				}
 			}
 		}
 	}
-	else {
-		if (global.select) {
-			// indicate that the player does not have enough MP	
-		}
-	}
-	
-	if (global.back) {
-		spar.potentialCost = 0;
-		global.mpCostDiff = 0;
-		
-		// set next phase
-		nextPhase = SELECTION_PHASES.ALLY;
-		
-		// close book
-		targetX = 0 - (spriteWidth / 2);
-	}
-	
-	if (global.menu_left) {
-		// check if index is at 0
-		if (index > 0) {
-			spar.potentialCost = 0;
-			
-			pageFlip = true;
-			
-			// set flipLeft to true
-			flipLeft = true;
-			
-			// set flipFrame to 1
-			flipFrame = flipMax;
-			
-			// if not, decrement index
-			index--;
-		
-			// set current spell
-			currentSpell = player.spellBook[| index];
-			
-			// get spell params
-			spellbook_load_spell_params();
-		}
-	}
-	
-	if (global.menu_right) {
-		// check if index is at max
-		if (index < spellBookHeight - 1) {
-			spar.potentialCost = 0;
-			
-			pageFlip = true;
-			
-			// set flipRight to true
-			flipRight = true;
-			
-			// set flipFrame to 0
-			flipFrame = 0;
-			
-			// if not, increment index
-			index++;
-			
-			// set current spell
-			currentSpell = player.spellBook[| index];
-			
-			// get spell params
-			spellbook_load_spell_params();
-		}
+	else	{
+		// increment infoDisplayAlpha
+		infoDisplayAlpha += 0.05;
 	}
 }
 

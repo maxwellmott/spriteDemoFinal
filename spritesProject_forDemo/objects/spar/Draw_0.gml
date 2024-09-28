@@ -186,6 +186,9 @@ draw_set_alpha(1.0);
 		// draw spellBook
 		draw_sprite(sparSpellMenu.sprite, sparSpellMenu.frame, sparSpellMenu.x, sparSpellMenu.y);
 		
+		// set info display alpha
+		draw_set_alpha(sparSpellMenu.infoDisplayAlpha);
+		
 		// draw spell info display
 		draw_sprite(sparSpellMenu.infoDisplaySprite, 0, sparSpellMenu.infoDisplayX, sparSpellMenu.infoDisplayY);
 	
@@ -230,6 +233,9 @@ draw_set_alpha(1.0);
 			draw_set_halign(fa_center);
 			draw_set_valign(fa_middle);
 		}
+		
+		// reset alpha
+		draw_set_alpha(1.0);
 		
 		// check if pageFlip is happening
 		if (sparSpellMenu.drawFlip) {

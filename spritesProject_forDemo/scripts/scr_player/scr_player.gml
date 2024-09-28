@@ -207,28 +207,36 @@ function gate_check_player() {
 	if (player.bbox_top < 0) {
 		if (northExit >= 0) {
 			overworld_transition(player.x, 772, directions.north, northExit);
-		}	else player.y = 2;
+		}	else {
+			player.y = 2;
+		}
 	}
 	
 	// check east gate
 	if (player.bbox_right > locationWidth) {
 		if (eastExit >= 0) {
 			overworld_transition(16, player.y, directions.east, eastExit);	
-		}	else player.x = locationWidth - 9;
+		}	else {
+			player.x = locationWidth - 9;
+		}
 	}
 	
 	// check south gate
 	if (player.bbox_bottom >= locationHeight) {
 		if (southExit >= 0) {
 			overworld_transition(player.x, 16, directions.south, southExit);	
-		}	else player.y = locationHeight - 2;
+		}	else {
+			player.y = locationHeight - 2;
+		}
 	}
 	
 	// check west gate
 	if (player.bbox_left < 0) {
 		if (westExit >= 0) {
 			overworld_transition(784, player.y, directions.west, westExit);	
-		}	else player.x = 9;
+		}	else {
+			player.x = 9;
+		}
 	}
 }
 	

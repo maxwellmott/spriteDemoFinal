@@ -1,0 +1,38 @@
+{
+  "$GMTileSet":"v1",
+  "%Name":"tlst_upstairsInt",
+  "autoTileSets":[],
+  "macroPageTiles":{
+    "SerialiseHeight":0,
+    "SerialiseWidth":0,
+    "TileSerialiseData":[],
+  },
+  "name":"tlst_upstairsInt",
+  "out_columns":10,
+  "out_tilehborder":0,
+  "out_tilevborder":0,
+  "parent":{
+    "name":"INT",
+    "path":"folders/Tile Sets/INT.yy",
+  },
+  "resourceType":"GMTileSet",
+  "resourceVersion":"2.0",
+  "spriteId":{
+    "name":"upstairsTilesInt",
+    "path":"sprites/upstairsTilesInt/upstairsTilesInt.yy",
+  },
+  "spriteNoExport":false,
+  "textureGroupId":{
+    "name":"OverworldScenery",
+    "path":"texturegroups/OverworldScenery",
+  },
+  "tileAnimationFrames":[],
+  "tileAnimationSpeed":15.0,
+  "tileHeight":32,
+  "tilehsep":0,
+  "tilevsep":0,
+  "tileWidth":32,
+  "tilexoff":0,
+  "tileyoff":0,
+  "tile_count":100,
+}

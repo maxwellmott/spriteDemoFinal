@@ -12,14 +12,14 @@
   "out_tilehborder":0,
   "out_tilevborder":0,
   "parent":{
-    "name":"Tile Sets",
-    "path":"folders/Tile Sets.yy",
+    "name":"EXT",
+    "path":"folders/Tile Sets/EXT.yy",
   },
   "resourceType":"GMTileSet",
   "resourceVersion":"2.0",
   "spriteId":{
-    "name":"collidablesTiles",
-    "path":"sprites/collidablesTiles/collidablesTiles.yy",
+    "name":"collidablesTilesExt",
+    "path":"sprites/collidablesTilesExt/collidablesTilesExt.yy",
   },
   "spriteNoExport":false,
   "textureGroupId":{

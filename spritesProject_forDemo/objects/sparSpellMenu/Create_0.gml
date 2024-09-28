@@ -74,7 +74,7 @@ infoDisplayY = (guiHeight / 2);
 // initialize info display alpha
 infoDisplayAlpha = 0.0;
 
-// initialize draw positions for spell params 
+// initialize draw positions for spell params
 rangeDrawX = infoDisplayX - (idsw / 2) + 31;
 rangeDrawY = infoDisplayY - 14;
 

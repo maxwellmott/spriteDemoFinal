@@ -1021,7 +1021,64 @@ function processor_load_spell_params() {
 	spellType		= real(grid[# SPELL_PARAMS.TYPE,					currentSpell]);
 	spellPower		= real(grid[# SPELL_PARAMS.POWER,					currentSpell]);
 	spellEffect		= real(string_digits(grid[# SPELL_PARAMS.EFFECT,	currentSpell]));
-	spellDodgeable = real(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
+	spellDodgeable	= real(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
+	
+	// destroy spell grid
+	ds_grid_destroy(grid);
+}
+
+///@desc This function is meant to be called by the sparActionProcessor whenever a spell is being cast
+function builder_load_spell_params() {
+	// decode spell grid
+	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
+	decode_grid(global.allSpells, grid);
+	
+	// use currentSpell to get all params
+	spellName		= grid[# SPELL_PARAMS.NAME,							currentSpell];
+	spellCost		= real(grid[# SPELL_PARAMS.COST,					currentSpell]);
+	spellType		= real(grid[# SPELL_PARAMS.TYPE,					currentSpell]);
+	spellPower		= real(grid[# SPELL_PARAMS.POWER,					currentSpell]);
+	spellEffect		= real(string_digits(grid[# SPELL_PARAMS.EFFECT,	currentSpell]));
+	spellDodgeable	= real(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
+	spellRange		= real(grid[# SPELL_PARAMS.RANGE,					currentSpell]);
+	description		= grid[# SPELL_PARAMS.DESCRIPTION,					currentSpell];
+	
+	// destroy spell grid
+	ds_grid_destroy(grid);
+}
+
+function spell_type_get_string(_spellType) {
+	var t = _spellType;
+	
+	switch (t) {
+		case SPELL_TYPES.FIRE:
+			return "FIRE";
+		break;
+		
+		case SPELL_TYPES.WATER:
+			return "WATER";
+		break;
+		
+		case SPELL_TYPES.STORM:
+			return "STORM";
+		break;
+		
+		case SPELL_TYPES.EARTH:
+			return "EARTH";
+		break;
+		
+		case SPELL_TYPES.PHYSICAL:
+			return "PHYSICAL";
+		break;
+		
+		case SPELL_TYPES.TRICK:
+			return "TRICK";
+		break;
+		
+		case SPELL_TYPES.HEIGHT:
+			return "ANY";
+		break;
+	}
 }
 
 function action_get_spell_id(_action) {

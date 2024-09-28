@@ -48,8 +48,8 @@ westExit	= real(locationGrid[# locationParams.toWest, locationID]);
 tileRowCount	= real(locationGrid[# locationParams.tileRowCount, locationID]);
 tileColumnCount = real(locationGrid[# locationParams.tileColumnCount, locationID]);
 
-locationWidth	= tileRowCount * TILEWIDTH;
-locationHeight	= tileColumnCount * TILEHEIGHT;
+locationWidth	= tileColumnCount * TILEWIDTH;
+locationHeight	= tileRowCount * TILEHEIGHT;
 
 locationName	= locationGrid[# locationParams.name, locationID];
 
