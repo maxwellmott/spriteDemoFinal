@@ -112,7 +112,7 @@ if (spellBookX == targetX)
 		
 			if (global.menu_right) {
 				// check if currentSpellIndex is at max
-				if (currentSpellIndex < spellBookHeight - 1) {					
+				if (currentSpellIndex < ds_list_size(categoryLists[| currentCategory]) - 1) {					
 					pageFlip = true;
 						
 					// set flipRight to true
@@ -140,7 +140,15 @@ if (spellBookX == targetX)
 		if (global.select) {		
 			// check that selectedSpellSlot is set
 			if (selectedSpellSlot >= 0) {
-				spellBookList[| selectedSpellSlot] = currentSpell;	
+				// check that currentSpell is not already on the spellBookList
+				if (ds_list_find_index(spellBookList, currentSpell) == -1) {
+					spellBookList[| selectedSpellSlot] = currentSpell;	
+					selectedSpellSlot = -1;
+				}
+				// if currentSpell is already on spellBook list
+				else {
+					// push error SFX
+				}
 			}
 		}
 		
@@ -222,14 +230,14 @@ if !drawFlip {
 //@TODO take a closer look at everything below here. make sure that the spellBookString gets reset before closing.
 if !(onlineWaiting) {	
 	if (global.start) {
+		player.spellBookString = "";
+		player.spellBookString = encode_list(spellBookList);			
+		
 		if (instance_exists(onlineEnemy)) {
 			client_set_match_ready();	
-			onlineWaiting = true;
+			onlineWaiting = true;		
 		}
-		else	{
-			player.spellBookString = "";
-			player.spellBookString = encode_list(spellBookList);
-			
+		else	{			
 			room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);
 		}
 	}
