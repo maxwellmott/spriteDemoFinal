@@ -60,23 +60,7 @@ if (instance_exists(overworld)) {
 // for debugging only
 if (global.overworld)	
 && !(instance_exists(menu)) {	
-	if (global.shiftPressed)	{	
-		if (global.start)		{
-			room_transition(x, y, facing, rm_teambuilder, bgm_menuTheme);	
-		}
-	
-		if (global.back)		{
-			room_transition(x, y, facing, rm_spellbookBuilder, bgm_menuTheme);
-		}
-	}	
-	else	{
-	 	if (global.start)		{
-	 		global.opponent = npcs.mercurioGallant;
-			spar_begin_ingame();
-	 	}
-	 
-	 	if (global.back)		{
-	 		room_transition(x, y, facing, rm_onlineLobby, bgm_menuTheme);
-	 	}
-	 }
+	if (global.start)		{
+		open_main_menu();
+	}
 }

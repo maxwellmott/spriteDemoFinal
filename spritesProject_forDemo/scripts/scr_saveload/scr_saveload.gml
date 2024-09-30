@@ -5,7 +5,7 @@
 /// works mostly the same
 function start_new_game() {
 	create_once(0,	0, LAYER.sprites, player);
-	player.location = locations.miriabramDorm1;
+	player.location = locations.miriabramExt;
 	
 	room_transition(128, 160, directions.south, rm_overworld, bgm_springRelaxSunny);
 }

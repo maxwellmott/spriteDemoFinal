@@ -71,7 +71,7 @@
     },
     "name":"spr_spellFX_cloud_break",
     "playback":1,
-    "playbackSpeed":15.0,
+    "playbackSpeed":9.0,
     "playbackSpeedType":0,
     "resourceType":"GMSequence",
     "resourceVersion":"2.0",

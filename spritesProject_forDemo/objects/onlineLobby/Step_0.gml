@@ -47,25 +47,36 @@ if !(inLobby) {
 			mmButtonPressed = true;
 		}
 	}
+	
+	// check if the back button is pressed
+	if (global.back) {
+		room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);	
+	}	
 }
 #endregion
 
 #region LOBBY STEP
 if (inLobby) {
-	// if labelSprite has not yet been set, set it according to player's clientScope
+	// check if labelSprite has not yet been set
 	if (labelSprite == -1) {
+		// set labelSprite according to player's online scope
 		if	player.clientScope == CLIENT_SCOPES.RANKED		labelSprite = spr_rankedMatchLabel;
 		if	player.clientScope == CLIENT_SCOPES.PRIVATE		labelSprite = spr_privateRoomLabel;
 	}
 	
+	// check if client type is host and onlineEnemy has been created
 	if (player.clientType == CLIENT_TYPES.HOST)
 	&& !(instance_exists(onlineEnemy)) {
-		if !(global.gameTime mod 120) send_guest_check();
+		// send guest check every four seconds
+		if !(global.gameTime mod 240) send_guest_check();
 	}
 	
+	// check if player's online scope is private
 	if (player.clientScope == CLIENT_SCOPES.PRIVATE) {
+		// check if onlineEnemy is present and test is not currently active
 		if (instance_exists(onlineEnemy)) 
 		&& !(testActive) {
+			// perform connection test
 			connection_test_begin();	
 			testActive = true;
 		}

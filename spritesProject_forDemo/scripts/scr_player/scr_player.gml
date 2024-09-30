@@ -247,3 +247,8 @@ function spar_begin_ingame() {
 	global.sparType = sparTypes.inGame;
 	room_transition(200, 400, directions.south, rm_battleScene, bgm_sparNormal);
 }
+
+///@desc This function is called when the player is in the overworld and presses start
+function open_main_menu() {
+	create_once(0, 0, LAYER.meta, mainMenu);	
+}
