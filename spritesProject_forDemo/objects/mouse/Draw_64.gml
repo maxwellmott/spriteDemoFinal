@@ -1,9 +1,8 @@
-/// @desc
-
-surface_set_target(game.guiSurface);
-	draw_set_alpha(alpha);
+if !(instance_exists(overworld)) {
+	// set surface target
+	surface_set_target(game.guiSurface);
 	
-	draw_sprite(spr_mouse, frame, x, y);
+		draw_self();
 	
-	draw_set_alpha(1.0);
-surface_reset_target();
+	surface_reset_target();
+}

@@ -87,7 +87,7 @@
     "122":{"character":122,"h":27,"offset":0,"shift":5,"w":4,"x":79,"y":60,},
     "9647":{"character":9647,"h":27,"offset":6,"shift":31,"w":19,"x":78,"y":89,},
   },
-  "hinting":1,
+  "hinting":2,
   "includeTTF":false,
   "interpreter":1,
   "italic":false,

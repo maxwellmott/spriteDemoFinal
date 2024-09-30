@@ -21,6 +21,23 @@ if (overworld.sceneryCreated) {
 			with (lamppost) {
 				draw_sprite_ext(lightMask, 0, x, lightY, lightScale + ls, lightScale + ls, 0, c_white, 1.0);
 			}
+			
+			if (instance_exists(mainMenu)) {
+				with (mainMenu) {
+					if !(introFinished) {
+						draw_sprite(spr_soulStone, image_index, x, y);	
+					}
+					
+					if (introFinished) {
+						if !(outroStarted) {
+							draw_sprite(spr_soulStone, 8, x, y);
+						}
+						else {
+							draw_sprite(spr_soulStoneClose, image_index, x, y);	
+						}
+					}
+				}
+			}
 		
 		gpu_set_blendmode(bm_normal);
 	

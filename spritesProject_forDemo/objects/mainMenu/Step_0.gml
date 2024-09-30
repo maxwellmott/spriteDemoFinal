@@ -7,13 +7,65 @@ if !(introFinished) {
 	}
 }
 
+if (introFinished) {
+	if (buttonAlpha < 1.0) {
+		buttonAlpha += 0.025;
+		
+		shineAlpha -= 0.0125;
+	}
+}
+
 if !(outroStarted) {
 	if (introFinished) {
-		if (global.back) {
+		if (global.back) 
+		|| (global.start) {
 			image_index = 0;
 			outroStarted = true;	
 		}
 	}
+}
+
+var i = 0;	repeat (MAIN_MENU_BUTTONS.HEIGHT) {
+	var left	= buttonLeftList[| i];
+	var top		= buttonTopList[| i];
+	var bottom	= buttonBottomList[| i];
+	var right	= buttonRightList[| i];
+	var nm		= newMenuList[| i];
+	
+	if (collision_rectangle(left, top, right, bottom, mouse, false, false)) {
+		selectedButton = i;
+		
+		if (global.click) {
+			// open the linked menu
+			if (nm >= 0) {
+				room_transition(player.x, player.y, player.facing, nm, bgm_menuTheme);
+			}
+		}
+	}
+
+	i++;	
+}
+
+if (global.menu_down) {
+	selectedButton++;
+}
+
+if (global.menu_up) {
+	selectedButton--;
+}
+
+if (selectedButton >= MAIN_MENU_BUTTONS.HEIGHT) {
+	selectedButton -= MAIN_MENU_BUTTONS.HEIGHT;	
+}
+
+if (selectedButton < 0) {
+	selectedButton += MAIN_MENU_BUTTONS.HEIGHT;	
+}
+
+if (global.select) {
+	var nm = newMenuList[| selectedButton];
+	
+	room_transition(player.x, player.y, player.facing, nm, bgm_menuTheme);
 }
 
 if (outroStarted) {
