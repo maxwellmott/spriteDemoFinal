@@ -9,6 +9,7 @@ enum interactions {
 	doorCheck,
 	talk,
 	read,
+	sendport,
 	height
 }
 

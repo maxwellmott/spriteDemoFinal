@@ -203,11 +203,14 @@ function get_interactable() {
 		return interactions.swimStop;
 	}
 	
+	// check sendport
+	if (place_meeting(pointerX, pointerY, sendport))	return interactions.sendport;
+	
 	// check door
-	if (place_meeting(pointerX, pointerY, door)) return interactions.doorCheck;
+	if (place_meeting(pointerX, pointerY, door))		return interactions.doorCheck;
 	
 	// read literature
-	if (place_meeting(pointerX, pointerY, literature)) return interactions.read;
+	if (place_meeting(pointerX, pointerY, literature))	return interactions.read;
 	
 	// check bookcase
 	
@@ -236,6 +239,8 @@ function interact() {
 			case interactions.read:			read_literature();													break;
 			
 			case interactions.talk:			instance_create_depth(0, 0, get_layer_depth(LAYER.ui), talkBubble);	break;
+			
+			case interactions.sendport:		sendport.frame = 1;	sendport.alarm[0] = 12;							break;
 	}
 }
 

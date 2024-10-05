@@ -13,6 +13,13 @@ enum sceneryIDs {
 	cityStreetlight,
 	cityShortLamp,
 	crystalLampPost,
+	retroSendport,
+	modernCoffeeTable,
+	postIndustrialCountertop,
+	postIndustrialCupboard,
+	lavishDiningTable,
+	ruggedDiningTable,
+	ruggedSleepingPad,
 	height
 }
 
@@ -39,6 +46,9 @@ enum sceneryTypes {
 	neonSign,
 	smallSign,
 	tree,
+	sendport,
+	table,
+	bed,
 	height
 }
 
@@ -53,20 +63,27 @@ function master_grid_add_scenery(_ID) {
 	}
 }
 
-// add all objects to master grid	ID								TYPE					SPRITE					MASK						NAME
-master_grid_add_scenery(			sceneryIDs.firmrootTree,		sceneryTypes.tree,		spr_firmrootTree,		spr_firmrootMask,			"FIRMROOT TREE");
-master_grid_add_scenery(			sceneryIDs.farseedTree,			sceneryTypes.tree,		spr_farseedTree,		spr_farseedMask,			"FARSEED TREE");
-master_grid_add_scenery(			sceneryIDs.graywoodTree,		sceneryTypes.tree,		spr_graywoodTree,		spr_graywoodMask,			"GRAYWOOD TREE");
-master_grid_add_scenery(			sceneryIDs.firmrootCluster,		sceneryTypes.cluster,	spr_firmrootCluster,	spr_firmrootClusterMask,	"FIRMROOT CLUSTER");
-master_grid_add_scenery(			sceneryIDs.farseedCluster,		sceneryTypes.cluster,	spr_farseedCluster,		spr_farseedClusterMask,		"FARSEED CLUSTER");
-master_grid_add_scenery(			sceneryIDs.graywoodCluster,		sceneryTypes.cluster,	spr_graywoodCluster,	spr_graywoodClusterMask,	"GRAYWOOD CLUSTER");
-master_grid_add_scenery(			sceneryIDs.boulderCluster,		sceneryTypes.cluster,	spr_boulderCluster,		spr_boulderClusterMask,		"BOULDER CLUSTER");
-master_grid_add_scenery(			sceneryIDs.subBoulderCluster,	sceneryTypes.cluster,	spr_subBoulderCluster,	spr_subBoulderClusterMask,	"SUBBOULDER CLUSTER");
-master_grid_add_scenery(			sceneryIDs.cityStreetlight,		sceneryTypes.lamppost,	spr_cityStreetlight,	spr_cityStreetlightMask,	"CITY STREETLIGHT");
-master_grid_add_scenery(			sceneryIDs.cityShortLamp,		sceneryTypes.lamppost,	spr_cityShortlamp,		spr_cityShortlampMask,		"CITY SHORT LAMP");
-master_grid_add_scenery(			sceneryIDs.crystalLampPost,		sceneryTypes.lamppost,	spr_crystalStreetlight,	spr_crystalStreetlightMask,	"CRYSTAL STREETLIGHT");
-master_grid_add_scenery(			sceneryIDs.boulder,				sceneryTypes.boulder,	spr_boulder,			spr_boulderMask,			"BOULDER");
-master_grid_add_scenery(			sceneryIDs.subBoulder,			sceneryTypes.boulder,	spr_subBoulder,			spr_subBoulderMask,			"SUBMERGED BOULDER");
+// add all objects to master grid	ID										TYPE					SPRITE							MASK								NAME
+master_grid_add_scenery(			sceneryIDs.firmrootTree,				sceneryTypes.tree,		spr_firmrootTree,				spr_firmrootMask,					"FIRMROOT TREE");
+master_grid_add_scenery(			sceneryIDs.farseedTree,					sceneryTypes.tree,		spr_farseedTree,				spr_farseedMask,					"FARSEED TREE");
+master_grid_add_scenery(			sceneryIDs.graywoodTree,				sceneryTypes.tree,		spr_graywoodTree,				spr_graywoodMask,					"GRAYWOOD TREE");
+master_grid_add_scenery(			sceneryIDs.firmrootCluster,				sceneryTypes.cluster,	spr_firmrootCluster,			spr_firmrootClusterMask,			"FIRMROOT CLUSTER");
+master_grid_add_scenery(			sceneryIDs.farseedCluster,				sceneryTypes.cluster,	spr_farseedCluster,				spr_farseedClusterMask,				"FARSEED CLUSTER");
+master_grid_add_scenery(			sceneryIDs.graywoodCluster,				sceneryTypes.cluster,	spr_graywoodCluster,			spr_graywoodClusterMask,			"GRAYWOOD CLUSTER");
+master_grid_add_scenery(			sceneryIDs.boulderCluster,				sceneryTypes.cluster,	spr_boulderCluster,				spr_boulderClusterMask,				"BOULDER CLUSTER");
+master_grid_add_scenery(			sceneryIDs.subBoulderCluster,			sceneryTypes.cluster,	spr_subBoulderCluster,			spr_subBoulderClusterMask,			"SUBBOULDER CLUSTER");
+master_grid_add_scenery(			sceneryIDs.cityStreetlight,				sceneryTypes.lamppost,	spr_cityStreetlight,			spr_cityStreetlightMask,			"CITY STREETLIGHT");
+master_grid_add_scenery(			sceneryIDs.cityShortLamp,				sceneryTypes.lamppost,	spr_cityShortlamp,				spr_cityShortlampMask,				"CITY SHORT LAMP");
+master_grid_add_scenery(			sceneryIDs.crystalLampPost,				sceneryTypes.lamppost,	spr_crystalStreetlight,			spr_crystalStreetlightMask,			"CRYSTAL STREETLIGHT");
+master_grid_add_scenery(			sceneryIDs.boulder,						sceneryTypes.boulder,	spr_boulder,					spr_boulderMask,					"BOULDER");
+master_grid_add_scenery(			sceneryIDs.subBoulder,					sceneryTypes.boulder,	spr_subBoulder,					spr_subBoulderMask,					"SUBMERGED BOULDER");
+master_grid_add_scenery(			sceneryIDs.retroSendport,				sceneryTypes.sendport,	spr_sendport,					spr_sendportMask,					"RETRO SENDPORT");
+master_grid_add_scenery(			sceneryIDs.modernCoffeeTable,			sceneryTypes.table,		spr_modernCoffeeTable,			spr_modernCoffeeTableMask,			"MODERN COFFEE TABLE");
+master_grid_add_scenery(			sceneryIDs.postIndustrialCountertop,	sceneryTypes.table,		spr_postIndustrialCountertop,	spr_postIndustrialCountertopMask,	"POST INDUSTRIAL COUNTERTOP");
+master_grid_add_scenery(			sceneryIDs.postIndustrialCupboard,		sceneryTypes.table,		spr_postIndustrialCupboard,		spr_postIndustrialCupboardMask,		"POST INDUSTRIAL CUPBOARD");
+master_grid_add_scenery(			sceneryIDs.lavishDiningTable,			sceneryTypes.table,		spr_lavishDiningTable,			spr_lavishDiningTableMask,			"LAVISH DINING TABLE");
+master_grid_add_scenery(			sceneryIDs.ruggedDiningTable,			sceneryTypes.table,		spr_ruggedDiningTable,			spr_ruggedDiningTableMask,			"RUGGED DINING TABLE");
+master_grid_add_scenery(			sceneryIDs.ruggedSleepingPad,			sceneryTypes.bed,		spr_ruggedSleepingPad,			spr_ruggedSleepingPad,				"RUGGED SLEEPING PAD");
 
 // convert grid to an encoded string
 global.allScenery = encode_grid(global.sceneryGrid);
@@ -129,7 +146,7 @@ function place_scenery(_encodedList) {
 		inst.depth			= scenery_get_depth(_y);
 		
 		// set lightY if lamppost
-		if type == sceneryTypes.lamppost {
+		if (type == sceneryTypes.lamppost) {
 			switch (ID) {
 				case sceneryIDs.cityStreetlight:	inst.lightY = _y - 46;	inst.lightScale = 2;	break;
 				case sceneryIDs.cityShortLamp:		inst.lightY = _y - 27;	inst.lightScale = 2;	break;
@@ -137,10 +154,87 @@ function place_scenery(_encodedList) {
 			}
 		}
 		
+		// set tabletop params
+		if (type == sceneryTypes.table) {
+			switch (ID) {
+				case sceneryIDs.postIndustrialCountertop:	inst.tabletopLeft = _x - 29;	inst.tabletopRight = _x + 28;	inst.tabletopTop = _y - 30;	inst.tabletopBottom = _y - 20;	break;
+				case sceneryIDs.postIndustrialCupboard:		inst.tabletopLeft = _x - 30;	inst.tabletopRight = _x + 30;	inst.tabletopTop = _y - 25; inst.tabletopBottom = _y - 19;	break;
+			}
+		}
+		
 		// increment i
 		i++;
 	}
+	
+	// check if there are any tables
+	if (instance_number(table) > 0) {	
+		// use a repeat loop to correct the depth of all objects colliding with tables
+		var	i = 0;	repeat (instance_number(table)) {
+			// get the current scenery instance
+			var inst = instance_find(table, i);
+			
+			#region SCENERY--TABLE COLLISIONS
+			// check if it is colliding with a table
+			with (inst) {
+				// create a temp list
+				var l = ds_list_create();
+			
+				// store all scenery collisions on the temp list
+				collision_rectangle_list(tabletopLeft, tabletopTop, tabletopRight, tabletopBottom, scenery, false, true, l, true);
+			
+				// if there are any scenery collisions
+				if (ds_list_size(l) > 0) {
+					// use a repeat loop to get all scenery on the list
+					var i = 0;	repeat (ds_list_size(l)) {
+						// get the next scenery instance
+						var sid = l[| i];
+						
+						// set it's depth to one less than the table's depth
+						sid.depth = inst.depth - 1;
+						
+						// increment i
+						i++;
+					}
+				}
+				
+				// destroy the temp list
+				ds_list_destroy(l);
+				
+				#endregion
+				
+				#region LITERATURE--TABLE COLLISIONS
+				// create a temp list
+				var l = ds_list_create();
+			
+				// store all scenery collisions on the temp list
+				collision_rectangle_list(tabletopLeft, tabletopTop, tabletopRight, tabletopBottom, literature, false, true, l, true);
+			
+				// if there are any scenery collisions
+				if (ds_list_size(l) > 0) {
+					// use a repeat loop to get all scenery on the list
+					var i = 0;	repeat (ds_list_size(l)) {
+						// get the next scenery instance
+						var sid = l[| i];
+						
+						// set it's depth to one less than the table's depth
+						sid.depth = inst.depth - 1;
+						
+						// increment i
+						i++;
+					}
+				}
+				
+				// destroy the temp list
+				ds_list_destroy(l);
+			}
+			#endregion
+		
+			// increment i
+			i++;
+		}
+	}
 
+	// set sceneryCreated to true
 	sceneryCreated	= true;
 }
 
@@ -194,12 +288,23 @@ function scenery_get_object_index(_type) {
 		case sceneryTypes.tree:
 			return tree;
 		break;
-		}
+		
+		case sceneryTypes.sendport:
+			return sendport;
+		break;
+		
+		case sceneryTypes.table:
+			return table;
+		break;
+		
+		case sceneryTypes.bed:
+			return bed;
+		break;
+	}
 }
 
 ///@desc This function draws all of the scenery objects in the room
 function app_surface_draw_scenery() {
-	
 	surface_set_target(application_surface);
 		draw_sprite(spriteID, frame, x, y);
 	surface_reset_target();
@@ -208,6 +313,7 @@ function app_surface_draw_scenery() {
 ///@desc This function can be called to set the depth of a scenery object
 function scenery_get_depth(_depthY) {
 	var dy = _depthY;
+	
 	return get_layer_depth(LAYER.collidableTiles) - dy;
 }
 

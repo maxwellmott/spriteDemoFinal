@@ -99,9 +99,9 @@ player.tm_water			= tilemapList[| tilemaps.water];
 player.tm_upstairs		= tilemapList[| tilemaps.upperStory];
 player.tm_collidables	= tilemapList[| tilemaps.collidables];
 
+place_literature(literatureString);
 place_scenery(objectString);
 place_doors();
-place_literature(literatureString);
 
 // create the overworld alerts stack
 alertStack = ds_list_create();
