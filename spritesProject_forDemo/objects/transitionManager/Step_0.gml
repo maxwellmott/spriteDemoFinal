@@ -5,7 +5,8 @@ switch (state) {
 		if (alpha < 1.0)	{
 			alpha += 0.05;
 			
-			if (newBGM != -1) {
+			if (newBGM != -1) 
+			&& (audioManager.currentBGM != -1) {
 				audioManager.bgmGain = 1.0 - alpha;
 				audio_sound_gain(audioManager.currentBGM, audioManager.bgmGain, 0);
 			}

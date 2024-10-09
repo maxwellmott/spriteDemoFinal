@@ -63,9 +63,32 @@ surface_set_target(upperStorySurface);
 
 	// change blendmode to subtractive
 	gpu_set_blendmode(bm_subtract);
+	
+	if (instance_exists(mainMenu)) {
+		with (mainMenu) {
+			// check that outro has not yet started
+			if !(outroStarted) {
+				// check that intro is not yet finished
+				if !(introFinished) {
+					draw_sprite(sprite_index, image_index, x, y);	
+				}
+				else {
+					draw_sprite(sprite_index, 8, x, y);	
+				}
+			}
+			// if outro has started
+			else {
+				// draw closing animation
+				draw_sprite(spr_soulStoneClose, image_index, x, y);
+			}
+		}
+	}
+
+	// set circle radius
+	var r = 20 + (sin(global.gameTime / 40) * 2);
 
 	// draw a circle over the player
-	draw_sprite_ext(lightMask, 0, player.x, player.y, 2, 2, 0, c_white, 0.5);
+	draw_circle(player.x - 1, player.y - 6, r, false);
 
 	// reset alpha
 	draw_set_alpha(1.0);
