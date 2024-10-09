@@ -13,7 +13,10 @@
     "name":"meta",
     "path":"folders/Objects/meta.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"interactable",
+    "path":"objects/interactable/interactable.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

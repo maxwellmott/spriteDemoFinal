@@ -253,3 +253,48 @@ function spar_begin_ingame() {
 function open_main_menu() {
 	create_once(0, 0, LAYER.meta, mainMenu);	
 }
+
+///@desc This function is called at the beginning of a spar. It takes the human's
+/// spell selections and builds a ds_grid of all their parameters so that the info
+/// can be quickly accessed.
+function player_build_spellBookGrid() {	
+	// decode spell grid
+	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
+	decode_grid(global.allSpells, grid);
+
+	// build spellBook list
+	spellBook = ds_list_create();
+	decode_list(spellBookString, spellBook);
+
+	// resize spellBookGrid if needed
+	if (ds_grid_height(spellBookGrid) != ds_list_size(spellBook)) {
+		ds_grid_resize(spellBookGrid, SPELL_PARAMS.HEIGHT, ds_list_size(spellBook));
+	}
+
+	// use a repeat loop to add the info for each spell in spellBook
+	var i = 0;	repeat (ds_list_size(spellBook)) {
+		// get id
+		var spellID = spellBook[| i];
+		
+		// use a repeat loop to set all vars
+		var j = 0;	repeat (SPELL_PARAMS.HEIGHT) {
+			// set proper value
+			spellBookGrid[# j,	i] = grid[# j, spellID];
+			
+			if (j == SPELL_PARAMS.EFFECT)
+			|| (j == SPELL_PARAMS.DODGEABLE)
+			|| (j == SPELL_PARAMS.POWER)
+			|| (j == SPELL_PARAMS.RANGE)
+			|| (j == SPELL_PARAMS.ID)
+			|| (j == SPELL_PARAMS.TYPE)	{
+				spellBookGrid[# j, i] = real(string_digits(spellBookGrid[# j, i]));	
+			}
+			
+			// increment j
+			j++;
+		}
+		
+		// increment i
+		i++;
+	}
+}

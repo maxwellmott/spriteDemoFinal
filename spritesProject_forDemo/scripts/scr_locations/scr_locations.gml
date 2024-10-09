@@ -56,8 +56,7 @@ ds_list_add(miriabramExtList,		"368,"+		"344,"+		string(sceneryIDs.crystalLampPo
 
 //			list name				x			y			ID
 ds_list_add(miriabramDorm1List,		"208,"+		"104,"+		string(sceneryIDs.retroSendport)+",",
-									"160,"+		"104,"+		string(sceneryIDs.postIndustrialCupboard)+",",
-									"108,"+		"140,"+		string(sceneryIDs.ruggedSleepingPad)+",");
+									"160,"+		"104,"+		string(sceneryIDs.postIndustrialCupboard)+",");
 
 #region PREPARE ALL TILE DATA
 

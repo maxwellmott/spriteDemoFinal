@@ -9,3 +9,5 @@ locationHeight	= overworld.locationHeight;
 darkColor = $0d0d1a;
 
 lightingSurface		= surface_create(locationWidth, locationHeight);
+
+upperStorySurface	= surface_create(locationWidth, locationHeight);

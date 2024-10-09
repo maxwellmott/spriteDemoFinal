@@ -362,6 +362,7 @@ function place_literature(_encodedList) {
 		var _y = string_digits(params[|1]);
 		var ID = string_digits(params[|2]);
 		
+		// this is the type of object to create (guiBook guiScroll, guiDocument)
 		var obj	= grid[# literatureParams.object,	ID];
 		obj	= real(string_digits(obj));
 		
@@ -382,7 +383,6 @@ function place_literature(_encodedList) {
 /// gets the instance of the piece of literature and creates the proper object depending on the 
 /// type of literature
 function read_literature() {
-	player.currentLiterature = instance_place(player.pointerX, player.pointerY, literature);
 	var inst = player.currentLiterature;
 	
 	var lit = instance_create_depth(x, y, depth, inst.obj);

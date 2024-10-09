@@ -2,6 +2,9 @@
 #macro humanSheetWidth		384
 #macro humanSheetHeight		42
 
+#macro int_rect_breadth	= 4;
+#macro int_rect_length	= 12; 
+
 // enumerator to store the four cardinal directions
 enum directions {
 	south,
@@ -159,61 +162,109 @@ function get_interactable() {
 	if instance_exists(menu) {
 		exit;
 	}
-	
-	var checkY = y;
-	var checkY = bbox_bottom - 3;
 
+	// initialize the temp list of collisions
+	var l = ds_list_create();
+	
+	// set x1 and y1 for collision rectangle
+	var x1 = -1;
+	var y1 = -1;
+	
+	// initialize x2 and y2 for collision rectangle
+	var x2 = -1;
+	var y2 = -1;
+
+	// set position depending on whic direction the character is facing
 	switch (facing) {		
 		case directions.east:
-			var interactable = collision_line(x, checkY, x + 20, checkY, npc, false, true);
+			x1 = x;
+			x2 = x + 20;
+			y1 = bbox_bottom - 8;
+			y2 = bbox_bottom;
 		break;
 		
 		case directions.south:
-			var interactable = collision_line(x, checkY, x, checkY + 12, npc, false, true);
+			x1 = x - 4;
+			x2 = x + 4;
+			y1 = y;
+			y2 = bbox_bottom + 8;
 		break;
 		
 		case directions.west:
-			var interactable = collision_line(x, checkY, x - 20, checkY, npc, false, true);
+			x1 = x - 20;
+			x2 = x;
+			y1 = bbox_bottom - 8;
+			y2 = bbox_bottom;
 		break;
 		
 		case directions.north:
-			var interactable = collision_line(x, checkY, x, checkY - 36, npc, false, true);
+			x1 = x - 4;
+			x2 = x + 4;
+			y1 = bbox_bottom - 32;
+			y2 = bbox_bottom;
 		break;
 	}
-
-	if interactable != noone {
-		global.speaker	= interactable;
-		global.dialogue	= interactable.responseFunction();
-		return interactions.talk;
+	
+	// get the list of collisions
+	collision_rectangle_list(x1, y1, x2, y2, all, true, true, l, true);
+	
+	// initilaize the interactable object
+	var io = -1;
+	
+	// check if the collision list has anything on it
+	if (ds_list_size(l) > 0) {
+		// use a repeat loop to check each item on the list to see if it
+		// is a viable interactable
+		var i = 0;	repeat (ds_list_size(l)) {
+			// get the next nearest instance to the player
+			var inst = l[| i];
+			
+			var oi = inst.object_index;
+			
+			switch (oi) {
+				case sendport:				
+					return interactions.sendport;
+				break;
+			
+				case door:
+					player.currentDoor = inst;
+					return interactions.doorCheck;
+				break;
+				
+				case literature:
+					player.currentLiterature = inst;
+					return interactions.read;
+				break;
+			}
+			
+			// check if it is an NPC
+			if (inst == npc) {
+				global.speaker	= interactable;
+				global.dialogue	= interactable.responseFunction();
+				return interactions.talk;
+			}
+			
+			// increment i
+			i++;
+		}
 	}
 
 	// start swimming
 	if !(swimming) 
-	&& (tile_meeting(pointerX, pointerY, tm_water, waterTileChecker)) 
-	&& !(tile_meeting(pointerX, pointerY, tm_collidables, collidableTileChecker))
-	&& !(place_meeting(pointerX, pointerY, sceneryCollidable)) {
+	&& (tile_meeting(checkerX, checkerY, tm_water, waterTileChecker)) 
+	&& !(tile_meeting(checkerX, checkerY, tm_collidables, collidableTileChecker))
+	&& !(place_meeting(checkerX, checkerY, sceneryCollidable)) {
 		return interactions.swimStart;
 	}
 	
 	// stop swimming
 	if (swimming) 
-	&& (tile_meeting(pointerX, pointerY, tm_ground, groundTileChecker)) 
-	&& !(tile_meeting(pointerX, pointerY, tm_collidables, collidableTileChecker))
-	&& !(place_meeting(pointerX, pointerY, sceneryCollidable)) {
+	&& (tile_meeting(checkerX, checkerY, tm_ground, groundTileChecker)) 
+	&& !(tile_meeting(checkerX, checkerY, tm_collidables, collidableTileChecker))
+	&& !(place_meeting(checkerX, checkerY, sceneryCollidable)) {
 		return interactions.swimStop;
 	}
-	
-	// check sendport
-	if (place_meeting(pointerX, pointerY, sendport))	return interactions.sendport;
-	
-	// check door
-	if (place_meeting(pointerX, pointerY, door))		return interactions.doorCheck;
-	
-	// read literature
-	if (place_meeting(pointerX, pointerY, literature))	return interactions.read;
-	
-	// check bookcase
-	
+
 	// if nothing, return noone
 	return noone;
 }
@@ -227,9 +278,9 @@ function interact() {
 		exit;
 	}	
 	
-	var interactable = get_interactable();
+	var iid = get_interactable();
 	
-	switch (interactable) {
+	switch (iid) {
 			case interactions.swimStart:	ds_list_push(overworld.alertStack, overworldAlerts.swimStart);		break;
 		
 			case interactions.swimStop:		ds_list_push(overworld.alertStack, overworldAlerts.swimStop);		break;
@@ -426,49 +477,4 @@ function human_get_depthY() {
 /// object_set_depth function, so....we'll see....
 function human_set_depth() {
 	depth = get_layer_depth(LAYER.collidableTiles) - depthY;	
-}
-
-///@desc This function is called at the beginning of a spar. It takes the human's
-/// spell selections and builds a ds_grid of all their parameters so that the info
-/// can be quickly accessed.
-function player_build_spellBookGrid() {	
-	// decode spell grid
-	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
-	decode_grid(global.allSpells, grid);
-
-	// build spellBook list
-	spellBook = ds_list_create();
-	decode_list(spellBookString, spellBook);
-
-	// resize spellBookGrid if needed
-	if (ds_grid_height(spellBookGrid) != ds_list_size(spellBook)) {
-		ds_grid_resize(spellBookGrid, SPELL_PARAMS.HEIGHT, ds_list_size(spellBook));
-	}
-
-	// use a repeat loop to add the info for each spell in spellBook
-	var i = 0;	repeat (ds_list_size(spellBook)) {
-		// get id
-		var spellID = spellBook[| i];
-		
-		// use a repeat loop to set all vars
-		var j = 0;	repeat (SPELL_PARAMS.HEIGHT) {
-			// set proper value
-			spellBookGrid[# j,	i] = grid[# j, spellID];
-			
-			if (j == SPELL_PARAMS.EFFECT)
-			|| (j == SPELL_PARAMS.DODGEABLE)
-			|| (j == SPELL_PARAMS.POWER)
-			|| (j == SPELL_PARAMS.RANGE)
-			|| (j == SPELL_PARAMS.ID)
-			|| (j == SPELL_PARAMS.TYPE)	{
-				spellBookGrid[# j, i] = real(string_digits(spellBookGrid[# j, i]));	
-			}
-			
-			// increment j
-			j++;
-		}
-		
-		// increment i
-		i++;
-	}
 }

@@ -146,6 +146,7 @@
     {"id":{"name":"groundTileChecker","path":"objects/groundTileChecker/groundTileChecker.yy",},},
     {"id":{"name":"guiBook","path":"objects/guiBook/guiBook.yy",},},
     {"id":{"name":"human","path":"objects/human/human.yy",},},
+    {"id":{"name":"interactable","path":"objects/interactable/interactable.yy",},},
     {"id":{"name":"lamppost","path":"objects/lamppost/lamppost.yy",},},
     {"id":{"name":"largeSign","path":"objects/largeSign/largeSign.yy",},},
     {"id":{"name":"literature","path":"objects/literature/literature.yy",},},

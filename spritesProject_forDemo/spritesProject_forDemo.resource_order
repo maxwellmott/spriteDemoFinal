@@ -99,6 +99,7 @@
     {"name":"groundTileChecker","order":3,"path":"objects/groundTileChecker/groundTileChecker.yy",},
     {"name":"guiBook","order":11,"path":"objects/guiBook/guiBook.yy",},
     {"name":"human","order":9,"path":"objects/human/human.yy",},
+    {"name":"interactable","order":15,"path":"objects/interactable/interactable.yy",},
     {"name":"lamppost","order":9,"path":"objects/lamppost/lamppost.yy",},
     {"name":"largeSign","order":3,"path":"objects/largeSign/largeSign.yy",},
     {"name":"literature","order":4,"path":"objects/literature/literature.yy",},

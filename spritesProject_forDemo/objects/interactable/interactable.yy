@@ -1,21 +1,15 @@
 {
   "$GMObject":"",
-  "%Name":"scenery",
-  "eventList":[
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-  ],
+  "%Name":"interactable",
+  "eventList":[],
   "managed":true,
-  "name":"scenery",
+  "name":"interactable",
   "overriddenProperties":[],
   "parent":{
-    "name":"scenery",
-    "path":"folders/Objects/Overworld/scenery.yy",
+    "name":"Overworld",
+    "path":"folders/Objects/Overworld.yy",
   },
-  "parentObjectId":{
-    "name":"interactable",
-    "path":"objects/interactable/interactable.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

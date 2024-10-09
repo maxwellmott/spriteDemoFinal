@@ -8,6 +8,10 @@ surface_set_target(lightingSurface);
 	draw_clear_alpha(c_black, 0.0);
 surface_reset_target();
 
+surface_set_target(upperStorySurface);
+	draw_clear_alpha(c_black, 0.0);
+surface_reset_target();
+
 #region create darkSurface
 
 if (overworld.sceneryCreated) {
@@ -45,3 +49,27 @@ if (overworld.sceneryCreated) {
 }
 
 #endregion
+
+// draw all tilemaps except upstairs
+var i = 0;	repeat (ds_list_size(overworld.tilemapList) - 1) {
+	draw_tilemap(overworld.tilemapList[| i], 0, 0);
+
+	i++;	
+}
+
+// prepare the upper story surface
+surface_set_target(upperStorySurface);
+	draw_tilemap(overworld.tilemapList[| tilemaps.upperStory], 0, 0);
+
+	// change blendmode to subtractive
+	gpu_set_blendmode(bm_subtract);
+
+	// draw a circle over the player
+	draw_sprite_ext(lightMask, 0, player.x, player.y, 2, 2, 0, c_white, 0.5);
+
+	// reset alpha
+	draw_set_alpha(1.0);
+
+	// change blendmode back to normal
+	gpu_set_blendmode(bm_normal);
+surface_reset_target();

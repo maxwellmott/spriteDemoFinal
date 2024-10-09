@@ -85,8 +85,6 @@ function player_add_unlocked_door(_doorID) {
 /// if it's locked or not. If it's unlocked, then the player transitions to the 
 /// room behind that door.
 function door_check() {
-	
-	player.currentDoor = instance_place(player.pointerX, player.pointerY, door);
 	var inst = player.currentDoor;
 	
 	if (inst.locked) {		

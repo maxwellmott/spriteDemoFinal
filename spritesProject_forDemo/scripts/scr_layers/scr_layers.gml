@@ -38,7 +38,7 @@ function get_layer_depth(_layer){
 			return 500;
 		break;
 		case LAYER.upperStoryTiles:
-			return 550;
+			return 2000;
 		break;
 		case LAYER.collidableTiles:
 			return 1800;
