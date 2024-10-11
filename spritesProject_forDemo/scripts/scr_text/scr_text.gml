@@ -22,6 +22,14 @@ function draw_text_pixel_perfect(_x, _y, _text, _separation, _width) {
 	var ss = _separation;
 	var ww = _width;
 	
+	if (xx mod 1 != 0) {
+		xx -= xx mod 1;	
+	}
+	
+	if (yy mod 1 != 0) {
+		yy -= yy mod 1;
+	}
+	
 	if (draw_get_halign() == fa_center) {
 		if ((string_width(tt) / 2) mod 2 != 0) {
 			xx -= 1;	

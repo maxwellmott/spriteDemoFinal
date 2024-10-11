@@ -57,10 +57,15 @@ if (instance_exists(overworld)) {
 
 #endregion
 
-// for debugging only
 if (global.overworld)	
 && !(instance_exists(menu)) {	
 	if (global.start)		{
 		open_main_menu();
+	}
+	
+	// for debugging only
+	if (global.shiftReleased) {
+		global.keyboardPrompt = KEYBOARD_PROMPTS.CHARACTER_NAME;
+		room_transition(x, y, facing, rm_keyboardMenu, bgm_menuTheme);
 	}
 }
