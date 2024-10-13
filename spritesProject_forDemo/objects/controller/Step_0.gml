@@ -4,13 +4,16 @@
 switch(global.controllerType) {
 	
 	case controllerTypes.gamepad:
-		global.shiftPressed		=	gamepad_button_check(0, gp_shoulderlb);
-		global.shiftReleased	=	gamepad_button_check(0, gp_shoulderrb);
+		global.shiftPressed		=	gamepad_button_check(0, gp_stickl);
+		global.shiftReleased	=	gamepad_button_check(0, gp_stickl);
 		
 		global.click		=	gamepad_button_check_released(0, gp_stickr);
 		global.select		=	gamepad_button_check_released(0, gp_face1);
 		global.back			=	gamepad_button_check_released(0, gp_face2);
 		global.start		=	gamepad_button_check_released(0, gp_start);
+		
+		global.rightBumper	=	gamepad_button_check_released(0, gp_shoulderr);
+		global.leftBumper	=	gamepad_button_check_released(0, gp_shoulderl);
 		
 		global.menu_left	=	gamepad_button_check_released(0, gp_padl);
 		global.menu_right	=	gamepad_button_check_released(0, gp_padr);
@@ -63,6 +66,9 @@ switch(global.controllerType) {
 		global.click		=	device_mouse_check_button_released(0, mb_any);
 		global.back			=	keyboard_check_released(vk_tab);
 		global.start		=	keyboard_check_released(vk_enter);
+			
+		global.rightBumper	=	keyboard_check_released(ord("0"));
+		global.leftBumper	=	keyboard_check_released(ord("9"));
 			
 		global.menu_left	=	keyboard_check_released(vk_left);
 		global.menu_right	=	keyboard_check_released(vk_right);

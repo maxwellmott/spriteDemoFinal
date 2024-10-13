@@ -14,6 +14,9 @@ global.select		=	noone;
 global.back			=	noone;
 global.start		=	noone;
 
+global.rightBumper	=	noone;
+global.leftBumper	=	noone;
+
 global.char_left	=	noone;
 global.char_right	=	noone;
 global.char_up		=	noone;

@@ -1,15 +1,14 @@
 {
   "$GMObject":"",
-  "%Name":"guiBook",
+  "%Name":"actionMenu",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":2,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":64,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
-    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":8,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":12,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
-  "managed":false,
-  "name":"guiBook",
+  "managed":true,
+  "name":"actionMenu",
   "overriddenProperties":[],
   "parent":{
     "name":"Overworld",
@@ -37,9 +36,12 @@
   "resourceVersion":"2.0",
   "solid":false,
   "spriteId":{
-    "name":"spr_bookCover",
-    "path":"sprites/spr_bookCover/spr_bookCover.yy",
+    "name":"spr_actionMenu",
+    "path":"sprites/spr_actionMenu/spr_actionMenu.yy",
   },
-  "spriteMaskId":null,
+  "spriteMaskId":{
+    "name":"spr_emoteMenu",
+    "path":"sprites/spr_emoteMenu/spr_emoteMenu.yy",
+  },
   "visible":true,
 }

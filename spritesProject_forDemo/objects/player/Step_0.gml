@@ -63,6 +63,14 @@ if (global.overworld)
 		open_main_menu();
 	}
 	
+	if (global.rightBumper) {
+		open_emote_menu();
+	}
+	
+	if (global.leftBumper) {
+		open_action_menu();	
+	}
+	
 	// for debugging only
 	if (global.shiftReleased) {
 		global.keyboardPrompt = KEYBOARD_PROMPTS.CHARACTER_NAME;

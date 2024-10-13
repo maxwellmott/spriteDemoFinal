@@ -178,6 +178,8 @@ function player_draw_from_state() {
 /// function gets controller input and checks if the player is moving
 function player_move() {
 	
+	if (instance_exists(menu)) return -1;
+	
 	// store all globals in locals
 	var right	= global.char_right;
 	var left	= global.char_left;
@@ -252,6 +254,16 @@ function spar_begin_ingame() {
 ///@desc This function is called when the player is in the overworld and presses start
 function open_main_menu() {
 	create_once(0, 0, LAYER.meta, mainMenu);	
+}
+
+///@desc This function is called when the emote menu is opened
+function open_emote_menu() {
+	create_once(0, 0, LAYER.meta, emoteMenu);	
+}
+
+///@desc This function is called whenever the action menu is opened
+function open_action_menu() {
+	create_once(0, 0, LAYER.meta, actionMenu);	
 }
 
 ///@desc This function is called at the beginning of a spar. It takes the human's

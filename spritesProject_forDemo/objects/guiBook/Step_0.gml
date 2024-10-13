@@ -11,65 +11,80 @@ if !(bookBuilt) && (ID >= 0) {
 	
 	leftPageText	= pages[|leftPageNum];
 	rightPageText	= pages[|rightPageNum];
+	image_index = 0;
 	bookBuilt = true;
 }
 
-if !(turningPage) {	
-	if (pageIndex < (ds_list_size(pages) div 2) -1) {
-		if (global.menu_right) {
-			pageIndex++;
-			turningPageRight = true;	
-			flipFrame = 0;
-			turningPage = true;
+if !(introFinished) 
+&& (image_index >= 3) {
+	introFinished = true;	
+}
+
+if (introFinished)
+&& !(outroStarted) {
+	if !(turningPage) {	
+		if (pageIndex < (ds_list_size(pages) div 2) -1) {
+			if (global.menu_right) {
+				pageIndex++;
+				turningPageRight = true;	
+				flipFrame = 0;
+				turningPage = true;
+			}
+		}
+		
+		if (pageIndex > 0) {
+			if (global.menu_left) {
+				pageIndex--;
+				turningPageLeft = true;
+				flipFrame = 3;
+				turningPage = true;
+			}
+		}	
+	}
+	
+	if (turningPage) && !(pageTurned) {
+		leftPageNum		= pageIndex * 2;
+		rightPageNum	= (pageIndex * 2) + 1;
+		
+		leftPageText	= pages[|leftPageNum];
+		rightPageText	= pages[|rightPageNum];
+		
+		pageTurned = true;
+	
+	}
+	
+	if (turningPageLeft) {
+		if (flipFrame <= 0) {
+			pageTurned = false;
+			turningPage = false;
+			turningPageLeft = false;
+		}
+	
+		if (flipFrame > 0) && !(global.gameTime mod 6) {
+			flipFrame--;
 		}
 	}
 	
-	if (pageIndex > 0) {
-		if (global.menu_left) {
-			pageIndex--;
-			turningPageLeft = true;
-			flipFrame = 3;
-			turningPage = true;
+	if (turningPageRight) {
+		if (flipFrame >= 3) {
+			pageTurned = false;
+			turningPage = false;
+			turningPageRight = false;
 		}
-	}	
-}
-
-if (turningPage) && !(pageTurned) {
-	leftPageNum		= pageIndex * 2;
-	rightPageNum	= (pageIndex * 2) + 1;
 	
-	leftPageText	= pages[|leftPageNum];
-	rightPageText	= pages[|rightPageNum];
+		if (flipFrame < 3) && !(global.gameTime mod 6) {
+			flipFrame++;
+		}	
+	}
 	
-	pageTurned = true;
-
-}
-
-if (turningPageLeft) {
-	if (flipFrame <= 0) {
-		pageTurned = false;
-		turningPage = false;
-		turningPageLeft = false;
-	}
-
-	if (flipFrame > 0) && !(global.gameTime mod 6) {
-		flipFrame--;
+	if (global.back) {
+		image_index = 0;
+		outroStarted = true;
 	}
 }
 
-if (turningPageRight) {
-	if (flipFrame >= 3) {
-		pageTurned = false;
-		turningPage = false;
-		turningPageRight = false;
-	}
-
-	if (flipFrame < 3) && !(global.gameTime mod 6) {
-		flipFrame++;
-	}	
-}
-
-if (global.back) {
+if (outroStarted) 
+&& (image_index >= 3) {
 	player.currentLiterature = -4;
 	instance_destroy(id);
 }
