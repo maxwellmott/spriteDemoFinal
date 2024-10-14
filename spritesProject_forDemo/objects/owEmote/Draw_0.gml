@@ -1,7 +1,4 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-emitterActive = false;
-emitterNum = -1;
-
-emoteQueue = ds_list_create();
+// needs an empty one so that it doesn't draw itself automatically

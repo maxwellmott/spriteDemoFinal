@@ -20,4 +20,19 @@ if (instance_exists(overworldDraw)) {
 	}
 }
 
+if (instance_exists(overworldDraw)) {
+	with (overworldDraw) {
+		if (instance_exists(player)) {
+			if (pSundown) {
+				if !(surface_exists(lightingSurface)) {			
+					lightingSurface = surface_create(locationWidth, locationHeight);
+				}
+				
+				// draw shadow surface
+				draw_surface_part_ext(lightingSurface, camera.x - (guiWidth / 2), camera.y - (guiHeight / 2), guiWidth, guiHeight, 0, 0, display_get_gui_width() / guiWidth, display_get_gui_height() / guiHeight, c_white, 0.765);
+			}
+		}		
+	}
+}
+
 draw_surface_stretched(guiSurface, 0, 0, display_get_gui_width(), display_get_gui_height());

@@ -47,3 +47,35 @@ function destroy_if_possible(_obj) {
 		instance_destroy(_obj);
 	}
 }
+
+///@desc This is a helper function that removes the top row of the given grid and then repeats
+/// that process the given number of times
+function ds_grid_remove_top_row(_gridID, _removeCount) {
+	// store args in locals
+	var g = _gridID;
+	var c = _removeCount;
+	
+	// get grid height
+	var h = ds_grid_height(g);
+	
+	// get grid width
+	var w = ds_grid_width(g);
+	
+	// use a repeat loop to move the data from each row
+	var i = 0;	repeat (h) {
+		// use a repeat loop to move the data from each column
+		var j = 0;	repeat (w) {
+			// move the data from this column
+			g[# j, i] = g[# j, i + c];
+			
+			// increment j
+			j++;
+		}
+		
+		// increment i
+		i++;
+	}
+	
+	// resize the grid as to delete the now meaningless bottom rows
+	ds_grid_resize(g, w, h - c);
+}

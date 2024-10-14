@@ -503,3 +503,10 @@ COMING BACK FROM PLAYTEST BUILD
 			FINISHED THE KEYBOARD MENU. THERE IS STILL DEBUG CODE TO RESET YOUR NAME BY CLICKING SHIFT IN THE OVERWORLD.
 			
 			ONCE THE CHARACTER CREATOR IS FINISHED, MOVE THIS CODE TO THE END OF THE CHARACTOR CREATOR (SO LONG AS THIS IS THE BEGINNING OF A NEW FILE)
+			
+	10/14
+			Emote system is almost complete.
+			
+			There are some issues with the emote menu
+			
+			I also need to add some more NPCs and NPC dialogue to test the functionality of NPCs adding emotes to the grid through encoded dialogue

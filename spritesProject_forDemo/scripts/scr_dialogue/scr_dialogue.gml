@@ -136,6 +136,9 @@ function talk_bubble_build_dialogue() {
 				// initialize emotion variable
 				var emo = -1;
 				
+				// get emoCount
+				var emoCount = ds_grid_height(overworld.dialogueEmotes);
+				
 				// use switch statement to get emotion from enum
 				switch (emotionString) {
 					case "JOYFUL":
@@ -208,20 +211,20 @@ function talk_bubble_build_dialogue() {
 				
 				// if emotion is not SPAR, add emotion to grid
 				if (emo != -1) {
-					// resize emoGrid
-					ds_grid_resize(emoGrid, 4, emoCount + 1);
+					// resize overworld.dialogueEmotes
+					ds_grid_resize(overworld.dialogueEmotes, 4, emoCount + 1);
 					
 					// store the currentPage in the emotion grid
-					emoGrid[# 0, emoCount] = currentPage;
+					overworld.dialogueEmotes[# 0, emoCount] = currentPage;
 					
 					// store the currentLength in the emotion grid
-					emoGrid[# 1, emoCount] = string_length(pages[| currentPage]);
+					overworld.dialogueEmotes[# 1, emoCount] = string_length(pages[| currentPage]);
 					
 					// store the emoBool in the emotion grid
-					emoGrid[# 2, emoCount] = emoBool;
+					overworld.dialogueEmotes[# 2, emoCount] = emoBool;
 					
 					// store the emotion in the emotion grid
-					emoGrid[# 3, emoCount] = emo;
+					overworld.dialogueEmotes[# 3, emoCount] = emo;
 					
 					// increment emoCount
 					emoCount++;

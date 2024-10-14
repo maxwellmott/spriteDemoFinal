@@ -133,4 +133,13 @@ if (is_debug_overlay_open()) {
 
 //create_once(mouse_x, mouse_y, LAYER.mouse, tileChecker_debug);
 
+// this is a grid of emotes that are set when dialogue is being prepared
+dialogueEmotes = ds_grid_create(4, 0);
+
+// this is a grid of emotes that should be immediately displayed. Once emotes
+// on the above grid reach their target page, they are added to this grid. This grid
+// stores the enumerated ID of the emote as well as the instance id of the character
+// displaying that emotion
+activeEmotes = ds_grid_create(2, 0);
+
 global.roomBuilt = true;

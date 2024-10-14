@@ -310,3 +310,18 @@ function player_build_spellBookGrid() {
 		i++;
 	}
 }
+
+///@desc This function is called whenever the player displays an emotion using the emoteMenu
+function player_display_emote(_emotionID) {
+	// store args in locals
+	var e = _emotionID;
+	
+	// get activeEmotes height
+	var gh = ds_grid_height(overworld.activeEmotes);
+	
+	// resize activeEmotes
+	ds_grid_resize(overworld.activeEmotes, 2, gh + 1);
+	
+	overworld.activeEmotes[# 0, gh]		= e;
+	overworld.activeEmotes[# 1, gh]		= player.id;
+}
