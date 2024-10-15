@@ -2,8 +2,6 @@
 
 event_inherited();
 
-visible = global.overworld;
-
 if !(parametersLoaded) && (ID >= 0) {
 	npc_load_parameters(ID);
 }
@@ -26,7 +24,6 @@ if (parametersLoaded) {
 		
 		if swimming human_swim();
 		if !swimming human_walk();
-		human_pointer_set();
 	}
 }
 

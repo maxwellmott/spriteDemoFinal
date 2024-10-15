@@ -1,8 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-surface_set_target(game.guiSurface);
-
 if !(outroStarted) {
 	draw_self();
 	
@@ -17,17 +15,23 @@ if !(outroStarted) {
 		// check if its time to draw the selector box
 		if (global.gameTime mod 32 < 16) {
 			// draw the selected box around the button
-			draw_sprite_stretched(spr_selectorBox, 0, left + btnWidth, top + btnHeight, btnWidth, btnHeight);
+			draw_sprite_stretched(spr_selectorBox, 0, left, top, btnWidth, btnHeight);
 		}
 		
-		// check if pressedButton is set
-		if (pressedButton >= 0) {
-			// draw a white rectangle over the pressed button
-			draw_rectangle_color(left, top, right, bottom, COL_WHITE, COL_WHITE, COL_WHITE, COL_WHITE, false);
+		// draw all emotion names
+		var i = 0;	repeat (emotions.height) {
+			draw_set(fa_center, fa_middle, 1.0, COL_BLACK);
+			draw_set_font(emoteMenuFont);
+			
+			var left = leftList[| i];
+			var top = topList[| i];
+			
+			draw_text_pixel_perfect(left + (btnWidth / 2) + 1, top + (btnHeight / 2) - 5, nameList[| i], 1, 256);
+			
+			i++;
 		}
 	}
 }
 else {
-	draw_sprite(sprite_index, image_number - image_index - 1, x, y);	
+	draw_sprite(sprite_index, (image_number - 1) - image_index, x, y);
 }
-surface_reset_target();

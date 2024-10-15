@@ -39,5 +39,5 @@
     "path":"sprites/humanCollisionMask/humanCollisionMask.yy",
   },
   "spriteMaskId":null,
-  "visible":false,
+  "visible":true,
 }

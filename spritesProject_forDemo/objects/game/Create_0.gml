@@ -21,9 +21,6 @@ guiSurface = surface_create(guiWidth, guiHeight);
 // move background layer to background (as if this even matters anymore? I ain't deletin it)
 move_layer("Background", LAYER.background);
 
-// initialize global.overworld
-global.overworld = false;
-
 // initialize debugDraw
 debugDraw = false;
 

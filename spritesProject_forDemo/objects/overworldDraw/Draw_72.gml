@@ -42,6 +42,52 @@ if (overworld.sceneryCreated) {
 					}
 				}
 			}
+			
+			if (instance_exists(mouse)) {
+				with (mouse) {
+					draw_self();	
+				}
+			}
+
+			if (instance_exists(emoteMenu)) {
+				with (emoteMenu) {
+					// check that outro has not yet started
+					if !(outroStarted) {
+						// check that intro is not yet finished
+						if !(introFinished) {
+							draw_sprite(sprite_index, image_index, x, y);	
+						}
+						else {
+							draw_sprite(sprite_index, image_number - 1, x, y);	
+						}
+					}
+					// if outro has started
+					else {
+						// draw closing animation
+						draw_sprite(sprite_index, (image_number - 1) - image_index, x, y);
+					}
+				}
+			}
+			
+			if (instance_exists(actionMenu)) {
+				with (actionMenu) {
+					// check that outro has not yet started
+					if !(outroStarted) {
+						// check that intro is not yet finished
+						if !(introFinished) {
+							draw_sprite(sprite_index, image_index, x, y);	
+						}
+						else {
+							draw_sprite(sprite_index, image_number - 1, x, y);	
+						}
+					}
+					// if outro has started
+					else {
+						// draw closing animation
+						draw_sprite(sprite_index, (image_number - 1) - image_index, x, y);
+					}	
+				}
+			}
 		
 		gpu_set_blendmode(bm_normal);
 	
@@ -73,7 +119,7 @@ surface_set_target(upperStorySurface);
 					draw_sprite(sprite_index, image_index, x, y);	
 				}
 				else {
-					draw_sprite(sprite_index, 8, x, y);	
+					draw_sprite(sprite_index, image_number - 1, x, y);	
 				}
 			}
 			// if outro has started
@@ -83,15 +129,52 @@ surface_set_target(upperStorySurface);
 			}
 		}
 	}
+	
+	if (instance_exists(emoteMenu)) {
+		with (emoteMenu) {
+			// check that outro has not yet started
+			if !(outroStarted) {
+				// check that intro is not yet finished
+				if !(introFinished) {
+					draw_sprite(sprite_index, image_index, x, y);	
+				}
+				else {
+					draw_sprite(sprite_index, image_number - 1, x, y);	
+				}
+			}
+			// if outro has started
+			else {
+				// draw closing animation
+				draw_sprite(sprite_index, (image_number - 1) - image_index, x, y);
+			}
+		}
+	}
+	
+	if (instance_exists(actionMenu)) {
+		with (actionMenu) {
+			// check that outro has not yet started
+			if !(outroStarted) {
+				// check that intro is not yet finished
+				if !(introFinished) {
+					draw_sprite(sprite_index, image_index, x, y);	
+				}
+				else {
+					draw_sprite(sprite_index, image_number - 1, x, y);	
+				}
+			}
+			// if outro has started
+			else {
+				// draw closing animation
+				draw_sprite(sprite_index, (image_number - 1) - image_index, x, y);
+			}	
+		}
+	}
 
 	// set circle radius
 	var r = 20 + (sin(global.gameTime / 40) * 2);
 
 	// draw a circle over the player
 	draw_circle(player.x - 1, player.y - 6, r, false);
-
-	// reset alpha
-	draw_set_alpha(1.0);
 
 	// change blendmode back to normal
 	gpu_set_blendmode(bm_normal);

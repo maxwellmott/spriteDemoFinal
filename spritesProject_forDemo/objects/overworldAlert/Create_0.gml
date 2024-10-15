@@ -3,8 +3,6 @@
 x = 0;
 y = guiHeight - sprite_get_height(spr_talkBubble);
 
-global.overworld = false;
-
 alertID = overworld.alertStack[|0];
 
 alertGrid = ds_grid_create(overworldAlertParams.height, overworldAlerts.height);
@@ -13,7 +11,7 @@ decode_grid(global.allOverworldAlerts, alertGrid);
 
 text		= alertGrid[# overworldAlertParams.text,			alertID];
 ynPrompt	= real(alertGrid[# overworldAlertParams.ynPrompt,	alertID]);
-func		= real(alertGrid[# overworldAlertParams.func,		alertID]);
+func		= real(string_digits(alertGrid[# overworldAlertParams.func,		alertID]));
 
 ds_grid_destroy(alertGrid);
 

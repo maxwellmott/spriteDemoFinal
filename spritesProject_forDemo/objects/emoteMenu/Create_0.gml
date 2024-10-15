@@ -1,17 +1,16 @@
-/// @description Insert description here
-// You can write your code in this editor
+create_once(camera.x, camera.y, LAYER.mouse, mouse);
 
 outroStarted = false;
 introFinished = false;
 
-x = (guiWidth / 2) + 8;
-y = guiHeight / 2;
+x = camera.x + 8;
+y = camera.y;
 
 // get sprite top
-var st = y - (sprite_get_height(sprite_index) / 2);
+var st = round(y - (sprite_get_height(sprite_index) / 2) - 8);
 
 // get sprite left
-var sl = x - (sprite_get_width(sprite_index) / 2);
+var sl = round(x - (sprite_get_width(sprite_index) / 2) + 6.5);
 
 colOneX		= sl + 12;
 colTwoX		= sl + 61;
@@ -40,10 +39,10 @@ bottomList = ds_list_create();
 // use a repeat loop to populate all bbox lists
 var i = 0;	repeat (emotions.height) {
 	// get rowNum
-	var rowNum = i mod 2;
+	var rowNum = i div 2;
 	
 	// get colNum
-	var colNum = i div 2;
+	var colNum = i mod 2;
 	
 	// initialize all bbox vars
 	var left = -1;
@@ -53,22 +52,22 @@ var i = 0;	repeat (emotions.height) {
 	
 	// use a switch statement to set the left and right
 	switch (colNum) {
-		case 0:	left = colOneX;	break;
-		case 1: left = colTwoX; break;
+		case 0:	left = colOneX + btnWidth;	break;
+		case 1: left = colTwoX + btnWidth;	break;
 	}
 	
 	right = left + btnWidth;
 	
 	// use a switch statement to set the top and bottom
 	switch (rowNum) {
-		case 0: top = rowOneY;		break;
-		case 1: top = rowTwoY;		break;
-		case 2: top = rowThreeY;	break;
-		case 3: top = rowFourY;		break;
-		case 4: top = rowFiveY;		break;
-		case 5:	top = rowSixY;		break;
-		case 6: top = rowSevenY;	break;
-		case 7: top = rowEightY;	break;
+		case 0: top = rowOneY + btnHeight;		break;
+		case 1: top = rowTwoY + btnHeight;		break;
+		case 2: top = rowThreeY + btnHeight;	break;
+		case 3: top = rowFourY + btnHeight;		break;
+		case 4: top = rowFiveY + btnHeight;		break;
+		case 5:	top = rowSixY + btnHeight;		break;
+		case 6: top = rowSevenY + btnHeight;	break;
+		case 7: top = rowEightY + btnHeight;	break;
 	}
 	
 	bottom = top + btnHeight;
@@ -86,3 +85,7 @@ var i = 0;	repeat (emotions.height) {
 selectedButton = 0;
 
 pressedButton = -1;
+
+nameList = ds_list_create();
+
+decode_list(global.emotionNames, nameList);

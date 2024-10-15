@@ -141,10 +141,10 @@ function draw_meditating_player(_skintone, _outfit, _outfitColor, _hair, _hairCo
 /// the player in the human draw event, while in the overworld. The function draws the
 /// player's swimming animation
 function draw_swimming_player(_skintone, _hair, _hairColor, _hat, _hatColor) {
-	draw_sprite_part_ext(swimmingHumanBody,		0,	frame * humanSpriteWidth,	0,							humanSheetWidth, humanSheetHeight,	x,	y,		1,	1,	_skintone,	1.0);
+	draw_sprite_part_ext(swimmingHumanBody,		0,	(facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	0,	humanSpriteWidth, humanSpriteHeight, x,	y,	1,	1,	_skintone,	1.0);
 	// add 19 to y to correct height for hair and hat
-	draw_sprite_part_ext(hairSheet,				0,	frame * humanSpriteWidth,	humanSheetHeight * _hair,	humanSheetWidth, humanSheetHeight,	x,	y + 19,	1,	1,	_hairColor,	1.0);
-	draw_sprite_part_ext(hatSheet,				0,	frame * humanSpriteWidth,	humanSheetHeight * _hat,	humanSheetWidth, humanSheetHeight,	x,	y + 19,	1,	1,	_hatColor,	1.0);
+	draw_sprite_part_ext(hairSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _hair,		humanSpriteWidth, humanSpriteHeight, drawX, drawY + 19, 1, 1, _hairColor,	1.0);
+	draw_sprite_part_ext(hatSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _hat,		humanSpriteWidth, humanSpriteHeight, drawX, drawY + 19, 1, 1, _hatColor,		1.0);
 }
 
 ///@desc This function is called in the human draw event, while in the overworld. The
@@ -185,18 +185,9 @@ function player_move() {
 	var left	= global.char_left;
 	var up		= global.char_up;
 	var down	= global.char_down;
-	var ow		= global.overworld;
-	
-	if (ow) {
-	
-		hmove = right - left;
-		vmove = down - up;	
-	}
-	
-	if !(ow) {
-		hmove = 0;
-		vmove = 0;
-	}
+
+	hmove = right - left;
+	vmove = down - up;	
 	
 	human_check_moving();
 	if moving human_set_facing();

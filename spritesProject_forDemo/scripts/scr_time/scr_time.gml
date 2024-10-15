@@ -47,13 +47,11 @@ function increment_minutes() {
 		minutes += 1;
 		seconds -= 60;
 		
-		if (global.overworld) {
-			if (instance_exists(overworld)) {
-				with (overworld) {
-					if (global.rainActive)
-					&& !(lightningActive) {
-						minutesSinceLightning++;
-					}
+		if (instance_exists(overworld)) {
+			with (overworld) {
+				if (global.rainActive)
+				&& !(lightningActive) {
+					minutesSinceLightning++;
 				}
 			}
 		}

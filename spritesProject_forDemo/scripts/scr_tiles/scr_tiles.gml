@@ -63,7 +63,7 @@ function tile_meeting(_x, _y, _tilemap, _checker) {
 	var _tm			= _tilemap;
 	
 	// create a single tile checker of the given type
-	if !(instance_exists(_checker)) {instance_create_depth(0, 0, get_layer_depth(LAYER.uiFront), _checker);}
+	create_once(0, 0, LAYER.uiFront, _checker);
 	
 	// get the column and row number of each tile being touched by the player's bbox after the move
 	var _x1 = tilemap_get_cell_x_at_pixel(_tm, bbox_left + (_x - x), y);
@@ -91,11 +91,15 @@ function tile_meeting(_x, _y, _tilemap, _checker) {
 				
 				// return true if there is a collision
 				if (place_meeting(_x, _y, _checker)) {
+					destroy_if_possible(_checker);
+					
 					return true;
 				}
 			}
 		}
 	}
+	
+	destroy_if_possible(_checker);
 	
 	// return false if it gets through without any collisions
 	return false;

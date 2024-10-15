@@ -6,8 +6,8 @@ view_visible[0] = true;
 view_camera[0] = cam;
 
 // set follow as player in the overworld
-var ow = global.overworld;
-if (ow) and (instance_exists(player)) {
+if (instance_exists(overworld))
+&& (instance_exists(player)) {
 	follow = player;	
 }
 else {

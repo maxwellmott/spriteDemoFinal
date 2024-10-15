@@ -510,3 +510,55 @@ COMING BACK FROM PLAYTEST BUILD
 			There are some issues with the emote menu
 			
 			I also need to add some more NPCs and NPC dialogue to test the functionality of NPCs adding emotes to the grid through encoded dialogue
+			
+	10/15
+	
+			Starting to realize I don't really have a deadline aside from pax next year (scary)
+			
+			Menus are coming along quickly. I'm going to get the character creator finished, and then finish
+			every other part of the action menu.
+			
+			SO YOU DON'T FORGET:
+			
+			Action Menu Options:
+				-change appearance
+				-play wavephone
+				-cast spell
+				-access inventory
+			
+			Basics of inventory/items:
+				-all obtainable items will have an "inventory" sprite. There will be a grid specifically
+					for obtainable inventory items (some will also be scenery, some will also be food, some will
+					also be literature, etc)
+				-most items will prompt you to add them to your inventory (picking berries off of a bush, ordering
+					food at a restaurant "is that for here or to go?", some books will be obtainable as well, depending
+					on where you find them.
+				-so books will have an "obtainable" boolean variable along with other items in a similar boat
+				-"placing" items will not be an option until you have 
+				
+				
+			Basics of spells:
+				-When a spell is cast, a black circle appears center-screen. Inside the black circle, the spell animation
+					from the battle scene will play. (for animations that take up the whole screen, I will use elements
+					of Yiming's work to recreate smaller versions)
+				-scenery objects and npcs will have a list of "applicableSpells". If the list is greater than 0 items long,
+					they will run a "listen_for_spell" function that takes a spell ID and a function (both stored on the
+					applicableSpells function as an encoded list). 
+						If that spell is cast while they're on the screen:
+							-an overworld alert will explain that a piece of scenery has responded to the spell
+							-an npc will display an emote that indicates they have a new piece of dialogue awaiting you
+							
+			Basics of Wavephone
+				-When you take out your wavephone, an indicator appears on the screen in front of a rolling grid.
+				-The indicator is drawn two surfaces. One surface has the current indicator drawn in the center. Both
+					surfaces draw the indicator relative to the mouse's y position on the screen. The second surface
+					draws everything in one color at half alpha, it never clears itself so you can see the trail of where
+					the indicator has been (the trail is only drawn while a note is being played)
+				-Different sections of the screen will be broken up into two octaves of notes. (if using keyboard)
+				-If using gamepad, the pitch will be relative to the position of the right analog stick
+				-Different buttons will play different tones. Ideally: One synth tone, one noise tone, one triangle tone
+				-Change pitch on one sound file using built-in pitch changing functions
+				
+			Basics of change appearance
+				-Open up a version of the character creator that excludes name entry and skintone selection
+				-only allow colors of dyes that have been unlocked in-game

@@ -7,9 +7,8 @@ if !(appearanceLoaded) {
 #region OVERWORLD MOVEMENT AND INTERACTION
 // get appearance variables
 
-visible = global.overworld;
-
-if (global.overworld) {
+if (instance_exists(overworld)) 
+&& !(instance_exists(menu)) {
 	player_move(); 
 	
 	player_set_draw_position();
@@ -28,8 +27,7 @@ if (global.overworld) {
 	else {animate_human();}	
 	
 	if (swimming)	human_swim();
-	if !(swimming)	human_walk();
-	human_pointer_set();			
+	if !(swimming)	human_walk();		
 	human_set_depth();
 	
 	if (global.select) interact();
@@ -57,7 +55,7 @@ if (instance_exists(overworld)) {
 
 #endregion
 
-if (global.overworld)	
+if (instance_exists(overworld))
 && !(instance_exists(menu)) {	
 	if (global.start)		{
 		open_main_menu();

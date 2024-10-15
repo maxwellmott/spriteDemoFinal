@@ -37,8 +37,12 @@ function randomize_list(_list){
 ///@desc This is a helper function that ensures to create only one of a new instance
 function create_once(_x, _y, _layer, _obj) {
 	if !(instance_exists(_obj)) {
-		instance_create_depth(_x, _y, get_layer_depth(_layer), _obj)
+		var inst = instance_create_depth(_x, _y, get_layer_depth(_layer), _obj)
+	
+		return inst;
 	}
+	
+	return -1;
 }
 
 ///@desc This is a helper function that destroys an instance after ensuring that it exists

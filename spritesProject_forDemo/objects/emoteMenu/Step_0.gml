@@ -66,7 +66,7 @@ if (introFinished)
 	// check for up directional input
 	if (global.menu_up) {
 		// check if the selectedButton is on the top row
-		if (selectedButton div 2 < (emotions.height / 2)) {
+		if (selectedButton div 2 > 0) {
 			selectedButton -= 2;	
 		}
 	}
@@ -74,7 +74,8 @@ if (introFinished)
 	// check for down directional input
 	if (global.menu_down) {
 		// check if the selectedButton is on the bottom row
-		if (selectedButton div 2 > 0) {
+		if (selectedButton div 2 < (emotions.height div 2) - 1) 
+		|| (selectedButton == emotions.height - 3) {
 			selectedButton += 2;	
 		}
 	}

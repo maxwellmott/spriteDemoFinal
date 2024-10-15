@@ -38,29 +38,29 @@ function human_walk() {
 		exit;
 	}
 	
-	if (instance_exists(overworld)) {
-		if (global.overworld) {
-			if moving {
-				// horizontal movement and collision
-				if !(tile_meeting(x + hmove, y, tm_water, waterTileChecker)) 
-				&& !(tile_meeting(x + hmove, y, tm_collidables, collidableTileChecker)) 
-				&& !(place_meeting(x + hmove, y, sceneryCollidable)) 
-				&& !(place_meeting(x + hmove, y, human)) {
-					x = round(x + hmove);
-				}
-			
-				// vertical movement and collision
-				if !(tile_meeting(x, y + vmove, tm_water, waterTileChecker)) 
-				&& !(tile_meeting(x, y + vmove, tm_collidables, collidableTileChecker)) 
-				&& !(place_meeting(x, y + vmove, sceneryCollidable)) 
-				&& !(place_meeting(x, y + vmove, human)) {
-					y = round(y + vmove);
-				}
+	if (instance_exists(overworld)) 
+	&& !(instance_exists(menu)) {
+		if moving {
+			// horizontal movement and collision
+			if !(tile_meeting(x + hmove, y, tm_water, waterTileChecker)) 
+			&& !(tile_meeting(x + hmove, y, tm_collidables, collidableTileChecker)) 
+			&& !(place_meeting(x + hmove, y, sceneryCollidable)) 
+			&& !(place_meeting(x + hmove, y, human)) {
+				x = round(x + hmove);
 			}
-				// switch boolean variable moving depending on hmove and vmove values
-				if (abs(hmove) + abs(vmove) > 0)	{moving = true;}
-				if (abs(hmove) + abs(vmove) <= 0)	{moving = false;}
+		
+			// vertical movement and collision
+			if !(tile_meeting(x, y + vmove, tm_water, waterTileChecker)) 
+			&& !(tile_meeting(x, y + vmove, tm_collidables, collidableTileChecker)) 
+			&& !(place_meeting(x, y + vmove, sceneryCollidable)) 
+			&& !(place_meeting(x, y + vmove, human)) {
+				y = round(y + vmove);
+			}
 		}
+		
+		// switch boolean variable moving depending on hmove and vmove values
+		if (abs(hmove) + abs(vmove) > 0)	{moving = true;}
+		if (abs(hmove) + abs(vmove) <= 0)	{moving = false;}
 	}
 }
 
@@ -72,31 +72,30 @@ function human_swim() {
 		exit;
 	}	
 	
-	if (instance_exists(overworld)) {
-		if (global.overworld) {	
-			if moving {
-				// horizontal movement and collision
-				if !(tile_meeting(x + hmove, y, tm_ground, groundTileChecker))
-				&& !(tile_meeting(x + hmove, y, tm_collidables, collidableTileChecker)) 
-				&& !(place_meeting(x + hmove, y, sceneryCollidable)) 
-				&& !(place_meeting(x + hmove, y, human)) {
-					x = round(x + hmove);
-				}
-			
-				// vertical movement and collision
-				if !(tile_meeting(x, y + vmove, tm_ground, groundTileChecker))
-				&& !(tile_meeting(x, y + vmove, tm_collidables, collidableTileChecker))
-				&& !(place_meeting(x, y + vmove, sceneryCollidable))
-				&& !(place_meeting(x, y + vmove, human)) {
-					y = round(y + vmove);
-				}
+	if (instance_exists(overworld))
+	&& !(instance_exists(menu)) {	
+		if moving {
+			// horizontal movement and collision
+			if !(tile_meeting(x + hmove, y, tm_ground, groundTileChecker))
+			&& !(tile_meeting(x + hmove, y, tm_collidables, collidableTileChecker)) 
+			&& !(place_meeting(x + hmove, y, sceneryCollidable)) 
+			&& !(place_meeting(x + hmove, y, human)) {
+				x = round(x + hmove);
 			}
-			
-			// switch boolean variable moving depending on move and vmove values
-			if (abs(hmove) + abs(vmove) > 0)	{moving = true;}
-			if (abs(hmove) + abs(vmove) <= 0)	{moving = false;}
+		
+			// vertical movement and collision
+			if !(tile_meeting(x, y + vmove, tm_ground, groundTileChecker))
+			&& !(tile_meeting(x, y + vmove, tm_collidables, collidableTileChecker))
+			&& !(place_meeting(x, y + vmove, sceneryCollidable))
+			&& !(place_meeting(x, y + vmove, human)) {
+				y = round(y + vmove);
+			}
 		}
-	}
+		
+		// switch boolean variable moving depending on move and vmove values
+		if (abs(hmove) + abs(vmove) > 0)	{moving = true;}
+		if (abs(hmove) + abs(vmove) <= 0)	{moving = false;}
+	}		
 }
 
 ///@desc This function checks to see if the human is successfully moving, 
@@ -128,32 +127,6 @@ function human_set_facing() {
 			facing = directions.south;
 		break;
 		}	
-}
-
-///@desc This function sets the position of the humans interaction pointer depending on
-/// their x and y position as well as the direction they're facing
-function human_pointer_set() {	
-	switch (facing) {
-		case directions.east:
-			pointerX = x + 12;
-			pointerY = y;
-		break;
-		
-		case directions.south:
-			pointerX = x;
-			pointerY = y + 6;
-		break;
-
-		case directions.west:
-			pointerX = x - 12;
-			pointerY = y;
-		break;
-		
-		case directions.north:
-			pointerX = x;
-			pointerY = y - 18;
-		break;
-	}
 }
 	
 ///@desc This function is called by the interact function. The function gets the
@@ -238,9 +211,9 @@ function get_interactable() {
 			}
 			
 			// check if it is an NPC
-			if (inst == npc) {
-				global.speaker	= interactable;
-				global.dialogue	= interactable.responseFunction();
+			if (oi == npc) {
+				global.speaker	= inst;
+				global.dialogue	= inst.responseFunction();
 				return interactions.talk;
 			}
 			
@@ -248,6 +221,9 @@ function get_interactable() {
 			i++;
 		}
 	}
+	
+	var checkerX = x2;
+	var checkerY = y2;
 
 	// start swimming
 	if !(swimming) 
@@ -289,7 +265,7 @@ function interact() {
 			
 			case interactions.read:			read_literature();													break;
 			
-			case interactions.talk:			instance_create_depth(0, 0, get_layer_depth(LAYER.ui), talkBubble);	break;
+			case interactions.talk:			create_once(0, 0, LAYER.ui, talkBubble);							break;
 			
 			case interactions.sendport:		sendport.frame = 1;	sendport.alarm[0] = 12;							break;
 	}
@@ -331,8 +307,8 @@ function check_water_get_out(_x, _y) {
 	for (var checkerX = column1; checkerX <= column2; checkerX++) {
 		for (var checkerY = row1; checkerY <= row2; checkerY++) {
 			// create the tile checkers
-			var waterChecker		= instance_create_depth(checkerX * TILEWIDTH, checkerY * TILEHEIGHT, get_layer_depth(LAYER.uiFront), waterTileChecker);
-			var collidableChecker	= instance_create_depth(checkerX * TILEWIDTH, checkerY * TILEHEIGHT, get_layer_depth(LAYER.uiFront), collidableTileChecker);
+			var waterChecker		= create_once(checkerX * TILEWIDTH, checkerY * TILEHEIGHT, LAYER.uiFront, waterTileChecker);
+			var collidableChecker	= create_once(checkerX * TILEWIDTH, checkerY * TILEHEIGHT, LAYER.uiFront, collidableTileChecker);
 			
 			// get index of water and collidable tiles
 			var waterTile		= tile_get_index(tilemap_get(tmWater,		checkerX, checkerY));
@@ -347,13 +323,16 @@ function check_water_get_out(_x, _y) {
 			var tileCollision	= collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, collidableChecker, true, true);
 			var objectCollision	= collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, sceneryCollidable, true, true);
 			
+			destroy_if_possible(waterTileChecker);
+			destroy_if_possible(collidableTileChecker);
+			
 			// if any instance IDs are returned, return false
 			if waterCollision	>= 0 return false;
 			if tileCollision	>= 0 return false;
 			if objectCollision	>= 0 return false;
 		}
 	}
-	
+		
 	// if it gets through the for loop without returning false, return true
 	return true;
 }
@@ -394,8 +373,8 @@ function check_water_get_in(_x, _y) {
 	for (var checkerX = column1; checkerX <= column2; checkerX++) {
 		for (var checkerY = row1; checkerY <= row2; checkerY++) {
 			// create the tile checkers
-			var groundChecker		= instance_create_depth(checkerX * TILEWIDTH, checkerY * TILEHEIGHT, get_layer_depth(LAYER.uiFront), groundTileChecker);
-			var collidableChecker	= instance_create_depth(checkerX * TILEWIDTH, checkerY * TILEHEIGHT, get_layer_depth(LAYER.uiFront), collidableTileChecker);
+			var groundChecker		= create_once(checkerX * TILEWIDTH, checkerY * TILEHEIGHT, LAYER.uiFront, groundTileChecker);
+			var collidableChecker	= create_once(checkerX * TILEWIDTH, checkerY * TILEHEIGHT, LAYER.uiFront, collidableTileChecker);
 			
 			// get index of water and collidable tiles
 			var waterTile		= tile_get_index(tilemap_get(tmGround,		checkerX, checkerY));
@@ -410,13 +389,16 @@ function check_water_get_in(_x, _y) {
 			var tileCollision	= collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, collidableChecker, true, true);
 			var objectCollision	= collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, sceneryCollidable, true, true);
 			
+			destroy_if_possible(waterTileChecker);
+			destroy_if_possible(collidableTileChecker);
+			
 			// if any instance IDs are returned, return false
 			if groundCollision	>= 0 return false;
 			if tileCollision	>= 0 return false;
 			if objectCollision	>= 0 return false;
 		}
 	}
-	
+		
 	// if it gets through the for loop without returning false, return true
 	return true;
 }

@@ -29,7 +29,7 @@ if (instance_exists(overworldDraw)) {
 				}
 				
 				// draw shadow surface
-				draw_surface_part_ext(lightingSurface, camera.x - (guiWidth / 2), camera.y - (guiHeight / 2), guiWidth, guiHeight, 0, 0, display_get_gui_width() / guiWidth, display_get_gui_height() / guiHeight, c_white, 0.765);
+				draw_surface_part_ext(lightingSurface, camera.x - (guiWidth / 2), camera.y - (guiHeight / 2), guiWidth, guiHeight, 0, 0, display_get_gui_width() / guiWidth, display_get_gui_height() / guiHeight, c_white, 0.65);
 			}
 		}		
 	}

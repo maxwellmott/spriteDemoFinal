@@ -23,7 +23,11 @@ switch (room) {
 if (room == rm_gameStart) {
 	create_once(room_width / 2, room_height / 2, LAYER.sprites, splashScreen);
 }
-
-//if global.overworld && (global.shiftReleased) debugDraw = !debugDraw;
+/*
+if (instance_exists(overworld))
+&& !(instance_exists(menu)) {
+	if (global.shiftReleased) debugDraw = !debugDraw;
+}
+*/
 
 //if !(global.gameTime mod 16)	drawNums = string(fps_real);

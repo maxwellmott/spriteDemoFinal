@@ -2,7 +2,6 @@
 // You can write your code in this editor
 
 destroy_if_possible(camera);
-global.overworld = false;
 starCount = irandom_range(9, 12);
 
 // SET LOCALS

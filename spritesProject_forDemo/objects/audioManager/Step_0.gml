@@ -69,8 +69,8 @@ if (currentSFX != -1) {
 }
 	
 // check if the we are in the overworld
-if (global.overworld) 
-&& (instance_exists(overworld)) {
+if (instance_exists(overworld)) 
+&& !(instance_exists(menu)) {
 	// check if player is outdoors
 	if (overworld.outdoorLocation) {
 		// check if it is raining

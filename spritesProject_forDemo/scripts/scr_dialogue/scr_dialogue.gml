@@ -22,6 +22,28 @@ enum emotions {
 	height
 }
 
+var nameList = ds_list_create();
+
+nameList[| emotions.stunned]		= "stunned";
+nameList[| emotions.eyeroll]		= "eyeroll";
+nameList[| emotions.nervous]		= "nervous";
+nameList[| emotions.embarrassed]	= "embarrassed";
+nameList[| emotions.doubtful]		= "doubtful";
+nameList[| emotions.unamused]		= "unamused";
+nameList[| emotions.disappointed]	= "disappointed";
+nameList[| emotions.enamored]		= "enamored";
+nameList[| emotions.pleased]		= "pleased";
+nameList[| emotions.crying]			= "crying";
+nameList[| emotions.sad]			= "sad";
+nameList[| emotions.happy]			= "happy";
+nameList[| emotions.irked]			= "irked";
+nameList[| emotions.angry]			= "angry";
+nameList[| emotions.joyful]			= "joyful";
+
+global.emotionNames = encode_list(nameList);
+
+ds_list_destroy(nameList);
+
 /*
 	encoding key
 	
