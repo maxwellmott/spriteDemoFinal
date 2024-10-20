@@ -110,7 +110,7 @@ function draw_standard_player(_skintone, _outfit, _outfitColor, _hair, _hairColo
 	draw_sprite_part_ext(hairSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _hair,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _hairColor,	1.0);
 	draw_sprite_part_ext(hatSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _hat,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _hatColor,		1.0);
 	draw_sprite_part_ext(shoeSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _shoes,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _shoeColor,	1.0);
-	//draw_sprite_part_ext(accessorySheet,0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _accessory,	humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _accColor,		1.0);
+	//draw_sprite_part_ext(accessorySheet,0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _accessory,	humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _accColor,	1.0);
 }
 
 ///@desc This function is called by the player_draw_from_state function when drawing
@@ -129,8 +129,14 @@ function draw_drinking_player(_skintone, _outfit, _outfitColor, _hair, _hairColo
 /// the player in the human draw event, while in the overworld. The function draws the
 /// player's wavephone animation
 function draw_wavephone_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
-	draw_sprite_part_ext(wavephoneHumanBody, frame, 0, facing * humanSpriteHeight, 24, 42, drawX, drawY, 1, 1, _skintone, 1.0);
-	
+	draw_sprite_part_ext(wavephoneHumanBody,	frame,	0,									facing * humanSpriteHeight,		24,	42, drawX, drawY, 1, 1, _skintone,		1.0);
+	draw_sprite_part_ext(outfitSheet,			0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * _outfit,		24, 42, drawX, drawY, 1, 1, _outfitColor,	1.0);
+	draw_sprite_part_ext(hairSheet,				0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * _hair,		24, 42, drawX, drawY, 1, 1, _hairColor,		1.0);
+	draw_sprite_part_ext(hatSheet,				0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * _hat,		24, 42, drawX, drawY, 1, 1, _hatColor,		1.0);
+	draw_sprite_part_ext(shoeSheet,				0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * _shoes,		24, 42, drawX, drawY, 1, 1, _shoeColor,		1.0);
+	//draw_sprite_part_ext(accessorySheet,		0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * _accessory,	24, 42, drawX, drawY, 1, 1, _accColor,		1.0);
+	draw_sprite_part_ext(wavephoneSheet,		frame,	0,									facing * humanSpriteHeight,		24, 42, drawX, drawY, 1, 1, c_white,		1.0);
+	draw_sprite_part_ext(wavephoneHands,		frame,	0,									facing * humanSpriteHeight,		24, 42, drawX, drawY, 1, 1, _skintone,		1.0);
 }
 
 ///@desc This function is called by the player_draw_from_state function when drawing

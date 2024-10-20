@@ -9,7 +9,9 @@ if !(appearanceLoaded) {
 
 if (instance_exists(overworld)) 
 && !(instance_exists(menu)) {
-	player_move(); 
+	if (state == humanStates.standard) {
+		player_move(); 
+	}
 	
 	player_set_draw_position();
 	
@@ -18,7 +20,7 @@ if (instance_exists(overworld))
 	
 	player_set_frames();
 	
-	if (state = humanStates.standard)	{
+	if (state == humanStates.standard)	{
 		if moving {
 			animate_human();
 		}	
