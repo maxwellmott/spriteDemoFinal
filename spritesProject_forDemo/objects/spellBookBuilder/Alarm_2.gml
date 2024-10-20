@@ -1,1 +1,0 @@
-categoryChanging = false;

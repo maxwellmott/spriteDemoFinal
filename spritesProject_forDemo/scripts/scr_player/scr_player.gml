@@ -129,6 +129,8 @@ function draw_drinking_player(_skintone, _outfit, _outfitColor, _hair, _hairColo
 /// the player in the human draw event, while in the overworld. The function draws the
 /// player's wavephone animation
 function draw_wavephone_player(_skintone, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
+	draw_sprite_part_ext(wavephoneHumanBody, frame, 0, facing * humanSpriteHeight, 24, 42, drawX, drawY, 1, 1, _skintone, 1.0);
+	
 }
 
 ///@desc This function is called by the player_draw_from_state function when drawing

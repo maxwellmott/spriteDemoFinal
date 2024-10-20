@@ -16,6 +16,13 @@ enum appearanceParams {
 enum outfits {
 	overalls,
 	plainGown,
+	tradLounge,
+	tradFancy,
+	newAgeFancy,
+	tradGi,
+	smartFancyDress,
+	tradFancyGown,
+	modestGown,
 	height
 }
 
@@ -32,6 +39,7 @@ enum hats {
 	nothing,
 	cowboy,
 	beret,
+	fancyWideBrim,
 	height	
 }
 

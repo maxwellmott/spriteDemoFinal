@@ -67,7 +67,7 @@ surface_set_target(game.guiSurface);
 		draw_sprite_ext(sprite_index, 3 - image_index, 0, 0, 1, 1, 0, color, 1.0);
 		
 		// draw book pages in reverse
-		draw_sprite_ext(spr_bookPages, 3 - image_index, 0, 0, 1, 1, 0, color, 1.0);
+		draw_sprite(spr_bookPages, 3 - image_index, 0, 0);
 	}
 		
 surface_reset_target();

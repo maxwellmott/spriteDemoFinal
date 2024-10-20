@@ -3,8 +3,17 @@ create_once(camera.x, camera.y, LAYER.mouse, mouse);
 outroStarted = false;
 introFinished = false;
 
-x = camera.x + 8;
-y = camera.y;
+// check if x isn't too close to the right side
+if (player.x < (overworld.locationWidth - sprite_width - 12)) {
+	// set x and y if there are no positioning problems
+	x = player.x + 8;
+}
+// if x is too close to the right side
+else {
+	x = player.x - sprite_width - 16;	
+}
+
+y = player.y;
 
 // get sprite top
 var st = round(y - (sprite_get_height(sprite_index) / 2) - 8);
@@ -83,8 +92,6 @@ var i = 0;	repeat (emotions.height) {
 }
 
 selectedButton = 0;
-
-pressedButton = -1;
 
 nameList = ds_list_create();
 

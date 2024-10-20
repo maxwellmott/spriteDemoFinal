@@ -562,3 +562,24 @@ COMING BACK FROM PLAYTEST BUILD
 			Basics of change appearance
 				-Open up a version of the character creator that excludes name entry and skintone selection
 				-only allow colors of dyes that have been unlocked in-game
+				
+	10/16
+	
+			I added all of the new clothing artwork. I also added the artwork for the appearance editor and the character creator. I also created
+			and added the art for the wavephone display.
+			
+			Wavephone display tracker works like this:
+			
+				-tracker is displayed on the staff relative to mouse y on the screen (or gamepad right analog stick y)
+				-multiple surfaces of the same size are being drawn between the tracker and the staff
+				-when playing a tone, the tracker draws itself (in a faint yellow color) onto the surfaces while they continously
+					slide to the left (similar to ready button)
+				-surfaces do not clear themselves until they are completely off screen.
+				
+	10/19
+			I've been steadily working through the action menu. I got the menu itself complete. I just need to add artwork for each button, and finish
+			each function that is stored on the action menu option grid.
+			
+			Once the action menu and all subsequent menus are complete, it's time to finish all the submenus attached to the main menu.
+			
+			After that, it's time to fix dialogue textboxes and the response system.

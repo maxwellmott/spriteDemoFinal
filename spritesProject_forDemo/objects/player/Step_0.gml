@@ -65,7 +65,8 @@ if (instance_exists(overworld))
 		open_emote_menu();
 	}
 	
-	if (global.leftBumper) {
+	if (global.leftBumper) 
+	&& !(global.rightBumper) {
 		open_action_menu();	
 	}
 	

@@ -49,7 +49,7 @@ if (spellBookX == targetX)
 				if (collision_rectangle(cFlash_bbLeft, cFlash_bbTop, cFlash_bbRight, cFlash_bbBottom, mouse, false, false)) {
 					if (global.click) {
 						// start category alarm
-						alarm[2] = 24;
+						alarm[0] = 24;
 						
 						// increment current category
 						currentCategory++;
@@ -68,6 +68,8 @@ if (spellBookX == targetX)
 						
 						// set flipFrame to 1
 						flipFrame = flipMax;
+						
+						currentSpellIndex = 0;
 						
 						// get the current catList
 						var cl = categoryLists[| currentCategory];

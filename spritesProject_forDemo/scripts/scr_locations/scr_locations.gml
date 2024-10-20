@@ -256,10 +256,11 @@ var miriabramExtNPCs	= ds_list_create();
 #region PREPARE LITERATURE LISTS
 var miriabramExtLiterature = ds_list_create();
 var miriabramDorm1Literature = ds_list_create();
-
+/*
 //			list name					x			y			ID
 ds_list_add(miriabramExtLiterature,		"404,"+		"304,"+		string(literatureIDs.inhumanEntities)+",",
 										"416,"+		"400,"+		string(literatureIDs.inhumanEntities)+",");
+*/
 //			list name					x			y			ID
 ds_list_add(miriabramDorm1Literature,	"132,"+		"68,"+		string(literatureIDs.inhumanEntities)+",");
 

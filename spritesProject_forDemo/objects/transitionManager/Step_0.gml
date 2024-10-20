@@ -47,7 +47,7 @@ switch (state) {
 				break;
 				
 				case rm_characterEditor:
-					create_once(0, 0, LAYER.meta, characterEditor);
+					create_once(0, 0, LAYER.meta, characterCreator);
 					create_once(0, 0, LAYER.ui, mouse);
 					state = transitionStates.fadingOut;
 				break;

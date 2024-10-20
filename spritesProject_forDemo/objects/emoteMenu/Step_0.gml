@@ -29,9 +29,6 @@ if (introFinished)
 			
 			// check if the mouse is being clicked
 			if (global.click) {
-				// set pressed button
-				pressedButton = selectedButton;
-				
 				// add the emote to the activeEmotes grid
 				player_display_emote(i);
 				
@@ -81,10 +78,7 @@ if (introFinished)
 	}
 	
 	// check for select input
-	if (global.select) {
-		// set buttonPressed to true
-		pressedButton = selectedButton;
-		
+	if (global.select) {	
 		// add the emote to the activeEmotes grid
 		player_display_emote(selectedButton);
 		// set image index to 0 to start outro animation
