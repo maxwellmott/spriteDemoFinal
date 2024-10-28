@@ -2,8 +2,8 @@
   "$GMSound":"",
   "%Name":"sfx_wavephoneTriangle",
   "audioGroupId":{
-    "name":"ag_SFX",
-    "path":"audiogroups/ag_SFX",
+    "name":"audiogroup_default",
+    "path":"audiogroups/audiogroup_default",
   },
   "bitDepth":1,
   "bitRate":128,
@@ -20,6 +20,6 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"sfx_wavephoneTriangle.wav",
-  "type":0,
+  "type":1,
   "volume":1.0,
 }

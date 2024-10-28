@@ -27,6 +27,9 @@ if !(player.sundown) && (lightsOn) {
 
 // check if there are any menus open
 if !(instance_exists(menu)) {
+	// destroy mouse if present
+	destroy_if_possible(mouse);
+	
 	// check if there are activeEmotes
 	if (ds_grid_height(activeEmotes) > 0) {
 		// use a repeat loop to create all active emotes

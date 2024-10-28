@@ -26,6 +26,28 @@ if (overworld.sceneryCreated) {
 				draw_sprite_ext(lightMask, 0, x, lightY, lightScale + ls, lightScale + ls, 0, c_white, 1.0);
 			}
 			
+			if (instance_exists(wavephoneController)) {
+				with (wavephoneController) {
+					// check that outro has not yet started
+					if !(outroStarted) {
+						// check that intro is not yet finished
+						if !(introFinished) {
+							draw_sprite(sprite_index, image_index, x, y);	
+						}
+						else {
+							draw_sprite(sprite_index, image_number - 1, x, y);
+							
+							wavephone_draw_keys();
+						}
+					}
+					// if outro has started
+					else {
+						// draw closing animation
+						draw_sprite(sprite_index, (image_number - 1) - image_index, x, y);
+					}	
+				}
+			}
+			
 			if (instance_exists(mainMenu)) {
 				with (mainMenu) {
 					if !(introFinished) {
@@ -109,6 +131,34 @@ surface_set_target(upperStorySurface);
 
 	// change blendmode to subtractive
 	gpu_set_blendmode(bm_subtract);
+	
+	if (instance_exists(wavephoneController)) {
+		with (wavephoneController) {
+			// check that outro has not yet started
+			if !(outroStarted) {
+				// check that intro is not yet finished
+				if !(introFinished) {
+					draw_sprite(sprite_index, image_index, x, y);	
+				}
+				else {
+					draw_sprite(sprite_index, image_number - 1, x, y);	
+					
+					wavephone_draw_keys();
+				}
+			}
+			// if outro has started
+			else {
+				// draw closing animation
+				draw_sprite(sprite_index, (image_number - 1) - image_index, x, y);
+			}	
+		}
+	}
+	
+	if (instance_exists(mouse)) {
+		with (mouse) {
+			draw_self();	
+		}
+	}	
 	
 	if (instance_exists(mainMenu)) {
 		with (mainMenu) {

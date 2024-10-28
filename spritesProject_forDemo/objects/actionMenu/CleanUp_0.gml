@@ -12,5 +12,3 @@ ds_list_destroy(topList);
 ds_list_destroy(bottomList);
 
 ds_grid_destroy(optionGrid);
-
-destroy_if_possible(mouse);

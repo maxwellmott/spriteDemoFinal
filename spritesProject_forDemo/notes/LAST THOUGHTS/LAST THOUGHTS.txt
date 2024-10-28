@@ -583,3 +583,30 @@ COMING BACK FROM PLAYTEST BUILD
 			Once the action menu and all subsequent menus are complete, it's time to finish all the submenus attached to the main menu.
 			
 			After that, it's time to fix dialogue textboxes and the response system.
+			
+	10/20
+	
+			get the sine of the times (lmao) every frame and use these two functions to destroy the old buffer and then create and play a new one.
+			
+			You'll need to do the math to use the sine of the times (lmao) to create a .wav file. Try and find the video of that guy doing it in c#
+			
+			here are the built-in functions you'll need:
+			
+				audio_create_buffer_sound();
+	
+				audio_free_buffer_sound();
+				
+	10/20
+	
+			Well it's making noise and it doesn't sound too bad! For day one I think that's a good start!
+			
+			Going to try and implement an audio bus with a low and high pass filter and some reverb!
+			
+	10/28
+			Okay, that ended up being a bit of a timesink, but it's workable for now!
+			
+			Next up, appearance menus:
+				-	Create some accessory art
+				-	Create all clothing text grids
+				-	Create dyes list
+				-	build appearance menu!
