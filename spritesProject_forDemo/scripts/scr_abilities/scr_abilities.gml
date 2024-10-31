@@ -1339,7 +1339,7 @@ function trickster_faerie(_inst) {
 	// check if this sprite is attacking
 	if (inst == sparActionProcessor.activeSprite) {	
 		// check if it is a trick spell that isn't self targeting
-		if (spellType == SPELL_TYPES.TRICK) 
+		if (sparActionProcessor.spellType == SPELL_TYPES.TRICK) 
 		&& (sparActionProcessor.targetSprite != -1) {	
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);

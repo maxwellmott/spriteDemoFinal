@@ -3,6 +3,9 @@
 global.speaker		= noone;
 global.dialogue		= "";
 
+// @TODO CREATE A MAP CONTAINING KEYS THAT MATCH DIALOGUE MAP KEYS AND VALUES THAT
+//			INDICATE AN UNLOCKABLE OF SOME TYPE ALONG WITH ITS ID
+
 enum emotions {
 	joyful,
 	angry,
