@@ -66,8 +66,8 @@ function talk_bubble_build_dialogue() {
 	
 	var currentLine = 1;
 	
-	var height = string_height(text);
-	var maxLines = (bubbleHeight div height) - 1;
+	var height = 6;
+	var maxLines = 3;
 	
 	pages[| currentPage] = "";
 

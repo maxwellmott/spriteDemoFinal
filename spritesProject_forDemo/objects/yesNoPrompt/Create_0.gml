@@ -12,7 +12,7 @@ noColor			= c_black;
 
 if instance_exists(talkBubble) {
 	// check if talk bubble is on the bottom of the screen
-	if (talkBubble.y == guiHeight - sprite_get_height(spr_talkBubble)) {
+	if (talkBubble.y == guiHeight - talkBubble.bubbleHeight) {
 		yesButtonY	= talkBubble.y - (spriteHeight * 2);
 		noButtonY	= talkBubble.y - spriteHeight;
 	}
@@ -24,7 +24,7 @@ if instance_exists(talkBubble) {
 	}
 	
 	// avoid talk arm
-	if (talkBubble.armX > guiWidth / 2) {
+	if (talkBubble.x > guiWidth / 2) {
 		yesButtonX	= 0;
 		noButtonX	= 0;
 	}
@@ -33,7 +33,7 @@ if instance_exists(talkBubble) {
 }
 
 if instance_exists(overworldAlert) {
-	noButtonY	= guiHeight - sprite_get_height(spr_talkBubble);
+	noButtonY	= guiHeight - talkBubble.bubbleHeight;
 	yesButtonY	= noButtonY - spriteHeight;
 	
 	caller = overworldAlert;

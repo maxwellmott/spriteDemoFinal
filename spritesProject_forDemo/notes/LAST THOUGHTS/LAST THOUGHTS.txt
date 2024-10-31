@@ -610,3 +610,8 @@ COMING BACK FROM PLAYTEST BUILD
 				-	Create all clothing text grids
 				-	Create dyes list
 				-	build appearance menu!
+				
+	10/29
+			Completely debug NPC dialogue (you'll need to debug the build dialogue function)
+			
+			build the character creator

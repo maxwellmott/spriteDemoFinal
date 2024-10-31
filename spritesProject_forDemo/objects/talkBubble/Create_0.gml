@@ -1,57 +1,104 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-sX = global.speaker.x;
-sY = global.speaker.y;
+sx = global.speaker.x;
+sy = global.speaker.y;
 
-bubbleX = 0;
+bubbleSprite	= -1;
+bubbleX			= -1;
+bubbleY			= -1;
+bubbleWidth		= -1;
+bubbleHeight	= -1;
+textX			= -1;
+textY			= -1;
+textWidth		= -1;
 
-armXScale = 1;
-yScale = 1;
-
-bubbleHeight	= sprite_get_height(spr_talkBubble);
-var coverHeight		= sprite_get_height(spr_talkBubbleCover);
-
-if (sY < camera.y) {
-	bubbleY			= bubbleHeight;
-	talkArmSprite	= spr_talkBubbleArmDown;
-	yScale		= -1;
-	
-	armY = 112 + (sY - camera.y) - 6;
-	
-	coverX = sX;
-	coverY = bubbleY + bubbleHeight - coverHeight;
-	
-	textX = bubbleX + 4;
-	textY = 4;
+// check if speaker is left of the player
+if (sx < player.x) {
+	// check if there is room to draw the bubble to the left of the speaker
+	if (sx >= 140) {
+		// draw to the left of the speaker
+		bubbleSprite	= spr_talkBubbleLeft;
+		bubbleX			= sx - 12;
+		bubbleY			= sy;
+		
+		bubbleWidth		= sprite_get_width(bubbleSprite);
+		bubbleHeight	= sprite_get_height(bubbleSprite);
+		
+		textX			= bubbleX - bubbleWidth + 2;
+		textY			= bubbleY - (bubbleHeight / 2) + 2;
+		
+		textWidth		= bubbleWidth - 10;
+	}
+}
+else {	
+// if speaker is right of the player
+	// check if there is room to draw the bubble to the right of the speaker
+	if (sx <= overworld.locationWidth - 140) {
+		// draw to the right of the speaker
+		bubbleSprite	= spr_talkBubbleRight;	
+		bubbleX			= sx + 12;
+		bubbleY			= sy;
+		
+		bubbleWidth		= sprite_get_width(bubbleSprite);
+		bubbleHeight	= sprite_get_height(bubbleSprite);
+		
+		textX			= bubbleX + 10;
+		textY			= bubbleY - (bubbleHeight / 2) + 2;
+		
+		textWidth		= bubbleWidth - 10;
+	}
 }
 
-if (sY >= camera.y) {
-	bubbleY			= 224 - sprite_get_height(spr_talkBubble);
-	talkArmSprite	= spr_talkBubbleArmUp;
-	yScale			= 1;
-	
-	armY = 112 + (sY - camera.y) + 14;
-	
-	coverX = sX - 16;
-	coverY = bubbleY;
-	
-	textX = bubbleX + 4;
-	textY = bubbleY + 4;
+// check if bubbleSprite has not yet been set
+if (bubbleSprite == -1) {
+	// check if the speaker is above the player
+	if (sy >= player.y) {	
+		// draw above the speaker
+		bubbleSprite	= spr_talkBubbleUp;
+		bubbleX			= sx;
+		bubbleY			= sy - 21;
+		
+		bubbleWidth		= sprite_get_width(bubbleSprite);
+		bubbleHeight	= sprite_get_height(bubbleSprite);
+		
+		textX			= bubbleX - (bubbleWidth / 2) + 2;
+		textY			= bubbleY - bubbleHeight - 8;
+		
+		textWidth		= bubbleWidth - 2;
+	}
+	else {
+	// if the speaker is below the player
+		// draw below the speaker
+		bubbleSprite	= spr_talkBubbleDown;	
+		bubbleX			= sx;
+		bubbleY			= sy + 21;
+		
+		bubbleWidth		= sprite_get_width(bubbleSprite);
+		bubbleHeight	= sprite_get_height(bubbleSprite);
+		
+		textX			= bubbleX - (bubbleWidth / 2) + 2;
+		textY			= bubbleY + bubbleHeight - 8;
+		
+		textWidth		= bubbleWidth - 2;
+		
+		// check if there is no room for the right half of the talk bubble
+		if (sx > overworld.locationWidth - ((bubbleWidth / 2) + 8)) {
+			bubbleSprite	= spr_talkBubbleSqueezeRight;
+			
+			textX			= bubbleX - 120;
+			textY			= bubbleY - 40;		
+		}
+		
+		// check if there is no room for the left half of the talk bubble
+		if (sx < (bubbleWidth / 2) + 8) {
+			bubbleSprite	= spr_talkBubbleSqueezeLeft;	
+			
+			textX			= bubbleX - 4;
+			textY			= bubbleY + 8;
+		}
+	}
 }
-
-bubbleSprite	= spr_talkBubble;
-coverSprite		= spr_talkBubbleCover;
-
-if (sX >= camera.x) {
-	armXScale = -1;
-}
-
-if (sX < camera.x) {
-	armXScale = 1;
-}
-
-armX = 128 + (sX - camera.x);
 
 text = global.dialogue;
 pages = ds_list_create();
@@ -92,9 +139,6 @@ count = 1;
 pathCount	= 0;
 emoCount	= 0;
 speedCount	= 0;
-
-// initialize bubbleWidth
-bubbleWidth		= sprite_get_width(spr_talkBubble) - 8;
 
 // initialize waitForInput (boolean variable that tells the code if it should 
 // wait for the player to click enter before moving to the next page of dialogue)
