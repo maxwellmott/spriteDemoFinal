@@ -53,32 +53,50 @@ function encode_list(_list) {
 /// converting it into a string with two parse characters to
 /// indicate the end of each entry or each row of entries
 function encode_grid(_grid) {	 
-	// set the parseChar depending on whether there were commas present
+	var g = _grid;
 	
-	var newRowChar		= "@";
-	var newColumnChar	= "`";
+	// set navigation characters
+	var rowStartChar	= "(";
+	var rowEndChar		= ")";
+
+	var colStartChar	= "[";
+	var colEndChar		= "]";
 	
+	var gridStartChar	= "{";
+	var gridEndChar		= "}";
+	
+	var rowCount = ds_grid_height(g);
+	var colCount = ds_grid_width(g);
+
 	// repeat for all columns
-	var i = 0;	var substring	= "";
-	repeat (ds_grid_height(_grid)) {
+	var i = 0;	var substring	= gridStartChar;
+	repeat (rowCount) {
 		var ii = 0;
+		substring += rowStartChar;
+		
 		// repeat for all rows
 		repeat (ds_grid_width(_grid)) {
-			// add the grid token at i, ii to the return string
-			substring += string(_grid[# ii, i]);
+			if (g[# ii, i] != -1) {
+				substring += colStartChar;
+				
+				// add the grid token at i, ii to the return string
+				substring += string(_grid[# ii, i]);
 			
-			// add the parse character to the string
-			substring += newColumnChar;
+				// add the parse character to the string
+				substring += colEndChar;
+			}
 			
 			// increment ii
 			ii++;
 		}
 		// add the secondary parse character 
-		substring += newRowChar;
+		substring += rowEndChar;
 		
 		// increment i
 		i++;
 	}
+	
+	substring += gridEndChar;
 	
 	return substring;
 }
@@ -87,16 +105,13 @@ function encode_grid(_grid) {
 /// adding them each to a string in such a way that each pair and item are
 /// separated by two respective parse characters
 function encode_map(_map) {
-	substring = "";
+	var substring = "";
 	
 	var m = _map;
 	
 	// establish parse characters
-	var tokenKeyChar	= "=";
+	var tokenKeyChar	= "@";
 	var newItemChar		= "#";
-	
-	// initialize substring
-	var substring	= "";
 	
 	// find first key in ds_map and its respective token
 	var firstKey	= ds_map_find_first(m);
@@ -171,49 +186,158 @@ function decode_list(_list, _target) {
 ///@desc This function takes an encoded grid and turns it back into a ds_grid
 /// so that it's easier to access quickly
 function decode_grid(_grid, _target) {
+	// store args in locals
+	var g = _grid;
 	
-	var newRowChar		= "@";
-	var newColumnChar	= "`";
+	// initialize the first spot on the target grid
+	_target[# 0, 0] = "";
 	
-	// count grid rows and columns
-	var rowCount	= string_count(newRowChar,		_grid);
-	var columnCount = ceil(string_count(newColumnChar,	_grid) / rowCount);
+	// set navigation characters
+	var rowStartChar	= "(";
+	var rowEndChar		= ")";
+
+	var colStartChar	= "[";
+	var colEndChar		= "]";
 	
-	// ensure that the target grid is the proper size
-	ds_grid_resize(_target, columnCount, rowCount);
+	var gridStartChar	= "{";
+	var gridEndChar		= "}";
 	
-	// store the encoded grid in a substring
-	var substring = _grid;
+	var gridLength	= string_length(g);
 	
-	// repeat for every column
-	var i = 0;	
-	repeat (rowCount) {
-		var ii = 0;
-		// repeat for every row
-		repeat (columnCount) {
-			// find the first token in the row
-			var position = string_pos(newColumnChar, substring);
-			var token = string_copy(substring, 1, position - 1);
-			
-			// put the token on the target grid
-			_target[# ii, i] = token;
-			
-			// delete the token from the string
-			var temp = string_delete(substring, 1, position);
-			substring = temp;
+	var currentRow	= -1;
+	var currentCol	= -1;
+	
+	var nextRowStart	= -1;
+	var nextRowEnd		= -1;
+	
+	var nextColStart	= -1;
+	var nextColEnd		= -1;
+	
+	var nextGridStart	= -1;
+	var nextGridEnd		= -1;
+	
+	var nextChar		= "";
+	
+	var nestedGridCount = 0;
+	
+	var substring = "";
+	
+	// delete the opening curly brace
+	g = string_delete(g, 1, 1);
+	
+	// search through the encoded grid and add data row by row
+	var i = 0;	while (i < gridLength) {
+		nextChar = string_char_at(g, 1);
 		
-			// increment ii
-			ii++;
+		// if this is the beginning of a new row
+		if (nextChar == rowStartChar) {
+			// increment currentRow
+			currentRow++;
+			
+			// check that the target grid can support this height
+			if (ds_grid_height(_target) < currentRow + 1) {
+				ds_grid_resize(_target, ds_grid_width(_target), currentRow + 1);	
+			}
+			
+			// reset currentCol
+			currentCol = -1;
+			
+			// initialize the first column on the new row
+			_target[# 0, currentRow] = "";
+			
+			// remove this character
+			g = string_delete(g, 1, 1);
+			
+			// increment i
+			i++;
 		}
 		
-		// delete the secondary parse character for this row
-		var position = string_pos(newRowChar, substring);
-		var temp = string_delete(substring, position, 1);
-		substring = temp;		
+		// if this marks the end of the row
+		else if (nextChar == rowEndChar) {
+			// remove this character
+			g = string_delete(g, 1, 1);
+			
+			// increment i
+			i++;	
+		}
 		
+		// if this is the beginning of a new column
+		else if (nextChar == colStartChar) {
+			// increment currentCol
+			currentCol++;
+			
+			// check if the target grid can support this width
+			if (ds_grid_width(_target) < currentCol + 1) {
+				ds_grid_resize(_target, currentCol + 1, ds_grid_height(_target));
+			}
+			
+			// initialize the new column
+			_target[# currentCol, currentRow] = "";
+			
+			// remove this character
+			g = string_delete(g, 1, 1);
+			
+			// increment i
+			i++;
+		}
 		
-		// increment i
-		i++;
+		// if this marks the end of the column
+		else if (nextChar == colEndChar) {
+			// remove this character
+			g = string_delete(g, 1, 1);
+			
+			// increment i
+			i++;
+		}
+		
+		// if this is the beginning of a nested grid
+		else if (nextChar == gridStartChar) {
+			// get the position of the next gridStartChar and the next gridEndChar
+			nextGridStart	= string_pos(gridStartChar, g);
+			nextGridEnd		= string_pos(gridEndChar, g);
+			
+			// check if nextGridStart comes before nextGridEnd (this indicates that there is another nested grid)
+			if (nextGridStart < nextGridEnd) {
+				while (nextGridStart < nextGridEnd) 
+				&& (nextGridStart > 0) {
+					// add everything up until the nextGridEnd to the current column and row position
+					_target[# currentCol, currentRow] += string_copy(g, 0, nextGridEnd);
+					
+					// delete everything up until nextGridEnd from the encoded grid
+					g = string_delete(g, 0, nextGridEnd);
+					
+					// increment i by the number of characters just added (nextGridEnd + 1)
+					i += nextGridEnd;
+					
+					// get the position of the next gridStartChar and the next gridEndChar
+					nextGridStart	= string_pos(gridStartChar, g);
+					nextGridEnd		= string_pos(gridEndChar, g);
+				}
+			}
+			// if nextGridStart comes AFTER nextGridEnd (this indicates that there are no other nested grids)
+			else {
+				// add everything up until the nextGridEnd to the current column and row position
+				_target[# currentCol, currentRow] += string_copy(g, 0, nextGridEnd);
+				
+				// delete everything up until nextGridEnd from the encoded grid
+				g = string_delete(g, 0, nextGridEnd);
+				
+				// increment i by the number of characters just added (nextGridEnd + 1)
+				i += nextGridEnd;
+			}
+		}
+		
+		// if this is not a nagivation character
+		else {
+			// add the character to the current column and row position
+			_target[# currentCol, currentRow] += nextChar;
+			
+			// remove this character
+			g = string_delete(g, 0, 1);
+			
+			// increment i
+			i++;
+		}
 	}
 }
 
@@ -223,7 +347,7 @@ function decode_map(_map, _target) {
 	var m = _map;	var t = _target;
 	
 	// establish tokenKeyChar and newItemChar
-	var tokenKeyChar	= "=";
+	var tokenKeyChar	= "@";
 	var newItemChar		= "#";
 	
 	// get size of map by counting newItemChars

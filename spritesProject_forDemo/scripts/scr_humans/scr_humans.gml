@@ -212,8 +212,19 @@ function get_interactable() {
 			
 			// check if it is an NPC
 			if (oi == npc) {
+				// set the speaking NPC
 				global.speaker	= inst;
-				global.dialogue	= inst.responseFunction();
+				
+				// get the encoded grid of dialogue for this situation using the given npc's response function
+				var eg = inst.responseFunction();
+				
+				// create the dialogueGrid (will be resized in the decode grid function)
+				global.dialogueGrid	= ds_grid_create(0, 0);
+				
+				// decode the dialogue grid from the given encoded grid
+				decode_grid(eg, global.dialogueGrid);
+				
+				// return the proper interaction ID
 				return interactions.talk;
 			}
 			

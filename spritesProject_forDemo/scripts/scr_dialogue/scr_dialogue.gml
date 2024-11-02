@@ -1,7 +1,7 @@
 // these global variables store the information about who is talking
 // and what they're saying
 global.speaker		= noone;
-global.dialogue		= "";
+global.dialogueGrid	= -1;
 
 // @TODO CREATE A MAP CONTAINING KEYS THAT MATCH DIALOGUE MAP KEYS AND VALUES THAT
 //			INDICATE AN UNLOCKABLE OF SOME TYPE ALONG WITH ITS ID

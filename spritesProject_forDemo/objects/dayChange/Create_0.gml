@@ -61,8 +61,8 @@ displaying = dcDisplay.day;
 
 npcLocationList	= ds_list_create();
 
-day_change_build_location_list(npcLocationList);
+build_npc_location_list(npcLocationList);
 
-day_change_edit_npc_lists(npcLocationList);
+edit_npc_location_lists(npcLocationList);
 
 global.roomBuilt = true;

@@ -31,7 +31,7 @@ seconds = 0;
 minutes = 40;
 hours	= 23;
 day		= 14;
-weekday	= weekdays.famelsun;
+weekday	= weekdays.hyggsun;
 season	= seasons.daysOfBones;
 year	= 512;
 
@@ -253,3 +253,6 @@ hailSphera = false;
 
 // boolean representing whether this player has a sprite with synchronized soldiers on their team
 synchronizedSoldiersActive = false;
+
+responseMap = ds_map_create();
+decode_map(global.playerResponses, responseMap);

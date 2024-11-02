@@ -77,3 +77,6 @@ parametersLoaded	= false;
 
 emitterActive = false;
 emitterNum = -1;
+
+// tracks all dialogue spoken by this NPC since the player has been in this room
+spokenDialogue = ds_list_create();

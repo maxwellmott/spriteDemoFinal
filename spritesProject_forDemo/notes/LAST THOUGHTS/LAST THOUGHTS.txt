@@ -615,3 +615,32 @@ COMING BACK FROM PLAYTEST BUILD
 			Completely debug NPC dialogue (you'll need to debug the build dialogue function)
 			
 			build the character creator
+			
+	11/1
+	
+			Okay! I got the dialogue system working in a new and better way. Here is a quick writeup:
+			
+					I changed the grid encoding/decoding functions so that they can feasibly house infinite nested grids with no issues. I left solid
+				comments throughout the new functions, so things should be pretty clear. They've also been thoroughly tested, so there shouldn't be any
+				concern from here on out.
+				
+					This is so that I can use the new structure of:
+						
+						Player Interacts With NPC -->	NPC response function sets global.dialogueGrid (one of the grids stored on the NPC's response map)
+						--> first row of response grid is displayed	--> IF (there is more than one row on the grid) {
+																			--> create the response menu
+																			--> get the corresponding grid stored on the player response map
+																			--> display response options
+																			--> GET (player response option)
+																				--> display the next row of the NPC response grid
+						--> IF (the displayed NPC response has *GIFT* indicated in the text
+							--> player receives inventory item or unlockable from the NPC
+							--> overworld alert is displayed for either inventory item or unlockable
+						--> IF (the displayed NPC response has *SPAR* indicated in the text
+							--> begin a spar upon closing the talkBubble
+						
+					This is what you need to do to get the above system working:
+						-- FIX SPAR INDICATION TO TALK BUBBLE BUILD FUNCTION
+						-- ADD GIFT INDICAITON TO TALK BUBBLE BUILD FUNCTION
+						-- CREATE RESPONSE MENU
+						-- FIX TALK BUBBLE CREATE EVENT (display global.currentDialogueRow--this needs to be added)

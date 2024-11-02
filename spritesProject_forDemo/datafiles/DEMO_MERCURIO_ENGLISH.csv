@@ -1,28 +1,35 @@
-placeholder,preMatch1,*0NERVOUS* I'm so nervous. I'm not sure if this is sweat or if I unlocked some powerful water spell
-placeholder,preMatch2,The headmaster gave me the pep talk of a lifetime. Today I'm just gonna focus on doing better than yesterday.
-placeholder,preMatch3,Apparently you and I are facing each other today! I can't wait to see what you throw at me!
-placeholder,preMatch4,I'm feeling so fired up after our match yesterday! This wasn't so bad after all.
-placeholder,postMatch1,*0SAD* I barely lasted 5 minutes out there… I knew I'd choke if there were people here. Even Mr Domino came. God I'm so embarrassed…
-placeholder,postMatch2,"*0JOYFUL* Well, I still lost, but I had a lot of fun. I feel like I'm starting to get how swapping works."
-placeholder,postMatch3,*0JOYFUL* I had a great time sparring with you. I learn so much from you guys. It's crazy how clearly I can see your thoughts when we're sparring.
-placeholder,postMatch4,*0JOYFUL* I wish you could've seen my spar against Marco! I almost had him. He even admitted he was nervous the whole second half of our match!
-placeholder,opponentPreMatch,"Alright _, it's finally our turn. Don't go easy on me!"
-placeholder,opponentWon,I can't believe it! You'd better not have been going easy on me!
-placeholder,opponentLost,Ahhhh man! I thought I had you!
-placeholder,cutsceneOneDialogueOne,Wait--w-why would we do that? I don't want random people from the island to come watch me spar.
-placeholder,byeMatch1,I wonder if we'll have some time to practice after the festival. I want to use the training fields to work on my spellcasting.
-placeholder,dayOnePostFest,"I admit, today ended up being a lot of fun. I get so nervous before sparring, but once I get in the groove it feels great! Especially when I'm with my friends."
-placeholder,dayTwoPostFest,I'm sorta sad this is all over. It's been a while since anyone has come to visit Miriabram. This really made me feel more connected to the rest of the island.
-placeholder,dayThreePostFest,
-placeholder,dayFourPostFest,
-placeholder,preBye1,"Haha, to think that earlier I was trying to get the Headmaster to cancel the festival. Now I'm mad that I don't have another match till tomorrow! "
-placeholder,preBye2,
-placeholder,dayOnePreFest,Gosh I'm so nervous. I tried convincing the Headmaster to cancel this thing. . . or at least push it back to tomorrow. . . I just know I'm gonna do terribly. . .
-placeholder,dayTwoPreFest,
-placeholder,dayThreePreFest,
-placeholder,dayFourPreFest,
-placeholder,byeMatch2,
-placeholder,sparPrompt1,*1SPAR* I can't sleep quite yet. I keep thinking of my match earlier and I feel like my mind is on fire with new ideas. So what do you say? Wanna have a spar with me and help me prepare for tomorrow? 
-placeholder,sparPrompt2,
-placeholder,sparPrompt3,
-placeholder,sparPrompt4,
+placeholder,mercurioPreMatch1,{([*0NERVOUS* I'm so nervous. I'm not sure if this is sweat or if I unlocked some powerful water spell. . . ])}
+placeholder,mercurioPreMatch2,{([The headmaster gave me the pep talk of a lifetime. Today I'm just gonna focus on doing better than yesterday. ])}
+placeholder,mercurioPreMatch3,{([Apparently you and I are facing each other today! I can't wait to see what you throw at me! ])}
+placeholder,mercurioPreMatch4,{([I'm feeling so fired up after our match yesterday! This wasn't so bad after all. ])}
+placeholder,mercurioPostMatch1,{([*0SAD* I barely lasted 5 minutes out there. . . I knew I'd choke if there were people here. Even Mr Domino came. God I'm so embarrassed. . . ])}
+placeholder,mercurioPostMatch2,"{([*0JOYFUL* Well, I still lost, but I had a lot of fun. I feel like I'm starting to get how swapping works. ])}"
+placeholder,mercurioPostMatch3,{([*0JOYFUL* I had a great time sparring with you. I learn so much from you guys. It's crazy how clearly I can see your thoughts when we're sparring. ])}
+placeholder,mercurioPostMatch4,{([*0JOYFUL* I wish you could've seen my spar against Marco! I almost had him. He even admitted he was nervous the whole second half of our match! ])}
+placeholder,mercurioOpponentPreMatch,"{([Alright _, it's finally our turn. Don't go easy on me! ])}"
+placeholder,mercurioOpponentWon,{([I can't believe it! You'd better not have been going easy on me! ])}
+placeholder,mercurioOpponentLost,{([Ahhhh man! I thought I had you! ])}
+placeholder,mercurioCutsceneOneDialogueOne,{([Wait--w-why would we do that? I don't want random people from the island to come watch me spar. ])}
+placeholder,mercurioByeMatch1,{([I wonder if we'll have some time to practice after the festival. I want to use the training fields to work on my spellcasting. ])}
+placeholder,mercurioDayOnePostFest,"{([I admit, today ended up being a lot of fun. I get so nervous before sparring, but once I get in the groove it feels great! Especially when I'm with my friends. ])}"
+placeholder,mercurioDayTwoPostFest,{([I'm sorta sad this is all over. It's been a while since anyone has come to visit Miriabram. This really made me feel more connected to the rest of the island. ])}
+placeholder,mercurioDayThreePostFest,{([TODO])}
+placeholder,mercurioDayFourPostFest,{([TODO])}
+placeholder,mercurioPreBye1,"{([ Haha, to think that earlier I was trying to get the Headmaster to cancel the festival. Now I'm mad that I don't have another match till tomorrow! ])}"
+placeholder,mercurioPreBye2,{([TODO])}
+placeholder,mercurioDayOnePreFest,{([ Gosh I'm so nervous. I tried convincing the Headmaster to cancel this thing. . . or at least push it back to tomorrow. . . I just know I'm gonna do terribly. . . ])}
+placeholder,mercurioDayTwoPreFest,{([TODO])}
+placeholder,mercurioDayThreePreFest,{([TODO])}
+placeholder,mercurioDayFourPreFest,{([TODO])}
+placeholder,mercurioByeMatch2,{([TODO])}
+placeholder,mercurioSparPrompt1,{([I can't sleep quite yet. I keep thinking of my match earlier and I feel like my mind is on fire with new ideas. So what do you say? Wanna have a spar with me and help me prepare for tomorrow? ][ *0SAD* That's okay. . . I get it. . . ][*1SPAR* Alright! Don't underestimate me just because I'm new to this! ])}
+placeholder,mercurioSparPrompt2,{([TODO])}
+placeholder,mercurioSparPrompt3,{([TODO])}
+placeholder,mercurioSparPrompt4,{([TODO])}
+placeholder,mercurioDayThreeProsArrive,"{([ I'm so excited that we're going to get the opportunity to spar with real monks who already graduated and got their beginner's licenses! . . . . . . . . . . . . . . . . Okay I'm also REALLY nervous, but I know that even if I lose, I'm going to learn so much from these matches! ])}"
+placeholder,mercurioDayThreePreMatch,"{([Oh boy, my blood is really pumping! Who do you think you'll spar against first? ])([That's what I figured! You both have a fiery energy, it should be an awesome match! ][Hmm, I wonder what the outcome of that match will be. . . ][That's no surprise! She's got a fierce vibe! ][Eughh. . . something about them gives me the creeps! ])}"
+placeholder,mercurioDayThreeMatchOne,{([TODO])}
+placeholder,mercurioDayThreeMatchTwo,{([TODO])}
+placeholder,mercurioDayThreeMatchThree,{([TODO])}
+placeholder,mercurioDayThreeMatchFour,{([TODO])}
+placeholder,mercurioDayThreeWaiting,{([It's hard to decide who to spar with next! I never realized how much fun this could be! ])}

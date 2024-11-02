@@ -1,1 +1,2 @@
-﻿placeholder,sparPrompt1,"Wanna have a spar with me and help me prepare for tomorrow? ,I don't have time for that right now. *0*, Sure! Let's do it! *0*, "
+﻿placeholder,mercurioSparPrompt1,{([Wanna have a spar with me and help me prepare for tomorrow? ][I don't have time for that right now. ][Sure! Let's do it! ])}
+placeholder,mercurioDayThreePreMatch,{([Who do you think you'll spar against first? ][Thornton! ][Plum! ][Violet! ][Dim! ])}

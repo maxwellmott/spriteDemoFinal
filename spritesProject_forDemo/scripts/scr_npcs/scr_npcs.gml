@@ -115,16 +115,22 @@ ds_list_add(mercurioLocations,	string(locations.miriabramExt) + ",",												
 
 /*
 	DAY ONE:
-			12 PM -- MERCURIO V NAIMA || NAIMA V MARCO
-			3 PM  -- INDIGO V PLAYER || INDIGO V MERCURIO
-			5 PM  -- INDIGO V MARCO
-			8 PM  -- FESTIVAL CLOSES
+			12 PM	-- MERCURIO V NAIMA || NAIMA V MARCO
+			3 PM	-- INDIGO V PLAYER || INDIGO V MERCURIO
+			5 PM	-- INDIGO V MARCO
+			8 PM	-- FESTIVAL CLOSES
 			
 	DAY TWO:
-			12 PM -- MERCURIO V PLAYER || MARCO V NAIMA
-			3 PM  -- PLAYER V NAIMA || MERCURIO V MARCO
-			5 PM  -- PLAYER V MARCO || NAIMA V INDIGO
-			8 PM  -- FESTIVAL CLOSES
+			12 PM	-- MERCURIO V PLAYER || MARCO V NAIMA
+			3 PM	-- PLAYER V NAIMA || MERCURIO V MARCO
+			5 PM	-- PLAYER V MARCO || NAIMA V INDIGO
+			8 PM	-- FESTIVAL CLOSES
+			
+	DAY THREE:
+			12 PM	-- THORNTON, PLUM, VIOLET, AND DIM ALL ARRIVE
+			3 PM	-- MATCHES ENSUE AT THE PLAYER'S LEISURE
+			5 PM	-- MATCHES ENSUE AT THE PLAYER'S LEISURE
+			8 PM	-- FESTIVAL CLOSES
 */
 
 ///@desc Mercurio's response function. Determines the proper dialogue
@@ -133,35 +139,45 @@ function mercurio_respond() {
 	var wd	= player.weekday;
 	var h	= player.hours;
 	
-	// for debug purposes
-	return ds_map_find_value(global.speaker.responseMap, "sparPrompt1");
+	var eg = -1;
 
 	switch (wd) {
 		case weekdays.hyggsun:
-			if h < 20	return ds_map_find_value(global.speaker.responseMap, "byeMatch1");
-			if h < 17	return ds_map_find_value(global.speaker.responseMap, "preBye1");
-			if h < 16	return ds_map_find_value(global.speaker.responseMap, "postMatch2");
-			if h < 15	return ds_map_find_value(global.speaker.responseMap, "preMatch2");
-			if h < 14	return ds_map_find_value(global.speaker.responseMap, "postMatch1");
-			if h < 12	return ds_map_find_value(global.speaker.responseMap, "preMatch1");
-			if h < 10	return ds_map_find_value(global.speaker.responseMap, "dayOnePreFest");
+			if h < 20	eg = ds_map_find_value(global.speaker.responseMap, "mercurioByeMatch1");
+			if h < 17	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPreBye1");
+			if h < 16	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPostMatch2");
+			if h < 15	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPreMatch2");
+			if h < 14	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPostMatch1");
+			if h < 12	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPreMatch1");
+			if h < 10	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayOnePreFest");
 			
-			if h >= 20	return ds_map_find_value(global.speaker.responseMap, "dayOnePostFest");
+			if h >= 20	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayOnePostFest");
 		break;
 		
 		case weekdays.plughsun:
-			if h < 20	return ds_map_find_value(global.speaker.responseMap, "byeMatch2");
-			if h < 17	return ds_map_find_value(global.speaker.responseMap, "preBye2");
-			if h < 16	return ds_map_find_value(global.speaker.responseMap, "postMatch4");
-			if h < 15	return ds_map_find_value(global.speaker.responseMap, "preMatch4");
-			if h < 14	return ds_map_find_value(global.speaker.responseMap, "postMatch3");
-			if h < 12	return ds_map_find_value(global.speaker.responseMap, "preMatch3");
-			if h < 10	return ds_map_find_value(global.speaker.responseMap, "dayTwoPreFest");
+			if h < 20	eg = ds_map_find_value(global.speaker.responseMap, "mercurioByeMatch2");
+			if h < 17	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPreBye2");
+			if h < 16	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPostMatch4");
+			if h < 15	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPreMatch4");
+			if h < 14	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPostMatch3");
+			if h < 12	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPreMatch3");
+			if h < 10	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayTwoPreFest");
 			
-			if h >= 20	return ds_map_find_value(global.speaker.responseMap, "dayTwoPostFest");
+			if h >= 20	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayTwoPostFest");
 			
-			if h < 4	return ds_map_find_value(global.speaker.responseMap, "dayOnePostFest");
+			if h < 4	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayOnePostFest");
+		break;
+		
+		case weekdays.rumnsun:
+			if h < 20	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayThreeMatchesEnsue");
+			if h < 17	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayThreeProsArrive");
+		break;
 	}
+	
+	// FOR TESTING ONLY
+	eg = ds_map_find_value(global.speaker.responseMap, "mercurioSparPrompt1");
+	
+	return eg;	
 }
 
 #endregion
@@ -250,7 +266,7 @@ function gate_check_npc() {
 
 // this function returns a list of each NPC's chosen location for the next day in order of NPC ID
 // the list is then used to edit the npc lists stored for each location
-function day_change_build_location_list(_targetList) {
+function build_npc_location_list(_targetList) {
 	var tl	 = _targetList;
 	var grid = ds_grid_create(npcParams.height, npcs.height);
 	decode_grid(global.allNPCs, grid);
@@ -292,7 +308,7 @@ function draw_npc() {
 
 ///@desc This function takes the list of npc locations and uses it to change each location's list of 
 // present NPCs for the following day
-function day_change_edit_npc_lists(_locationList) {
+function edit_npc_location_lists(_locationList) {
 	var locationList = _locationList;
 	
 	var grid = ds_grid_create(locationParams.height, locations.height);

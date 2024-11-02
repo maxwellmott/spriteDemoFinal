@@ -1,6 +1,3 @@
-/// @description Insert description here
-// You can write your code in this editor
-
 sx = global.speaker.x;
 sy = global.speaker.y;
 
@@ -36,17 +33,17 @@ else {
 	// check if there is room to draw the bubble to the right of the speaker
 	if (sx <= overworld.locationWidth - 140) {
 		// draw to the right of the speaker
-		bubbleSprite	= spr_talkBubbleRight;	
+		bubbleSprite	= spr_talkBubbleRight;
 		bubbleX			= sx + 12;
 		bubbleY			= sy;
 		
 		bubbleWidth		= sprite_get_width(bubbleSprite);
 		bubbleHeight	= sprite_get_height(bubbleSprite);
 		
-		textX			= bubbleX + 10;
-		textY			= bubbleY - (bubbleHeight / 2) + 2;
+		textX			= bubbleX + 11;
+		textY			= bubbleY - (bubbleHeight / 2) - 3;
 		
-		textWidth		= bubbleWidth - 10;
+		textWidth		= bubbleWidth - 2;
 	}
 }
 
@@ -100,7 +97,8 @@ if (bubbleSprite == -1) {
 	}
 }
 
-text = global.dialogue;
+text = global.dialogueGrid[# 0, 0];
+
 pages = ds_list_create();
 
 // grids to store any emojis 

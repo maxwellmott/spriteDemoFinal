@@ -7,6 +7,11 @@ function start_new_game() {
 	create_once(0,	0, LAYER.sprites, player);
 	player.location = locations.miriabramExt;
 	
+	build_npc_location_list(npcLocationList);
+	edit_npc_location_lists(npcLocationList);
+	
+	ds_list_destroy(npcLocationList);
+	
 	room_transition(128, 160, directions.south, rm_overworld, bgm_springRelaxSunny);
 }
 
