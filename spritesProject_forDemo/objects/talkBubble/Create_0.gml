@@ -164,12 +164,12 @@ talkingSpeed = 1;
 // variable used to navigate pages
 pageIndex = 0;
 
+// initialize the beginSpar and presentGift variables
+beginSpar = false;
+presentGift = false;
+
 // build text
 talk_bubble_build_dialogue();
 
 // create currentText variable
 currentText = "";
-
-// initialize the beginSpar and presentGift variables
-beginSpar = false;
-presentGift = false;

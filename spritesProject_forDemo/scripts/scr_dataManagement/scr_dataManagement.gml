@@ -327,6 +327,14 @@ function decode_grid(_grid, _target) {
 			}
 		}
 		
+		// if this is the end of the main grid
+		else if (nextChar == gridEndChar) {
+			// remove this character
+			g = string_delete(g, 1, 1);
+			
+			i++;
+		}
+		
 		// if this is not a nagivation character
 		else {
 			// add the character to the current column and row position

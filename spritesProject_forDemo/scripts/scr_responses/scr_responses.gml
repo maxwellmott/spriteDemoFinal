@@ -40,7 +40,7 @@ function player_response_navigate_cutscene() {
 #endregion
 
 /*		--PLAYER RESPONSE GRID STRUCTURE--
-		"key"	:	{(["Question being asked" ]	["First response" ] ["Second response" ]....)
+		"key"	:	{(["Question being asked" ]["First response" ]["Second response" ]....)
 					(["Question being asked" ]["First response" ]["Second response" ]....)
 					....}
 */

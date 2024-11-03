@@ -13,10 +13,10 @@ BATTLE SCENE TODO:
 	-prototype turn selection algorithm		3 POINTS				
 	-add spell animations					4 POINTS				4 POINTS DONE
 	-finish spells and effects				2 POINTS				2 POINTS DONE
-	-add abilities							4 POINTS				
+	-add abilities							4 POINTS				4 POINTS DONE
 	-priority spells						2 POINTS				2 POINTS DONE
 	-add all new sprites					2 POINTS				2 POINTS DONE
-	-create demo scripts*					2 POINTS
+	-create demo scripts*					2 POINTS				
 	-program spellbook icons				1 POINT					1 POINT DONE
 	-program sparSwapProcessor				2 POINTS				2 POINTS DONE
 	-program sparRestProcessor				2 POINTS				2 POINTS DONE
@@ -26,7 +26,7 @@ BATTLE SCENE TODO:
 	-create turn message functionality		1 POINT					1 POINT DONE
 	-fix ready display						2 POINTS				2 POINTS DONE
 	-fix fonts								3 POINTS				3 POINTS DONE
-	-build audio manager					3 POINTS
+	-build audio manager					3 POINTS				3 POINTS DONE
 	-add music								4 POINTS				
 	-add all SFX							4 POINTS				4 POINTS DONE
 	-add hp and mp bars						1 POINT					1 POINT DONE

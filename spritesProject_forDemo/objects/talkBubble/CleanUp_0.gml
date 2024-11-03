@@ -1,3 +1,5 @@
+global.select = 0;
+
 if (presentGift) {
 	
 }
@@ -8,12 +10,12 @@ if (beginSpar) {
 }
 
 if (ds_grid_height(dialogueGrid) > dialogueRow + 1) {
-	// reset dialogueKey, dialogueColumn, and dialogueRow so the response menu knows which response grid to search for
+	// reset speaker, dialogueKey, and dialogueRow so the response menu knows which response grid to search for
+	global.speaker			= speaker;
 	global.dialogueKey		= dialogueKey;
-	global.dialogueColumn	= dialogueColumn;
 	global.dialogueRow		= dialogueRow;
 	
-	// create response map for player 
+	create_once(x, y, LAYER.meta, responseMenu);
 }
 
 ds_grid_destroy(emoGrid);

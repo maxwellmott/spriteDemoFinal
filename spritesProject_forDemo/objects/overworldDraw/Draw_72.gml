@@ -26,6 +26,12 @@ if (overworld.sceneryCreated) {
 				draw_sprite_ext(lightMask, 0, x, lightY, lightScale + ls, lightScale + ls, 0, c_white, 1.0);
 			}
 			
+			if (instance_exists(mouse)) {
+				with (mouse) {
+					draw_self();	
+				}
+			}
+			
 			if (instance_exists(wavephoneController)) {
 				with (wavephoneController) {
 					// check that outro has not yet started
@@ -65,12 +71,6 @@ if (overworld.sceneryCreated) {
 				}
 			}
 			
-			if (instance_exists(mouse)) {
-				with (mouse) {
-					draw_self();	
-				}
-			}
-
 			if (instance_exists(emoteMenu)) {
 				with (emoteMenu) {
 					// check that outro has not yet started
@@ -108,6 +108,23 @@ if (overworld.sceneryCreated) {
 						// draw closing animation
 						draw_sprite(sprite_index, (image_number - 1) - image_index, x, y);
 					}	
+				}
+			}
+		
+			if (instance_exists(responseMenu)) {
+				with (responseMenu) {
+					var i = 0;	repeat (responseCount) {
+						var left	= leftList[| i];
+						var right	= rightList[| i];
+						var top		= topList[| i];
+						var bottom	= bottomList[| i];
+						
+						draw_sprite(buttonSprite, 0, left, top);
+						
+						i++;
+					}
+
+					draw_sprite(questionDisplaySprite, 0, questionDisplayX, questionDisplayY);	
 				}
 			}
 		
@@ -219,7 +236,31 @@ surface_set_target(upperStorySurface);
 			}	
 		}
 	}
+	
+	if (instance_exists(responseMenu)) {
+		with (responseMenu) {
+			var i = 0;	repeat (responseCount) {
+				var left	= leftList[| i];
+				var right	= rightList[| i];
+				var top		= topList[| i];
+				var bottom	= bottomList[| i];
+				
+				draw_sprite(buttonSprite, 0, left, top);
+				
+				i++;
+			}
+	
+			draw_sprite(questionDisplaySprite, 0, questionDisplayX, questionDisplayY);	
+		}
+	}
 
+	if (instance_exists(talkBubble)) {
+		with (talkBubble) {
+			// draw talk bubble
+			draw_sprite(bubbleSprite, 0, bubbleX, bubbleY);
+		}
+	}
+	
 	// set circle radius
 	var r = 20 + (sin(global.gameTime / 40) * 2);
 

@@ -26,7 +26,8 @@ if !(player.sundown) && (lightsOn) {
 }
 
 // check if there are any menus open
-if !(instance_exists(menu)) {
+if !(instance_exists(menu)) 
+|| (instance_exists(talkBubble)) {
 	// destroy mouse if present
 	destroy_if_possible(mouse);
 	
