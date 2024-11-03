@@ -1,7 +1,19 @@
+#macro	EMO_GIFT_NUM		414
+#macro	EMO_SPAR_NUM		416
+
 // these global variables store the information about who is talking
 // and what they're saying
 global.speaker		= noone;
 global.dialogueGrid	= -1;
+
+// initialize global.dialogueRow
+global.dialogueRow = -1;
+
+// initialize global.dialogueColumn
+global.dialogueColumn = -1;
+
+// initialize global.dialogueKey
+global.dialogueKey = -1;
 
 // @TODO CREATE A MAP CONTAINING KEYS THAT MATCH DIALOGUE MAP KEYS AND VALUES THAT
 //			INDICATE AN UNLOCKABLE OF SOME TYPE ALONG WITH ITS ID
@@ -227,15 +239,22 @@ function talk_bubble_build_dialogue() {
 					break;
 					
 					case "SPAR":
-						global.opponent		= global.speaker.ID;
-						global.ynFunction	= spar_begin_ingame;
+						emo = EMO_SPAR_NUM;
+						beginSpar = true;
+					break;
+					
+					case "GIFT":
+						emo = EMO_GIFT_NUM;
+						presentGift = true;
+					break;
 				}
 				
 				// delete emotion string from text
 				text = string_delete(text, 1, endPos);
 				
 				// if emotion is not SPAR, add emotion to grid
-				if (emo != -1) {
+				if (emo < emotions.height) 
+				&& (emo >= 0) {
 					// resize overworld.dialogueEmotes
 					ds_grid_resize(overworld.dialogueEmotes, 4, emoCount + 1);
 					

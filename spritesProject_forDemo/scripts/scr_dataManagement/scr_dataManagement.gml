@@ -443,3 +443,46 @@ function ds_list_append(_list1, _list2, _targetList) {
 		i++;
 	}
 }
+
+function ds_grid_remove_row(_grid, _row) {
+	// store args in locals
+	var r = _row;
+	
+	// get the height of the grid
+	var h = ds_grid_height(_grid);
+	
+	// get the width of the grid
+	var w = ds_grid_width(_grid);
+	
+	// get the number of rows from the given row to the end (subtract 1 for 0 index)
+	var n = h - r - 1;
+
+	// repeat for all rows that follow the given row
+	var i = r;	repeat (n) {
+		// repeat for all columns
+		var j = 0;	repeat (w) {
+			_grid[# j, i] = _grid[# j, i + 1];
+			
+			j++;
+		}
+		
+		i++;
+	}
+	
+	ds_grid_resize(_grid, w, h - 1);
+}
+
+global.practiceGrid = ds_grid_create(8, 8);
+
+var i = 0;	repeat (ds_grid_height(global.practiceGrid)) {
+	var j = 0;	repeat (ds_grid_width(global.practiceGrid)) {
+		global.practiceGrid[# j, i] = "";
+		global.practiceGrid[# j, i] = string(j) + string(i);
+	
+		j++;
+	}
+
+	i++;	
+}
+
+ds_grid_remove_row(global.practiceGrid, 6);

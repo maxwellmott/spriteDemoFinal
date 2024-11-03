@@ -1,6 +1,21 @@
 sx = global.speaker.x;
 sy = global.speaker.y;
 
+speaker = global.speaker;
+
+global.speaker = -1;
+
+dialogueGrid	= global.dialogueGrid;
+dialogueRow		= global.dialogueRow;
+dialogueColumn	= global.dialogueColumn;
+
+dialogueKey		= global.dialogueKey;
+
+global.dialogueGrid		= -1;
+global.dialogueRow		= -1;
+global.dialogueColumn	= -1;
+global.dialogueKey		= -1;
+
 bubbleSprite	= -1;
 bubbleX			= -1;
 bubbleY			= -1;
@@ -97,14 +112,15 @@ if (bubbleSprite == -1) {
 	}
 }
 
-text = global.dialogueGrid[# 0, 0];
+text = dialogueGrid[# dialogueRow, dialogueColumn];
 
 pages = ds_list_create();
 
-// grids to store any emojis 
-emoGrid		= ds_grid_create(4, 0);
-pathGrid	= ds_grid_create(4, 0);
-speedGrid	= ds_grid_create(3, 0);
+// grids to store any emojis, paths, or talking speeds 
+emoGrid			= ds_grid_create(4, 0);
+pathGrid		= ds_grid_create(4, 0);
+speedGrid		= ds_grid_create(3, 0);
+dialogueQueue	= ds_list_create();
 
 // variable to store the next path in a decoded list to be ready for use
 nextPath	= ds_list_create();
@@ -153,3 +169,7 @@ talk_bubble_build_dialogue();
 
 // create currentText variable
 currentText = "";
+
+// initialize the beginSpar and presentGift variables
+beginSpar = false;
+presentGift = false;

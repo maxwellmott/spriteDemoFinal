@@ -215,6 +215,10 @@ function get_interactable() {
 				// set the speaking NPC
 				global.speaker	= inst;
 				
+				// set the dialogue row
+				global.dialogueRow		= 0;
+				global.dialogueColumn	= 0;
+				
 				// get the encoded grid of dialogue for this situation using the given npc's response function
 				var eg = inst.responseFunction();
 				

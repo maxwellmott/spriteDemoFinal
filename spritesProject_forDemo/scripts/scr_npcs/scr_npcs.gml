@@ -138,44 +138,45 @@ ds_list_add(mercurioLocations,	string(locations.miriabramExt) + ",",												
 function mercurio_respond() {
 	var wd	= player.weekday;
 	var h	= player.hours;
-	
-	var eg = -1;
 
 	switch (wd) {
 		case weekdays.hyggsun:
-			if h < 20	eg = ds_map_find_value(global.speaker.responseMap, "mercurioByeMatch1");
-			if h < 17	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPreBye1");
-			if h < 16	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPostMatch2");
-			if h < 15	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPreMatch2");
-			if h < 14	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPostMatch1");
-			if h < 12	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPreMatch1");
-			if h < 10	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayOnePreFest");
+			if h < 20	global.dialogueKey = "mercurioByeMatch1";
+			if h < 17	global.dialogueKey = "mercurioPreBye1";
+			if h < 16	global.dialogueKey = "mercurioPostMatch2";
+			if h < 15	global.dialogueKey = "mercurioPreMatch2";
+			if h < 14	global.dialogueKey = "mercurioPostMatch1";
+			if h < 12	global.dialogueKey = "mercurioPreMatch1";
+			if h < 10	global.dialogueKey = "mercurioDayOnePreFest";
 			
-			if h >= 20	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayOnePostFest");
+			if h >= 20	global.dialogueKey = "mercurioDayOnePostFest";
 		break;
 		
 		case weekdays.plughsun:
-			if h < 20	eg = ds_map_find_value(global.speaker.responseMap, "mercurioByeMatch2");
-			if h < 17	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPreBye2");
-			if h < 16	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPostMatch4");
-			if h < 15	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPreMatch4");
-			if h < 14	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPostMatch3");
-			if h < 12	eg = ds_map_find_value(global.speaker.responseMap, "mercurioPreMatch3");
-			if h < 10	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayTwoPreFest");
+			if h < 20	global.dialogueKey = "mercurioByeMatch2";
+			if h < 17	global.dialogueKey = "mercurioPreBye2";
+			if h < 16	global.dialogueKey = "mercurioPostMatch4";
+			if h < 15	global.dialogueKey = "mercurioPreMatch4";
+			if h < 14	global.dialogueKey = "mercurioPostMatch3";
+			if h < 12	global.dialogueKey = "mercurioPreMatch3";
+			if h < 10	global.dialogueKey = "mercurioDayTwoPreFest";
 			
-			if h >= 20	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayTwoPostFest");
+			if h >= 20	global.dialogueKey = "mercurioDayTwoPostFest";
 			
-			if h < 4	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayOnePostFest");
+			if h < 4	global.dialogueKey = "mercurioDayOnePostFest";
 		break;
 		
 		case weekdays.rumnsun:
-			if h < 20	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayThreeMatchesEnsue");
-			if h < 17	eg = ds_map_find_value(global.speaker.responseMap, "mercurioDayThreeProsArrive");
+			if h < 20	global.dialogueKey = "mercurioDayThreeMatchesEnsue";
+			if h < 17	global.dialogueKey = "mercurioDayThreeProsArrive";
 		break;
 	}
 	
 	// FOR TESTING ONLY
-	eg = ds_map_find_value(global.speaker.responseMap, "mercurioSparPrompt1");
+	global.dialogueKey = "mercurioSparPrompt1";
+	
+	// set the encoded grid as the value stored at the dialogueKey
+	var eg = ds_map_find_value(global.speaker.responseMap, global.dialogueKey);
 	
 	return eg;	
 }

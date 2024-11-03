@@ -16,24 +16,15 @@ if (count < string_length(pages[| pageIndex])) {
 if count == string_length(pages[| pageIndex]) {
 	// check if on last page
 	if (pageIndex == ds_list_size(pages) - 1) {
-		
-		// if there is a yes no prompt
-		if (global.ynFunction != -1) {
-			create_once(0, 0, LAYER.meta, yesNoPrompt);	
-		}
-		
-		// else if there is not a yes no prompt
-		else {
-			// check if waiting for player input
-			if (waitForInput) {
-				if (global.select) {
-					instance_destroy(id);	
-				}
-			}
-			// else statement (if skipping input)
-			else {
+		// check if waiting for player input
+		if (waitForInput) {
+			if (global.select) {
 				instance_destroy(id);
 			}
+		}
+		// else statement (if skipping input)
+		else {
+			instance_destroy(id);
 		}
 	}
 	// else statement (if not on last page)
@@ -49,6 +40,68 @@ if count == string_length(pages[| pageIndex]) {
 		else {
 			pageIndex++;
 			count = 1;
+		}
+	}
+}
+
+//@TODO DEBUG
+// check if there are active dialogue emotes
+var egh = ds_grid_height(emoGrid);
+
+if (egh > 0) {
+	// create removal list
+	var rl = ds_list_create();
+	
+	var i = 0;	repeat (egh) {
+		// if this emote does not indicate to wait for a position in the text
+		if (emoGrid[# i, 2] == 0) {
+			// get the height of the active emote grid
+			var oegh = ds_grid_height(overworld.activeEmotes);
+			
+			// add 1 to the height of the grid
+			ds_grid_resize(overworld.activeEmotes, 2, oegh + 1);
+			
+			// add the emote ID
+			ds_grid_add(overworld.activeEmotes, 0, oegh, emoGrid[# 3, i]);
+			
+			// add the instance ID of the emoter
+			ds_grid_add(overworld.activeEmotes, 1, oegh, speaker);
+			
+			// add this row to the removal list
+			ds_list_add(rl, i);
+		}
+		// if this emote indicates to wait for a position in the text
+		else {
+			// check if page index matches the given page
+			if (pageIndex == emoGrid[# 0, i]) {
+				// check if the length of the currentText is greater than or equal to the given text length
+				if (string_length(currentText) >= emoGrid[# 1, i]) {
+					// get the height of the active emote grid
+					var oegh = ds_grid_height(overworld.activeEmotes);
+					
+					// add 1 to the height of the grid
+					ds_grid_resize(overworld.activeEmotes, 2, oegh + 1);
+					
+					// add the emote ID
+					ds_grid_add(overworld.activeEmotes, 1, oegh, emoGrid[# 3, 1]);
+					
+					// add the instance ID of the emoter
+					ds_grid_add(overworld.activeEmotes, 1, oegh, speaker);
+					
+					// add this row to the removal list
+					ds_list_add(rl, i);
+				}
+			}
+		}
+		
+		i++;
+	}
+	
+	if (ds_list_size(rl) > 0) {
+		var i = ds_list_size(rl);	repeat (ds_list_size(rl)) {
+			ds_grid_remove_row(emoGrid, rl[| i]);
+			
+			i--;
 		}
 	}
 }
