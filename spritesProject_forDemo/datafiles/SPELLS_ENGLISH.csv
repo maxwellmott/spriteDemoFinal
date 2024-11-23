@@ -3,8 +3,8 @@ Placeholder ,Tidal Force,A legendary WATER spell that forces the target's team t
 Placeholder ,Nebula Storm,A legendary STORM spell that HEXES all enemies,LORE
 Placeholder ,Tectonic Shift,A legendary EARTH spell that BINDS all enemies,LORE
 Placeholder ,Fireball,A standard FIRE spell with no additional effect,LORE
-Placeholder ,Holy Water,A standard WATER spell that HEALS the caster,LORE
-Placeholder ,Shock,A standard STORM spell that BINDS the target,LORE
+Placeholder ,Holy Water,A standard WATER spell that deals increased damage against ASTRAL sprites,LORE
+Placeholder ,Shock,A standard STORM spell that acts quickly and BINDS the target,LORE
 Placeholder ,Decay,A standard EARTH spell that DRAINS HEALTH from the target,LORE
 Placeholder ,Expel Force,A standard PHYSICAL spell with no additional effect,LORE
 Placeholder ,Lady Solanu's Grace,A standard TRICK spell that HEALS the caster's team and grants allies BLESSING OF THE TREE,LORE
@@ -15,31 +15,31 @@ Placeholder ,Rubur's Grapple,A standard PHYSICAL spell that BINDS the target,LOR
 Placeholder ,Lusia's Harvest Spell,A powerful EARTH spell that changes the arena to FOREST,LORE
 Placeholder ,Waterlog,A standard WATER spell that grants the target the CURSE OF THE TREE,LORE
 Placeholder ,Air Pressure,A skillful STORM spell that grants the target and nearby allies the CURSE OF THE TREE,LORE
-Placeholder ,Superbloom ,A skillful EARTH spell that removes all CURSES and HINDRANCES from the caster's side of the field,LORE
+Placeholder ,Superbloom ,A skillful EARTH spell that removes all team HINDRANCES and SHIFTS all teammates' CURSES,LORE
 Placeholder ,Rapid Strike,A skillful PHYSICAL spell that usually attacks first,LORE
 Placeholder ,Looming Danger,A skillful TRICK spell that summons an ENERGY BLAST against the target's team after 2 turns,LORE
 Placeholder,Intercept,A skillful TRICK spell by which the caster takes the target's place for the turn,LORE
 Placeholder ,Steam Bath,A skillful WATER spell that removes all HINDRANCES for the caster and sets RUST for the target,LORE
 Placeholder ,Undertow,A powerful WATER spell that grants the target the CURSE OF THE IMP,LORE
-Placeholder ,Empathize,A skillful TRICK spell that copies the target's MINDSET,LORE
+Placeholder ,Empathize,"A skillful TRICK spell that copies the target's MINDSET. BLESSINGS fully heal the caster, CURSES fully heal the target",LORE
 Placeholder ,Hellfire,A dark FIRE spell that HEXES the caster and all sprites on the target's team,LORE
 Placeholder ,Ball Lightning,A powerful STORM spell that steals the power of other STORM spells,LORE
 Placeholder ,Quicksand,A dark EARTH spell that BINDS the target,LORE
 Placeholder ,Lord Mogradth's Rage,A dark TRICK spell that HEXES and BINDS all enemies,LORE
 Placeholder ,Drain Lifeforce,A dark PHYSICAL spell that DRAINS HEALTH from THE TARGET,LORE
-Placeholder ,Pyrokinesis,A powerful FIRE spell that deals  a fraction of damage to the caster,LORE
+Placeholder ,Pyrokinesis,A powerful FIRE spell that deals a fraction of damage to the caster,LORE
 Placeholder ,Downpour,A powerful WATER spell that creates RUST on the target's side of the field,LORE
 Placeholder ,Arc Blast,A dark STORM spell that grants the target the CURSE OF THE IMP,LORE
-Placeholder ,Hikam's Winter Spell,A historic EARTH spell that destroys the FOREST to buff the caster's team,LORE
+Placeholder ,Hikam's Winter Spell,An historic EARTH spell that destroys the FOREST to buff the caster's team,LORE
 Placeholder ,Osmosis,A dark WATER spell that copies the target's MINDSET and DRAINS their HEALTH,LORE
-Placeholder ,Flash Freeze,A specialized WATER spell that BINDS the target,LORE
+Placeholder ,Flash Freeze,A specialized WATER spell that acts fast and BINDS the target,LORE
 Placeholder ,Landslide,A specialized EARTH spell that RESETS the ARENA,LORE
 Placeholder ,Amand's Energy Blast,A historic TRICK spell that hits the target with an ENERGY BLAST,LORE
 Placeholder ,Shift Perspective,A specialized TRICK spell that SHIFTS the target's MINDSET,LORE
 Placeholder ,Psychic Impact,A powerful TRICK spell that attacks the target's weak spot,LORE
 Placeholder ,Tremor,A powerful EARTH spell that RESETS the ARENA and deals a fraction of damage to the caster,LORE
 Placeholder ,Skydive,A specialized PHYSICAL spell wherein the caster flies above the field until their attack at the end of the turn,LORE
-Placeholder ,Destructive Blow,A dark PHYSICAL spell that deals extra damage when changing MECHANICAL sprites to NATURAL,LORE
+Placeholder ,Destructive Blow,A dark PHYSICAL spell that deals extra damage to MECHANICAL sprites and changes their alignment to NATURAL,LORE
 Placeholder ,Purifying Flame,A specialized FIRE spell that deals extra damage when changing ASTRAL sprites to NATURAL,LORE
 Placeholder ,Jabul's Fight Song,A historic TRICK spell that HEALS the caster's team and drives all nearby sprites BERSERK,LORE
 Placeholder ,Noxious Fumes,A standard FIRE spell that creates MIASMA on the target's side of the field,LORE

@@ -245,12 +245,10 @@ function lady_solanus_grace() {
 	
 	global.spellTargetTeam = t;
 	
-	if (t.currentHP == MAX_HP) {
-		sparActionProcessor.spellFailed = true;
-		return -1;
-	}	
+	if (t.currentHP != MAX_HP) {
+		spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t, 300);
+	}
 	
-	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, t);
 	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE_BLESS);
 }
 
@@ -267,7 +265,7 @@ function typhoon() {
 function healing_light() {	
 	var c = activeSprite;
 	var t = activeSprite.team;
-	var a = round(MAX_HP / 2);
+	var a = 250;
 	
 	if (t.currentHP == MAX_HP) {
 		sparActionProcessor.spellFailed = true;
@@ -308,6 +306,7 @@ function waterlog() {
 function air_pressure() {
 	var t = targetSprite.team;
 	
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ALLIES, targetSprite, MINDSETS.TREE_CURSE);
 	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE_CURSE);
 }
 
@@ -317,6 +316,7 @@ function superbloom() {
 	var t = targetSprite.team;
 	
 	spar_effect_push_alert(SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES, t);
+	spar_effect_push_alert(SPAR_EFFECTS.SHIFT_CURSE_TEAM, t);
 }
 
 ///@desc SPELL FUNCTION: this spell strikes first. it's id will be on a list of priority moves
@@ -327,7 +327,7 @@ function rapid_strike() {
 ///@desc SPELL FUNCTION: this spell starts a timer for an Energy Blast on the
 /// target's team.
 function looming_danger() {	
-	var c = 3;
+	var c = 2;
 	var p = 500;
 	var t = targetSprite.team;
 	
@@ -357,14 +357,14 @@ function steam_bath() {
 	
 	spar_effect_push_alert(SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES, t);
 	
-	spar_effect_push_alert(SPAR_EFFECTS.SET_RUST, t);
+	spar_effect_push_alert(SPAR_EFFECTS.SET_RUST, targetSprite.team);
 }
 
 ///@desc SPELL FUNCTION: grants target curse of the imp
 function undertow() {
 	var t = targetSprite;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP_BLESS);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, MINDSETS.IMP_CURSE);
 }
 
 ///@desc SPELL FUNCTION: adopts target's mindset and fully heals target or caster's team
@@ -460,17 +460,22 @@ function downpour() {
 function arc_blast() {
 	var t = targetSprite;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP_BLESS);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, MINDSETS.IMP_CURSE);
 }
 
 ///@desc SPELL FUNCTION: fails unless forest is active, removes forest, fully restores caster's
 /// HP, and grants blessing of the tree to all nearby allies
 function hikams_winter_spell() {
+	if (spar.currentArena != ARENAS.FOREST) {
+		spellFailed = true;
+		return -1;
+	}
+	
 	var t = activeSprite.team;
 	
 	spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
 	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_MP, t);
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE_BLESS);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.WARRIOR_BLESS);
 }
 
 ///@desc SPELL FUNCTION: adopts the target's mindset. if curse, heal target team fully. If blessing, heal caster team fully
@@ -483,8 +488,10 @@ function osmosis() {
 		var m = t.mindset;
 		
 		if (m != 0) {
-			spar_effect_push_alert(SPAR_EFFECTS.COPY_MINDSET, c, t);	
+			spar_effect_push_alert(SPAR_EFFECTS.COPY_MINDSET, c, t);
 		}
+		
+		spar_effect_push_alert(SPAR_EFFECTS.DRAIN_HEALTH, t, round(damage / 3));
 	}
 }
 
@@ -520,15 +527,22 @@ function shift_perspective() {
 	if !(dodgeSuccess) {
 		var t = targetSprite;
 		var m = t.mindset;
-		var a = round(MAX_HP / 2);
-		if (m < 0) {
-			spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
-			spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t.team, a);
-		}
+		var a = 250;
 		
-		if (m < 0) {
-			spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
-			spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, t.team, 250);
+		if (m > 0) {
+			if (m <= MINDSETS.IMP_BLESS) {
+				spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
+				spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t.team, a);
+			}
+			
+			if (m > MINDSETS.IMP_BLESS) {
+				spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
+				spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, t.team, a);
+			}
+		}
+		else {
+			spellFailed = true;
+			return -1;
 		}
 	}
 }
@@ -716,7 +730,7 @@ function magnetic_pulse() {
 function burn_out() {
 	var c = activeSprite;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, c, 0 - MINDSETS.MOTHER_BLESS);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, c, MINDSETS.MOTHER_CURSE);
 }
 
 ///@desc SPELL FUNCTION: summons miasma on both sides of the field
@@ -729,7 +743,7 @@ function wind_slice() {
 	if !(dodgeSuccess) {
 		var t = targetSprite;
 		
-		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP_BLESS);
+		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, MINDSETS.IMP_CURSE);
 	}
 }
 
@@ -819,7 +833,7 @@ function knock_over() {
 	if !(dodgeSuccess) {
 		var t = targetSprite;
 		
-		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, 0 - MINDSETS.IMP_BLESS);
+		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, MINDSETS.IMP_CURSE);
 	}
 }
 

@@ -10,6 +10,7 @@ var i = 0;	repeat (responseCount) {
 	
 		if (global.click) {
 			instance_destroy(id);	
+			break;
 		}
 	}
 	

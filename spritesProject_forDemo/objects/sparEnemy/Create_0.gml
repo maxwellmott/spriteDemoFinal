@@ -31,7 +31,7 @@ name = "";
 sprite = -1;
 
 // initialize usable SPELLS
-usable_spells = ds_list_create();
+usableSpells = ds_list_create();
 
 // initialize ability
 ability = noone;

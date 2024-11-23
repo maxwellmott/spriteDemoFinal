@@ -190,6 +190,25 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 	}
 	// SPELL
 	else {	
+		// check that this is NOT a self targeting spell
+		if (targetSprite != activeSprite) {
+			// set turnMsg to indicate the spell and its target
+			spar.turnMsg = activeSprite.name + " cast " + spellName + " against " + targetSprite.name;
+		}
+		// if this IS a self targeting spell
+		else {
+			spar.turnMs = activeSprite.name + " cast " + spellName;
+		}
+		
+		// check if the target is controlled by an ai enemy
+		if (targetSprite.team.object_index == enemyAI) {
+			// check that this spell is not already on the seenSpells list
+			if (ds_list_find_index(targetSprite.team.seenSpells, currentSpell) == -1) {
+				// add it to the list
+				ds_list_add(targetSprite.team.seenSpells, currentSpell);	
+			}
+		}		
+		
 		spar_check_black_hole_absorb_spell();
 		spar_check_ball_lightning_absorb_spell();
 		
@@ -235,17 +254,11 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 				var t = targetSprite.team;
 				
 				deplete_hp(t, damage);
-				
-				if (targetSprite != activeSprite) {
-					spar.turnMsg = activeSprite.name + " cast " + spellName + " against " + targetSprite.name;
-				}	else {
-					spar.turnMs = activeSprite.name + " cast " + spellName;	
-				}
 			}
 		}
 		else {
 			// change turnMsg	
-			spar.turnMsg = targetSprite.name + " dodged " + activeSprite.name + "'s " + spellName;
+			spar.turnMsg = targetSprite.name + " dodged " + activeSprite.name + "'s spell!";
 		}
 	}
 	

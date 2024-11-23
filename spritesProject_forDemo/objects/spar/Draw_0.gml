@@ -197,7 +197,7 @@ draw_set_alpha(1.0);
 			draw_set_font(spellbookFont);
 			
 			// if spell cannot be used, draw it in grayscale
-			if (ds_list_find_index(sparSpellMenu.usable_spells, sparSpellMenu.currentSpell) == -1) {
+			if (ds_list_find_index(sparSpellMenu.usableSpells, sparSpellMenu.currentSpell) == -1) {
 				gpu_set_fog(true, c_black, 0, 666);
 				draw_sprite(sparSpellMenu.sprite, sparSpellMenu.frame, sparSpellMenu.x, sparSpellMenu.y);
 				draw_sprite(spr_spellBookIconSheet, sparSpellMenu.currentSpell, sparSpellMenu.x, sparSpellMenu.y + 4);

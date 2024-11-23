@@ -1,6 +1,3 @@
-/// @description Insert description here
-// You can write your code in this editor
-
 if (x < targetX) {
 	x += 2;	
 }
@@ -23,7 +20,7 @@ if (x == targetX)
 		if (enoughMP) {
 			if (global.select) {	
 				// check if the current spell is on the usable spells list
-				if (ds_list_find_index(usable_spells, currentSpell) != -1) {
+				if (ds_list_find_index(usableSpells, currentSpell) != -1) {
 					// set global.action
 					global.action = currentSpell + sparActions.height;
 					

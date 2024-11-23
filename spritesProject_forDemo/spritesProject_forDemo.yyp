@@ -232,6 +232,7 @@
     {"id":{"name":"scr_dialogue","path":"scripts/scr_dialogue/scr_dialogue.yy",},},
     {"id":{"name":"scr_doors","path":"scripts/scr_doors/scr_doors.yy",},},
     {"id":{"name":"scr_effectChecks","path":"scripts/scr_effectChecks/scr_effectChecks.yy",},},
+    {"id":{"name":"scr_enemy_ai","path":"scripts/scr_enemy_ai/scr_enemy_ai.yy",},},
     {"id":{"name":"scr_helper","path":"scripts/scr_helper/scr_helper.yy",},},
     {"id":{"name":"scr_humans","path":"scripts/scr_humans/scr_humans.yy",},},
     {"id":{"name":"scr_keyboard","path":"scripts/scr_keyboard/scr_keyboard.yy",},},

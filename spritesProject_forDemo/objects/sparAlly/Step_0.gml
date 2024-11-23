@@ -18,7 +18,7 @@ if (spar.sparPhase == SPAR_PHASES.SELECT) {
 				spar.selectionPhase = SELECTION_PHASES.ACTION;
 				
 				if (instance_exists(sparSpellMenu)) {
-					sparSpellMenu.usable_spells = player.selectedAlly.usable_spells;
+					sparSpellMenu.usableSpells = player.selectedAlly.usableSpells;
 				}
 			}
 		}

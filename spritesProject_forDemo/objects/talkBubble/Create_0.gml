@@ -112,7 +112,7 @@ if (bubbleSprite == -1) {
 	}
 }
 
-text = dialogueGrid[# dialogueRow, dialogueColumn];
+text = dialogueGrid[# dialogueColumn, dialogueRow];
 
 pages = ds_list_create();
 

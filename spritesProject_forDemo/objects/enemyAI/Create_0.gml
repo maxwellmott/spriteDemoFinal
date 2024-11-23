@@ -77,3 +77,16 @@ hailSphera = false;
 
 // boolean representing whether this player has a sprite with synchronized soldiers on their team
 synchronizedSoldiersActive = false;
+
+// initialize the list of potential player spells
+potentialPlayerSpells = ds_list_create();
+
+// initialize the list of seen spells
+seenSpells = ds_list_create();
+
+// initialize the list of spellValues. This will be reset each turn. The first half of the list
+// will contain all of the npc's current spells's values, the second half of the list will contain all of the
+// potentialPlayerSpells's values. "Values" refers to the amount of help that the given spell would provide under
+// the current circumstances.
+spellValues = ds_list_create();
+

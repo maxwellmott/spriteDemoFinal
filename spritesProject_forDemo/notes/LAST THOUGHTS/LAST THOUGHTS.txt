@@ -647,3 +647,13 @@ COMING BACK FROM PLAYTEST BUILD
 						
 	11/2		DEBUG THE EMOTE QUEUE FUNCITONALITY IN THE STEP EVENT OF THE TALK BUBBLE
 				CREATE THE RESPONSE MENU OBJECT
+				
+	11/3		Okay, I'm shifting over to the turntaking algorithms since that's the priority now. Start by finishing all of the pseudocode in the document titled: ENEMY AI WRITEUP
+	
+	11/15
+	
+		CONTINUE WORKING ON THE SPELL EVAL FUNCTIONS
+		
+	11/23
+	
+		PICK UP WHERE YOU LEFT OFF ON ENEMY AI CORE FUNCTIONS

@@ -15,7 +15,7 @@ if (player.selectedAlly.selectedAction == sparActions.swap) {
 sprite = spr_spellBook;
 infoDisplaySprite = spr_sparSpellInfoDisplay;
 
-usable_spells = player.selectedAlly.usable_spells;
+usableSpells = player.selectedAlly.usableSpells;
 
 frame		= 0;
 frameMax	= 5;

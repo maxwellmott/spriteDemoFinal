@@ -38,11 +38,14 @@ if (instance_exists(overworld))
 
 if (instance_exists(overworld)) {
 #region HANDLE TIME
-	increment_seconds();
-	increment_minutes();
-	increment_hours();
+	if !(instance_exists(menu)) 
+	|| (instance_exists(mainMenu)) {
+		increment_seconds();
+		increment_minutes();
+		increment_hours();
 	
-	begin_day_change();
+		begin_day_change();
+	}
 #endregion
 
 #region HANDLE SUNDOWN AND DARKALPHA

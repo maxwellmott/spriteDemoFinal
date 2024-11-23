@@ -223,25 +223,6 @@ function spar_set_spell() {
 	instance_destroy(sparSpellMenu);
 }
 
-function enemyAI_get_params() {
-	// create temporary grid
-	var grid = ds_grid_create(npcParams.height, npcs.height);
-	
-	// decode npcGrid
-	decode_grid(global.allNPCs, grid);
-	
-	// use npcID to get params
-	talismanString	= grid[# npcParams.talismans,	ID];
-	name			= grid[# npcParams.name,		ID];
-	spellBookString	= grid[# npcParams.spells,		ID];
-	
-	// decode talismanString and spellString
-	decode_list(talismanString, roster);
-	
-	// delete temporary grid
-	ds_grid_destroy(grid);
-}
-
 // this function is commented out for now. Once I start doing the ingame AI
 // logic, this function will call some pre-written logic for the enemy in question. It will
 // use their chosen team as well as the player's "favorites" to select a list of spells to
@@ -312,37 +293,6 @@ function player_submit_turn() {
 		network_send_udp_raw(spar.client, SERVER_ADDRESS, PORT_NUM, spar.onlineBuffer, buffer_tell(spar.onlineBuffer));
 		
 		spar.onlineWaiting = true;	
-	}
-}
-
-///@desc This is my first attempt at a basic selection algorithm. Each of them
-/// should follow this general structure, I'll comment out the main beats of the process.
-/// this should go into the npc script and be added to the npc grid under a new parameter
-function mercurio_selection_logic() {
-	// use a repeat loop to check in with each sprite on the team.
-	var i = 0;	repeat (ds_list_size(spar.enemyList)) {
-		var inst = spar.enemyList[| i];
-		
-		switch (inst.spriteID) {
-			case SPRITES.DEMOLITOPS:
-				// check for any nearby threats
-				
-				// check for any ideal nearby targets
-				
-				// check if the enemy could potentially make a saving swap
-				
-				// determine if it's worth the risk
-			break;
-			
-			case SPRITES.ZEPHIRA:
-			break;
-			
-			case SPRITES.FISHMONGER:
-			break;
-			
-			case SPRITES.UPROOTER:
-			break;
-		}
 	}
 }
 

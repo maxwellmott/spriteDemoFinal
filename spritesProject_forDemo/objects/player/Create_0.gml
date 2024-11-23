@@ -254,5 +254,18 @@ hailSphera = false;
 // boolean representing whether this player has a sprite with synchronized soldiers on their team
 synchronizedSoldiersActive = false;
 
+// create player response map
 responseMap = ds_map_create();
 decode_map(global.playerResponses, responseMap);
+
+// initialize spellUseCounts list
+spellUseCounts = ds_list_create();
+
+// initialize spriteUseCounts list
+spriteUseCounts = ds_list_create();
+
+// initialize player favorite spells lists
+favoriteSpells = ds_list_create();
+
+// initialize player favorite sprites lists
+favoriteSprites = ds_list_create();

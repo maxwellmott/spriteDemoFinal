@@ -1773,7 +1773,7 @@ function sprite_load_parameters() {
 	currentAbilityFunction	= baseAbilityFunction;	
 	
 	// decode spell list
-	decode_list(spellString, usable_spells);
+	decode_list(spellString, usableSpells);
 	
 	// delete sprite grid and ability grid
 	ds_grid_destroy(grid);
