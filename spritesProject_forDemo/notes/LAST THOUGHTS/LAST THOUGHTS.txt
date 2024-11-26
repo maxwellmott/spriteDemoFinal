@@ -657,3 +657,13 @@ COMING BACK FROM PLAYTEST BUILD
 	11/23
 	
 		PICK UP WHERE YOU LEFT OFF ON ENEMY AI CORE FUNCTIONS
+		
+	11/26
+		
+		ENEMY AI:
+			-add a functionality that tracks the projected gain/loss of MP for the turn and also checks this projected gain/loss when checking for MP costs
+			-complete the mercurio day one function
+			-complete all core functions
+			-test
+			-rework each chunk of code for each sprite on mercurio's team so that they can be used as portable functions to select the turns of any sprites of that archetype
+			

@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_enemy_ai",
+  "%Name":"scr_enemyAI_gridBuilder",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_enemy_ai",
+  "name":"scr_enemyAI_gridBuilder",
   "parent":{
     "name":"SPARRING",
     "path":"folders/Scripts/SPARRING.yy",

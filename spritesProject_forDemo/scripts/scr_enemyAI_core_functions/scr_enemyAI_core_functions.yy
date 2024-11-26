@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_enemyAI_core_functions",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_enemyAI_core_functions",
+  "parent":{
+    "name":"SPARRING",
+    "path":"folders/Scripts/SPARRING.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
