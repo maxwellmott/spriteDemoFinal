@@ -1291,20 +1291,22 @@ function wrecking_ball(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is attacking
-	if (inst == sparActionProcessor.activeSprite) {	
-		// check if it is a basic attack
-		if (sparActionProcessor.currentSpell < 0) {	
-			// check if the target is a MECHANICAL sprite
-			if (sparActionProcessor.targetSprite.currentAlign == ALIGNMENTS.MECHANICAL) {	
-				// increase the damage by 2
-				sparActionProcessor.damage = sparActionProcessor.damage * 2;
-				
-				// push a spar effect alert for activate ability
-				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-				
-				// push a spar effect alert for increase damage
-				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {	
+			// check if it is a basic attack
+			if (sparActionProcessor.currentSpell < 0) {	
+				// check if the target is a MECHANICAL sprite
+				if (sparActionProcessor.targetSprite.currentAlign == ALIGNMENTS.MECHANICAL) {	
+					// increase the damage by 2
+					sparActionProcessor.damage = sparActionProcessor.damage * 2;
+					
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// push a spar effect alert for increase damage
+					spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+				}
 			}
 		}
 	}
@@ -1336,16 +1338,18 @@ function trickster_faerie(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is attacking
-	if (inst == sparActionProcessor.activeSprite) {	
-		// check if it is a trick spell that isn't self targeting
-		if (sparActionProcessor.spellType == SPELL_TYPES.TRICK) 
-		&& (sparActionProcessor.targetSprite != -1) {	
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+	if  (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {	
+			// check if it is a trick spell that isn't self targeting
+			if (sparActionProcessor.spellType == SPELL_TYPES.TRICK) 
+			&& (sparActionProcessor.targetSprite != -1) {	
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 			
-			// push a spar effect alert for deplete hp
-			spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP, sparActionProcessor.targetSprite, 200);
+				// push a spar effect alert for deplete hp
+				spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP, sparActionProcessor.targetSprite, 200);
+			}
 		}
 	}
 }
@@ -1474,7 +1478,7 @@ function redeeming_qualities(_inst) {
 		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 		
 		// push a spar effect alert for restore mp
-		spar_effect_push_alert(SPAR_EFFECTS.RESTORE_MP, inst, 200);
+		spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst, 200);
 	}
 }
 

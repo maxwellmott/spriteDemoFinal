@@ -8,4 +8,7 @@ spar.image_index = 0;
 spar.image_speed = 1;
 
 ds_list_delete(spar.effectAlertList, 0);
-ds_list_destroy(effectedSprites);
+
+if (effectedSprites > 0) {
+	ds_list_destroy(effectedSprites);
+}

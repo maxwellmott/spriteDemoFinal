@@ -72,40 +72,18 @@ var i = 0;	repeat (SPRITES.HEIGHT)	{
 
 var teamSet = false;
 
-while !(teamSet) {
-	// randomize talismanList
-	randomize_list(talismanList);
 
-	// initialize teamString
-	teamString = "";
+// initialize teamString
+teamString = "";
 
-	// initialize teamList
-	teamList = ds_list_create();
+// initialize teamList
+teamList = ds_list_create();
 
-	// ONLY FOR TESTING
-	teamList[| 0] = talismanList[| 0];
-	teamList[| 1] = talismanList[| 1];
-	teamList[| 2] = talismanList[| 2];
-	teamList[| 3] = talismanList[| 3];
-
-	var newSpriteCount = 0;
-	
-	var i = 0;	repeat (4) {
-		var sid = teamList[| i];
-		
-		if (sid == SPRITES.NEW_SPRITE1)		newSpriteCount++;
-		if (sid == SPRITES.NEW_SPRITE2)		newSpriteCount++;
-		if (sid == SPRITES.NEW_SPRITE3)		newSpriteCount++;
-		if (sid == SPRITES.NEW_SPRITE4)		newSpriteCount++;
-		if (sid == SPRITES.NEW_SPRITE5)		newSpriteCount++;
-	
-		i++;
-	}
-	
-	if (newSpriteCount == 0) {
-		teamSet = true;	
-	}
-}
+// ONLY FOR TESTING
+teamList[| 0] = SPRITES.CAPNCLOPS;
+teamList[| 1] = SPRITES.JOE;
+teamList[| 2] = SPRITES.OMNOST;
+teamList[| 3] = SPRITES.FLOOPWALKER;
 
 // for testing purposes only
 teamString = encode_list(teamList);
@@ -136,9 +114,6 @@ var i = 0;	repeat (SPELLS.HEIGHT)	{
 	i++;
 }
 
-//randomize knownSpells
-randomize_list(knownSpells);
-
 // initialize spellBookString
 spellBookString = "";
 
@@ -146,14 +121,14 @@ spellBookString = "";
 spellBook = ds_list_create();
 
 // ONLY FOR TESTING
-spellBook[| 7] = knownSpells[| 7];
-spellBook[| 6] = knownSpells[| 6];
-spellBook[| 5] = knownSpells[| 5];
-spellBook[| 4] = knownSpells[| 4];
-spellBook[| 3] = knownSpells[| 3];
-spellBook[| 2] = knownSpells[| 2];
-spellBook[| 1] = knownSpells[| 1];
-spellBook[| 0] = knownSpells[| 0];
+spellBook[| 7] = 47;
+spellBook[| 6] = 46;
+spellBook[| 5] = 45;
+spellBook[| 4] = 44;
+spellBook[| 3] = 43;
+spellBook[| 2] = 42;
+spellBook[| 1] = 41;
+spellBook[| 0] = 40;
 
 spellBookString = encode_list(spellBook);
 

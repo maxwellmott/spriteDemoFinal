@@ -102,6 +102,23 @@ enum sparTypes {
 	height
 }
 
+function reset_all_stats(_spriteInstance) {
+	// store args in locals
+	var inst = _spriteInstance;
+	
+	// reset all stats
+	with (inst) {
+		currentPower		= basePower;
+		currentResistance	= baseResistance;
+		currentFire			= baseFire;
+		currentWater		= baseWater;
+		currentStorm		= baseStorm;
+		currentEarth		= baseEarth;
+		currentAgility		= baseAgility;
+		currentLuck			= baseLuck;
+	}
+}
+
 function spell_get_cost(_spellID) {
 	// store args in locals
 	var sid = _spellID;

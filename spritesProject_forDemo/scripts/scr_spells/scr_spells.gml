@@ -208,7 +208,7 @@ function fireball() {
 function holy_water() {
 	if !(dodgeSuccess) {
 		if (targetSprite.currentAlign == ALIGNMENTS.ASTRAL) {
-			damage = damage * 1.5;
+			damage = round(damage * 1.5);
 			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL, activeSprite);
 		}
 	}
@@ -304,16 +304,16 @@ function waterlog() {
 
 ///@desc SPELL FUNCTION: grants target and all nearby enemies the curse of the tree
 function air_pressure() {
-	var t = targetSprite.team;
+	var t = targetSprite;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ALLIES, targetSprite, MINDSETS.TREE_CURSE);
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE_CURSE);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, MINDSETS.IMP_CURSE);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ALLIES, t, MINDSETS.IMP_CURSE);
 }
 
 ///@desc SPELL FUNCTION: removes all curses and hindrances from caster's side of the field and 
 /// grants all the blessing of the tree
 function superbloom() {
-	var t = targetSprite.team;
+	var t = activeSprite.team;
 	
 	spar_effect_push_alert(SPAR_EFFECTS.CLEAR_TEAM_HINDRANCES, t);
 	spar_effect_push_alert(SPAR_EFFECTS.SHIFT_CURSE_TEAM, t);
@@ -475,7 +475,7 @@ function hikams_winter_spell() {
 	
 	spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
 	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_MP, t);
-	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.WARRIOR_BLESS);
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET_TEAM, t, MINDSETS.TREE_BLESS);
 }
 
 ///@desc SPELL FUNCTION: adopts the target's mindset. if curse, heal target team fully. If blessing, heal caster team fully
@@ -491,7 +491,7 @@ function osmosis() {
 			spar_effect_push_alert(SPAR_EFFECTS.COPY_MINDSET, c, t);
 		}
 		
-		spar_effect_push_alert(SPAR_EFFECTS.DRAIN_HEALTH, t, round(damage / 3));
+		spar_effect_push_alert(SPAR_EFFECTS.DRAIN_HEALTH, c.team, round(damage / 3));
 	}
 }
 
@@ -534,8 +534,7 @@ function shift_perspective() {
 				spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
 				spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t.team, a);
 			}
-			
-			if (m > MINDSETS.IMP_BLESS) {
+			else {
 				spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
 				spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, t.team, a);
 			}
@@ -566,7 +565,7 @@ function tremor() {
 	}
 	
 	var t = activeSprite.team;
-	var d = damage / 3;
+	var d = round(damage / 3);
 	
 	spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, t, d);
 }
@@ -591,9 +590,9 @@ function destructive_blow() {
 		var t = targetSprite;
 		var a = ALIGNMENTS.NATURAL;
 		
-		damage = damage * 1.5;
+		damage = round(damage * 1.5);
 		
-		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_MECHANICAL);
+		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_MECHANICAL, targetSprite);
 		spar_effect_push_alert(SPAR_EFFECTS.CHANGE_ALIGNMENT, t, a);
 	}
 }
@@ -607,9 +606,9 @@ function purifying_flame() {
 		var t = targetSprite;
 		var a = ALIGNMENTS.NATURAL;
 		
-		damage = damage * 1.5;
+		damage = round(damage * 1.5);
 		
-		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL);
+		spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE_ASTRAL, t);
 		spar_effect_push_alert(SPAR_EFFECTS.CHANGE_ALIGNMENT, t, a);
 	}
 }
@@ -642,7 +641,7 @@ function psychic_fissure() {
 	var c = activeSprite;
 	var t = targetSprite;
 	
-	var d = damage / 3;
+	var d = round(damage / 3);
 	
 	if !(dodgeSuccess) {
 		spar_effect_push_alert(SPAR_EFFECTS.PSYCHIC_ATTACK, c, t);
@@ -941,7 +940,7 @@ master_grid_add_spell(		SPELLS.TYPHOON,					textGrid[# 1, SPELLS.TYPHOON],					t
 master_grid_add_spell(		SPELLS.HEALING_LIGHT,			textGrid[# 1, SPELLS.HEALING_LIGHT],			textGrid[# 2, SPELLS.HEALING_LIGHT],			textGrid[# 3, SPELLS.HEALING_LIGHT],			SPELL_TYPES.TRICK,		0,		45,		ranges.onlySelf,			healing_light,			false);
 master_grid_add_spell(		SPELLS.RUBURS_WATER_CANNON,		textGrid[# 1, SPELLS.RUBURS_WATER_CANNON],		textGrid[# 2, SPELLS.RUBURS_WATER_CANNON],		textGrid[# 3, SPELLS.RUBURS_WATER_CANNON],		SPELL_TYPES.WATER,		120,	60,		ranges.nearestThreeSprites,	ruburs_water_cannon,	true);
 master_grid_add_spell(		SPELLS.RUBURS_GRAPPLE,			textGrid[# 1, SPELLS.RUBURS_GRAPPLE],			textGrid[# 2, SPELLS.RUBURS_GRAPPLE],			textGrid[# 3, SPELLS.RUBURS_GRAPPLE],			SPELL_TYPES.PHYSICAL,	80,		45,		ranges.nearestThreeSprites, ruburs_grapple,			true);
-master_grid_add_spell(		SPELLS.LUSIAS_HARVEST_SPELL,	textGrid[# 1, SPELLS.LUSIAS_HARVEST_SPELL],		textGrid[# 2, SPELLS.LUSIAS_HARVEST_SPELL],		textGrid[# 3, SPELLS.LUSIAS_HARVEST_SPELL],		SPELL_TYPES.EARTH,		0,		25,		ranges.onlySelf,			lusias_harvest_spell,	false);
+master_grid_add_spell(		SPELLS.LUSIAS_HARVEST_SPELL,	textGrid[# 1, SPELLS.LUSIAS_HARVEST_SPELL],		textGrid[# 2, SPELLS.LUSIAS_HARVEST_SPELL],		textGrid[# 3, SPELLS.LUSIAS_HARVEST_SPELL],		SPELL_TYPES.EARTH,		110,	40,		ranges.nearestThreeSprites,	lusias_harvest_spell,	false);
 master_grid_add_spell(		SPELLS.WATERLOG,				textGrid[# 1, SPELLS.WATERLOG],					textGrid[# 2, SPELLS.WATERLOG],					textGrid[# 3, SPELLS.WATERLOG],					SPELL_TYPES.WATER,		70,		35,		ranges.nearestFiveSprites,	waterlog,				false);
 master_grid_add_spell(		SPELLS.AIR_PRESSURE,			textGrid[# 1, SPELLS.AIR_PRESSURE],				textGrid[# 2, SPELLS.AIR_PRESSURE],				textGrid[# 3, SPELLS.AIR_PRESSURE],				SPELL_TYPES.STORM,		70,		35,		ranges.nearestFiveSprites,	air_pressure,			true);
 master_grid_add_spell(		SPELLS.SUPERBLOOM,				textGrid[# 1, SPELLS.SUPERBLOOM],				textGrid[# 2, SPELLS.SUPERBLOOM],				textGrid[# 3, SPELLS.SUPERBLOOM],				SPELL_TYPES.EARTH,		100,	50,		ranges.nearestThreeSprites,	superbloom,				true);
@@ -952,7 +951,7 @@ master_grid_add_spell(		SPELLS.STEAM_BATH,				textGrid[# 1, SPELLS.STEAM_BATH],	
 master_grid_add_spell(		SPELLS.UNDERTOW,				textGrid[# 1, SPELLS.UNDERTOW],					textGrid[# 2, SPELLS.UNDERTOW],					textGrid[# 3, SPELLS.UNDERTOW],					SPELL_TYPES.WATER,		100,	50,		ranges.nearestFiveSprites,	undertow,				false);
 master_grid_add_spell(		SPELLS.EMPATHIZE,				textGrid[# 1, SPELLS.EMPATHIZE],				textGrid[# 2, SPELLS.EMPATHIZE],				textGrid[# 3, SPELLS.EMPATHIZE],				SPELL_TYPES.TRICK,		0,		20,		ranges.anySprite,			empathize,				false);
 master_grid_add_spell(		SPELLS.HELLFIRE,				textGrid[# 1, SPELLS.HELLFIRE],					textGrid[# 2, SPELLS.HELLFIRE],					textGrid[# 3, SPELLS.HELLFIRE],					SPELL_TYPES.FIRE,		100,	50,		ranges.anySprite,			hellfire,				true);
-master_grid_add_spell(		SPELLS.BALL_LIGHTNING,			textGrid[# 1, SPELLS.BALL_LIGHTNING],			textGrid[# 2, SPELLS.BALL_LIGHTNING],			textGrid[# 3, SPELLS.BALL_LIGHTNING],			SPELL_TYPES.STORM,		80,		50,		ranges.nearestFiveSprites,	ball_lightning,			true);
+master_grid_add_spell(		SPELLS.BALL_LIGHTNING,			textGrid[# 1, SPELLS.BALL_LIGHTNING],			textGrid[# 2, SPELLS.BALL_LIGHTNING],			textGrid[# 3, SPELLS.BALL_LIGHTNING],			SPELL_TYPES.STORM,		0,		50,		ranges.nearestFiveSprites,	ball_lightning,			true);
 master_grid_add_spell(		SPELLS.QUICKSAND,				textGrid[# 1, SPELLS.QUICKSAND],				textGrid[# 2, SPELLS.QUICKSAND],				textGrid[# 3, SPELLS.QUICKSAND],				SPELL_TYPES.EARTH,		70,		40,		ranges.anySprite,			quicksand,				false);
 master_grid_add_spell(		SPELLS.LORD_MOGRADTHS_RAGE,		textGrid[# 1, SPELLS.LORD_MOGRADTHS_RAGE],		textGrid[# 2, SPELLS.LORD_MOGRADTHS_RAGE],		textGrid[# 3, SPELLS.LORD_MOGRADTHS_RAGE],		SPELL_TYPES.TRICK,		0,		50,		ranges.nearestFiveSprites,	lord_mogradths_rage,	false);
 master_grid_add_spell(		SPELLS.DRAIN_LIFEFORCE,			textGrid[# 1, SPELLS.DRAIN_LIFEFORCE],			textGrid[# 2, SPELLS.DRAIN_LIFEFORCE],			textGrid[# 3, SPELLS.DRAIN_LIFEFORCE],			SPELL_TYPES.PHYSICAL,	90,		40,		ranges.nearestFiveSprites,	drain_lifeforce,		true);
@@ -965,15 +964,15 @@ master_grid_add_spell(		SPELLS.FLASH_FREEZE,			textGrid[# 1, SPELLS.FLASH_FREEZE
 master_grid_add_spell(		SPELLS.LANDSLIDE,				textGrid[# 1, SPELLS.LANDSLIDE],				textGrid[# 2, SPELLS.LANDSLIDE],				textGrid[# 3, SPELLS.LANDSLIDE],				SPELL_TYPES.EARTH,		110,	50,		ranges.nearestFiveSprites,	landslide,				true);
 master_grid_add_spell(		SPELLS.AMANDS_ENERGY_BLAST,		textGrid[# 1, SPELLS.AMANDS_ENERGY_BLAST],		textGrid[# 2, SPELLS.AMANDS_ENERGY_BLAST],		textGrid[# 3, SPELLS.AMANDS_ENERGY_BLAST],		SPELL_TYPES.TRICK,		0,		40,		ranges.nearestThreeSprites,	amands_energy_blast,	true);
 master_grid_add_spell(		SPELLS.SHIFT_PERSPECTIVE,		textGrid[# 1, SPELLS.SHIFT_PERSPECTIVE],		textGrid[# 2, SPELLS.SHIFT_PERSPECTIVE],		textGrid[# 3, SPELLS.SHIFT_PERSPECTIVE],		SPELL_TYPES.TRICK,		0,		35,		ranges.anySprite,			shift_perspective,		false);
-master_grid_add_spell(		SPELLS.PSYCHIC_IMPACT,			textGrid[# 1, SPELLS.PSYCHIC_IMPACT],			textGrid[# 2, SPELLS.PSYCHIC_IMPACT],			textGrid[# 3, SPELLS.PSYCHIC_IMPACT],			SPELL_TYPES.TRICK,		90,		40,		ranges.anySprite,			psychic_impact,			false);
+master_grid_add_spell(		SPELLS.PSYCHIC_IMPACT,			textGrid[# 1, SPELLS.PSYCHIC_IMPACT],			textGrid[# 2, SPELLS.PSYCHIC_IMPACT],			textGrid[# 3, SPELLS.PSYCHIC_IMPACT],			SPELL_TYPES.TRICK,		75,		50,		ranges.anySprite,			psychic_impact,			false);
 master_grid_add_spell(		SPELLS.TREMOR,					textGrid[# 1, SPELLS.TREMOR],					textGrid[# 2, SPELLS.TREMOR],					textGrid[# 3, SPELLS.TREMOR],					SPELL_TYPES.EARTH,		120,	60,		ranges.nearestThreeSprites,	tremor,					false);
-master_grid_add_spell(		SPELLS.SKYDIVE,					textGrid[# 1, SPELLS.SKYDIVE],					textGrid[# 2, SPELLS.SKYDIVE],					textGrid[# 3, SPELLS.SKYDIVE],					SPELL_TYPES.PHYSICAL,	120,	50,		ranges.nearestThreeSprites,	skydive,				false);
+master_grid_add_spell(		SPELLS.SKYDIVE,					textGrid[# 1, SPELLS.SKYDIVE],					textGrid[# 2, SPELLS.SKYDIVE],					textGrid[# 3, SPELLS.SKYDIVE],					SPELL_TYPES.PHYSICAL,	0,	50,		ranges.nearestThreeSprites,	skydive,				false);
 master_grid_add_spell(		SPELLS.DESTRUCTIVE_BLOW,		textGrid[# 1, SPELLS.DESTRUCTIVE_BLOW],			textGrid[# 2, SPELLS.DESTRUCTIVE_BLOW],			textGrid[# 3, SPELLS.DESTRUCTIVE_BLOW],			SPELL_TYPES.PHYSICAL,	100,	40,		ranges.nearestThreeSprites,	destructive_blow,		true);
 master_grid_add_spell(		SPELLS.PURIFYING_FLAME,			textGrid[# 1, SPELLS.PURIFYING_FLAME],			textGrid[# 2, SPELLS.PURIFYING_FLAME],			textGrid[# 3, SPELLS.PURIFYING_FLAME],			SPELL_TYPES.FIRE,		100,	40,		ranges.nearestFiveSprites,	purifying_flame,		true);
 master_grid_add_spell(		SPELLS.JABULS_FIGHT_SONG,		textGrid[# 1, SPELLS.JABULS_FIGHT_SONG],		textGrid[# 2, SPELLS.JABULS_FIGHT_SONG],		textGrid[# 3, SPELLS.JABULS_FIGHT_SONG],		SPELL_TYPES.TRICK,		0,		35,		ranges.onlySelf,			jabuls_fight_song,		false);
 master_grid_add_spell(		SPELLS.NOXIOUS_FUMES,			textGrid[# 1, SPELLS.NOXIOUS_FUMES],			textGrid[# 2, SPELLS.NOXIOUS_FUMES],			textGrid[# 3, SPELLS.NOXIOUS_FUMES],			SPELL_TYPES.FIRE,		75,		40,		ranges.nearestFiveSprites,	noxious_fumes,			false);
 master_grid_add_spell(		SPELLS.CRECIAS_CRYSTAL_SPIKES,	textGrid[# 1, SPELLS.CRECIAS_CRYSTAL_SPIKES],	textGrid[# 2, SPELLS.CRECIAS_CRYSTAL_SPIKES],	textGrid[# 3, SPELLS.CRECIAS_CRYSTAL_SPIKES],	SPELL_TYPES.EARTH,		120,	65,		ranges.nearestThreeSprites,	crecias_crystal_spikes,	false);
-master_grid_add_spell(		SPELLS.PSYCHIC_FISSURE,			textGrid[# 1, SPELLS.PSYCHIC_FISSURE],			textGrid[# 2, SPELLS.PSYCHIC_FISSURE],			textGrid[# 3, SPELLS.PSYCHIC_FISSURE],			SPELL_TYPES.TRICK,		130,	60,		ranges.anySprite,			psychic_fissure,		true);
+master_grid_add_spell(		SPELLS.PSYCHIC_FISSURE,			textGrid[# 1, SPELLS.PSYCHIC_FISSURE],			textGrid[# 2, SPELLS.PSYCHIC_FISSURE],			textGrid[# 3, SPELLS.PSYCHIC_FISSURE],			SPELL_TYPES.TRICK,		125,	70,		ranges.anySprite,			psychic_fissure,		true);
 master_grid_add_spell(		SPELLS.REARRANGE,				textGrid[# 1, SPELLS.REARRANGE],				textGrid[# 2, SPELLS.REARRANGE],				textGrid[# 3, SPELLS.REARRANGE],				SPELL_TYPES.TRICK,		0,		40,		ranges.nearestThreeSprites,	rearrange,				true);
 master_grid_add_spell(		SPELLS.SNEAK_ATTACK,			textGrid[# 1, SPELLS.SNEAK_ATTACK],				textGrid[# 2, SPELLS.SNEAK_ATTACK],				textGrid[# 3, SPELLS.SNEAK_ATTACK],				SPELL_TYPES.PHYSICAL,	120,	50,		ranges.nearestFiveSprites,	sneak_attack,			false);
 master_grid_add_spell(		SPELLS.DEFLECTIVE_SHIELD,		textGrid[# 1, SPELLS.DEFLECTIVE_SHIELD],		textGrid[# 2, SPELLS.DEFLECTIVE_SHIELD],		textGrid[# 3, SPELLS.DEFLECTIVE_SHIELD],		SPELL_TYPES.TRICK,		0,		50,		ranges.onlySelf,			deflective_shield,		false);

@@ -14,7 +14,10 @@
     "name":"turn processors",
     "path":"folders/Objects/spars/turn processors.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"processorParent",
+    "path":"objects/processorParent/processorParent.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

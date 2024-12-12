@@ -667,3 +667,7 @@ COMING BACK FROM PLAYTEST BUILD
 			-test
 			-rework each chunk of code for each sprite on mercurio's team so that they can be used as portable functions to select the turns of any sprites of that archetype
 			
+	12/12
+	
+			- almost done testing each spell, then I will test each ability and return to enemy ai while I also finish the overworld and complete playtesting
+			

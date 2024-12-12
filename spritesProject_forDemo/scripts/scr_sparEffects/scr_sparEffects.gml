@@ -381,35 +381,50 @@ enum SPAR_EFFECT_PARAMS {
 function arena_change_volcano() {
 	if (spar.currentArena != ARENAS.VOLCANO) {
 		spar.currentArena = ARENAS.VOLCANO;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: sets the current ARENA to OCEAN
 function arena_change_ocean() {
 	if (spar.currentArena != ARENAS.OCEAN) {
 		spar.currentArena = ARENAS.OCEAN;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: sets the current ARENA to STRATOS
 function arena_change_clouds() {
 	if (spar.currentArena != ARENAS.CLOUDS) {
 		spar.currentArena = ARENAS.CLOUDS;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: sets the current ARENA to FOREST
 function arena_change_forest() {
 	if (spar.currentArena != ARENAS.FOREST) {
 		spar.currentArena = ARENAS.FOREST;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: sets the current ARENA to NORMAL
 function arena_change_normal() {
 	if (spar.currentArena != -1) {
 		spar.currentArena = -1;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: sets MIASMA to true for targetPlayer
@@ -420,7 +435,10 @@ function set_miasma(_targetPlayer) {
 		effectedPlayer = t;
 		subject = t.name;
 		t.miasma = true;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: sets HUM to true for targetPlayer
@@ -431,7 +449,10 @@ function set_hum(_targetPlayer) {
 		effectedPlayer = t;
 		subject = t.name;
 		t.hum = true;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: sets RUST to true for targetPlayer
@@ -442,7 +463,10 @@ function set_rust(_targetPlayer) {
 		effectedPlayer = t;
 		subject = t.name;
 		t.rust = true;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: applies damage from an ENERGY BLAST to targetPlayer
@@ -466,7 +490,10 @@ function bestow_mindset(_target, _mindset) {
 		subject = t.name;
 		object = get_mindset_name(m);
 		t.mindset = m;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);
+	}
 }
 
 ///@desc SPAR EFFECT: shifts the target's MINDSET from BLESSING to CURSE or vice versa
@@ -476,8 +503,32 @@ function shift_mindset(_target) {
 	if (t.mindset != 0) {
 		ds_list_add(effectedSprites, t);
 		subject = t.name;
-		t.mindset = t.mindset * -1;	
-	}	else	instance_destroy(id);
+		
+		// initialize new mindset
+		var nm = 0;
+		
+		// check if the mindset is a curse
+		if (t.mindset > MINDSETS.IMP_BLESS) {
+			// set the new mindset
+			nm = t.mindset - 4;
+		}
+		// if the mindset is a blessing
+		else {
+			if (t.mindset > MINDSETS.NORMAL) {
+				// set the new mindset
+				nm = t.mindset + 4;
+			}
+		}
+		
+		// check if new mindset was set
+		if (nm > 0) {
+			t.mindset = nm;	
+		}
+		
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: the caster copies the target's MINDSET
@@ -489,7 +540,10 @@ function copy_mindset(_caster, _target) {
 		ds_list_add(effectedSprites, c, t);
 		subject = t.name;
 		c.mindset = t.mindset;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: the targetPlayer restores the given amount of MP
@@ -573,9 +627,18 @@ function set_bound(_target) {
 				subject = t.name;
 				t.bound = true;
 				t.boundCounter = 1;
-			}	else	instance_destroy(id);
-		}	else	instance_destroy(id);
-	}	else	instance_destroy(id);	
+			}	else	{
+				ds_list_destroy(effectedSprites);
+				instance_destroy(id);	
+			}
+		}	else	{
+			ds_list_destroy(effectedSprites);
+			instance_destroy(id);	
+		}
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: sets HEXED to true for the target sprite
@@ -588,9 +651,18 @@ function set_hexed(_target) {
 				subject = t.name;
 				t.hexed = true;
 				t.hexedCounter = 1;
-			}	else	instance_destroy(id);
-		}	else	instance_destroy(id);
-	}	else	instance_destroy(id);
+			}	else	{
+				ds_list_destroy(effectedSprites);
+				instance_destroy(id);	
+			}
+		}	else	{
+			ds_list_destroy(effectedSprites);
+			instance_destroy(id);	
+		}
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: sets BOUND to false for the target sprite
@@ -602,7 +674,10 @@ function remove_bound(_target) {
 		subject = t.name;
 		t.bound = false;
 		t.boundCounter = 0;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: sets HEXED to false for the target sprite
@@ -614,7 +689,7 @@ function remove_hexed(_target) {
 		subject = t.name;
 		t.hexed  = false;
 		t.hexedCounter = 0;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: sets MIASMA to false for the targetPlayer
@@ -625,7 +700,11 @@ function clear_miasma(_targetPlayer) {
 		effectedPlayer = t;
 		subject = t.name;
 		t.miasma = false;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		effectedSprites = -1;
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: sets HUM to false for the targetPlayer
@@ -636,7 +715,11 @@ function clear_hum(_targetPlayer) {
 		effectedPlayer = t;
 		subject = t.name;
 		t.hum = false;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		effectedSprites = -1;
+		instance_destroy(id);	
+	}
 }
 
 ///@desc SPAR EFFECT: sets RUST to false for the targetPlayer
@@ -647,7 +730,11 @@ function clear_rust(_targetPlayer) {
 		effectedPlayer = t;
 		subject = t.name;
 		t.rust = false;
-	}	else	instance_destroy(id);
+	}	else {
+		ds_list_destroy(effectedSprites);
+		effectedSprites = -1;
+		instance_destroy(id);
+	}
 }
 
 ///@desc SPAR EFFECT: removes the MINDSET of the target by setting it to 0
@@ -658,7 +745,11 @@ function clear_mindset(_target) {
 		ds_list_add(effectedSprites, t);
 		subject = t.name;
 		t.mindset = 0;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		effectedSprites = -1;
+		instance_destroy(id);	
+	}
 }
 	
 ///@desc SPAR EFFECT: fully restores targetPlayer's HP
@@ -670,6 +761,8 @@ function fully_restore_hp(_targetPlayer) {
 		subject = t.name;
 		t.currentHP = MAX_HP;
 	}	else	{	
+		ds_list_destroy(effectedSprites);
+		effectedSprites = -1;
 		instance_destroy(id);	
 	}
 }
@@ -682,7 +775,11 @@ function fully_restore_mp(_targetPlayer) {
 		effectedPlayer = t;
 		subject = t.name;
 		t.currentMP = MAX_MP;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		effectedSprites = -1;
+		instance_destroy(id);	
+	}
 }
 	
 ///@desc SPAR EFFECT: adds a new SKYDIVE to the grid
@@ -693,7 +790,9 @@ function grid_add_skydive(_caster, _target) {
 	ds_list_add(effectedSprites, c);
 	subject = c.name;
 	
-	c.invulnerable = true;
+	c.invulnerable		= true;
+	c.invulnerableCount = INVULNERABLE_COUNT_MAX;
+	c.flying			= true;
 	
 	// resize grid
 	ds_grid_resize(spar.skydiveGrid, 2, spar.skydiveCount + 1);
@@ -745,6 +844,9 @@ function grid_add_timed_blast(_counter, _power, _targetPlayer) {
 	// add the params of the blast to the blast grid
 	var count = spar.blastCount;
 	
+	// resize the timed blast grid
+	ds_grid_resize(spar.timedBlastGrid, 3, count + 1);
+	
 	spar.timedBlastGrid[# 0, count] = c;
 	spar.timedBlastGrid[# 1, count] = p;
 	spar.timedBlastGrid[# 2, count] = t;
@@ -767,7 +869,11 @@ function clear_team_hindrances(_team) {
 		t.miasma = false;
 		t.hum = false;
 		t.rust = false;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		effectedSprites = -1;
+		instance_destroy(id);
+	}
 }
 
 ///@desc SPAR EFFECT: clears all hindrances on both sides of the field
@@ -784,7 +890,11 @@ function clear_all_hindrances() {
 		t2.miasma = false;
 		t2.hum = false;
 		t2.rust = false;
-	}	else	instance_destroy(id);
+	}	else	{
+		ds_list_destroy(effectedSprites);
+		effectedSprites = -1;
+		instance_destroy(id);
+	}
 }
 
 ///@desc SPAR EFFECT: triggers a TIMED BLAST whose timer is up
@@ -817,13 +927,17 @@ function blast_timer_go_off(_blastNum) {
 	}
 	
 	// resize the timedBlast grid
-	ds_grid_resize(spar.timedBlastGrid, 3, spar.blastCount);
+	ds_grid_remove_row(spar.timedBlastGrid, n);
 }
 
 ///@desc SPAR EFFECT: drops the counter for each blast timer down one tick
 function blast_timers_decrement_count() {
 	var i = 0;	repeat (spar.blastCount) {
 		spar.timedBlastGrid[# 0, i] -= 1;
+		
+		if (spar.timedBlastGrid[# 0, i] <= 0) {
+			spar_effect_push_alert(SPAR_EFFECTS.BLAST_TIMER_GO_OFF, i);
+		}
 		
 		i++;
 	}
@@ -1266,7 +1380,7 @@ function set_miasma_global() {
 		effectedPlayer = BOTH_PLAYERS_EFFECTED;
 		spar.playerOne.miasma = true;
 		spar.playerTwo.miasma = true;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: sets HUM on both sides of the field
@@ -1276,7 +1390,7 @@ function set_hum_global() {
 		effectedPlayer = BOTH_PLAYERS_EFFECTED;
 		spar.playerOne.hum = true;
 		spar.playerTwo.hum = true;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: sets RUST on both sides of the field
@@ -1286,7 +1400,7 @@ function set_rust_global() {
 		effectedPlayer = BOTH_PLAYERS_EFFECTED;
 		spar.playerOne.rust = true;
 		spar.playerTwo.rust = true;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: clears MIASMA from both sides of the field
@@ -1296,7 +1410,7 @@ function clear_miasma_global() {
 		effectedPlayer = BOTH_PLAYERS_EFFECTED;
 		spar.playerOne.miasma = false;
 		spar.playerTwo.miasma = false;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: clears HUM from both sides of the field
@@ -1316,7 +1430,7 @@ function clear_rust_global() {
 		effectedPlayer = BOTH_PLAYERS_EFFECTED;
 		spar.playerOne.rust = false;
 		spar.playerTwo.rust = false;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: clears the MINDSET of any nearby allies
@@ -1621,9 +1735,25 @@ function shift_mindset_nearby_allies(_target) {
 	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
 		var inst = t.nearbyAllies[| i];
 		
-		if (inst.mindset != 0) {
-			ds_list_add(effectedSprites, inst);
-			inst.mindset = inst.mindset * -1;
+		// initialize new mindset
+		var nm = -1;
+		
+		// check if the mindset is a curse
+		if (inst.mindset > MINDSETS.IMP_BLESS) {
+			// set the new mindset
+			nm = inst.mindset - 4;
+		}
+		// if the mindset is a blessing
+		else {
+			if (inst.mindset > MINDSETS.NORMAL) {
+				// set the new mindset
+				nm = inst.mindset + 4;
+			}
+		}
+		
+		// check if new mindset was set
+		if (nm > 0) {
+			inst.mindset = nm;	
 		}
 		
 		i++;
@@ -1647,9 +1777,25 @@ function shift_mindset_nearby_enemies(_target) {
 	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
 		var inst = t.nearbyEnemies[| i];
 		
-		if (inst.mindset != 0) {
-			ds_list_add(effectedSprites, inst);
-			inst.mindset = inst.mindset * -1;
+		// initialize new mindset
+		var nm = -1;
+		
+		// check if the mindset is a curse
+		if (inst.mindset > MINDSETS.IMP_BLESS) {
+			// set the new mindset
+			nm = inst.mindset - 4;
+		}
+		// if the mindset is a blessing
+		else {
+			if (inst.mindset > MINDSETS.NORMAL) {
+				// set the new mindset
+				nm = inst.mindset + 4;
+			}
+		}
+		
+		// check if new mindset was set
+		if (nm > 0) {
+			inst.mindset = nm;	
 		}
 		
 		i++;
@@ -1657,6 +1803,8 @@ function shift_mindset_nearby_enemies(_target) {
 	
 	// if no sprites were effected, destroy spar effect alert
 	if (ds_list_size(effectedSprites <= 0)) {
+		ds_list_destroy(effectedSprites);
+		effectedSprites = -1;
 		instance_destroy(id);
 	}
 }
@@ -1673,9 +1821,25 @@ function shift_mindset_nearby_sprites(_target) {
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
 		var inst = t.nearbySprites[| i];
 		
-		if (inst.mindset != 0) {
-			ds_list_add(effectedSprites, inst);
-			inst.mindset = inst.mindset * -1;
+		// initialize new mindset
+		var nm = -1;
+		
+		// check if the mindset is a curse
+		if (inst.mindset > MINDSETS.IMP_BLESS) {
+			// set the new mindset
+			nm = inst.mindset - 4;
+		}
+		// if the mindset is a blessing
+		else {
+			if (inst.mindset > MINDSETS.NORMAL) {
+				// set the new mindset
+				nm = inst.mindset + 4;
+			}
+		}
+		
+		// check if new mindset was set
+		if (nm > 0) {
+			inst.mindset = nm;	
 		}
 		
 		i++;
@@ -1703,11 +1867,27 @@ function shift_mindset_team(_targetPlayer) {
 	var i = 0;	repeat (ds_list_size(list)) {
 		var inst = list[| i];
 		
-		if (inst.mindset != 0) {
-			ds_list_add(effectedSprites, inst);
-			inst.mindset = inst.mindset * -1;
+		// initialize new mindset
+		var nm = -1;
+		
+		// check if the mindset is a curse
+		if (inst.mindset > MINDSETS.IMP_BLESS) {
+			// set the new mindset
+			nm = inst.mindset - 4;
+		}
+		// if the mindset is a blessing
+		else {
+			if (inst.mindset > MINDSETS.NORMAL) {
+				// set the new mindset
+				nm = inst.mindset + 4;
+			}
 		}
 		
+		// check if new mindset was set
+		if (nm > 0) {
+			inst.mindset = nm;	
+		}
+
 		i++;
 	}
 	
@@ -1730,9 +1910,25 @@ function shift_mindset_global() {
 		var j = 0;	repeat (ds_list_size(list)) {
 			var inst = list[| j];
 			
-			if (inst.mindset != 0) {
-				ds_list_add(effectedSprites, inst);
-				inst.mindset = inst.mindset * -1;
+			// initialize new mindset
+			var nm = -1;
+			
+			// check if the mindset is a curse
+			if (inst.mindset > MINDSETS.IMP_BLESS) {
+				// set the new mindset
+				nm = inst.mindset - 4;
+			}
+			// if the mindset is a blessing
+			else {
+				if (inst.mindset > MINDSETS.NORMAL) {
+					// set the new mindset
+					nm = inst.mindset + 4;
+				}
+			}
+			
+			// check if new mindset was set
+			if (nm > 0) {
+				inst.mindset = nm;	
 			}
 			
 			j++;
@@ -1754,9 +1950,13 @@ function shift_curse(_target) {
 	ds_list_add(effectedSprites, t);
 	subject = t.name;
 	
-	if (t.mindset < 0) {
-		t.mindset = t.mindset * -1;
-	}	else	instance_destroy(id);
+	// check if the mindset is a curse
+	if (t.mindset > MINDSETS.IMP_BLESS) {
+		// shift the mindset to a blessing
+		t.mindset -= 4;
+	}	else	{
+		instance_destroy(id);
+	}
 }
 
 ///@desc SPAR EFFECT: shifts BLESSING to CURSE for target
@@ -1766,9 +1966,12 @@ function shift_blessing(_target) {
 	ds_list_add(effectedSprites, t);
 	subject = t.name;
 	
-	if (t.mindset > 0) {
-		t.mindset = t.mindset * -1;	
-	}	else	instance_destroy(id);
+	// check if the mindset is a blessing
+	if (t.mindset > MINDSETS.NORMAL) 
+	&& (t.mindset < MINDSETS.TREE_CURSE) {
+		// shift the mindset to a curse
+		t.mindset += 4;
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: shifts CURSE to BLESSING for target's nearby allies
@@ -1783,9 +1986,13 @@ function shift_curse_nearby_allies(_target) {
 	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
 		var inst = t.nearbyAllies[| i];
 		
-		if (inst.mindset < 0) {
+		// check if the mindset is a curse
+		if (t.mindset > MINDSETS.IMP_BLESS) {
+			// add this sprite to the effected sprites list
 			ds_list_add(effectedSprites, inst);
-			inst.mindset = inst.mindset * -1;
+			
+			// shift the mindset to a blessing
+			t.mindset -= 4;
 		}
 		
 		i++;
@@ -1809,9 +2016,13 @@ function shift_curse_nearby_enemies(_target) {
 	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
 		var inst = t.nearbyEnemies[| i];
 		
-		if (inst.mindset < 0) {
+		// check if the mindset is a curse
+		if (t.mindset > MINDSETS.IMP_BLESS) {
+			// add this sprite to the effected sprites list
 			ds_list_add(effectedSprites, inst);
-			inst.mindset = inst.mindset * -1;
+			
+			// shift the mindset to a blessing
+			t.mindset -= 4;
 		}
 		
 		i++;
@@ -1835,9 +2046,13 @@ function shift_curse_nearby_sprites(_target) {
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
 		var inst = t.nearbySprites[| i];
 		
-		if (inst.mindset < 0) {
+		// check if the mindset is a curse
+		if (t.mindset > MINDSETS.IMP_BLESS) {
+			// add this sprite to the effected sprites list
 			ds_list_add(effectedSprites, inst);
-			inst.mindset = inst.mindset * -1;
+			
+			// shift the mindset to a blessing
+			t.mindset -= 4;
 		}
 		
 		i++;
@@ -1865,9 +2080,13 @@ function shift_curse_team(_targetPlayer) {
 	var i = 0;	repeat (ds_list_size(list)) {
 		var inst = list[| i];
 		
-		if (inst.mindset < 0) {
+		// check if the mindset is a curse
+		if (inst.mindset > MINDSETS.IMP_BLESS) {
+			// add this sprite to the effected sprites list
 			ds_list_add(effectedSprites, inst);
-			inst.mindset = inst.mindset * -1;
+			
+			// shift the mindset to a blessing
+			inst.mindset -= 4;
 		}
 		
 		i++;
@@ -1892,9 +2111,13 @@ function shift_curse_global() {
 		var j = 0;	repeat (ds_list_size(list)) {
 			var inst = list[| j];
 			
-			if (inst.mindset < 0) {
+			// check if the mindset is a curse
+			if (inst.mindset > MINDSETS.IMP_BLESS) {
+				// add this sprite to the effected sprites list
 				ds_list_add(effectedSprites, inst);
-				inst.mindset = inst.mindset * -1;
+				
+				// shift the mindset to a blessing
+				inst.mindset -= 4;
 			}
 			
 			j++;
@@ -1921,9 +2144,14 @@ function shift_blessing_nearby_allies(_target) {
 	var i = 0;	repeat (ds_list_size(t.nearbyAllies)) {
 		var inst = t.nearbyAllies[| i];
 		
-		if (inst.mindset > 0) {
+		// check if the mindset is a blessing
+		if (inst.mindset > MINDSETS.NORMAL) 
+		&& (inst.mindset < MINDSETS.TREE_CURSE) {
+			// add this sprite to the effected sprites list
 			ds_list_add(effectedSprites, inst);
-			inst.mindset = inst.mindset * -1;
+			
+			// shift the mindset to a curse
+			inst.mindset += 4;
 		}
 		
 		i++;
@@ -1947,9 +2175,14 @@ function shift_blessing_nearby_enemies(_target) {
 	var i = 0;	repeat (ds_list_size(t.nearbyEnemies)) {
 		var inst = t.nearbyEnemies[| i];
 		
-		if (inst.mindset > 0) {
+		// check if the mindset is a blessing
+		if (inst.mindset > MINDSETS.NORMAL) 
+		&& (inst.mindset < MINDSETS.TREE_CURSE) {
+			// add this sprite to the effected sprites list
 			ds_list_add(effectedSprites, inst);
-			inst.mindset = inst.mindset * -1;
+			
+			// shift the mindset to a curse
+			inst.mindset += 4;
 		}
 		
 		i++;
@@ -1973,9 +2206,14 @@ function shift_blessing_nearby_sprites(_target) {
 	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
 		var inst = t.nearbySprites[| i];
 		
-		if (inst.mindset > 0) {
+		// check if the mindset is a blessing
+		if (inst.mindset > MINDSETS.NORMAL) 
+		&& (inst.mindset < MINDSETS.TREE_CURSE) {
+			// add this sprite to the effected sprites list
 			ds_list_add(effectedSprites, inst);
-			inst.mindset = inst.mindset * -1;
+			
+			// shift the mindset to a curse
+			inst.mindset += 4;
 		}
 		
 		i++;
@@ -2003,9 +2241,14 @@ function shift_blessing_team(_targetPlayer) {
 	var i = 0;	repeat (ds_list_size(list)) {
 		var inst = list[| i];
 		
-		if (inst.mindset > 0) {
+		// check if the mindset is a blessing
+		if (inst.mindset > MINDSETS.NORMAL) 
+		&& (inst.mindset < MINDSETS.TREE_CURSE) {
+			// add this sprite to the effected sprites list
 			ds_list_add(effectedSprites, inst);
-			inst.mindset = inst.mindset * -1;
+			
+			// shift the mindset to a curse
+			inst.mindset += 4;
 		}
 		
 		i++;
@@ -2030,9 +2273,14 @@ function shift_blessing_global() {
 		var j = 0;	repeat (ds_list_size(list)) {
 			var inst = list[| j];
 			
-			if (inst.mindset > 0) {
+			// check if the mindset is a blessing
+			if (inst.mindset > MINDSETS.NORMAL) 
+			&& (inst.mindset < MINDSETS.TREE_CURSE) {
+				// add this sprite to the effected sprites list
 				ds_list_add(effectedSprites, inst);
-				inst.mindset = inst.mindset * -1;
+				
+				// shift the mindset to a curse
+				inst.mindset += 4;
 			}
 			
 			j++;
@@ -2314,7 +2562,7 @@ function set_bound_team(_targetPlayer) {
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
-	var i = 0;	repeat (ds_list_size(list[|i])) {
+	var i = 0;	repeat (ds_list_size(list)) {
 		var inst = list[| i];
 		
 		if !(inst.bound) {
@@ -2517,7 +2765,7 @@ function forest_earth_increase_damage() {
 function destroy_arena() {
 	if (spar.currentArena != -1) {
 		spar.currentArena = -1;	
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: this is simply a "restore health" function but the verbiage is
@@ -2564,7 +2812,7 @@ function replace_target(_caster, _target) {
 		var _ID = spar.turnGrid[# SELECTION_PHASES.TARGET, i];
 		
 		if (_ID == t.spotNum) {
-			spar.turnGrid[# SELECTION_PHASES.TARGET, i] = c.spotNum;	
+			spar.turnGrid[# SELECTION_PHASES.TARGET, i] = c.spotNum;
 		}
 		
 		i++;
@@ -2588,6 +2836,8 @@ function ball_lightning_set_active(_caster, _target) {
 function ball_lightning_absorb_spell(_blSprite) {
 	var c = _blSprite;
 	
+	instance_destroy(sparActionProcessor);
+	
 	ds_list_add(effectedSprites, c);
 	subject = c.name;
 	
@@ -2603,6 +2853,8 @@ function ball_lightning_apply_damage(_atkr, _targ, _spellPower) {
 	ds_list_add(effectedSprites, t);
 	subject = c.name;
 	object = t.name;
+	
+	c.ballLightningActive = false;
 	
 	// calculate damage
 	var d = get_elemental_damage(t, c, elements.storm, sp);
@@ -2910,7 +3162,7 @@ function set_invulnerable(_target) {
 		
 		t.invulnerable = true;
 		t.invulnerableCounter = 1;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: set INVULNERABLE to true for all the target's nearby allies
@@ -3139,7 +3391,7 @@ function set_dividing(_targetSprite, _coefficient) {
 	&& !(t.multiplying) {
 		t.dividing = true;
 		t.coefficient = a;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: sets MULTIPLYING to true for the target sprite
@@ -3155,7 +3407,7 @@ function set_multiplying(_targetSprite, _coefficient) {
 	&& !(t.multiplying) {
 		t.multiplying = true;
 		t.coefficient = a;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: this effect is simply a means of notifying the player
@@ -3190,7 +3442,7 @@ function set_deflective(_caster) {
 	
 	if !(c.deflective) {
 		c.deflective = true;	
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: apply boosted elemental damage
@@ -3256,7 +3508,7 @@ function change_alignment(_target, _newAlignment) {
 		ds_list_add(effectedSprites, t);
 		subject = t.name;
 		t.currentAlign = a;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: changes the target's size to the given size
@@ -3268,7 +3520,7 @@ function change_size(_target, _newSize) {
 		t.currentSize = s;	
 		ds_list_add(effectedSprites, t);
 		subject = t.name;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: this is just the energy blast function that is cast
@@ -3444,7 +3696,7 @@ function end_berserk(_target) {
 		subject = t.name;
 		t.berserk = false;
 		t.berserkCounter = 0;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc This function is simply an announcement that effects were ignored
@@ -3607,7 +3859,7 @@ function end_invulnerable(_target) {
 		subject = t.name;
 		t.invulnerable = false;	
 		t.invulnerableCounter = 0;
-	}	else	instance_destroy(id);
+	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: sets INVULNERABLE to false for all target's nearby allies
@@ -3756,6 +4008,8 @@ function end_invulnerable_global() {
 function restore_alignment(_inst) {
 	var inst = _inst;
 	
+	subject = inst.name;
+	
 	inst.currentAlign = inst.baseAlign;
 }
 
@@ -3788,6 +4042,9 @@ function skydive_apply_damage(_atkr, _targ) {
 	}
 	// if target is invulnerable, apply invulnerable
 	else	spar_effect_push_alert(SPAR_EFFECTS.APPLY_INVULNERABLE, targ);
+	
+	atkr.flying = false;
+	atkr.invulnerable = false;
 }
 
 ///@desc SPAR EFFECT: applies the damage from a sneak attack

@@ -68,19 +68,6 @@ function spar_check_timed_blasts() {
 	
 	// check if blastCount is at least 1
 	if (blastCount > 0) {
-		// use a repeat loop to check each entry on the grid
-		var i = 0;	repeat (h) {
-			// get all columns of the current row
-			var timr = timedBlastGrid[# 0, i];
-			
-			// check if time is up
-			if (timr == 0) {
-				spar_effect_push_alert(SPAR_EFFECTS.BLAST_TIMER_GO_OFF, i);
-			}
-			
-			// increment i
-			i++;
-		}
 		// push an alert to decrement the count of all blasts
 		spar_effect_push_alert(SPAR_EFFECTS.BLAST_TIMERS_DECREMENT_COUNT);	
 	}
@@ -332,37 +319,56 @@ function sprite_check_mindset() {
 	if (mindset != MINDSETS.NORMAL) {
 		switch (mindset) {
 			case MINDSETS.IMP_CURSE:
+				reset_all_stats(id);
+			
 				currentResistance = round(baseResistance * 0.67);
 			break;
 			
 			case MINDSETS.MOTHER_CURSE:
+				reset_all_stats(id);
+			
 				currentPower = round(basePower * 0.67);
 			break;
 			
 			case MINDSETS.TREE_CURSE:
+				reset_all_stats(id);
+				
 				currentLuck = round(baseLuck * 0.33);
 			break;
 			
 			case MINDSETS.WARRIOR_CURSE:
+				reset_all_stats(id);
+			
 				currentAgility = round(baseAgility * 0.5);
 			break;
 
 			case MINDSETS.IMP_BLESS:
+				reset_all_stats(id);
+			
 				currentAgility = round(baseAgility * 2);
 			break;
 			
 			case MINDSETS.MOTHER_BLESS:
+				reset_all_stats(id);
+			
 				currentLuck = round(baseLuck * 3);
 			break;
 			
 			case MINDSETS.TREE_BLESS:
+				reset_all_stats(id);
+			
 				currentResistance = round(baseResistance * 1.5);
 			break;
 			
 			case MINDSETS.WARRIOR_BLESS:
+				reset_all_stats(id);
+			
 				currentPower = round(basePower * 1.5);
 			break;
 		}
+	}
+	else {
+		reset_all_stats(id);	
 	}
 }
 

@@ -13,7 +13,7 @@ if (check_sprites_done_flashing()) {
 	// check if hpmp bars are up to date
 	if (spar_check_hpmp()) {
 		// check if there is still a spell being processed
-		if !(instance_exists(sparActionProcessor)) {
+		if !(instance_exists(processorParent)) {
 			// check if there is still a spell being animated
 			if !(instance_exists(sparSpellFX)) {
 				// check if there are any effect alerts waiting to be
@@ -294,7 +294,7 @@ switch (sparPhase) {
 							}
 							
 							// check if the actionProcessor is already active
-							if !(instance_exists(sparActionProcessor)) {
+							if !(instance_exists(processorParent)) {
 								// create a variable to store the highest stat found so far
 								var highest = 0;
 								
@@ -572,7 +572,7 @@ switch (sparPhase) {
 					if (spar_check_hpmp()) {
 						// check that there are no sparEffect alerts
 						if (ds_list_size(effectAlertList) == 0) {
-							if !(instance_exists(sparActionProcessor)) {
+							if !(instance_exists(processorParent)) {
 								// initialize a variable to store whether there are actions left to process
 								var actionsRemaining = false;
 								

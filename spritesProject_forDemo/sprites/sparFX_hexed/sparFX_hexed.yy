@@ -30,7 +30,7 @@
   ],
   "name":"sparFX_hexed",
   "nineSlice":null,
-  "origin":4,
+  "origin":9,
   "parent":{
     "name":"sparEffects",
     "path":"folders/Sprites/SPARS/sparEffects.yy",
@@ -104,7 +104,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":32,
-    "yorigin":32,
+    "yorigin":24,
   },
   "swatchColours":null,
   "swfPrecision":0.5,

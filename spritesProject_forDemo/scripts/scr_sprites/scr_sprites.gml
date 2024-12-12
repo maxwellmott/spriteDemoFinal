@@ -656,7 +656,9 @@ enum SPRITE_POSES {
 			SPELLS.DIONS_PARRY,
 			SPELLS.WIND_SLICE,
 			SPELLS.CRECIAS_CRYSTAL_WIND,
-			SPELLS.CLOUD_BREAK
+			SPELLS.CLOUD_BREAK,
+			SPELLS.SKYDIVE,
+			SPELLS.SHOCK
 		);
 	#endregion
 	
@@ -1684,7 +1686,7 @@ sprite_add_to_grid(SPRITES.JACKHAMMER,		"Jackhammer",		spr_jackhammerBattle,	ABI
 sprite_add_to_grid(SPRITES.SPLASHGUARD,		"Splashguard",		spr_splashguardBattle,	ABILITIES.FLOOD_SHELTER,			ALIGNMENTS.NATURAL,		encode_list(splashguardSpells),		60,		60,		50,		165,	110,	95,		125,	100,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.UPROOTER,		"Uprooter",			spr_uprooterBattle,		ABILITIES.PROPOGATE,				ALIGNMENTS.NATURAL,		encode_list(uprooterSpells),		155,	170,	50,		90,		60,		165,	75,		75,		SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.NEW_SPRITE2,		"NEW SPRITE",		noone,					ABILITIES.NEW_ABILITY_2,			-1,						encode_list(newSprite2Spells),		-1,		-1,		-1,		-1,		-1,		-1,		-1,		-1,		-1);
-sprite_add_to_grid(SPRITES.CAPNCLOPS,		"Cap'n Clops",		spr_capnClopsBattle,	ABILITIES.REDEEMING_QUALITIES,		ALIGNMENTS.NATURAL,		encode_list(stinklopsSpells),		150,	150,	95,		70,		70,		125,	90,		35,		SPRITE_SIZES.LARGE);
+sprite_add_to_grid(SPRITES.CAPNCLOPS,		"Cap'n Clops",		spr_capnClopsBattle,	ABILITIES.REDEEMING_QUALITIES,		ALIGNMENTS.NATURAL,		encode_list(stinklopsSpells),		150,	110,	105,	70,		125,	95,		60,		35,		SPRITE_SIZES.X_LARGE);
 sprite_add_to_grid(SPRITES.PLASMASS,		"Plasmass",			spr_plasmassBattle,		ABILITIES.GENERATOR,				ALIGNMENTS.MECHANICAL,	encode_list(plasmassSpells),		130,	75,		120,	45,		195,	45,		170,	50,		SPRITE_SIZES.LARGE);
 sprite_add_to_grid(SPRITES.OBSIDUAL,		"Obsidual",			spr_obsidualBattle,		ABILITIES.DUAL_WIELD,				ALIGNMENTS.NATURAL,		encode_list(obsidualSpells),		170,	90,		150,	60,		60,		160,	130,	50,		SPRITE_SIZES.MEDIUM);
 sprite_add_to_grid(SPRITES.NINTOX,			"Nintox",			spr_nintoxBattle,		ABILITIES.SHADOWY_FIEND,			ALIGNMENTS.MECHANICAL,	encode_list(nintoxSpells),			160,	85,		120,	90,		100,	120,	170,	100,	SPRITE_SIZES.MEDIUM);
@@ -1787,8 +1789,9 @@ function sprite_get_alignment_string(_alignment) {
 		case ALIGNMENTS.ASTRAL:		return "ASTRAL";
 		case ALIGNMENTS.MECHANICAL:	return "MECHANICAL";
 		case ALIGNMENTS.NATURAL:	return "NATURAL";
-		case -1:					return "???";
 	}
+	
+	return "???";
 }
 
 function sprite_get_size_string(_size) {

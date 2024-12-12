@@ -126,6 +126,7 @@
     {"name":"owEmote","order":18,"path":"objects/owEmote/owEmote.yy",},
     {"name":"owSprite","order":13,"path":"objects/owSprite/owSprite.yy",},
     {"name":"player","order":4,"path":"objects/player/player.yy",},
+    {"name":"processorParent","order":10,"path":"objects/processorParent/processorParent.yy",},
     {"name":"responseMenu","order":20,"path":"objects/responseMenu/responseMenu.yy",},
     {"name":"roninMenu","order":3,"path":"objects/roninMenu/roninMenu.yy",},
     {"name":"scenery","order":3,"path":"objects/scenery/scenery.yy",},

@@ -49,7 +49,7 @@ var list = ds_list_create();
 decode_list(global.allSpellAnimations, list);
 
 // get the animation sprite
-spellAnimation = string_digits(list[| spellID]);
+spellAnimation = real(string_digits(list[| spellID]));
 
 // destroy temp list
 ds_list_destroy(list);

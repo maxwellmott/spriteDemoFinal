@@ -73,9 +73,11 @@ drawX = -1;
 drawY = -1;
 
 if !(drawingMultiple) {
-	if (ds_list_size(effectedSprites) == 1) {
-		drawX = effectedSprites[| 0].x;
-		drawY = effectedSprites[| 0].y;
+	if (effectedSprites > 0) {
+		if (ds_list_size(effectedSprites) == 1) {
+			drawX = effectedSprites[| 0].x;
+			drawY = effectedSprites[| 0].y;
+		}
 	}
 	
 	if (effectedPlayer != -1) {
