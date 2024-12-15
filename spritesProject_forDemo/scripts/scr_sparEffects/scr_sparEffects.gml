@@ -826,7 +826,7 @@ function grid_add_sneak_attack(_caster, _target) {
 	
 	// add values
 	spar.sneakAttackGrid[# 0, spar.sneakAttackCount]	= c;
-	spar.sneakAttackGrid[# 0, spar.sneakAttackCount]	= t;
+	spar.sneakAttackGrid[# 1, spar.sneakAttackCount]	= t;
 	
 	// increment sneak attack count
 	spar.sneakAttackCount++;
@@ -962,7 +962,7 @@ function apply_miasma(_effectedTeam) {
 	var i = 0;	repeat (4) {
 		if (tl[| i].currentAlign == ALIGNMENTS.NATURAL) 
 		&& !(tl[| i].invulnerable) {
-			effectedSprites += tl[| i];
+			ds_list_add(effectedSprites, tl[| i]);
 			
 			global.miasmaDamage += 125;
 		}
@@ -1165,7 +1165,7 @@ function force_swap_team(_targetPlayer) {
 	
 	// pick a random number off of that list and set it as the
 	// partner's spot number
-	var int = irandom_range(0, 3);
+	var int = irandom_range(0, 2);
 	var psn = l[| int];
 	
 	// create inst list
@@ -1180,6 +1180,33 @@ function force_swap_team(_targetPlayer) {
 	
 	// store target's ID
 	var tsid	= il[| tsn];
+	
+	// initialize vars for second swap (since this is for the whole team)
+	var tsn2 = -1;
+	var psn2 = -1;
+	var tsid2 = -1;
+	var psid2 = -1;
+	
+	// use a repeat loop to set vars for second swap
+	var i = 0;	repeat (4) {
+		// check if this is neither the psn or the tsn
+		if (tsn != i)
+		&& (psn != i) {
+			// check that the tsn2 has not yet been set
+			if (tsn2 == -1) {
+				tsn2 = i;
+				tsid2 = il[| tsn2];
+			}
+			// if the tsn2 has already been set
+			else {
+				psn2 = i;
+				psid2 = il[| psn2];
+			}
+		}
+		
+		// increment i
+		i++;
+	}	
 	
 	// if neither swapper is bound:
 	if !(spar_check_bound(psid)) {
@@ -1225,6 +1252,55 @@ function force_swap_team(_targetPlayer) {
 					// swap mindsets
 					psid.mindset = m2;
 					tsid.mindset = m1;
+				}
+			}
+		}
+	}	
+	
+	// if neither swapper is bound:
+	if !(spar_check_bound(psid2)) {
+		if !(spar_check_bound(tsid2)) {
+			// if neither swapper is invulnerable:
+			if !(spar_check_invulnerable(psid2)) {
+				if !(spar_check_invulnerable(tsid2)) {
+					// add both sprites to global.swapList
+					ds_list_add(global.swapList, psid2, tsid2);
+					
+					// retain mindset to maintain through swap
+					var m1 = psid2.mindset;
+					var m2 = tsid2.mindset;
+					
+					// reset all necessary vars for both sprites
+					with (tsid2) {
+						dodging			= false;
+						hexed			= false;
+						berserk			= false;
+						parrying		= false;	
+						deflective		= false;
+						sneaking		= false;
+					}
+					
+					with (psid2) {
+						dodging			= false;
+						hexed			= false;
+						berserk			= false;
+						parrying		= false;
+						deflective		= false;
+						sneaking		= false;	
+					}
+					
+					// swap sprite IDs
+					var temp		= tsid2.spriteID;
+					tsid2.spriteID	= psid2.spriteID;
+					psid2.spriteID	= temp;
+										
+					// load params for both swappers
+					with (psid2)		sprite_load_parameters();
+					with (tsid2)		sprite_load_parameters();
+					
+					// swap mindsets
+					psid2.mindset = m2;
+					tsid2.mindset = m1;
 				}
 			}
 		}
@@ -1302,8 +1378,32 @@ function force_swap_global() {
 		// store target's ID
 		var tsid	= il[| tsn];
 		
-		// add both sprites to global.swapList
-		ds_list_add(global.swapList, psid, tsid);
+		// initialize vars for second swap (since this is for the whole team)
+		var tsn2 = -1;
+		var psn2 = -1;
+		var tsid2 = -1;
+		var psid2 = -1;
+		
+		// use a repeat loop to set vars for second swap
+		var j = 0;	repeat (4) {
+			// check if this is neither the psn or the tsn
+			if (tsn != j)
+			&& (psn != j) {
+				// check that the tsn2 has not yet been set
+				if (tsn2 == -1) {
+					tsn2 = j;
+					tsid2 = il[| tsn2];
+				}
+				// if the tsn2 has already been set
+				else {
+					psn2 = j;
+					psid2 = il[| psn2];
+				}
+			}
+			
+			// increment j
+			j++;
+		}
 		
 		// perform an ability check for swap attempt
 		ability_check(ABILITY_TYPES.SWAP_ATTEMPT);
@@ -1313,7 +1413,10 @@ function force_swap_global() {
 			if !(spar_check_bound(tsid)) {
 				// if neither swapper is invulnerable
 				if !(spar_check_invulnerable(psid)) {
-					if !(spar_check_invulnerable(tsid)) {		
+					if !(spar_check_invulnerable(tsid)) {	
+						// add both sprites to global.swapList
+						ds_list_add(global.swapList, psid, tsid);
+						
 						// retain mindset to maintain through swap
 						var m1 = psid.mindset;
 						var m2 = tsid.mindset;
@@ -1359,6 +1462,55 @@ function force_swap_global() {
 				}
 			}
 		}		
+		
+		// if neither swapper is bound:
+		if !(spar_check_bound(psid2)) {
+			if !(spar_check_bound(tsid2)) {
+				// if neither swapper is invulnerable:
+				if !(spar_check_invulnerable(psid2)) {
+					if !(spar_check_invulnerable(tsid2)) {
+						// add both sprites to global.swapList
+						ds_list_add(global.swapList, psid2, tsid2);
+						
+						// retain mindset to maintain through swap
+						var m1 = psid2.mindset;
+						var m2 = tsid2.mindset;
+						
+						// reset all necessary vars for both sprites
+						with (tsid2) {
+							dodging			= false;
+							hexed			= false;
+							berserk			= false;
+							parrying		= false;	
+							deflective		= false;
+							sneaking		= false;
+						}
+						
+						with (psid2) {
+							dodging			= false;
+							hexed			= false;
+							berserk			= false;
+							parrying		= false;
+							deflective		= false;
+							sneaking		= false;	
+						}
+						
+						// swap sprite IDs
+						var temp		= tsid2.spriteID;
+						tsid2.spriteID	= psid2.spriteID;
+						psid2.spriteID	= temp;
+											
+						// load params for both swappers
+						with (psid2)		sprite_load_parameters();
+						with (tsid2)		sprite_load_parameters();
+						
+						// swap mindsets
+						psid2.mindset = m2;
+						tsid2.mindset = m1;
+					}
+				}
+			}
+		}	
 		
 		// perform an ability check for swap success
 		ability_check(ABILITY_TYPES.SWAP_SUCCESS);

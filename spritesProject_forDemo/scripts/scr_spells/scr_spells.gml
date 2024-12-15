@@ -617,7 +617,7 @@ function purifying_flame() {
 function jabuls_fight_song() {
 	var c = activeSprite;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, c);
+	spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, c.team);
 	spar_effect_push_alert(SPAR_EFFECTS.SET_BERSERK_NEARBY_SPRITES, c);
 }
 
@@ -663,7 +663,7 @@ function sneak_attack() {
 	var c = activeSprite;
 	var t = targetSprite;
 	
-	grid_add_sneak_attack(c, t);
+	spar_effect_push_alert(SPAR_EFFECTS.GRID_ADD_SNEAK_ATTACK, c, t);
 }
 
 ///@desc SPELL FUNCTION: creates a sheild that deflects all spells until the end of the turn
@@ -966,7 +966,7 @@ master_grid_add_spell(		SPELLS.AMANDS_ENERGY_BLAST,		textGrid[# 1, SPELLS.AMANDS
 master_grid_add_spell(		SPELLS.SHIFT_PERSPECTIVE,		textGrid[# 1, SPELLS.SHIFT_PERSPECTIVE],		textGrid[# 2, SPELLS.SHIFT_PERSPECTIVE],		textGrid[# 3, SPELLS.SHIFT_PERSPECTIVE],		SPELL_TYPES.TRICK,		0,		35,		ranges.anySprite,			shift_perspective,		false);
 master_grid_add_spell(		SPELLS.PSYCHIC_IMPACT,			textGrid[# 1, SPELLS.PSYCHIC_IMPACT],			textGrid[# 2, SPELLS.PSYCHIC_IMPACT],			textGrid[# 3, SPELLS.PSYCHIC_IMPACT],			SPELL_TYPES.TRICK,		75,		50,		ranges.anySprite,			psychic_impact,			false);
 master_grid_add_spell(		SPELLS.TREMOR,					textGrid[# 1, SPELLS.TREMOR],					textGrid[# 2, SPELLS.TREMOR],					textGrid[# 3, SPELLS.TREMOR],					SPELL_TYPES.EARTH,		120,	60,		ranges.nearestThreeSprites,	tremor,					false);
-master_grid_add_spell(		SPELLS.SKYDIVE,					textGrid[# 1, SPELLS.SKYDIVE],					textGrid[# 2, SPELLS.SKYDIVE],					textGrid[# 3, SPELLS.SKYDIVE],					SPELL_TYPES.PHYSICAL,	0,	50,		ranges.nearestThreeSprites,	skydive,				false);
+master_grid_add_spell(		SPELLS.SKYDIVE,					textGrid[# 1, SPELLS.SKYDIVE],					textGrid[# 2, SPELLS.SKYDIVE],					textGrid[# 3, SPELLS.SKYDIVE],					SPELL_TYPES.PHYSICAL,	0,		50,		ranges.nearestThreeSprites,	skydive,				false);
 master_grid_add_spell(		SPELLS.DESTRUCTIVE_BLOW,		textGrid[# 1, SPELLS.DESTRUCTIVE_BLOW],			textGrid[# 2, SPELLS.DESTRUCTIVE_BLOW],			textGrid[# 3, SPELLS.DESTRUCTIVE_BLOW],			SPELL_TYPES.PHYSICAL,	100,	40,		ranges.nearestThreeSprites,	destructive_blow,		true);
 master_grid_add_spell(		SPELLS.PURIFYING_FLAME,			textGrid[# 1, SPELLS.PURIFYING_FLAME],			textGrid[# 2, SPELLS.PURIFYING_FLAME],			textGrid[# 3, SPELLS.PURIFYING_FLAME],			SPELL_TYPES.FIRE,		100,	40,		ranges.nearestFiveSprites,	purifying_flame,		true);
 master_grid_add_spell(		SPELLS.JABULS_FIGHT_SONG,		textGrid[# 1, SPELLS.JABULS_FIGHT_SONG],		textGrid[# 2, SPELLS.JABULS_FIGHT_SONG],		textGrid[# 3, SPELLS.JABULS_FIGHT_SONG],		SPELL_TYPES.TRICK,		0,		35,		ranges.onlySelf,			jabuls_fight_song,		false);
@@ -974,7 +974,7 @@ master_grid_add_spell(		SPELLS.NOXIOUS_FUMES,			textGrid[# 1, SPELLS.NOXIOUS_FUM
 master_grid_add_spell(		SPELLS.CRECIAS_CRYSTAL_SPIKES,	textGrid[# 1, SPELLS.CRECIAS_CRYSTAL_SPIKES],	textGrid[# 2, SPELLS.CRECIAS_CRYSTAL_SPIKES],	textGrid[# 3, SPELLS.CRECIAS_CRYSTAL_SPIKES],	SPELL_TYPES.EARTH,		120,	65,		ranges.nearestThreeSprites,	crecias_crystal_spikes,	false);
 master_grid_add_spell(		SPELLS.PSYCHIC_FISSURE,			textGrid[# 1, SPELLS.PSYCHIC_FISSURE],			textGrid[# 2, SPELLS.PSYCHIC_FISSURE],			textGrid[# 3, SPELLS.PSYCHIC_FISSURE],			SPELL_TYPES.TRICK,		125,	70,		ranges.anySprite,			psychic_fissure,		true);
 master_grid_add_spell(		SPELLS.REARRANGE,				textGrid[# 1, SPELLS.REARRANGE],				textGrid[# 2, SPELLS.REARRANGE],				textGrid[# 3, SPELLS.REARRANGE],				SPELL_TYPES.TRICK,		0,		40,		ranges.nearestThreeSprites,	rearrange,				true);
-master_grid_add_spell(		SPELLS.SNEAK_ATTACK,			textGrid[# 1, SPELLS.SNEAK_ATTACK],				textGrid[# 2, SPELLS.SNEAK_ATTACK],				textGrid[# 3, SPELLS.SNEAK_ATTACK],				SPELL_TYPES.PHYSICAL,	120,	50,		ranges.nearestFiveSprites,	sneak_attack,			false);
+master_grid_add_spell(		SPELLS.SNEAK_ATTACK,			textGrid[# 1, SPELLS.SNEAK_ATTACK],				textGrid[# 2, SPELLS.SNEAK_ATTACK],				textGrid[# 3, SPELLS.SNEAK_ATTACK],				SPELL_TYPES.PHYSICAL,	0,		50,		ranges.nearestFiveSprites,	sneak_attack,			false);
 master_grid_add_spell(		SPELLS.DEFLECTIVE_SHIELD,		textGrid[# 1, SPELLS.DEFLECTIVE_SHIELD],		textGrid[# 2, SPELLS.DEFLECTIVE_SHIELD],		textGrid[# 3, SPELLS.DEFLECTIVE_SHIELD],		SPELL_TYPES.TRICK,		0,		50,		ranges.onlySelf,			deflective_shield,		false);
 master_grid_add_spell(		SPELLS.DIONS_PARRY,				textGrid[# 1, SPELLS.DIONS_PARRY],				textGrid[# 2, SPELLS.DIONS_PARRY],				textGrid[# 3, SPELLS.DIONS_PARRY],				SPELL_TYPES.PHYSICAL,	135,	40,		ranges.onlySelf,			dions_parry,			false);
 master_grid_add_spell(		SPELLS.DIONS_GAMBLING_BLAST,	textGrid[# 1, SPELLS.DIONS_GAMBLING_BLAST],		textGrid[# 2, SPELLS.DIONS_GAMBLING_BLAST],		textGrid[# 3, SPELLS.DIONS_GAMBLING_BLAST],		SPELL_TYPES.TRICK,		0,		35,		ranges.onlySelf,			dions_gambling_blast,	false);

@@ -80,7 +80,7 @@ teamString = "";
 teamList = ds_list_create();
 
 // ONLY FOR TESTING
-teamList[| 0] = SPRITES.CAPNCLOPS;
+teamList[| 0] = SPRITES.PODRIC;
 teamList[| 1] = SPRITES.JOE;
 teamList[| 2] = SPRITES.OMNOST;
 teamList[| 3] = SPRITES.FLOOPWALKER;
@@ -121,14 +121,14 @@ spellBookString = "";
 spellBook = ds_list_create();
 
 // ONLY FOR TESTING
-spellBook[| 7] = 47;
-spellBook[| 6] = 46;
-spellBook[| 5] = 45;
-spellBook[| 4] = 44;
-spellBook[| 3] = 43;
-spellBook[| 2] = 42;
-spellBook[| 1] = 41;
-spellBook[| 0] = 40;
+spellBook[| 7] = 55;
+spellBook[| 6] = 54;
+spellBook[| 5] = 53;
+spellBook[| 4] = 52;
+spellBook[| 3] = 51;
+spellBook[| 2] = 50;
+spellBook[| 1] = 49;
+spellBook[| 0] = 48;
 
 spellBookString = encode_list(spellBook);
 

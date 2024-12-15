@@ -436,6 +436,9 @@ function spar_check_sneaking_deal_damage() {
 		// else push sneak attack fail alert
 		else	spar_effect_push_alert(SPAR_EFFECTS.SNEAK_ATTACK_FAILURE, atkr);
 		
+		// set sneaking to false for atkr
+		atkr.sneaking = false;
+		
 		// increment i
 		i++;
 	}
