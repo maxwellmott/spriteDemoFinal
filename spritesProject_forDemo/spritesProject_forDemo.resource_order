@@ -263,7 +263,6 @@
     {"name":"sparFX_size","order":37,"path":"sprites/sparFX_size/sparFX_size.yy",},
     {"name":"sparFX_skydive","order":27,"path":"sprites/sparFX_skydive/sparFX_skydive.yy",},
     {"name":"sparFX_sneakAttack","order":39,"path":"sprites/sparFX_sneakAttack/sparFX_sneakAttack.yy",},
-    {"name":"sparFX_takeDamage","order":7,"path":"sprites/sparFX_takeDamage/sparFX_takeDamage.yy",},
     {"name":"sparFX_time","order":34,"path":"sprites/sparFX_time/sparFX_time.yy",},
     {"name":"sparFX_timedBlast","order":4,"path":"sprites/sparFX_timedBlast/sparFX_timedBlast.yy",},
     {"name":"spr_accidentalKey","order":4,"path":"sprites/spr_accidentalKey/spr_accidentalKey.yy",},

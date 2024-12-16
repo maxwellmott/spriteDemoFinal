@@ -691,12 +691,12 @@ function dions_gambling_blast() {
 	var lr = c.luckRoll;
 	
 	if (lr >= 900)	{
-		var p = (MAX_LUCK - lr) * 2;
+		var p = round((MAX_LUCK - lr) * 2);
 		spar_effect_push_alert(SPAR_EFFECTS.ENERGY_BLAST, t.team, p);
 	}
 	
 	if (lr < 900)	{
-		var p = (lr - MIN_LUCK) * 3;
+		var p = round((lr - MIN_LUCK) * 3);
 		spar_effect_push_alert(SPAR_EFFECTS.ENERGY_BLAST_SELF, c.team, p);
 	}
 }
@@ -976,7 +976,7 @@ master_grid_add_spell(		SPELLS.PSYCHIC_FISSURE,			textGrid[# 1, SPELLS.PSYCHIC_F
 master_grid_add_spell(		SPELLS.REARRANGE,				textGrid[# 1, SPELLS.REARRANGE],				textGrid[# 2, SPELLS.REARRANGE],				textGrid[# 3, SPELLS.REARRANGE],				SPELL_TYPES.TRICK,		0,		40,		ranges.nearestThreeSprites,	rearrange,				true);
 master_grid_add_spell(		SPELLS.SNEAK_ATTACK,			textGrid[# 1, SPELLS.SNEAK_ATTACK],				textGrid[# 2, SPELLS.SNEAK_ATTACK],				textGrid[# 3, SPELLS.SNEAK_ATTACK],				SPELL_TYPES.PHYSICAL,	0,		50,		ranges.nearestFiveSprites,	sneak_attack,			false);
 master_grid_add_spell(		SPELLS.DEFLECTIVE_SHIELD,		textGrid[# 1, SPELLS.DEFLECTIVE_SHIELD],		textGrid[# 2, SPELLS.DEFLECTIVE_SHIELD],		textGrid[# 3, SPELLS.DEFLECTIVE_SHIELD],		SPELL_TYPES.TRICK,		0,		50,		ranges.onlySelf,			deflective_shield,		false);
-master_grid_add_spell(		SPELLS.DIONS_PARRY,				textGrid[# 1, SPELLS.DIONS_PARRY],				textGrid[# 2, SPELLS.DIONS_PARRY],				textGrid[# 3, SPELLS.DIONS_PARRY],				SPELL_TYPES.PHYSICAL,	135,	40,		ranges.onlySelf,			dions_parry,			false);
+master_grid_add_spell(		SPELLS.DIONS_PARRY,				textGrid[# 1, SPELLS.DIONS_PARRY],				textGrid[# 2, SPELLS.DIONS_PARRY],				textGrid[# 3, SPELLS.DIONS_PARRY],				SPELL_TYPES.PHYSICAL,	0,		40,		ranges.onlySelf,			dions_parry,			false);
 master_grid_add_spell(		SPELLS.DIONS_GAMBLING_BLAST,	textGrid[# 1, SPELLS.DIONS_GAMBLING_BLAST],		textGrid[# 2, SPELLS.DIONS_GAMBLING_BLAST],		textGrid[# 3, SPELLS.DIONS_GAMBLING_BLAST],		SPELL_TYPES.TRICK,		0,		35,		ranges.onlySelf,			dions_gambling_blast,	false);
 master_grid_add_spell(		SPELLS.DIONS_BARTER_TRICK,		textGrid[# 1, SPELLS.DIONS_BARTER_TRICK],		textGrid[# 2, SPELLS.DIONS_BARTER_TRICK],		textGrid[# 3, SPELLS.DIONS_BARTER_TRICK],		SPELL_TYPES.TRICK,		0,		0,		ranges.onlySelf,			dions_barter_trick,		false);
 master_grid_add_spell(		SPELLS.MAGNETIC_PULSE,			textGrid[# 1, SPELLS.MAGNETIC_PULSE],			textGrid[# 2, SPELLS.MAGNETIC_PULSE],			textGrid[# 3, SPELLS.MAGNETIC_PULSE],			SPELL_TYPES.STORM,		90,		40,		ranges.nearestFiveSprites,	magnetic_pulse,			true);

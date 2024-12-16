@@ -123,12 +123,13 @@ function spar_check_parrying() {
 	
 	// check if targetSprite is parrying
 	if (targetSprite.parrying) {
-		if (activeSprite.invulnerable) {
-			spar_effect_push_alert(SPAR_EFFECTS.IGNORE_PARRY, activeSprite, targetSprite, damage);	
+		if (activeSprite.invulnerable) 
+		|| (activeSprite.berserk) {
+			spar_effect_push_alert(SPAR_EFFECTS.IGNORE_PARRY, activeSprite, targetSprite, round(damage));	
 		}
 		else {
 			// post the sparEffectAlert
-			spar_effect_push_alert(SPAR_EFFECTS.APPLY_PARRY, activeSprite, targetSprite, damage);
+			spar_effect_push_alert(SPAR_EFFECTS.APPLY_PARRY, activeSprite, targetSprite, round(damage));
 		}
 	}
 	
@@ -462,7 +463,7 @@ function spar_check_deflective(_atkr, _targ, _powr) {
 	// if the target is deflective:
 	if (targ.deflective) {
 		// push an effect alert for the deflection
-		spar_effect_push_alert(SPAR_EFFECTS.DEFLECT_SPELL, atkr, targ, powr);
+		spar_effect_push_alert(SPAR_EFFECTS.DEFLECT_SPELL, atkr, targ, round(powr));
 		
 		// reset deflective for target
 		targ.deflective = false;

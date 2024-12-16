@@ -328,7 +328,6 @@
     {"id":{"name":"sparFX_size","path":"sprites/sparFX_size/sparFX_size.yy",},},
     {"id":{"name":"sparFX_skydive","path":"sprites/sparFX_skydive/sparFX_skydive.yy",},},
     {"id":{"name":"sparFX_sneakAttack","path":"sprites/sparFX_sneakAttack/sparFX_sneakAttack.yy",},},
-    {"id":{"name":"sparFX_takeDamage","path":"sprites/sparFX_takeDamage/sparFX_takeDamage.yy",},},
     {"id":{"name":"sparFX_time","path":"sprites/sparFX_time/sparFX_time.yy",},},
     {"id":{"name":"sparFX_timedBlast","path":"sprites/sparFX_timedBlast/sparFX_timedBlast.yy",},},
     {"id":{"name":"spr_accidentalKey","path":"sprites/spr_accidentalKey/spr_accidentalKey.yy",},},

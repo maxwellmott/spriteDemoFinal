@@ -3508,10 +3508,10 @@ function apply_parry(_attackingSprite, _parryingSprite, _damage) {
 	var c = _parryingSprite;
 	var d = _damage;
 	
-	ds_list_add(effectedSprites, c);
+	ds_list_add(effectedSprites, t);
 	subject = c.name;
 	
-	deplete_hp(t.team, d * 2.5);
+	deplete_hp(t.team, round(d * 2.2));
 }
 
 ///@desc SPAR EFFECT: various things might cause a parry to fail, such as
@@ -4509,7 +4509,7 @@ master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE_NEARBY_SPRITES,	textGr
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE_TEAM,				textGrid[# 1, SPAR_EFFECTS.SET_INVULNERABLE_TEAM],				set_invulnerable_team,				sparFX_invulnerable);			
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_INVULNERABLE_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.SET_INVULNERABLE_GLOBAL],			set_invulnerable_global,			sparFX_invulnerable);			
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_PARRYING,						textGrid[# 1, SPAR_EFFECTS.SET_PARRYING],						set_parrying,						sparFX_parry);					
-master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_PARRY,						textGrid[# 1, SPAR_EFFECTS.APPLY_PARRY],						apply_parry,						sparFX_takeDamage);				
+master_grid_add_spar_effect(SPAR_EFFECTS.APPLY_PARRY,						textGrid[# 1, SPAR_EFFECTS.APPLY_PARRY],						apply_parry,						spr_spellFX_basicAttack);				
 master_grid_add_spar_effect(SPAR_EFFECTS.IGNORE_PARRY,						textGrid[# 1, SPAR_EFFECTS.IGNORE_PARRY],						ignore_parry,						sparFX_ignoreParry);			
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_DIVIDING,						textGrid[# 1, SPAR_EFFECTS.SET_DIVIDING],						set_dividing,						sparFX_divide);					
 master_grid_add_spar_effect(SPAR_EFFECTS.SET_MULTIPLYING,					textGrid[# 1, SPAR_EFFECTS.SET_MULTIPLYING],					set_multiplying,					sparFX_multiply);				
@@ -4550,8 +4550,8 @@ master_grid_add_spar_effect(SPAR_EFFECTS.END_INVULNERABLE_TEAM,				textGrid[# 1,
 master_grid_add_spar_effect(SPAR_EFFECTS.END_INVULNERABLE_GLOBAL,			textGrid[# 1, SPAR_EFFECTS.END_INVULNERABLE_GLOBAL],			end_invulnerable_global,			sparFX_clearStatus);			
 master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_ALIGNMENT,					textGrid[# 1, SPAR_EFFECTS.RESTORE_ALIGNMENT],					restore_alignment,					sparFX_clearStatus);			
 master_grid_add_spar_effect(SPAR_EFFECTS.RESTORE_SIZE,						textGrid[# 1, SPAR_EFFECTS.RESTORE_SIZE],						restore_size,						sparFX_clearStatus);			
-master_grid_add_spar_effect(SPAR_EFFECTS.SKYDIVE_APPLY_DAMAGE,				textGrid[# 1, SPAR_EFFECTS.SKYDIVE_APPLY_DAMAGE],				skydive_apply_damage,				sparFX_takeDamage);				
-master_grid_add_spar_effect(SPAR_EFFECTS.SNEAK_ATTACK_APPLY_DAMAGE,			textGrid[# 1, SPAR_EFFECTS.SNEAK_ATTACK_APPLY_DAMAGE],			sneak_attack_apply_damage,			sparFX_takeDamage);				
+master_grid_add_spar_effect(SPAR_EFFECTS.SKYDIVE_APPLY_DAMAGE,				textGrid[# 1, SPAR_EFFECTS.SKYDIVE_APPLY_DAMAGE],				skydive_apply_damage,				spr_spellFX_basicAttack);				
+master_grid_add_spar_effect(SPAR_EFFECTS.SNEAK_ATTACK_APPLY_DAMAGE,			textGrid[# 1, SPAR_EFFECTS.SNEAK_ATTACK_APPLY_DAMAGE],			sneak_attack_apply_damage,			spr_spellFX_basicAttack);				
 master_grid_add_spar_effect(SPAR_EFFECTS.SKYDIVE_FAILURE,					textGrid[# 1, SPAR_EFFECTS.SKYDIVE_FAILURE],					skydive_failure,					sparFX_failure);				
 master_grid_add_spar_effect(SPAR_EFFECTS.SNEAK_ATTACK_FAILURE,				textGrid[# 1, SPAR_EFFECTS.SNEAK_ATTACK_FAILURE],				sneak_attack_failure,				sparFX_failure);				
 master_grid_add_spar_effect(SPAR_EFFECTS.ACTIVATE_ABILITY,					textGrid[# 1, SPAR_EFFECTS.ACTIVATE_ABILITY],					activate_ability,					EMPTY_SPRITE);		

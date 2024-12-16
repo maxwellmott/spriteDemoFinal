@@ -461,20 +461,22 @@ function natures_reclamation(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the attacker
-	if (inst == sparActionProcessor.activeSprite) {
-		// check if it is a basic attack
-		if (sparActionProcessor.spellType == -1) {
-			// check if the target has a non-natural alignment
-			if (sparActionProcessor.targetSprite.currentAlign != ALIGNMENTS.NATURAL) {
-				// push a spar effect alert for activate ability
-				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-				
-				// push a spar effect alert for increase damage
-				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
-				
-				// multiply damage by 2
-				sparActionProcessor.damage = sparActionProcessor.damage * 2;
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the attacker
+		if (inst == sparActionProcessor.activeSprite) {
+			// check if it is a basic attack
+			if (sparActionProcessor.spellType == -1) {
+				// check if the target has a non-natural alignment
+				if (sparActionProcessor.targetSprite.currentAlign != ALIGNMENTS.NATURAL) {
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// push a spar effect alert for increase damage
+					spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+					
+					// multiply damage by 2
+					sparActionProcessor.damage = sparActionProcessor.damage * 2;
+				}
 			}
 		}
 	}
