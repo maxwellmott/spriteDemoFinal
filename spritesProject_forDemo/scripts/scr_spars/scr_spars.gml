@@ -1048,10 +1048,6 @@ function turn_message_get_number_text(_int) {
 		case 8: return "Eight";
 	}
 }
-	
-function blast_timers_check_ready() {
-	
-}
 
 function get_best_elemental_stat(_spriteInstance) {
 	return -1;
@@ -1061,19 +1057,19 @@ function get_worst_elemental_stat(_spriteInstance) {
 	return -1;
 }
 
-function get_base_stat_value() {
+function get_base_stat_value(_spriteInstance) {
 	return -1;
 }
 
-function get_base_stat_elemental() {
+function get_base_stat_elemental(_spriteInstance) {
 	return -1;
 }
 
-function get_current_stat() {
+function get_current_stat(_spriteInstance) {
 	return -1;
 }
 
-function get_current_stat_elemental() {
+function get_current_stat_elemental(_spriteInstance) {
 	return -1;
 }
 

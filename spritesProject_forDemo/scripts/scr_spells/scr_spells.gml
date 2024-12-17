@@ -688,15 +688,15 @@ function dions_parry() {
 function dions_gambling_blast() {
 	var c = activeSprite;
 	var t = targetSprite;
-	var lr = c.luckRoll;
+	var lr = c.luckRoll * 1000;
 	
 	if (lr >= 900)	{
-		var p = round((MAX_LUCK - lr) * 2);
+		var p = round(abs(MAX_LUCK - lr) * 0.3);
 		spar_effect_push_alert(SPAR_EFFECTS.ENERGY_BLAST, t.team, p);
 	}
 	
 	if (lr < 900)	{
-		var p = round((lr - MIN_LUCK) * 3);
+		var p = round(abs(lr - MIN_LUCK) * 0.3);
 		spar_effect_push_alert(SPAR_EFFECTS.ENERGY_BLAST_SELF, c.team, p);
 	}
 }
@@ -705,11 +705,11 @@ function dions_gambling_blast() {
 function dions_barter_trick() {
 	// trade half of the caster's current HP for a third of the enemy's current HP
 	
-	var t = targetPlayer.team;
-	var c = activePlayer.team;
+	var t = activeSprite.enemy;
+	var c = activeSprite.team;
 	
-	var a1 = ceil(c.currentHP / 2);
-	var a2 = ceil(t.currentHP / 3);
+	var a1 = ceil(c.currentHP * (15 / 16));
+	var a2 = ceil(t.currentHP * (7 / 8));
 	
 	spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, c, a1);
 	spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, t, a2);
@@ -799,6 +799,10 @@ function spheras_curse() {
 ///@desc SPELL FUNCTION: hexes target and all nearby allies
 function crecias_crystal_wind() {
 	var t = targetSprite;
+	
+	if !(dodged) {
+		spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED, t);
+	}
 	
 	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_NEARBY_ALLIES, t);
 }

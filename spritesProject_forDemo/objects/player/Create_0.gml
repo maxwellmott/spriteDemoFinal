@@ -121,14 +121,14 @@ spellBookString = "";
 spellBook = ds_list_create();
 
 // ONLY FOR TESTING
-spellBook[| 7] = 55;
-spellBook[| 6] = 54;
-spellBook[| 5] = 53;
-spellBook[| 4] = 52;
-spellBook[| 3] = 51;
-spellBook[| 2] = 50;
-spellBook[| 1] = 49;
-spellBook[| 0] = 48;
+spellBook[| 7] = 63;
+spellBook[| 6] = 62;
+spellBook[| 5] = 61;
+spellBook[| 4] = 60;
+spellBook[| 3] = 59;
+spellBook[| 2] = 58;
+spellBook[| 1] = 57;
+spellBook[| 0] = 56;
 
 spellBookString = encode_list(spellBook);
 
