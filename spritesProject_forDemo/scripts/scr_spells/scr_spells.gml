@@ -110,7 +110,8 @@ enum SPELL_PARAMS {
 	
 	// populate priority list
 	ds_list_add(priorityList,	SPELLS.SHOCK,		SPELLS.RAPID_STRIKE,		SPELLS.FLASH_FREEZE,	SPELLS.SNEAK_ATTACK,
-								SPELLS.SKYDIVE,		SPELLS.DEFLECTIVE_SHIELD,	SPELLS.DIONS_PARRY,		SPELLS.TIME_LOOP,		SPELLS.ERADICATE);
+								SPELLS.SKYDIVE,		SPELLS.DEFLECTIVE_SHIELD,	SPELLS.DIONS_PARRY,		SPELLS.BROADCAST_DATA,
+								SPELLS.EXPAND_TIME,	SPELLS.TIME_LOOP,		SPELLS.ERADICATE);
 								
 	// encode priority list
 	global.prioritySpellList = encode_list(priorityList);
@@ -779,19 +780,19 @@ function spheras_curse() {
 	
 	switch (s) {
 		case elements.fire:
-			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_OCEAN);
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_VOLCANO);
 		break;
 		
 		case elements.water:
-			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_CLOUDS);
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_OCEAN);
 		break;
 		
 		case elements.storm:
-			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_FOREST);
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_CLOUDS);
 		break;
 		
 		case elements.earth:
-			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_VOLCANO);
+			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_FOREST);
 		break;
 	}
 }

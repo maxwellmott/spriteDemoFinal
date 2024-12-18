@@ -299,17 +299,13 @@ draw_set_alpha(1.0);
 		draw_sprite(sparSpellFX.spellAnimation, image_index, sparSpellFX.drawX, sparSpellFX.drawY);
 	}
 	
-	if (instance_exists(sparEffectAlert)) 
+	if (instance_exists(sparEffectAlert))
 	&& (sparEffectAlert.drawReady) {
 		if (sparEffectAlert.animation >= 0) {
-			if (sparEffectAlert.drawingMultiple) {
-				var i = 0;	repeat (ds_list_size(sparEffectAlert.effectedSprites)) {
-					draw_sprite(sparEffectAlert.animation, image_index, sparEffectAlert.effectedSprites[| i].x, sparEffectAlert.effectedSprites[| i].y);
-					
-					i++;
-				}
-			}	else {
-				draw_sprite(sparEffectAlert.animation, image_index, sparEffectAlert.drawX, sparEffectAlert.drawY);	
+			var i = 0;	repeat (ds_list_size(sparEffectAlert.xList)) {
+				draw_sprite(sparEffectAlert.animation, image_index, sparEffectAlert.xList[| i], sparEffectAlert.yList[| i]);
+				
+				i++;
 			}
 		}
 	}

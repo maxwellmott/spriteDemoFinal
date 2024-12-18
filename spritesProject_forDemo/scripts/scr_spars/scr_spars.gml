@@ -1050,11 +1050,181 @@ function turn_message_get_number_text(_int) {
 }
 
 function get_best_elemental_stat(_spriteInstance) {
-	return -1;
+	// store args in locals
+	var si = _spriteInstance;
+	
+	// initialize highest val
+	var highest = 0;
+	var highestStat = -1;
+	
+	// use a repeat loop to check each stat
+	var i = 0;	repeat (4) {
+		// use a switch statement to check each stat
+		switch (i) {
+			case 0:			
+				if (si.baseFire > highest) {
+					highest = si.baseFire;
+					highestStat = elements.fire;	
+				}
+				else if (si.baseFire == highest) {
+					randomize();
+					
+					var r = irandom_range(0, 1);
+					
+					if (r == 0) {
+						highest = si.baseFire;
+						highestStat = elements.fire;
+					}
+				}
+			break;
+			
+			case 1:
+				if (si.baseWater > highest) {
+					highest = si.baseWater;
+					highestStat = elements.water;
+				}
+				else if (si.baseWater == highest) {
+					randomize();
+					
+					var r = irandom_range(0, 1);
+					
+					if (r == 0) {
+						highest = si.baseWater;
+						highestStat = elements.water;
+					}
+				}
+			break;
+		
+			case 2:
+				if (si.baseStorm > highest) {
+					highest = si.baseStorm;
+					highestStat = elements.storm;
+				}
+				else if (si.baseStorm == highest) {
+					randomize();
+					
+					var r = irandom_range(0, 1);
+					
+					if (r == 0) {
+						highest = si.baseStorm;
+						highestStat = elements.storm;
+					}
+				}	
+			break;
+			
+			case 3:
+				if (si.baseEarth > highest) {
+					highest = si.baseEarth;
+					highestStat = elements.earth;
+				}	
+				else if (si.baseEarth == highest) {
+					randomize();
+					
+					var r = irandom_range(0, 1);
+					
+					if (r == 0) {
+						highest = si.baseEarth;
+						highestStat = elements.earth;
+					}
+				}
+			break;
+		}
+		
+		// increment i
+		i++;
+	}
+	
+	// return the highest stat ID
+	return highestStat;
 }
 
 function get_worst_elemental_stat(_spriteInstance) {
-	return -1;
+	// store args in locals
+	var si = _spriteInstance;
+	
+	// initialize highest val
+	var lowest = 1000;
+	var lowestStat = -1;
+	
+	// use a repeat loop to check each stat
+	var i = 0;	repeat (4) {
+		// use a switch statement to check each stat
+		switch (i) {
+			case 0:			
+				if (si.baseFire < lowest) {
+					lowest = si.baseFire;
+					lowestStat = elements.fire;	
+				}
+				else if (si.baseFire == lowest) {
+					randomize();
+					
+					var r = irandom_range(0, 1);
+					
+					if (r == 0) {
+						lowest = si.baseFire;
+						lowestStat = elements.fire;
+					}
+				}
+			break;
+			
+			case 1:
+				if (si.baseWater < lowest) {
+					lowest = si.baseWater;
+					lowestStat = elements.water;
+				}
+				else if (si.baseWater == lowest) {
+					randomize();
+					
+					var r = irandom_range(0, 1);
+					
+					if (r == 0) {
+						lowest = si.baseWater;
+						lowestStat = elements.water;
+					}
+				}
+			break;
+		
+			case 2:
+				if (si.baseStorm < lowest) {
+					lowest = si.baseStorm;
+					lowestStat = elements.storm;
+				}
+				else if (si.baseStorm == lowest) {
+					randomize();
+					
+					var r = irandom_range(0, 1);
+					
+					if (r == 0) {
+						lowest = si.baseStorm;
+						lowestStat = elements.storm;
+					}
+				}	
+			break;
+			
+			case 3:
+				if (si.baseEarth < lowest) {
+					lowest = si.baseEarth;
+					lowestStat = elements.earth;
+				}	
+				else if (si.baseEarth == lowest) {
+					randomize();
+					
+					var r = irandom_range(0, 1);
+					
+					if (r == 0) {
+						lowest = si.baseEarth;
+						lowestStat = elements.earth;
+					}
+				}
+			break;
+		}
+		
+		// increment i
+		i++;
+	}
+	
+	// return the lowest stat ID
+	return lowestStat;
 }
 
 function get_base_stat_value(_spriteInstance) {

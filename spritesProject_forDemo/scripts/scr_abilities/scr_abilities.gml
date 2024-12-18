@@ -1801,32 +1801,34 @@ function bad_omen(_inst) {
 function all_knowing(_inst) {
 	// store args in locals
 	var inst = _inst;
-	
-	// check if it is an elemental spell
-	if (sparActionProcessor.spellType < SPELL_TYPES.PHYSICAL)
-	&& (sparActionProcessor.spellType > 0) {
-		// check if this sprite is attacking
-		if (inst == sparActionProcessor.activeSprite) {
-			// increase the DMI by 1
-			global.damageMultiplierIndex++;
+
+	if (instance_exists(sparActionProcessor)) {
+		// check if it is an elemental spell
+		if (sparActionProcessor.spellType < SPELL_TYPES.PHYSICAL)
+		&& (sparActionProcessor.spellType > 0) {
+			// check if this sprite is attacking
+			if (inst == sparActionProcessor.activeSprite) {
+				// increase the DMI by 1
+				global.damageMultiplierIndex++;
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for increase damage	
+				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+			}
 			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for increase damage	
-			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
-		}
-		
-		// check if this sprite is the target
-		if (inst == sparActionProcessor.targetSprite) {
-			// decrease the DMI by 1
-			global.damageMultiplierIndex--;
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for decrease damage
-			spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, inst);
+			// check if this sprite is the target
+			if (inst == sparActionProcessor.targetSprite) {
+				// decrease the DMI by 1
+				global.damageMultiplierIndex--;
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for decrease damage
+				spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, inst);
+			}
 		}
 	}
 }

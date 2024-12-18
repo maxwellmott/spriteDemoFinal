@@ -1,6 +1,11 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+xList = ds_list_create();
+yList = ds_list_create();
+
+effectedSprites = ds_list_create();
+
 // check if either player has lost
 if (spar_check_complete()) {
 	create_once(0, 0, LAYER.meta, winLoseDisplay);	
@@ -12,8 +17,6 @@ subject = "";
 object = "";
 
 effectedPlayer = -1;
-
-effectedSprites = ds_list_create();
 
 alertString = spar.effectAlertList[| 0];
 
@@ -57,45 +60,31 @@ effect_alert_build_text();
 
 spar.turnMsg = alertText;
 
-entireField = false;
-drawingMultiple = false;
-
-if (effectedPlayer >= 0) {
-	entireField = true;
-}
-else {
-	if (effectedSprites > 0) {
-		if (ds_list_size(effectedSprites) > 1)	drawingMultiple = true;
-	}
-}
-
-drawX = -1;
-drawY = -1;
-
-if !(drawingMultiple) {
-	if (effectedSprites > 0) {
-		if (ds_list_size(effectedSprites) == 1) {
-			drawX = effectedSprites[| 0].x;
-			drawY = effectedSprites[| 0].y;
+if (ds_exists(effectedSprites, ds_type_list)) {
+	if (ds_list_size(effectedSprites) > 0) {
+		var i = 0;	repeat (ds_list_size(effectedSprites)) {
+			xList[| i] = effectedSprites[| i].x;
+			yList[| i] = effectedSprites[| i].y;
+		
+			i++;
 		}
 	}
+}
 	
-	if (effectedPlayer != -1) {
-		if (effectedPlayer == spar.playerOne) {
-			drawX = 0;
-			drawY = guiHeight - 128;
-		}
-		
-		if (effectedPlayer == spar.playerTwo) {
-			drawX = 0;
-			drawY = 64;
-		}
-		
-		if (effectedPlayer == BOTH_PLAYERS_EFFECTED) {
-			drawX = 0;
-			drawY = 0;
-		}
-	}
+if (effectedPlayer == BOTH_PLAYERS_EFFECTED) {
+		xList[| 0] = spar.playerOne.x;
+		xList[| 1] = spar.playerTwo.x;
+
+		yList[| 0] = spar.playerOne.y;
+		yList[| 1] = spar.playerTwo.y;
+}
+else if (effectedPlayer == spar.playerOne) {
+	xList[| 0] = spar.playerOne.x;
+	yList[| 0] = spar.playerOne.y;
+}
+else if (effectedPlayer == spar.playerTwo) {
+	xList[| 0] = spar.playerTwo.x;
+	yList[| 1] = spar.playerTwo.y;
 }
 
 // set the alarm that will start the animation if there is one or 
