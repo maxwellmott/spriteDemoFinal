@@ -70,14 +70,14 @@ switch(global.controllerType) {
 		global.rightBumper	=	keyboard_check_released(ord("0"));
 		global.leftBumper	=	keyboard_check_released(ord("9"));
 			
-		global.menu_left	=	keyboard_check_released(vk_left);
-		global.menu_right	=	keyboard_check_released(vk_right);
-		global.menu_down	=	keyboard_check_released(vk_down);
-		global.menu_up		=	keyboard_check_released(vk_up);
+		global.menu_up		=	keyboard_check_released(ord("W"));
+		global.menu_left	=	keyboard_check_released(ord("A"));
+		global.menu_down	=	keyboard_check_released(ord("S"));
+		global.menu_right	=	keyboard_check_released(ord("D"));
 		
-		global.char_left	=	keyboard_check(vk_left);
-		global.char_right	=	keyboard_check(vk_right);
-		global.char_down	=	keyboard_check(vk_down);
-		global.char_up		=	keyboard_check(vk_up);
+		global.char_up		=	keyboard_check(ord("W"));
+		global.char_left	=	keyboard_check(ord("A"));
+		global.char_down	=	keyboard_check(ord("S"));
+		global.char_right	=	keyboard_check(ord("D"));
 		break;
 }

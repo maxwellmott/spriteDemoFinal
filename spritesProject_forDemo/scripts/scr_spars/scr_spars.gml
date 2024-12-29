@@ -281,6 +281,13 @@ function player_submit_turn() {
 		spar.turnGrid[# SELECTION_PHASES.TARGET,		inst.spotNum]	= inst.selectedTarget;
 		spar.turnGrid[# SELECTION_PHASES.HEIGHT,		inst.spotNum]	= roll;
 		
+		// set lastAction and lastTarget to selectedAction and selectedTarget
+		inst.lastAction = inst.selectedAction;
+		inst.lastTarget = inst.selectedTarget;
+		
+		// set turnRepeat to false
+		inst.turnRepeat = false;
+		
 		if (instance_exists(onlineEnemy)) {
 			// add info to onlineGrid
 			onlineGrid[# SELECTION_PHASES.ALLY,		inst.spotNum]	= inst.spotNum;
@@ -327,10 +334,23 @@ function local_enemy_submit_turn() {
 		var roll = roll_for_luck(lt);
 
 		// add info to grid
-		spar.turnGrid[# SELECTION_PHASES.ALLY,	inst.spotNum]		= inst.spotNum;
+		spar.turnGrid[# SELECTION_PHASES.ALLY,		inst.spotNum]		= inst.spotNum;
 		spar.turnGrid[# SELECTION_PHASES.ACTION,	inst.spotNum]		= inst.selectedAction;
-		spar.turnGrid[# SELECTION_PHASES.TARGET, inst.spotNum]		= inst.selectedTarget;
+		spar.turnGrid[# SELECTION_PHASES.TARGET,	inst.spotNum]		= inst.selectedTarget;
 		spar.turnGrid[# SELECTION_PHASES.HEIGHT,	inst.spotNum]		= roll;
+		
+		// set lastAction and lastTarget to selectedAction and selectedTarget
+		inst.lastAction = inst.selectedAction;
+		inst.lastTarget = inst.selectedTarget;
+		
+		/*
+		if (lastAction == sparActions.swap) {
+			inst.lastTarget = spar.spriteList[| inst.selectedTarget].selectedTarget;	
+		}
+		*/
+		
+		// set turnRepeat to false
+		inst.turnRepeat = false;
 		
 		// increment i
 		i++;
@@ -552,6 +572,12 @@ function all_sprites_get_luck_roll() {
 /// take the details of their turn and produce a short description of their plan for the
 /// upcoming action phase.
 function sprite_build_ready_display() {	
+	if (turnRepeat) {
+		readyDisplay = "repeating last turn";
+		readyDisplayBuilt = true;
+		return -1;
+	}
+	
 	if (selectedTarget != -1) {
 		var num = selectedTarget;
 		var numString = "";
@@ -971,11 +997,30 @@ function swap_set_potential_cost(_inst1, _inst2) {
 	var i1 = _inst1;
 	var i2 = _inst2;
 
+	// check if inst1 is using a spell
+	if (i1.selectedAction >= sparActions.height) {
+		global.mpCostDiff += spell_get_cost(i1.selectedAction - sparActions.height);	
+	}
+
+	// check if inst1 is already swapping
+	if (i1.selectedAction == sparActions.swap) {
+		global.mpCostDiff += swap_get_cost(i1, spar.spriteList[| i1.selectedTarget]);
+	}
+	
+	// check if inst2 is using a spell
+	if (i2.selectedAction >= sparActions.height) {
+		global.mpCostDiff += spell_get_cost(i2.selectedAction - sparActions.height);
+	}
+	
+	// check if inst2 is already swapping
+	if (i2.selectedAction == sparActions.swap) {
+		global.mpCostDiff += swap_get_cost(i2, spar.spriteList[| i2.selectedTarget]);	
+	}
+
 	var c = swap_get_cost(i1, i2);
 	
 	// if there's enough MP, set the cost
-	if (player.currentMP - (spar.totalSelectionCost + c) >= 0)	
-	{
+	if (player.currentMP - (spar.totalSelectionCost + c) + global.mpCostDiff >= 0)	{
 		spar.potentialCost = c;
 		return 1;	
 	}

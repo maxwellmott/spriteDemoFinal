@@ -27,7 +27,7 @@ function restore_hp(_player, _amount) {
 	p.currentHP += a;
 	
 	// perform an ability check for hp restored
-	ability_check(ABILITY_TYPES.HP_RESTORED,);
+	ability_check(ABILITY_TYPES.HP_RESTORED);
 }
 
 ///@desc This function can be called to process the actual increase to current MP

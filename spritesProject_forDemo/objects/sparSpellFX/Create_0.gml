@@ -1,6 +1,12 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+// check if spell failed
+if !(instance_exists(sparActionProcessor)) 
+|| (sparActionProcessor.spellFailed) {
+	instance_destroy(id);	
+}
+
 drawX = -1;
 drawY = -1;
 

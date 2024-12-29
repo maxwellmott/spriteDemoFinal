@@ -598,7 +598,7 @@ function deplete_mp_spar_effect(_targetPlayer, _amount) {
 	
 	var mpLeft = t.currentMP;
 	
-	if (a >= mpLeft)	return -1;
+	if (a >= mpLeft)	t.currentMP = 0;
 	else				t.currentMP -= a;
 }
 
@@ -3025,12 +3025,13 @@ function black_hole_set_active(_caster, _target) {
 	
 	c.blackHoleActive = true;
 	c.blackHoleCount = 1;
-	c.blackHoleTarget = t;
 }
 
 ///@desc SPAR EFFECT: increase blackHoleCount for the black hole sprite
 function black_hole_absorb_spell(_bhSprite) {
 	var c = _bhSprite;
+	
+	instance_destroy(sparActionProcessor);
 	
 	ds_list_add(effectedSprites, c);
 	subject = c.name;
@@ -3044,15 +3045,14 @@ function black_hole_apply_damage(_atkr, _targ, _spellPower) {
 	var t = _targ;
 	var sp = _spellPower;
 	
-	ds_list_add(effectedSprites, t);
+	ds_list_add(effectedSprites, c);
 	subject = c.name;
 	object = t.name;
 	
-	// calculate damage
-	var d = get_physical_damage(t, c, sp);
+	c.blackHoleActive = false;
 	
 	// apply damage
-	deplete_hp(t.team, d);
+	deplete_hp(t, sp);
 }
 
 ///@desc SPAR EFFECT: apply recoil damage to the player
@@ -3632,11 +3632,13 @@ function force_turn_end() {
 
 ///@desc SPAR EFFECT: forces the targetTeam to store these turn selections
 /// and repeat them the following turn
-function repeat_last_turn(_targetTeam) {
-	var t = _targetTeam;
+function repeat_last_turn(_targetSprite) {
+	var t = _targetSprite;
 	
-	effectedPlayer = t;
+	ds_list_add(effectedSprites, t);
 	subject = t.name;
+	
+	t.turnRepeat = true;
 }
 
 ///@desc SPAR EFFECT: applies damage calculated using the caster's best stat
@@ -3704,7 +3706,7 @@ function force_best_luck(_effectedSprite) {
 function force_worst_luck(_effectedSprite) {
 	var s = _effectedSprite;
 	
-	s.luckRoll = MIN_LUCK;
+	s.luckRoll = MIN_LUCK / 1000;
 	
 	ds_list_add(effectedSprites, s);
 	
@@ -3728,7 +3730,7 @@ function force_best_luck_team(_effectedPlayer) {
 	var i = 0;	repeat (ds_list_size(l)) {
 		var inst = l[| i];
 		
-		inst.luckRoll = MAX_LUCK;
+		inst.luckRoll = MAX_LUCK / 1000;
 		
 		i++;
 	}
@@ -3755,7 +3757,7 @@ function force_worst_luck_team(_effectedPlayer) {
 	var i = 0;	repeat (ds_list_size(l)) {
 		var inst = l[| i];
 		
-		inst.luckRoll = MIN_LUCK;
+		inst.luckRoll = MIN_LUCK / 1000;
 		
 		i++;
 	}
@@ -3771,7 +3773,7 @@ function force_best_luck_global() {
 	var i = 0;	repeat (ds_list_size(spar.spriteList)) {
 		var inst = spar.spriteList[| i];
 		
-		inst.luckRoll = MAX_LUCK;
+		inst.luckRoll = MAX_LUCK / 1000;
 		
 		i++;
 	}
@@ -3783,7 +3785,7 @@ function force_worst_luck_global() {
 	var i = 0;	repeat (ds_list_size(spar.spriteList)) {
 		var inst = spar.spriteList[| i];
 		
-		inst.luckRoll = MIN_LUCK;
+		inst.luckRoll = MIN_LUCK / 1000;
 		
 		i++;
 	}

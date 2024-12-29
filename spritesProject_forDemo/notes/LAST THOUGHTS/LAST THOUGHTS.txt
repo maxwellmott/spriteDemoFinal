@@ -671,3 +671,6 @@ COMING BACK FROM PLAYTEST BUILD
 	
 			- almost done testing each spell, then I will test each ability and return to enemy ai while I also finish the overworld and complete playtesting
 			
+	12/28
+	
+			- hail sphera isn't depleting hp for some reason

@@ -81,9 +81,9 @@ teamList = ds_list_create();
 
 // ONLY FOR TESTING
 teamList[| 0] = SPRITES.KRONARC;
-teamList[| 1] = SPRITES.DEMOLITOPS;
-teamList[| 2] = SPRITES.OMNOST;
-teamList[| 3] = SPRITES.SHPUPO;
+teamList[| 1] = SPRITES.COSMALCOS;
+teamList[| 2] = SPRITES.PLASMASS;
+teamList[| 3] = SPRITES.PRISMATTER;
 
 // for testing purposes only
 teamString = encode_list(teamList);
@@ -121,14 +121,14 @@ spellBookString = "";
 spellBook = ds_list_create();
 
 // ONLY FOR TESTING
-spellBook[| 7] = 71;
-spellBook[| 6] = SPELLS.LAVA_SPIRE;
-spellBook[| 5] = 69;
-spellBook[| 4] = 68;
-spellBook[| 3] = 67;
-spellBook[| 2] = 66;
-spellBook[| 1] = 65;
-spellBook[| 0] = 64;
+spellBook[| 7] = SPELLS.AIR_PRESSURE;
+spellBook[| 6] = SPELLS.NOXIOUS_FUMES;
+spellBook[| 5] = SPELLS.LAVA_SPIRE;
+spellBook[| 4] = SPELLS.HAIL_SPHERA;
+spellBook[| 3] = SPELLS.DARK_DEAL;
+spellBook[| 2] = SPELLS.ERADICATE;
+spellBook[| 1] = SPELLS.TIME_LOOP;
+spellBook[| 0] = SPELLS.BALL_LIGHTNING;
 
 spellBookString = encode_list(spellBook);
 

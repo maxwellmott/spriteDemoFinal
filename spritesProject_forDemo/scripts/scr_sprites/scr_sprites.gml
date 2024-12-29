@@ -1601,7 +1601,9 @@ enum SPRITE_POSES {
 			SPELLS.TELEKINETIC_BLAST,
 			SPELLS.EXPAND_TIME,
 			SPELLS.SPHERAS_DEMISE,
-			SPELLS.VOLCANIC_ERUPTION
+			SPELLS.VOLCANIC_ERUPTION,
+			SPELLS.TIME_LOOP,
+			SPELLS.HAIL_SPHERA
 		);
 			
 	#endregion
@@ -1633,7 +1635,9 @@ enum SPRITE_POSES {
 			SPELLS.SPHERAS_CURSE,
 			SPELLS.TELEKINETIC_BLAST,
 			SPELLS.SPHERAS_DEMISE,
-			SPELLS.VOLCANIC_ERUPTION
+			SPELLS.VOLCANIC_ERUPTION,
+			SPELLS.ERADICATE,
+			SPELLS.DARK_DEAL
 		);
 	#endregion
 
@@ -1716,7 +1720,7 @@ sprite_add_to_grid(SPRITES.NEEDLEPAW,		"Needlepaw",		spr_needlepawBattle,	ABILIT
 sprite_add_to_grid(SPRITES.OMNOST,			"Omnost",			spr_omnostBattle,		ABILITIES.ALL_KNOWING,				ALIGNMENTS.ASTRAL,		encode_list(omnostSpells),			50,		80,		110,	110,	150,	110,	70,		150,	SPRITE_SIZES.X_LARGE);
 sprite_add_to_grid(SPRITES.PRISMATTER,		"Prismatter",		spr_prismatterBattle,	ABILITIES.BEND_PHYSICS,				ALIGNMENTS.NATURAL,		encode_list(prismatterSpells),		180,	145,	40,		135,	40,		135,	75,		35,		SPRITE_SIZES.X_LARGE);
 sprite_add_to_grid(SPRITES.KRONARC,			"Kronarc",			spr_kronarcBattle,		ABILITIES.COMPRESS_TIME,			ALIGNMENTS.MECHANICAL,	encode_list(kronarcSpells),			80,		120,	120,	120,	120,	120,	115,	150,	SPRITE_SIZES.X_LARGE);
-sprite_add_to_grid(SPRITES.COSMALCOS,		"Cosmalcos",		spr_cosmalcosBattle,	ABILITIES.END_OF_DAYS,				-1,						encode_list(cosmalcosSpells),		120,	195,	50,		50,		50,		50,		30,		150,	SPRITE_SIZES.X_LARGE);
+sprite_add_to_grid(SPRITES.COSMALCOS,		"Cosmalcos",		spr_cosmalcosBattle,	ABILITIES.END_OF_DAYS,				ALIGNMENTS.NATURAL,		encode_list(cosmalcosSpells),		120,	195,	50,		50,		50,		50,		30,		150,	SPRITE_SIZES.X_LARGE);
 
 #endregion
 

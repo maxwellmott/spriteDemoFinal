@@ -11,39 +11,40 @@ if (spar.sparPhase == SPAR_PHASES.SELECT) {
 	// check if it's either the select phase or the action phase
 	if (spar.selectionPhase == SELECTION_PHASES.ALLY) 
 	|| (spar.selectionPhase == SELECTION_PHASES.ACTION) {
-		// if player clicks on sprite, set sprite as selected
-		if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
-			if (global.click) {
-				player.selectedAlly = id;
-				spar.selectionPhase = SELECTION_PHASES.ACTION;
-				
-				if (instance_exists(sparSpellMenu)) {
-					sparSpellMenu.usableSpells = player.selectedAlly.usableSpells;
+		if !(turnRepeat) {
+			// if player clicks on sprite, set sprite as selected
+			if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
+				if (global.click) {
+					player.selectedAlly = id;
+					spar.selectionPhase = SELECTION_PHASES.ACTION;
+					
+					if (instance_exists(sparSpellMenu)) {
+						sparSpellMenu.usableSpells = player.selectedAlly.usableSpells;
+					}
 				}
 			}
 		}
 	}
-}
 
-// check if the player is selecting a target
-if (spar.sparPhase == SPAR_PHASES.SELECT) {
 	// check that it is the target phase
 	if (spar.selectionPhase == SELECTION_PHASES.TARGET) {
 		// check that this sprite is not the selectedAlly
 		if (player.selectedAlly != id) {
 			// select for a swap
 			if (global.action == sparActions.swap)	{
-				if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
-					if !(spar_check_bound(id)) 
-					&& !(spar_check_berserk(id)) {
-						if (swap_set_potential_cost(player.selectedAlly, id)) {
-							if (global.click) {							
-								spar_set_target();
-								spar.selectionPhase = SELECTION_PHASES.ALLY;
+				if !(turnRepeat) {
+					if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
+						if !(spar_check_bound(id)) 
+						&& !(spar_check_berserk(id)) {
+							if (swap_set_potential_cost(player.selectedAlly, id)) {
+								if (global.click) {							
+									spar_set_target();
+									spar.selectionPhase = SELECTION_PHASES.ALLY;
+								}
 							}
-						}
-						else {
-							// indicate that you can't select this sprite
+							else {
+								// indicate that you can't select this sprite
+							}
 						}
 					}
 				}

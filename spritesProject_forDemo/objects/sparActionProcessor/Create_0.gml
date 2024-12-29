@@ -131,3 +131,6 @@ if (currentSpell >= 0) {
 		damage = get_psychic_damage(activeSprite, targetSprite, spellPower);	
 	}
 }
+
+spar_check_black_hole_absorb_spell();
+spar_check_ball_lightning_absorb_spell();

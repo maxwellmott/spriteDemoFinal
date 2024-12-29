@@ -111,7 +111,7 @@ enum SPELL_PARAMS {
 	// populate priority list
 	ds_list_add(priorityList,	SPELLS.SHOCK,		SPELLS.RAPID_STRIKE,		SPELLS.FLASH_FREEZE,	SPELLS.SNEAK_ATTACK,
 								SPELLS.SKYDIVE,		SPELLS.DEFLECTIVE_SHIELD,	SPELLS.DIONS_PARRY,		SPELLS.BROADCAST_DATA,
-								SPELLS.EXPAND_TIME,	SPELLS.TIME_LOOP,		SPELLS.ERADICATE);
+								SPELLS.EXPAND_TIME,	SPELLS.TIME_LOOP,			SPELLS.ERADICATE);
 								
 	// encode priority list
 	global.prioritySpellList = encode_list(priorityList);
@@ -874,8 +874,13 @@ function broadcast_data() {
 function collapse_space() {
 	var t = activeSprite.enemy;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
-	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_TEAM, t);
+	if (spar.currentArena != -1) {
+		spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
+		spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_TEAM, t);
+	}
+	else {
+		spellFailed = true;
+	}
 }
 
 ///@desc SPELL FUNCTION: changes all enemies luck roll to lowest possible
@@ -889,15 +894,20 @@ function expand_time() {
 function spheras_demise() {
 	var t = activeSprite.enemy;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
-	spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND_TEAM, t);
+	if (spar.currentArena != -1) {
+		spar_effect_push_alert(SPAR_EFFECTS.DESTROY_ARENA);
+		spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND_TEAM, t);
+	}
+	else {
+		spellFailed = true;	
+	}
 }
 
 ///@desc SPELL FUNCTION: forces the enemy to repeat this turn next turn
 function time_loop() {
-	var t = activeSprite.enemy;
+	var t = targetSprite;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.REPEAT_LAST_TURN);
+	spar_effect_push_alert(SPAR_EFFECTS.REPEAT_LAST_TURN, t);
 }
 
 ///@desc SPELL FUNCTION: creates a black hole that absorbs all spells
@@ -923,7 +933,7 @@ function dark_deal() {
 function hail_sphera() {
 	var c = activeSprite.team;
 	
-	spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, c.currentHP);
+	spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP, c, c.currentHP - 1);
 	spar_effect_push_alert(SPAR_EFFECTS.SET_HAIL_SPHERA, c);
 	spar_effect_push_alert(SPAR_EFFECTS.FORCE_TURN_END);
 }
@@ -999,9 +1009,9 @@ master_grid_add_spell(		SPELLS.KNOCK_OVER,				textGrid[# 1, SPELLS.KNOCK_OVER],	
 master_grid_add_spell(		SPELLS.FULL_THRUST,				textGrid[# 1, SPELLS.FULL_THRUST],				textGrid[# 2, SPELLS.FULL_THRUST],				textGrid[# 3, SPELLS.FULL_THRUST],				SPELL_TYPES.PHYSICAL,	160,	60,		ranges.nearestThreeSprites,	full_thrust,			true);
 master_grid_add_spell(		SPELLS.VOLCANIC_ERUPTION,		textGrid[# 1, SPELLS.VOLCANIC_ERUPTION],		textGrid[# 2, SPELLS.VOLCANIC_ERUPTION],		textGrid[# 3, SPELLS.VOLCANIC_ERUPTION],		SPELL_TYPES.FIRE,		130,	70,		ranges.nearestThreeSprites,	volcanic_eruption,		true);
 master_grid_add_spell(		SPELLS.BROADCAST_DATA,			textGrid[# 1, SPELLS.BROADCAST_DATA],			textGrid[# 2, SPELLS.BROADCAST_DATA],			textGrid[# 3, SPELLS.BROADCAST_DATA],			SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			broadcast_data,			false);
-master_grid_add_spell(		SPELLS.COLLAPSE_SPACE,			textGrid[# 1, SPELLS.COLLAPSE_SPACE],			textGrid[# 2, SPELLS.COLLAPSE_SPACE],			textGrid[# 3, SPELLS.COLLAPSE_SPACE],			SPELL_TYPES.TRICK,		0,		60,		ranges.onlySelf,			collapse_space,			false);
+master_grid_add_spell(		SPELLS.COLLAPSE_SPACE,			textGrid[# 1, SPELLS.COLLAPSE_SPACE],			textGrid[# 2, SPELLS.COLLAPSE_SPACE],			textGrid[# 3, SPELLS.COLLAPSE_SPACE],			SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			collapse_space,			false);
 master_grid_add_spell(		SPELLS.EXPAND_TIME,				textGrid[# 1, SPELLS.EXPAND_TIME],				textGrid[# 2, SPELLS.EXPAND_TIME],				textGrid[# 3, SPELLS.EXPAND_TIME],				SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			expand_time,			false);
-master_grid_add_spell(		SPELLS.SPHERAS_DEMISE,			textGrid[# 1, SPELLS.SPHERAS_DEMISE],			textGrid[# 2, SPELLS.SPHERAS_DEMISE],			textGrid[# 3, SPELLS.SPHERAS_DEMISE],			SPELL_TYPES.TRICK,		0,		60,		ranges.onlySelf,			spheras_demise,			false);
+master_grid_add_spell(		SPELLS.SPHERAS_DEMISE,			textGrid[# 1, SPELLS.SPHERAS_DEMISE],			textGrid[# 2, SPELLS.SPHERAS_DEMISE],			textGrid[# 3, SPELLS.SPHERAS_DEMISE],			SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			spheras_demise,			false);
 master_grid_add_spell(		SPELLS.TIME_LOOP,				textGrid[# 1, SPELLS.TIME_LOOP],				textGrid[# 2, SPELLS.TIME_LOOP],				textGrid[# 3, SPELLS.TIME_LOOP],				SPELL_TYPES.TRICK,		0,		50,		ranges.anySprite,			time_loop,				false);
 master_grid_add_spell(		SPELLS.ERADICATE,				textGrid[# 1, SPELLS.ERADICATE],				textGrid[# 2, SPELLS.ERADICATE],				textGrid[# 3, SPELLS.ERADICATE],				SPELL_TYPES.TRICK,		0,		65,		ranges.onlySelf,			eradicate,				false);
 master_grid_add_spell(		SPELLS.DARK_DEAL,				textGrid[# 1, SPELLS.DARK_DEAL],				textGrid[# 2, SPELLS.DARK_DEAL],				textGrid[# 3, SPELLS.DARK_DEAL],				SPELL_TYPES.TRICK,		0,		1,		ranges.onlySelf,			dark_deal,				false);

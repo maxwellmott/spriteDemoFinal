@@ -799,6 +799,68 @@ switch (sparPhase) {
 			spar_check_hail_sphera();
 			spar_check_miasma();	
 			
+			with (sparAlly) {
+				var ID = id;
+				
+				if !(turnReady) {
+					if (turnRepeat) {
+						selectedTarget = lastTarget;
+						selectedAction = lastAction;
+					
+						if (selectedAction == sparActions.swap) {
+							spar.spriteList[| selectedTarget].turnRepeat = true;
+						}
+						
+						sprite_build_ready_display();
+						
+						turnReady = true;
+					}
+					else {
+						if (lastAction == sparActions.swap) {
+							var targ = spar.spriteList[| lastTarget];
+							
+							if (targ.turnRepeat) {
+								selectedTarget = lastTarget;
+								selectedAction = lastAction;
+								
+								turnRepeat = true;
+								
+								sprite_build_ready_display();
+								
+								turnReady = true;
+							}
+						}
+					}
+				}
+			}
+			
+			with (sparEnemy) {
+				if !(turnReady) {
+					if (turnRepeat) {
+						selectedTarget = lastTarget;
+						selectedAction = lastAction;
+					
+						if (selectedAction == sparActions.swap) {
+							spar.spriteList[| selectedTarget].turnRepeat = true;
+						}
+						
+						turnReady = true;
+					}
+					else {
+						if (lastAction == sparActions.swap) {
+							var targ = spar.spriteList[| lastTarget];
+							
+							if (targ.turnRepeat) {
+								selectedTarget = lastTarget;
+								selectedAction = lastAction;
+								
+								turnReady = true;
+							}
+						}
+					}
+				}
+			}
+			
 			sparPhase = SPAR_PHASES.SELECT;
 		break;
 	#endregion

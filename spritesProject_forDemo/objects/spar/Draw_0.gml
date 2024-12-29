@@ -244,8 +244,10 @@ draw_set_alpha(1.0);
 	}
 #endregion
 
+
 #region SPELL FX DARK LAYER
-	if (instance_exists(sparActionProcessor)) {
+	if (instance_exists(sparActionProcessor)) 
+	&& !(sparActionProcessor.spellFailed) {
 		// set alpha to sparActionProcessor.shadeAlpha
 		draw_set_alpha(sparActionProcessor.shadeAlpha);
 		
@@ -293,7 +295,7 @@ draw_set_alpha(1.0);
 		}
 	}
 #endregion
-
+	
 #region SPELL FX / SPAR FX
 	if (instance_exists(sparSpellFX)) {
 		draw_sprite(sparSpellFX.spellAnimation, image_index, sparSpellFX.drawX, sparSpellFX.drawY);

@@ -391,16 +391,18 @@ function hot_to_the_touch(_inst) {
 	// initialize selfDamage amount
 	var selfDamageVal = 125;
 	
-	// check if the given sprite is the current targetSprite
-	if (inst == sparActionProcessor.targetSprite) {
-		// check that this is a basic attack or physical spell
-		if (sparActionProcessor.currentSpell < 0) 
-		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
-			// push spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-		
-			// push spar effect alert for apply self damage
-			spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, sparActionProcessor.activeSprite.team, selfDamageVal);
+	if (instance_exists(sparActionProcessor)) {
+		// check if the given sprite is the current targetSprite
+		if (inst == sparActionProcessor.targetSprite) {
+			// check that this is a basic attack or physical spell
+			if (sparActionProcessor.currentSpell < 0) 
+			|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
+				// push spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+				// push spar effect alert for apply self damage
+				spar_effect_push_alert(SPAR_EFFECTS.APPLY_SELF_DAMAGE, sparActionProcessor.activeSprite.team, selfDamageVal);
+			}
 		}
 	}
 }
@@ -413,17 +415,19 @@ function wavy_dance(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the target
-	if (inst == sparActionProcessor.targetSprite) {
-		// check if the arena is OCEAN
-		if (spar.currentArena == ARENAS.OCEAN) {
-			// check if the spell is dodgeable
-			if (sparActionProcessor.spellDodgeable) {
-				// push a spar effect alert for activate ability
-				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-				
-				// if so, set dodgeSuccess to true
-				sparActionProcessor.dodgeSuccess = true;
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {
+			// check if the arena is OCEAN
+			if (spar.currentArena == ARENAS.OCEAN) {
+				// check if the spell is dodgeable
+				if (sparActionProcessor.spellDodgeable) {
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// if so, set dodgeSuccess to true
+					sparActionProcessor.dodgeSuccess = true;
+				}
 			}
 		}
 	}
@@ -437,18 +441,20 @@ function storm_surfer(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the target
-	if (inst == sparActionProcessor.targetSprite) {
-		// check if it is a storm spell
-		if (sparActionProcessor.spellType == SPELL_TYPES.STORM) {
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for granting the blessing of the imp
-			spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst, MINDSETS.IMP_BLESS);
-			
-			// force spell to fail
-			sparActionProcessor.spellFailed = true;
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {
+			// check if it is a storm spell
+			if (sparActionProcessor.spellType == SPELL_TYPES.STORM) {
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for granting the blessing of the imp
+				spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst, MINDSETS.IMP_BLESS);
+				
+				// force spell to fail
+				sparActionProcessor.spellFailed = true;
+			}
 		}
 	}
 }
@@ -491,25 +497,27 @@ function battle_instinct(_inst) {
 	// get args from locals
 	var inst = _inst;
 	
-	// check if this sprite is the target
-	if (inst == sparActionProcessor.targetSprite) {
-		// check if it is a basic attack or a physical spell
-		if (sparActionProcessor.currentSpell < 0) 
-		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
-			// perform a dodge check
-			with (sparActionProcessor) {
-				dodgeSuccess = get_dodge_success();	
-			}
-			
-			// check if dodge is successful
-			if (sparActionProcessor.dodgeSuccess) {
-				// push a spar effect alert for activate ability
-				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {
+			// check if it is a basic attack or a physical spell
+			if (sparActionProcessor.currentSpell < 0) 
+			|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
+				// perform a dodge check
+				with (sparActionProcessor) {
+					dodgeSuccess = get_dodge_success();	
+				}
+				
+				// check if dodge is successful
+				if (sparActionProcessor.dodgeSuccess) {
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				}
 			}
 		}
 	}
 }
-	
+
 ///@desc ABILITY FUNCTION -- CRUSTULAR:
 /// TYPE: ACTION SUCCESS
 /// If this sprite is targeted by a basic attack or physical spell, they
@@ -518,19 +526,21 @@ function unbreakable_shell(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the target
-	if (inst == sparActionProcessor.targetSprite) {
-		// check if it is a basic attack or a physical spell
-		if (sparActionProcessor.currentSpell < 0) 
-		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {	
-			// divide damage in half
-			sparActionProcessor.damage = round(sparActionProcessor.damage / 2);
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for damage decrease
-			spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, inst);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {
+			// check if it is a basic attack or a physical spell
+			if (sparActionProcessor.currentSpell < 0) 
+			|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {	
+				// divide damage in half
+				sparActionProcessor.damage = round(sparActionProcessor.damage / 2);
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for damage decrease
+				spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, inst);
+			}
 		}
 	}
 }
@@ -543,18 +553,20 @@ function supercharged(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the target
-	if (inst == sparActionProcessor.targetSprite) {	
-		// check if it is a storm spell
-		if (sparActionProcessor.spellType == SPELL_TYPES.STORM) {
-			// push a spar effect alert for ability activation
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for bestow mindset
-			spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst, MINDSETS.IMP_BLESS);
-			
-			// push a spar effect alert for restore hp
-			spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, sparActionProcessor.damage * 2);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {	
+			// check if it is a storm spell
+			if (sparActionProcessor.spellType == SPELL_TYPES.STORM) {
+				// push a spar effect alert for ability activation
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for bestow mindset
+				spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst, MINDSETS.IMP_BLESS);
+				
+				// push a spar effect alert for restore hp
+				spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, sparActionProcessor.damage * 2);
+				}
 		}
 	}
 }
@@ -638,17 +650,19 @@ function power_of_friendship(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if one of this sprite's nearby allies is being attacked
-	if (ds_list_find_index(inst.nearbyAllies, sparActionProcessor.targetSprite) != -1) {
-		// divide damage in half
-		with (sparActionProcessor) {
-			damage = damage / 2;	
+	if (instance_exists(sparActionProcessor)) {
+		// check if one of this sprite's nearby allies is being attacked
+		if (ds_list_find_index(inst.nearbyAllies, sparActionProcessor.targetSprite) != -1) {
+			// divide damage in half
+			with (sparActionProcessor) {
+				damage = damage / 2;	
+			}
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for decrease damage
+			spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, sparActionProcessor.targetSprite);
 		}
-		// push a spar effect alert for activate ability
-		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-		
-		// push a spar effect alert for decrease damage
-		spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, sparActionProcessor.targetSprite);
 	}
 }
 
@@ -661,22 +675,24 @@ function undersea_predator(_inst) {
 	
 	// check if ocean is active
 	if (spar.currentArena == ARENAS.OCEAN) {
-		// check if this sprite is the attacker
-		if (inst == sparActionProcessor.activeSprite) {
-			// check if this is a damaging spell or basic attack
-			if (sparActionProcessor.currentSpell < 0) 
-			|| (sparActionProcessor.spellPower > 0) {
-				// increase the DMI by 2
-				global.damageMultiplierIndex += 2;
-			
-				// set dodgeable to false
-				sparActionProcessor.spellDodgeable = false;
+		if (instance_exists(sparActionProcessor)) {
+			// check if this sprite is the attacker
+			if (inst == sparActionProcessor.activeSprite) {
+				// check if this is a damaging spell or basic attack
+				if (sparActionProcessor.currentSpell < 0) 
+				|| (sparActionProcessor.spellPower > 0) {
+					// increase the DMI by 2
+					global.damageMultiplierIndex += 2;
 				
-				// push a spar effect alert for activate ability
-				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-				
-				// push a spar effect alert for increase damage
-				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+					// set dodgeable to false
+					sparActionProcessor.spellDodgeable = false;
+					
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// push a spar effect alert for increase damage
+					spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+				}
 			}
 		}
 	}
@@ -743,23 +759,25 @@ function flowery_spirit(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is attacking
-	if (inst == sparActionProcessor.activeSprite) {
-		// check if it is a damaging elemental spell
-		if (sparActionProcessor.spellType < SPELL_TYPES.PHYSICAL)
-		&& (sparActionProcessor.spellType > 0) 
-		&& (sparActionProcessor.spellPower > 0) {
-			// increase the DMI by 2
-			global.damageMultiplierIndex += 2;
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for increase damage
-			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
-			
-			// push a spar effect alert for arena change forest
-			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_FOREST);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {
+			// check if it is a damaging elemental spell
+			if (sparActionProcessor.spellType < SPELL_TYPES.PHYSICAL)
+			&& (sparActionProcessor.spellType > 0) 
+			&& (sparActionProcessor.spellPower > 0) {
+				// increase the DMI by 2
+				global.damageMultiplierIndex += 2;
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for increase damage
+				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+				
+				// push a spar effect alert for arena change forest
+				spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_FOREST);
+			}
 		}
 	}
 }
@@ -804,20 +822,22 @@ function hang_ten(_inst) {
 	
 	// check if ocean is active
 	if (spar.currentArena == ARENAS.OCEAN) {
-		// check if this sprite is attacking
-		if (inst == sparActionProcessor.activeSprite) {
-			// check if it is a basic attack
-			if (sparActionProcessor.currentSpell < 0) {
-				// multiply damage by 2
-				with (sparActionProcessor) {
-					damage = damage * 2;	
+		if (instance_exists(sparActionProcessor)) {
+			// check if this sprite is attacking
+			if (inst == sparActionProcessor.activeSprite) {
+				// check if it is a basic attack
+				if (sparActionProcessor.currentSpell < 0) {
+					// multiply damage by 2
+					with (sparActionProcessor) {
+						damage = damage * 2;	
+					}
+					
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// push a spar effect alert for increase damage
+					spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);	
 				}
-				
-				// push a spar effect alert for activate ability
-				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-				
-				// push a spar effect alert for increase damage
-				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);	
 			}
 		}
 	}
@@ -830,36 +850,38 @@ function territorial_hunter(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is attacking
-	if (inst == sparActionProcessor.activeSprite) {
-		// initialize a counter
-		var count = 0;
-		
-		// use a repeat loop to count all natural sprites near this one
-		var i = 0;	repeat (ds_list_size(inst.nearbySprites)) {
-			// get sprite
-			var s = inst.nearbySprites[| i];
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {
+			// initialize a counter
+			var count = 0;
 			
-			// check if it's alignment is natural
-			if (s.currentAlign == ALIGNMENTS.NATURAL) {
-				// if so, increment count
-				count++;
+			// use a repeat loop to count all natural sprites near this one
+			var i = 0;	repeat (ds_list_size(inst.nearbySprites)) {
+				// get sprite
+				var s = inst.nearbySprites[| i];
+				
+				// check if it's alignment is natural
+				if (s.currentAlign == ALIGNMENTS.NATURAL) {
+					// if so, increment count
+					count++;
+				}
+				
+				// increment i
+				i++;
 			}
 			
-			// increment i
-			i++;
-		}
-		
-		// if count is above 0
-		if (count > 0) {
-			// increase the dmi by that amount
-			global.damageMultiplierIndex += count;
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for increase damage
-			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+			// if count is above 0
+			if (count > 0) {
+				// increase the dmi by that amount
+				global.damageMultiplierIndex += count;
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for increase damage
+				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+			}
 		}
 	}
 }
@@ -872,20 +894,22 @@ function natural_ingredients(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the target
-	if (inst == sparActionProcessor.targetSprite) {	
-		// check if it is an earth spell
-		if (sparActionProcessor.spellType == SPELL_TYPES.EARTH) {
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for restore HP
-			spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, sparActionProcessor.damage);
-			
-			// destroy the action processor
-			instance_destroy(sparActionProcessor);
-		}
-	}	
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {	
+			// check if it is an earth spell
+			if (sparActionProcessor.spellType == SPELL_TYPES.EARTH) {
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for restore HP
+				spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, sparActionProcessor.damage);
+				
+				// destroy the action processor
+				instance_destroy(sparActionProcessor);
+			}
+		}	
+	}
 }
 
 ///@desc ABILITY FUNCTION -- DURENDOUX:
@@ -896,16 +920,18 @@ function absorptive_body(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the target
-	if (inst == sparActionProcessor.targetSprite) {
-		// check that it is a basic attack or physical spell
-		if (sparActionProcessor.currentSpell < 0) 
-		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for set bound
-			spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, sparActionProcessor.activeSprite);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {
+			// check that it is a basic attack or physical spell
+			if (sparActionProcessor.currentSpell < 0) 
+			|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for set bound
+				spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, sparActionProcessor.activeSprite);
+			}
 		}
 	}
 }
@@ -967,16 +993,18 @@ function sort_away(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the target
-	if (inst == sparActionProcessor.targetSprite) {
-		// check if it is a basic attack or physical spell
-		if (sparActionProcessor.currentSpell < 0) 
-		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {	
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for force swap
-			spar_effect_push_alert(SPAR_EFFECTS.FORCE_SWAP, sparActionProcessor.activeSprite);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {
+			// check if it is a basic attack or physical spell
+			if (sparActionProcessor.currentSpell < 0) 
+			|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {	
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for force swap
+				spar_effect_push_alert(SPAR_EFFECTS.FORCE_SWAP, sparActionProcessor.activeSprite);
+			}
 		}
 	}
 }
@@ -1006,16 +1034,18 @@ function offer_refuge(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if the target is one of this sprite's nearbyAllies
-	if (ds_list_find_index(inst.nearbyAllies, sparActionProcessor.targetSprite) != -1) {
-		// check if it is a basic attack or physical spell
-		if (sparActionProcessor.currentSpell < 0) 
-		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
-			// set the targetSprite to inst
-			sparActionProcessor.targetSprite = inst;
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+	if (instance_exists(sparActionProcessor)) {
+		// check if the target is one of this sprite's nearbyAllies
+		if (ds_list_find_index(inst.nearbyAllies, sparActionProcessor.targetSprite) != -1) {
+			// check if it is a basic attack or physical spell
+			if (sparActionProcessor.currentSpell < 0) 
+			|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
+				// set the targetSprite to inst
+				sparActionProcessor.targetSprite = inst;
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			}
 		}
 	}
 }
@@ -1140,18 +1170,20 @@ function fiery_aura(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is attacking
-	if (inst == sparActionProcessor.activeSprite) {
-		// check if it is a fire spell
-		if (sparActionProcessor.spellType == SPELL_TYPES.FIRE) {
-			// increase the DMI by 2
-			global.damageMultiplierIndex += 2;
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for increase damage
-			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {
+			// check if it is a fire spell
+			if (sparActionProcessor.spellType == SPELL_TYPES.FIRE) {
+				// increase the DMI by 2
+				global.damageMultiplierIndex += 2;
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for increase damage
+				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+			}
 		}
 	}
 }
@@ -1164,16 +1196,18 @@ function thundrous_cry(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the target
-	if (inst == sparActionProcessor.targetSprite) {
-		// check if it is a damaging spell or basic attack
-		if (sparActionProcessor.spellPower > 0) 
-		|| (sparActionProcessor.currentSpell < 0) {	
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for arena change clouds
-			spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_CLOUDS);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {
+			// check if it is a damaging spell or basic attack
+			if (sparActionProcessor.spellPower > 0) 
+			|| (sparActionProcessor.currentSpell < 0) {	
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for arena change clouds
+				spar_effect_push_alert(SPAR_EFFECTS.ARENA_CHANGE_CLOUDS);
+			}
 		}
 	}
 }
@@ -1186,18 +1220,20 @@ function massive_body(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the attacker
-	if (inst == sparActionProcessor.activeSprite) {
-		// check if this is a basic attack
-		if (sparActionProcessor.currentSpell < 0) {
-			// reset damage using arbitrate_physical_damage
-			sparActionProcessor.damage = arbitrate_physical_damage(inst, sparActionProcessor.targetSprite, SPRITE_PARAMS.RESISTANCE, BASIC_ATTACK_POWER);
-		
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-		
-			// push a spar effect alert for basic attack fire
-			spar_effect_push_alert(SPAR_EFFECTS.BASIC_ATTACK_RESISTANCE, inst);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the attacker
+		if (inst == sparActionProcessor.activeSprite) {
+			// check if this is a basic attack
+			if (sparActionProcessor.currentSpell < 0) {
+				// reset damage using arbitrate_physical_damage
+				sparActionProcessor.damage = arbitrate_physical_damage(inst, sparActionProcessor.targetSprite, SPRITE_PARAMS.RESISTANCE, BASIC_ATTACK_POWER);
+			
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+				// push a spar effect alert for basic attack fire
+				spar_effect_push_alert(SPAR_EFFECTS.BASIC_ATTACK_RESISTANCE, inst);
+			}
 		}
 	}
 }
@@ -1210,18 +1246,20 @@ function underdog(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is attacking
-	if (inst == sparActionProcessor.activeSprite) {
-		// check if this sprite's team has 500 hp or less
-		if (inst.team.currentHP <= MAX_HP / 2) {
-			// boost damage by 2	
-			sparActionProcessor.damage = sparActionProcessor.damage * 2;
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for increase damage
-			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {
+			// check if this sprite's team has 500 hp or less
+			if (inst.team.currentHP <= MAX_HP / 2) {
+				// boost damage by 2	
+				sparActionProcessor.damage = sparActionProcessor.damage * 2;
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for increase damage
+				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+			}
 		}
 	}
 }
@@ -1426,16 +1464,18 @@ function flood_shelter(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if the targetSprite is on this sprite's team
-	if (sparActionProcessor.targetSprite.team == inst.team) 
-	&& (sparActionProcessor.targetSprite != inst) {	
-		// check if it is a water spell
-		if (sparActionProcessor.spellType == SPELL_TYPES.WATER) {	
-			// push a spar effect for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect for replace target
-			spar_effect_push_alert(SPAR_EFFECTS.REPLACE_TARGET, inst, sparActionProcessor.targetSprite);
+	if (instance_exists(sparActionProcessor)) {
+		// check if the targetSprite is on this sprite's team
+		if (sparActionProcessor.targetSprite.team == inst.team) 
+		&& (sparActionProcessor.targetSprite != inst) {	
+			// check if it is a water spell
+			if (sparActionProcessor.spellType == SPELL_TYPES.WATER) {	
+				// push a spar effect for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect for replace target
+				spar_effect_push_alert(SPAR_EFFECTS.REPLACE_TARGET, inst, sparActionProcessor.targetSprite);
+			}
 		}
 	}
 }
@@ -1492,19 +1532,21 @@ function generator(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is attacking
-	if (inst == sparActionProcessor.activeSprite) {
-		// check if it is a fire or storm spell
-		if (sparActionProcessor.spellType == SPELL_TYPES.FIRE) 
-		|| (sparActionProcessor.spellType == SPELL_TYPES.STORM) {	
-			// increase the dmi by 1
-			global.damageMultiplierIndex++;
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for increase damage
-			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {
+			// check if it is a fire or storm spell
+			if (sparActionProcessor.spellType == SPELL_TYPES.FIRE) 
+			|| (sparActionProcessor.spellType == SPELL_TYPES.STORM) {	
+				// increase the dmi by 1
+				global.damageMultiplierIndex++;
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for increase damage
+				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+			}
 		}
 	}
 }
@@ -1516,18 +1558,20 @@ function dual_wield(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is attacking
-	if (inst == sparActionProcessor.activeSprite) {	
-		// check if it is a basic attack
-		if (sparActionProcessor.currentSpell < 0) {	
-			// multiply damage output by 2
-			sparActionProcessor.damage = sparActionProcessor.damage * 2;
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for increase damage
-			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {	
+			// check if it is a basic attack
+			if (sparActionProcessor.currentSpell < 0) {	
+				// multiply damage output by 2
+				sparActionProcessor.damage = sparActionProcessor.damage * 2;
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for increase damage
+				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+			}
 		}
 	}
 }
@@ -1540,20 +1584,22 @@ function shadowy_fiend(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is being attacked
-	if (inst == sparActionProcessor.targetSprite) {
-		// check if it is a basic attack or damaging spell
-		if (sparActionProcessor.currentSpell < 0) 
-		|| (sparActionProcessor.spellPower > 0) {
-			// check if miasma is present on this sprite's side of the field
-			if (inst.team.miasma) {
-				// check if the spell is dodgeable
-				if (sparActionProcessor.spellDodgeable) {
-					// push a spar effect alert for activate ability
-					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-					
-					// if so, set dodgeSuccess to true
-					sparActionProcessor.dodgeSuccess = true;
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is being attacked
+		if (inst == sparActionProcessor.targetSprite) {
+			// check if it is a basic attack or damaging spell
+			if (sparActionProcessor.currentSpell < 0) 
+			|| (sparActionProcessor.spellPower > 0) {
+				// check if miasma is present on this sprite's side of the field
+				if (inst.team.miasma) {
+					// check if the spell is dodgeable
+					if (sparActionProcessor.spellDodgeable) {
+						// push a spar effect alert for activate ability
+						spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+						
+						// if so, set dodgeSuccess to true
+						sparActionProcessor.dodgeSuccess = true;
+					}
 				}
 			}
 		}
@@ -1569,24 +1615,26 @@ function metal_muncher(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the target
-	if (inst == sparActionProcessor.targetSprite) {
-		// check if it is a basic attack or physical spell
-		if (sparActionProcessor.currentSpell < 0) 
-		|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {	
-			// check if the attacker is a mechanical sprite
-			if (sparActionProcessor.activeSprite.currentAlign == ALIGNMENTS.MECHANICAL) {
-				// push a spar effect alert for activate ability
-				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-				
-				// push a spar effect alert for restore HP
-				spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, sparActionProcessor.damage);
-				
-				// destroy the action processor
-				instance_destroy(sparActionProcessor);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {
+			// check if it is a basic attack or physical spell
+			if (sparActionProcessor.currentSpell < 0) 
+			|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {	
+				// check if the attacker is a mechanical sprite
+				if (sparActionProcessor.activeSprite.currentAlign == ALIGNMENTS.MECHANICAL) {
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// push a spar effect alert for restore HP
+					spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, sparActionProcessor.damage);
+					
+					// destroy the action processor
+					instance_destroy(sparActionProcessor);
+				}
 			}
-		}
-	}	
+		}	
+	}
 }
 
 ///@desc ABILITY FUNCTION -- CRAGMA
@@ -1597,20 +1645,22 @@ function volcanic_mass(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is attacking
-	if (inst == sparActionProcessor.activeSprite) {	
-		// check if it is a basic attack
-		if (sparActionProcessor.currentSpell < 0) {
-			// reset damage using arbitrate_physical_damage
-			sparActionProcessor.damage = arbitrate_physical_damage(inst, sparActionProcessor.targetSprite, SPRITE_PARAMS.FIRE, BASIC_ATTACK_POWER);
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for basic attack fire
-			spar_effect_push_alert(SPAR_EFFECTS.BASIC_ATTACK_FIRE, inst);
-		}
-	}	
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {	
+			// check if it is a basic attack
+			if (sparActionProcessor.currentSpell < 0) {
+				// reset damage using arbitrate_physical_damage
+				sparActionProcessor.damage = arbitrate_physical_damage(inst, sparActionProcessor.targetSprite, SPRITE_PARAMS.FIRE, BASIC_ATTACK_POWER);
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for basic attack fire
+				spar_effect_push_alert(SPAR_EFFECTS.BASIC_ATTACK_FIRE, inst);
+			}
+		}	
+	}
 }
 
 ///@desc ABILITY FUNCTION -- CORVOLT
@@ -1656,21 +1706,23 @@ function pure_malice(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is attacking
-	if (inst == sparActionProcessor.activeSprite) {
-		// check if it is a damaging spell or basic attack
-		if (sparActionProcessor.currentSpell < 0) 
-		|| (sparActionProcessor.spellPower > 0) {	
-			// check if it is HEXED
-			if (inst.hexed) {
-				// multiply damage by 1.5
-				sparActionProcessor.damage = round(sparActionProcessor.damage * 1.5);
-				
-				// push a spar effect alert for activate ability
-				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-				
-				// push a spar effect alert for increase damage
-				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {
+			// check if it is a damaging spell or basic attack
+			if (sparActionProcessor.currentSpell < 0) 
+			|| (sparActionProcessor.spellPower > 0) {	
+				// check if it is HEXED
+				if (inst.hexed) {
+					// multiply damage by 1.5
+					sparActionProcessor.damage = round(sparActionProcessor.damage * 1.5);
+					
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// push a spar effect alert for increase damage
+					spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+				}
 			}
 		}
 	}
@@ -1683,18 +1735,20 @@ function guardian_angel(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if the target is on this sprite's team
-	if (sparActionProcessor.targetSprite.team == inst.team) {
-		// check if damage is greater than 0
-		if  (sparActionProcessor.damage > 0) {
-			// multiply damage by 0.75
-			sparActionProcessor.damage = round(sparActionProcessor.damage * 0.75);
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for decrease damage
-			spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, sparActionProcessor.targetSprite);
+	if (instance_exists(sparActionProcessor)) {
+		// check if the target is on this sprite's team
+		if (sparActionProcessor.targetSprite.team == inst.team) {
+			// check if damage is greater than 0
+			if  (sparActionProcessor.damage > 0) {
+				// multiply damage by 0.75
+				sparActionProcessor.damage = round(sparActionProcessor.damage * 0.75);
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for decrease damage
+				spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, sparActionProcessor.targetSprite);
+			}
 		}
 	}
 }
@@ -1707,15 +1761,17 @@ function ring_leader(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is attacking
-	if (inst == sparActionProcessor.activeSprite) {	
-		// check if it is a basic attack
-		if (sparActionProcessor.currentSpell < 0) {	
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for replace target
-			spar_effect_push_alert(SPAR_EFFECTS.REPLACE_TARGET, sparActionProcessor.targetSprite, inst);
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {	
+			// check if it is a basic attack
+			if (sparActionProcessor.currentSpell < 0) {	
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for replace target
+				spar_effect_push_alert(SPAR_EFFECTS.REPLACE_TARGET, sparActionProcessor.targetSprite, inst);
+			}
 		}
 	}
 }
@@ -1728,23 +1784,25 @@ function time_police(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if it is a spell	
-	if (sparActionProcessor.currentSpell >= 0) {
-		// build ancientSpells list
-		var l = ds_list_create();
-		decode_list(global.ancientSpellList, l);
-		
-		// check if this spell is on the above list
-		if (ds_list_find_index(l, sparActionProcessor.currentSpell) != -1) {
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+	if (instance_exists(sparActionProcessor)) {
+		// check if it is a spell	
+		if (sparActionProcessor.currentSpell >= 0) {
+			// build ancientSpells list
+			var l = ds_list_create();
+			decode_list(global.ancientSpellList, l);
 			
-			// force spell to fail
-			sparActionProcessor.spellFailed = true;
+			// check if this spell is on the above list
+			if (ds_list_find_index(l, sparActionProcessor.currentSpell) != -1) {
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// force spell to fail
+				sparActionProcessor.spellFailed = true;
+			}
+			
+			// destroy temp list
+			ds_list_destroy(l);
 		}
-		
-		// destroy temp list
-		ds_list_destroy(l);
 	}
 }
 
@@ -1755,17 +1813,19 @@ function space_cadet(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the target
-	if (inst == sparActionProcessor.targetSprite) {
-		// check if it is a damaging spell
-		if (sparActionProcessor.spellPower > 0) {
-			// check if spellEffect is set
-			if (sparActionProcessor.spellEffect > 0) {
-				// push a spar effect alert for activate ability
-				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-				
-				// set the spellEffect to -1
-				sparActionProcessor.spellEffect = -1;
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) {
+			// check if it is a damaging spell
+			if (sparActionProcessor.spellPower > 0) {
+				// check if spellEffect is set
+				if (sparActionProcessor.spellEffect > 0) {
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// set the spellEffect to -1
+					sparActionProcessor.spellEffect = -1;
+				}
 			}
 		}
 	}
@@ -1842,31 +1902,34 @@ function bend_physics(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if it is a physical spell or basic attack
-	if (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) 
-	|| (sparActionProcessor.currentSpell < 0) {
-		// check if this sprite is attacking
-		if (inst == sparActionProcessor.activeSprite) {
-			// increase the DMI by 1
-			global.damageMultiplierIndex++;
+	// check if the sparActionProcessor exists
+	if (instance_exists(sparActionProcessor)) {
+		// check if it is a physical spell or basic attack
+		if (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) 
+		|| (sparActionProcessor.currentSpell < 0) {
+			// check if this sprite is attacking
+			if (inst == sparActionProcessor.activeSprite) {
+				// increase the DMI by 1
+				global.damageMultiplierIndex++;
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for increase damage	
+				spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+			}
 			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for increase damage	
-			spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
-		}
-		
-		// check if this sprite is the target
-		if (inst == sparActionProcessor.targetSprite) {
-			// decrease the DMI by 1
-			global.damageMultiplierIndex--;
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for decrease damage
-			spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, inst);
+			// check if this sprite is the target
+			if (inst == sparActionProcessor.targetSprite) {
+				// decrease the DMI by 1
+				global.damageMultiplierIndex--;
+				
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for decrease damage
+				spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, inst);
+			}
 		}
 	}
 }
@@ -1898,19 +1961,21 @@ function end_of_days(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the target
-	if (inst == sparActionProcessor.targetSprite) {
-		// check if it is a spell
-		if (sparActionProcessor.currentSpell >= 0) {	
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// force the spell to fail
-			sparActionProcessor.spellFailed = true;
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the target
+		if (inst == sparActionProcessor.targetSprite) 
+		&& (inst != sparActionProcessor.activeSprite) {
+			// check if it is a spell
+			if (sparActionProcessor.currentSpell >= 0) {	
+				// push a spar effect alert for activate ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// force the spell to fail
+				sparActionProcessor.spellFailed = true;
+			}
 		}
 	}
 }
-
 #endregion
 
 // get all text params from csv file

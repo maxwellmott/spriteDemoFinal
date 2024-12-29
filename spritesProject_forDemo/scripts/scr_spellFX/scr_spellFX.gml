@@ -132,6 +132,8 @@ spellFXList[| SPELLS.EXPAND_TIME]				=	spr_spellFX_expand_time;
 spellFXList[| SPELLS.SPHERAS_DEMISE]			=	spr_spellFX_spheras_demise;
 spellFXList[| SPELLS.TIME_LOOP]					=	spr_spellFX_time_loop;
 spellFXList[| SPELLS.ERADICATE]					=	spr_spellFX_eradicate;
+spellFXList[| SPELLS.DARK_DEAL]					=	spr_spellFX_darkDeal;
+spellFXList[| SPELLS.HAIL_SPHERA]				=	spr_spellFX_hailSphera;
 
 // encode the list
 global.allSpellAnimations = encode_list(animationsList);

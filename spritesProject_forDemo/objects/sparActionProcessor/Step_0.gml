@@ -209,9 +209,6 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 			}
 		}		
 		
-		spar_check_black_hole_absorb_spell();
-		spar_check_ball_lightning_absorb_spell();
-		
 		if !(dodgeSuccess) {
 			if !(spar_check_parrying()) {
 				// check if the caster of this spell is hexed

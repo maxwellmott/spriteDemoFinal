@@ -486,6 +486,8 @@ function spar_check_ball_lightning_absorb_spell() {
 			if (inst.ballLightningActive) {
 				spar_effect_push_alert(SPAR_EFFECTS.BALL_LIGHTNING_ABSORB_SPELL, inst);
 				
+				spellFailed = true;
+				
 				// destroy the actionProcessor
 				instance_destroy(id);
 			}
@@ -546,18 +548,17 @@ function spar_check_ball_lightning_deal_damage() {
 /// alert and then destroys the actionProcessor
 function spar_check_black_hole_absorb_spell() {
 	var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
-		// get current inst
 		var inst = spar.spriteList[| i];
 		
-		// check if inst has black hole active
 		if (inst.blackHoleActive) {
 			spar_effect_push_alert(SPAR_EFFECTS.BLACK_HOLE_ABSORB_SPELL, inst);
+			
+			spellFailed = true;
 			
 			// destroy the actionProcessor
 			instance_destroy(id);
 		}
-	
-		// increment i
+		
 		i++;
 	}
 }
@@ -569,34 +570,29 @@ function spar_check_black_hole_deal_damage() {
 	var i = 0;	repeat (ds_grid_height(turnGrid)) {
 		// get current instance
 		var inst = spriteList[| i];
-		
-		// check if inst has black hole active
+	
+		// check if inst has ballLightningActive
 		if (inst.blackHoleActive) {
-			// check if the caster has become hexed
+			// check if caster has become hexed
 			if (spar_check_hexed(inst)) {
 				inst.blackHoleCount = 0;
 				inst.blackHoleActive = false;
-				inst.blackHoleTarget = -1;
 				
 				return true;
 			}
+			
+			// store ballLightning's base spellPower in a local var
+			var sp = 50;
+			
+			// 20 to spell power for every spell absorbed
+			sp += 135 * inst.blackHoleCount;
+			
+			// post effect alert
+			spar_effect_push_alert(SPAR_EFFECTS.BLACK_HOLE_APPLY_DAMAGE, inst, inst.enemy, sp);
 		}
-		// check for natural arena boost
-		spar_check_natural_arena_boost(inst);
-		
-		// store blackHole's power in a local var
-		var sp = 0;
-		
-		// add 40 to spell power for every spell absorbed
-		sp += 40 * inst.blackHoleCount;
-		
-		if (sp > 0) {
-			// calculate damage
-			var d = get_physical_damage(inst, inst.blackHoleTarget, sp);
-		
-			// apply damage
-			deplete_hp(inst.blackHoleTarget.team, d);
-		}
+	
+		// increment i
+		i++;
 	}
 }
 

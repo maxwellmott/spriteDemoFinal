@@ -129,7 +129,6 @@ nearbySprites	= ds_list_create();
 
 blackHoleActive = false;
 blackHoleCount = 0;
-blackHoleTarget = -1;
 
 ballLightningActive = false;
 ballLightningCount = 0;
@@ -162,3 +161,7 @@ backUpTarget2	= -1;
 flashCount = -1;
 flashNum = 0;
 flashRate = -1;
+
+turnRepeat = false;
+lastTarget = -1;
+lastAction = -1;
