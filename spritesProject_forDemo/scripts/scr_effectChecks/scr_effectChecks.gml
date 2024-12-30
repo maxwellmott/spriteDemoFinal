@@ -602,12 +602,16 @@ function spar_check_black_hole_deal_damage() {
 function spar_check_hail_sphera() {
 	// check if player one has hail mary active
 	if (playerOne.hailSphera) {
+		spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP, playerOne, playerOne.currentHP - 1);
+		
 		// if so, push hail mary effect for player one
 		spar_effect_push_alert(SPAR_EFFECTS.HAIL_SPHERA_SET_INVULNERABLE, playerOne);
 	}
 	
 	// check if player two has hail mary active
 	if (playerTwo.hailSphera) {
+		spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP, playerTwo, playerTwo.currentHP);
+		
 		// if so, push hail mary effect for player two
 		spar_effect_push_alert(SPAR_EFFECTS.HAIL_SPHERA_SET_INVULNERABLE, playerTwo);
 	}

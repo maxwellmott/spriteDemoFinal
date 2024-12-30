@@ -674,3 +674,9 @@ COMING BACK FROM PLAYTEST BUILD
 	12/28
 	
 			- hail sphera isn't depleting hp for some reason
+			
+	12/29 
+	
+			- finished testing all spells!
+			- add all the updated sprite artwork to gms2
+			- fill out data for all "NEW_SPRITES" and "NEW_ABILITIES"
