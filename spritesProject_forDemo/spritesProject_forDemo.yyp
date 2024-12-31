@@ -452,7 +452,6 @@
     {"id":{"name":"spr_playerInfoDisplay","path":"sprites/spr_playerInfoDisplay/spr_playerInfoDisplay.yy",},},
     {"id":{"name":"spr_pleepBattle","path":"sprites/spr_pleepBattle/spr_pleepBattle.yy",},},
     {"id":{"name":"spr_podricBattle","path":"sprites/spr_podricBattle/spr_podricBattle.yy",},},
-    {"id":{"name":"spr_pondileBattle","path":"sprites/spr_pondileBattle/spr_pondileBattle.yy",},},
     {"id":{"name":"spr_postIndustrialCountertop","path":"sprites/spr_postIndustrialCountertop/spr_postIndustrialCountertop.yy",},},
     {"id":{"name":"spr_postIndustrialCountertopMask","path":"sprites/spr_postIndustrialCountertopMask/spr_postIndustrialCountertopMask.yy",},},
     {"id":{"name":"spr_postIndustrialCupboard","path":"sprites/spr_postIndustrialCupboard/spr_postIndustrialCupboard.yy",},},

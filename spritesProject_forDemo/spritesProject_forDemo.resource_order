@@ -375,7 +375,6 @@
     {"name":"spr_playerInfoDisplay","order":3,"path":"sprites/spr_playerInfoDisplay/spr_playerInfoDisplay.yy",},
     {"name":"spr_pleepBattle","order":17,"path":"sprites/spr_pleepBattle/spr_pleepBattle.yy",},
     {"name":"spr_podricBattle","order":18,"path":"sprites/spr_podricBattle/spr_podricBattle.yy",},
-    {"name":"spr_pondileBattle","order":52,"path":"sprites/spr_pondileBattle/spr_pondileBattle.yy",},
     {"name":"spr_postIndustrialCountertop","order":18,"path":"sprites/spr_postIndustrialCountertop/spr_postIndustrialCountertop.yy",},
     {"name":"spr_postIndustrialCountertopMask","order":17,"path":"sprites/spr_postIndustrialCountertopMask/spr_postIndustrialCountertopMask.yy",},
     {"name":"spr_postIndustrialCupboard","order":17,"path":"sprites/spr_postIndustrialCupboard/spr_postIndustrialCupboard.yy",},
