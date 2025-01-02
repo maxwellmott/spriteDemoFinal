@@ -680,3 +680,14 @@ COMING BACK FROM PLAYTEST BUILD
 			- finished testing all spells!
 			- add all the updated sprite artwork to gms2
 			- fill out data for all "NEW_SPRITES" and "NEW_ABILITIES"
+			
+	1/1
+	
+			I just finished inputting most of the data for the new sprites that had yet to be added.
+			
+			I still need to build three abilities. 
+			
+			FLAMILIAR	-- ENDLESS WICK (need to add ability check for "spell cost check"
+			VEWRR		-- TEARS AND JEERS
+			DECIDRUID	-- PERENNIAL GROWTH (need to add an "immobile" variable that keeps the user from selecting a new action)
+			

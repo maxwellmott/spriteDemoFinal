@@ -299,7 +299,7 @@ enum ABILITIES {
 	NATURAL_INGREDIENTS,
 	ABSORPTIVE_BODY,
 	CREEP_OUT,
-	NEW_ABILITY_1,
+	ENDLESS_WICK,
 	ALL_SEEING_EYES,
 	SORT_AWAY,
 	SHORT_FUSE,
@@ -321,7 +321,7 @@ enum ABILITIES {
 	SPRING_LOADED,
 	FLOOD_SHELTER,
 	PROPOGATE,
-	NEW_ABILITY_2,
+	HEAVY_SLEEPER,
 	REDEEMING_QUALITIES,
 	GENERATOR,
 	DUAL_WIELD,
@@ -329,12 +329,12 @@ enum ABILITIES {
 	METAL_MUNCHER,
 	VOLCANIC_MASS,
 	EYE_OF_THE_STORM,
-	NEW_ABILITY_3,
+	TEARS_AND_JEERS,
 	CENTRIPETAL_FORCE,
-	NEW_ABILITY_4,
+	PERENNIAL_GROWTH,
 	PURE_MALICE,
 	GUARDIAN_ANGEL,
-	NEW_ABILITY_5,
+	DARK_RITUAL,
 	RING_LEADER,
 	TIME_POLICE,
 	SPACE_CADET,
@@ -375,6 +375,8 @@ enum ABILITY_TYPES {
 	HP_DEPLETED,			// CHECK PLACED
 	MP_RESTORED,			// CHECK PLACED
 	HP_RESTORED,			// CHECK PLACED
+	SPELL_COST_CHECK,
+	SWAP_COST_CHECK,		
 	HEIGHT					
 }
 
@@ -953,6 +955,14 @@ function creep_out(_inst) {
 	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_NEARBY_SPRITES, inst);
 }
 
+///@desc ABILITY FUNCTION -- FLAMILIAR:
+/// TYPE: SPELL COST CHECK
+/// This sprite's FIRE spells don't cost any magic points
+function endless_wick(_inst) {
+	// store args in locals
+	
+}
+
 ///@desc ABILITY FUNCTION -- SCROOTINEYES:
 /// TYPE: TARGET SELECTION
 /// This sprite has increased RANGE for all ELEMENTAL and TRICK SPELLS.
@@ -1506,6 +1516,20 @@ function propogate(_inst) {
 	}
 }
 
+///@desc ABILITY FUNCTION -- SNUGBUG
+/// TYPE: REST SUCCESS
+/// When this sprite rests, it becomes INVULNERABLE until the end of the turn
+function heavy_sleeper(_inst) {
+	// store args in locals
+	var inst = _inst;
+	
+	// check if this sprite is resting
+	if (inst.resting) {
+		// push a spar effect for set invulnerable
+		spar_effect_push_alert(SPAR_EFFECTS.SET_INVULNERABLE, inst);
+	}
+}
+
 ///@desc ABILITY FUNCTION -- CAPN CLOPS
 /// TYPE: TURN END
 /// If this sprite's team has less than half HP, it fully restores
@@ -1681,6 +1705,14 @@ function eye_of_the_storm(_inst) {
 	}
 }
 
+//@desc ABILITY FUNCTION -- VEWRR
+/// TYPE: ACTION ATTEMPT
+/// This sprite takes increased damage for each curse on the field and deals
+/// extra damage for all the blessings on the field
+function tears_and_jeers(_inst) {
+	
+}
+
 ///@desc ABILITY FUNCTION -- WYRMPOOL
 /// TYPE: TURN START
 /// If the ARENA is OCEAN, all of this sprite's nearby sprites will become
@@ -1697,6 +1729,13 @@ function centripetal_force(_inst) {
 		// push a spar effect alert for set bound nearby sprites
 		spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND_NEARBY_SPRITES, inst);
 	}
+}
+
+///@desc ABILITY FUNCTION -- DECIDRUID
+/// TYPE: TURN START
+/// This sprite automatically rests except on every 5th and 6th turn
+function perennial_growth(_inst) {
+	
 }
 
 ///@desc ABILITY FUNCTION -- CENOTOMB
@@ -1750,6 +1789,20 @@ function guardian_angel(_inst) {
 				spar_effect_push_alert(SPAR_EFFECTS.DECREASE_DAMAGE, sparActionProcessor.targetSprite);
 			}
 		}
+	}
+}
+
+///@desc ABILITY FUNCTION -- HECKID
+/// TYPE: REST SUCCESS
+/// When this sprite rests, every sprite on the field becomes HEXED
+function dark_ritual(_inst) {
+	// store args in locals
+	var inst = _inst;
+	
+	// check if this sprite is resting
+	if (inst.resting) {
+		// push a spar effect alert for set hexed global
+		spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_GLOBAL);
 	}
 }
 
@@ -2019,7 +2072,7 @@ master_grid_add_ability(ABILITIES.TERRITORIAL_HUNTER,		textGrid[# 1, ABILITIES.T
 master_grid_add_ability(ABILITIES.NATURAL_INGREDIENTS,		textGrid[# 1, ABILITIES.NATURAL_INGREDIENTS],		textGrid[# 2, ABILITIES.NATURAL_INGREDIENTS],	ABILITY_TYPES.ACTION_SUCCESS,			natural_ingredients);
 master_grid_add_ability(ABILITIES.ABSORPTIVE_BODY,			textGrid[# 1, ABILITIES.ABSORPTIVE_BODY],			textGrid[# 2, ABILITIES.ABSORPTIVE_BODY],		ABILITY_TYPES.ACTION_SUCCESS,			absorptive_body);
 master_grid_add_ability(ABILITIES.CREEP_OUT,				textGrid[# 1, ABILITIES.CREEP_OUT],					textGrid[# 2, ABILITIES.CREEP_OUT],				ABILITY_TYPES.TURN_BEGIN,				creep_out);
-master_grid_add_ability(ABILITIES.NEW_ABILITY_1,			textGrid[# 1, ABILITIES.NEW_ABILITY_1],				textGrid[# 2, ABILITIES.NEW_ABILITY_1],			-1,										noone);
+master_grid_add_ability(ABILITIES.ENDLESS_WICK,				textGrid[# 1, ABILITIES.ENDLESS_WICK],				textGrid[# 2, ABILITIES.ENDLESS_WICK],			-1,										endless_wick);
 master_grid_add_ability(ABILITIES.ALL_SEEING_EYES,			textGrid[# 1, ABILITIES.ALL_SEEING_EYES],			textGrid[# 2, ABILITIES.ALL_SEEING_EYES],		ABILITY_TYPES.TARGET_SELECTION,			all_seeing_eyes);	
 master_grid_add_ability(ABILITIES.SORT_AWAY,				textGrid[# 1, ABILITIES.SORT_AWAY],					textGrid[# 2, ABILITIES.SORT_AWAY],				ABILITY_TYPES.ACTION_SUCCESS,			sort_away);
 master_grid_add_ability(ABILITIES.SHORT_FUSE,				textGrid[# 1, ABILITIES.SHORT_FUSE],				textGrid[# 2, ABILITIES.SHORT_FUSE],			ABILITY_TYPES.TURN_END,					short_fuse);
@@ -2041,7 +2094,7 @@ master_grid_add_ability(ABILITIES.DUMPSTER_DIVER,			textGrid[# 1, ABILITIES.DUMP
 master_grid_add_ability(ABILITIES.SPRING_LOADED,			textGrid[# 1, ABILITIES.SPRING_LOADED],				textGrid[# 2, ABILITIES.SPRING_LOADED],			ABILITY_TYPES.TARGET_SELECTION,			spring_loaded);
 master_grid_add_ability(ABILITIES.FLOOD_SHELTER,			textGrid[# 1, ABILITIES.FLOOD_SHELTER],				textGrid[# 2, ABILITIES.FLOOD_SHELTER],			ABILITY_TYPES.ACTION_BEGIN,				flood_shelter);
 master_grid_add_ability(ABILITIES.PROPOGATE,				textGrid[# 1, ABILITIES.PROPOGATE],					textGrid[# 2, ABILITIES.PROPOGATE],				ABILITY_TYPES.SWAP_ATTEMPT,				propogate);
-master_grid_add_ability(ABILITIES.NEW_ABILITY_2,			textGrid[# 1, ABILITIES.NEW_ABILITY_2],				textGrid[# 2, ABILITIES.NEW_ABILITY_2],			-1,										noone);
+master_grid_add_ability(ABILITIES.HEAVY_SLEEPER,			textGrid[# 1, ABILITIES.HEAVY_SLEEPER],				textGrid[# 2, ABILITIES.HEAVY_SLEEPER],			ABILITY_TYPES.SPRITE_RESTING,			heavy_sleeper);
 master_grid_add_ability(ABILITIES.REDEEMING_QUALITIES,		textGrid[# 1, ABILITIES.REDEEMING_QUALITIES],		textGrid[# 2, ABILITIES.REDEEMING_QUALITIES],	ABILITY_TYPES.TURN_END,					redeeming_qualities);
 master_grid_add_ability(ABILITIES.GENERATOR,				textGrid[# 1, ABILITIES.GENERATOR],					textGrid[# 2, ABILITIES.GENERATOR],				ABILITY_TYPES.ACTION_BEGIN,				generator);
 master_grid_add_ability(ABILITIES.DUAL_WIELD,				textGrid[# 1, ABILITIES.DUAL_WIELD],				textGrid[# 2, ABILITIES.DUAL_WIELD],			ABILITY_TYPES.ACTION_SUCCESS,			dual_wield);
@@ -2049,12 +2102,12 @@ master_grid_add_ability(ABILITIES.SHADOWY_FIEND,			textGrid[# 1, ABILITIES.SHADO
 master_grid_add_ability(ABILITIES.METAL_MUNCHER,			textGrid[# 1, ABILITIES.METAL_MUNCHER],				textGrid[# 2, ABILITIES.METAL_MUNCHER],			ABILITY_TYPES.ACTION_SUCCESS,			metal_muncher);
 master_grid_add_ability(ABILITIES.VOLCANIC_MASS,			textGrid[# 1, ABILITIES.VOLCANIC_MASS],				textGrid[# 2, ABILITIES.VOLCANIC_MASS],			ABILITY_TYPES.ACTION_SUCCESS,			volcanic_mass);
 master_grid_add_ability(ABILITIES.EYE_OF_THE_STORM,			textGrid[# 1, ABILITIES.EYE_OF_THE_STORM],			textGrid[# 2, ABILITIES.EYE_OF_THE_STORM],		ABILITY_TYPES.TURN_BEGIN,				eye_of_the_storm);
-master_grid_add_ability(ABILITIES.NEW_ABILITY_3,			textGrid[# 1, ABILITIES.NEW_ABILITY_3],				textGrid[# 2, ABILITIES.NEW_ABILITY_3],			-1,										noone);
+master_grid_add_ability(ABILITIES.TEARS_AND_JEERS,			textGrid[# 1, ABILITIES.TEARS_AND_JEERS],			textGrid[# 2, ABILITIES.TEARS_AND_JEERS],		ABILITY_TYPES.ACTION_BEGIN,				tears_and_jeers);
 master_grid_add_ability(ABILITIES.CENTRIPETAL_FORCE,		textGrid[# 1, ABILITIES.CENTRIPETAL_FORCE],			textGrid[# 2, ABILITIES.CENTRIPETAL_FORCE],		ABILITY_TYPES.TURN_BEGIN,				centripetal_force);
-master_grid_add_ability(ABILITIES.NEW_ABILITY_4,			textGrid[# 1, ABILITIES.NEW_ABILITY_4],				textGrid[# 2, ABILITIES.NEW_ABILITY_4],			-1,										noone);
+master_grid_add_ability(ABILITIES.PERENNIAL_GROWTH,			textGrid[# 1, ABILITIES.PERENNIAL_GROWTH],			textGrid[# 2, ABILITIES.PERENNIAL_GROWTH],		ABILITY_TYPES.TURN_BEGIN,				perennial_growth);
 master_grid_add_ability(ABILITIES.PURE_MALICE,				textGrid[# 1, ABILITIES.PURE_MALICE],				textGrid[# 2, ABILITIES.PURE_MALICE],			ABILITY_TYPES.ACTION_SUCCESS,			pure_malice);
 master_grid_add_ability(ABILITIES.GUARDIAN_ANGEL,			textGrid[# 1, ABILITIES.GUARDIAN_ANGEL],			textGrid[# 2, ABILITIES.GUARDIAN_ANGEL],		ABILITY_TYPES.ACTION_SUCCESS,			guardian_angel);
-master_grid_add_ability(ABILITIES.NEW_ABILITY_5,			textGrid[# 1, ABILITIES.NEW_ABILITY_5],				textGrid[# 2, ABILITIES.NEW_ABILITY_5],			-1,										noone);
+master_grid_add_ability(ABILITIES.DARK_RITUAL,				textGrid[# 1, ABILITIES.DARK_RITUAL],				textGrid[# 2, ABILITIES.DARK_RITUAL],			ABILITY_TYPES.SPRITE_RESTING,			dark_ritual);
 master_grid_add_ability(ABILITIES.RING_LEADER,				textGrid[# 1, ABILITIES.RING_LEADER],				textGrid[# 2, ABILITIES.RING_LEADER],			ABILITY_TYPES.ACTION_SUCCESS,			ring_leader);
 master_grid_add_ability(ABILITIES.TIME_POLICE,				textGrid[# 1, ABILITIES.TIME_POLICE],				textGrid[# 2, ABILITIES.TIME_POLICE],			ABILITY_TYPES.ACTION_BEGIN,				time_police);
 master_grid_add_ability(ABILITIES.SPACE_CADET,				textGrid[# 1, ABILITIES.SPACE_CADET],				textGrid[# 2, ABILITIES.SPACE_CADET],			ABILITY_TYPES.ACTION_SUCCESS,			space_cadet);
