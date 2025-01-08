@@ -56,11 +56,13 @@ switch (sparPhase) {
 		// perform an ability check for turn end
 		ability_check(ABILITY_TYPES.TURN_END);
 		
-		// increment turnCounter
-		turnCounter++;
+		if (ds_list_size(effectAlertList) == 0) {
+			// increment turnCounter
+			turnCounter++;
+			
+			sparPhase = SPAR_PHASES.TURN_BEGIN;
+		}
 		
-		sparPhase = SPAR_PHASES.TURN_BEGIN;
-
 	break;
 	
 	case SPAR_PHASES.PROCESS:

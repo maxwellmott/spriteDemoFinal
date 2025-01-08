@@ -80,9 +80,9 @@ teamString = "";
 teamList = ds_list_create();
 
 // ONLY FOR TESTING
-teamList[| 0] = 34;
+teamList[| 0] = 36;
 teamList[| 1] = 33;
-teamList[| 2] = 32;
+teamList[| 2] = 35;
 teamList[| 3] = 27;
 
 // for testing purposes only

@@ -873,10 +873,6 @@ function clear_team_hindrances(_team) {
 		t.miasma = false;
 		t.hum = false;
 		t.rust = false;
-	}	else	{
-		ds_list_destroy(effectedSprites);
-		effectedSprites = -1;
-		instance_destroy(id);
 	}
 }
 
@@ -894,10 +890,6 @@ function clear_all_hindrances() {
 		t2.miasma = false;
 		t2.hum = false;
 		t2.rust = false;
-	}	else	{
-		ds_list_destroy(effectedSprites);
-		effectedSprites = -1;
-		instance_destroy(id);
 	}
 }
 
