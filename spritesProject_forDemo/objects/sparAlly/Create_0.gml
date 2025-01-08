@@ -159,3 +159,5 @@ flashRate = -1;
 turnRepeat = false;
 lastTarget = -1;
 lastAction = -1;
+
+immobilized = false;

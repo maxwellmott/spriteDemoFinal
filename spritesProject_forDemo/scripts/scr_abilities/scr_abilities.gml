@@ -375,8 +375,6 @@ enum ABILITY_TYPES {
 	HP_DEPLETED,			// CHECK PLACED
 	MP_RESTORED,			// CHECK PLACED
 	HP_RESTORED,			// CHECK PLACED
-	SPELL_COST_CHECK,
-	SWAP_COST_CHECK,		
 	HEIGHT					
 }
 
@@ -423,7 +421,8 @@ function wavy_dance(_inst) {
 			// check if the arena is OCEAN
 			if (spar.currentArena == ARENAS.OCEAN) {
 				// check if the spell is dodgeable
-				if (sparActionProcessor.spellDodgeable) {
+				if (sparActionProcessor.spellDodgeable) 
+				|| (sparActionProcessor.currentSpell < 0) {
 					// push a spar effect alert for activate ability
 					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 					
@@ -436,7 +435,7 @@ function wavy_dance(_inst) {
 }
 
 ///@desc ABILITY FUNCTION -- GLIDRAKE:
-/// TYPE: SPELL ATTEMPT
+/// TYPE: SPELL SUCCESS
 /// If this sprite is targeted by a STORM spell, the spell fails and they and receive
 /// the BLESSING OF THE IMP.
 function storm_surfer(_inst) {
@@ -451,11 +450,14 @@ function storm_surfer(_inst) {
 				// push a spar effect alert for activate ability
 				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 				
+				// negate the damage
+				sparActionProcessor.damage = 0;
+				
+				// push a spar effect alert for negate damage
+				spar_effect_push_alert(SPAR_EFFECTS.NEGATE_DAMAGE, inst);
+				
 				// push a spar effect alert for granting the blessing of the imp
 				spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst, MINDSETS.IMP_BLESS);
-				
-				// force spell to fail
-				sparActionProcessor.spellFailed = true;
 			}
 		}
 	}
@@ -473,7 +475,7 @@ function natures_reclamation(_inst) {
 		// check if this sprite is the attacker
 		if (inst == sparActionProcessor.activeSprite) {
 			// check if it is a basic attack
-			if (sparActionProcessor.spellType == -1) {
+			if (sparActionProcessor.currentSpell < 0) {
 				// check if the target has a non-natural alignment
 				if (sparActionProcessor.targetSprite.currentAlign != ALIGNMENTS.NATURAL) {
 					// push a spar effect alert for activate ability
@@ -564,11 +566,11 @@ function supercharged(_inst) {
 				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 				
 				// push a spar effect alert for bestow mindset
-				spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst, MINDSETS.IMP_BLESS);
+				spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, inst, MINDSETS.WARRIOR_BLESS);
 				
 				// push a spar effect alert for restore hp
 				spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, sparActionProcessor.damage * 2);
-				}
+			}
 		}
 	}
 }
@@ -735,7 +737,7 @@ function free_refills(_inst) {
 	spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 	
 	// push a spar effect alert for restore mp
-	spar_effect_push_alert(SPAR_EFFECTS.RESTORE_MP, t, 30);
+	spar_effect_push_alert(SPAR_EFFECTS.RESTORE_MP, t, 20);
 }
 
 ///@desc ABILITY FUNCTION -- MIRREFRACT:
@@ -799,7 +801,7 @@ function gift_of_song(_inst) {
 	
 	// use a while loop to randomly select a different blessing
 	while (looping) {	
-		var r = irandom_range(0, MINDSETS.HEIGHT - 1);
+		var r = irandom_range(0, MINDSETS.TREE_CURSE - 1);
 		
 		if (r != m) {
 			m = r;
@@ -960,7 +962,25 @@ function creep_out(_inst) {
 /// This sprite's FIRE spells don't cost any magic points
 function endless_wick(_inst) {
 	// store args in locals
+	var inst = _inst;
 	
+	// check if the sparActionProcessor exists
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {
+			// check if it is a fire spell
+			if (sparActionProcessor.spellType == SPELL_TYPES.FIRE) {
+				// set the cost of the spell to 0
+				sparActionProcessor.spellCost = 0;
+				
+				// push a spar effect alert for active ability
+				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for negate spell cost
+				spar_effect_push_alert(SPAR_EFFECTS.NEGATE_SPELL_COST, inst);
+			}
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- SCROOTINEYES:
@@ -1050,11 +1070,11 @@ function offer_refuge(_inst) {
 			// check if it is a basic attack or physical spell
 			if (sparActionProcessor.currentSpell < 0) 
 			|| (sparActionProcessor.spellType == SPELL_TYPES.PHYSICAL) {
-				// set the targetSprite to inst
-				sparActionProcessor.targetSprite = inst;
-				
 				// push a spar effect alert for activate ability
 				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// set the targetSprite to inst
+				sparActionProcessor.targetSprite = inst;
 			}
 		}
 	}
@@ -1710,7 +1730,82 @@ function eye_of_the_storm(_inst) {
 /// This sprite takes increased damage for each curse on the field and deals
 /// extra damage for all the blessings on the field
 function tears_and_jeers(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if the sparActionProcessor exists
+	if (instance_exists(sparActionProcessor)) {
+		// check if this is a damaging spell or a basic attack
+		if (sparActionProcessor.spellPower > 0) 
+		|| (sparActionProcessor.spellType == -1) {
+			// check if this sprite is the target
+			if (inst == sparActionProcessor.targetSprite) {
+				// initialize the curseCount
+				var curseCount = 0;
+				
+				// use a repeat loop to count the number of curses on the field
+				var i = 0;	repeat (8) {
+					// get the sprite instance
+					var s = spar.spriteList[| i];
+					
+					// check if this sprite is cursed
+					if (s.mindset >= MINDSETS.TREE_CURSE) {
+						// increment curseCount
+						curseCount++;
+					}
+					
+					// increment i
+					i++;
+				}
+				
+				// check if curseCount is above 0
+				if (curseCount > 0) {
+					// increase the DMI by curseCount
+					global.damageMultiplierIndex += curseCount;
+					
+					// push a spar effect alert for active ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// push a spar effect alert for increased damage
+					spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, sparActionProcessor.activeSprite);
+				}
+			}
+			
+			// check if this sprite is the attacker
+			if (inst == sparActionProcessor.activeSprite) {
+				// initialize the blessCount
+				var blessCount = 0;
+				
+				// use a repeat loop to count the number of blessings on the field
+				var i = 0;	repeat (8) {
+					// get the sprite instance
+					var s = spar.spriteList[| i];
+				
+					// check if this sprite is blessed
+					if (s.mindset > 0)
+					&& (s.mindset < MINDSETS.TREE_CURSE) {
+						// increment blessCount
+						blessCount++;
+					}
+				
+					// increment i
+					i++;
+				}
+				
+				// check if blessCount is above 0
+				if (blessCount > 0) {
+					// increase the DMI by blessCount
+					global.damageMultiplierIndex += blessCount;
+					
+					// push a spar effect alert for activate ability					
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// push a spar effect alert for increased damage
+					spar_effect_push_alert(SPAR_EFFECTS.INCREASE_DAMAGE, inst);
+				}
+			}
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- WYRMPOOL
@@ -1735,7 +1830,31 @@ function centripetal_force(_inst) {
 /// TYPE: TURN START
 /// This sprite automatically rests except on every 5th and 6th turn
 function perennial_growth(_inst) {
+	// store args in locals
+	var inst = _inst;
 	
+	// check if this is either the fifth or sixth turn
+	if (spar.turnCounter mod 5 <= 1) {
+		// check if the sprite is immobilized
+		if (inst.immobilized) {
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for remove immobilized
+			spar_effect_push_alert(SPAR_EFFECTS.REMOVE_IMMOBILIZED, inst);
+		}
+	}
+	// if this is NOT the fifth or sixth turn
+	else {
+		// check if the sprite is not immobilized
+		if !(inst.immobilized) {
+			// push a spar effect alert for activate ability
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			
+			// push a spar effect alert for set immobilized
+			spar_effect_push_alert(SPAR_EFFECTS.SET_IMMOBILIZED, inst);
+		}
+	}
 }
 
 ///@desc ABILITY FUNCTION -- CENOTOMB
@@ -2054,7 +2173,7 @@ function master_grid_add_ability(_ID) {
 // add all abilities	ID									NAME												DESCRIPTION										TYPE									EFFECT FUNCTION					
 master_grid_add_ability(ABILITIES.HOT_TO_THE_TOUCH,			textGrid[# 1, ABILITIES.HOT_TO_THE_TOUCH],			textGrid[# 2, ABILITIES.HOT_TO_THE_TOUCH],		ABILITY_TYPES.ACTION_SUCCESS,			hot_to_the_touch);
 master_grid_add_ability(ABILITIES.WAVY_DANCE,				textGrid[# 1, ABILITIES.WAVY_DANCE],				textGrid[# 2, ABILITIES.WAVY_DANCE],			ABILITY_TYPES.ACTION_BEGIN,				wavy_dance);
-master_grid_add_ability(ABILITIES.STORM_SURFER,				textGrid[# 1, ABILITIES.STORM_SURFER],				textGrid[# 2, ABILITIES.STORM_SURFER],			ABILITY_TYPES.ACTION_BEGIN,				storm_surfer);
+master_grid_add_ability(ABILITIES.STORM_SURFER,				textGrid[# 1, ABILITIES.STORM_SURFER],				textGrid[# 2, ABILITIES.STORM_SURFER],			ABILITY_TYPES.ACTION_SUCCESS,			storm_surfer);
 master_grid_add_ability(ABILITIES.NATURES_RECLAMATION,		textGrid[# 1, ABILITIES.NATURES_RECLAMATION],		textGrid[# 2, ABILITIES.NATURES_RECLAMATION],	ABILITY_TYPES.ACTION_SUCCESS,			natures_reclamation);
 master_grid_add_ability(ABILITIES.BATTLE_INSTINCT,			textGrid[# 1, ABILITIES.BATTLE_INSTINCT],			textGrid[# 2, ABILITIES.BATTLE_INSTINCT],		ABILITY_TYPES.ACTION_BEGIN,				battle_instinct);
 master_grid_add_ability(ABILITIES.UNBREAKABLE_SHELL,		textGrid[# 1, ABILITIES.UNBREAKABLE_SHELL],			textGrid[# 2, ABILITIES.UNBREAKABLE_SHELL],		ABILITY_TYPES.ACTION_SUCCESS,			unbreakable_shell);
@@ -2072,7 +2191,7 @@ master_grid_add_ability(ABILITIES.TERRITORIAL_HUNTER,		textGrid[# 1, ABILITIES.T
 master_grid_add_ability(ABILITIES.NATURAL_INGREDIENTS,		textGrid[# 1, ABILITIES.NATURAL_INGREDIENTS],		textGrid[# 2, ABILITIES.NATURAL_INGREDIENTS],	ABILITY_TYPES.ACTION_SUCCESS,			natural_ingredients);
 master_grid_add_ability(ABILITIES.ABSORPTIVE_BODY,			textGrid[# 1, ABILITIES.ABSORPTIVE_BODY],			textGrid[# 2, ABILITIES.ABSORPTIVE_BODY],		ABILITY_TYPES.ACTION_SUCCESS,			absorptive_body);
 master_grid_add_ability(ABILITIES.CREEP_OUT,				textGrid[# 1, ABILITIES.CREEP_OUT],					textGrid[# 2, ABILITIES.CREEP_OUT],				ABILITY_TYPES.TURN_BEGIN,				creep_out);
-master_grid_add_ability(ABILITIES.ENDLESS_WICK,				textGrid[# 1, ABILITIES.ENDLESS_WICK],				textGrid[# 2, ABILITIES.ENDLESS_WICK],			-1,										endless_wick);
+master_grid_add_ability(ABILITIES.ENDLESS_WICK,				textGrid[# 1, ABILITIES.ENDLESS_WICK],				textGrid[# 2, ABILITIES.ENDLESS_WICK],			ABILITY_TYPES.ACTION_BEGIN,				endless_wick);
 master_grid_add_ability(ABILITIES.ALL_SEEING_EYES,			textGrid[# 1, ABILITIES.ALL_SEEING_EYES],			textGrid[# 2, ABILITIES.ALL_SEEING_EYES],		ABILITY_TYPES.TARGET_SELECTION,			all_seeing_eyes);	
 master_grid_add_ability(ABILITIES.SORT_AWAY,				textGrid[# 1, ABILITIES.SORT_AWAY],					textGrid[# 2, ABILITIES.SORT_AWAY],				ABILITY_TYPES.ACTION_SUCCESS,			sort_away);
 master_grid_add_ability(ABILITIES.SHORT_FUSE,				textGrid[# 1, ABILITIES.SHORT_FUSE],				textGrid[# 2, ABILITIES.SHORT_FUSE],			ABILITY_TYPES.TURN_END,					short_fuse);

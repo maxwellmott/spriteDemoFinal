@@ -454,16 +454,17 @@ function spar_check_sneaking_deal_damage() {
 
 ///@desc This function is called by the actionProcessor whenever spell damage is about
 /// to be applied. It instead queues up the deflection alert and returns true if deflective
-function spar_check_deflective(_atkr, _targ, _powr) {
+function spar_check_deflective(_atkr, _targ, _powr, _spell) {
 	// store args in locals
 	var atkr = _atkr;
 	var targ = _targ;
 	var powr = _powr;
+	var spell = _spell;
 	
 	// if the target is deflective:
 	if (targ.deflective) {
 		// push an effect alert for the deflection
-		spar_effect_push_alert(SPAR_EFFECTS.DEFLECT_SPELL, atkr, targ, round(powr));
+		spar_effect_push_alert(SPAR_EFFECTS.DEFLECT_SPELL, atkr, targ, round(powr), spell);
 		
 		// reset deflective for target
 		targ.deflective = false;

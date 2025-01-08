@@ -37,7 +37,7 @@ switch (sparPhase) {
 	
 	case SPAR_PHASES.TURN_END:
 		turnProcessCount = 0;
-		processPhase = PROCESS_PHASES.SWAP;
+		processPhase = PROCESS_PHASES.PREPROCESS;
 		
 		playerOne.ready = false;
 		playerTwo.ready = false;

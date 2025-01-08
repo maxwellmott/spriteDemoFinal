@@ -72,21 +72,27 @@ if (ds_exists(effectedSprites, ds_type_list)) {
 }
 	
 if (effectedPlayer == BOTH_PLAYERS_EFFECTED) {
+	if (ds_exists(xList, ds_type_list)) {
 		xList[| 0] = spar.playerOne.x;
 		xList[| 1] = spar.playerTwo.x;
 
 		yList[| 0] = spar.playerOne.y;
 		yList[| 1] = spar.playerTwo.y;
+	}
 }
 else if (effectedPlayer == spar.playerOne) {
-	xList[| 0] = spar.playerOne.x;
-	yList[| 0] = spar.playerOne.y;
+	if (ds_exists(xList, ds_type_list)) {
+		xList[| 0] = spar.playerOne.x;
+		yList[| 0] = spar.playerOne.y;
+	}
 }
 else if (effectedPlayer == spar.playerTwo) {
-	xList[| 0] = spar.playerTwo.x;
-	yList[| 1] = spar.playerTwo.y;
+	if (ds_exists(xList, ds_type_list)) {
+		xList[| 0] = spar.playerTwo.x;
+		yList[| 1] = spar.playerTwo.y;
+	}
 }
 
 // set the alarm that will start the animation if there is one or 
 // destroy the alert if there isn't one
-alarm[0] = 60;
+alarm[0] = 90;

@@ -365,6 +365,10 @@ enum SPAR_EFFECTS {
 	BASIC_ATTACK_EARTH,
 	BASIC_ATTACK_RESISTANCE,
 	BASIC_ATTACK_AGILITY,
+	SET_IMMOBILIZED,
+	REMOVE_IMMOBILIZED,
+	NEGATE_DAMAGE,
+	NEGATE_SPELL_COST,
 	HEIGHT
 }
 
@@ -1035,7 +1039,7 @@ function force_swap(_targetSprite) {
 	
 	// pick a random number off of that list and set it as the
 	// partner's spot number
-	var int = irandom_range(0, 3);
+	var int = irandom_range(0, 2);
 	var psn = l[| int];
 	
 	// create inst list
@@ -3592,23 +3596,32 @@ function set_deflective(_caster) {
 	ds_list_add(effectedSprites, c);
 	subject = c.name;
 	
-	if !(c.deflective) {
-		c.deflective = true;	
-	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
+	c.deflective = true;
 }
 
 ///@desc SPAR EFFECT: apply boosted elemental damage
 /// against the caster
-function deflect_spell(_atkr, _targ, _damg) {
+function deflect_spell(_atkr, _targ, _damg, _spell) {
 	var c = _atkr;
 	var t = _targ;
 	var p = _damg;
+	var s = _spell;	
+	
+	// decode spell animation list
+	var list = ds_list_create();
+	decode_list(global.allSpellAnimations, list);
+	
+	// get the animation sprite
+	animation = real(string_digits(list[| spellID]));
+	
+	// destroy temp list
+	ds_list_destroy(list);
 	
 	// calculate spell damage
 	var d = p * 1.3;
 	
-	// check if caster is also deflective
-	if !(spar_check_deflective(t, c, d)) {
+	// check that the caster is NOT also deflective
+	if !(spar_check_deflective(t, c, d, s)) {
 		deplete_hp(t.team, d);
 	
 		ds_list_add(effectedSprites, c);
@@ -3616,9 +3629,7 @@ function deflect_spell(_atkr, _targ, _damg) {
 		object = c.name;
 	}
 	// else, post a new deflection
-	else	{
-		spar_effect_push_alert(SPAR_EFFECTS.DEFLECT_SPELL, t, c, d);
-		
+	else	{	
 		// destroy effect alert
 		instance_destroy(id);
 	}
@@ -4365,6 +4376,44 @@ function basic_attack_agility(_atkr) {
 	subject = atkr.name;
 }
 
+function set_immobilized(_inst) {
+	// store args in locals
+	var inst = _inst;
+	
+	// set subject
+	subject = inst.name;
+	
+	// set immobilized to true
+	inst.immobilized = true;
+}
+
+function remove_immobilized(_inst) {
+	// store args in locals
+	var inst = _inst;
+	
+	// set subject
+	subject = inst.name;
+	
+	// set immobilized to false
+	inst.immobilized = false;
+}
+
+function negate_damage(_inst) {
+	// store args in locals
+	var inst = _inst;
+	
+	// set subject
+	subject = inst.name;
+}
+
+function negate_spell_cost(_inst) {
+	// store args in locals
+	var inst = _inst;
+	
+	// set subject
+	subject = inst.name;
+}
+
 // get text from csv file
 var textGrid = load_csv("SPAR_EFFECTS_ENGLISH.csv");
 
@@ -4567,6 +4616,10 @@ master_grid_add_spar_effect(SPAR_EFFECTS.BASIC_ATTACK_STORM,				textGrid[# 1, SP
 master_grid_add_spar_effect(SPAR_EFFECTS.BASIC_ATTACK_EARTH,				textGrid[# 1, SPAR_EFFECTS.BASIC_ATTACK_EARTH],					basic_attack_earth,					EMPTY_SPRITE);
 master_grid_add_spar_effect(SPAR_EFFECTS.BASIC_ATTACK_RESISTANCE,			textGrid[# 1, SPAR_EFFECTS.BASIC_ATTACK_RESISTANCE],			basic_attack_resistance,			EMPTY_SPRITE);
 master_grid_add_spar_effect(SPAR_EFFECTS.BASIC_ATTACK_AGILITY,				textGrid[# 1, SPAR_EFFECTS.BASIC_ATTACK_AGILITY],				basic_attack_agility,				EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.SET_IMMOBILIZED,					textGrid[# 1, SPAR_EFFECTS.SET_IMMOBILIZED],					set_immobilized,					EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.REMOVE_IMMOBILIZED,				textGrid[# 1, SPAR_EFFECTS.REMOVE_IMMOBILIZED],					remove_immobilized,					EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.NEGATE_DAMAGE,						textGrid[# 1, SPAR_EFFECTS.NEGATE_DAMAGE],						negate_damage,						EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.NEGATE_SPELL_COST,					textGrid[# 1, SPAR_EFFECTS.NEGATE_SPELL_COST],					negate_spell_cost,					EMPTY_SPRITE);
 #endregion
 
 // encode the spar effect grid

@@ -146,7 +146,7 @@ function get_dodge_success() {
 	
 	var ll = get_lowest_luck(dt);
 	
-	if (activeSprite.luckRoll >= ll)	return true;
+	if (targetSprite.luckRoll >= ll)	return true;
 	
 	return false;
 }

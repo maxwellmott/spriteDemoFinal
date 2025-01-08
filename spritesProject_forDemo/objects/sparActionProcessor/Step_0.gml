@@ -1,7 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-
 // if waiting for input
 if (state == ACTION_PROCESSOR_STATES.APPLY_DAMAGE) {
 	
@@ -15,7 +14,7 @@ if (state == ACTION_PROCESSOR_STATES.APPLY_DAMAGE) {
 	if (spar_check_hpmp()) 
 	&& (shadeAlpha <= 0.0) 
 	&& (check_sprites_done_flashing()) {
-		instance_destroy(id);	
+		instance_destroy(id);
 	}
 }
 
@@ -43,13 +42,10 @@ if (state == ACTION_PROCESSOR_STATES.WAIT_FOR_FX) {
 		
 		// if there was a successful dodge
 		if (dodgeSuccess) {
-			// increment dodgeCount for targetSprite
-			targetSprite.dodgeCount += 1;
-			
 			// if dodge has started
 			if (dodgeStarted) {
 				// and if spar frame has reached dodgeFrameCount
-				 if (spar.image_index >= dodgeFrameCount) {
+				 if (spar.image_index >= dodgeFrameCount - 1) {
 					 // stop dodge animation
 					dodgeStopped = true;	 
 				 }
@@ -57,42 +53,42 @@ if (state == ACTION_PROCESSOR_STATES.WAIT_FOR_FX) {
 			
 			// if dodge animation has not been started
 			if !(dodgeStarted) {
- 			// change sprite to dodge animation
-			targetSprite.sprite = spr_sparDodge;
-			
-			// prepare spar object to draw dodge animation
-			sprite_index = spr_sparDodge;
-			image_speed = 1;		
-			
-			// reset spar's image_index
-			spar.image_index = 0;
-			
-			// set animationStarted to true
-			dodgeStarted = true;
+				// increment dodgeCount for targetSprite
+				targetSprite.dodgeCount += 1;
+					
+ 				// change sprite to dodge animation
+				targetSprite.sprite = spr_sparDodge;
+				
+				// prepare spar object to draw dodge animation
+				sprite_index = spr_sparDodge;
+				image_speed = 1;		
+				
+				// reset spar's image_index
+				spar.image_index = 0;
+				
+				// set animationStarted to true
+				dodgeStarted = true;
 			}
 		
 			// if animation is complete, switch sprite back and increment dodgeCount
 			if (dodgeStopped) {
 				with (targetSprite) {
 					// reset params
-					sprite_load_parameters();	
-					
-					// increment dodgeCount
+					sprite_load_parameters();
 				}
 				
 				// move to display msg state
 				state = ACTION_PROCESSOR_STATES.DISPLAY_MSG;
 			}	
 		}
-		
 		// if there was no successful dodge
 		else {
-			
 			// if this is not a self targeting spell
 			if (targetSprite != activeSprite) {
 				// set target sprite's pose to hurt
 				targetSprite.currentPose = SPRITE_POSES.HURT;
 			}	
+			
 			// create spellFX
 			create_once(0, 0, LAYER.meta, sparSpellFX);
 		}
@@ -110,6 +106,18 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 			|| (targetSprite.sneaking) {
 				if !(dodgeSuccess) {
 					dodgeSuccess = get_dodge_success();
+				}
+			}
+		}
+		
+		if !(dodgeSuccess) {
+			// if this is an elemental damage spell spell:
+			if (spellType < SPELL_TYPES.PHYSICAL) 
+			&& (spellPower > 0) {
+				// if target is deflective:
+				if (spar_check_deflective(activeSprite, targetSprite, damage, currentSpell)) {
+					// destroy processor
+					instance_destroy(id);
 				}
 			}
 		}
@@ -152,6 +160,10 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 
 // check if current state is display msg
 if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
+	if (alarm[0] != -1) {
+		exit;	
+	}
+	
 	// BASIC ATTACK
 	if (currentSpell < 0) {
 		if !(dodgeSuccess) {
@@ -186,6 +198,9 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 		// if target dodged change turnMsg
 		}	else {
 			spar.turnMsg = targetSprite.name + " dodged " + activeSprite.name + "'s attack";
+			
+			if (alarm[0] == -1)		alarm[0] = 90;
+			exit;
 		}
 	}
 	// SPELL
@@ -205,7 +220,7 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 			// check that this spell is not already on the seenSpells list
 			if (ds_list_find_index(targetSprite.team.seenSpells, currentSpell) == -1) {
 				// add it to the list
-				ds_list_add(targetSprite.team.seenSpells, currentSpell);	
+				ds_list_add(targetSprite.team.seenSpells, currentSpell);
 			}
 		}		
 		
@@ -213,16 +228,6 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 			if !(spar_check_parrying()) {
 				// check if the caster of this spell is hexed
 				spar_check_hexed(activeSprite);
-				
-				// if this is an elemental damage spell spell:
-				if (spellType < SPELL_TYPES.PHYSICAL) 
-				&& (spellPower > 0) {
-					// if target is deflective:
-					if (spar_check_deflective(activeSprite, targetSprite, damage)) {
-						// destroy processor
-						instance_destroy(id);
-					}
-				}
 				
 				if !(spellFailed) {
 					// perform an ability check for spell success
@@ -236,7 +241,7 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 				
 				if (spellFailed) {
 					spar.turnMsg = "But the spell failed!";
-					if (alarm[0] == -1)		alarm[0] = 24;	
+					if (alarm[0] == -1)		alarm[0] = 90;	
 					exit;
 				}
 				
@@ -256,9 +261,15 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 		else {
 			// change turnMsg	
 			spar.turnMsg = targetSprite.name + " dodged " + activeSprite.name + "'s spell!";
+			
+			if (alarm[0] == -1)		alarm[0] = 90;
+			exit;
 		}
 	}
 	
-	// regardless of anything else, after the rest is finished, move to input pause
-	state = ACTION_PROCESSOR_STATES.APPLY_DAMAGE;
+	// check if there was no successful dodge
+	if !(dodgeSuccess) {
+		// regardless of anything else, after the rest is finished, move to input pause
+		state = ACTION_PROCESSOR_STATES.APPLY_DAMAGE;
+	}
 }

@@ -691,3 +691,7 @@ COMING BACK FROM PLAYTEST BUILD
 			VEWRR		-- TEARS AND JEERS
 			DECIDRUID	-- PERENNIAL GROWTH (need to add an "immobile" variable that keeps the user from selecting a new action)
 			
+	1/4
+			-flamiliar ability complete
+			-vewrr ability complete
+			-decidruid ability complete

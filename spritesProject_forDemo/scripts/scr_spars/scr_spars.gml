@@ -130,13 +130,13 @@ function spell_get_cost(_spellID) {
 	decode_grid(global.allSpells, g);
 	
 	// get spell cost
-	var sc = g[# SPELL_PARAMS.COST, sid];
+	var c = g[# SPELL_PARAMS.COST, sid];
 	
 	// delete temp grid
 	ds_grid_destroy(g);
 	
 	// return spell cost
-	return sc;
+	return c;
 }
 
 function spar_set_action() {	
