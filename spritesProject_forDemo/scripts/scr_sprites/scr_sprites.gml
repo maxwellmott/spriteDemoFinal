@@ -780,7 +780,16 @@ enum SPRITE_POSES {
 			SPELLS.CRECIAS_CRYSTAL_WIND,
 			SPELLS.CLOUD_BREAK,
 			SPELLS.SKYDIVE,
-			SPELLS.SHOCK
+			SPELLS.SHOCK,
+			SPELLS.SPHERAS_CURSE,
+			SPELLS.DARK_DEAL,
+			SPELLS.LORD_MOGRADTHS_RAGE,
+			SPELLS.CHANNEL_ESSENCE,
+			SPELLS.DIONS_BARTER_TRICK,
+			SPELLS.DIONS_GAMBLING_BLAST,
+			SPELLS.SHIFT_PERSPECTIVE,
+			SPELLS.LADY_SOLANUS_GRACE,
+			SPELLS.HAIL_SPHERA
 		);
 	#endregion
 	
@@ -1814,13 +1823,13 @@ sprite_add_to_grid(SPRITES.PUGILOON,		"Pugiloon",			spr_pugiloonBattle,		ABILITI
 sprite_add_to_grid(SPRITES.MRSUDSY,			"Mr Sudsy",			spr_mrSudsyBattle,		ABILITIES.KEEPING_TIDY,				ALIGNMENTS.MECHANICAL,	encode_list(sudsySpells),			60,		60,		50,		160,	60,		60,		160,	150,	SPRITE_SIZES.X_SMALL);
 sprite_add_to_grid(SPRITES.DEMOLITOPS,		"Demolitops",		spr_demolitopsBattle,	ABILITIES.WRECKING_BALL,			ALIGNMENTS.ASTRAL,		encode_list(demolitopsSpells),		180,	110,	160,	75,		60,		110,	90,		100,	SPRITE_SIZES.X_LARGE);
 sprite_add_to_grid(SPRITES.DOORMAUS,		"Doormaus",			spr_doormausBattle,		ABILITIES.DRIFT_AWAY,				ALIGNMENTS.ASTRAL,		encode_list(doormausSpells),		50,		65,		95,		95,		110,	95,		185,	100,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.ZEPHIRA,			"Zephira",			spr_zephiraBattle,		ABILITIES.TRICKSTER_FAERIE,			ALIGNMENTS.ASTRAL,		encode_list(zephiraSpells),			120,	60,		70,		90,		160,	130,	165,	100,	SPRITE_SIZES.X_SMALL);
+sprite_add_to_grid(SPRITES.ZEPHIRA,			"Zephira",			spr_zephiraBattle,		ABILITIES.TRICKSTER_FAERIE,			ALIGNMENTS.ASTRAL,		encode_list(zephiraSpells),			85,		60,		55,		65,		145,	105,	175,	100,	SPRITE_SIZES.X_SMALL);
 sprite_add_to_grid(SPRITES.CANUKI,			"Canuki",			spr_canukiBattle,		ABILITIES.DUMPSTER_DIVER,			ALIGNMENTS.NATURAL,		encode_list(canukiSpells),			145,	165,	70,		70,		70,		120,	80,		85,		SPRITE_SIZES.LARGE);
-sprite_add_to_grid(SPRITES.JACKHAMMER,		"Jackhammer",		spr_jackhammerBattle,	ABILITIES.SPRING_LOADED,			ALIGNMENTS.ASTRAL,		encode_list(jackhammerSpells),		175,	135,	50,		60,		60,		70,		160,	150,	SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.JACKHAMMER,		"Jackhammer",		spr_jackhammerBattle,	ABILITIES.SPRING_LOADED,			ALIGNMENTS.MECHANICAL,	encode_list(jackhammerSpells),		175,	135,	50,		60,		70,		70,		105,	150,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.SPLASHGUARD,		"Splashguard",		spr_splashguardBattle,	ABILITIES.FLOOD_SHELTER,			ALIGNMENTS.NATURAL,		encode_list(splashguardSpells),		60,		60,		50,		165,	110,	95,		125,	100,	SPRITE_SIZES.SMALL);
-sprite_add_to_grid(SPRITES.UPROOTER,		"Uprooter",			spr_uprooterBattle,		ABILITIES.PROPOGATE,				ALIGNMENTS.NATURAL,		encode_list(uprooterSpells),		155,	170,	50,		90,		60,		165,	75,		75,		SPRITE_SIZES.SMALL);
+sprite_add_to_grid(SPRITES.UPROOTER,		"Uprooter",			spr_uprooterBattle,		ABILITIES.PROPOGATE,				ALIGNMENTS.NATURAL,		encode_list(uprooterSpells),		155,	175,	50,		120,	60,		165,	95,		150,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.SNUGBUG,			"Snugbug",			spr_snugbugBattle,		ABILITIES.HEAVY_SLEEPER,			ALIGNMENTS.ASTRAL,		encode_list(snugbugSpells),			55,		55,		75,		75,		75,		95,		160,	100,	SPRITE_SIZES.X_SMALL);
-sprite_add_to_grid(SPRITES.PUNKLOPS,		"Punklops",			spr_punklopsBattle,		ABILITIES.REDEEMING_QUALITIES,		ALIGNMENTS.NATURAL,		encode_list(stinklopsSpells),		150,	110,	105,	70,		125,	95,		60,		35,		SPRITE_SIZES.X_LARGE);
+sprite_add_to_grid(SPRITES.PUNKLOPS,		"Punklops",			spr_punklopsBattle,		ABILITIES.GET_ANGRY,				ALIGNMENTS.NATURAL,		encode_list(stinklopsSpells),		150,	110,	105,	70,		125,	95,		60,		35,		SPRITE_SIZES.X_LARGE);
 sprite_add_to_grid(SPRITES.PLASMASS,		"Plasmass",			spr_plasmassBattle,		ABILITIES.GENERATOR,				ALIGNMENTS.MECHANICAL,	encode_list(plasmassSpells),		130,	75,		120,	45,		195,	45,		170,	50,		SPRITE_SIZES.LARGE);
 sprite_add_to_grid(SPRITES.OBSIDUAL,		"Obsidual",			spr_obsidualBattle,		ABILITIES.DUAL_WIELD,				ALIGNMENTS.NATURAL,		encode_list(obsidualSpells),		170,	90,		150,	60,		60,		160,	130,	50,		SPRITE_SIZES.MEDIUM);
 sprite_add_to_grid(SPRITES.NINTOX,			"Nintox",			spr_nintoxBattle,		ABILITIES.SHADOWY_FIEND,			ALIGNMENTS.MECHANICAL,	encode_list(nintoxSpells),			160,	85,		120,	90,		100,	120,	170,	100,	SPRITE_SIZES.MEDIUM);

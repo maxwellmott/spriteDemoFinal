@@ -12,17 +12,17 @@
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"d83cfd3c-763a-433e-bb5a-ec3d7e4a32bc","name":"d83cfd3c-763a-433e-bb5a-ec3d7e4a32bc","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"18fec03d-e88a-4b59-8a74-7260c50b0e6b","name":"18fec03d-e88a-4b59-8a74-7260c50b0e6b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"2d040a1d-48d0-4424-91b0-71cbbd7c4459","name":"2d040a1d-48d0-4424-91b0-71cbbd7c4459","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
-    {"$GMSpriteFrame":"","%Name":"f5719983-fcd6-4b85-92c4-c1e39e0d1d9b","name":"f5719983-fcd6-4b85-92c4-c1e39e0d1d9b","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"c054a92c-6b31-4dda-913c-476f363f8abd","name":"c054a92c-6b31-4dda-913c-476f363f8abd","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"0ccad892-f08c-4656-b26a-2189783bbb30","name":"0ccad892-f08c-4656-b26a-2189783bbb30","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"5e005193-95f4-4888-8046-017b62f207af","name":"5e005193-95f4-4888-8046-017b62f207af","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"17329049-0c7b-4c45-8c6b-513185c2b90e","name":"17329049-0c7b-4c45-8c6b-513185c2b90e","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":56,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"6c8f2bbb-97cc-4b24-a596-1d8ece2425fa","blendMode":0,"displayName":"default","isLocked":false,"name":"6c8f2bbb-97cc-4b24-a596-1d8ece2425fa","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"7c8dea3e-b18a-4e10-8f48-6b72571bdcf6","blendMode":0,"displayName":"default","isLocked":false,"name":"7c8dea3e-b18a-4e10-8f48-6b72571bdcf6","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"spr_chromaliodonBattle",
   "nineSlice":null,
@@ -72,17 +72,17 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"d83cfd3c-763a-433e-bb5a-ec3d7e4a32bc","path":"sprites/spr_chromaliodonBattle/spr_chromaliodonBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"e1605777-2136-498c-abb9-c50968331ce4","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"c054a92c-6b31-4dda-913c-476f363f8abd","path":"sprites/spr_chromaliodonBattle/spr_chromaliodonBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"17b10a28-d391-454a-93fe-49fdbf7d03d5","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"18fec03d-e88a-4b59-8a74-7260c50b0e6b","path":"sprites/spr_chromaliodonBattle/spr_chromaliodonBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"58184319-eeb0-4477-bc86-76add8fc3566","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"0ccad892-f08c-4656-b26a-2189783bbb30","path":"sprites/spr_chromaliodonBattle/spr_chromaliodonBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"dd0ddf93-1e98-460c-83b8-9ebbef4fb30b","IsCreationKey":false,"Key":1.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"2d040a1d-48d0-4424-91b0-71cbbd7c4459","path":"sprites/spr_chromaliodonBattle/spr_chromaliodonBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"c524c29a-7cc5-49d1-95aa-737ade95d9c0","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"5e005193-95f4-4888-8046-017b62f207af","path":"sprites/spr_chromaliodonBattle/spr_chromaliodonBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"a0105635-6fa7-468d-a6ae-6eafec6eb1bd","IsCreationKey":false,"Key":2.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"f5719983-fcd6-4b85-92c4-c1e39e0d1d9b","path":"sprites/spr_chromaliodonBattle/spr_chromaliodonBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"37dcc0ff-e8b8-4dfe-b18f-f151e2cde90c","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"17329049-0c7b-4c45-8c6b-513185c2b90e","path":"sprites/spr_chromaliodonBattle/spr_chromaliodonBattle.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"e28dd0c7-e1de-4ac1-bfdc-9de1f132a0f8","IsCreationKey":false,"Key":3.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,

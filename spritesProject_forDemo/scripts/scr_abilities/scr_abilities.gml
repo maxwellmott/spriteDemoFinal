@@ -322,7 +322,7 @@ enum ABILITIES {
 	FLOOD_SHELTER,
 	PROPOGATE,
 	HEAVY_SLEEPER,
-	REDEEMING_QUALITIES,
+	GET_ANGRY,
 	GENERATOR,
 	DUAL_WIELD,
 	SHADOWY_FIEND,
@@ -1125,7 +1125,7 @@ function herbal_concoction(_inst) {
 		// check if global.miasmaDamge is greater than 0
 		if (global.miasmaDamage > 0) {
 			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY);
+			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 			
 			// multiply global.miasmaDamage by -1
 			global.miasmaDamage = global.miasmaDamage * -1;
@@ -1412,13 +1412,16 @@ function trickster_faerie(_inst) {
 		// check if this sprite is attacking
 		if (inst == sparActionProcessor.activeSprite) {	
 			// check if it is a trick spell that isn't self targeting
-			if (sparActionProcessor.spellType == SPELL_TYPES.TRICK) 
-			&& (sparActionProcessor.targetSprite != -1) {	
-				// push a spar effect alert for activate ability
-				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+			if (sparActionProcessor.spellType == SPELL_TYPES.TRICK) {
+				// check that this isn't a psychic spell
+				if (sparActionProcessor.currentSpell != SPELLS.PSYCHIC_IMPACT)
+				&& (sparActionProcessor.currentSpell != SPELLS.PSYCHIC_FISSURE) {
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 			
-				// push a spar effect alert for deplete hp
-				spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP, sparActionProcessor.targetSprite, 200);
+					// push a spar effect alert for deplete hp	
+					spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP, inst.enemy, 200);
+				}
 			}
 		}
 	}
@@ -1511,29 +1514,20 @@ function flood_shelter(_inst) {
 }
 
 ///@desc ABILITY FUNCTION -- UPROOTER
-/// TYPE: APPLY BOUND
-/// This sprite can swap even when BOUND or BERSERK.
+/// TYPE: TURN BEGIN
+/// This sprite cannot be bound
 function propogate(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is on the swap list
-	if (ds_list_find_index(global.swapList, inst) != -1) {
-		// check if this sprite is bound or berserk
-		if (inst.bound) 
-		|| (inst.berserk) {	
-			// reset bound and boundCounter
-			inst.bound = false;
-			inst.boundCounter = 0;
-			
-			// reset berserk and berserkCounter
-			inst.berserk = false;
-			inst.berserkCounter = 0;
-			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-		}
-	}
+	// check if this sprite is bound
+	if (inst.bound) {
+		// push a spar effect alert for activate ability
+		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		
+		// push a spar effect alert for remove bound
+		spar_effect_push_alert(SPAR_EFFECTS.REMOVE_BOUND, inst);
+	}	
 }
 
 ///@desc ABILITY FUNCTION -- SNUGBUG
@@ -1545,26 +1539,29 @@ function heavy_sleeper(_inst) {
 	
 	// check if this sprite is resting
 	if (inst.resting) {
+		// push a spar effect alert for activate ability
+		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		
 		// push a spar effect for set invulnerable
 		spar_effect_push_alert(SPAR_EFFECTS.SET_INVULNERABLE, inst);
 	}
 }
 
-///@desc ABILITY FUNCTION -- CAPN CLOPS
+///@desc ABILITY FUNCTION -- PUNKLOPS
 /// TYPE: TURN END
-/// If this sprite's team has less than half HP, it fully restores
-/// their MP at the end of the turn.
-function redeeming_qualities(_inst) {
+/// If this sprite's team has less than half HP, it goes berserk
+function get_angry(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
 	// check if this sprite's team has half HP or less
-	if (inst.team.currentHP <= MAX_HP / 2) {	
+	if (inst.team.currentHP <= MAX_HP / 2) 
+	&& !(inst.berserk) {	
 		// push a spar effect alert for activate ability
 		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 		
-		// push a spar effect alert for restore mp
-		spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst, 200);
+		// push a spar effect alert for set berserk
+		spar_effect_push_alert(SPAR_EFFECTS.SET_BERSERK, inst);
 	}
 }
 
@@ -1809,7 +1806,7 @@ function tears_and_jeers(_inst) {
 }
 
 ///@desc ABILITY FUNCTION -- WYRMPOOL
-/// TYPE: TURN START
+/// TYPE: TURN END
 /// If the ARENA is OCEAN, all of this sprite's nearby sprites will become
 /// BOUND at the beginning of each turn.
 function centripetal_force(_inst) {
@@ -2212,9 +2209,9 @@ master_grid_add_ability(ABILITIES.TRICKSTER_FAERIE,			textGrid[# 1, ABILITIES.TR
 master_grid_add_ability(ABILITIES.DUMPSTER_DIVER,			textGrid[# 1, ABILITIES.DUMPSTER_DIVER],			textGrid[# 2, ABILITIES.DUMPSTER_DIVER],		ABILITY_TYPES.MP_DEPLETED,				dumpster_diver);
 master_grid_add_ability(ABILITIES.SPRING_LOADED,			textGrid[# 1, ABILITIES.SPRING_LOADED],				textGrid[# 2, ABILITIES.SPRING_LOADED],			ABILITY_TYPES.TARGET_SELECTION,			spring_loaded);
 master_grid_add_ability(ABILITIES.FLOOD_SHELTER,			textGrid[# 1, ABILITIES.FLOOD_SHELTER],				textGrid[# 2, ABILITIES.FLOOD_SHELTER],			ABILITY_TYPES.ACTION_BEGIN,				flood_shelter);
-master_grid_add_ability(ABILITIES.PROPOGATE,				textGrid[# 1, ABILITIES.PROPOGATE],					textGrid[# 2, ABILITIES.PROPOGATE],				ABILITY_TYPES.SWAP_ATTEMPT,				propogate);
+master_grid_add_ability(ABILITIES.PROPOGATE,				textGrid[# 1, ABILITIES.PROPOGATE],					textGrid[# 2, ABILITIES.PROPOGATE],				ABILITY_TYPES.TURN_BEGIN,				propogate);
 master_grid_add_ability(ABILITIES.HEAVY_SLEEPER,			textGrid[# 1, ABILITIES.HEAVY_SLEEPER],				textGrid[# 2, ABILITIES.HEAVY_SLEEPER],			ABILITY_TYPES.SPRITE_RESTING,			heavy_sleeper);
-master_grid_add_ability(ABILITIES.REDEEMING_QUALITIES,		textGrid[# 1, ABILITIES.REDEEMING_QUALITIES],		textGrid[# 2, ABILITIES.REDEEMING_QUALITIES],	ABILITY_TYPES.TURN_END,					redeeming_qualities);
+master_grid_add_ability(ABILITIES.GET_ANGRY,				textGrid[# 1, ABILITIES.GET_ANGRY],					textGrid[# 2, ABILITIES.GET_ANGRY],				ABILITY_TYPES.TURN_END,					get_angry);
 master_grid_add_ability(ABILITIES.GENERATOR,				textGrid[# 1, ABILITIES.GENERATOR],					textGrid[# 2, ABILITIES.GENERATOR],				ABILITY_TYPES.ACTION_BEGIN,				generator);
 master_grid_add_ability(ABILITIES.DUAL_WIELD,				textGrid[# 1, ABILITIES.DUAL_WIELD],				textGrid[# 2, ABILITIES.DUAL_WIELD],			ABILITY_TYPES.ACTION_SUCCESS,			dual_wield);
 master_grid_add_ability(ABILITIES.SHADOWY_FIEND,			textGrid[# 1, ABILITIES.SHADOWY_FIEND],				textGrid[# 2, ABILITIES.SHADOWY_FIEND],			ABILITY_TYPES.ACTION_BEGIN,				shadowy_fiend);
@@ -2222,7 +2219,7 @@ master_grid_add_ability(ABILITIES.METAL_MUNCHER,			textGrid[# 1, ABILITIES.METAL
 master_grid_add_ability(ABILITIES.VOLCANIC_MASS,			textGrid[# 1, ABILITIES.VOLCANIC_MASS],				textGrid[# 2, ABILITIES.VOLCANIC_MASS],			ABILITY_TYPES.ACTION_SUCCESS,			volcanic_mass);
 master_grid_add_ability(ABILITIES.EYE_OF_THE_STORM,			textGrid[# 1, ABILITIES.EYE_OF_THE_STORM],			textGrid[# 2, ABILITIES.EYE_OF_THE_STORM],		ABILITY_TYPES.TURN_BEGIN,				eye_of_the_storm);
 master_grid_add_ability(ABILITIES.TEARS_AND_JEERS,			textGrid[# 1, ABILITIES.TEARS_AND_JEERS],			textGrid[# 2, ABILITIES.TEARS_AND_JEERS],		ABILITY_TYPES.ACTION_BEGIN,				tears_and_jeers);
-master_grid_add_ability(ABILITIES.CENTRIPETAL_FORCE,		textGrid[# 1, ABILITIES.CENTRIPETAL_FORCE],			textGrid[# 2, ABILITIES.CENTRIPETAL_FORCE],		ABILITY_TYPES.TURN_BEGIN,				centripetal_force);
+master_grid_add_ability(ABILITIES.CENTRIPETAL_FORCE,		textGrid[# 1, ABILITIES.CENTRIPETAL_FORCE],			textGrid[# 2, ABILITIES.CENTRIPETAL_FORCE],		ABILITY_TYPES.TURN_END,					centripetal_force);
 master_grid_add_ability(ABILITIES.PERENNIAL_GROWTH,			textGrid[# 1, ABILITIES.PERENNIAL_GROWTH],			textGrid[# 2, ABILITIES.PERENNIAL_GROWTH],		ABILITY_TYPES.TURN_BEGIN,				perennial_growth);
 master_grid_add_ability(ABILITIES.PURE_MALICE,				textGrid[# 1, ABILITIES.PURE_MALICE],				textGrid[# 2, ABILITIES.PURE_MALICE],			ABILITY_TYPES.ACTION_SUCCESS,			pure_malice);
 master_grid_add_ability(ABILITIES.GUARDIAN_ANGEL,			textGrid[# 1, ABILITIES.GUARDIAN_ANGEL],			textGrid[# 2, ABILITIES.GUARDIAN_ANGEL],		ABILITY_TYPES.ACTION_SUCCESS,			guardian_angel);

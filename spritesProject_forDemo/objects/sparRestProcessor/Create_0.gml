@@ -23,7 +23,7 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 		ds_list_add(restList, inst);
 		
 		// clear this sprite's spot on the turn grid
-		var ii = 0;	repeat (SELECTION_PHASES.HEIGHT) {
+		var ii = 1;	repeat (SELECTION_PHASES.HEIGHT) {
 			spar.turnGrid[# ii, i] = -1;
 			
 			ii++;

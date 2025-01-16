@@ -1100,6 +1100,24 @@ function force_swap(_targetSprite) {
 					// swap mindsets
 					psid.mindset = m2;
 					tsid.mindset = m1;
+					
+					// get the action, target, and luckRoll for both swappers
+					var t_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, tsn];
+					var t_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, tsn];
+					var t_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn];
+					
+					var p_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, psn];
+					var p_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, psn];
+					var p_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn];
+					
+					// swap the two sprites' turn rows
+					spar.turnGrid[# SELECTION_PHASES.ACTION, tsn] = p_action;
+					spar.turnGrid[# SELECTION_PHASES.TARGET, tsn] = p_target;
+					spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn] = p_luck;
+					
+					spar.turnGrid[# SELECTION_PHASES.ACTION, psn] = t_action;
+					spar.turnGrid[# SELECTION_PHASES.TARGET, psn] = t_target;
+					spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn] = t_luck;
 				}
 			}
 		}	
@@ -1248,6 +1266,24 @@ function force_swap_team(_targetPlayer) {
 					// swap mindsets
 					psid.mindset = m2;
 					tsid.mindset = m1;
+					
+					// get the action, target, and luckRoll for both swappers
+					var t_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, tsn];
+					var t_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, tsn];
+					var t_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn];
+					
+					var p_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, psn];
+					var p_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, psn];
+					var p_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn];
+
+					// swap the two sprites' turn rows
+					spar.turnGrid[# SELECTION_PHASES.ACTION, tsn] = p_action;
+					spar.turnGrid[# SELECTION_PHASES.TARGET, tsn] = p_target;
+					spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn] = p_luck;
+					
+					spar.turnGrid[# SELECTION_PHASES.ACTION, psn] = t_action;
+					spar.turnGrid[# SELECTION_PHASES.TARGET, psn] = t_target;
+					spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn] = t_luck;
 				}
 			}
 		}
@@ -1297,6 +1333,24 @@ function force_swap_team(_targetPlayer) {
 					// swap mindsets
 					psid2.mindset = m2;
 					tsid2.mindset = m1;
+					
+					// get the action, target, and luckRoll for both swappers
+					var t_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, tsn2];
+					var t_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, tsn2];
+					var t_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn2];
+					
+					var p_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, psn2];
+					var p_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, psn2];
+					var p_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn2];
+					
+					// swap the two sprites' turn rows
+					spar.turnGrid[# SELECTION_PHASES.ACTION, tsn2] = p_action;
+					spar.turnGrid[# SELECTION_PHASES.TARGET, tsn2] = p_target;
+					spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn2] = p_luck;
+					
+					spar.turnGrid[# SELECTION_PHASES.ACTION, psn2] = t_action;
+					spar.turnGrid[# SELECTION_PHASES.TARGET, psn2] = t_target;
+					spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn2] = t_luck;
 				}
 			}
 		}
@@ -1454,6 +1508,24 @@ function force_swap_global() {
 						// swap mindsets
 						psid.mindset = m2;
 						tsid.mindset = m1;
+						
+						// get the action, target, and luckRoll for both swappers
+						var t_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, tsn];
+						var t_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, tsn];
+						var t_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn];
+						
+						var p_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, psn];
+						var p_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, psn];
+						var p_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn];
+						
+						// swap the two sprites' turn rows
+						spar.turnGrid[# SELECTION_PHASES.ACTION, tsn] = p_action;
+						spar.turnGrid[# SELECTION_PHASES.TARGET, tsn] = p_target;
+						spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn] = p_luck;
+						
+						spar.turnGrid[# SELECTION_PHASES.ACTION, psn] = t_action;
+						spar.turnGrid[# SELECTION_PHASES.TARGET, psn] = t_target;
+						spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn] = t_luck;
 					}
 				}
 			}
@@ -1503,6 +1575,24 @@ function force_swap_global() {
 						// swap mindsets
 						psid2.mindset = m2;
 						tsid2.mindset = m1;
+						
+						// get the action, target, and luckRoll for both swappers
+						var t_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, tsn2];
+						var t_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, tsn2];
+						var t_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn2];
+						
+						var p_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, psn2];
+						var p_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, psn2];
+						var p_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn2];
+						
+						// swap the two sprites' turn rows
+						spar.turnGrid[# SELECTION_PHASES.ACTION, tsn2] = p_action;
+						spar.turnGrid[# SELECTION_PHASES.TARGET, tsn2] = p_target;
+						spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn2] = p_luck;
+						
+						spar.turnGrid[# SELECTION_PHASES.ACTION, psn2] = t_action;
+						spar.turnGrid[# SELECTION_PHASES.TARGET, psn2] = t_target;
+						spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn2] = t_luck;
 					}
 				}
 			}
@@ -2675,7 +2765,7 @@ function set_bound_nearby_sprites(_target) {
 	
 	// use a repeat loop to check if any nearbySprites need to have
 	// their mindset cleared
-	var i = 0;	repeat (ds_list_size(t.nearbySprites[|i])) {
+	var i = 0;	repeat (ds_list_size(t.nearbySprites)) {
 		var inst = t.nearbySprites[| i];
 		
 		if !(inst.bound) {
@@ -3310,7 +3400,7 @@ function set_invulnerable(_target) {
 		
 		t.invulnerable = true;
 		t.invulnerableCounter = 1;
-	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
+	}	else	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: set INVULNERABLE to true for all the target's nearby allies
@@ -4016,7 +4106,7 @@ function end_invulnerable(_target) {
 		subject = t.name;
 		t.invulnerable = false;	
 		t.invulnerableCounter = 0;
-	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
+	}	else	instance_destroy(id);
 }
 
 ///@desc SPAR EFFECT: sets INVULNERABLE to false for all target's nearby allies

@@ -695,3 +695,12 @@ COMING BACK FROM PLAYTEST BUILD
 			-flamiliar ability complete
 			-vewrr ability complete
 			-decidruid ability complete
+			
+	1/10
+			-check inrange after forced swap!
+			
+	1/16
+			-add a pause during the announcement of the upcoming action (e.g. "Demolitops is preparing to make an attack!")
+			-stop displaying the announcement after the pause
+			
+			-left off at metal muncher (put chromaliodon back on the team)

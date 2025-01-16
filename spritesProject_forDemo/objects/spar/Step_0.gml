@@ -36,26 +36,30 @@ switch (sparPhase) {
 	break;
 	
 	case SPAR_PHASES.TURN_END:
-		turnProcessCount = 0;
-		processPhase = PROCESS_PHASES.PREPROCESS;
+		// check if you've already reset everything and performed all the checks
+		if (processPhase != PROCESS_PHASES.PREPROCESS) {
+			turnProcessCount = 0;
+			processPhase = PROCESS_PHASES.PREPROCESS;
 		
-		playerOne.ready = false;
-		playerTwo.ready = false;
+			playerOne.ready = false;
+			playerTwo.ready = false;
 		
-		// set synchronizedSoldiersActive to false for both players
-		playerOne.synchronizedSoldiersActive = false; 
-		playerTwo.synchronizedSoldiersActive = false; 
+			// set synchronizedSoldiersActive to false for both players
+			playerOne.synchronizedSoldiersActive = false; 
+			playerTwo.synchronizedSoldiersActive = false; 
 		
-		spar_check_sneaking_deal_damage();
-		spar_check_skydiving_deal_damage();		
-		spar_check_black_hole_deal_damage();
-		spar_check_ball_lightning_deal_damage();
-		spar_check_effect_timers();
-		spar_check_timed_blasts();
+			spar_check_sneaking_deal_damage();
+			spar_check_skydiving_deal_damage();		
+			spar_check_black_hole_deal_damage();
+			spar_check_ball_lightning_deal_damage();
+			spar_check_effect_timers();
+			spar_check_timed_blasts();
+			
+			// perform an ability check for turn end
+			ability_check(ABILITY_TYPES.TURN_END);
+		}
 		
-		// perform an ability check for turn end
-		ability_check(ABILITY_TYPES.TURN_END);
-		
+		// check that there are no alerts waiting to be displayed
 		if (ds_list_size(effectAlertList) == 0) {
 			// increment turnCounter
 			turnCounter++;

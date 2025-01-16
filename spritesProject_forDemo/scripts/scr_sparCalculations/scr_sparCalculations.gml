@@ -298,32 +298,32 @@ function arbitrate_physical_damage(_atkr, _targ, _spellType, _spellPower) {
 	switch (st) {
 		case SPRITE_PARAMS.FIRE:
 			atkStat = atkr.currentFire;
-			targStat = atkr.currentFire;
+			targStat = targ.currentFire;
 		break;
 		
 		case SPRITE_PARAMS.WATER:
 			atkStat = atkr.currentWater;
-			targStat = atkr.currentWater;
+			targStat = targ.currentWater;
 		break;
 		
 		case SPRITE_PARAMS.STORM:
 			atkStat = atkr.currentStorm;
-			targStat = atkr.currentStorm;
+			targStat = targ.currentStorm;
 		break;
 		
 		case SPRITE_PARAMS.EARTH:
 			atkStat = atkr.currentEarth;
-			targStat = atkr.currentEarth;
+			targStat = targ.currentEarth;
 		break;
 		
 		case SPRITE_PARAMS.RESISTANCE:
-			atkStat = atkr.currentResistance;
-			targStat = atkr.currentResistance;
+			atkStat = targ.currentResistance;
+			targStat = targ.currentResistance;
 		break;
 		
 		case SPRITE_PARAMS.AGILITY:
-			atkStat = atkr.currentAgility;
-			targStat = atkr.currentAgility;
+			atkStat = targ.currentAgility;
+			targStat = targ.currentAgility;
 		break;
 	}
 	
