@@ -4,7 +4,11 @@
 // check if spell failed
 if !(instance_exists(sparActionProcessor)) 
 || (sparActionProcessor.spellFailed) {
-	instance_destroy(id);	
+	destroy_if_possible(sparActionProcessor);
+	
+	instance_destroy(id);
+	
+	exit;
 }
 
 drawX = -1;

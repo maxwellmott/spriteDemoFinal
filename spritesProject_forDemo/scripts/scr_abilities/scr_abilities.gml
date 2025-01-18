@@ -941,20 +941,23 @@ function absorptive_body(_inst) {
 }
 
 ///@desc ABILITY FUNCTION -- STAGEFRITE:
-/// TYPE: TURN BEGIN
+/// TYPE: REST SUCCESS
 /// All of this sprite's nearby sprites become HEXED at the beginning of each turn.
 function creep_out(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// get nearby sprites list
-	var l = inst.nearbySprites;
+	// check if sprite is resting
+	if (inst.resting) {
+		// get nearby sprites list
+		var l = inst.nearbySprites;
 	
-	// push a spar effect alert for activate ability
-	spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+		// push a spar effect alert for activate ability
+		spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 	
-	// push a spar effect alert for set hexed nearby sprites
-	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_NEARBY_SPRITES, inst);
+		// push a spar effect alert for set hexed nearby sprites
+		spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_NEARBY_SPRITES, inst);
+	}
 }
 
 ///@desc ABILITY FUNCTION -- FLAMILIAR:
@@ -1734,7 +1737,7 @@ function tears_and_jeers(_inst) {
 	if (instance_exists(sparActionProcessor)) {
 		// check if this is a damaging spell or a basic attack
 		if (sparActionProcessor.spellPower > 0) 
-		|| (sparActionProcessor.spellType == -1) {
+		|| (sparActionProcessor.spellType < 0) {
 			// check if this sprite is the target
 			if (inst == sparActionProcessor.targetSprite) {
 				// initialize the curseCount
@@ -1909,16 +1912,28 @@ function guardian_angel(_inst) {
 }
 
 ///@desc ABILITY FUNCTION -- HECKID
-/// TYPE: REST SUCCESS
-/// When this sprite rests, every sprite on the field becomes HEXED
+/// TYPE: BASIC ATTACK SUCCESS
+/// When this sprite attacks a teammate, the whole enemy team gets hexed
 function dark_ritual(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is resting
-	if (inst.resting) {
-		// push a spar effect alert for set hexed global
-		spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_GLOBAL);
+	// check if the sparActionProcessor exists
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is attacking
+		if (inst == sparActionProcessor.activeSprite) {
+			// check if this is a basic attack
+			if (sparActionProcessor.currentSpell < 0) {
+				// check if the target is a teammate
+				if (sparActionProcessor.targetSprite.team == inst.team) {
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// push a spar effect alert for set hexed global
+					spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_TEAM, inst.enemy);
+				}
+			}
+		}
 	}
 }
 
@@ -1961,9 +1976,12 @@ function time_police(_inst) {
 			decode_list(global.ancientSpellList, l);
 			
 			// check if this spell is on the above list
-			if (ds_list_find_index(l, sparActionProcessor.currentSpell) != -1) {
+			if (ds_list_find_index(l, sparActionProcessor.currentSpell) != -1) {				
 				// push a spar effect alert for activate ability
 				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+				
+				// push a spar effect alert for force spell failure
+				spar_effect_push_alert(SPAR_EFFECTS.FORCE_SPELL_FAILURE, sparActionProcessor.activeSprite);
 				
 				// force spell to fail
 				sparActionProcessor.spellFailed = true;
@@ -2187,7 +2205,7 @@ master_grid_add_ability(ABILITIES.HANG_TEN,					textGrid[# 1, ABILITIES.HANG_TEN
 master_grid_add_ability(ABILITIES.TERRITORIAL_HUNTER,		textGrid[# 1, ABILITIES.TERRITORIAL_HUNTER],		textGrid[# 2, ABILITIES.TERRITORIAL_HUNTER],	ABILITY_TYPES.ACTION_BEGIN,				territorial_hunter);
 master_grid_add_ability(ABILITIES.NATURAL_INGREDIENTS,		textGrid[# 1, ABILITIES.NATURAL_INGREDIENTS],		textGrid[# 2, ABILITIES.NATURAL_INGREDIENTS],	ABILITY_TYPES.ACTION_SUCCESS,			natural_ingredients);
 master_grid_add_ability(ABILITIES.ABSORPTIVE_BODY,			textGrid[# 1, ABILITIES.ABSORPTIVE_BODY],			textGrid[# 2, ABILITIES.ABSORPTIVE_BODY],		ABILITY_TYPES.ACTION_SUCCESS,			absorptive_body);
-master_grid_add_ability(ABILITIES.CREEP_OUT,				textGrid[# 1, ABILITIES.CREEP_OUT],					textGrid[# 2, ABILITIES.CREEP_OUT],				ABILITY_TYPES.TURN_BEGIN,				creep_out);
+master_grid_add_ability(ABILITIES.CREEP_OUT,				textGrid[# 1, ABILITIES.CREEP_OUT],					textGrid[# 2, ABILITIES.CREEP_OUT],				ABILITY_TYPES.SPRITE_RESTING,				creep_out);
 master_grid_add_ability(ABILITIES.ENDLESS_WICK,				textGrid[# 1, ABILITIES.ENDLESS_WICK],				textGrid[# 2, ABILITIES.ENDLESS_WICK],			ABILITY_TYPES.ACTION_BEGIN,				endless_wick);
 master_grid_add_ability(ABILITIES.ALL_SEEING_EYES,			textGrid[# 1, ABILITIES.ALL_SEEING_EYES],			textGrid[# 2, ABILITIES.ALL_SEEING_EYES],		ABILITY_TYPES.TARGET_SELECTION,			all_seeing_eyes);	
 master_grid_add_ability(ABILITIES.SORT_AWAY,				textGrid[# 1, ABILITIES.SORT_AWAY],					textGrid[# 2, ABILITIES.SORT_AWAY],				ABILITY_TYPES.ACTION_SUCCESS,			sort_away);
@@ -2223,7 +2241,7 @@ master_grid_add_ability(ABILITIES.CENTRIPETAL_FORCE,		textGrid[# 1, ABILITIES.CE
 master_grid_add_ability(ABILITIES.PERENNIAL_GROWTH,			textGrid[# 1, ABILITIES.PERENNIAL_GROWTH],			textGrid[# 2, ABILITIES.PERENNIAL_GROWTH],		ABILITY_TYPES.TURN_BEGIN,				perennial_growth);
 master_grid_add_ability(ABILITIES.PURE_MALICE,				textGrid[# 1, ABILITIES.PURE_MALICE],				textGrid[# 2, ABILITIES.PURE_MALICE],			ABILITY_TYPES.ACTION_SUCCESS,			pure_malice);
 master_grid_add_ability(ABILITIES.GUARDIAN_ANGEL,			textGrid[# 1, ABILITIES.GUARDIAN_ANGEL],			textGrid[# 2, ABILITIES.GUARDIAN_ANGEL],		ABILITY_TYPES.ACTION_SUCCESS,			guardian_angel);
-master_grid_add_ability(ABILITIES.DARK_RITUAL,				textGrid[# 1, ABILITIES.DARK_RITUAL],				textGrid[# 2, ABILITIES.DARK_RITUAL],			ABILITY_TYPES.SPRITE_RESTING,			dark_ritual);
+master_grid_add_ability(ABILITIES.DARK_RITUAL,				textGrid[# 1, ABILITIES.DARK_RITUAL],				textGrid[# 2, ABILITIES.DARK_RITUAL],			ABILITY_TYPES.ACTION_SUCCESS,			dark_ritual);
 master_grid_add_ability(ABILITIES.RING_LEADER,				textGrid[# 1, ABILITIES.RING_LEADER],				textGrid[# 2, ABILITIES.RING_LEADER],			ABILITY_TYPES.ACTION_SUCCESS,			ring_leader);
 master_grid_add_ability(ABILITIES.TIME_POLICE,				textGrid[# 1, ABILITIES.TIME_POLICE],				textGrid[# 2, ABILITIES.TIME_POLICE],			ABILITY_TYPES.ACTION_BEGIN,				time_police);
 master_grid_add_ability(ABILITIES.SPACE_CADET,				textGrid[# 1, ABILITIES.SPACE_CADET],				textGrid[# 2, ABILITIES.SPACE_CADET],			ABILITY_TYPES.ACTION_SUCCESS,			space_cadet);

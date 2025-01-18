@@ -369,6 +369,7 @@ enum SPAR_EFFECTS {
 	REMOVE_IMMOBILIZED,
 	NEGATE_DAMAGE,
 	NEGATE_SPELL_COST,
+	FORCE_SPELL_FAILURE,
 	HEIGHT
 }
 
@@ -693,7 +694,7 @@ function remove_hexed(_target) {
 		subject = t.name;
 		t.hexed  = false;
 		t.hexedCounter = 0;
-	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
+	}	else	instance_destroy(id);	
 }
 
 ///@desc SPAR EFFECT: sets MIASMA to false for the targetPlayer
@@ -4486,6 +4487,8 @@ function negate_damage(_inst) {
 	
 	// set subject
 	subject = inst.name;
+	
+	ds_list_add(effectedSprites, inst);
 }
 
 function negate_spell_cost(_inst) {
@@ -4494,6 +4497,18 @@ function negate_spell_cost(_inst) {
 	
 	// set subject
 	subject = inst.name;
+	
+	ds_list_add(effectedSprites, inst);
+}
+
+function force_spell_failure(_inst) {
+	// store args in locals
+	var inst = _inst;
+	
+	// set subject
+	subject = inst.name;
+	
+	ds_list_add(effectedSprites, inst);
 }
 
 // get text from csv file
@@ -4702,6 +4717,7 @@ master_grid_add_spar_effect(SPAR_EFFECTS.SET_IMMOBILIZED,					textGrid[# 1, SPAR
 master_grid_add_spar_effect(SPAR_EFFECTS.REMOVE_IMMOBILIZED,				textGrid[# 1, SPAR_EFFECTS.REMOVE_IMMOBILIZED],					remove_immobilized,					EMPTY_SPRITE);
 master_grid_add_spar_effect(SPAR_EFFECTS.NEGATE_DAMAGE,						textGrid[# 1, SPAR_EFFECTS.NEGATE_DAMAGE],						negate_damage,						EMPTY_SPRITE);
 master_grid_add_spar_effect(SPAR_EFFECTS.NEGATE_SPELL_COST,					textGrid[# 1, SPAR_EFFECTS.NEGATE_SPELL_COST],					negate_spell_cost,					EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_SPELL_FAILURE,				textGrid[# 1, SPAR_EFFECTS.FORCE_SPELL_FAILURE],				force_spell_failure,				EMPTY_SPRITE);
 #endregion
 
 // encode the spar effect grid

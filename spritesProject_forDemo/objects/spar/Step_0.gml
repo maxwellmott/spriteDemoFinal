@@ -1,32 +1,31 @@
 /// @desc
+if !(spar_check_hpmp()) {
+	spar_correct_hpmp();
+	exit;
+}
+
+if !(check_sprites_done_flashing()) {
+	exit;	
+}
 
 if (instance_exists(sparEffectAlert)) {
 	exit;	
 }
 
-if (onlineWaiting) {
-	if !(global.gameTime mod 480)	request_turn_begin();
+if (instance_exists(processorParent)) {
+	exit;
 }
 
-// check if sprites are done flashing
-if (check_sprites_done_flashing()) {
-	// check if hpmp bars are up to date
-	if (spar_check_hpmp()) {
-		// check if there is still a spell being processed
-		if !(instance_exists(processorParent)) {
-			// check if there is still a spell being animated
-			if !(instance_exists(sparSpellFX)) {
-				// check if there are any effect alerts waiting to be
-				// announced and displayed
-				if (ds_list_size(effectAlertList) > 0)  {
-					create_once(0, 0, LAYER.meta, sparEffectAlert);
-				}
-			}
-		}
-	}	
-	else	{
-		spar_correct_hpmp();	
-	}
+if (instance_exists(sparSpellFX)) {
+	exit;	
+}
+
+if (ds_list_size(effectAlertList) > 0) {
+	create_once(0, 0, LAYER.meta, sparEffectAlert);	
+}
+
+if (onlineWaiting) {
+	if !(global.gameTime mod 480)	request_turn_begin();
 }
 
 // spar phase switch statement
@@ -70,58 +69,47 @@ switch (sparPhase) {
 	break;
 	
 	case SPAR_PHASES.PROCESS:
-		// destroy readyButton if possible
-		destroy_if_possible(sparReadyButton);
-	
-		// reset all sprites' selection data
-		with (sparAlly) {
-			turnReady = false;
-			readyDisplayBuilt = false;
-			readyDisplay = "";
-			selectedAction = -4;
-			selectedTarget = -4;
-		}
-		
-		with (sparEnemy) {
-			turnReady = false;
-			selectedAction = -4;
-			selectedTarget = -4;
-		}
-		
 		// get current height of turnGrid
 		var h = ds_grid_height(turnGrid);
 		
 		switch (processPhase) {
 			
 			case PROCESS_PHASES.PREPROCESS:
+				// destroy readyButton if possible
+				destroy_if_possible(sparReadyButton);
+				
+				// reset all sprites' selection data
+				with (sparAlly) {
+					turnReady = false;
+					readyDisplayBuilt = false;
+					readyDisplay = "";
+					selectedAction = -4;
+					selectedTarget = -4;
+				}
+				
+				with (sparEnemy) {
+					turnReady = false;
+					selectedAction = -4;
+					selectedTarget = -4;
+				}
+				
 				all_sprites_get_luck_roll();
 				ability_check(ABILITY_TYPES.PROCESS_BEGIN);
 				processPhase = PROCESS_PHASES.SWAP;
 			break;
 			
 			case PROCESS_PHASES.SWAP:
+				// check if any sprites are swapping
 				if (ds_grid_value_exists(turnGrid, SELECTION_PHASES.ACTION, 0, SELECTION_PHASES.ACTION, h, sparActions.swap)) {
 					// set these built-ins so that the gms2 animation works
 					sprite_index = spr_sparSwapCloud;
 					image_speed = 1;
 					
-					// check if sprites are done flashing
-					if (check_sprites_done_flashing()) {
-						// check if HPMP bars are up to date
-						if (spar_check_hpmp()) {
-							// check that there are no sparEffectAlerts
-							if (ds_list_size(effectAlertList) == 0) {
-								// if so, create the sparSwapProcessor
-								create_once(0, 0, LAYER.meta, sparSwapProcessor);
-							}
-						}
-						else {
-							spar_correct_hpmp();	
-						}
-					}
-				}
+					create_once(0, 0, LAYER.meta, sparSwapProcessor);
+				}	
+				// if no sprites are swapping
 				else {
-					if !(instance_exists(sparSwapProcessor))	processPhase = PROCESS_PHASES.REST;
+					processPhase = PROCESS_PHASES.REST;	
 				}
 				
 			break;
@@ -142,14 +130,8 @@ switch (sparPhase) {
 						}
 					}
 				}
-				
-				if !(instance_exists(sparRestProcessor))
-				&& !(spar_check_hpmp()) {
-					spar_correct_hpmp();
-				}
-				
-				if !(instance_exists(sparRestProcessor))
-				&& (spar_check_hpmp()) {
+				// if no sprites are resting
+				else {
 					processPhase = PROCESS_PHASES.DODGE;	
 				}
 			break;
@@ -161,410 +143,391 @@ switch (sparPhase) {
 					sprite_index = spr_sparDodge;
 					image_speed = 1;
 					
-					// check that HPMP bars are up to date
-					if (spar_check_hpmp()) {
-						// check that no sprites are flashing
-						if (check_sprites_done_flashing()) {
-							// check that there are no sparEffectAlerts
-							if (ds_list_size(effectAlertList) == 0) {
-								// if so, create the sparDodgeAnnouncer
-								create_once(0, 0, LAYER.meta, sparDodgeAnnouncer);
-							}
-						}
-					}
+
+					create_once(0, 0, LAYER.meta, sparDodgeAnnouncer);
 				}
+				// if no sprites are dodging
 				else {
-					if !(instance_exists(sparDodgeAnnouncer))	processPhase = PROCESS_PHASES.PRIORITY;	
+					processPhase = PROCESS_PHASES.PRIORITY;
 				}
 			break;
 			
 			case PROCESS_PHASES.PRIORITY:			
-				// check if all sprites are done flashing
-				if (check_sprites_done_flashing()) {
-					// check if HPMP bars are up to date
-					if (spar_check_hpmp()) {
-						// check that there are no effectAlerts
-						if (ds_list_size(effectAlertList) == 0) {	
-							// check that the ability check hasn't been performed yet
-							if !(abilityChecked_priorityCheck) {
-								// perform an ability check for priority check
-								ability_check(ABILITY_TYPES.PRIORITY_CHECK);
-								
-								abilityChecked_priorityCheck = true;
-							}
-							
-							// if both teams are synchronized, determine who will go first
-							// and then perform both players' turns in order
-							if (playerOne.synchronizedSoldiersActive) 
-							&& (playerTwo.synchronizedSoldiersActive) {
-								// initialize firstPlayer
-								var firstPlayer = -1;
-								var secondPlayer = -1;
-								
-								// determine who wins the tie using the turnCounter
-								// check if turnCounter is an even number
-								if (turnCounter mod 2 == 0) {
-									// check if player is the host
-									if (playerOne.clientType == CLIENT_TYPES.HOST) {
-										firstPlayer = playerOne;	
-										secondPlayer = playerTwo;
-									}
-									// if player is not the host
-									else {
-										firstPlayer = playerTwo;	
-										secondPlayer = playerOne;
-									}
-								}
-								// if turnCounter is an odd number
-								else {
-									// check if player is the guest
-									if (playerOne.clientType == CLIENT_TYPES.GUEST) {
-										firstPlayer = playerOne;
-										secondPlayer = playerTwo;
-									}
-									// if player is not the guest
-									else {
-										firstPlayer = playerTwo;	
-										secondPlayer = playerOne;
-									}
-								}
-								
-								// initialize first player list and second player list
-								var fpl = -1;
-								var spl = -1;
-								
-								// get first player list and second player list
-								if (firstPlayer == playerOne) {
-									fpl = allyList;
-									spl = enemyList;
-								}
-								else {
-									fpl = enemyList;
-									spl = allyList;
-								}
-								
-								// use a repeat loop to arbitrate all turns for first player
-								var i = 0;	repeat (ds_list_size(fpl)) {
-									var inst = fpl[| i];
-									
-									if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
-										// push a spar effect alert for arbitrate turn
-										spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
-									}
-									
-									i++;
-								}
-								
-								// use a repeat loop to arbitrate all turns for second player
-								var i = 0;	repeat (ds_list_size(spl)) {
-									var inst = spl[| i];
-									
-									if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
-										// push a spar effect alert for arbitrate turn
-										spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
-									}
-									
-									i++;
-								}
-							}
-							else {
-								// check if playerOne's sprites are synchronized
-								if (playerOne.synchronizedSoldiersActive) {
-									// use a repeat loop to arbitrate all turns
-									var i = 0;	repeat (ds_list_size(allyList)) {
-										var inst = allyList[| i];
-										
-										if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
-											// push a spar effect alert for arbitrate turn
-											spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
-										}
-										
-										i++;
-									}
-								}
-								
-								// check if playerTwo's sprites are synchronized
-								if (playerTwo.synchronizedSoldiersActive) {
-									// use a repeat loop to arbitrate all turns
-									var i = 0;	repeat (ds_list_size(enemyList)) {
-										var inst = enemyList[| i];
-										
-										if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
-											// push a spar effect alert for arbitrate turn
-											spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
-										}
-										
-										i++;
-									}
-								}
-							}
-							
-							// check if the actionProcessor is already active
-							if !(instance_exists(processorParent)) {
-								// create a variable to store the highest stat found so far
-								var highest = 0;
-								
-								// create a variable to store the nextSprite
-								var nextSprite = -1;
-								
-								var i = 0;	repeat (ds_grid_height(turnGrid)) {
-									// get the current spotnum
-									var sn = turnGrid[# SELECTION_PHASES.ALLY, i];
-									
-									// get the current instance
-									var inst = spriteList[| sn];
-									
-									// get action
-									var a = turnGrid[# SELECTION_PHASES.ACTION, i];
-									
-									// check if action is a spell
-									if (action_check_spell(a)) {
-										// get spellID
-										var sid = action_get_spell_id(a);
-										
-										// create the priority list
-										var pl = ds_list_create();
-										decode_list(global.prioritySpellList, pl);
-										
-										// check if the spell id is on the priority list
-										if (ds_list_find_index(pl, sid) >= 0) 
-										&& !(inst.team.synchronizedSoldiersActive) {
-											// use a switch statement to check the proper stat
-											// depending on the current arena
-											switch (currentArena) {
-												case ARENAS.OCEAN:
-													if (inst.currentWater > highest) {
-														highest		= inst.currentWater;
-														nextSprite	= i;
-													}
-													
-													if (inst.currentWater == highest) {
-														if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
-															highest = inst.currentWater;
-															nextSprite = i;
-														}
-														
-														// tiebreaker logic for ocean
-														if (inst.luckRoll == spriteList[| nextSprite].luckRoll) {
-															// if this is an online match
-															if (instance_exists(onlineEnemy)) {
-																// check for whose sprite this is
-																var t = inst.team;
-																
-																// check if these sprites are both on different teams
-																if !(t == spriteList[| nextSprite].team) {																	
-																	// initialize firstPlayer
-																	var firstPlayer = -1;
-																	
-																	// determine who wins the tie using the turnCounter
-																	// check if turnCounter is an even number
-																	if (turnCounter mod 2 == 0) {
-																		// check if player is the host
-																		if (playerOne.clientType == CLIENT_TYPES.HOST) {
-																			firstPlayer = playerOne;	
-																		}
-																		// if player is not the host
-																		else {
-																			firstPlayer = playerTwo;	
-																		}
-																	}
-																	// if turnCounter is an odd number
-																	else {
-																		// check if player is the guest
-																		if (playerOne.clientType == CLIENT_TYPES.GUEST) {
-																			firstPlayer = playerOne;
-																		}
-																		// if player is not the guest
-																		else {
-																			firstPlayer = playerTwo;	
-																		}
-																	}
-																	
-																	// highest and nextSprite
-																	highest = inst.currentWater;
-																	nextSprite = i;
-																}
-															}
-															// if this is a local match
-															else {
-																// in local matches, the tie always goes to the npc
-																var t = inst.team;
-																
-																if (t == playerTwo) {
-																	if (spriteList[| nextSprite].team != t) {
-																		highest = inst.currentWater;
-																		nextSprite = i;
-																	}
-																}
-															}
-														}
-													}
-												break;
-												
-												case ARENAS.CLOUDS:
-													if (inst.currentStorm > highest) {
-														highest		= inst.currentStorm;
-														nextSprite	= i;
-													}
-													
-													if (inst.currentStorm == highest) {
-														if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
-															highest = inst.currentStorm;
-															nextSprite = i;
-														}
-														
-														// tiebreaker logic for clouds
-														if (inst.luckRoll == spriteList[| nextSprite].luckRoll) {
-															// if this is an online match
-															if (instance_exists(onlineEnemy)) {
-																// check for whose sprite this is
-																var t = inst.team;
-																
-																// check if these sprites are both on different teams
-																if !(t == spriteList[| nextSprite].team) {								
-																	// initialize firstPlayer
-																	var firstPlayer = -1;
-																	
-																	// determine who wins the tie using the turnCounter
-																	// check if turnCounter is an even number
-																	if (turnCounter mod 2 == 0) {
-																		// check if player is the host
-																		if (playerOne.clientType == CLIENT_TYPES.HOST) {
-																			firstPlayer = playerOne;	
-																		}
-																		// if player is not the host
-																		else {
-																			firstPlayer = playerTwo;	
-																		}
-																	}
-																	// if turnCounter is an odd number
-																	else {
-																		// check if player is the guest
-																		if (playerOne.clientType == CLIENT_TYPES.GUEST) {
-																			firstPlayer = playerOne;
-																		}
-																		// if player is not the guest
-																		else {
-																			firstPlayer = playerTwo;	
-																		}
-																	}
-																	
-																	// highest and nextSprite
-																	highest = inst.currentStorm;
-																	nextSprite = i;
-																}
-															}
-															// if this is a local match
-															else {
-																// in local matches, the tie always goes to the npc
-																var t = inst.team;
-																
-																if (t == playerTwo) {
-																	if (spriteList[| nextSprite].team != t) {
-																		highest = inst.currentStorm;
-																		nextSprite = i;
-																	}
-																}
-															}
-														}
-													}
-												break;
-												
-												default:
-													if (inst.currentAgility > highest) {
-														highest		= inst.currentAgility;
-														nextSprite	= i;
-													}
-													
-													if (inst.currentAgility == highest) {
-														if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
-															highest = inst.currentAgility;
-															nextSprite = i;
-														}
-														
-														// tiebreaker logic for normal arena
-														if (inst.luckRoll == spriteList[| nextSprite].luckRoll) {
-															// if this is an online match
-															if (instance_exists(onlineEnemy)) {
-																// check for whose sprite this is
-																var t = inst.team;
-																
-																// check if these sprites are both on different teams
-																if !(t == spriteList[| nextSprite].team) {								
-																	// initialize firstPlayer
-																	var firstPlayer = -1;
-																	
-																	// determine who wins the tie using the turnCounter
-																	// check if turnCounter is an even number
-																	if (turnCounter mod 2 == 0) {
-																		// check if player is the host
-																		if (playerOne.clientType == CLIENT_TYPES.HOST) {
-																			firstPlayer = playerOne;	
-																		}
-																		// if player is not the host
-																		else {
-																			firstPlayer = playerTwo;	
-																		}
-																	}
-																	// if turnCounter is an odd number
-																	else {
-																		// check if player is the guest
-																		if (playerOne.clientType == CLIENT_TYPES.GUEST) {
-																			firstPlayer = playerOne;
-																		}
-																		// if player is not the guest
-																		else {
-																			firstPlayer = playerTwo;	
-																		}
-																	}
-																	
-																	// highest and nextSprite
-																	highest = inst.currentWater;
-																	nextSprite = i;
-																}
-															}
-															// if this is a local match
-															else {
-																// in local matches, the tie always goes to the npc
-																var t = inst.team;
-																
-																if (t == playerTwo) {
-																	if (spriteList[| nextSprite].team != t) {
-																		highest = inst.currentAgility;
-																		nextSprite = i;
-																	}
-																}
-															}
-														}
-													}
-												break;
-											}								
-										}
-										
-										ds_list_destroy(pl);
-									}
-									
-									// increment i
-									i++;
-								}
-								
-								// check if nextSprite was ever set
-								if (nextSprite >= 0) {
-									// if so, set turnRow to equal nextSprite
-									turnRow = nextSprite;
-									
-									// create the sparActionProcessor
-									create_once(0, 0, LAYER.meta, sparActionProcessor);
-									
-								}	else	processPhase = PROCESS_PHASES.ATTACK;
-							}
-						}
-					}	else	{
-						spar_correct_hpmp();
+
+			// check that the ability check hasn't been performed yet
+			if !(abilityChecked_priorityCheck) {
+				// perform an ability check for priority check
+				ability_check(ABILITY_TYPES.PRIORITY_CHECK);
+				
+				abilityChecked_priorityCheck = true;
+			}
+			
+			// if both teams are synchronized, determine who will go first
+			// and then perform both players' turns in order
+			if (playerOne.synchronizedSoldiersActive) 
+			&& (playerTwo.synchronizedSoldiersActive) {
+				// initialize firstPlayer
+				var firstPlayer = -1;
+				var secondPlayer = -1;
+				
+				// determine who wins the tie using the turnCounter
+				// check if turnCounter is an even number
+				if (turnCounter mod 2 == 0) {
+					// check if player is the host
+					if (playerOne.clientType == CLIENT_TYPES.HOST) {
+						firstPlayer = playerOne;	
+						secondPlayer = playerTwo;
+					}
+					// if player is not the host
+					else {
+						firstPlayer = playerTwo;	
+						secondPlayer = playerOne;
+					}
+				}
+				// if turnCounter is an odd number
+				else {
+					// check if player is the guest
+					if (playerOne.clientType == CLIENT_TYPES.GUEST) {
+						firstPlayer = playerOne;
+						secondPlayer = playerTwo;
+					}
+					// if player is not the guest
+					else {
+						firstPlayer = playerTwo;	
+						secondPlayer = playerOne;
 					}
 				}
 				
-							
+				// initialize first player list and second player list
+				var fpl = -1;
+				var spl = -1;
+				
+				// get first player list and second player list
+				if (firstPlayer == playerOne) {
+					fpl = allyList;
+					spl = enemyList;
+				}
+				else {
+					fpl = enemyList;
+					spl = allyList;
+				}
+				
+				// use a repeat loop to arbitrate all turns for first player
+				var i = 0;	repeat (ds_list_size(fpl)) {
+					var inst = fpl[| i];
+					
+					if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
+						// push a spar effect alert for arbitrate turn
+						spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
+					}
+					
+					i++;
+				}
+				
+				// use a repeat loop to arbitrate all turns for second player
+				var i = 0;	repeat (ds_list_size(spl)) {
+					var inst = spl[| i];
+					
+					if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
+						// push a spar effect alert for arbitrate turn
+						spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
+					}
+					
+					i++;
+				}
+			}
+			else {
+				// check if playerOne's sprites are synchronized
+				if (playerOne.synchronizedSoldiersActive) {
+					// use a repeat loop to arbitrate all turns
+					var i = 0;	repeat (ds_list_size(allyList)) {
+						var inst = allyList[| i];
+						
+						if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
+							// push a spar effect alert for arbitrate turn
+							spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
+						}
+						
+						i++;
+					}
+				}
+				
+				// check if playerTwo's sprites are synchronized
+				if (playerTwo.synchronizedSoldiersActive) {
+					// use a repeat loop to arbitrate all turns
+					var i = 0;	repeat (ds_list_size(enemyList)) {
+						var inst = enemyList[| i];
+						
+						if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
+							// push a spar effect alert for arbitrate turn
+							spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
+						}
+						
+						i++;
+					}
+				}
+			}
+			
+			// check if the actionProcessor is already active
+			if !(instance_exists(processorParent)) {
+				// create a variable to store the highest stat found so far
+				var highest = 0;
+				
+				// create a variable to store the nextSprite
+				var nextSprite = -1;
+				
+				var i = 0;	repeat (ds_grid_height(turnGrid)) {
+					// get the current spotnum
+					var sn = turnGrid[# SELECTION_PHASES.ALLY, i];
+					
+					// get the current instance
+					var inst = spriteList[| sn];
+					
+					// get action
+					var a = turnGrid[# SELECTION_PHASES.ACTION, i];
+					
+					// check if action is a spell
+					if (action_check_spell(a)) {
+						// get spellID
+						var sid = action_get_spell_id(a);
+						
+						// create the priority list
+						var pl = ds_list_create();
+						decode_list(global.prioritySpellList, pl);
+						
+						// check if the spell id is on the priority list
+						if (ds_list_find_index(pl, sid) >= 0) 
+						&& !(inst.team.synchronizedSoldiersActive) {
+							// use a switch statement to check the proper stat
+							// depending on the current arena
+							switch (currentArena) {
+								case ARENAS.OCEAN:
+									if (inst.currentWater > highest) {
+										highest		= inst.currentWater;
+										nextSprite	= i;
+									}
+									
+									if (inst.currentWater == highest) {
+										if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
+											highest = inst.currentWater;
+											nextSprite = i;
+										}
+										
+										// tiebreaker logic for ocean
+										if (inst.luckRoll == spriteList[| nextSprite].luckRoll) {
+											// if this is an online match
+											if (instance_exists(onlineEnemy)) {
+												// check for whose sprite this is
+												var t = inst.team;
+												
+												// check if these sprites are both on different teams
+												if !(t == spriteList[| nextSprite].team) {																	
+													// initialize firstPlayer
+													var firstPlayer = -1;
+													
+													// determine who wins the tie using the turnCounter
+													// check if turnCounter is an even number
+													if (turnCounter mod 2 == 0) {
+														// check if player is the host
+														if (playerOne.clientType == CLIENT_TYPES.HOST) {
+															firstPlayer = playerOne;	
+														}
+														// if player is not the host
+														else {
+															firstPlayer = playerTwo;	
+														}
+													}
+													// if turnCounter is an odd number
+													else {
+														// check if player is the guest
+														if (playerOne.clientType == CLIENT_TYPES.GUEST) {
+															firstPlayer = playerOne;
+														}
+														// if player is not the guest
+														else {
+															firstPlayer = playerTwo;	
+														}
+													}
+													
+													// highest and nextSprite
+													highest = inst.currentWater;
+													nextSprite = i;
+												}
+											}
+											// if this is a local match
+											else {
+												// in local matches, the tie always goes to the npc
+												var t = inst.team;
+												
+												if (t == playerTwo) {
+													if (spriteList[| nextSprite].team != t) {
+														highest = inst.currentWater;
+														nextSprite = i;
+													}
+												}
+											}
+										}
+									}
+								break;
+								
+								case ARENAS.CLOUDS:
+									if (inst.currentStorm > highest) {
+										highest		= inst.currentStorm;
+										nextSprite	= i;
+									}
+									
+									if (inst.currentStorm == highest) {
+										if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
+											highest = inst.currentStorm;
+											nextSprite = i;
+										}
+										
+										// tiebreaker logic for clouds
+										if (inst.luckRoll == spriteList[| nextSprite].luckRoll) {
+											// if this is an online match
+											if (instance_exists(onlineEnemy)) {
+												// check for whose sprite this is
+												var t = inst.team;
+												
+												// check if these sprites are both on different teams
+												if !(t == spriteList[| nextSprite].team) {								
+													// initialize firstPlayer
+													var firstPlayer = -1;
+													
+													// determine who wins the tie using the turnCounter
+													// check if turnCounter is an even number
+													if (turnCounter mod 2 == 0) {
+														// check if player is the host
+														if (playerOne.clientType == CLIENT_TYPES.HOST) {
+															firstPlayer = playerOne;	
+														}
+														// if player is not the host
+														else {
+															firstPlayer = playerTwo;	
+														}
+													}
+													// if turnCounter is an odd number
+													else {
+														// check if player is the guest
+														if (playerOne.clientType == CLIENT_TYPES.GUEST) {
+															firstPlayer = playerOne;
+														}
+														// if player is not the guest
+														else {
+															firstPlayer = playerTwo;	
+														}
+													}
+													
+													// highest and nextSprite
+													highest = inst.currentStorm;
+													nextSprite = i;
+												}
+											}
+											// if this is a local match
+											else {
+												// in local matches, the tie always goes to the npc
+												var t = inst.team;
+												
+												if (t == playerTwo) {
+													if (spriteList[| nextSprite].team != t) {
+														highest = inst.currentStorm;
+														nextSprite = i;
+													}
+												}
+											}
+										}
+									}
+								break;
+								
+								default:
+									if (inst.currentAgility > highest) {
+										highest		= inst.currentAgility;
+										nextSprite	= i;
+									}
+									
+									if (inst.currentAgility == highest) {
+										if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
+											highest = inst.currentAgility;
+											nextSprite = i;
+										}
+										
+										// tiebreaker logic for normal arena
+										if (inst.luckRoll == spriteList[| nextSprite].luckRoll) {
+											// if this is an online match
+											if (instance_exists(onlineEnemy)) {
+												// check for whose sprite this is
+												var t = inst.team;
+												
+												// check if these sprites are both on different teams
+												if !(t == spriteList[| nextSprite].team) {								
+													// initialize firstPlayer
+													var firstPlayer = -1;
+													
+													// determine who wins the tie using the turnCounter
+													// check if turnCounter is an even number
+													if (turnCounter mod 2 == 0) {
+														// check if player is the host
+														if (playerOne.clientType == CLIENT_TYPES.HOST) {
+															firstPlayer = playerOne;	
+														}
+														// if player is not the host
+														else {
+															firstPlayer = playerTwo;	
+														}
+													}
+													// if turnCounter is an odd number
+													else {
+														// check if player is the guest
+														if (playerOne.clientType == CLIENT_TYPES.GUEST) {
+															firstPlayer = playerOne;
+														}
+														// if player is not the guest
+														else {
+															firstPlayer = playerTwo;	
+														}
+													}
+													
+													// highest and nextSprite
+													highest = inst.currentWater;
+													nextSprite = i;
+												}
+											}
+											// if this is a local match
+											else {
+												// in local matches, the tie always goes to the npc
+												var t = inst.team;
+												
+												if (t == playerTwo) {
+													if (spriteList[| nextSprite].team != t) {
+														highest = inst.currentAgility;
+														nextSprite = i;
+													}
+												}
+											}
+										}
+									}
+								break;
+							}								
+						}
+						
+						ds_list_destroy(pl);
+					}
+					
+					// increment i
+					i++;
+				}
+				
+				// check if nextSprite was ever set
+				if (nextSprite >= 0) {
+					// if so, set turnRow to equal nextSprite
+					turnRow = nextSprite;
+					
+					// create the sparActionProcessor
+					create_once(0, 0, LAYER.meta, sparActionProcessor);
+					
+				}	else	processPhase = PROCESS_PHASES.ATTACK;
+			}
+		
 				
 			break;
 			
@@ -572,124 +535,118 @@ switch (sparPhase) {
 				// reset abilityChecked_priorityCheck
 				abilityChecked_priorityCheck = false;
 				
-				// check that all sprites are done flashing
-				if (check_sprites_done_flashing()) {
-					// check that HPMP bars are up to date
-					if (spar_check_hpmp()) {
-						// check that there are no sparEffect alerts
-						if (ds_list_size(effectAlertList) == 0) {
-							if !(instance_exists(processorParent)) {
-								// initialize a variable to store whether there are actions left to process
-								var actionsRemaining = false;
-								
-								// use a repeat loop to check the whole grid for remaining actions
-								var i = 0;	repeat (ds_grid_height(turnGrid)) {
-									var a = turnGrid[# SELECTION_PHASES.ACTION, i];
-									
-									// check if the action has been processed and reset to -1 already
-									if (a >= 0) {
-										// if so, set actionsRemaining to true and break the loop
-										actionsRemaining = true;
-										break;
-									}
-									
-									// increment i
-									i++;
-								}
-								
-								// check if there are actionsRemaining
-								if (actionsRemaining) {
-									// create a variable to store the highest stat so far
-									var highest = 0;
-									
-									// create a variable to store the turnRow of the next sprite who should act
-									var nextSprite = -1;
-									
-									// use a repeat loop to find the fastest sprite who still needs
-									// to take their turn
-									var i = 0;	repeat (ds_grid_height(turnGrid)) {
-										// check if the next action on the grid has been reset to -1 already
-										var a = turnGrid[# SELECTION_PHASES.ACTION, i];
-										if (a >= 0) {
-											// get current spotNum
-											var sn = turnGrid[# SELECTION_PHASES.ALLY, i];
-											
-											// get the current instance
-											var inst = spriteList[| sn];
-											
-											// use a switch statement to check the proper stat
-											// depending on the arena
-											switch (currentArena) {
-												case ARENAS.OCEAN:
-													if (inst.currentWater > highest) {
-														highest		= inst.currentWater;
-														nextSprite	= i;
-													}
-													
-													if (inst.currentWater == highest) {
-														if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
-															highest = inst.currentWater;
-															nextSprite = i;
-														}
-													}
-												break;
-												
-												case ARENAS.CLOUDS:
-													if (inst.currentStorm > highest) {
-														highest		= inst.currentStorm;
-														nextSprite	= i;
-													}
-													
-													if (inst.currentStorm == highest) {
-														if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
-															highest = inst.currentStorm;
-															nextSprite = i;
-														}
-													}
-												break;
-												
-												default:
-													if (inst.currentAgility > highest) {
-														highest		= inst.currentAgility;
-														nextSprite	= i;
-														
-														if (inst.currentAgility == highest) {
-															if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
-																highest = inst.currentAgility;
-																nextSprite = i;
-															}
-														}
-													}
-												break;
-											}		
-										}
-										
-										// increment i
-										i++;
-									}
-									
-									// set turnRow to match the nextSprite variable
-									turnRow = nextSprite;
-									
-									// create the sparActionProcessor
-									create_once(0, 0, LAYER.meta, sparActionProcessor);
-									
-								}	else	processPhase = PROCESS_PHASES.END;
-							
-							}
-						}	
-					}	else	{
-						spar_correct_hpmp();
+				// initialize a variable to store whether there are actions left to process
+				var actionsRemaining = false;
+				
+				// use a repeat loop to check the whole grid for remaining actions
+				var i = 0;	repeat (ds_grid_height(turnGrid)) {
+					var a = turnGrid[# SELECTION_PHASES.ACTION, i];
+					
+					// check if the action has been processed and reset to -1 already
+					if (a >= 0) {
+						// if so, set actionsRemaining to true and break the loop
+						actionsRemaining = true;
+						break;
 					}
+					
+					// increment i
+					i++;
 				}
+				
+				// check if there are actionsRemaining
+				if (actionsRemaining) {
+					// create a variable to store the highest stat so far
+					var highest = 0;
+					
+					// create a variable to store the turnRow of the next sprite who should act
+					var nextSprite = -1;
+					
+					// use a repeat loop to find the fastest sprite who still needs
+					// to take their turn
+					var i = 0;	repeat (ds_grid_height(turnGrid)) {
+						// check if the next action on the grid has been reset to -1 already
+						var a = turnGrid[# SELECTION_PHASES.ACTION, i];
+						if (a >= 0) {
+							// get current spotNum
+							var sn = turnGrid[# SELECTION_PHASES.ALLY, i];
+							
+							// get the current instance
+							var inst = spriteList[| sn];
+							
+							// use a switch statement to check the proper stat
+							// depending on the arena
+							switch (currentArena) {
+								case ARENAS.OCEAN:
+									if (inst.currentWater > highest) {
+										highest		= inst.currentWater;
+										nextSprite	= i;
+									}
+									
+									if (inst.currentWater == highest) {
+										if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
+											highest = inst.currentWater;
+											nextSprite = i;
+										}
+									}
+								break;
+								
+								case ARENAS.CLOUDS:
+									if (inst.currentStorm > highest) {
+										highest		= inst.currentStorm;
+										nextSprite	= i;
+									}
+									
+									if (inst.currentStorm == highest) {
+										if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
+											highest = inst.currentStorm;
+											nextSprite = i;
+										}
+									}
+								break;
+								
+								default:
+									if (inst.currentAgility > highest) {
+										highest		= inst.currentAgility;
+										nextSprite	= i;
+										
+										if (inst.currentAgility == highest) {
+											if (inst.luckRoll > spriteList[| nextSprite].luckRoll) {
+												highest = inst.currentAgility;
+												nextSprite = i;
+											}
+										}
+									}
+								break;
+							}		
+						}
+						
+						// increment i
+						i++;
+					}
+					
+					// set turnRow to match the nextSprite variable
+					turnRow = nextSprite;
+					
+					// create the sparActionProcessor
+					create_once(0, 0, LAYER.meta, sparActionProcessor);
+					
+				}	else	processPhase = PROCESS_PHASES.END;
+
 				
 			break;
 			
 			case PROCESS_PHASES.END:
 				// reset dodging var for all sprites
-				with (sparAlly)		dodging = false;	dodgeCount = 0;
-				with (sparEnemy)	dodging = false;	dodgeCount = 0;
-			
+				with (sparAlly)	{
+					dodging = false;
+					dodgeCount = 0;
+				}
+				
+				with (sparEnemy) {
+					dodging = false;
+					dodgeCount = 0;
+				}
+				
 				sparPhase = SPAR_PHASES.TURN_END;
 			break;
 		}
@@ -874,14 +831,7 @@ switch (sparPhase) {
 
 correct_uiAlpha();
 
-// sparComplete logic
-// check that all sprites are done flashing
-if (check_sprites_done_flashing()) {
-	// check that hpmp bars are up to date
-	if (spar_check_hpmp()) {
-		if (spar_check_complete()) {
-			create_once(0, 0, LAYER.meta, winLoseDisplay);	
-		}
-	}
+if (spar_check_complete()) {
+	create_once(0, 0, LAYER.meta, winLoseDisplay);	
 }
 		
