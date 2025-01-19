@@ -578,6 +578,12 @@ function sprite_build_ready_display() {
 		return -1;
 	}
 	
+	if (immobilized) {
+		readyDisplay = "immobilized!";
+		readyDisplayBuilt = true;
+		return -1;
+	}
+	
 	if (selectedTarget != -1) {
 		var num = selectedTarget;
 		var numString = "";

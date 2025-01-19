@@ -81,7 +81,7 @@ teamList = ds_list_create();
 
 // ONLY FOR TESTING
 teamList[| 0] = SPRITES.DECIDRUID;
-teamList[| 1] = SPRITES.ANACHRONAUT;
+teamList[| 1] = SPRITES.GASTRONIMO;
 teamList[| 2] = SPRITES.NEEDLEPAW;
 teamList[| 3] = SPRITES.OMNOST;
 
@@ -121,14 +121,14 @@ spellBookString = "";
 spellBook = ds_list_create();
 
 // ONLY FOR TESTING
-spellBook[| 7] = SPELLS.CLOUD_BREAK;
-spellBook[| 6] = SPELLS.ENDLESS_RIVER;
-spellBook[| 5] = SPELLS.LAVA_SPIRE;
+spellBook[| 7] = SPELLS.DECAY;
+spellBook[| 6] = SPELLS.TREMOR;
+spellBook[| 5] = SPELLS.CRECIAS_CRYSTAL_SPIKES;
 spellBook[| 4] = SPELLS.LUSIAS_HARVEST_SPELL;
-spellBook[| 3] = SPELLS.RUBURS_GRAPPLE;
-spellBook[| 2] = SPELLS.EXPEL_FORCE;
-spellBook[| 1] = SPELLS.SOLAR_FLARE;
-spellBook[| 0] = SPELLS.BROADCAST_DATA;
+spellBook[| 3] = SPELLS.CRECIAS_CRYSTAL_WIND;
+spellBook[| 2] = SPELLS.LANDSLIDE;
+spellBook[| 1] = SPELLS.SUPERBLOOM;
+spellBook[| 0] = SPELLS.TECTONIC_SHIFT;
 
 spellBookString = encode_list(spellBook);
 

@@ -704,3 +704,8 @@ COMING BACK FROM PLAYTEST BUILD
 			-stop displaying the announcement after the pause
 			
 			-left off at metal muncher (put chromaliodon back on the team)
+			
+	1/19
+	
+			-ability testing finished!
+			-time to work on the rest of the spar bugs, tomorrow you can announce playtesting!

@@ -3075,7 +3075,8 @@ function ball_lightning_set_active(_caster, _target) {
 function ball_lightning_absorb_spell(_blSprite) {
 	var c = _blSprite;
 	
-	instance_destroy(sparActionProcessor);
+	// force the spell to fail
+	sparActionProcessor.spellFailed = true;
 	
 	ds_list_add(effectedSprites, c);
 	subject = c.name;
@@ -3118,7 +3119,8 @@ function black_hole_set_active(_caster, _target) {
 function black_hole_absorb_spell(_bhSprite) {
 	var c = _bhSprite;
 	
-	instance_destroy(sparActionProcessor);
+	// force the spell to fail
+	sparActionProcessor.spellFailed = true;
 	
 	ds_list_add(effectedSprites, c);
 	subject = c.name;

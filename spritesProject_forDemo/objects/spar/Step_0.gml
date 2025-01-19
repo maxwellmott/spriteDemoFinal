@@ -22,10 +22,12 @@ if (instance_exists(sparSpellFX)) {
 
 if (ds_list_size(effectAlertList) > 0) {
 	create_once(0, 0, LAYER.meta, sparEffectAlert);	
+	exit;
 }
 
 if (onlineWaiting) {
 	if !(global.gameTime mod 480)	request_turn_begin();
+	exit;
 }
 
 // spar phase switch statement
@@ -660,8 +662,131 @@ switch (sparPhase) {
 		
 			// use a switch statement to manage all SELECTION_PHASES
 			switch(selectionPhase) {
-				case SELECTION_PHASES.ALLY:
+				case SELECTION_PHASES.PRESELECT:
+					#region FORCE TURN SELECTION FOR IMMOBILIZED AND TIME LOOPED SPRITES
+					with (sparAlly) {
+						// check if this sprite has not already selected their turn
+						if !(turnReady) {
+							// check if this sprite is immobilized
+							if (immobilized) {
+								// set their selected target and action
+								selectedTarget = -1;
+								selectedAction = sparActions.rest;
+								
+								// ensure that this sprite will not be forced to repeat their last turn
+								turnRepeat = false;
+								
+								// build this sprite's ready display
+								sprite_build_ready_display();
+								
+								// set this sprite's turn to ready
+								turnReady = true;
+							}
+							
+							// check if this sprite is being forced to repeat their turn
+							if (turnRepeat) {
+								// set their last action and target as their current selections
+								selectedTarget = lastTarget;
+								selectedAction = lastAction;
+							
+								// check if the action in question was a swap
+								if (selectedAction == sparActions.swap) {
+									// get their swap partner's instance ID
+									var spid = spar.spriteList[| selectedTarget];
+									
+									// check if their swap partner is immobilized
+									if (spid.immobilized) {
+										// set this sprite's selected target and action
+										selectedTarget = -1;
+										selectedAction = sparActions.rest;
+										
+										// set this sprite's last target and action
+										selectedTarget = -1;
+										selectedAction = sparActions.rest;
+									}
+									// if their swap partner is not immobilized
+									else {
+										// set their swap partner's last action and target as their current selections
+										spid.selectedTarget = lastTarget;
+										spid.selectedAction = lastAction;
+										
+										// build their swap partner's ready display
+										with (spid)	sprite_build_ready_display();
+										
+										// set their swap partner's turn to ready
+										spid.turnReady = true;
+									}
+								}
+								
+								// build this sprite's ready display
+								sprite_build_ready_display();
+								
+								// set this sprite's turn to ready
+								turnReady = true;
+							}
+						}
+					}
+					
+					with (sparEnemy) {
+						// check if this sprite is immobilized
+						if (immobilized) {
+							// set their selected target and action
+							selectedTarget = -1;
+							selectedAction = sparActions.rest;
+							
+							// ensure that this sprite will not be forced to repeat their last turn
+							turnRepeat = false;
+							
+							// set this sprite's turn to ready
+							turnReady = true;
+						}
+						
+						// check if this sprite has not already selected their turn
+						if !(turnReady) {
+							// check if this sprite is being forced to repeat their turn
+							if (turnRepeat) {
+								// set their last action and target as their current selections
+								selectedTarget = lastTarget;
+								selectedAction = lastAction;
+							
+								// check if the action in question was a swap
+								if (selectedAction == sparActions.swap) {
+									// get their swap partner's instance ID
+									var spid = spar.spriteList[| selectedTarget];
+									
+									// check if their swap partner is immobilized
+									if (spid.immobilized) {
+										// set this sprite's selected target and action
+										selectedTarget = -1;
+										selectedAction = sparActions.rest;
+										
+										// set this sprite's last target and action
+										lastTarget = -1;
+										lastAction = sparActions.rest;
+									}
+									// if their swap partner is not immobilized
+									else {
+										// set their swap partner's last action and target as their current selections
+										spid.selectedTarget = lastTarget;
+										spid.selectedAction = lastAction;
+										
+										// set their swap partner's turn to ready
+										spid.turnReady = true;
+									}
+								}	
+								
+								// set this sprite's turn to ready
+								turnReady = true;
+							}
+						}
+					}
+					#endregion
+					
+					// set selectionPhase to ally
+					selectionPhase = SELECTION_PHASES.ALLY;
+				break;
 				
+				case SELECTION_PHASES.ALLY:
 					// set selection message
 					selectionMsg = "Select a sprite to command";
 					
@@ -759,71 +884,14 @@ switch (sparPhase) {
 			// perform an ability check for turn begin
 			ability_check(ABILITY_TYPES.TURN_BEGIN);
 		
+			// perform turn begin spar effect checks
 			spar_check_hail_sphera();
 			spar_check_miasma();	
 			
-			with (sparAlly) {
-				var ID = id;
-				
-				if !(turnReady) {
-					if (turnRepeat) {
-						selectedTarget = lastTarget;
-						selectedAction = lastAction;
-					
-						if (selectedAction == sparActions.swap) {
-							spar.spriteList[| selectedTarget].turnRepeat = true;
-						}
-						
-						sprite_build_ready_display();
-						
-						turnReady = true;
-					}
-					else {
-						if (lastAction == sparActions.swap) {
-							var targ = spar.spriteList[| lastTarget];
-							
-							if (targ.turnRepeat) {
-								selectedTarget = lastTarget;
-								selectedAction = lastAction;
-								
-								turnRepeat = true;
-								
-								sprite_build_ready_display();
-								
-								turnReady = true;
-							}
-						}
-					}
-				}
-			}
+			// set selectionPhase to preselect
+			selectionPhase = SELECTION_PHASES.PRESELECT;
 			
-			with (sparEnemy) {
-				if !(turnReady) {
-					if (turnRepeat) {
-						selectedTarget = lastTarget;
-						selectedAction = lastAction;
-					
-						if (selectedAction == sparActions.swap) {
-							spar.spriteList[| selectedTarget].turnRepeat = true;
-						}
-						
-						turnReady = true;
-					}
-					else {
-						if (lastAction == sparActions.swap) {
-							var targ = spar.spriteList[| lastTarget];
-							
-							if (targ.turnRepeat) {
-								selectedTarget = lastTarget;
-								selectedAction = lastAction;
-								
-								turnReady = true;
-							}
-						}
-					}
-				}
-			}
-			
+			// set sparPhase to select
 			sparPhase = SPAR_PHASES.SELECT;
 		break;
 	#endregion

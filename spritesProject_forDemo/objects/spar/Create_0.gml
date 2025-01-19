@@ -67,6 +67,7 @@ sparPhase = SPAR_PHASES.TURN_BEGIN;
 
 // selection phases enum
 enum SELECTION_PHASES {
+	PRESELECT,
 	ALLY,
 	ACTION,
 	TARGET,
@@ -74,7 +75,7 @@ enum SELECTION_PHASES {
 }
 
 // initialize selectionPhase
-selectionPhase = SELECTION_PHASES.ALLY;
+selectionPhase = SELECTION_PHASES.PRESELECT;
 
 // initialize sparReady
 sparReady = false;

@@ -151,9 +151,12 @@ if (state == ACTION_PROCESSOR_STATES.CALCULATING) {
 			state = ACTION_PROCESSOR_STATES.WAIT_FOR_FX;
 		}
 		else {
-			spar.turnMsg = activeSprite.name + " didn't have the energy to make a move...";
+			if (alarm[0] == -1) {
+				alarm[0] = 90;
+				spar.turnMsg = activeSprite.name + " didn't have the energy to make a move...";
+			}
 			
-			state = ACTION_PROCESSOR_STATES.APPLY_DAMAGE;
+			exit;
 		}
 	}
 }
@@ -241,7 +244,7 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 				
 				if (spellFailed) {
 					spar.turnMsg = "But the spell failed!";
-					if (alarm[0] == -1)		alarm[0] = 90;	
+					if (alarm[0] == -1)		alarm[0] = 90;
 					exit;
 				}
 				

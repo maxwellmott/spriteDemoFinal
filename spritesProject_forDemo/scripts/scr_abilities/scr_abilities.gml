@@ -906,11 +906,19 @@ function natural_ingredients(_inst) {
 				// push a spar effect alert for activate ability
 				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 				
+				// push a spar effect alert for force spell failure
+				spar_effect_push_alert(SPAR_EFFECTS.FORCE_SPELL_FAILURE, sparActionProcessor.activeSprite);
+				
 				// push a spar effect alert for restore HP
 				spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, sparActionProcessor.damage);
 				
-				// destroy the action processor
-				instance_destroy(sparActionProcessor);
+				// force the spell to fail
+				sparActionProcessor.spellFailed = true;
+				
+				// send the action processor straight to the apply damage phase 
+				// (this is to skip the announcment that the spell failed since there
+				// will be a notification along with the force spell failure effect alert
+				sparActionProcessor.state = ACTION_PROCESSOR_STATES.APPLY_DAMAGE;
 			}
 		}	
 	}
@@ -1670,11 +1678,19 @@ function metal_muncher(_inst) {
 					// push a spar effect alert for activate ability
 					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 					
+					// push a spar effect alert for force spell failure
+					spar_effect_push_alert(SPAR_EFFECTS.FORCE_SPELL_FAILURE, sparActionProcessor.activeSprite);
+					
 					// push a spar effect alert for restore HP
 					spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, inst.team, sparActionProcessor.damage);
 					
-					// destroy the action processor
-					instance_destroy(sparActionProcessor);
+					// force the spell to fail
+					sparActionProcessor.spellFailed = true;
+					
+					// send the action processor straight to the apply damage phase 
+					// (this is to skip the announcment that the spell failed since there
+					// will be a notification along with the force spell failure effect alert
+					sparActionProcessor.state = ACTION_PROCESSOR_STATES.APPLY_DAMAGE;
 				}
 			}
 		}	
@@ -1985,6 +2001,11 @@ function time_police(_inst) {
 				
 				// force spell to fail
 				sparActionProcessor.spellFailed = true;
+				
+				// send the action processor straight to the apply damage phase 
+				// (this is to skip the announcment that the spell failed since there
+				// will be a notification along with the force spell failure effect alert
+				sparActionProcessor.state = ACTION_PROCESSOR_STATES.APPLY_DAMAGE;
 			}
 			
 			// destroy temp list
@@ -2157,8 +2178,16 @@ function end_of_days(_inst) {
 				// push a spar effect alert for activate ability
 				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 				
+				// push a spar effect alert for force spell failure
+				spar_effect_push_alert(SPAR_EFFECTS.FORCE_SPELL_FAILURE, sparActionProcessor.activeSprite);
+				
 				// force the spell to fail
 				sparActionProcessor.spellFailed = true;
+				
+				// send the action processor straight to the apply damage phase 
+				// (this is to skip the announcment that the spell failed since there
+				// will be a notification along with the force spell failure effect alert
+				sparActionProcessor.state = ACTION_PROCESSOR_STATES.APPLY_DAMAGE;
 			}
 		}
 	}

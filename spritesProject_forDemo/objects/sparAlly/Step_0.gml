@@ -11,7 +11,8 @@ if (spar.sparPhase == SPAR_PHASES.SELECT) {
 	// check if it's either the select phase or the action phase
 	if (spar.selectionPhase == SELECTION_PHASES.ALLY) 
 	|| (spar.selectionPhase == SELECTION_PHASES.ACTION) {
-		if !(turnRepeat) {
+		if !(turnRepeat) 
+		&& !(immobilized) {
 			// if player clicks on sprite, set sprite as selected
 			if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 				if (global.click) {
@@ -32,7 +33,8 @@ if (spar.sparPhase == SPAR_PHASES.SELECT) {
 		if (player.selectedAlly != id) {
 			// select for a swap
 			if (global.action == sparActions.swap)	{
-				if !(turnRepeat) {
+				if !(turnRepeat) 
+				&& !(immobilized) {
 					if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 						if !(spar_check_bound(id)) 
 						&& !(spar_check_berserk(id)) {
