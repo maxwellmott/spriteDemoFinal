@@ -29,17 +29,12 @@ if !(surface_exists(enemyBarSurface))		enemyBarSurface = surface_create(48, 16);
 		draw_sprite_stretched(spr_sparHealthSliver, 0, hpBarX,	hpBarY,	hpScale,	barHeight);
 		draw_sprite_stretched(spr_sparMagicSliver,	0, mpBarX,	mpBarY,	mpScale,	barHeight);
 		
-		if (totalSelectionCost > 0)
-		|| ((totalSelectionCost + potentialCost) > 0) {
-			var costRatio = ((totalSelectionCost + potentialCost) - global.mpCostDiff) / MAX_MP;
-			if (costRatio > player.currentMP)	costRatio = player.currentMP;
-			
-			var fBarSize	= barWidth * costRatio;
-			var fBarX		= mpBarX + (barWidth - fBarSize);
-
-			var mpBuffer	= barWidth - (barWidth * playerMagicRatio);
-			
-			draw_sprite_stretched(spr_sparFlashingSliver, image_index, fBarX - mpBuffer, mpBarY, fBarSize, barHeight);
+		if (nextTurnFinalMP >= player.currentMP) {
+			//@TODO draw the flashing bar with a green blend
+		}
+		
+		if (nextTurnFinalMP < player.currentMP) {
+			//@TODO	draw the flashing bar with a red blend
 		}
 	
 	surface_reset_target();

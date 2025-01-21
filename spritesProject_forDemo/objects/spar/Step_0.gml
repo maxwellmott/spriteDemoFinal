@@ -1,4 +1,21 @@
 /// @desc
+
+#region CALCULATE THE TOTAL SELECTION COST
+	// calculate the selectionCostPreRegen by subtracting the swapCost from currentMP
+	selectionCostPreRegen = playerOne.currentMP - totalSwapCost - potentialSwapCost;
+
+	// calculate the selectionCostPostRegen by adding the restRegen to the selectionCostPreRegen
+	selectionCostPostRegen = selectionCostPreRegen + minRestRegen;
+		
+	// clamp these values at 0-100
+	selectionCostPreRegen	= clamp(selectionCostPreRegen,	0, 100);
+	selectionCostPostRegen	= clamp(selectionCostPostRegen, 0, 100);		
+		
+	// calculate the nextTurnFinalMP by subtracting totalSpellCost and potentialSpellCost to the selectionCostPostRegen
+	nextTurnFinalMP = selectionCostPostRegen - totalSpellCost - potentialSpellCost;
+	
+#endregion
+
 if !(spar_check_hpmp()) {
 	spar_correct_hpmp();
 	exit;
@@ -841,7 +858,8 @@ switch (sparPhase) {
 					
 					// handle backspace input
 					if (global.back) {
-						potentialCost = 0;
+						potentialSwapCost = 0;
+						potentialSpellCost = 0;
 						selectionPhase = SELECTION_PHASES.ACTION;
 					}
 				break;

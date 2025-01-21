@@ -244,7 +244,6 @@ draw_set_alpha(1.0);
 	}
 #endregion
 
-
 #region SPELL FX DARK LAYER
 	if (instance_exists(sparActionProcessor)) 
 	&& !(sparActionProcessor.spellFailed) {
@@ -328,6 +327,19 @@ draw_set_alpha(1.0);
 	draw_sprite(spr_sparHPMP, 0, 120, guiHeight - 8);
 	draw_sprite(spr_sparHPMP, 0, 135, 8);
 	
+	// set alignment for player HPMP numbers
+	draw_set_halign(fa_right);
+	
+	// draw HPMP numbers
+	draw_text_pixel_perfect(64, guiHeight - 12, playerOne.currentHP, 7, 16);
+	draw_text_pixel_perfect(64, guiHeight - 6, playerOne.currentMP, 7, 16);
+	
+	// set alignment for enemy HPMP numbers
+	draw_set_halign(fa_left);
+	
+	draw_text_pixel_perfect(192, 6, playerTwo.currentHP, 7, 16);
+	draw_text_pixel_perfect(192, 12, playerTwo.currentMP, 7, 16);
+	
 	// draw playerBars surface
 	draw_surface_ext(playerBarSurface, playerBarSurfaceX, playerBarSurfaceY, -1, 1, 0, COL_WHITE, uiAlpha);
 	
@@ -343,12 +355,15 @@ draw_set_alpha(1.0);
 	if (playerTwo.hum)		draw_sprite(spr_sparHum,	0,	playerTwo.humX,		playerTwo.humY);
 	if (playerTwo.rust)		draw_sprite(spr_sparRust,	0,	playerTwo.rustX,	playerTwo.rustY);
 	
+	// reset alignment for turnMsg
+	draw_set_halign(fa_center);
+	
 	// draw turn message
 	if (turnMsg != "") {	
 		draw_set_font(plainFont);
 		
 		draw_sprite(spr_sparTurnMessage, 0, turnMsgX, turnMsgY);
-		draw_text_pixel_perfect(turnMsgX, turnMsgY, turnMsg, 1, 256);
+		draw_text_pixel_perfect(turnMsgX, turnMsgY, turnMsg, 7, 256);
 	}
 
 	draw_set_alpha(1.0);

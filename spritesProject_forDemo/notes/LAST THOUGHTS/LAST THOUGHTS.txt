@@ -335,9 +335,9 @@ COMING BACK FROM PLAYTEST BUILD
 			This is what the list looks like as I'm typing this:
 			
 								------BUGS------
-				-selecting a spell then selecting swap with a different sprite resets the totalSelectionCost
+				-selecting a spell then selecting swap with a different sprite resets the nextTurnFinalMP
 				-lady solanu's grace creates a bug in the effect alert object
-				-action reselection not resetting totalSelectionCost
+				-action reselection not resetting nextTurnFinalMP
 				-hover menu is drawn in the wrong position (and looks generally ugly)
 				-drain health call is selecting drain magic effect function
 				-selecting a swap and a rest keeps the rest from restoring MP. Sometimes swaps don't charge MP.
@@ -382,8 +382,8 @@ COMING BACK FROM PLAYTEST BUILD
 			
 			
 			SPRITE |	PREVIOUS ACTION		|	NEW ACTION			//										CORRECTION
-			selAlly			swapping				any									subtract swap cost from totalSelectionCost. reset swapPartner's selection params.
-			selAlly			spell					any									subtract original spellCost from totalSelectionCost.
+			selAlly			swapping				any									subtract swap cost from nextTurnFinalMP. reset swapPartner's selection params.
+			selAlly			spell					any									subtract original spellCost from nextTurnFinalMP.
 					
 					
 	7/29
@@ -709,3 +709,12 @@ COMING BACK FROM PLAYTEST BUILD
 	
 			-ability testing finished!
 			-time to work on the rest of the spar bugs, tomorrow you can announce playtesting!
+			
+	1/20
+			-FINISH SPELL NUMBERS DISPLAY
+			-CHANGE FLASHING BAR FUNCTIONALITY -- NOT AN ANIMATED SPRITE, JUST SWITCH BETWEEN DRAWING THE FLASHING BAR AND THE REGULAR MP BAR BASED ON GLOBAL.GAMETIME
+			-FINISH FLASHING BAR FUNCTIONALITY
+			-DRAW nextTurnFinalMP INSTEAD OF CURRENT MP WHENEVER DRAWING FLASHING BAR
+			-ALLOW OUT OF RANGE SPELL/ATTACK SELECTION
+			-PERFORM A RANGE CHECK DURING THE CREATE PHASE OF THE SPAR ACTION PROCESSOR
+			-CHANGING THE LAST TWO BULLETS MAY REQUIRE YOU TO REWORK SCROOTINEYES' AND JACKHAMMER'S ABILITIES

@@ -39,8 +39,6 @@ spellRange		=	-1;
 spellPower		=	0;
 spellCost		=	0;
 
-enoughMP = false;
-
 spellbook_load_spell_params();
 
 pageFlip = false;

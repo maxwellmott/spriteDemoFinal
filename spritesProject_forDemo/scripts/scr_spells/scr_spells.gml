@@ -1035,7 +1035,7 @@ function spellbook_load_spell_params() {
 	
 	description = string_insert("   ", description, 0);
 	
-	enoughMP = spell_set_potential_cost(spellCost);
+	spell_set_potential_cost(spellCost);
 }
 
 ///@desc This function is meant to be called by the sparActionProcessor whenever a spell is being cast

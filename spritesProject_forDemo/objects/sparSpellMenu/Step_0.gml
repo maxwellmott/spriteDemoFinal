@@ -17,29 +17,27 @@ if (x > targetX) && (frame > 0) {
 if (x == targetX) 
 && (targetX == spriteWidth / 2) {
 	if (infoDisplayAlpha >= 1.0) {
-		if (enoughMP) {
-			if (global.select) {	
-				// check if the current spell is on the usable spells list
-				if (ds_list_find_index(usableSpells, currentSpell) != -1) {
-					// set global.action
-					global.action = currentSpell + sparActions.height;
-					
-					// check if range is self
-					if (spellRange == ranges.onlySelf) {
-						// if so, set action and target to indicate self-targeting spell
-						self_target_set();
-						
-						// set next phase
-						nextPhase = SELECTION_PHASES.ALLY;
-					}
-					else {
-						// if not self range, set action normally
-						spar_set_spell();	
-					}
+		if (global.select) {	
+			// check if the current spell is on the usable spells list
+			if (ds_list_find_index(usableSpells, currentSpell) != -1) {
+				// set global.action
+				global.action = currentSpell + sparActions.height;
 				
-					// close book
-					targetX = 0 - (spriteWidth / 2);
+				// check if range is self
+				if (spellRange == ranges.onlySelf) {
+					// if so, set action and target to indicate self-targeting spell
+					self_target_set();
+					
+					// set next phase
+					nextPhase = SELECTION_PHASES.ALLY;
 				}
+				else {
+					// if not self range, set action normally
+					spar_set_spell();	
+				}
+			
+				// close book
+				targetX = 0 - (spriteWidth / 2);
 			}
 		}
 		else {
@@ -49,7 +47,7 @@ if (x == targetX)
 		}
 		
 		if (global.back) {
-			spar.potentialCost = 0;
+			spar.potentialSpellCost = 0;
 			global.mpCostDiff = 0;
 			
 			// set next phase
@@ -63,7 +61,7 @@ if (x == targetX)
 			if (global.menu_left) {
 				// check if index is at 0
 				if (index > 0) {
-					spar.potentialCost = 0;
+					spar.potentialSpellCost = 0;
 					
 					pageFlip = true;
 					
@@ -87,7 +85,7 @@ if (x == targetX)
 			if (global.menu_right) {
 				// check if index is at max
 				if (index < spellBookHeight - 1) {
-					spar.potentialCost = 0;
+					spar.potentialSpellCost = 0;
 					
 					pageFlip = true;
 						

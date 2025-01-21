@@ -38,14 +38,11 @@ if (spar.sparPhase == SPAR_PHASES.SELECT) {
 					if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 						if !(spar_check_bound(id)) 
 						&& !(spar_check_berserk(id)) {
-							if (swap_set_potential_cost(player.selectedAlly, id)) {
-								if (global.click) {							
-									spar_set_target();
-									spar.selectionPhase = SELECTION_PHASES.ALLY;
-								}
-							}
-							else {
-								// indicate that you can't select this sprite
+							swap_set_potential_cost(player.selectedAlly, id);
+							
+							if (global.click) {							
+								spar_set_target();
+								spar.selectionPhase = SELECTION_PHASES.ALLY;
 							}
 						}
 					}

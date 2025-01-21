@@ -230,9 +230,19 @@ if (instance_exists(onlineEnemy)) {
 
 onlineWaiting = false;
 
-potentialCost = 0;
+totalSpellCost = 0;
 
-totalSelectionCost = 0;
+totalSwapCost = 0;
+
+minRestRegen = 0;
+
+nextTurnFinalMP = 0;
+
+selectionCostPreRegen = 0;
+selectionCostPostRegen = 0;
+
+potentialSwapCost = 0;
+potentialSpellCost = 0;
 
 effectAlertList = ds_list_create();
 
