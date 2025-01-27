@@ -1,4 +1,9 @@
 /// @desc
+if (spar_check_complete()) {
+	create_once(0, 0, LAYER.meta, winLoseDisplay);	
+	exit;
+}
+
 if !(spar_check_hpmp()) {
 	spar_correct_hpmp();
 	exit;
@@ -659,67 +664,72 @@ switch (sparPhase) {
 	#region SELECTION PHASE
 		case SPAR_PHASES.SELECT:		
 			#region CALCULATE THE TOTAL SELECTION COST
-				// initialize totalSwapCost, totalSpellCost, and minRestRegen
-				totalSwapCost	= 0;
-				totalSpellCost	= 0;
-				minRestRegen	= 0;			
-			
-				// use a repeat loop to check each ally's current selection
-				var i = 0; repeat (4) {
-					// get the current instance
-					var inst = allyList[| i];
+				if !(mpCalculated) {
+					// initialize totalSwapCost, totalSpellCost, and minRestRegen
+					totalSwapCost	= 0;
+					totalSpellCost	= 0;
+					minRestRegen	= 0;	
 					
-					// get the current instance's selectedAction and selectedTarget
-					var sa = inst.selectedAction;
-					var st = inst.selectedTarget;
-					
-					// check if this sprite has selected to swap
-					if (sa == sparActions.swap) {
-						// get the swap partner
-						var sp = allyList[| st];
+					// use a repeat loop to check each ally's current selection
+					var i = 0; repeat (4) {
+						// get the current instance
+						var inst = allyList[| i];
 						
-						// add the cost of the swap to the totalSwapCost
-						totalSwapCost += swap_get_cost(inst, sp);
-					}
-					
-					// check if this sprite has selected to cast a spell
-					if (sa >= sparActions.height) {
-						// add the cost of the spell to the totalSpellCost
-						totalSpellCost += spell_get_cost(sa - sparActions.height);
-					}
-					
-					// check if this sprite has selected to rest
-					if (sa >= sparActions.rest) {
-						// add the minimum rest amount to the minRestRegen
-						minRestRegen += round(0.725 * REST_BASE_MP_REGEN);
-					}
-					
+						// get the current instance's selectedAction and selectedTarget
+						var sa = inst.selectedAction;
+						var st = inst.selectedTarget;
+						
+						// check if this sprite has selected to swap
+						if (sa == sparActions.swap) {
+							// get the swap partner
+							var sp = allyList[| st];
+							
+							// add the cost of the swap to the totalSwapCost
+							totalSwapCost += swap_get_cost(inst, sp);
+						}
+						
+						// check if this sprite has selected to cast a spell
+						if (sa >= sparActions.height) {
+							// add the cost of the spell to the totalSpellCost
+							totalSpellCost += spell_get_cost(sa - sparActions.height);
+						}
+						
+						// check if this sprite has selected to rest
+						if (sa >= sparActions.rest) {
+							// add the minimum rest amount to the minRestRegen
+							minRestRegen += round(0.725 * REST_BASE_MP_REGEN);
+						}
+						
 					// increment i
 					i++;
 				}
 				
-				// divide totalSwapCost by 2 (this is the most optimal way to correct the fact that
-				// both swap participants will have their turn checked in the above repeat loop)
-				totalSwapCost = totalSwapCost / 2;
+					// divide totalSwapCost by 2 (this is the most optimal way to correct the fact that
+					// both swap participants will have their turn checked in the above repeat loop)
+					totalSwapCost = totalSwapCost / 2;
 			
-				// add potentialSwapCost to totalSwapCost
-				totalSwapCost += potentialSwapCost;
+					// add potentialSwapCost to totalSwapCost
+					totalSwapCost += potentialSwapCost;
 				
-				// add potentialSpellCost to totalSpellCost
-				totalSpellCost += potentialSpellCost;
+					// add potentialSpellCost to totalSpellCost
+					totalSpellCost += potentialSpellCost;
 				
-				// calculate the preRestFinalMP by subtracting the swapCost from currentMP
-				preRestFinalMP = playerOne.currentMP - totalSwapCost;
+					// calculate the preRestFinalMP by subtracting the swapCost from currentMP
+					preRestFinalMP = playerOne.currentMP - totalSwapCost;
 			
-				// calculate the postRestFinalMP by adding the restRegen to the preRestFinalMP
-				postRestFinalMP = preRestFinalMP + minRestRegen;
+					// calculate the postRestFinalMP by adding the restRegen to the preRestFinalMP
+					postRestFinalMP = preRestFinalMP + minRestRegen;
 					
-				// clamp these values at 0-100
-				preRestFinalMP	= clamp(preRestFinalMP,	0, 100);
-				postRestFinalMP	= clamp(postRestFinalMP, 0, 100);	
+					// clamp these values at 0-100
+					preRestFinalMP	= clamp(preRestFinalMP,	0, 100);
+					postRestFinalMP	= clamp(postRestFinalMP, 0, 100);	
 					
-				// calculate the nextTurnFinalMP by subtracting totalSpellCost and potentialSpellCost to the postRestFinalMP
-				nextTurnFinalMP = postRestFinalMP - totalSpellCost;
+					// calculate the nextTurnFinalMP by subtracting totalSpellCost and potentialSpellCost to the postRestFinalMP
+					nextTurnFinalMP = postRestFinalMP - totalSpellCost;
+					
+					// set mpCalculated to true
+					mpCalculated = true;
+				}
 				
 			#endregion
 		
@@ -727,11 +737,7 @@ switch (sparPhase) {
 		
 			// use a switch statement to manage all SELECTION_PHASES
 			switch(selectionPhase) {
-				case SELECTION_PHASES.PRESELECT:
-					// initialize potentialSpellCost and potentialSwapCost
-					potentialSpellCost = 0;
-					potentialSwapCost = 0;
-					
+				case SELECTION_PHASES.PRESELECT:					
 					#region FORCE TURN SELECTION FOR IMMOBILIZED AND TIME LOOPED SPRITES
 					with (sparAlly) {
 						// check if this sprite has not already selected their turn
@@ -887,10 +893,6 @@ switch (sparPhase) {
 						
 						// set selection message
 						selectionMsg = "What should " + playerOne.selectedAlly.name + " do this turn?";
-						
-						if (smw != string_width(selectionMsg)) {
-							smw = string_width(selectionMsg);	
-						}
 					}
 				break;
 				
@@ -914,8 +916,6 @@ switch (sparPhase) {
 					
 					// handle backspace input
 					if (global.back) {
-						potentialSwapCost = 0;
-						potentialSpellCost = 0;
 						selectionPhase = SELECTION_PHASES.ACTION;
 					}
 				break;
@@ -958,10 +958,11 @@ switch (sparPhase) {
 			// reset all variables used to determine nextTurnFinalMP
 			potentialSwapCost = 0;
 			potentialSpellCost = 0;
-			nextTurnFinalMP = 0;
+			nextTurnFinalMP = player.currentMP;
 			totalSpellCost = 0;
 			totalSwapCost = 0;
 			minRestRegen = 0;
+			mpCalculated = false;
 		
 			// perform an ability check for turn begin
 			ability_check(ABILITY_TYPES.TURN_BEGIN);
@@ -980,8 +981,4 @@ switch (sparPhase) {
 }
 
 correct_uiAlpha();
-
-if (spar_check_complete()) {
-	create_once(0, 0, LAYER.meta, winLoseDisplay);	
-}
 		

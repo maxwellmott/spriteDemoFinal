@@ -738,4 +738,9 @@ COMING BACK FROM PLAYTEST BUILD
 									false at the end of the set_action, set_target, set_self_target functions. Switch the boolean to true after performing the operation
 									in the spar step.
 				
+	1/27
+	
+			OKAY, IT'S FINISHED!
+			
+			Tomorrow, add a range check to the spar action processor. Move the ability check to this range check only!
 			

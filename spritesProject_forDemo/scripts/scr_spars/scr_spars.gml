@@ -576,12 +576,22 @@ function sprite_build_ready_display() {
 	if (turnRepeat) {
 		readyDisplay = "repeating last turn";
 		readyDisplayBuilt = true;
+		
+		// set mpCalculated to false so that the spar object can
+		// recalculate the nextTurnFinalMP
+		spar.mpCalculated = false;
+		
 		return -1;
 	}
 	
 	if (immobilized) {
 		readyDisplay = "immobilized!";
 		readyDisplayBuilt = true;
+		
+		// set mpCalculated to false so that the spar object can
+		// recalculate the nextTurnFinalMP
+		spar.mpCalculated = false;
+		
 		return -1;
 	}
 	
@@ -638,6 +648,10 @@ function sprite_build_ready_display() {
 	}
 	
 	readyDisplayBuilt = true;
+	
+	// set mpCalculated to false so that the spar object can
+	// recalculate the nextTurnFinalMP
+	spar.mpCalculated = false;
 }
 
 ///@desc This function sets the selected ally's action and target with global.action and
@@ -979,6 +993,10 @@ function swap_set_potential_cost(_inst1, _inst2) {
 	var c = swap_get_cost(i1, i2);
 	
 	spar.potentialSwapCost = c;
+	
+	// set mpCalculated to false so that the spar object can
+	// recalculate the nextTurnFinalMP
+	spar.mpCalculated = false;
 }
 
 function spell_set_potential_cost(_spellCost) {
@@ -998,6 +1016,10 @@ function spell_set_potential_cost(_spellCost) {
 	var c = _spellCost - global.mpCostDiff;
 	
 	spar.potentialSpellCost = c;
+	
+	// set mpCalculated to false so that the spar object can
+	// recalculate the nextTurnFinalMP
+	spar.mpCalculated = false;
 }
 	
 function correct_uiAlpha() {

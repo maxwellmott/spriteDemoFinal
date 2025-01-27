@@ -3,5 +3,8 @@
 
 targetSprite.currentPose = SPRITE_POSES.IDLE;
 activeSprite.currentPose = SPRITE_POSES.IDLE;
-spar.turnMsg = "";
-spar.turnGrid[# SELECTION_PHASES.ACTION, turnRow] = -1;
+
+if (instance_exists(spar)) {
+	spar.turnMsg = "";
+	spar.turnGrid[# SELECTION_PHASES.ACTION, turnRow] = -1;
+}

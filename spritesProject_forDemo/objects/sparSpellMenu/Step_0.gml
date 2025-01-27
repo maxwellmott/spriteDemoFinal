@@ -72,8 +72,8 @@ if (x == targetX)
 					// set current spell
 					currentSpell = player.spellBook[| index];
 					
-						// get spell params
-				spellbook_load_spell_params();
+					// get spell params
+					spellbook_load_spell_params();
 				}
 			}
 		

@@ -22,7 +22,7 @@ if !(surface_exists(enemyBarSurface))		enemyBarSurface = surface_create(48, 16);
 		}
 		
 		if (mpScale < 1) 
-		&& (hpScale > 0) {
+		&& (mpScale > 0) {
 			mpScale = 1;
 		}
 		
@@ -55,7 +55,7 @@ if !(surface_exists(enemyBarSurface))		enemyBarSurface = surface_create(48, 16);
 		}
 		
 		if (mpScale < 1) 
-		&& (hpScale > 0) {
+		&& (mpScale > 0) {
 			mpScale = 1;
 		}
 			

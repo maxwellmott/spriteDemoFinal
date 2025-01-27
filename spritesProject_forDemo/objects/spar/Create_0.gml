@@ -238,6 +238,8 @@ postRestFinalMP = 0;
 potentialSwapCost = 0;
 potentialSpellCost = 0;
 
+mpCalculated = false;
+
 effectAlertList = ds_list_create();
 
 abilityChecked_priorityCheck = false;
