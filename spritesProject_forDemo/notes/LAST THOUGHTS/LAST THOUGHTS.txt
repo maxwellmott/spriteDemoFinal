@@ -711,10 +711,31 @@ COMING BACK FROM PLAYTEST BUILD
 			-time to work on the rest of the spar bugs, tomorrow you can announce playtesting!
 			
 	1/20
-			-FINISH SPELL NUMBERS DISPLAY
+			-FINISH HPMP NUMBERS DISPLAY
 			-CHANGE FLASHING BAR FUNCTIONALITY -- NOT AN ANIMATED SPRITE, JUST SWITCH BETWEEN DRAWING THE FLASHING BAR AND THE REGULAR MP BAR BASED ON GLOBAL.GAMETIME
 			-FINISH FLASHING BAR FUNCTIONALITY
 			-DRAW nextTurnFinalMP INSTEAD OF CURRENT MP WHENEVER DRAWING FLASHING BAR
 			-ALLOW OUT OF RANGE SPELL/ATTACK SELECTION
 			-PERFORM A RANGE CHECK DURING THE CREATE PHASE OF THE SPAR ACTION PROCESSOR
 			-CHANGING THE LAST TWO BULLETS MAY REQUIRE YOU TO REWORK SCROOTINEYES' AND JACKHAMMER'S ABILITIES
+			
+	1/26
+			-FINISHED HPMP NUMBERS DISPLAY
+			
+			I'm trying to fix the whole system for tracking the potential cost etc.
+			
+			Here's the plan:
+				-global.mpCostDiff should only be called within the functions to set potential costs									CHECK
+				-potentialCost functions can remain where they are																		CHECK
+				-the spar step event should use the selectedActions and selectedTargets of each ally to calculate the totalCosts		CHECK
+				-calculation should only occur during the selectionPhase of the spar													
+				
+			I finished making all of the above changes and there was a huge dropoff in gamespeed which was surprising.
+			
+			I'll have to do some in-depth debugging and figure out what the problem is. I'm worried it's just too complex of an operation to run so frequently.
+			
+			FIRST THING TO TRY:		add a boolean variable for whether the cost has been checked since a sprite made their selection. You can switch the boolean to
+									false at the end of the set_action, set_target, set_self_target functions. Switch the boolean to true after performing the operation
+									in the spar step.
+				
+			

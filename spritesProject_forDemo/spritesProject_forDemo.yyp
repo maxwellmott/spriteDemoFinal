@@ -115,6 +115,7 @@
     {"id":{"name":"debugFont","path":"fonts/debugFont/debugFont.yy",},},
     {"id":{"name":"emoteMenuFont","path":"fonts/emoteMenuFont/emoteMenuFont.yy",},},
     {"id":{"name":"fnt_keypadStandard","path":"fonts/fnt_keypadStandard/fnt_keypadStandard.yy",},},
+    {"id":{"name":"hpmpFont","path":"fonts/hpmpFont/hpmpFont.yy",},},
     {"id":{"name":"keyboardFont","path":"fonts/keyboardFont/keyboardFont.yy",},},
     {"id":{"name":"lobbyFont","path":"fonts/lobbyFont/lobbyFont.yy",},},
     {"id":{"name":"mainMenuFont","path":"fonts/mainMenuFont/mainMenuFont.yy",},},

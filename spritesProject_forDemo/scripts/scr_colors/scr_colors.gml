@@ -1,6 +1,8 @@
 // these two macros are used to get the "black" and "white" for the UI
 #macro COL_WHITE	$a9dbd2
 #macro COL_BLACK	$0f0f0d
+#macro COL_GREEN	$803300
+#macro COL_RED		$090085
 
 // this is an enumerator of IDs used to map color values
 enum colors {

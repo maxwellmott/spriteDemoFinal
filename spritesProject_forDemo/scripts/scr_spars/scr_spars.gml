@@ -5,8 +5,17 @@
 #macro BERSERK_COUNT_MAX		2
 #macro INVULNERABLE_COUNT_MAX	0
 
+// global.mpCostDiff is the mp that the selecting ally will save after switching
+// to their new selection. So if they were previously swapping, this would be the
+// cost of that swap. This is being initialized here, but otherwise it should only
+// be referenced inside of the "set_potential_cost" functions
 global.mpCostDiff		= 0;
+
+// global.hoverSprite is the instance ID of the sparAlly or sparEnemy that the mouse
+// is currently hovering over.
 global.hoverSprite		= -1;
+
+// 
 global.arena			= -1;
 global.targetRange		= -1;
 global.action			= -1;
@@ -146,21 +155,6 @@ function spar_set_action() {
 	// get the selected ally
 	var sa = player.selectedAlly;
 	
-	// check if this sprite was previously set to rest
-	if (sa.selectedAction == sparActions.rest) {
-		// remove that rest from the minRestRegen
-		spar.minRestRegen -= round(0.725 * REST_BASE_MP_REGEN);
-	}
-	
-	// check if this sprite was previously set to cast a spell
-	if (sa.selectedAction >= sparActions.height) {
-		// get the cost of that spell
-		var c = spell_get_cost(sa.selectedAction - sparActions.height);
-		
-		// remove that spell's cost from the totalSpellCost
-		spar.totalSpellCost -= c;
-	}
-	
 	switch (action) {
 		case sparActions.attack:
 			global.targetRange = ranges.nearestFiveSprites;
@@ -209,9 +203,7 @@ function spar_set_action() {
 					turnReady = false;
 				}
 			}
-			
-			// add this rest to the minRestRegen
-			spar.minRestRegen += round(72.5 * REST_BASE_MP_REGEN);
+	
 			sprite.readyDisplayBuilt = false;
 			sprite.selectedTarget = -1;
 			sprite.selectedAction = action;
@@ -652,27 +644,12 @@ function sprite_build_ready_display() {
 /// the spotNum of the sprite being clicked, respectively. (This function should only
 /// be called by a sprite being clicked during target selection).
 function spar_set_target() {
-	// check if this is a spell
-	if (global.action >= sparActions.height) {
-		// get the cost of the spell
-		var c = spell_get_cost(global.action - sparActions.height);
-		
-		// add the cost of the spell to the totalSpellCost
-		spar.totalSpellCost += c;
-	}
-	
 	// check if target selection is for a swap
 	if (global.action == sparActions.swap) {
 		// check if the sprite being selected as a swap target has already selected a swap
 		if (selectedAction == sparActions.swap) {
 			// get the instance id of the previously selected swap partner
 			var pid = spar.allyList[| selectedTarget];
-			
-			// get the cost of the swap
-			var c = swap_get_cost(id, pid);
-			
-			// remove the cost of the previously selected swap from the totalSwapCost
-			spar.totalSwapCost -= c;
 			
 			// reset all of the values set for the previously selected swap partner
 			with (pid) {
@@ -682,15 +659,6 @@ function spar_set_target() {
 				selectedTarget = -4;
 				turnReady = false;
 			}
-		}	
-		
-		// check if the sprite being selected as a swap target has already selected a spell
-		if (selectedAction >= sparActions.height) {
-			// get the cost of the spell
-			var c = spell_get_cost(selectedAction - sparActions.height);
-			
-			// subtract that from the totalSpellCost
-			spar.totalSpellCost -= c;
 		}	
 	}
 	
@@ -702,12 +670,6 @@ function spar_set_target() {
 		// get the instance id of the previously selected swap partner
 		var pid = spar.allyList[| sid.selectedTarget];
 		
-		// get the cost of the swap
-		var c = swap_get_cost(sid, pid);
-		
-		// remove the cost of the previously selected swap from the totalSwapCost
-		spar.totalSwapCost -= c;
-		
 		// reset all of the values set for the previously selected swap parter
 		with (pid) {
 			readyDisplay = "";
@@ -715,17 +677,6 @@ function spar_set_target() {
 			selectedAction = -4;
 			selectedTarget = -4;
 			turnReady = false;
-		}
-	}
-	
-	// check if the sprite who is selecting the swap has already selected a spell
-	if (player.selectedAlly.selectedAction >= sparActions.height) {
-		if (selectedAction >= sparActions.height) {
-			// get the cost of the spell
-			var c = spell_get_cost(player.selectedAlly.selectedAction - sparActions.height);
-			
-			// remove the cost of the spell from totalSpellCost
-			spar.totalSpellCost -= c;
 		}
 	}
 	
@@ -747,35 +698,17 @@ function spar_set_target() {
 			}
 		}
 		
-		// check if the previously selectedAction was to rest
-		if (selectedAction == sparActions.rest) {
-			// remove that rest from the minRestRegen
-			spar.minRestRegen -= round(72.5 * REST_BASE_MP_REGEN);
-		}
-		
 		readyDisplayBuilt = false;
 		selectedAction = global.action;
 		selectedTarget = player.selectedAlly.spotNum;
 		turnReady = true;
 	}
-	
-	spar.potentialSwapCost = 0;
-	global.mpCostDiff = 0;
 }
 
 ///@desc This function sets the selected ally's action and target with global.action
 /// and the macro indicating a self targeting action. This function can be called whenever
 /// you are ready to do this as it doesn't make any local references.
 function self_target_set() {
-	// check if the selected ally previously selected a spell
-	if (player.selectedAlly.selectedAction >= sparActions.height) {
-		// get the cost of the selected spell
-		var c = spell_get_cost(player.selectedAlly.selectedAction - sparActions.height);
-		
-		// remove the cost of the spell from the totalSpellCost
-		spar.totalSpellCost -= c;		
-	}	
-	
 	// check if the selected ally previously selected a swap
 	if (player.selectedAlly.selectedAction == sparActions.swap) {
 		// get their swap partner
@@ -783,12 +716,6 @@ function self_target_set() {
 		
 		// get the selected ally
 		var p = player.selectedAlly;
-		
-		// get the cost of the swap
-		var c = swap_get_cost(t, p);
-		
-		// remove the cost of the swap from the totalSwapCost
-		spar.totalSwapCost -= c;
 		
 		// reset all variables for the swap partner's turn selection
 		with (t) {
@@ -1055,9 +982,22 @@ function swap_set_potential_cost(_inst1, _inst2) {
 }
 
 function spell_set_potential_cost(_spellCost) {
-	var c = _spellCost;
+	global.mpCostDiff = 0;
 	
-	spar.potentialSwapCost = c;
+	// check if selected sprite has already selected a spell this turn
+	if (player.selectedAlly.selectedAction >= sparActions.height) {
+		global.mpCostDiff = spell_get_cost(player.selectedAlly.selectedAction - sparActions.height);
+	}
+	
+	// check if selected sprite has already selected a swap this turn
+	if (player.selectedAlly.selectedAction == sparActions.swap) {
+		global.mpCostDiff = swap_get_cost(player.selectedAlly, spar.allyList[| player.selectedAlly.selectedTarget]);
+	}	
+	
+	// set cost as the given spellCost - mpCostDiff
+	var c = _spellCost - global.mpCostDiff;
+	
+	spar.potentialSpellCost = c;
 }
 	
 function correct_uiAlpha() {

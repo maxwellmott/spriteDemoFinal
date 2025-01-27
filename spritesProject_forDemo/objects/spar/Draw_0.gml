@@ -330,15 +330,58 @@ draw_set_alpha(1.0);
 	// set alignment for player HPMP numbers
 	draw_set_halign(fa_right);
 	
-	// draw HPMP numbers
-	draw_text_pixel_perfect(64, guiHeight - 12, playerOne.currentHP, 7, 16);
-	draw_text_pixel_perfect(64, guiHeight - 6, playerOne.currentMP, 7, 16);
+	// set font for HPMP numbers
+	draw_set_font(hpmpFont);
+	
+	// initialize playerMPColor and mpToDraw
+	var playerMPColor = COL_BLACK;
+	var mpToDraw = playerDisplayMP;
+	
+	// check if we are in the selection phase
+	if (sparPhase == SPAR_PHASES.SELECT) {
+		// check if nextTurnFinalMP is not equal to currentMP
+		if (nextTurnFinalMP != player.currentMP) {
+			// check the timer
+			if (global.gameTime mod 48 <= 24) {
+				// check if nextTurnFinalMP is less than 0
+				if (nextTurnFinalMP < 0) {
+					mpToDraw = "XXX";	
+				}
+				// if nextTurnFinalMP is not less than 0
+				else {
+					mpToDraw = string(nextTurnFinalMP);	
+				}
+				
+				// check if nextTurnFinalMP is greater than currentMP
+				if (nextTurnFinalMP > player.currentMP) {
+					playerMPColor = COL_GREEN;	
+				}
+				// if nextTurnFinalMP is less than currentMP
+				else {
+					playerMPColor = COL_RED;
+				}
+			}
+		}
+	}
+	
+	// set the draw color for player's MP
+	draw_set_color(playerMPColor);
+	
+	// draw PLAYER MP
+	draw_text_pixel_perfect(64, guiHeight - 13, mpToDraw, 7, 16);
+	
+	// set the color back to black
+	draw_set_color(COL_BLACK);
+	
+	// draw PLAYER HP
+	draw_text_pixel_perfect(64, guiHeight - 20, playerDisplayHP, 7, 16);
 	
 	// set alignment for enemy HPMP numbers
 	draw_set_halign(fa_left);
 	
-	draw_text_pixel_perfect(192, 6, playerTwo.currentHP, 7, 16);
-	draw_text_pixel_perfect(192, 12, playerTwo.currentMP, 7, 16);
+	// draw ENEMY HPMP numbers
+	draw_text_pixel_perfect(193, -4, enemyDisplayHP, 7, 16);
+	draw_text_pixel_perfect(193, 3, enemyDisplayMP, 7, 16);
 	
 	// draw playerBars surface
 	draw_surface_ext(playerBarSurface, playerBarSurfaceX, playerBarSurfaceY, -1, 1, 0, COL_WHITE, uiAlpha);

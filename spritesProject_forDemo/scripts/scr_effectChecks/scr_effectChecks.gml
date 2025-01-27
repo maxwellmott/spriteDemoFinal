@@ -101,7 +101,7 @@ function spar_check_mechanical_target(_targ) {
 ///@desc This function is called before damage is calculated in the processor. It simply adjusts
 /// the damageMultiplierIndex and then pushes a corresponding notification
 function spar_check_natural_arena_boost(_atkr) {
-	if (global.arena != -1) {
+	if (spar.currentArena != -1) {
 		var atkr = _atkr;
 	
 		if (atkr.currentAlign == ALIGNMENTS.NATURAL) {

@@ -251,7 +251,7 @@ function get_elemental_damage(_targ, _atkr, _lmnt, _spellPower) {
 	var damage = sp * casterRatio * affinityRatio * weaknessRatio * resistanceRatio * m;
 	
 	// return damage
-	return damage;
+	return round(damage);
 }
 
 ///@desc This function takes the instance ids of the attacker and the target as well as the power
@@ -280,7 +280,7 @@ function get_physical_damage(_atkr, _targ, _spellPower) {
 	var damage = sp * damageRatio * m;
 	
 	// return damage multiplied by average luck
-	return damage;
+	return round(damage);
 }
 
 function arbitrate_physical_damage(_atkr, _targ, _spellType, _spellPower) {
@@ -341,7 +341,7 @@ function arbitrate_physical_damage(_atkr, _targ, _spellType, _spellPower) {
 	var damage = sp * damageRatio * m;
 	
 	// return damage multiplied by average luck
-	return damage;
+	return round(damage);
 }
 	
 function get_psychic_damage(_atkr, _targ, _power) {
@@ -402,7 +402,7 @@ function get_psychic_damage(_atkr, _targ, _power) {
 	ability_check(ABILITY_TYPES.DAMAGE_CALC);
 	
 	// return damage
-	return d;
+	return round(d);
 }
 
 ///@desc This function should be called right before the damage calc functions return the damage. It 

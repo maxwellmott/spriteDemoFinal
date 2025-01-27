@@ -1,21 +1,4 @@
 /// @desc
-
-#region CALCULATE THE TOTAL SELECTION COST
-	// calculate the selectionCostPreRegen by subtracting the swapCost from currentMP
-	selectionCostPreRegen = playerOne.currentMP - totalSwapCost - potentialSwapCost;
-
-	// calculate the selectionCostPostRegen by adding the restRegen to the selectionCostPreRegen
-	selectionCostPostRegen = selectionCostPreRegen + minRestRegen;
-		
-	// clamp these values at 0-100
-	selectionCostPreRegen	= clamp(selectionCostPreRegen,	0, 100);
-	selectionCostPostRegen	= clamp(selectionCostPostRegen, 0, 100);		
-		
-	// calculate the nextTurnFinalMP by subtracting totalSpellCost and potentialSpellCost to the selectionCostPostRegen
-	nextTurnFinalMP = selectionCostPostRegen - totalSpellCost - potentialSpellCost;
-	
-#endregion
-
 if !(spar_check_hpmp()) {
 	spar_correct_hpmp();
 	exit;
@@ -674,12 +657,81 @@ switch (sparPhase) {
 	break;
 	
 	#region SELECTION PHASE
-		case SPAR_PHASES.SELECT:
+		case SPAR_PHASES.SELECT:		
+			#region CALCULATE THE TOTAL SELECTION COST
+				// initialize totalSwapCost, totalSpellCost, and minRestRegen
+				totalSwapCost	= 0;
+				totalSpellCost	= 0;
+				minRestRegen	= 0;			
+			
+				// use a repeat loop to check each ally's current selection
+				var i = 0; repeat (4) {
+					// get the current instance
+					var inst = allyList[| i];
+					
+					// get the current instance's selectedAction and selectedTarget
+					var sa = inst.selectedAction;
+					var st = inst.selectedTarget;
+					
+					// check if this sprite has selected to swap
+					if (sa == sparActions.swap) {
+						// get the swap partner
+						var sp = allyList[| st];
+						
+						// add the cost of the swap to the totalSwapCost
+						totalSwapCost += swap_get_cost(inst, sp);
+					}
+					
+					// check if this sprite has selected to cast a spell
+					if (sa >= sparActions.height) {
+						// add the cost of the spell to the totalSpellCost
+						totalSpellCost += spell_get_cost(sa - sparActions.height);
+					}
+					
+					// check if this sprite has selected to rest
+					if (sa >= sparActions.rest) {
+						// add the minimum rest amount to the minRestRegen
+						minRestRegen += round(0.725 * REST_BASE_MP_REGEN);
+					}
+					
+					// increment i
+					i++;
+				}
+				
+				// divide totalSwapCost by 2 (this is the most optimal way to correct the fact that
+				// both swap participants will have their turn checked in the above repeat loop)
+				totalSwapCost = totalSwapCost / 2;
+			
+				// add potentialSwapCost to totalSwapCost
+				totalSwapCost += potentialSwapCost;
+				
+				// add potentialSpellCost to totalSpellCost
+				totalSpellCost += potentialSpellCost;
+				
+				// calculate the preRestFinalMP by subtracting the swapCost from currentMP
+				preRestFinalMP = playerOne.currentMP - totalSwapCost;
+			
+				// calculate the postRestFinalMP by adding the restRegen to the preRestFinalMP
+				postRestFinalMP = preRestFinalMP + minRestRegen;
+					
+				// clamp these values at 0-100
+				preRestFinalMP	= clamp(preRestFinalMP,	0, 100);
+				postRestFinalMP	= clamp(postRestFinalMP, 0, 100);	
+					
+				// calculate the nextTurnFinalMP by subtracting totalSpellCost and potentialSpellCost to the postRestFinalMP
+				nextTurnFinalMP = postRestFinalMP - totalSpellCost;
+				
+			#endregion
+		
 			sprite_index = spr_sparFlashingSliver;	
 		
 			// use a switch statement to manage all SELECTION_PHASES
 			switch(selectionPhase) {
 				case SELECTION_PHASES.PRESELECT:
+					// initialize potentialSpellCost and potentialSwapCost
+					potentialSpellCost = 0;
+					potentialSwapCost = 0;
+					
 					#region FORCE TURN SELECTION FOR IMMOBILIZED AND TIME LOOPED SPRITES
 					with (sparAlly) {
 						// check if this sprite has not already selected their turn
@@ -804,6 +856,10 @@ switch (sparPhase) {
 				break;
 				
 				case SELECTION_PHASES.ALLY:
+					// reset potentialSpellCost and potentialSwapCost
+					potentialSpellCost = 0;
+					potentialSwapCost = 0;
+				
 					// set selection message
 					selectionMsg = "Select a sprite to command";
 					
@@ -899,6 +955,14 @@ switch (sparPhase) {
 	
 	#region TURN BEGIN PHASE
 		case SPAR_PHASES.TURN_BEGIN:
+			// reset all variables used to determine nextTurnFinalMP
+			potentialSwapCost = 0;
+			potentialSpellCost = 0;
+			nextTurnFinalMP = 0;
+			totalSpellCost = 0;
+			totalSwapCost = 0;
+			minRestRegen = 0;
+		
 			// perform an ability check for turn begin
 			ability_check(ABILITY_TYPES.TURN_BEGIN);
 		

@@ -160,12 +160,6 @@ timedBlastGrid = ds_grid_create(3, 0);
 
 blastCount = 0;
 
-playerOneDrawHP = playerOne.currentHP;
-playerTwoDrawHP = playerTwo.currentHP;
-
-playerOneDrawMP = playerOne.currentMP;
-playerTwoDrawMP = playerTwo.currentMP;
-
 turnProcessCount = 0;
 
 playerDisplayHP		= playerOne.currentHP;
@@ -238,8 +232,8 @@ minRestRegen = 0;
 
 nextTurnFinalMP = 0;
 
-selectionCostPreRegen = 0;
-selectionCostPostRegen = 0;
+preRestFinalMP = 0;
+postRestFinalMP = 0;
 
 potentialSwapCost = 0;
 potentialSpellCost = 0;

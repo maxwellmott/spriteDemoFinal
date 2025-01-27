@@ -47,9 +47,6 @@ if (x == targetX)
 		}
 		
 		if (global.back) {
-			spar.potentialSpellCost = 0;
-			global.mpCostDiff = 0;
-			
 			// set next phase
 			nextPhase = SELECTION_PHASES.ALLY;
 			
@@ -61,8 +58,6 @@ if (x == targetX)
 			if (global.menu_left) {
 				// check if index is at 0
 				if (index > 0) {
-					spar.potentialSpellCost = 0;
-					
 					pageFlip = true;
 					
 					// set flipLeft to true

@@ -72,6 +72,7 @@
     {"name":"cursiveFont","order":5,"path":"fonts/cursiveFont/cursiveFont.yy",},
     {"name":"emoteMenuFont","order":14,"path":"fonts/emoteMenuFont/emoteMenuFont.yy",},
     {"name":"fnt_keypadStandard","order":4,"path":"fonts/fnt_keypadStandard/fnt_keypadStandard.yy",},
+    {"name":"hpmpFont","order":15,"path":"fonts/hpmpFont/hpmpFont.yy",},
     {"name":"keyboardFont","order":13,"path":"fonts/keyboardFont/keyboardFont.yy",},
     {"name":"lobbyFont","order":9,"path":"fonts/lobbyFont/lobbyFont.yy",},
     {"name":"mainMenuFont","order":12,"path":"fonts/mainMenuFont/mainMenuFont.yy",},

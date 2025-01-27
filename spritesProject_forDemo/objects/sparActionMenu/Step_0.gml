@@ -21,8 +21,6 @@ if (global.menu_left) {
 
 // handle backspace input
 if (global.back) {
-	spar.potentialSwapCost = 0;
-	spar.potentialSpellCost = 0;
 	player.selectedAlly = -1;
 	spar.selectionPhase = SELECTION_PHASES.ALLY;
 	instance_destroy(self);

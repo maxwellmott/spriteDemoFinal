@@ -1,17 +1,6 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-global.mpCostDiff = 0;
-
-// check if selected sprite has already selected a spell this turn
-if (player.selectedAlly.selectedAction >= sparActions.height) {
-	global.mpCostDiff = spell_get_cost(player.selectedAlly.selectedAction - sparActions.height);
-}
-
-if (player.selectedAlly.selectedAction == sparActions.swap) {
-	global.mpCostDiff = swap_get_cost(player.selectedAlly, spar.allyList[| player.selectedAlly.selectedTarget]);	
-}
-
 sprite = spr_spellBook;
 infoDisplaySprite = spr_sparSpellInfoDisplay;
 
