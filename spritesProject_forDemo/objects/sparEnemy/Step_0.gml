@@ -14,12 +14,16 @@ if (spar.sparPhase == SPAR_PHASES.SELECT) {
 		// if player clicks on sprite, set sprite as target
 		if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 			if (global.click) {
-				if (ds_list_find_index(spar.inRangeSprites, id) != -1){
-					spar_set_target();
-					spar.selectionPhase = SELECTION_PHASES.ALLY;
+				// set this sprite as the target of the current selection
+				spar_set_target();
+				
+				// check if this sprite is OUT OF RANGE
+				if (ds_list_find_index(spar.inRangeSprites, id) == -1) {
+					// push a spar effect alert for out of range selection
+					spar_effect_push_alert(SPAR_EFFECTS.OUT_OF_RANGE_SELECTION, id);
 				}
 				
-				// @TODO else, load ERROR sound effect
+				spar.selectionPhase = SELECTION_PHASES.ALLY;
 			}
 		}
 	}

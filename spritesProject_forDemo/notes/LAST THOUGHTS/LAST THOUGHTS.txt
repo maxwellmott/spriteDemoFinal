@@ -1,5 +1,3 @@
-
-
 It's been a while since I checked in here, I deleted all past notes so I can start fresh with the demo from here on out.
 
 I'm going to start by building a list of everything that needs to be finished with the battle scene, then I'll refer to that list
@@ -742,5 +740,13 @@ COMING BACK FROM PLAYTEST BUILD
 	
 			OKAY, IT'S FINISHED!
 			
-			Tomorrow, add a range check to the spar action processor. Move the ability check to this range check only!
+			CHANGES FOR RANGE CHECK:
+				- add a range check to the actionProcessor
+				- move the range correction ability check to the actionProcessor range check
+				- display out of range indicator when hovering over an out of range sprite
+				- add a spar effect for "out of range target selected" and push the alert whenever the user selects an out of range target
 			
+			RESTING SHOULD ALWAYS REGAIN THE SAME AMOUNT OF MP
+			
+	1/31
+			I just need to add a range check to the action processor. I also still need to add the ability check here (it should be fine to just do another range check ability check)

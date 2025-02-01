@@ -321,14 +321,26 @@ draw_set_alpha(1.0);
 	draw_sprite(spr_sparPlayerNameplate, 0, guiWidth, guiHeight);
 	draw_sprite(spr_sparEnemyNameplate, 0, 0, 0);
 	
+	// get nameplate width and height to draw names
+	var npw = sprite_get_width(spr_sparPlayerNameplate);
+	var nph = sprite_get_height(spr_sparPlayerNameplate);
+	
+	// set font alignment
+	draw_set(fa_left, fa_top, 1.0, COL_BLACK);
+	
+	// set font
+	draw_set_font(plainFont);
+	
 	// draw titles and names
+	draw_text_pixel_perfect(guiWidth - npw + 7, guiHeight - nph, playerOne.name, 7, 256);
+	draw_text_pixel_perfect(6, 0, playerTwo.name, 7, 256);
 	
 	// draw HPMP symbols
 	draw_sprite(spr_sparHPMP, 0, 120, guiHeight - 8);
 	draw_sprite(spr_sparHPMP, 0, 135, 8);
 	
-	// set alignment for player HPMP numbers
-	draw_set_halign(fa_right);
+	// set font alignment
+	draw_set(fa_right, fa_middle, 1.0, COL_BLACK);
 	
 	// set font for HPMP numbers
 	draw_set_font(hpmpFont);

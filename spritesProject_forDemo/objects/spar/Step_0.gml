@@ -697,7 +697,7 @@ switch (sparPhase) {
 						// check if this sprite has selected to rest
 						if (sa >= sparActions.rest) {
 							// add the minimum rest amount to the minRestRegen
-							minRestRegen += round(0.725 * REST_BASE_MP_REGEN);
+							minRestRegen += REST_BASE_MP_REGEN;
 						}
 						
 					// increment i
@@ -907,8 +907,6 @@ switch (sparPhase) {
 						
 						case sparActions.swap:
 							selectionMsg = "Select the sprite with whom " + player.selectedAlly.name + " should swap";
-							
-							if (global.hoverSprite < 0)	potentialCost = 0;
 						break;
 					}
 					

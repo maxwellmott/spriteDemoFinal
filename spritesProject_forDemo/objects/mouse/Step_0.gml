@@ -12,8 +12,8 @@ if (instance_exists(spar)) {
 		if (collision_rectangle(inst.bbLeft, inst.bbTop, inst.bbRight, inst.bbBottom, mouse, false, false)) {
 			if (spar.selectionPhase == SELECTION_PHASES.ALLY) 
 			|| (spar.selectionPhase == SELECTION_PHASES.TARGET) {
-				if (global.shiftPressed) frame = 2;
-				else frame = 0;
+				if (global.shiftPressed) image_index = 2;
+				else image_index = 0;
 				
 				global.hoverSprite = inst;
 				hvrSet = true;
@@ -29,7 +29,7 @@ if (instance_exists(spar)) {
 	// reset hoverSprite to -1
 	if !(hvrSet)
 	&& (global.hoverSprite != -1) {
-		frame = 0;
+		image_index = 0;
 		global.hoverSprite = -1;	
 	}
 	
@@ -39,10 +39,10 @@ if (instance_exists(spar)) {
 		if (spar.selectionPhase == SELECTION_PHASES.TARGET) {
 			// check if hoverSprite is on the list of out of range spots
 			if (ds_list_find_index(spar.inRangeSprites, global.hoverSprite) == -1) {
-				// check if frame is not 3
-				if (frame != 3) {
-					// if so, change frame to 3
-					frame = 3;
+				// check if image_index is not 3
+				if (image_index != 3) {
+					// if so, change image_index to 3
+					image_index = 3;
 				}
 			}
 		}
@@ -96,7 +96,7 @@ if instance_exists(spar)
 
 // manage click animation
 if ((alarm[1] == -1) and (global.click > 0)) {
-	frame = 1;
+	image_index = 1;
 	alarm[1] = 15;	
 }
 

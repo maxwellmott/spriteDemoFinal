@@ -366,7 +366,7 @@ function sprite_process_rest(_instanceID) {
 	var t = inst.team;
 	var lr = inst.luckRoll;
 	
-	var mpRegen = round(REST_BASE_MP_REGEN * lr);
+	var mpRegen = REST_BASE_MP_REGEN;
 	
 	restore_mp(t, mpRegen);
 	
@@ -674,6 +674,9 @@ function spar_set_target() {
 				turnReady = false;
 			}
 		}	
+		
+		// reset potentialSwapCost
+		spar.potentialSwapCost = 0;
 	}
 	
 	// check if the selected ally has already selected a swap

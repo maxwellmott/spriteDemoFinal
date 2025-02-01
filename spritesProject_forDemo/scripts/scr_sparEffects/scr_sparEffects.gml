@@ -370,6 +370,7 @@ enum SPAR_EFFECTS {
 	NEGATE_DAMAGE,
 	NEGATE_SPELL_COST,
 	FORCE_SPELL_FAILURE,
+	OUT_OF_RANGE_SELECTION,
 	HEIGHT
 }
 
@@ -4513,6 +4514,17 @@ function force_spell_failure(_inst) {
 	ds_list_add(effectedSprites, inst);
 }
 
+function out_of_range_selection(_inst) {
+	// store args in locals
+	var inst = _inst;
+	
+	// add the selected target to the list of effected sprites
+	ds_list_add(effectedSprites, inst);
+	
+	// set subject
+	subject = inst.name;
+}
+
 // get text from csv file
 var textGrid = load_csv("SPAR_EFFECTS_ENGLISH.csv");
 
@@ -4720,6 +4732,7 @@ master_grid_add_spar_effect(SPAR_EFFECTS.REMOVE_IMMOBILIZED,				textGrid[# 1, SP
 master_grid_add_spar_effect(SPAR_EFFECTS.NEGATE_DAMAGE,						textGrid[# 1, SPAR_EFFECTS.NEGATE_DAMAGE],						negate_damage,						EMPTY_SPRITE);
 master_grid_add_spar_effect(SPAR_EFFECTS.NEGATE_SPELL_COST,					textGrid[# 1, SPAR_EFFECTS.NEGATE_SPELL_COST],					negate_spell_cost,					EMPTY_SPRITE);
 master_grid_add_spar_effect(SPAR_EFFECTS.FORCE_SPELL_FAILURE,				textGrid[# 1, SPAR_EFFECTS.FORCE_SPELL_FAILURE],				force_spell_failure,				EMPTY_SPRITE);
+master_grid_add_spar_effect(SPAR_EFFECTS.OUT_OF_RANGE_SELECTION,			textGrid[# 1, SPAR_EFFECTS.OUT_OF_RANGE_SELECTION],				out_of_range_selection,				EMPTY_SPRITE);
 #endregion
 
 // encode the spar effect grid

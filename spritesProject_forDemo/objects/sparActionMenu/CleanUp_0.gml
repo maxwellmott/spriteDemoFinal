@@ -4,3 +4,7 @@
 with (sparActionButton) {
 	instance_destroy(id);	
 }
+
+spar.potentialSwapCost = 0;
+spar.potentialSpellCost = 0;
+spar.mpCalculated = false;
