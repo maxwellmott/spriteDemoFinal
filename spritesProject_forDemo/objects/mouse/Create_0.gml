@@ -9,8 +9,6 @@ fadeRate = 0.05;
 
 alpha = 1.0;
 
-frame = 0;
-
 idle = false;
 
 hvrSet = false;

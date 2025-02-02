@@ -28,7 +28,11 @@ spellCost		= noone;
 spellType		= noone;
 spellPower		= noone;
 spellEffect		= noone;
+spellRange		= noone;
 spellDodgeable	= noone;
+bypassDodge		= false;
+bypassFailure	= false;
+bypassRange		= false;
 
 // get turnRow
 turnRow = spar.turnRow;
@@ -54,6 +58,31 @@ if action_check_spell(currentAction) {
 // if spell is set, get all spell params
 if (currentSpell >= 0) {
 	processor_load_spell_params();
+}
+
+// check if spellRange has been changed from -4 (includes -1 since that indicates selfTargeting)
+if (spellRange >= -1) {
+	global.targetRange = spellRange;
+}
+// if the spellRange was not set (this indicates a basic attack)
+else {
+	// set range for basic attack
+	global.targetRange = ranges.nearestFiveSprites;
+}
+
+// perform an ability check for improve range
+ability_check(ABILITY_TYPES.RANGE_CHECK);
+
+// rebuild the inRangeSprites list for the upcoming range check
+inRangeSprites_rebuild(activeSprite);
+
+// check if this is self targeting
+if (spellRange == -1) {
+	// check if the active sprite is not the target sprite
+	if (activeSprite != targetSprite) {
+		// set targetSprite to equal the activeSprite
+		targetSprite = activeSprite;
+	}
 }
 
 enum ACTION_PROCESSOR_STATES {
@@ -134,3 +163,9 @@ if (currentSpell >= 0) {
 
 spar_check_black_hole_absorb_spell();
 spar_check_ball_lightning_absorb_spell();
+
+outOfRange = false;
+
+if (ds_list_find_index(spar.inRangeSprites, targetSprite) == -1) {
+	outOfRange = true;
+}

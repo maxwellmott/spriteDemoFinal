@@ -750,3 +750,15 @@ COMING BACK FROM PLAYTEST BUILD
 			
 	1/31
 			I just need to add a range check to the action processor. I also still need to add the ability check here (it should be fine to just do another range check ability check)
+			
+	2/1	
+	
+			Okay. I completely finished correcting range checks and mp tracking. There may still be a few bugs with the latter, but it waits to be seen.
+			
+			Next up:
+				-rebuild the list of remaining spar bugs
+				-make a list of all remaining spell and effect animations
+				-add the new name font
+				-add titles
+				-make documentation for playtesters
+				-schedule the first playtesting session!

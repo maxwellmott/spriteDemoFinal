@@ -80,10 +80,10 @@ teamString = "";
 teamList = ds_list_create();
 
 // ONLY FOR TESTING
-teamList[| 0] = SPRITES.DECIDRUID;
+teamList[| 0] = SPRITES.SCROOTINEYES;
 teamList[| 1] = SPRITES.GASTRONIMO;
-teamList[| 2] = SPRITES.NEEDLEPAW;
-teamList[| 3] = SPRITES.OMNOST;
+teamList[| 2] = SPRITES.ANACHRONAUT;
+teamList[| 3] = SPRITES.ARRAYNGE;
 
 // for testing purposes only
 teamString = encode_list(teamList);

@@ -102,6 +102,9 @@ enum SPELL_PARAMS {
 	RANGE,
 	EFFECT,
 	DODGEABLE,
+	BYPASS_DODGE,
+	BYPASS_FAILURE,
+	BYPASS_RANGE,
 	HEIGHT
 }
 
@@ -284,11 +287,9 @@ function ruburs_water_cannon() {
 
 ///@desc SPELL FUNCTION: binds the target (dodgeable)
 function ruburs_grapple() {
-	if !(dodgeSuccess) {
-		var t = targetSprite;
-		
-		spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, t)
-	}
+	var t = targetSprite;
+	
+	spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, t)
 }
 
 ///@desc SPELL FUNCTION: changes arena to forest
@@ -371,25 +372,23 @@ function undertow() {
 ///@desc SPELL FUNCTION: adopts target's mindset and fully heals target or caster's team
 /// depending on whether the mindset in question is a blessing or a curse. (dodgeable)
 function empathize() {
-	if !(dodgeSuccess) {
-		// store target and caster in locals
-		var t = targetSprite;
-		var c = activeSprite;
+	// store target and caster in locals
+	var t = targetSprite;
+	var c = activeSprite;
+	
+	// check if target has an altered mindset
+	if (t.mindset != 0) {
+		// copy mindset
+		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, c, t.mindset);
 		
-		// check if target has an altered mindset
-		if (t.mindset != 0) {
-			// copy mindset
-			spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, c, t.mindset);
-			
-			// if curse, fully heal target team
-			if (t.mindset < 0) {
-				spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, t.team);
-			}
-			
-			// if blessing, fully heal caster's team
-			if (t.mindset > 0) {
-				spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, c.team);
-			}
+		// if curse, fully heal target team
+		if (t.mindset < 0) {
+			spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, t.team);
+		}
+		
+		// if blessing, fully heal caster's team
+		if (t.mindset > 0) {
+			spar_effect_push_alert(SPAR_EFFECTS.FULLY_RESTORE_HP, c.team);
 		}
 	}
 }
@@ -433,12 +432,10 @@ function lord_mogradths_rage() {
 
 ///@desc SPELL FUNCTION: restores half of the health depleted from target (dodgeable)
 function drain_lifeforce() {
-	if !(dodgeSuccess) {
-		var t = activeSprite.team;
-		var d = round(damage / 2);
-		
-		spar_effect_push_alert(SPAR_EFFECTS.DRAIN_HEALTH, t, d);
-	}
+	var t = activeSprite.team;
+	var d = round(damage / 2);
+	
+	spar_effect_push_alert(SPAR_EFFECTS.DRAIN_HEALTH, t, d);
 }
 
 ///@desc SPELL FUNCTION: deals a fraction of the damage to the caster
@@ -481,19 +478,17 @@ function hikams_winter_spell() {
 
 ///@desc SPELL FUNCTION: adopts the target's mindset. if curse, heal target team fully. If blessing, heal caster team fully
 function osmosis() {
-	if !(dodgeSuccess) {
-		// store target and caster in locals
-		var t = targetSprite;
-		var c = activeSprite;
-		
-		var m = t.mindset;
-		
-		if (m != 0) {
-			spar_effect_push_alert(SPAR_EFFECTS.COPY_MINDSET, c, t);
-		}
-		
-		spar_effect_push_alert(SPAR_EFFECTS.DRAIN_HEALTH, c.team, round(damage / 3));
+	// store target and caster in locals
+	var t = targetSprite;
+	var c = activeSprite;
+	
+	var m = t.mindset;
+	
+	if (m != 0) {
+		spar_effect_push_alert(SPAR_EFFECTS.COPY_MINDSET, c, t);
 	}
+	
+	spar_effect_push_alert(SPAR_EFFECTS.DRAIN_HEALTH, c.team, round(damage / 3));
 }
 
 ///@desc SPELL FUNCTION: this spell is a priority spell that binds the target so long as it is not dodged.
@@ -503,9 +498,7 @@ function flash_freeze() {
 	var t = targetSprite;
 	
 	// bind the target
-	if !(dodgeSuccess) {
-		spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, t);
-	}
+	spar_effect_push_alert(SPAR_EFFECTS.SET_BOUND, t);
 }
 
 ///@desc SPELL FUNCTION: resets the arena
@@ -517,7 +510,7 @@ function landslide() {
 
 ///@desc SPELL FUNCTION: creates an Energy Blast against the enemy team that always deals 400 damage
 function amands_energy_blast() {
-	var t = targetSprite.team;
+	var t = activeSprite.enemy;
 
 	spar_effect_push_alert(SPAR_EFFECTS.ENERGY_BLAST, t, AMANDS_BLAST);
 }
@@ -525,25 +518,23 @@ function amands_energy_blast() {
 ///@desc SPELL FUNCTION: flips the targets mindset. If curse->blessing, heal some HP, if blessing->curse, remove some HP,
 /// so long as it isn't dodged.
 function shift_perspective() {
-	if !(dodgeSuccess) {
-		var t = targetSprite;
-		var m = t.mindset;
-		var a = 250;
-		
-		if (m > 0) {
-			if (m <= MINDSETS.IMP_BLESS) {
-				spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
-				spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t.team, a);
-			}
-			else {
-				spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
-				spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, t.team, a);
-			}
+	var t = targetSprite;
+	var m = t.mindset;
+	var a = 250;
+	
+	if (m > 0) {
+		if (m <= MINDSETS.IMP_BLESS) {
+			spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
+			spar_effect_push_alert(SPAR_EFFECTS.RESTORE_HP, t.team, a);
 		}
 		else {
-			spellFailed = true;
-			return -1;
+			spar_effect_push_alert(SPAR_EFFECTS.SHIFT_MINDSET, t);
+			spar_effect_push_alert(SPAR_EFFECTS.DEPLETE_HP_NONLETHAL, t.team, a);
 		}
+	}
+	else {
+		spellFailed = true;
+		return -1;
 	}
 }
 
@@ -740,11 +731,10 @@ function stinkbomb() {
 
 ///@desc SPELL FUNCTION: grants curse of the imp to the target (dodgeable)
 function wind_slice() {
-	if !(dodgeSuccess) {
-		var t = targetSprite;
+	var t = targetSprite;
 		
-		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, MINDSETS.IMP_CURSE);
-	}
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, MINDSETS.IMP_CURSE);
+	
 }
 
 ///@desc SPELL FUNCTION: makes the arena reflect the caster's elemental bias
@@ -801,9 +791,8 @@ function spheras_curse() {
 function crecias_crystal_wind() {
 	var t = targetSprite;
 	
-	if !(dodged) {
-		spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED, t);
-	}
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED, t);
+
 	
 	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED_NEARBY_ALLIES, t);
 }
@@ -825,20 +814,18 @@ function cloud_break() {
 
 ///@desc SPELL FUNCTION: hexes the target (dodgeable)
 function telekinetic_blast() {
-	if !(dodgeSuccess) {
-		var t = targetSprite;
-		
-		spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED, t);
-	}
+	var t = targetSprite;
+	
+	spar_effect_push_alert(SPAR_EFFECTS.SET_HEXED, t);
+	
 }
 
 ///@desc SPELL FUNCTION: grants the target CURSE OF THE IMP (dodgeable)
 function knock_over() {	
-	if !(dodgeSuccess) {
-		var t = targetSprite;
-		
-		spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, MINDSETS.IMP_CURSE);
-	}
+	var t = targetSprite;
+	
+	spar_effect_push_alert(SPAR_EFFECTS.BESTOW_MINDSET, t, MINDSETS.IMP_CURSE);
+	
 }
 
 ///@desc SPELL FUNCTION: binds the caster
@@ -940,82 +927,82 @@ function hail_sphera() {
 
 #endregion  
 
-// add all spells to grid	ID								NAME											DESCRIPTION										LORE											TYPE					POWER	COST	RANGE						EFFECT					DODGEABLE?
-master_grid_add_spell(		SPELLS.SOLAR_FLARE,				textGrid[# 1, SPELLS.SOLAR_FLARE],				textGrid[# 2, SPELLS.SOLAR_FLARE],				textGrid[# 3, SPELLS.SOLAR_FLARE],				SPELL_TYPES.FIRE,		150,	80,		ranges.nearestFiveSprites,	solar_flare,			true);
-master_grid_add_spell(		SPELLS.TIDAL_FORCE,				textGrid[# 1, SPELLS.TIDAL_FORCE],				textGrid[# 2, SPELLS.TIDAL_FORCE],				textGrid[# 3, SPELLS.TIDAL_FORCE],				SPELL_TYPES.WATER,		150,	80,		ranges.nearestFiveSprites,	tidal_force,			true);
-master_grid_add_spell(		SPELLS.NEBULA_STORM,			textGrid[# 1, SPELLS.NEBULA_STORM],				textGrid[# 2, SPELLS.NEBULA_STORM],				textGrid[# 3, SPELLS.NEBULA_STORM],				SPELL_TYPES.STORM,		150,	80,		ranges.nearestFiveSprites,	nebula_storm,			true);
-master_grid_add_spell(		SPELLS.TECTONIC_SHIFT,			textGrid[# 1, SPELLS.TECTONIC_SHIFT],			textGrid[# 2, SPELLS.TECTONIC_SHIFT],			textGrid[# 3, SPELLS.TECTONIC_SHIFT],			SPELL_TYPES.EARTH,		150,	80,		ranges.nearestFiveSprites,	tectonic_shift,			true);
-master_grid_add_spell(		SPELLS.FIREBALL,				textGrid[# 1, SPELLS.FIREBALL],					textGrid[# 2, SPELLS.FIREBALL],					textGrid[# 3, SPELLS.FIREBALL],					SPELL_TYPES.FIRE,		80,		25,		ranges.nearestFiveSprites,	fireball,				true);
-master_grid_add_spell(		SPELLS.HOLY_WATER,				textGrid[# 1, SPELLS.HOLY_WATER],				textGrid[# 2, SPELLS.HOLY_WATER],				textGrid[# 3, SPELLS.HOLY_WATER],				SPELL_TYPES.WATER,		70,		35,		ranges.nearestFiveSprites,	holy_water,				true);
-master_grid_add_spell(		SPELLS.SHOCK,					textGrid[# 1, SPELLS.SHOCK],					textGrid[# 2, SPELLS.SHOCK],					textGrid[# 3, SPELLS.SHOCK],					SPELL_TYPES.STORM,		80,		35,		ranges.nearestFiveSprites,	shock,					true);
-master_grid_add_spell(		SPELLS.DECAY,					textGrid[# 1, SPELLS.DECAY],					textGrid[# 2, SPELLS.DECAY],					textGrid[# 3, SPELLS.DECAY],					SPELL_TYPES.EARTH,		80,		30,		ranges.nearestFiveSprites,	decay,					false);
-master_grid_add_spell(		SPELLS.EXPEL_FORCE,				textGrid[# 1, SPELLS.EXPEL_FORCE],				textGrid[# 2, SPELLS.EXPEL_FORCE],				textGrid[# 3, SPELLS.EXPEL_FORCE],				SPELL_TYPES.PHYSICAL,	100,	30,		ranges.nearestThreeSprites,	expel_force,			true);
-master_grid_add_spell(		SPELLS.LADY_SOLANUS_GRACE,		textGrid[# 1, SPELLS.LADY_SOLANUS_GRACE],		textGrid[# 2, SPELLS.LADY_SOLANUS_GRACE],		textGrid[# 3, SPELLS.LADY_SOLANUS_GRACE],		SPELL_TYPES.TRICK,		0,		60,		ranges.onlySelf,			lady_solanus_grace,		false);
-master_grid_add_spell(		SPELLS.TYPHOON,					textGrid[# 1, SPELLS.TYPHOON],					textGrid[# 2, SPELLS.TYPHOON],					textGrid[# 3, SPELLS.TYPHOON],					SPELL_TYPES.STORM,		100,	35,		ranges.nearestThreeSprites,	typhoon,				true);
-master_grid_add_spell(		SPELLS.HEALING_LIGHT,			textGrid[# 1, SPELLS.HEALING_LIGHT],			textGrid[# 2, SPELLS.HEALING_LIGHT],			textGrid[# 3, SPELLS.HEALING_LIGHT],			SPELL_TYPES.TRICK,		0,		45,		ranges.onlySelf,			healing_light,			false);
-master_grid_add_spell(		SPELLS.RUBURS_WATER_CANNON,		textGrid[# 1, SPELLS.RUBURS_WATER_CANNON],		textGrid[# 2, SPELLS.RUBURS_WATER_CANNON],		textGrid[# 3, SPELLS.RUBURS_WATER_CANNON],		SPELL_TYPES.WATER,		120,	60,		ranges.nearestThreeSprites,	ruburs_water_cannon,	true);
-master_grid_add_spell(		SPELLS.RUBURS_GRAPPLE,			textGrid[# 1, SPELLS.RUBURS_GRAPPLE],			textGrid[# 2, SPELLS.RUBURS_GRAPPLE],			textGrid[# 3, SPELLS.RUBURS_GRAPPLE],			SPELL_TYPES.PHYSICAL,	80,		45,		ranges.nearestThreeSprites, ruburs_grapple,			true);
-master_grid_add_spell(		SPELLS.LUSIAS_HARVEST_SPELL,	textGrid[# 1, SPELLS.LUSIAS_HARVEST_SPELL],		textGrid[# 2, SPELLS.LUSIAS_HARVEST_SPELL],		textGrid[# 3, SPELLS.LUSIAS_HARVEST_SPELL],		SPELL_TYPES.EARTH,		110,	40,		ranges.nearestThreeSprites,	lusias_harvest_spell,	false);
-master_grid_add_spell(		SPELLS.WATERLOG,				textGrid[# 1, SPELLS.WATERLOG],					textGrid[# 2, SPELLS.WATERLOG],					textGrid[# 3, SPELLS.WATERLOG],					SPELL_TYPES.WATER,		70,		35,		ranges.nearestFiveSprites,	waterlog,				false);
-master_grid_add_spell(		SPELLS.AIR_PRESSURE,			textGrid[# 1, SPELLS.AIR_PRESSURE],				textGrid[# 2, SPELLS.AIR_PRESSURE],				textGrid[# 3, SPELLS.AIR_PRESSURE],				SPELL_TYPES.STORM,		70,		35,		ranges.nearestFiveSprites,	air_pressure,			true);
-master_grid_add_spell(		SPELLS.SUPERBLOOM,				textGrid[# 1, SPELLS.SUPERBLOOM],				textGrid[# 2, SPELLS.SUPERBLOOM],				textGrid[# 3, SPELLS.SUPERBLOOM],				SPELL_TYPES.EARTH,		100,	50,		ranges.nearestThreeSprites,	superbloom,				true);
-master_grid_add_spell(		SPELLS.RAPID_STRIKE,			textGrid[# 1, SPELLS.RAPID_STRIKE],				textGrid[# 2, SPELLS.RAPID_STRIKE],				textGrid[# 3, SPELLS.RAPID_STRIKE],				SPELL_TYPES.PHYSICAL,	75,		40,		ranges.nearestThreeSprites,	rapid_strike,			false);
-master_grid_add_spell(		SPELLS.LOOMING_DANGER,			textGrid[# 1, SPELLS.LOOMING_DANGER],			textGrid[# 2, SPELLS.LOOMING_DANGER],			textGrid[# 3, SPELLS.LOOMING_DANGER],			SPELL_TYPES.TRICK,		0,		30,		ranges.anySprite,			looming_danger,			false);
-master_grid_add_spell(		SPELLS.INTERCEPT,				textGrid[# 1, SPELLS.INTERCEPT],				textGrid[# 2, SPELLS.INTERCEPT],				textGrid[# 3, SPELLS.INTERCEPT],				SPELL_TYPES.TRICK,		0,		25,		ranges.nearestFiveSprites,	intercept,				false);
-master_grid_add_spell(		SPELLS.STEAM_BATH,				textGrid[# 1, SPELLS.STEAM_BATH],				textGrid[# 2, SPELLS.STEAM_BATH],				textGrid[# 3, SPELLS.STEAM_BATH],				SPELL_TYPES.WATER,		65,		35,		ranges.nearestFiveSprites,	steam_bath,				true);
-master_grid_add_spell(		SPELLS.UNDERTOW,				textGrid[# 1, SPELLS.UNDERTOW],					textGrid[# 2, SPELLS.UNDERTOW],					textGrid[# 3, SPELLS.UNDERTOW],					SPELL_TYPES.WATER,		100,	50,		ranges.nearestFiveSprites,	undertow,				false);
-master_grid_add_spell(		SPELLS.EMPATHIZE,				textGrid[# 1, SPELLS.EMPATHIZE],				textGrid[# 2, SPELLS.EMPATHIZE],				textGrid[# 3, SPELLS.EMPATHIZE],				SPELL_TYPES.TRICK,		0,		20,		ranges.anySprite,			empathize,				false);
-master_grid_add_spell(		SPELLS.HELLFIRE,				textGrid[# 1, SPELLS.HELLFIRE],					textGrid[# 2, SPELLS.HELLFIRE],					textGrid[# 3, SPELLS.HELLFIRE],					SPELL_TYPES.FIRE,		100,	50,		ranges.anySprite,			hellfire,				true);
-master_grid_add_spell(		SPELLS.BALL_LIGHTNING,			textGrid[# 1, SPELLS.BALL_LIGHTNING],			textGrid[# 2, SPELLS.BALL_LIGHTNING],			textGrid[# 3, SPELLS.BALL_LIGHTNING],			SPELL_TYPES.STORM,		0,		50,		ranges.nearestFiveSprites,	ball_lightning,			true);
-master_grid_add_spell(		SPELLS.QUICKSAND,				textGrid[# 1, SPELLS.QUICKSAND],				textGrid[# 2, SPELLS.QUICKSAND],				textGrid[# 3, SPELLS.QUICKSAND],				SPELL_TYPES.EARTH,		70,		40,		ranges.anySprite,			quicksand,				false);
-master_grid_add_spell(		SPELLS.LORD_MOGRADTHS_RAGE,		textGrid[# 1, SPELLS.LORD_MOGRADTHS_RAGE],		textGrid[# 2, SPELLS.LORD_MOGRADTHS_RAGE],		textGrid[# 3, SPELLS.LORD_MOGRADTHS_RAGE],		SPELL_TYPES.TRICK,		0,		50,		ranges.nearestFiveSprites,	lord_mogradths_rage,	false);
-master_grid_add_spell(		SPELLS.DRAIN_LIFEFORCE,			textGrid[# 1, SPELLS.DRAIN_LIFEFORCE],			textGrid[# 2, SPELLS.DRAIN_LIFEFORCE],			textGrid[# 3, SPELLS.DRAIN_LIFEFORCE],			SPELL_TYPES.PHYSICAL,	90,		40,		ranges.nearestFiveSprites,	drain_lifeforce,		true);
-master_grid_add_spell(		SPELLS.PYROKINESIS,				textGrid[# 1, SPELLS.PYROKINESIS],				textGrid[# 2, SPELLS.PYROKINESIS],				textGrid[# 3, SPELLS.PYROKINESIS],				SPELL_TYPES.FIRE,		135,	60,		ranges.nearestFiveSprites,	pyrokinesis,			false);
-master_grid_add_spell(		SPELLS.DOWNPOUR,				textGrid[# 1, SPELLS.DOWNPOUR],					textGrid[# 2, SPELLS.DOWNPOUR],					textGrid[# 3, SPELLS.DOWNPOUR],					SPELL_TYPES.WATER,		75,		40,		ranges.nearestFiveSprites,	downpour,				false);
-master_grid_add_spell(		SPELLS.ARC_BLAST,				textGrid[# 1, SPELLS.ARC_BLAST],				textGrid[# 2, SPELLS.ARC_BLAST],				textGrid[# 3, SPELLS.ARC_BLAST],				SPELL_TYPES.STORM,		110,	50,		ranges.nearestThreeSprites,	arc_blast,				false);
-master_grid_add_spell(		SPELLS.HIKAMS_WINTER_SPELL,		textGrid[# 1, SPELLS.HIKAMS_WINTER_SPELL],		textGrid[# 2, SPELLS.HIKAMS_WINTER_SPELL],		textGrid[# 3, SPELLS.HIKAMS_WINTER_SPELL],		SPELL_TYPES.EARTH,		70,		30,		ranges.anySprite,			hikams_winter_spell,	false);
-master_grid_add_spell(		SPELLS.OSMOSIS,					textGrid[# 1, SPELLS.OSMOSIS],					textGrid[# 2, SPELLS.OSMOSIS],					textGrid[# 3, SPELLS.OSMOSIS],					SPELL_TYPES.WATER,		90,		40,		ranges.nearestFiveSprites,	osmosis,				false);
-master_grid_add_spell(		SPELLS.FLASH_FREEZE,			textGrid[# 1, SPELLS.FLASH_FREEZE],				textGrid[# 2, SPELLS.FLASH_FREEZE],				textGrid[# 3, SPELLS.FLASH_FREEZE],				SPELL_TYPES.WATER,		110,	50,		ranges.nearestFiveSprites,	flash_freeze,			false);
-master_grid_add_spell(		SPELLS.LANDSLIDE,				textGrid[# 1, SPELLS.LANDSLIDE],				textGrid[# 2, SPELLS.LANDSLIDE],				textGrid[# 3, SPELLS.LANDSLIDE],				SPELL_TYPES.EARTH,		110,	50,		ranges.nearestFiveSprites,	landslide,				true);
-master_grid_add_spell(		SPELLS.AMANDS_ENERGY_BLAST,		textGrid[# 1, SPELLS.AMANDS_ENERGY_BLAST],		textGrid[# 2, SPELLS.AMANDS_ENERGY_BLAST],		textGrid[# 3, SPELLS.AMANDS_ENERGY_BLAST],		SPELL_TYPES.TRICK,		0,		40,		ranges.nearestThreeSprites,	amands_energy_blast,	true);
-master_grid_add_spell(		SPELLS.SHIFT_PERSPECTIVE,		textGrid[# 1, SPELLS.SHIFT_PERSPECTIVE],		textGrid[# 2, SPELLS.SHIFT_PERSPECTIVE],		textGrid[# 3, SPELLS.SHIFT_PERSPECTIVE],		SPELL_TYPES.TRICK,		0,		35,		ranges.anySprite,			shift_perspective,		false);
-master_grid_add_spell(		SPELLS.PSYCHIC_IMPACT,			textGrid[# 1, SPELLS.PSYCHIC_IMPACT],			textGrid[# 2, SPELLS.PSYCHIC_IMPACT],			textGrid[# 3, SPELLS.PSYCHIC_IMPACT],			SPELL_TYPES.TRICK,		75,		50,		ranges.anySprite,			psychic_impact,			false);
-master_grid_add_spell(		SPELLS.TREMOR,					textGrid[# 1, SPELLS.TREMOR],					textGrid[# 2, SPELLS.TREMOR],					textGrid[# 3, SPELLS.TREMOR],					SPELL_TYPES.EARTH,		120,	60,		ranges.nearestThreeSprites,	tremor,					false);
-master_grid_add_spell(		SPELLS.SKYDIVE,					textGrid[# 1, SPELLS.SKYDIVE],					textGrid[# 2, SPELLS.SKYDIVE],					textGrid[# 3, SPELLS.SKYDIVE],					SPELL_TYPES.PHYSICAL,	0,		50,		ranges.nearestThreeSprites,	skydive,				false);
-master_grid_add_spell(		SPELLS.DESTRUCTIVE_BLOW,		textGrid[# 1, SPELLS.DESTRUCTIVE_BLOW],			textGrid[# 2, SPELLS.DESTRUCTIVE_BLOW],			textGrid[# 3, SPELLS.DESTRUCTIVE_BLOW],			SPELL_TYPES.PHYSICAL,	100,	40,		ranges.nearestThreeSprites,	destructive_blow,		true);
-master_grid_add_spell(		SPELLS.PURIFYING_FLAME,			textGrid[# 1, SPELLS.PURIFYING_FLAME],			textGrid[# 2, SPELLS.PURIFYING_FLAME],			textGrid[# 3, SPELLS.PURIFYING_FLAME],			SPELL_TYPES.FIRE,		100,	40,		ranges.nearestFiveSprites,	purifying_flame,		true);
-master_grid_add_spell(		SPELLS.JABULS_FIGHT_SONG,		textGrid[# 1, SPELLS.JABULS_FIGHT_SONG],		textGrid[# 2, SPELLS.JABULS_FIGHT_SONG],		textGrid[# 3, SPELLS.JABULS_FIGHT_SONG],		SPELL_TYPES.TRICK,		0,		35,		ranges.onlySelf,			jabuls_fight_song,		false);
-master_grid_add_spell(		SPELLS.NOXIOUS_FUMES,			textGrid[# 1, SPELLS.NOXIOUS_FUMES],			textGrid[# 2, SPELLS.NOXIOUS_FUMES],			textGrid[# 3, SPELLS.NOXIOUS_FUMES],			SPELL_TYPES.FIRE,		75,		40,		ranges.nearestFiveSprites,	noxious_fumes,			false);
-master_grid_add_spell(		SPELLS.CRECIAS_CRYSTAL_SPIKES,	textGrid[# 1, SPELLS.CRECIAS_CRYSTAL_SPIKES],	textGrid[# 2, SPELLS.CRECIAS_CRYSTAL_SPIKES],	textGrid[# 3, SPELLS.CRECIAS_CRYSTAL_SPIKES],	SPELL_TYPES.EARTH,		120,	65,		ranges.nearestThreeSprites,	crecias_crystal_spikes,	false);
-master_grid_add_spell(		SPELLS.PSYCHIC_FISSURE,			textGrid[# 1, SPELLS.PSYCHIC_FISSURE],			textGrid[# 2, SPELLS.PSYCHIC_FISSURE],			textGrid[# 3, SPELLS.PSYCHIC_FISSURE],			SPELL_TYPES.TRICK,		125,	70,		ranges.anySprite,			psychic_fissure,		true);
-master_grid_add_spell(		SPELLS.REARRANGE,				textGrid[# 1, SPELLS.REARRANGE],				textGrid[# 2, SPELLS.REARRANGE],				textGrid[# 3, SPELLS.REARRANGE],				SPELL_TYPES.TRICK,		0,		40,		ranges.nearestThreeSprites,	rearrange,				true);
-master_grid_add_spell(		SPELLS.SNEAK_ATTACK,			textGrid[# 1, SPELLS.SNEAK_ATTACK],				textGrid[# 2, SPELLS.SNEAK_ATTACK],				textGrid[# 3, SPELLS.SNEAK_ATTACK],				SPELL_TYPES.PHYSICAL,	0,		50,		ranges.nearestFiveSprites,	sneak_attack,			false);
-master_grid_add_spell(		SPELLS.DEFLECTIVE_SHIELD,		textGrid[# 1, SPELLS.DEFLECTIVE_SHIELD],		textGrid[# 2, SPELLS.DEFLECTIVE_SHIELD],		textGrid[# 3, SPELLS.DEFLECTIVE_SHIELD],		SPELL_TYPES.TRICK,		0,		50,		ranges.onlySelf,			deflective_shield,		false);
-master_grid_add_spell(		SPELLS.DIONS_PARRY,				textGrid[# 1, SPELLS.DIONS_PARRY],				textGrid[# 2, SPELLS.DIONS_PARRY],				textGrid[# 3, SPELLS.DIONS_PARRY],				SPELL_TYPES.PHYSICAL,	0,		40,		ranges.onlySelf,			dions_parry,			false);
-master_grid_add_spell(		SPELLS.DIONS_GAMBLING_BLAST,	textGrid[# 1, SPELLS.DIONS_GAMBLING_BLAST],		textGrid[# 2, SPELLS.DIONS_GAMBLING_BLAST],		textGrid[# 3, SPELLS.DIONS_GAMBLING_BLAST],		SPELL_TYPES.TRICK,		0,		35,		ranges.onlySelf,			dions_gambling_blast,	false);
-master_grid_add_spell(		SPELLS.DIONS_BARTER_TRICK,		textGrid[# 1, SPELLS.DIONS_BARTER_TRICK],		textGrid[# 2, SPELLS.DIONS_BARTER_TRICK],		textGrid[# 3, SPELLS.DIONS_BARTER_TRICK],		SPELL_TYPES.TRICK,		0,		0,		ranges.onlySelf,			dions_barter_trick,		false);
-master_grid_add_spell(		SPELLS.MAGNETIC_PULSE,			textGrid[# 1, SPELLS.MAGNETIC_PULSE],			textGrid[# 2, SPELLS.MAGNETIC_PULSE],			textGrid[# 3, SPELLS.MAGNETIC_PULSE],			SPELL_TYPES.STORM,		90,		40,		ranges.nearestFiveSprites,	magnetic_pulse,			true);
-master_grid_add_spell(		SPELLS.BURN_OUT,				textGrid[# 1, SPELLS.BURN_OUT],					textGrid[# 2, SPELLS.BURN_OUT],					textGrid[# 3, SPELLS.BURN_OUT],					SPELL_TYPES.FIRE,		140,	50,		ranges.nearestThreeSprites,	burn_out,				true);
-master_grid_add_spell(		SPELLS.STINKBOMB,				textGrid[# 1, SPELLS.STINKBOMB],				textGrid[# 2, SPELLS.STINKBOMB],				textGrid[# 3, SPELLS.STINKBOMB],				SPELL_TYPES.EARTH,		100,	50,		ranges.nearestFiveSprites,	stinkbomb,				true);
-master_grid_add_spell(		SPELLS.WIND_SLICE,				textGrid[# 1, SPELLS.WIND_SLICE],				textGrid[# 2, SPELLS.WIND_SLICE],				textGrid[# 3, SPELLS.WIND_SLICE],				SPELL_TYPES.STORM,		120,	55,		ranges.nearestFiveSprites,	wind_slice,				true);
-master_grid_add_spell(		SPELLS.CHANNEL_ESSENCE,			textGrid[# 1, SPELLS.CHANNEL_ESSENCE],			textGrid[# 2, SPELLS.CHANNEL_ESSENCE],			textGrid[# 3, SPELLS.CHANNEL_ESSENCE],			SPELL_TYPES.TRICK,		0,		30,		ranges.onlySelf,			channel_essence,		false);
-master_grid_add_spell(		SPELLS.SPHERAS_CURSE,			textGrid[# 1, SPELLS.SPHERAS_CURSE],			textGrid[# 2, SPELLS.SPHERAS_CURSE],			textGrid[# 3, SPELLS.SPHERAS_CURSE],			SPELL_TYPES.TRICK,		0,		30,		ranges.nearestOneEnemy,		spheras_curse,			false);
-master_grid_add_spell(		SPELLS.CRECIAS_CRYSTAL_WIND,	textGrid[# 1, SPELLS.CRECIAS_CRYSTAL_WIND],		textGrid[# 2, SPELLS.CRECIAS_CRYSTAL_WIND],		textGrid[# 3, SPELLS.CRECIAS_CRYSTAL_WIND],		SPELL_TYPES.EARTH,		100,	45,		ranges.nearestFiveSprites,	crecias_crystal_wind,	true);
-master_grid_add_spell(		SPELLS.LAVA_SPIRE,				textGrid[# 1, SPELLS.LAVA_SPIRE],				textGrid[# 2, SPELLS.LAVA_SPIRE],				textGrid[# 3, SPELLS.LAVA_SPIRE],				SPELL_TYPES.FIRE,		100,	50,		ranges.nearestThreeSprites,	lava_spire,				true);
-master_grid_add_spell(		SPELLS.ENDLESS_RIVER,			textGrid[# 1, SPELLS.ENDLESS_RIVER],			textGrid[# 2, SPELLS.ENDLESS_RIVER],			textGrid[# 3, SPELLS.ENDLESS_RIVER],			SPELL_TYPES.WATER,		80,		40,		ranges.nearestFiveSprites,	endless_river,			true);
-master_grid_add_spell(		SPELLS.CLOUD_BREAK,				textGrid[# 1, SPELLS.CLOUD_BREAK],				textGrid[# 2, SPELLS.CLOUD_BREAK],				textGrid[# 3, SPELLS.CLOUD_BREAK],				SPELL_TYPES.STORM,		60,		30,		ranges.anySprite,			cloud_break,			false);
-master_grid_add_spell(		SPELLS.TELEKINETIC_BLAST,		textGrid[# 1, SPELLS.TELEKINETIC_BLAST],		textGrid[# 2, SPELLS.TELEKINETIC_BLAST],		textGrid[# 3, SPELLS.TELEKINETIC_BLAST],		SPELL_TYPES.PHYSICAL,	120,	65,		ranges.anySprite,			telekinetic_blast,		false);
-master_grid_add_spell(		SPELLS.KNOCK_OVER,				textGrid[# 1, SPELLS.KNOCK_OVER],				textGrid[# 2, SPELLS.KNOCK_OVER],				textGrid[# 3, SPELLS.KNOCK_OVER],				SPELL_TYPES.PHYSICAL,	100,	40,		ranges.nearestFiveSprites,	knock_over,				true);
-master_grid_add_spell(		SPELLS.FULL_THRUST,				textGrid[# 1, SPELLS.FULL_THRUST],				textGrid[# 2, SPELLS.FULL_THRUST],				textGrid[# 3, SPELLS.FULL_THRUST],				SPELL_TYPES.PHYSICAL,	160,	60,		ranges.nearestThreeSprites,	full_thrust,			true);
-master_grid_add_spell(		SPELLS.VOLCANIC_ERUPTION,		textGrid[# 1, SPELLS.VOLCANIC_ERUPTION],		textGrid[# 2, SPELLS.VOLCANIC_ERUPTION],		textGrid[# 3, SPELLS.VOLCANIC_ERUPTION],		SPELL_TYPES.FIRE,		130,	70,		ranges.nearestThreeSprites,	volcanic_eruption,		true);
-master_grid_add_spell(		SPELLS.BROADCAST_DATA,			textGrid[# 1, SPELLS.BROADCAST_DATA],			textGrid[# 2, SPELLS.BROADCAST_DATA],			textGrid[# 3, SPELLS.BROADCAST_DATA],			SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			broadcast_data,			false);
-master_grid_add_spell(		SPELLS.COLLAPSE_SPACE,			textGrid[# 1, SPELLS.COLLAPSE_SPACE],			textGrid[# 2, SPELLS.COLLAPSE_SPACE],			textGrid[# 3, SPELLS.COLLAPSE_SPACE],			SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			collapse_space,			false);
-master_grid_add_spell(		SPELLS.EXPAND_TIME,				textGrid[# 1, SPELLS.EXPAND_TIME],				textGrid[# 2, SPELLS.EXPAND_TIME],				textGrid[# 3, SPELLS.EXPAND_TIME],				SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			expand_time,			false);
-master_grid_add_spell(		SPELLS.SPHERAS_DEMISE,			textGrid[# 1, SPELLS.SPHERAS_DEMISE],			textGrid[# 2, SPELLS.SPHERAS_DEMISE],			textGrid[# 3, SPELLS.SPHERAS_DEMISE],			SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			spheras_demise,			false);
-master_grid_add_spell(		SPELLS.TIME_LOOP,				textGrid[# 1, SPELLS.TIME_LOOP],				textGrid[# 2, SPELLS.TIME_LOOP],				textGrid[# 3, SPELLS.TIME_LOOP],				SPELL_TYPES.TRICK,		0,		50,		ranges.anySprite,			time_loop,				false);
-master_grid_add_spell(		SPELLS.ERADICATE,				textGrid[# 1, SPELLS.ERADICATE],				textGrid[# 2, SPELLS.ERADICATE],				textGrid[# 3, SPELLS.ERADICATE],				SPELL_TYPES.TRICK,		0,		65,		ranges.onlySelf,			eradicate,				false);
-master_grid_add_spell(		SPELLS.DARK_DEAL,				textGrid[# 1, SPELLS.DARK_DEAL],				textGrid[# 2, SPELLS.DARK_DEAL],				textGrid[# 3, SPELLS.DARK_DEAL],				SPELL_TYPES.TRICK,		0,		1,		ranges.onlySelf,			dark_deal,				false);
-master_grid_add_spell(		SPELLS.HAIL_SPHERA,				textGrid[# 1, SPELLS.HAIL_SPHERA],				textGrid[# 2, SPELLS.HAIL_SPHERA],				textGrid[# 3, SPELLS.HAIL_SPHERA],				SPELL_TYPES.TRICK,		0,		60,		ranges.onlySelf,			hail_sphera,			false);			
+// add all spells to grid	ID								NAME											DESCRIPTION										LORE											TYPE					POWER	COST	RANGE						EFFECT					DODGEABLE?		BYPASS DODGE		BYPASS FAILURE		BYPASS RANGE
+master_grid_add_spell(		SPELLS.SOLAR_FLARE,				textGrid[# 1, SPELLS.SOLAR_FLARE],				textGrid[# 2, SPELLS.SOLAR_FLARE],				textGrid[# 3, SPELLS.SOLAR_FLARE],				SPELL_TYPES.FIRE,		150,	80,		ranges.nearestFiveSprites,	solar_flare,			true,			true,				false,				true);
+master_grid_add_spell(		SPELLS.TIDAL_FORCE,				textGrid[# 1, SPELLS.TIDAL_FORCE],				textGrid[# 2, SPELLS.TIDAL_FORCE],				textGrid[# 3, SPELLS.TIDAL_FORCE],				SPELL_TYPES.WATER,		150,	80,		ranges.nearestFiveSprites,	tidal_force,			true,			true,				false,				true);
+master_grid_add_spell(		SPELLS.NEBULA_STORM,			textGrid[# 1, SPELLS.NEBULA_STORM],				textGrid[# 2, SPELLS.NEBULA_STORM],				textGrid[# 3, SPELLS.NEBULA_STORM],				SPELL_TYPES.STORM,		150,	80,		ranges.nearestFiveSprites,	nebula_storm,			true,			true,				false,				true);
+master_grid_add_spell(		SPELLS.TECTONIC_SHIFT,			textGrid[# 1, SPELLS.TECTONIC_SHIFT],			textGrid[# 2, SPELLS.TECTONIC_SHIFT],			textGrid[# 3, SPELLS.TECTONIC_SHIFT],			SPELL_TYPES.EARTH,		150,	80,		ranges.nearestFiveSprites,	tectonic_shift,			true,			true,				false,				true);
+master_grid_add_spell(		SPELLS.FIREBALL,				textGrid[# 1, SPELLS.FIREBALL],					textGrid[# 2, SPELLS.FIREBALL],					textGrid[# 3, SPELLS.FIREBALL],					SPELL_TYPES.FIRE,		80,		25,		ranges.nearestFiveSprites,	fireball,				true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.HOLY_WATER,				textGrid[# 1, SPELLS.HOLY_WATER],				textGrid[# 2, SPELLS.HOLY_WATER],				textGrid[# 3, SPELLS.HOLY_WATER],				SPELL_TYPES.WATER,		70,		35,		ranges.nearestFiveSprites,	holy_water,				true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.SHOCK,					textGrid[# 1, SPELLS.SHOCK],					textGrid[# 2, SPELLS.SHOCK],					textGrid[# 3, SPELLS.SHOCK],					SPELL_TYPES.STORM,		80,		35,		ranges.nearestFiveSprites,	shock,					true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.DECAY,					textGrid[# 1, SPELLS.DECAY],					textGrid[# 2, SPELLS.DECAY],					textGrid[# 3, SPELLS.DECAY],					SPELL_TYPES.EARTH,		80,		30,		ranges.nearestFiveSprites,	decay,					false,			false,				false,				false);
+master_grid_add_spell(		SPELLS.EXPEL_FORCE,				textGrid[# 1, SPELLS.EXPEL_FORCE],				textGrid[# 2, SPELLS.EXPEL_FORCE],				textGrid[# 3, SPELLS.EXPEL_FORCE],				SPELL_TYPES.PHYSICAL,	100,	30,		ranges.nearestThreeSprites,	expel_force,			true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.LADY_SOLANUS_GRACE,		textGrid[# 1, SPELLS.LADY_SOLANUS_GRACE],		textGrid[# 2, SPELLS.LADY_SOLANUS_GRACE],		textGrid[# 3, SPELLS.LADY_SOLANUS_GRACE],		SPELL_TYPES.TRICK,		0,		60,		ranges.onlySelf,			lady_solanus_grace,		false,			false,				false,				false);
+master_grid_add_spell(		SPELLS.TYPHOON,					textGrid[# 1, SPELLS.TYPHOON],					textGrid[# 2, SPELLS.TYPHOON],					textGrid[# 3, SPELLS.TYPHOON],					SPELL_TYPES.STORM,		100,	35,		ranges.nearestThreeSprites,	typhoon,				true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.HEALING_LIGHT,			textGrid[# 1, SPELLS.HEALING_LIGHT],			textGrid[# 2, SPELLS.HEALING_LIGHT],			textGrid[# 3, SPELLS.HEALING_LIGHT],			SPELL_TYPES.TRICK,		0,		45,		ranges.onlySelf,			healing_light,			false,			false,				false,				false);
+master_grid_add_spell(		SPELLS.RUBURS_WATER_CANNON,		textGrid[# 1, SPELLS.RUBURS_WATER_CANNON],		textGrid[# 2, SPELLS.RUBURS_WATER_CANNON],		textGrid[# 3, SPELLS.RUBURS_WATER_CANNON],		SPELL_TYPES.WATER,		120,	60,		ranges.nearestThreeSprites,	ruburs_water_cannon,	true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.RUBURS_GRAPPLE,			textGrid[# 1, SPELLS.RUBURS_GRAPPLE],			textGrid[# 2, SPELLS.RUBURS_GRAPPLE],			textGrid[# 3, SPELLS.RUBURS_GRAPPLE],			SPELL_TYPES.PHYSICAL,	80,		45,		ranges.nearestThreeSprites, ruburs_grapple,			true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.LUSIAS_HARVEST_SPELL,	textGrid[# 1, SPELLS.LUSIAS_HARVEST_SPELL],		textGrid[# 2, SPELLS.LUSIAS_HARVEST_SPELL],		textGrid[# 3, SPELLS.LUSIAS_HARVEST_SPELL],		SPELL_TYPES.EARTH,		110,	40,		ranges.nearestThreeSprites,	lusias_harvest_spell,	false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.WATERLOG,				textGrid[# 1, SPELLS.WATERLOG],					textGrid[# 2, SPELLS.WATERLOG],					textGrid[# 3, SPELLS.WATERLOG],					SPELL_TYPES.WATER,		70,		35,		ranges.nearestFiveSprites,	waterlog,				false,			false,				false,				false);
+master_grid_add_spell(		SPELLS.AIR_PRESSURE,			textGrid[# 1, SPELLS.AIR_PRESSURE],				textGrid[# 2, SPELLS.AIR_PRESSURE],				textGrid[# 3, SPELLS.AIR_PRESSURE],				SPELL_TYPES.STORM,		70,		35,		ranges.nearestFiveSprites,	air_pressure,			true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.SUPERBLOOM,				textGrid[# 1, SPELLS.SUPERBLOOM],				textGrid[# 2, SPELLS.SUPERBLOOM],				textGrid[# 3, SPELLS.SUPERBLOOM],				SPELL_TYPES.EARTH,		100,	50,		ranges.nearestThreeSprites,	superbloom,				true,			true,				false,				true);
+master_grid_add_spell(		SPELLS.RAPID_STRIKE,			textGrid[# 1, SPELLS.RAPID_STRIKE],				textGrid[# 2, SPELLS.RAPID_STRIKE],				textGrid[# 3, SPELLS.RAPID_STRIKE],				SPELL_TYPES.PHYSICAL,	75,		40,		ranges.nearestThreeSprites,	rapid_strike,			false,			false,				false,				false);
+master_grid_add_spell(		SPELLS.LOOMING_DANGER,			textGrid[# 1, SPELLS.LOOMING_DANGER],			textGrid[# 2, SPELLS.LOOMING_DANGER],			textGrid[# 3, SPELLS.LOOMING_DANGER],			SPELL_TYPES.TRICK,		0,		30,		ranges.anySprite,			looming_danger,			false,			true,				false,				false);
+master_grid_add_spell(		SPELLS.INTERCEPT,				textGrid[# 1, SPELLS.INTERCEPT],				textGrid[# 2, SPELLS.INTERCEPT],				textGrid[# 3, SPELLS.INTERCEPT],				SPELL_TYPES.TRICK,		0,		25,		ranges.nearestFiveSprites,	intercept,				false,			true,				false,				false);
+master_grid_add_spell(		SPELLS.STEAM_BATH,				textGrid[# 1, SPELLS.STEAM_BATH],				textGrid[# 2, SPELLS.STEAM_BATH],				textGrid[# 3, SPELLS.STEAM_BATH],				SPELL_TYPES.WATER,		65,		35,		ranges.nearestFiveSprites,	steam_bath,				true,			true,				false,				true);
+master_grid_add_spell(		SPELLS.UNDERTOW,				textGrid[# 1, SPELLS.UNDERTOW],					textGrid[# 2, SPELLS.UNDERTOW],					textGrid[# 3, SPELLS.UNDERTOW],					SPELL_TYPES.WATER,		100,	50,		ranges.nearestFiveSprites,	undertow,				false,			true,				false,				false);
+master_grid_add_spell(		SPELLS.EMPATHIZE,				textGrid[# 1, SPELLS.EMPATHIZE],				textGrid[# 2, SPELLS.EMPATHIZE],				textGrid[# 3, SPELLS.EMPATHIZE],				SPELL_TYPES.TRICK,		0,		20,		ranges.anySprite,			empathize,				false,			true,				false,				false);
+master_grid_add_spell(		SPELLS.HELLFIRE,				textGrid[# 1, SPELLS.HELLFIRE],					textGrid[# 2, SPELLS.HELLFIRE],					textGrid[# 3, SPELLS.HELLFIRE],					SPELL_TYPES.FIRE,		100,	50,		ranges.anySprite,			hellfire,				true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.BALL_LIGHTNING,			textGrid[# 1, SPELLS.BALL_LIGHTNING],			textGrid[# 2, SPELLS.BALL_LIGHTNING],			textGrid[# 3, SPELLS.BALL_LIGHTNING],			SPELL_TYPES.STORM,		0,		50,		ranges.nearestFiveSprites,	ball_lightning,			true,			true,				false,				false);
+master_grid_add_spell(		SPELLS.QUICKSAND,				textGrid[# 1, SPELLS.QUICKSAND],				textGrid[# 2, SPELLS.QUICKSAND],				textGrid[# 3, SPELLS.QUICKSAND],				SPELL_TYPES.EARTH,		70,		40,		ranges.anySprite,			quicksand,				false,			true,				false,				false);
+master_grid_add_spell(		SPELLS.LORD_MOGRADTHS_RAGE,		textGrid[# 1, SPELLS.LORD_MOGRADTHS_RAGE],		textGrid[# 2, SPELLS.LORD_MOGRADTHS_RAGE],		textGrid[# 3, SPELLS.LORD_MOGRADTHS_RAGE],		SPELL_TYPES.TRICK,		0,		50,		ranges.nearestFiveSprites,	lord_mogradths_rage,	false,			true,				false,				false);
+master_grid_add_spell(		SPELLS.DRAIN_LIFEFORCE,			textGrid[# 1, SPELLS.DRAIN_LIFEFORCE],			textGrid[# 2, SPELLS.DRAIN_LIFEFORCE],			textGrid[# 3, SPELLS.DRAIN_LIFEFORCE],			SPELL_TYPES.PHYSICAL,	90,		40,		ranges.nearestFiveSprites,	drain_lifeforce,		true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.PYROKINESIS,				textGrid[# 1, SPELLS.PYROKINESIS],				textGrid[# 2, SPELLS.PYROKINESIS],				textGrid[# 3, SPELLS.PYROKINESIS],				SPELL_TYPES.FIRE,		135,	60,		ranges.nearestFiveSprites,	pyrokinesis,			false,			true,				true,				true);
+master_grid_add_spell(		SPELLS.DOWNPOUR,				textGrid[# 1, SPELLS.DOWNPOUR],					textGrid[# 2, SPELLS.DOWNPOUR],					textGrid[# 3, SPELLS.DOWNPOUR],					SPELL_TYPES.WATER,		75,		40,		ranges.nearestFiveSprites,	downpour,				false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.ARC_BLAST,				textGrid[# 1, SPELLS.ARC_BLAST],				textGrid[# 2, SPELLS.ARC_BLAST],				textGrid[# 3, SPELLS.ARC_BLAST],				SPELL_TYPES.STORM,		110,	50,		ranges.nearestThreeSprites,	arc_blast,				false,			false,				false,				false);
+master_grid_add_spell(		SPELLS.HIKAMS_WINTER_SPELL,		textGrid[# 1, SPELLS.HIKAMS_WINTER_SPELL],		textGrid[# 2, SPELLS.HIKAMS_WINTER_SPELL],		textGrid[# 3, SPELLS.HIKAMS_WINTER_SPELL],		SPELL_TYPES.EARTH,		70,		30,		ranges.anySprite,			hikams_winter_spell,	false,			true,				false,				false);
+master_grid_add_spell(		SPELLS.OSMOSIS,					textGrid[# 1, SPELLS.OSMOSIS],					textGrid[# 2, SPELLS.OSMOSIS],					textGrid[# 3, SPELLS.OSMOSIS],					SPELL_TYPES.WATER,		90,		40,		ranges.nearestFiveSprites,	osmosis,				false,			false,				false,				false);
+master_grid_add_spell(		SPELLS.FLASH_FREEZE,			textGrid[# 1, SPELLS.FLASH_FREEZE],				textGrid[# 2, SPELLS.FLASH_FREEZE],				textGrid[# 3, SPELLS.FLASH_FREEZE],				SPELL_TYPES.WATER,		110,	50,		ranges.nearestFiveSprites,	flash_freeze,			false,			false,				false,				false);
+master_grid_add_spell(		SPELLS.LANDSLIDE,				textGrid[# 1, SPELLS.LANDSLIDE],				textGrid[# 2, SPELLS.LANDSLIDE],				textGrid[# 3, SPELLS.LANDSLIDE],				SPELL_TYPES.EARTH,		110,	50,		ranges.nearestFiveSprites,	landslide,				true,			true,				false,				true);
+master_grid_add_spell(		SPELLS.AMANDS_ENERGY_BLAST,		textGrid[# 1, SPELLS.AMANDS_ENERGY_BLAST],		textGrid[# 2, SPELLS.AMANDS_ENERGY_BLAST],		textGrid[# 3, SPELLS.AMANDS_ENERGY_BLAST],		SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			amands_energy_blast,	true,			true,				false,				false);
+master_grid_add_spell(		SPELLS.SHIFT_PERSPECTIVE,		textGrid[# 1, SPELLS.SHIFT_PERSPECTIVE],		textGrid[# 2, SPELLS.SHIFT_PERSPECTIVE],		textGrid[# 3, SPELLS.SHIFT_PERSPECTIVE],		SPELL_TYPES.TRICK,		0,		35,		ranges.anySprite,			shift_perspective,		false,			false,				false,				false);
+master_grid_add_spell(		SPELLS.PSYCHIC_IMPACT,			textGrid[# 1, SPELLS.PSYCHIC_IMPACT],			textGrid[# 2, SPELLS.PSYCHIC_IMPACT],			textGrid[# 3, SPELLS.PSYCHIC_IMPACT],			SPELL_TYPES.TRICK,		75,		50,		ranges.anySprite,			psychic_impact,			false,			true,				false,				false);
+master_grid_add_spell(		SPELLS.TREMOR,					textGrid[# 1, SPELLS.TREMOR],					textGrid[# 2, SPELLS.TREMOR],					textGrid[# 3, SPELLS.TREMOR],					SPELL_TYPES.EARTH,		120,	60,		ranges.nearestThreeSprites,	tremor,					false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.SKYDIVE,					textGrid[# 1, SPELLS.SKYDIVE],					textGrid[# 2, SPELLS.SKYDIVE],					textGrid[# 3, SPELLS.SKYDIVE],					SPELL_TYPES.PHYSICAL,	0,		50,		ranges.nearestThreeSprites,	skydive,				false,			false,				false,				false);
+master_grid_add_spell(		SPELLS.DESTRUCTIVE_BLOW,		textGrid[# 1, SPELLS.DESTRUCTIVE_BLOW],			textGrid[# 2, SPELLS.DESTRUCTIVE_BLOW],			textGrid[# 3, SPELLS.DESTRUCTIVE_BLOW],			SPELL_TYPES.PHYSICAL,	100,	40,		ranges.nearestThreeSprites,	destructive_blow,		true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.PURIFYING_FLAME,			textGrid[# 1, SPELLS.PURIFYING_FLAME],			textGrid[# 2, SPELLS.PURIFYING_FLAME],			textGrid[# 3, SPELLS.PURIFYING_FLAME],			SPELL_TYPES.FIRE,		100,	40,		ranges.nearestFiveSprites,	purifying_flame,		true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.JABULS_FIGHT_SONG,		textGrid[# 1, SPELLS.JABULS_FIGHT_SONG],		textGrid[# 2, SPELLS.JABULS_FIGHT_SONG],		textGrid[# 3, SPELLS.JABULS_FIGHT_SONG],		SPELL_TYPES.TRICK,		0,		35,		ranges.onlySelf,			jabuls_fight_song,		false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.NOXIOUS_FUMES,			textGrid[# 1, SPELLS.NOXIOUS_FUMES],			textGrid[# 2, SPELLS.NOXIOUS_FUMES],			textGrid[# 3, SPELLS.NOXIOUS_FUMES],			SPELL_TYPES.FIRE,		75,		40,		ranges.nearestFiveSprites,	noxious_fumes,			false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.CRECIAS_CRYSTAL_SPIKES,	textGrid[# 1, SPELLS.CRECIAS_CRYSTAL_SPIKES],	textGrid[# 2, SPELLS.CRECIAS_CRYSTAL_SPIKES],	textGrid[# 3, SPELLS.CRECIAS_CRYSTAL_SPIKES],	SPELL_TYPES.EARTH,		120,	65,		ranges.nearestThreeSprites,	crecias_crystal_spikes,	false,			false,				false,				false);
+master_grid_add_spell(		SPELLS.PSYCHIC_FISSURE,			textGrid[# 1, SPELLS.PSYCHIC_FISSURE],			textGrid[# 2, SPELLS.PSYCHIC_FISSURE],			textGrid[# 3, SPELLS.PSYCHIC_FISSURE],			SPELL_TYPES.TRICK,		125,	70,		ranges.anySprite,			psychic_fissure,		false,			true,				true,				true);
+master_grid_add_spell(		SPELLS.REARRANGE,				textGrid[# 1, SPELLS.REARRANGE],				textGrid[# 2, SPELLS.REARRANGE],				textGrid[# 3, SPELLS.REARRANGE],				SPELL_TYPES.TRICK,		0,		40,		ranges.nearestThreeSprites,	rearrange,				true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.SNEAK_ATTACK,			textGrid[# 1, SPELLS.SNEAK_ATTACK],				textGrid[# 2, SPELLS.SNEAK_ATTACK],				textGrid[# 3, SPELLS.SNEAK_ATTACK],				SPELL_TYPES.PHYSICAL,	0,		50,		ranges.nearestFiveSprites,	sneak_attack,			false,			false,				false,				false);
+master_grid_add_spell(		SPELLS.DEFLECTIVE_SHIELD,		textGrid[# 1, SPELLS.DEFLECTIVE_SHIELD],		textGrid[# 2, SPELLS.DEFLECTIVE_SHIELD],		textGrid[# 3, SPELLS.DEFLECTIVE_SHIELD],		SPELL_TYPES.TRICK,		0,		50,		ranges.onlySelf,			deflective_shield,		false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.DIONS_PARRY,				textGrid[# 1, SPELLS.DIONS_PARRY],				textGrid[# 2, SPELLS.DIONS_PARRY],				textGrid[# 3, SPELLS.DIONS_PARRY],				SPELL_TYPES.PHYSICAL,	0,		40,		ranges.onlySelf,			dions_parry,			false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.DIONS_GAMBLING_BLAST,	textGrid[# 1, SPELLS.DIONS_GAMBLING_BLAST],		textGrid[# 2, SPELLS.DIONS_GAMBLING_BLAST],		textGrid[# 3, SPELLS.DIONS_GAMBLING_BLAST],		SPELL_TYPES.TRICK,		0,		35,		ranges.onlySelf,			dions_gambling_blast,	false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.DIONS_BARTER_TRICK,		textGrid[# 1, SPELLS.DIONS_BARTER_TRICK],		textGrid[# 2, SPELLS.DIONS_BARTER_TRICK],		textGrid[# 3, SPELLS.DIONS_BARTER_TRICK],		SPELL_TYPES.TRICK,		0,		0,		ranges.onlySelf,			dions_barter_trick,		false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.MAGNETIC_PULSE,			textGrid[# 1, SPELLS.MAGNETIC_PULSE],			textGrid[# 2, SPELLS.MAGNETIC_PULSE],			textGrid[# 3, SPELLS.MAGNETIC_PULSE],			SPELL_TYPES.STORM,		90,		40,		ranges.nearestFiveSprites,	magnetic_pulse,			true,			true,				false,				true);
+master_grid_add_spell(		SPELLS.BURN_OUT,				textGrid[# 1, SPELLS.BURN_OUT],					textGrid[# 2, SPELLS.BURN_OUT],					textGrid[# 3, SPELLS.BURN_OUT],					SPELL_TYPES.FIRE,		140,	50,		ranges.nearestThreeSprites,	burn_out,				true,			true,				true,				true);
+master_grid_add_spell(		SPELLS.STINKBOMB,				textGrid[# 1, SPELLS.STINKBOMB],				textGrid[# 2, SPELLS.STINKBOMB],				textGrid[# 3, SPELLS.STINKBOMB],				SPELL_TYPES.EARTH,		100,	50,		ranges.nearestFiveSprites,	stinkbomb,				true,			true,				false,				true);
+master_grid_add_spell(		SPELLS.WIND_SLICE,				textGrid[# 1, SPELLS.WIND_SLICE],				textGrid[# 2, SPELLS.WIND_SLICE],				textGrid[# 3, SPELLS.WIND_SLICE],				SPELL_TYPES.STORM,		120,	55,		ranges.nearestFiveSprites,	wind_slice,				true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.CHANNEL_ESSENCE,			textGrid[# 1, SPELLS.CHANNEL_ESSENCE],			textGrid[# 2, SPELLS.CHANNEL_ESSENCE],			textGrid[# 3, SPELLS.CHANNEL_ESSENCE],			SPELL_TYPES.TRICK,		0,		30,		ranges.onlySelf,			channel_essence,		false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.SPHERAS_CURSE,			textGrid[# 1, SPELLS.SPHERAS_CURSE],			textGrid[# 2, SPELLS.SPHERAS_CURSE],			textGrid[# 3, SPELLS.SPHERAS_CURSE],			SPELL_TYPES.TRICK,		0,		30,		ranges.nearestOneEnemy,		spheras_curse,			false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.CRECIAS_CRYSTAL_WIND,	textGrid[# 1, SPELLS.CRECIAS_CRYSTAL_WIND],		textGrid[# 2, SPELLS.CRECIAS_CRYSTAL_WIND],		textGrid[# 3, SPELLS.CRECIAS_CRYSTAL_WIND],		SPELL_TYPES.EARTH,		100,	45,		ranges.nearestFiveSprites,	crecias_crystal_wind,	true,			true,				false,				false);
+master_grid_add_spell(		SPELLS.LAVA_SPIRE,				textGrid[# 1, SPELLS.LAVA_SPIRE],				textGrid[# 2, SPELLS.LAVA_SPIRE],				textGrid[# 3, SPELLS.LAVA_SPIRE],				SPELL_TYPES.FIRE,		100,	50,		ranges.nearestThreeSprites,	lava_spire,				true,			true,				false,				true);
+master_grid_add_spell(		SPELLS.ENDLESS_RIVER,			textGrid[# 1, SPELLS.ENDLESS_RIVER],			textGrid[# 2, SPELLS.ENDLESS_RIVER],			textGrid[# 3, SPELLS.ENDLESS_RIVER],			SPELL_TYPES.WATER,		80,		40,		ranges.nearestFiveSprites,	endless_river,			true,			true,				false,				true);
+master_grid_add_spell(		SPELLS.CLOUD_BREAK,				textGrid[# 1, SPELLS.CLOUD_BREAK],				textGrid[# 2, SPELLS.CLOUD_BREAK],				textGrid[# 3, SPELLS.CLOUD_BREAK],				SPELL_TYPES.STORM,		60,		30,		ranges.anySprite,			cloud_break,			false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.TELEKINETIC_BLAST,		textGrid[# 1, SPELLS.TELEKINETIC_BLAST],		textGrid[# 2, SPELLS.TELEKINETIC_BLAST],		textGrid[# 3, SPELLS.TELEKINETIC_BLAST],		SPELL_TYPES.PHYSICAL,	120,	65,		ranges.anySprite,			telekinetic_blast,		false,			true,				false,				false);
+master_grid_add_spell(		SPELLS.KNOCK_OVER,				textGrid[# 1, SPELLS.KNOCK_OVER],				textGrid[# 2, SPELLS.KNOCK_OVER],				textGrid[# 3, SPELLS.KNOCK_OVER],				SPELL_TYPES.PHYSICAL,	100,	40,		ranges.nearestFiveSprites,	knock_over,				true,			false,				false,				false);
+master_grid_add_spell(		SPELLS.FULL_THRUST,				textGrid[# 1, SPELLS.FULL_THRUST],				textGrid[# 2, SPELLS.FULL_THRUST],				textGrid[# 3, SPELLS.FULL_THRUST],				SPELL_TYPES.PHYSICAL,	160,	60,		ranges.nearestThreeSprites,	full_thrust,			true,			true,				true,				true);
+master_grid_add_spell(		SPELLS.VOLCANIC_ERUPTION,		textGrid[# 1, SPELLS.VOLCANIC_ERUPTION],		textGrid[# 2, SPELLS.VOLCANIC_ERUPTION],		textGrid[# 3, SPELLS.VOLCANIC_ERUPTION],		SPELL_TYPES.FIRE,		130,	70,		ranges.nearestThreeSprites,	volcanic_eruption,		true,			true,				false,				true);
+master_grid_add_spell(		SPELLS.BROADCAST_DATA,			textGrid[# 1, SPELLS.BROADCAST_DATA],			textGrid[# 2, SPELLS.BROADCAST_DATA],			textGrid[# 3, SPELLS.BROADCAST_DATA],			SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			broadcast_data,			false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.COLLAPSE_SPACE,			textGrid[# 1, SPELLS.COLLAPSE_SPACE],			textGrid[# 2, SPELLS.COLLAPSE_SPACE],			textGrid[# 3, SPELLS.COLLAPSE_SPACE],			SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			collapse_space,			false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.EXPAND_TIME,				textGrid[# 1, SPELLS.EXPAND_TIME],				textGrid[# 2, SPELLS.EXPAND_TIME],				textGrid[# 3, SPELLS.EXPAND_TIME],				SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			expand_time,			false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.SPHERAS_DEMISE,			textGrid[# 1, SPELLS.SPHERAS_DEMISE],			textGrid[# 2, SPELLS.SPHERAS_DEMISE],			textGrid[# 3, SPELLS.SPHERAS_DEMISE],			SPELL_TYPES.TRICK,		0,		40,		ranges.onlySelf,			spheras_demise,			false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.TIME_LOOP,				textGrid[# 1, SPELLS.TIME_LOOP],				textGrid[# 2, SPELLS.TIME_LOOP],				textGrid[# 3, SPELLS.TIME_LOOP],				SPELL_TYPES.TRICK,		0,		50,		ranges.anySprite,			time_loop,				false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.ERADICATE,				textGrid[# 1, SPELLS.ERADICATE],				textGrid[# 2, SPELLS.ERADICATE],				textGrid[# 3, SPELLS.ERADICATE],				SPELL_TYPES.TRICK,		0,		65,		ranges.onlySelf,			eradicate,				false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.DARK_DEAL,				textGrid[# 1, SPELLS.DARK_DEAL],				textGrid[# 2, SPELLS.DARK_DEAL],				textGrid[# 3, SPELLS.DARK_DEAL],				SPELL_TYPES.TRICK,		0,		1,		ranges.onlySelf,			dark_deal,				false,			true,				false,				true);
+master_grid_add_spell(		SPELLS.HAIL_SPHERA,				textGrid[# 1, SPELLS.HAIL_SPHERA],				textGrid[# 2, SPELLS.HAIL_SPHERA],				textGrid[# 3, SPELLS.HAIL_SPHERA],				SPELL_TYPES.TRICK,		0,		60,		ranges.onlySelf,			hail_sphera,			false,			true,				false,				true);			
 // encode spell grid
 global.allSpells = encode_grid(global.spellGrid);
 
@@ -1051,6 +1038,10 @@ function processor_load_spell_params() {
 	spellPower		= real(grid[# SPELL_PARAMS.POWER,					currentSpell]);
 	spellEffect		= real(string_digits(grid[# SPELL_PARAMS.EFFECT,	currentSpell]));
 	spellDodgeable	= real(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
+	spellRange		= real(grid[# SPELL_PARAMS.RANGE,					currentSpell]);
+	bypassDodge		= real(grid[# SPELL_PARAMS.BYPASS_DODGE,			currentSpell]);
+	bypassFailure	= real(grid[# SPELL_PARAMS.BYPASS_FAILURE,			currentSpell]);
+	bypassRange		= real(grid[# SPELL_PARAMS.BYPASS_RANGE,			currentSpell]);
 	
 	// destroy spell grid
 	ds_grid_destroy(grid);

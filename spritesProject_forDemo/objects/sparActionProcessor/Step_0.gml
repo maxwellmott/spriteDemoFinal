@@ -237,11 +237,34 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 					ability_check(ABILITY_TYPES.ACTION_SUCCESS);						
 				}
 				
-				if (spellEffect >= 0)
-				&& !(spellFailed) {
-					spellEffect();
+				// check that there is a spell effect
+				if (spellEffect >= 0) {
+					// check if there was no successful dodge
+					// OR if the spell effect bypasses dodges
+					if !(dodgeSuccess)
+					|| (bypassDodge) {
+						// check if the spell did not fail
+						// OR if the spell effect bypasses failure
+						if !(spellFailed)
+						|| (bypassFailure) {
+							// check if the spell is not out of range
+							// OR if the spell effect bypasses range
+							if !(outOfRange)
+							|| (bypassRange) {
+								spellEffect();
+							}
+						}
+					}
 				}
 				
+				// if the spell was out of range
+				if (outOfRange) {
+					spar.turnMsg = "But the target was out of range!";
+					if (alarm[0] == -1)		alarm[0] = 90;
+					exit;
+				}
+				
+				// if the spell failed
 				if (spellFailed) {
 					spar.turnMsg = "But the spell failed!";
 					if (alarm[0] == -1)		alarm[0] = 90;

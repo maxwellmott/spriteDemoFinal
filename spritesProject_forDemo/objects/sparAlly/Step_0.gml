@@ -1,6 +1,38 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+if (spar_check_complete()) {
+	exit;
+}
+
+if !(spar_check_hpmp()) {
+	exit;
+}
+
+if !(check_sprites_done_flashing()) {
+	exit;	
+}
+
+if (instance_exists(sparEffectAlert)) {
+	exit;	
+}
+
+if (instance_exists(processorParent)) {
+	exit;
+}
+
+if (instance_exists(sparSpellFX)) {
+	exit;	
+}
+
+if (ds_list_size(effectAlertList) > 0) {
+	exit;
+}
+
+if (onlineWaiting) {
+	exit;
+}
+
 // check for mindset
 sprite_check_mindset();
 
@@ -75,7 +107,7 @@ if (spar.sparPhase == SPAR_PHASES.SELECT) {
 #region HANDLE READY DISPLAY
 
 // check if selectedTarget is set
-if (selectedTarget >= 0) {
+if (selectedTarget >= -1) {
 	// check if readyDisplay has been built
 	if !(readyDisplayBuilt) {
 		// if not, build readyDisplay

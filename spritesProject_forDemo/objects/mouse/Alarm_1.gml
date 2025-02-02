@@ -1,3 +1,3 @@
 /// @desc CHANGE BACK TO UNCLICKED FRAME
 
-frame = 0;
+image_index = 0;
