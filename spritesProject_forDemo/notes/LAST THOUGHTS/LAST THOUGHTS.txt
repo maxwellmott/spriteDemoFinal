@@ -762,3 +762,28 @@ COMING BACK FROM PLAYTEST BUILD
 				-add titles
 				-make documentation for playtesters
 				-schedule the first playtesting session!
+				
+				
+					BUGS ENCOUNTERED WHEN PLAYTESTING WITH YIMING ON FEBRUARY 1 2025
+		
+		-server does not delete old rooms when there is nobody in them
+		-server does not allow team/spell/turn deselection
+		-server does not allow rejoining of old rooms
+		-game does not support saving/loading which is a time sink for testing
+		-no doors to enter different rooms which is a time sink for testing
+		-selecting unfinished main menu options breaks the game
+		-various inconveniences in the UI:
+			-teambuilder:
+				-when selecting, allow:
+					-nameplate click to select new sprite
+					-teammate click to swap positions
+				-reveal entire new page of sprites after scrolling
+			-spell selector:
+				-include an inspect menu for selected spells
+				-"waiting for player..." not displayed\
+				
+				
+	YOU FIXED SCROOTINEYES' ABILITY, YOU NEED TO FIX JACKHAMMER'S IN THE SAME WAY!!!!
+	
+	MAKE A LIST OF ALL THE SPAR EFFECT ANIMATIONS YOU STILL NEED!!!!
+			

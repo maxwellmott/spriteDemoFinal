@@ -1,7 +1,62 @@
-/// @description Insert description here
-// You can write your code in this editor
 
-if (spar_check_complete()) {
+#region HANDLE READY DISPLAY
+
+// check if selectedTarget is set
+if (selectedTarget >= -1) {
+	// check if readyDisplay has been built
+	if !(readyDisplayBuilt) {
+		// if not, build readyDisplay
+		sprite_build_ready_display();
+	}
+}
+
+// set ready display to false
+if (spar.sparPhase == SPAR_PHASES.PROCESS)
+&& (readyDisplayBuilt) {
+	readyDisplayBuilt = false;	
+}
+
+#endregion
+
+#region CHANGE SPRITE FOR RESTING, SWAPPING, ETC
+// check if swapping is true and sprite has yet to change
+if (swapping) && (sprite != spr_sparSwapCloud) {
+	// if swapping, change sprite to swapCloud
+	sprite = spr_sparSwapCloud;
+}
+
+if (instance_exists(sparRestProcessor))
+&& (sparRestProcessor.animationStarted) {
+	// check if resting is true and sprite has yet to change
+	if (resting) && (sprite != spr_sparRestEye) {
+		// if resting, change sprite to restEye
+		sprite = spr_sparRestEye;
+	}
+	
+	// fade out sprite if they aren't resting during the rest process
+	if !(resting) {
+		if (alpha > 0.0) {alpha -= 0.05;}	
+	}
+	else {
+		if (alpha < 1.0) {alpha += 0.05;}	
+	}
+}
+
+if (instance_exists(sparActionProcessor)) {
+	if (sparActionProcessor.activeSprite != id)
+	&& (sparActionProcessor.targetSprite != id) {
+		alpha = 1.0 - sparActionProcessor.shadeAlpha;
+	}
+}
+
+if !(instance_exists(sparRestProcessor))
+&& !(instance_exists(sparSpellFX)) {
+	if (alpha < 1.0)	alpha += 0.05;
+}
+
+#endregion
+
+if (instance_exists(winLoseDisplay)) {
 	exit;
 }
 
@@ -25,11 +80,11 @@ if (instance_exists(sparSpellFX)) {
 	exit;	
 }
 
-if (ds_list_size(effectAlertList) > 0) {
+if (ds_list_size(spar.effectAlertList) > 0) {
 	exit;
 }
 
-if (onlineWaiting) {
+if (spar.onlineWaiting) {
 	exit;
 }
 
@@ -100,63 +155,6 @@ if (spar.sparPhase == SPAR_PHASES.SELECT) {
 			}
 		}
 	}
-}
-
-#endregion
-
-#region HANDLE READY DISPLAY
-
-// check if selectedTarget is set
-if (selectedTarget >= -1) {
-	// check if readyDisplay has been built
-	if !(readyDisplayBuilt) {
-		// if not, build readyDisplay
-		sprite_build_ready_display();
-	}
-}
-
-// set ready display to false
-if (spar.sparPhase == SPAR_PHASES.PROCESS)
-&& (readyDisplayBuilt) {
-	readyDisplayBuilt = false;	
-}
-
-#endregion
-
-#region CHANGE SPRITE FOR RESTING, SWAPPING, ETC
-// check if swapping is true and sprite has yet to change
-if (swapping) && (sprite != spr_sparSwapCloud) {
-	// if swapping, change sprite to swapCloud
-	sprite = spr_sparSwapCloud;
-}
-
-if (instance_exists(sparRestProcessor))
-&& (sparRestProcessor.animationStarted) {
-	// check if resting is true and sprite has yet to change
-	if (resting) && (sprite != spr_sparRestEye) {
-		// if resting, change sprite to restEye
-		sprite = spr_sparRestEye;
-	}
-	
-	// fade out sprite if they aren't resting during the rest process
-	if !(resting) {
-		if (alpha > 0.0) {alpha -= 0.05;}	
-	}
-	else {
-		if (alpha < 1.0) {alpha += 0.05;}	
-	}
-}
-
-if (instance_exists(sparActionProcessor)) {
-	if (sparActionProcessor.activeSprite != id)
-	&& (sparActionProcessor.targetSprite != id) {
-		alpha = 1.0 - sparActionProcessor.shadeAlpha;
-	}
-}
-
-if !(instance_exists(sparRestProcessor))
-&& !(instance_exists(sparSpellFX)) {
-	if (alpha < 1.0)	alpha += 0.05;
 }
 
 #endregion

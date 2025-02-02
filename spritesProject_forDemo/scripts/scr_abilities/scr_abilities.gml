@@ -1039,19 +1039,20 @@ function all_seeing_eyes(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the selectedAlly
-	if (inst == player.selectedAlly) {
-		// check if it is using a trick or elemental spell
-		if (global.action >= sparActions.height) {
-			// build spell grid
-			var sg = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
-			decode_grid(global.allSpells, sg);
-			
+	// build spell grid
+	var sg = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
+	decode_grid(global.allSpells, sg);
+	
+	// check if the sparActionProcessor exists
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the attacker
+		if (inst == sparActionProcessor.activeSprite) {
 			// get spell type
-			var st = real(sg[# SPELL_PARAMS.TYPE, global.action - sparActions.height]);		
+			var st = real(sg[# SPELL_PARAMS.TYPE, sparActionProcessor.currentSpell]);
 			
 			// check if spell is elemental or trick spell
 			if (st != SPELL_TYPES.PHYSICAL) {
+				// improve range
 				improve_range();
 				
 				// push a spar effect alert for activate ability
@@ -1062,8 +1063,29 @@ function all_seeing_eyes(_inst) {
 			}
 		}
 	}
+	else {
+		// check if this sprite is the selectedAlly
+		if (inst == player.selectedAlly) {
+			// check if it is using a trick or elemental spell
+			if (global.action >= sparActions.height) {
+				// get spell type
+				var st = real(sg[# SPELL_PARAMS.TYPE, global.action - sparActions.height]);		
+				
+				// check if spell is elemental or trick spell
+				if (st != SPELL_TYPES.PHYSICAL) {
+					// improve range
+					improve_range();
+					
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// push a spar effect alert for improve range
+					spar_effect_push_alert(SPAR_EFFECTS.IMPROVE_RANGE, inst);
+				}
+			}
+		}
+	}
 }
-
 ///@desc ABILITY FUNCTION -- ARRAYNGE:
 /// TYPE: ACTION SUCCESS
 /// If this sprite is hit with a basic attack or physical spell, the attacker

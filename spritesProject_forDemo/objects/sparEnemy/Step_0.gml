@@ -1,7 +1,4 @@
-/// @description Insert description here
-// You can write your code in this editor
-
-if (spar_check_complete()) {
+if (instance_exists(winLoseDisplay)) {
 	exit;
 }
 
@@ -25,11 +22,11 @@ if (instance_exists(sparSpellFX)) {
 	exit;	
 }
 
-if (ds_list_size(effectAlertList) > 0) {
+if (ds_list_size(spar.effectAlertList) > 0) {
 	exit;
 }
 
-if (onlineWaiting) {
+if (spar.onlineWaiting) {
 	exit;
 }
 
