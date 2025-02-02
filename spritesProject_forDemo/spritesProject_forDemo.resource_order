@@ -76,6 +76,7 @@
     {"name":"keyboardFont","order":13,"path":"fonts/keyboardFont/keyboardFont.yy",},
     {"name":"lobbyFont","order":9,"path":"fonts/lobbyFont/lobbyFont.yy",},
     {"name":"mainMenuFont","order":12,"path":"fonts/mainMenuFont/mainMenuFont.yy",},
+    {"name":"nameDisplayFont","order":16,"path":"fonts/nameDisplayFont/nameDisplayFont.yy",},
     {"name":"overworldFont","order":3,"path":"fonts/overworldFont/overworldFont.yy",},
     {"name":"plainFont","order":6,"path":"fonts/plainFont/plainFont.yy",},
     {"name":"roninBasic","order":1,"path":"fonts/roninBasic/roninBasic.yy",},

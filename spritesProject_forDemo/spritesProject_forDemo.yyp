@@ -119,6 +119,7 @@
     {"id":{"name":"keyboardFont","path":"fonts/keyboardFont/keyboardFont.yy",},},
     {"id":{"name":"lobbyFont","path":"fonts/lobbyFont/lobbyFont.yy",},},
     {"id":{"name":"mainMenuFont","path":"fonts/mainMenuFont/mainMenuFont.yy",},},
+    {"id":{"name":"nameDisplayFont","path":"fonts/nameDisplayFont/nameDisplayFont.yy",},},
     {"id":{"name":"overworldFont","path":"fonts/overworldFont/overworldFont.yy",},},
     {"id":{"name":"plainFont","path":"fonts/plainFont/plainFont.yy",},},
     {"id":{"name":"roninBasic","path":"fonts/roninBasic/roninBasic.yy",},},

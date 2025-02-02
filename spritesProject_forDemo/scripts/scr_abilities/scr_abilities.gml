@@ -1047,19 +1047,22 @@ function all_seeing_eyes(_inst) {
 	if (instance_exists(sparActionProcessor)) {
 		// check if this sprite is the attacker
 		if (inst == sparActionProcessor.activeSprite) {
-			// get spell type
-			var st = real(sg[# SPELL_PARAMS.TYPE, sparActionProcessor.currentSpell]);
+			// check that this is not a basic attack
+			if (sparActionProcessor.currentSpell >= 0) {
+				// get spell type
+				var st = real(sg[# SPELL_PARAMS.TYPE, sparActionProcessor.currentSpell]);
 			
-			// check if spell is elemental or trick spell
-			if (st != SPELL_TYPES.PHYSICAL) {
-				// improve range
-				improve_range();
+				// check if spell is elemental or trick spell
+				if (st != SPELL_TYPES.PHYSICAL) {
+					// improve range
+					improve_range();
 				
-				// push a spar effect alert for activate ability
-				spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-				
-				// push a spar effect alert for improve range
-				spar_effect_push_alert(SPAR_EFFECTS.IMPROVE_RANGE, inst);
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// push a spar effect alert for improve range
+					spar_effect_push_alert(SPAR_EFFECTS.IMPROVE_RANGE, inst);
+				}
 			}
 		}
 	}
