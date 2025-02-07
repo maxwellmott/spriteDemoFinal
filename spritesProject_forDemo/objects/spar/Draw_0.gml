@@ -329,11 +329,22 @@ draw_set_alpha(1.0);
 	draw_set(fa_left, fa_top, 1.0, COL_BLACK);
 	
 	// set font
-	draw_set_font(plainFont);
+	draw_set_font(nameDisplayFont);
 	
-	// draw titles and names
-	draw_text_pixel_perfect(guiWidth - npw + 7, guiHeight - nph, playerOne.name, 7, 256);
-	draw_text_pixel_perfect(6, 0, playerTwo.name, 7, 256);
+	// set names to all caps
+	var n1 = string_upper(playerOne.name);
+	var n2 = string_upper(playerTwo.name);
+	
+	// draw player name
+	draw_text_pixel_perfect(guiWidth - npw + 7, guiHeight - nph - 14, n1, 7, 256);
+	
+	// draw player title
+	draw_sprite(spr_sparTitlesSheet, playerOne.selectedTitle, 157, 211);
+	
+	// draw enemy name
+	draw_text_pixel_perfect(6, -14, n2, 7, 256);
+	
+	// draw enemy title
 	
 	// draw HPMP symbols
 	draw_sprite(spr_sparHPMP, 0, 120, guiHeight - 8);

@@ -107,12 +107,33 @@ wardrobeList = ds_list_create();
 // initialize knownSpells
 knownSpells = ds_list_create();
 
+// initialize unlockedTitles
+sparTitles = ds_list_create();
+
+// set all titles to -1
+var i = 0;	repeat (SPAR_TITLES.HEIGHT) {
+	sparTitles[|i] = -1;
+
+	i++;	
+}
+
+// FOR TESTING PURPOSES ONLY
+// add all titles tot unlockedTitles
+var i = 0;	repeat (SPAR_TITLES.HEIGHT) {
+	sparTitles[|i] = i;
+
+	i++;
+}
+
 // for testing purposes only
 var i = 0;	repeat (SPELLS.HEIGHT)	{
 	knownSpells[| i] = i;
 	
 	i++;
 }
+
+// set selectedTitle
+selectedTitle = SPAR_TITLES.DEV;
 
 // initialize spellBookString
 spellBookString = "";
