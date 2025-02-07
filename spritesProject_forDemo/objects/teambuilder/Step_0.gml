@@ -1,7 +1,7 @@
 
 // check if onlineWaiting
 if !(onlineWaiting) {
-	if (selectedSpriteSlot == -1) {
+	if (selectedTeamSlot == -1) {
 		// reset msg in case controller type changed
 		if (global.controllerType == controllerTypes.keyboard) {
 			msg = "PRESS ENTER TO ACCEPT";
@@ -36,18 +36,24 @@ if !(optionsChangingUp)
 		// set selectorMoved to true
 		selectorMoved = true;
 		
-		if (selectorIndex <= 1) {
-			// set rowOneFrame to 1
-			rowOneFrame = 1;
-			
-			// set optionsChangingDown to true
-			optionsChangingDown = true;
-			
-			// decrement bottomRowNum
-			bottomRowNum -= 1;
-			
-			//@TODO BUILD CASCADING ALARM SYSTEM AND SET ALARM HERE
-			alarm[0] = alarmTime;
+		// check if there are more rows than can be viewed on one page
+		if (rowCount > columnHeight) {
+			if (selectorIndex <= 1) {
+				// set rowOneFrame to 1
+				rowOneFrame = 1;
+				
+				// set optionsChangingDown to true
+				optionsChangingDown = true;
+				
+				// decrement bottomRowNum by the number of rows per page
+				bottomRowNum -= columnHeight;
+				
+				// clamp bottomRowNum to columnHeight and rowCount
+				bottomRowNum = clamp(bottomRowNum, 0, rowCount - 1);
+				
+				//@TODO BUILD CASCADING ALARM SYSTEM AND SET ALARM HERE
+				alarm[0] = alarmTime;
+			}
 		}
 	}
 	
@@ -58,18 +64,24 @@ if !(optionsChangingUp)
 		// set selectorMoved to true
 		selectorMoved = true;
 		
-		if (selectorIndex >= 6) {
-			// set rowFiveFrame to 1
-			rowFiveFrame = 1;
-			
-			// set optionsChangingUp to true
-			optionsChangingUp = true;
-			
-			// increment bottomRowNum
-			bottomRowNum	+= 1;
-			
-			//@TODO BUILD CASCADING ALARM SYSTEM AND SET ALARM HERE
-			alarm[0] = alarmTime;
+		// check if there are more rows than can be viewed on one page
+		if (rowCount > columnHeight) {
+			if (selectorIndex >= 6) {
+				// set rowFiveFrame to 1
+				rowFiveFrame = 1;
+				
+				// set optionsChangingUp to true
+				optionsChangingUp = true;
+				
+				// increment bottomRowNum by the number of rows per page
+				bottomRowNum	+= columnHeight;
+				
+				// clamp the bottomRowNum to columnHeight and rowCount
+				bottomRowNum = clamp(bottomRowNum, 0, rowCount - 1);
+				
+				//@TODO BUILD CASCADING ALARM SYSTEM AND SET ALARM HERE
+				alarm[0] = alarmTime;
+			}
 		}
 	}
 	
@@ -80,18 +92,24 @@ if !(optionsChangingUp)
 		// set selectorMoved to true
 		selectorMoved = true;
 		
-		if (selectorIndex == 0) {
-			// set rowOneFrame to 1
-			rowOneFrame = 1;
+		// check if there are more rows than can be viewed on one page
+		if (rowCount > columnHeight) {
+			if (selectorIndex == 0) {
+				// set rowOneFrame to 1
+				rowOneFrame = 1;
 			
-			// set optionsChangingDown to true
-			optionsChangingDown = true;
+				// set optionsChangingDown to true
+				optionsChangingDown = true;
+				
+				// decrement bottomRowNum by the number of rows per page
+				bottomRowNum -=columnHeight;
 			
-			// decrement bottomRowNum
-			bottomRowNum -= 1;
+				// clamp the bottomRowNum to columnHeight and rowCount
+				bottomRowNum = clamp(bottomRowNum, 0, rowCount - 1);
 			
-			//@TODO BUILD CASCADING ALARM SYSTEM AND SET ALARM HERE
-			alarm[0] = alarmTime;
+				//@TODO BUILD CASCADING ALARM SYSTEM AND SET ALARM HERE
+				alarm[0] = alarmTime;
+			}
 		}
 	}
 	
@@ -102,22 +120,28 @@ if !(optionsChangingUp)
 		// set selectorMoved to true
 		selectorMoved = true;
 		
-		if (selectorIndex == 7) {
-			// set rowFiveFrame to 1
-			rowFiveFrame = 1;
+		// check if there are more rows than can be viewed on one page
+		if (rowCount > columnHeight) {
+			if (selectorIndex == 7) {
+				// set rowFiveFrame to 1
+				rowFiveFrame = 1;
 			
-			// set optionsChangingUp to true
-			optionsChangingUp = true;
+				// set optionsChangingUp to true
+				optionsChangingUp = true;
 			
-			// increment bottomRowNum
-			bottomRowNum += 1;
+				// increment bottomRowNum by the number of rows per page
+				bottomRowNum += columnHeight;
+			
+				// clamp the bottomRowNum to columnHeight and rowCount
+				bottomRowNum = clamp(bottomRowNum, 0, rowCount - 1);
 		
-			//@TODO BUILD CASCADING ALARM SYSTEM AND SET ALARM HERE
-			alarm[0] = alarmTime;
+				//@TODO BUILD CASCADING ALARM SYSTEM AND SET ALARM HERE
+				alarm[0] = alarmTime;
+			}
 		}
 	}
 }
-
+	
 #endregion
 
 if (selectorMoved) {
@@ -163,48 +187,97 @@ if (selectorMoved) {
 	if !(optionsChangingUp) 
 	&& !(optionsChangingDown) {
 		// manage spriteslot selection
-		if (global.click) {
-			// spriteSlotOne
-			if collision_rectangle(spriteSlotOne_bboxLeft, spriteSlot_bboxTop, spriteSlotOne_bboxRight, spriteSlot_bboxBottom, mouse, true, false) {
-				selectedSpriteSlot = 0;
+		if (global.click) {	
+		
+			// check all team slots for collisions
+			var i = 0;	repeat (ds_list_size(teamList)) {
+				var left	= teamSlotLeftList[| i];
+				var right	= teamSlotRightList[| i];
+				var top		= teamSlotTopList[| i];
+				var bottom	= teamSlotBottomList[| i];
+				
+				// check for a collision with the above dimensions
+				if (collision_rectangle(left, top, right, bottom, mouse, true, false)) {
+					// check if there is already a selected teamSlot
+					if (selectedTeamSlot != -1) {
+						var temp = teamList[| i];
+						teamList[| i] = teamList[| selectedTeamSlot];
+						teamList[| selectedTeamSlot] = temp;
+						
+						// set selectedTeamSlot to -1
+						selectedTeamSlot = -1;
+					}
+					// if there is NOT already a selected teamSlot
+					else {
+						selectedTeamSlot = i;
+					}
+					
+					spotClicked = true;
+					break;
+				}
+				
+				// increment i
+				i++;
 			}
 			
-			// spriteSlotTwo
-			else if collision_rectangle(spriteSlotTwo_bboxLeft, spriteSlot_bboxTop, spriteSlotTwo_bboxRight, spriteSlot_bboxBottom, mouse, true, false) {
-				selectedSpriteSlot = 1;	
+			// check if a spot has not yet been clicked
+			if !(spotClicked) {
+				// check that there is a selectedTeamSlot
+				if (selectedTeamSlot >= 0) {
+					// check that there has not been a recent selection
+					if !(recentSelection) {
+						// check all name slots for collisions
+						var i = 0;	repeat (columnHeight * rowWidth) {
+							var left	= nameSlotLeftList[| i];
+							var right	= nameSlotRightList[| i];
+							var top		= nameSlotTopList[| i];
+							var bottom	= nameSlotBottomList[| i];
+						
+							// check for a collision with the above dimensions
+							if (collision_rectangle(left, top, right, bottom, mouse, true, false)) {
+								alarm[2] = 24;
+								
+								if (ds_list_find_index(teamList, talismanList[| i + (bottomRowNum * rowWidth)]) == -1) {
+									teamList[| selectedTeamSlot] = talismanList[| i + (bottomRowNum * rowWidth)];
+								}
+								else {
+									// load error SFX	
+								}
+							}
+						
+							// increment i
+							i++;
+						}
+					}
+				}
 			}
 			
-			// spriteSlotThree
-			else if collision_rectangle(spriteSlotThree_bboxLeft, spriteSlot_bboxTop, spriteSlotThree_bboxRight, spriteSlot_bboxBottom, mouse, true, false) {
-				selectedSpriteSlot = 2;
-			}
-			
-			// spriteSlotFour
-			else if collision_rectangle(spriteSlotFour_bboxLeft, spriteSlot_bboxTop, spriteSlotFour_bboxRight, spriteSlot_bboxBottom, mouse, true, false) {
-				selectedSpriteSlot = 3;
-			}
-			
-			// set to -1
-			else {
-				selectedSpriteSlot = -1;	
+			// check if a spot has not yet been clicked
+			if !(spotClicked) {
+				// check if there is a selectedTeamSlot
+				if (selectedTeamSlot >= 0) {
+					selectedTeamSlot = -1;	
+				}
 			}
 		}
 		
 		// manage nameSlot selection
 		if (global.select) {
-			if (selectedSpriteSlot >= 0) 
+			if (selectedTeamSlot >= 0) 
 			&& !(recentSelection) {
 				recentSelection = true;
 				alarm[2] = 24;
 				
 				if (ds_list_find_index(teamList, talismanList[| selectedNameSlot]) == -1) {
-					teamList[| selectedSpriteSlot] = talismanList[| selectedNameSlot];
+					teamList[| selectedTeamSlot] = talismanList[| selectedNameSlot];
 				}
 				else {
 					// load error SFX	
 				}
 			}
 		}
+		
+		spotClicked = false;
 	}
 	
 	#endregion
@@ -212,7 +285,7 @@ if (selectorMoved) {
 	if !(instance_exists(onlineEnemy)) {
 		if (global.start) {
 			if (ds_list_size(teamList) == 4)
-			&& (selectedSpriteSlot == -1) {			
+			&& (selectedTeamSlot == -1) {			
 				// set player.teamString
 				player.teamString = "";
 				player.teamString = encode_list(teamList);
@@ -225,7 +298,7 @@ if (selectorMoved) {
 	if (instance_exists(onlineEnemy)) {
 		if (global.start) {
 			if (ds_list_size(teamList) == 4)
-			&& (selectedSpriteSlot == -1) {
+			&& (selectedTeamSlot == -1) {
 				// set player.teamList
 				player.teamList = teamList			
 				

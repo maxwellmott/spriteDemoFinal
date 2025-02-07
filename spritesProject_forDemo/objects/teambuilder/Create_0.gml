@@ -22,6 +22,11 @@ var i = 0;	repeat (ds_list_size(talismanList)) {
 	i++;
 }
 
+// get current team
+teamList = ds_list_create();
+
+decode_list(player.teamString, teamList);
+
 // initialize visible row count
 visibleRowCount = 4;
 
@@ -50,10 +55,10 @@ var h = sprite_get_height(spr_teambuilderSpriteSlot);
 
 spriteSlot_bboxTop			= spriteSlotY - (h / 2);
 spriteSlot_bboxBottom		= spriteSlotY + (h / 2);
-							
+						
 spriteSlotOne_bboxLeft		= spriteSlotOneX - (w / 2);
 spriteSlotOne_bboxRight		= spriteSlotOneX + (w / 2);
-							
+						
 spriteSlotTwo_bboxLeft		= spriteSlotTwoX - (w / 2);
 spriteSlotTwo_bboxRight		= spriteSlotTwoX + (w / 2);
 
@@ -63,8 +68,48 @@ spriteSlotThree_bboxRight	= spriteSlotThreeX + (w / 2);
 spriteSlotFour_bboxLeft		= spriteSlotFourX - (w / 2);
 spriteSlotFour_bboxRight	= spriteSlotFourX + (w / 2);
 
-// set selectedSpriteSlot
-selectedSpriteSlot = -1;
+teamSlotLeftList	= ds_list_create();
+teamSlotRightList	= ds_list_create();
+teamSlotTopList		= ds_list_create();
+teamSlotBottomList	= ds_list_create();
+
+var i = 0;	repeat (ds_list_size(teamList)) {
+	switch (i) {
+		case 0:
+			teamSlotLeftList[| i]	= spriteSlotOne_bboxLeft;
+			teamSlotRightList[| i]	= spriteSlotOne_bboxRight;
+			teamSlotTopList[| i]	= spriteSlot_bboxTop;
+			teamSlotBottomList[| i] = spriteSlot_bboxBottom;
+		break;
+			
+		case 1:
+			teamSlotLeftList[| i]	= spriteSlotTwo_bboxLeft;
+			teamSlotRightList[| i]	= spriteSlotTwo_bboxRight;
+			teamSlotTopList[| i]	= spriteSlot_bboxTop;
+			teamSlotBottomList[| i] = spriteSlot_bboxBottom;
+		break;
+		
+		case 2:
+			teamSlotLeftList[| i]	= spriteSlotThree_bboxLeft;
+			teamSlotRightList[| i]	= spriteSlotThree_bboxRight;
+			teamSlotTopList[| i]	= spriteSlot_bboxTop;
+			teamSlotBottomList[| i] = spriteSlot_bboxBottom;
+		break;
+		
+		case 3:
+			teamSlotLeftList[| i]	= spriteSlotFour_bboxLeft;
+			teamSlotRightList[| i]	= spriteSlotFour_bboxRight;
+			teamSlotTopList[| i]	= spriteSlot_bboxTop;
+			teamSlotBottomList[| i] = spriteSlot_bboxBottom;
+		break;
+	}
+	
+	// increment i
+	i++;	
+}
+
+// set selectedTeamSlot
+selectedTeamSlot = -1;
 
 // set selectedNameSlot
 selectedNameSlot = 0;
@@ -77,7 +122,7 @@ columnHeight = 4;
 rosterHeight = ds_list_size(talismanList);
 
 // get columnHeight
-rowCount = (rosterHeight div rowWidth);
+rowCount = rosterHeight div rowWidth;
 
 // get currentRow and currentColumn
 currentRow = selectedNameSlot div rowWidth;
@@ -85,11 +130,6 @@ currentColumn = (rowWidth - 1) - ((selectedNameSlot + 1) mod rowWidth);
 
 // initialize bottomRowNum
 bottomRowNum	= 0;
-
-// get current team
-teamList = ds_list_create();
-
-decode_list(player.teamString, teamList);
 
 // initialize row frames
 rowOneFrame			= 0;
@@ -132,6 +172,77 @@ switch (selectorIndex) {
 	
 	case 6:		selectorX = nameSlotColumnOne;		selectorY = nameSlotRowFive;	break; 
 	case 7:		selectorX = nameSlotColumnTwo;		selectorY = nameSlotRowFive;	break;
+}
+
+var nsw = sprite_get_width(spr_teambuilderNameSlot);
+var nsh = sprite_get_height(spr_teambuilderNameSlot);
+
+nameSlotLeftList	= ds_list_create();
+nameSlotRightList	= ds_list_create();
+nameSlotTopList		= ds_list_create();
+nameSlotBottomList	= ds_list_create();
+
+var i = 0;	repeat (columnHeight * rowWidth) {
+	switch (i) {
+		case 0:
+			nameSlotLeftList[| i]	= nameSlotColumnOne - (nsw / 2);
+			nameSlotRightList[| i]	= nameSlotColumnOne + (nsw / 2);
+			nameSlotTopList[| i]	= nameSlotRowOne - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowOne + (nsh / 2);
+		break;
+		
+		case 1:
+			nameSlotLeftList[| i]	= nameSlotColumnTwo - (nsw / 2);
+			nameSlotRightList[| i]	= nameSlotColumnTwo + (nsw / 2);
+			nameSlotTopList[| i]	= nameSlotRowOne - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowOne + (nsh / 2);
+		break;
+		
+		case 2:
+			nameSlotLeftList[| i]	= nameSlotColumnOne - (nsw / 2);
+			nameSlotRightList[| i]	= nameSlotColumnOne + (nsw / 2);
+			nameSlotTopList[| i]	= nameSlotRowTwo - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowTwo + (nsh / 2);
+		break;
+		
+		case 3:
+			nameSlotLeftList[| i]	= nameSlotColumnTwo - (nsw / 2);
+			nameSlotRightList[| i]	= nameSlotColumnTwo + (nsw / 2);
+			nameSlotTopList[| i]	= nameSlotRowTwo - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowTwo + (nsh / 2);
+		break;
+		
+		case 4:
+			nameSlotLeftList[| i]	= nameSlotColumnOne - (nsw / 2);
+			nameSlotRightList[| i]	= nameSlotColumnOne + (nsw / 2);
+			nameSlotTopList[| i]	= nameSlotRowThree - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowThree + (nsh / 2);
+		break;
+		
+		case 5:
+			nameSlotLeftList[| i]	= nameSlotColumnTwo - (nsw / 2);
+			nameSlotRightList[| i]	= nameSlotColumnTwo + (nsw / 2);
+			nameSlotTopList[| i]	= nameSlotRowThree - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowThree + (nsh / 2);
+		break;
+		
+		case 6:
+			nameSlotLeftList[| i]	= nameSlotColumnOne - (nsw / 2);
+			nameSlotRightList[| i]	= nameSlotColumnOne + (nsw / 2);
+			nameSlotTopList[| i]	= nameSlotRowFour - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowFour + (nsh / 2);
+		break;
+		
+		case 7:
+			nameSlotLeftList[| i]	= nameSlotColumnTwo - (nsw / 2);
+			nameSlotRightList[| i]	= nameSlotColumnTwo + (nsw / 2);
+			nameSlotTopList[| i]	= nameSlotRowFour - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowFour + (nsh / 2);
+		break;
+	}
+	
+	// increment i
+	i++;
 }
 
 rowShiftNum = 0;
@@ -209,3 +320,5 @@ spellUsageY = 191;
 selectorMoved = false;
 
 global.roomBuilt = true;
+
+spotClicked = true;

@@ -104,7 +104,7 @@ var i = 0;	repeat (4) {
 	var _y = spriteSlotY;
 
 	// check if selected
-	if (selectedSpriteSlot == i) {		
+	if (selectedTeamSlot == i) {		
 		// draw spriteslot
 		draw_sprite(spr_teambuilderSpriteSlot, 1, _x, _y);
 		
