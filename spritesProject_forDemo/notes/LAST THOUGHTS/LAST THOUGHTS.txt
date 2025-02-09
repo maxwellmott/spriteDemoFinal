@@ -809,3 +809,19 @@ COMING BACK FROM PLAYTEST BUILD
 					-"waiting for player..." not displayed
 					
 			-fix jackhammer's ability to match scrootineyes'
+			
+	2/8
+	
+			REVISED LIST FROM YIMING MEETING:
+			
+			-server does not delete old rooms when there is nobody in them
+			-server does not allow rejoining of old rooms after crashing
+			
+			-game does not support saving/loading which is a time sink for testing
+			-no doors to enter different rooms which is a time sink for testing
+			-selecting unfinished main menu options breaks the game
+			
+			-various inconveniences in the UI:
+				-spell selector:
+					-include an inspect menu for selected spells
+					-"waiting for player..." not displayed
