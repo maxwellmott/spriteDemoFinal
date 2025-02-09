@@ -187,57 +187,57 @@ var i = 0;	repeat (columnHeight * rowWidth) {
 		case 0:
 			nameSlotLeftList[| i]	= nameSlotColumnOne - (nsw / 2);
 			nameSlotRightList[| i]	= nameSlotColumnOne + (nsw / 2);
-			nameSlotTopList[| i]	= nameSlotRowOne - (nsh / 2);
-			nameSlotBottomList[| i] = nameSlotRowOne + (nsh / 2);
+			nameSlotTopList[| i]	= nameSlotRowTwo - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowTwo + (nsh / 2);
 		break;
 		
 		case 1:
 			nameSlotLeftList[| i]	= nameSlotColumnTwo - (nsw / 2);
 			nameSlotRightList[| i]	= nameSlotColumnTwo + (nsw / 2);
-			nameSlotTopList[| i]	= nameSlotRowOne - (nsh / 2);
-			nameSlotBottomList[| i] = nameSlotRowOne + (nsh / 2);
+			nameSlotTopList[| i]	= nameSlotRowTwo - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowTwo + (nsh / 2);
 		break;
 		
 		case 2:
 			nameSlotLeftList[| i]	= nameSlotColumnOne - (nsw / 2);
 			nameSlotRightList[| i]	= nameSlotColumnOne + (nsw / 2);
-			nameSlotTopList[| i]	= nameSlotRowTwo - (nsh / 2);
-			nameSlotBottomList[| i] = nameSlotRowTwo + (nsh / 2);
+			nameSlotTopList[| i]	= nameSlotRowThree - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowThree + (nsh / 2);
 		break;
 		
 		case 3:
 			nameSlotLeftList[| i]	= nameSlotColumnTwo - (nsw / 2);
 			nameSlotRightList[| i]	= nameSlotColumnTwo + (nsw / 2);
-			nameSlotTopList[| i]	= nameSlotRowTwo - (nsh / 2);
-			nameSlotBottomList[| i] = nameSlotRowTwo + (nsh / 2);
+			nameSlotTopList[| i]	= nameSlotRowThree - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowThree + (nsh / 2);
 		break;
 		
 		case 4:
 			nameSlotLeftList[| i]	= nameSlotColumnOne - (nsw / 2);
 			nameSlotRightList[| i]	= nameSlotColumnOne + (nsw / 2);
-			nameSlotTopList[| i]	= nameSlotRowThree - (nsh / 2);
-			nameSlotBottomList[| i] = nameSlotRowThree + (nsh / 2);
+			nameSlotTopList[| i]	= nameSlotRowFour - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowFour + (nsh / 2);
 		break;
 		
 		case 5:
 			nameSlotLeftList[| i]	= nameSlotColumnTwo - (nsw / 2);
 			nameSlotRightList[| i]	= nameSlotColumnTwo + (nsw / 2);
-			nameSlotTopList[| i]	= nameSlotRowThree - (nsh / 2);
-			nameSlotBottomList[| i] = nameSlotRowThree + (nsh / 2);
+			nameSlotTopList[| i]	= nameSlotRowFour - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowFour + (nsh / 2);
 		break;
 		
 		case 6:
 			nameSlotLeftList[| i]	= nameSlotColumnOne - (nsw / 2);
 			nameSlotRightList[| i]	= nameSlotColumnOne + (nsw / 2);
-			nameSlotTopList[| i]	= nameSlotRowFour - (nsh / 2);
-			nameSlotBottomList[| i] = nameSlotRowFour + (nsh / 2);
+			nameSlotTopList[| i]	= nameSlotRowFive - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowFive + (nsh / 2);
 		break;
 		
 		case 7:
 			nameSlotLeftList[| i]	= nameSlotColumnTwo - (nsw / 2);
 			nameSlotRightList[| i]	= nameSlotColumnTwo + (nsw / 2);
-			nameSlotTopList[| i]	= nameSlotRowFour - (nsh / 2);
-			nameSlotBottomList[| i] = nameSlotRowFour + (nsh / 2);
+			nameSlotTopList[| i]	= nameSlotRowFive - (nsh / 2);
+			nameSlotBottomList[| i] = nameSlotRowFive + (nsh / 2);
 		break;
 	}
 	

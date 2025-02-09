@@ -1,4 +1,4 @@
-It's been a while since I checked in here, I deleted all past notes so I can start fresh with the demo from here on out.
+dIt's been a while since I checked in here, I deleted all past notes so I can start fresh with the demo from here on out.
 
 I'm going to start by building a list of everything that needs to be finished with the battle scene, then I'll refer to that list
 in each of the "last thoughts" notes to follow.
@@ -790,3 +790,22 @@ COMING BACK FROM PLAYTEST BUILD
 	MAKE A LIST OF ALL THE SPAR EFFECT ANIMATIONS YOU STILL NEED!!!!
 			
 	ACCURACY ISSUES WITH NAMESLOTS IN TEAMBUILDER--OTHERWISE FINISHED!!!
+	
+	
+	2/7
+			REVISED LIST FROM YIMING MEETING:
+			
+			-server does not delete old rooms when there is nobody in them
+			-server does not allow team/spell/turn deselection
+			-server does not allow rejoining of old rooms
+			
+			-game does not support saving/loading which is a time sink for testing
+			-no doors to enter different rooms which is a time sink for testing
+			-selecting unfinished main menu options breaks the game
+			
+			-various inconveniences in the UI:
+				-spell selector:
+					-include an inspect menu for selected spells
+					-"waiting for player..." not displayed
+					
+			-fix jackhammer's ability to match scrootineyes'
