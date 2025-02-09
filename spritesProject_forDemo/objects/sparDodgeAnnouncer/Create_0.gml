@@ -8,13 +8,13 @@ animationStopped = false;
 // populate the list
 var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 	// get the spotNum of the active sprite
-	var activeSpot = spar.turnGrid[# SELECTION_PHASES.ALLY, i];
+	var activeSpot = spar.turnGrid[# TURN_GRID.ALLY, i];
 	
 	// get the instance id of the active sprite
 	var inst = spot_num_get_instance(activeSpot);
 	
 	// get the action of the i row
-	var a = spar.turnGrid[# SELECTION_PHASES.ACTION, i];
+	var a = spar.turnGrid[# TURN_GRID.ACTION, i];
 	
 	// check if the action is a swap
 	if (a == sparActions.dodge) {
@@ -25,7 +25,7 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 		ds_list_add(dodgeList, inst);
 		
 		// clear this sprite's spot on the turn grid
-		var ii = 0;	repeat (SELECTION_PHASES.HEIGHT) {
+		var ii = 0;	repeat (TURN_GRID.HEIGHT - 1) {
 			spar.turnGrid[# ii, i] = -1;
 			
 			ii++;

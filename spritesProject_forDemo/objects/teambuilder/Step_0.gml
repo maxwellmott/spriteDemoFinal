@@ -300,7 +300,7 @@ if (selectorMoved) {
 			if (ds_list_size(teamList) == 4)
 			&& (selectedTeamSlot == -1) {
 				// set player.teamList
-				player.teamList = teamList			
+				player.teamList = teamList;			
 				
 				// set player.teamString
 				player.teamString = "";
@@ -317,6 +317,14 @@ if (selectorMoved) {
 }
 
 if (onlineWaiting) {
-	// send a request for the enemy team every couple of seconds	
-	if (global.gameTime mod 120 == 0)	request_team_begin();
+	if (global.back) {
+		player_cancel_team();
+
+		exit;
+	}
+	
+	if !(cancelled) {
+		// send a request for the enemy team every couple of seconds	
+		if !(global.gameTime mod 600)	request_team_begin();
+	}
 }

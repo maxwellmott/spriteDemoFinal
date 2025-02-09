@@ -229,7 +229,6 @@ if !drawFlip {
 	}
 }
 
-//@TODO take a closer look at everything below here. make sure that the spellBookString gets reset before closing.
 if !(onlineWaiting) {	
 	if (global.start) {
 		player.spellBookString = "";
@@ -246,10 +245,15 @@ if !(onlineWaiting) {
 }
 
 if (onlineWaiting) {
-	// check if the enemy is ready every couple of turns
-	if !(global.gameTime mod 120)	ready_check_begin();
+	if !(cancelled) {
+		if (global.back) {
+			player_cancel_spellbook();
+		}
+		
+		// check if the enemy is ready every couple of turns
+		if !(global.gameTime mod 600)	ready_check_begin();
+	}
 }
-
 
 if (x == targetX) && (targetX == 0 - (spriteWidth / 2)) {
 

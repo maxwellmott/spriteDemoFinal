@@ -322,3 +322,5 @@ selectorMoved = false;
 global.roomBuilt = true;
 
 spotClicked = true;
+
+cancelled = false;

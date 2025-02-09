@@ -1105,22 +1105,22 @@ function force_swap(_targetSprite) {
 					tsid.mindset = m1;
 					
 					// get the action, target, and luckRoll for both swappers
-					var t_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, tsn];
-					var t_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, tsn];
-					var t_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn];
+					var t_action	= spar.turnGrid[# TURN_GRID.ACTION, tsn];
+					var t_target	= spar.turnGrid[# TURN_GRID.TARGET, tsn];
+					var t_luck		= spar.turnGrid[# TURN_GRID.LUCK, tsn];
 					
-					var p_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, psn];
-					var p_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, psn];
-					var p_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn];
+					var p_action	= spar.turnGrid[# TURN_GRID.ACTION, psn];
+					var p_target	= spar.turnGrid[# TURN_GRID.TARGET, psn];
+					var p_luck		= spar.turnGrid[# TURN_GRID.LUCK, psn];
 					
 					// swap the two sprites' turn rows
-					spar.turnGrid[# SELECTION_PHASES.ACTION, tsn] = p_action;
-					spar.turnGrid[# SELECTION_PHASES.TARGET, tsn] = p_target;
-					spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn] = p_luck;
+					spar.turnGrid[# TURN_GRID.ACTION, tsn] = p_action;
+					spar.turnGrid[# TURN_GRID.TARGET, tsn] = p_target;
+					spar.turnGrid[# TURN_GRID.LUCK, tsn] = p_luck;
 					
-					spar.turnGrid[# SELECTION_PHASES.ACTION, psn] = t_action;
-					spar.turnGrid[# SELECTION_PHASES.TARGET, psn] = t_target;
-					spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn] = t_luck;
+					spar.turnGrid[# TURN_GRID.ACTION, psn] = t_action;
+					spar.turnGrid[# TURN_GRID.TARGET, psn] = t_target;
+					spar.turnGrid[# TURN_GRID.LUCK, psn] = t_luck;
 				}
 			}
 		}	
@@ -1271,22 +1271,22 @@ function force_swap_team(_targetPlayer) {
 					tsid.mindset = m1;
 					
 					// get the action, target, and luckRoll for both swappers
-					var t_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, tsn];
-					var t_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, tsn];
-					var t_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn];
+					var t_action	= spar.turnGrid[# TURN_GRID.ACTION, tsn];
+					var t_target	= spar.turnGrid[# TURN_GRID.TARGET, tsn];
+					var t_luck		= spar.turnGrid[# TURN_GRID.LUCK, tsn];
 					
-					var p_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, psn];
-					var p_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, psn];
-					var p_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn];
+					var p_action	= spar.turnGrid[# TURN_GRID.ACTION, psn];
+					var p_target	= spar.turnGrid[# TURN_GRID.TARGET, psn];
+					var p_luck		= spar.turnGrid[# TURN_GRID.LUCK, psn];
 
 					// swap the two sprites' turn rows
-					spar.turnGrid[# SELECTION_PHASES.ACTION, tsn] = p_action;
-					spar.turnGrid[# SELECTION_PHASES.TARGET, tsn] = p_target;
-					spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn] = p_luck;
+					spar.turnGrid[# TURN_GRID.ACTION, tsn] = p_action;
+					spar.turnGrid[# TURN_GRID.TARGET, tsn] = p_target;
+					spar.turnGrid[# TURN_GRID.LUCK, tsn] = p_luck;
 					
-					spar.turnGrid[# SELECTION_PHASES.ACTION, psn] = t_action;
-					spar.turnGrid[# SELECTION_PHASES.TARGET, psn] = t_target;
-					spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn] = t_luck;
+					spar.turnGrid[# TURN_GRID.ACTION, psn] = t_action;
+					spar.turnGrid[# TURN_GRID.TARGET, psn] = t_target;
+					spar.turnGrid[# TURN_GRID.LUCK, psn] = t_luck;
 				}
 			}
 		}
@@ -1338,22 +1338,22 @@ function force_swap_team(_targetPlayer) {
 					tsid2.mindset = m1;
 					
 					// get the action, target, and luckRoll for both swappers
-					var t_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, tsn2];
-					var t_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, tsn2];
-					var t_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn2];
+					var t_action	= spar.turnGrid[# TURN_GRID.ACTION, tsn2];
+					var t_target	= spar.turnGrid[# TURN_GRID.TARGET, tsn2];
+					var t_luck		= spar.turnGrid[# TURN_GRID.LUCK, tsn2];
 					
-					var p_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, psn2];
-					var p_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, psn2];
-					var p_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn2];
+					var p_action	= spar.turnGrid[# TURN_GRID.ACTION, psn2];
+					var p_target	= spar.turnGrid[# TURN_GRID.TARGET, psn2];
+					var p_luck		= spar.turnGrid[# TURN_GRID.LUCK, psn2];
 					
 					// swap the two sprites' turn rows
-					spar.turnGrid[# SELECTION_PHASES.ACTION, tsn2] = p_action;
-					spar.turnGrid[# SELECTION_PHASES.TARGET, tsn2] = p_target;
-					spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn2] = p_luck;
+					spar.turnGrid[# TURN_GRID.ACTION, tsn2] = p_action;
+					spar.turnGrid[# TURN_GRID.TARGET, tsn2] = p_target;
+					spar.turnGrid[# TURN_GRID.LUCK, tsn2] = p_luck;
 					
-					spar.turnGrid[# SELECTION_PHASES.ACTION, psn2] = t_action;
-					spar.turnGrid[# SELECTION_PHASES.TARGET, psn2] = t_target;
-					spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn2] = t_luck;
+					spar.turnGrid[# TURN_GRID.ACTION, psn2] = t_action;
+					spar.turnGrid[# TURN_GRID.TARGET, psn2] = t_target;
+					spar.turnGrid[# TURN_GRID.LUCK, psn2] = t_luck;
 				}
 			}
 		}
@@ -1513,22 +1513,22 @@ function force_swap_global() {
 						tsid.mindset = m1;
 						
 						// get the action, target, and luckRoll for both swappers
-						var t_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, tsn];
-						var t_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, tsn];
-						var t_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn];
+						var t_action	= spar.turnGrid[# TURN_GRID.ACTION, tsn];
+						var t_target	= spar.turnGrid[# TURN_GRID.TARGET, tsn];
+						var t_luck		= spar.turnGrid[# TURN_GRID.LUCK, tsn];
 						
-						var p_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, psn];
-						var p_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, psn];
-						var p_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn];
+						var p_action	= spar.turnGrid[# TURN_GRID.ACTION, psn];
+						var p_target	= spar.turnGrid[# TURN_GRID.TARGET, psn];
+						var p_luck		= spar.turnGrid[# TURN_GRID.LUCK, psn];
 						
 						// swap the two sprites' turn rows
-						spar.turnGrid[# SELECTION_PHASES.ACTION, tsn] = p_action;
-						spar.turnGrid[# SELECTION_PHASES.TARGET, tsn] = p_target;
-						spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn] = p_luck;
+						spar.turnGrid[# TURN_GRID.ACTION, tsn] = p_action;
+						spar.turnGrid[# TURN_GRID.TARGET, tsn] = p_target;
+						spar.turnGrid[# TURN_GRID.LUCK, tsn] = p_luck;
 						
-						spar.turnGrid[# SELECTION_PHASES.ACTION, psn] = t_action;
-						spar.turnGrid[# SELECTION_PHASES.TARGET, psn] = t_target;
-						spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn] = t_luck;
+						spar.turnGrid[# TURN_GRID.ACTION, psn] = t_action;
+						spar.turnGrid[# TURN_GRID.TARGET, psn] = t_target;
+						spar.turnGrid[# TURN_GRID.LUCK, psn] = t_luck;
 					}
 				}
 			}
@@ -1580,22 +1580,22 @@ function force_swap_global() {
 						tsid2.mindset = m1;
 						
 						// get the action, target, and luckRoll for both swappers
-						var t_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, tsn2];
-						var t_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, tsn2];
-						var t_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn2];
+						var t_action	= spar.turnGrid[# TURN_GRID.ACTION, tsn2];
+						var t_target	= spar.turnGrid[# TURN_GRID.TARGET, tsn2];
+						var t_luck		= spar.turnGrid[# TURN_GRID.LUCK, tsn2];
 						
-						var p_action	= spar.turnGrid[# SELECTION_PHASES.ACTION, psn2];
-						var p_target	= spar.turnGrid[# SELECTION_PHASES.TARGET, psn2];
-						var p_luck		= spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn2];
+						var p_action	= spar.turnGrid[# TURN_GRID.ACTION, psn2];
+						var p_target	= spar.turnGrid[# TURN_GRID.TARGET, psn2];
+						var p_luck		= spar.turnGrid[# TURN_GRID.LUCK, psn2];
 						
 						// swap the two sprites' turn rows
-						spar.turnGrid[# SELECTION_PHASES.ACTION, tsn2] = p_action;
-						spar.turnGrid[# SELECTION_PHASES.TARGET, tsn2] = p_target;
-						spar.turnGrid[# SELECTION_PHASES.HEIGHT, tsn2] = p_luck;
+						spar.turnGrid[# TURN_GRID.ACTION, tsn2] = p_action;
+						spar.turnGrid[# TURN_GRID.TARGET, tsn2] = p_target;
+						spar.turnGrid[# TURN_GRID.LUCK, tsn2] = p_luck;
 						
-						spar.turnGrid[# SELECTION_PHASES.ACTION, psn2] = t_action;
-						spar.turnGrid[# SELECTION_PHASES.TARGET, psn2] = t_target;
-						spar.turnGrid[# SELECTION_PHASES.HEIGHT, psn2] = t_luck;
+						spar.turnGrid[# TURN_GRID.ACTION, psn2] = t_action;
+						spar.turnGrid[# TURN_GRID.TARGET, psn2] = t_target;
+						spar.turnGrid[# TURN_GRID.LUCK, psn2] = t_luck;
 					}
 				}
 			}
@@ -3050,10 +3050,10 @@ function replace_target(_caster, _target) {
 	object = t.name;
 	
 	var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
-		var _ID = spar.turnGrid[# SELECTION_PHASES.TARGET, i];
+		var _ID = spar.turnGrid[# TURN_GRID.TARGET, i];
 		
 		if (_ID == t.spotNum) {
-			spar.turnGrid[# SELECTION_PHASES.TARGET, i] = c.spotNum;
+			spar.turnGrid[# TURN_GRID.TARGET, i] = c.spotNum;
 		}
 		
 		i++;
@@ -4397,7 +4397,7 @@ function arbitrate_turn(_sprite) {
 	var s = _sprite;
 	
 	// check if this sprite has already acted
-	if (spar.turnGrid[# SELECTION_PHASES.ACTION, s.spotNum] == -1)	instance_destroy(id);
+	if (spar.turnGrid[# TURN_GRID.ACTION, s.spotNum] == -1)	instance_destroy(id);
 	
 	// set subject
 	subject = s.name;

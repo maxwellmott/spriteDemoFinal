@@ -4,18 +4,18 @@ global.swapList = ds_list_create();
 // populate the list
 var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 	// get the spotNum of the active sprite
-	var activeSpot = spar.turnGrid[# SELECTION_PHASES.ALLY, i];
+	var activeSpot = spar.turnGrid[# TURN_GRID.ALLY, i];
 	
 	// get the instance id of the active sprite
 	var inst = spot_num_get_instance(activeSpot);
 	
 	// get the action of the i row
-	var a = spar.turnGrid[# SELECTION_PHASES.ACTION, i];
+	var a = spar.turnGrid[# TURN_GRID.ACTION, i];
 	
 	// check if the action is a swap
 	if (a == sparActions.swap) {
 		// get their swap partner's ID
-		var t = spar.turnGrid[# SELECTION_PHASES.TARGET, i];
+		var t = spar.turnGrid[# TURN_GRID.TARGET, i];
 		var pid = spar.spriteList[| t];
 		
 		// perform an ability check for swap attempt
@@ -34,7 +34,7 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 
 			
 				// get the target
-				var t = spar.turnGrid[# SELECTION_PHASES.TARGET, i];
+				var t = spar.turnGrid[# TURN_GRID.TARGET, i];
 			
 				// get the target's instance id
 				var targ = spar.spriteList[| t];
@@ -46,18 +46,18 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 				ds_list_add(global.swapList, inst);
 			
 				// set this sprite's action to -1 on the turn grid
-				spar.turnGrid[# SELECTION_PHASES.ACTION, i] = -1;
+				spar.turnGrid[# TURN_GRID.ACTION, i] = -1;
 			}
 			else	{
 				// set both swappers' action to -1 on the turn grid
-				spar.turnGrid[# SELECTION_PHASES.ACTION, i] = -1;
-				spar.turnGrid[# SELECTION_PHASES.ACTION, t] = -1;
+				spar.turnGrid[# TURN_GRID.ACTION, i] = -1;
+				spar.turnGrid[# TURN_GRID.ACTION, t] = -1;
 			}
 		}
 		else	{
 				// set both swappers' action to -1 on the turn grid
-				spar.turnGrid[# SELECTION_PHASES.ACTION, i] = -1;
-				spar.turnGrid[# SELECTION_PHASES.ACTION, t] = -1;
+				spar.turnGrid[# TURN_GRID.ACTION, i] = -1;
+				spar.turnGrid[# TURN_GRID.ACTION, t] = -1;
 		}
 	}
 	

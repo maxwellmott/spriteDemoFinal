@@ -69,8 +69,17 @@ sparPhase = SPAR_PHASES.TURN_BEGIN;
 enum SELECTION_PHASES {
 	PRESELECT,
 	ALLY,
+	ACTION,	
+	TARGET,	
+	HEIGHT,	
+}
+
+// turn grid enum
+enum TURN_GRID {
+	ALLY,
 	ACTION,
 	TARGET,
+	LUCK,
 	HEIGHT
 }
 
@@ -116,7 +125,7 @@ selectionMsg = "";
 currentArena = global.arena
 
 // initialize turnGrid	|	ACTIVE SPRITE	|	TARGET SPRITE	|	ACTION	|	LUCK ROLL	|
-turnGrid = ds_grid_create(SELECTION_PHASES.HEIGHT + 1, 8);
+turnGrid = ds_grid_create(TURN_GRID.LUCK + 1, 8);
 
 // initialize turnMsg
 turnMsg = "";
@@ -253,5 +262,7 @@ var i = 0;	repeat (ds_list_size(spriteList)) {
 
 	i++;	
 }
+
+turnCancelled = false;
 
 global.roomBuilt = true;

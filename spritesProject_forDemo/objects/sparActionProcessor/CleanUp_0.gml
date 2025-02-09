@@ -6,5 +6,5 @@ activeSprite.currentPose = SPRITE_POSES.IDLE;
 
 if (instance_exists(spar)) {
 	spar.turnMsg = "";
-	spar.turnGrid[# SELECTION_PHASES.ACTION, turnRow] = -1;
+	spar.turnGrid[# TURN_GRID.ACTION, turnRow] = -1;
 }

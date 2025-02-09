@@ -107,7 +107,7 @@ switch (sparPhase) {
 			
 			case PROCESS_PHASES.SWAP:
 				// check if any sprites are swapping
-				if (ds_grid_value_exists(turnGrid, SELECTION_PHASES.ACTION, 0, SELECTION_PHASES.ACTION, h, sparActions.swap)) {
+				if (ds_grid_value_exists(turnGrid, TURN_GRID.ACTION, 0, TURN_GRID.ACTION, h, sparActions.swap)) {
 					// set these built-ins so that the gms2 animation works
 					sprite_index = spr_sparSwapCloud;
 					image_speed = 1;
@@ -123,7 +123,7 @@ switch (sparPhase) {
 			
 			case PROCESS_PHASES.REST:
 				// check if any sprites are resting
-				if (ds_grid_value_exists(turnGrid, SELECTION_PHASES.ACTION, 0, SELECTION_PHASES.ACTION, h, sparActions.rest)) {
+				if (ds_grid_value_exists(turnGrid, TURN_GRID.ACTION, 0, TURN_GRID.ACTION, h, sparActions.rest)) {
 					// set these built-ins so that the gms2 animation works
 					sprite_index = spr_sparRestEye;
 					image_speed = 1;
@@ -145,7 +145,7 @@ switch (sparPhase) {
 			
 			case PROCESS_PHASES.DODGE:
 				// check if any sprites are dodging
-				if (ds_grid_value_exists(turnGrid, SELECTION_PHASES.ACTION, 0, SELECTION_PHASES.ACTION, h, sparActions.dodge)) {
+				if (ds_grid_value_exists(turnGrid, TURN_GRID.ACTION, 0, TURN_GRID.ACTION, h, sparActions.dodge)) {
 					// set these built_ins so that the gms2 animation works
 					sprite_index = spr_sparDodge;
 					image_speed = 1;
@@ -223,7 +223,7 @@ switch (sparPhase) {
 				var i = 0;	repeat (ds_list_size(fpl)) {
 					var inst = fpl[| i];
 					
-					if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
+					if (turnGrid[# TURN_GRID.ACTION, inst.spotNum] != -1) {
 						// push a spar effect alert for arbitrate turn
 						spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
 					}
@@ -235,7 +235,7 @@ switch (sparPhase) {
 				var i = 0;	repeat (ds_list_size(spl)) {
 					var inst = spl[| i];
 					
-					if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
+					if (turnGrid[# TURN_GRID.ACTION, inst.spotNum] != -1) {
 						// push a spar effect alert for arbitrate turn
 						spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
 					}
@@ -250,7 +250,7 @@ switch (sparPhase) {
 					var i = 0;	repeat (ds_list_size(allyList)) {
 						var inst = allyList[| i];
 						
-						if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
+						if (turnGrid[# TURN_GRID.ACTION, inst.spotNum] != -1) {
 							// push a spar effect alert for arbitrate turn
 							spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
 						}
@@ -265,7 +265,7 @@ switch (sparPhase) {
 					var i = 0;	repeat (ds_list_size(enemyList)) {
 						var inst = enemyList[| i];
 						
-						if (turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
+						if (turnGrid[# TURN_GRID.ACTION, inst.spotNum] != -1) {
 							// push a spar effect alert for arbitrate turn
 							spar_effect_push_alert(SPAR_EFFECTS.ARBITRATE_TURN, inst);
 						}
@@ -285,13 +285,13 @@ switch (sparPhase) {
 				
 				var i = 0;	repeat (ds_grid_height(turnGrid)) {
 					// get the current spotnum
-					var sn = turnGrid[# SELECTION_PHASES.ALLY, i];
+					var sn = turnGrid[# TURN_GRID.ALLY, i];
 					
 					// get the current instance
 					var inst = spriteList[| sn];
 					
 					// get action
-					var a = turnGrid[# SELECTION_PHASES.ACTION, i];
+					var a = turnGrid[# TURN_GRID.ACTION, i];
 					
 					// check if action is a spell
 					if (action_check_spell(a)) {
@@ -547,7 +547,7 @@ switch (sparPhase) {
 				
 				// use a repeat loop to check the whole grid for remaining actions
 				var i = 0;	repeat (ds_grid_height(turnGrid)) {
-					var a = turnGrid[# SELECTION_PHASES.ACTION, i];
+					var a = turnGrid[# TURN_GRID.ACTION, i];
 					
 					// check if the action has been processed and reset to -1 already
 					if (a >= 0) {
@@ -572,10 +572,10 @@ switch (sparPhase) {
 					// to take their turn
 					var i = 0;	repeat (ds_grid_height(turnGrid)) {
 						// check if the next action on the grid has been reset to -1 already
-						var a = turnGrid[# SELECTION_PHASES.ACTION, i];
+						var a = turnGrid[# TURN_GRID.ACTION, i];
 						if (a >= 0) {
 							// get current spotNum
-							var sn = turnGrid[# SELECTION_PHASES.ALLY, i];
+							var sn = turnGrid[# TURN_GRID.ALLY, i];
 							
 							// get the current instance
 							var inst = spriteList[| sn];
@@ -921,31 +921,40 @@ switch (sparPhase) {
 				
 			// check if player is ready
 			if (playerOne.ready) {
-				// check if this is an online match
-				if (playerTwo == onlineEnemy) {
-					// check if onlineWaiting is false
-					if !(onlineWaiting) {
-						// set onlineWaiting to true
-						onlineWaiting = true;
-					}
-					// if onlineWaiting is true
-					else {	
-						// check if it's been 5 seconds
-						if !(global.gameTime mod 300) {
-							// submit a request for the enemy turn data
-							request_turn_begin();
+				// ensure that the turn hasn't been cancelled
+				if !(turnCancelled) {
+					if (onlineWaiting) {
+						if (global.back) {
+							player_cancel_turn();	
 						}
 					}
-				}
-				
-				// if player two is also ready
-				if (playerTwo.ready) {
-					onlineWaiting = false;
-					playerTwo.ready = false;
-					playerOne.ready = false;
 					
-					// move to the process phase
-					sparPhase = SPAR_PHASES.PROCESS;
+					// check if this is an online match
+					if (playerTwo == onlineEnemy) {
+						// check if onlineWaiting is false
+						if !(onlineWaiting) {
+							// set onlineWaiting to true
+							onlineWaiting = true;
+						}
+						// if onlineWaiting is true
+						else {	
+							// check if it's been 5 seconds
+							if !(global.gameTime mod 600) {
+								// submit a request for the enemy turn data
+								request_turn_begin();
+							}
+						}
+					}
+					
+					// if player two is also ready
+					if (playerTwo.ready) {
+						onlineWaiting = false;
+						playerTwo.ready = false;
+						playerOne.ready = false;
+						
+						// move to the process phase
+						sparPhase = SPAR_PHASES.PROCESS;
+					}
 				}
 			}
 		break;

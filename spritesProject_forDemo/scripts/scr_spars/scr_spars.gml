@@ -277,10 +277,10 @@ function player_submit_turn() {
 		var roll = roll_for_luck(lt);
 		
 		// add info to spar.turnGrid
-		spar.turnGrid[# SELECTION_PHASES.ALLY,		inst.spotNum]	= inst.spotNum;
-		spar.turnGrid[# SELECTION_PHASES.ACTION,		inst.spotNum]	= inst.selectedAction;
-		spar.turnGrid[# SELECTION_PHASES.TARGET,		inst.spotNum]	= inst.selectedTarget;
-		spar.turnGrid[# SELECTION_PHASES.HEIGHT,		inst.spotNum]	= roll;
+		spar.turnGrid[# TURN_GRID.ALLY,		inst.spotNum]	= inst.spotNum;
+		spar.turnGrid[# TURN_GRID.ACTION,		inst.spotNum]	= inst.selectedAction;
+		spar.turnGrid[# TURN_GRID.TARGET,		inst.spotNum]	= inst.selectedTarget;
+		spar.turnGrid[# TURN_GRID.LUCK,		inst.spotNum]	= roll;
 		
 		// set lastAction and lastTarget to selectedAction and selectedTarget
 		inst.lastAction = inst.selectedAction;
@@ -291,10 +291,10 @@ function player_submit_turn() {
 		
 		if (instance_exists(onlineEnemy)) {
 			// add info to onlineGrid
-			onlineGrid[# SELECTION_PHASES.ALLY,		inst.spotNum]	= inst.spotNum;
-			onlineGrid[# SELECTION_PHASES.ACTION,	inst.spotNum]	= inst.selectedAction;
-			onlineGrid[# SELECTION_PHASES.TARGET,	inst.spotNum]	= inst.selectedTarget;
-			onlineGrid[# SELECTION_PHASES.HEIGHT,	inst.spotNum]	= roll;		
+			onlineGrid[# TURN_GRID.ALLY,		inst.spotNum]	= inst.spotNum;
+			onlineGrid[# TURN_GRID.ACTION,	inst.spotNum]	= inst.selectedAction;
+			onlineGrid[# TURN_GRID.TARGET,	inst.spotNum]	= inst.selectedTarget;
+			onlineGrid[# TURN_GRID.LUCK,	inst.spotNum]	= roll;		
 		}
 		
 		// increment i
@@ -317,7 +317,30 @@ function player_submit_turn() {
 		
 		network_send_udp_raw(spar.client, SERVER_ADDRESS, PORT_NUM, spar.onlineBuffer, buffer_tell(spar.onlineBuffer));
 		
+		player.ready = true;
+		
 		spar.onlineWaiting = true;	
+	}
+}
+
+///@desc This function is called when the player hits tab after submitting their 
+/// turn. This cancels their turn submission and allows them to reselect.
+function player_cancel_turn() {
+	if (instance_exists(onlineEnemy)) {
+		ds_map_add(spar.data, "type",		MESSAGE_TYPES.CLIENT_CANCEL_TURN);
+		ds_map_add(spar.data, "clientID",	player.clientID);
+		
+		var dataJson = json_encode(spar.data);
+		
+		ds_map_clear(spar.data);
+		
+		buffer_seek(spar.onlineBuffer, buffer_seek_start, 0);
+		
+		buffer_write(spar.onlineBuffer, buffer_text, dataJson);
+		
+		network_send_udp_raw(spar.client, SERVER_ADDRESS, PORT_NUM, spar.onlineBuffer, buffer_tell(spar.onlineBuffer));
+		
+		turnCancelled = true;
 	}
 }
 
@@ -335,20 +358,14 @@ function local_enemy_submit_turn() {
 		var roll = roll_for_luck(lt);
 
 		// add info to grid
-		spar.turnGrid[# SELECTION_PHASES.ALLY,		inst.spotNum]		= inst.spotNum;
-		spar.turnGrid[# SELECTION_PHASES.ACTION,	inst.spotNum]		= inst.selectedAction;
-		spar.turnGrid[# SELECTION_PHASES.TARGET,	inst.spotNum]		= inst.selectedTarget;
-		spar.turnGrid[# SELECTION_PHASES.HEIGHT,	inst.spotNum]		= roll;
+		spar.turnGrid[# TURN_GRID.ALLY,		inst.spotNum]		= inst.spotNum;
+		spar.turnGrid[# TURN_GRID.ACTION,	inst.spotNum]		= inst.selectedAction;
+		spar.turnGrid[# TURN_GRID.TARGET,	inst.spotNum]		= inst.selectedTarget;
+		spar.turnGrid[# TURN_GRID.LUCK,	inst.spotNum]		= roll;
 		
 		// set lastAction and lastTarget to selectedAction and selectedTarget
 		inst.lastAction = inst.selectedAction;
 		inst.lastTarget = inst.selectedTarget;
-		
-		/*
-		if (lastAction == sparActions.swap) {
-			inst.lastTarget = spar.spriteList[| inst.selectedTarget].selectedTarget;	
-		}
-		*/
 		
 		// set turnRepeat to false
 		inst.turnRepeat = false;
@@ -559,9 +576,9 @@ function all_sprites_get_luck_roll() {
 		
 		var h = ds_grid_height(turnGrid);
 		
-		var rowNum = ds_grid_value_y(turnGrid, SELECTION_PHASES.ALLY, 0, SELECTION_PHASES.ALLY, h, sn);
+		var rowNum = ds_grid_value_y(turnGrid, TURN_GRID.ALLY, 0, TURN_GRID.ALLY, h, sn);
 		
-		var lr = turnGrid[# SELECTION_PHASES.HEIGHT, rowNum];
+		var lr = turnGrid[# TURN_GRID.LUCK, rowNum];
 		
 		inst.luckRoll = lr;
 		

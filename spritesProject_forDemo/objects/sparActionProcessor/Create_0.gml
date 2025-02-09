@@ -38,9 +38,9 @@ bypassRange		= false;
 turnRow = spar.turnRow;
 
 // use turnRow to get params from turnGrid
-atkrSpotNum		= spar.turnGrid[# SELECTION_PHASES.ALLY,		turnRow];
-currentAction	= spar.turnGrid[# SELECTION_PHASES.ACTION,	turnRow];
-targSpotNum		= spar.turnGrid[# SELECTION_PHASES.TARGET,	turnRow];
+atkrSpotNum		= spar.turnGrid[# TURN_GRID.ALLY,		turnRow];
+currentAction	= spar.turnGrid[# TURN_GRID.ACTION,	turnRow];
+targSpotNum		= spar.turnGrid[# TURN_GRID.TARGET,	turnRow];
 
 activeSprite	= spar.spriteList[| atkrSpotNum];
 

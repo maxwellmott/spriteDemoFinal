@@ -7,7 +7,7 @@ if (swapBegin) {
 			var swapperSpotNum = inst.spotNum;
 		
 			// get swap partner inst
-			var partnerSpotNum	= spar.turnGrid[# SELECTION_PHASES.TARGET, swapperSpotNum];
+			var partnerSpotNum	= spar.turnGrid[# TURN_GRID.TARGET, swapperSpotNum];
 			var partnerInst		= spar.spriteList[| partnerSpotNum];
 		
 			// check if their swap partner has already processed their swap

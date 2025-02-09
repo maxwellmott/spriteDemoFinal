@@ -7,7 +7,6 @@ if (collision_rectangle(bboxLeft, bboxTop, bboxRight, bboxBottom, mouse, false, 
 	// button pressing logic
 	if (global.click) {
 		player_submit_turn();
-		player.ready = true;
 	}
 }
 else {

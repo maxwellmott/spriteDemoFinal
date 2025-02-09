@@ -68,7 +68,7 @@ if (inLobby) {
 	if (player.clientType == CLIENT_TYPES.HOST)
 	&& !(instance_exists(onlineEnemy)) {
 		// send guest check every four seconds
-		if !(global.gameTime mod 240) send_guest_check();
+		if !(global.gameTime mod 600) send_guest_check();
 	}
 	
 	// check if player's online scope is private

@@ -41,7 +41,10 @@ enum MESSAGE_TYPES  {
     ROOM_JOIN_FAILURE,		// the server is sending a message to a client stating that they failed to join the room
 	READY_FOR_MATCH,		// the client is sending a message to the server stating that they are ready to begin the match
 	CHECK_ENEMY_READY,		// the client is sending a message to the server checking if their opponent is also ready to begin
-    HEIGHT              
+	CLIENT_CANCEL_TEAM,		// the client is backing out of team selection
+	CLIENT_CANCEL_SPELLBOOK,	// the client is backing out of spellbook selection
+	CLIENT_CANCEL_TURN,		// the client is backing out of turn selection
+	HEIGHT              
 }
 
 ///@desc This function contains the switch statement central to the client-side state machine that manages online
@@ -116,6 +119,17 @@ function online_message_handler(_type) {
 		case MESSAGE_TYPES.CHECK_ENEMY_READY:
 			check_enemy_ready();
 		break;
+		
+		case MESSAGE_TYPES.CLIENT_CANCEL_TEAM:
+			client_cancel_team();
+		break;
+		
+		case MESSAGE_TYPES.CLIENT_CANCEL_SPELLBOOK:
+			client_cancel_spellbook();
+		break;
+		
+		case MESSAGE_TYPES.CLIENT_CANCEL_TURN:
+			client_cancel_turn();
 	}
 }
 
@@ -161,9 +175,14 @@ function private_host_create() {
 	player.clientScope	= CLIENT_SCOPES.PRIVATE;
 	player.clientType	= CLIENT_TYPES.HOST;
 	
+	// get the message that confirms the update system is working through github pushes
+	var updateMsg = data[? "updateMsg"];
+	
 	inLobby = true;
 	
 	show_debug_message("Player successfully created a private online room!");
+	
+	show_debug_message(updateMsg);
 }
 
 ///@desc This function is called when the client receives a message from the server indicating that this client
@@ -237,10 +256,10 @@ function client_request_turn() {
 		
 			var inst = spar.spriteList[| 4 + i];
 			
-			var s =	g[# SELECTION_PHASES.ALLY,	i];
-			var a =	g[# SELECTION_PHASES.ACTION,	i];
-			var t =	g[# SELECTION_PHASES.TARGET,	i];
-			var l =	g[# SELECTION_PHASES.HEIGHT,	i];
+			var s =	g[# TURN_GRID.ALLY,		i];
+			var a =	g[# TURN_GRID.ACTION,	i];
+			var t =	g[# TURN_GRID.TARGET,	i];
+			var l =	g[# TURN_GRID.LUCK,	i];
 			
 			if (t != "-1") {
 				t = real(t);
@@ -254,18 +273,20 @@ function client_request_turn() {
 			l = real(l);
 		
 			// add all turn data to spar.turnGrid
-			spar.turnGrid[# SELECTION_PHASES.ALLY,	inst.spotNum] = 4 + s;	
-			spar.turnGrid[# SELECTION_PHASES.ACTION,	inst.spotNum] = a;
+			spar.turnGrid[# TURN_GRID.ALLY,	inst.spotNum] = 4 + s;	
+			spar.turnGrid[# TURN_GRID.ACTION,	inst.spotNum] = a;
 			
-			if (t > 3) {
-				spar.turnGrid[# SELECTION_PHASES.TARGET, inst.spotNum] = t - 4;	
+			if (t != -1) {
+				if (t > 3) {
+					spar.turnGrid[# TURN_GRID.TARGET, inst.spotNum] = t - 4;	
+				}
+				
+				if (t < 4) {
+					spar.turnGrid[# TURN_GRID.TARGET, inst.spotNum] = t + 4;	
+				}
 			}
 			
-			if (t < 4) {
-				spar.turnGrid[# SELECTION_PHASES.TARGET, inst.spotNum] = t + 4;	
-			}
-			
-			spar.turnGrid[# SELECTION_PHASES.HEIGHT,	inst.spotNum] = l;
+			spar.turnGrid[# TURN_GRID.LUCK,	inst.spotNum] = l;
 			
 			// increment i
 			i++;
@@ -401,6 +422,26 @@ function client_set_match_ready() {
 	network_send_udp_raw(client, SERVER_ADDRESS, PORT_NUM, onlineBuffer, buffer_tell(onlineBuffer));
 }
 
+///@desc This function is called when the client has backed out of their spellbook selection
+/// for the match. It tells the server that they are no longer ready to enter the match as
+/// they would like to reselect their spells.
+function player_cancel_spellbook() {
+	show_debug_message("Cancelling spellbook selection...");
+	
+	ds_map_add(data, "clientID",	player.clientID);
+	ds_map_add(data, "type",		MESSAGE_TYPES.CLIENT_CANCEL_SPELLBOOK);
+	
+	var dataJson = json_encode(data);
+	
+	ds_map_clear(data);
+	
+	buffer_seek(onlineBuffer, buffer_seek_start, 0);
+	
+	buffer_write(onlineBuffer, buffer_text, dataJson);
+	
+	network_send_udp_raw(client, SERVER_ADDRESS, PORT_NUM, onlineBuffer, buffer_tell(onlineBuffer));
+}
+
 ///@desc This function is called periodically once this client has told the server
 /// that they are ready to begin the match. The function sends a message to the 
 /// server asking if their opponent is ready to begin the match as well.
@@ -461,6 +502,27 @@ function submit_team_begin() {
 	buffer_write(onlineBuffer, buffer_text, dataJson);
 	
 	network_send_udp_raw(client, SERVER_ADDRESS, PORT_NUM, onlineBuffer, buffer_tell(onlineBuffer));
+}
+
+///@desc This function is called when the player hits tab after submitting their
+/// turn. This cancels their turn submissiona and allows them to reselect
+function player_cancel_team() {
+	show_debug_message("Cancelling team selection...");
+	
+	ds_map_add(data, "type",		MESSAGE_TYPES.CLIENT_CANCEL_TEAM);
+	ds_map_add(data, "clientID",	player.clientID);
+	
+	var dataJson = json_encode(data);
+	
+	ds_map_clear(data);
+	
+	buffer_seek(onlineBuffer, buffer_seek_start, 0);
+	
+	buffer_write(onlineBuffer, buffer_text, dataJson);
+	
+	network_send_udp_raw(client, SERVER_ADDRESS, PORT_NUM, onlineBuffer, buffer_tell(onlineBuffer));
+	
+	cancelled = true;
 }
 
 ///@desc This function is called when the server thinks they have found a proper match for this client.
@@ -570,6 +632,39 @@ function send_guest_check() {
 	buffer_write(onlineBuffer, buffer_text, dataJson);
 	
 	network_send_udp_raw(client, SERVER_ADDRESS, PORT_NUM, onlineBuffer, buffer_tell(onlineBuffer));
+}
+
+///@desc This function is called when the player successfully cancels their team submission
+function client_cancel_team() {
+	ds_map_clear(data);
+	
+	show_debug_message("Player successfully cancelled their team selection!");
+	
+	onlineWaiting = false;
+	
+	cancelled = false;
+}
+	
+function client_cancel_turn() {
+	ds_map_clear(data);
+	
+	show_debug_message("Player successfully cancelled their turn selection!");
+	
+	player.ready = false;
+	
+	spar.onlineWaiting = false;
+	
+	spar.turnCancelled = false;
+}
+
+function client_cancel_spellbook() {
+	ds_map_clear(data);
+	
+	show_debug_message("Player successfully cancelled their spellbook selection!");
+	
+	onlineWaiting = false;
+	
+	cancelled = false;
 }
 	
 #endregion

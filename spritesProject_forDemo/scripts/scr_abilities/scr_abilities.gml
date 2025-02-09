@@ -1548,27 +1548,39 @@ function spring_loaded(_inst) {
 	// store args in locals
 	var inst = _inst;
 	
-	// check if this sprite is the selectedAlly
-	if (inst == player.selectedAlly) {
-		// check if it is a basic attack
-		if (global.action == sparActions.attack) {
-			improve_range();
+	// build spell grid
+	var sg = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
+	decode_grid(global.allSpells, sg);
+	
+	// check if the sparActionProcessor exists
+	if (instance_exists(sparActionProcessor)) {
+		// check if this sprite is the attacker
+		if (inst == sparActionProcessor.activeSprite) {
+			// check that this IS a basic attack
+			if (sparActionProcessor.currentSpell == -1) {
+				// get spell type
+				var st = real(sg[# SPELL_PARAMS.TYPE, sparActionProcessor.currentSpell]);
 			
-			// push a spar effect alert for activate ability
-			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
-			
-			// push a spar effect alert for improve range
-			spar_effect_push_alert(SPAR_EFFECTS.IMPROVE_RANGE, inst);
+				// check if spell is elemental or trick spell
+				if (st != SPELL_TYPES.PHYSICAL) {
+					// improve range
+					improve_range();
+				
+					// push a spar effect alert for activate ability
+					spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
+					
+					// push a spar effect alert for improve range
+					spar_effect_push_alert(SPAR_EFFECTS.IMPROVE_RANGE, inst);
+				}
+			}
 		}
-		
-		// check if it is a spell
-		if (global.action >= sparActions.height) {
-			// build spell grid
-			var g = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
-			decode_grid(global.allSpells, g);
-			
-			// check if it is a physical spell
-			if (g[# SPELL_PARAMS.TYPE, global.action - sparActions.height] == SPELL_TYPES.PHYSICAL) {
+	}
+	else {
+		// check if this sprite is the selectedAlly
+		if (inst == player.selectedAlly) {
+			// check if it is using a trick or elemental spell
+			if (global.action >= sparActions.attack) {
+				// improve range
 				improve_range();
 				
 				// push a spar effect alert for activate ability
@@ -2269,7 +2281,7 @@ function compress_time(_inst) {
 	// check that this sprite's team doesn't have synchronizedSoldiersActive
 	if !(inst.team.synchronizedSoldiersActive) {
 		// check if sprite has already taken it's turn
-		if (spar.turnGrid[# SELECTION_PHASES.ACTION, inst.spotNum] != -1) {
+		if (spar.turnGrid[# TURN_GRID.ACTION, inst.spotNum] != -1) {
 			// push a spar effect alert for activate ability
 			spar_effect_push_alert(SPAR_EFFECTS.ACTIVATE_ABILITY, inst);
 		
