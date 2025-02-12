@@ -1,3 +1,6 @@
+// this variable stores the spell slot that is currently being "inspected" (resets to -1 when not inspecting)
+displaySpell = -1;
+
 // check if we are setting up an online match
 if (instance_exists(onlineEnemy)) {
 	// initialize data map
@@ -177,9 +180,6 @@ pageFlip = false;
 flipRight	= false;
 flipLeft	= false;
 
-// initialize spellBookTargetX
-spellBookTargetX = spriteWidth / 2;
-
 // initialize flipFrame and flipMax
 flipFrame	= 0;
 flipMax	= 1;
@@ -203,7 +203,7 @@ shadeAlpha = 1.0;
 // spellbook should start offscreen
 spellBookX = 0 - (spriteWidth / 2);
 spellBookY = 58;
-targetX = spriteWidth / 2;
+spellBookTargetX = spriteWidth / 2;
 
 // initialize info display x and y 
 var idsw = sprite_get_width(infoDisplaySprite);

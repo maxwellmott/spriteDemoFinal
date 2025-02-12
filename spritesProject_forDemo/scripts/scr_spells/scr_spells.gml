@@ -1053,16 +1053,28 @@ function builder_load_spell_params() {
 	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
 	decode_grid(global.allSpells, grid);
 	
-	// use currentSpell to get all params
-	spellName		= grid[# SPELL_PARAMS.NAME,							currentSpell];
-	spellCost		= real(grid[# SPELL_PARAMS.COST,					currentSpell]);
-	spellType		= real(grid[# SPELL_PARAMS.TYPE,					currentSpell]);
-	spellPower		= real(grid[# SPELL_PARAMS.POWER,					currentSpell]);
-	spellEffect		= real(string_digits(grid[# SPELL_PARAMS.EFFECT,	currentSpell]));
-	spellDodgeable	= real(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
-	spellRange		= real(grid[# SPELL_PARAMS.RANGE,					currentSpell]);
-	description		= grid[# SPELL_PARAMS.DESCRIPTION,					currentSpell];
-	
+	if (displaySpell == -1) {
+		// use currentSpell to get all params
+		spellName		= grid[# SPELL_PARAMS.NAME,							currentSpell];
+		spellCost		= real(grid[# SPELL_PARAMS.COST,					currentSpell]);
+		spellType		= real(grid[# SPELL_PARAMS.TYPE,					currentSpell]);
+		spellPower		= real(grid[# SPELL_PARAMS.POWER,					currentSpell]);
+		spellEffect		= real(string_digits(grid[# SPELL_PARAMS.EFFECT,	currentSpell]));
+		spellDodgeable	= real(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
+		spellRange		= real(grid[# SPELL_PARAMS.RANGE,					currentSpell]);
+		description		= grid[# SPELL_PARAMS.DESCRIPTION,					currentSpell];
+	}
+	else {
+		// use currentSpell to get all params
+		spellName		= grid[# SPELL_PARAMS.NAME,							displaySpell];
+		spellCost		= real(grid[# SPELL_PARAMS.COST,					displaySpell]);
+		spellType		= real(grid[# SPELL_PARAMS.TYPE,					displaySpell]);
+		spellPower		= real(grid[# SPELL_PARAMS.POWER,					displaySpell]);
+		spellEffect		= real(string_digits(grid[# SPELL_PARAMS.EFFECT,	displaySpell]));
+		spellDodgeable	= real(grid[# SPELL_PARAMS.DODGEABLE,				displaySpell]);
+		spellRange		= real(grid[# SPELL_PARAMS.RANGE,					displaySpell]);
+		description		= grid[# SPELL_PARAMS.DESCRIPTION,					displaySpell];	
+	}
 	// destroy spell grid
 	ds_grid_destroy(grid);
 }

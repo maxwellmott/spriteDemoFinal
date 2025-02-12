@@ -825,3 +825,13 @@ COMING BACK FROM PLAYTEST BUILD
 				-spell selector:
 					-include an inspect menu for selected spells
 					-"waiting for player..." not displayed
+					
+	2/11
+			REVISED LIST FROM YIMING MEETING:
+			
+			-server does not delete old rooms when there is nobody in them
+			-server does not allow rejoining of old rooms after crashing
+			
+			-game does not support saving/loading which is a time sink for testing
+			-no doors to enter different rooms which is a time sink for testing
+			-selecting unfinished main menu options breaks the game

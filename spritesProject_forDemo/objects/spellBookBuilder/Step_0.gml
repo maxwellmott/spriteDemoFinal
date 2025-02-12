@@ -9,16 +9,16 @@ if (spellBookX > spellBookTargetX) && (spellBookFrame == 0) {
 	spellBookX -= 2;	
 }
 
-if (spellBookX == targetX) && (spellBookFrame < spellBookFrameMax) {
+if (spellBookX == spellBookTargetX) && (spellBookFrame < spellBookFrameMax) {
 	if !(global.gameTime mod 4) spellBookFrame++;
 }
 
-if (spellBookX > targetX) && (spellBookFrame > 0) {
+if (spellBookX > spellBookTargetX) && (spellBookFrame > 0) {
 	if !(global.gameTime mod 4) spellBookFrame--;
 }
 
-if (spellBookX == targetX) 
-&& (targetX == spriteWidth / 2) {
+if (spellBookX == spellBookTargetX) 
+&& (spellBookTargetX == spriteWidth / 2) {
 	if (shadeAlpha <= 0.0) {		
 		if !(pageFlip) {
 			
@@ -47,7 +47,8 @@ if (spellBookX == targetX)
 			if !(categoryChanging) {
 				// check for a click on the category button
 				if (collision_rectangle(cFlash_bbLeft, cFlash_bbTop, cFlash_bbRight, cFlash_bbBottom, mouse, false, false)) {
-					if (global.click) {
+					if (global.click) 
+					&& !(global.shiftPressed) {
 						// start category alarm
 						alarm[0] = 24;
 						
@@ -139,12 +140,13 @@ if (spellBookX == targetX)
 		}
 		
 		// check if select is being pressed
-		if (global.select) {		
+		if (global.select) 
+		&& (displaySpell < 0) {	
 			// check that selectedSpellSlot is set
 			if (selectedSpellSlot >= 0) {
 				// check that currentSpell is not already on the spellBookList
 				if (ds_list_find_index(spellBookList, currentSpell) == -1) {
-					spellBookList[| selectedSpellSlot] = currentSpell;	
+					spellBookList[| selectedSpellSlot] = currentSpell;
 					selectedSpellSlot = -1;
 				}
 				// if currentSpell is already on spellBook list
@@ -156,7 +158,7 @@ if (spellBookX == targetX)
 		
 		if (global.back) {		
 			// close book
-			targetX = 0 - (spriteWidth / 2);
+			spellBookTargetX = 0 - (spriteWidth / 2);
 		}
 	}
 	else	{
@@ -165,20 +167,42 @@ if (spellBookX == targetX)
 	}
 }
 
-if (x == targetX) && (targetX == 0 - (spriteWidth / 2)) {
-	// change selectionPhase
-	spar.selectionPhase = nextPhase;
-	
-	// destroy self
-	instance_destroy(self);	
-}
-
 // if pageFlip is over, set flipRight and flipLeft to false
 if !(global.gameTime mod modVar) {
 	if !(pageFlip) {
 		if drawFlip		drawFlip	= false;
 		if flipRight	flipRight	= false;
 		if flipLeft		flipLeft	= false;
+	}
+}
+
+if (global.shiftPressed) {
+	var i = 0;	repeat (8) {
+		// check that this spell is set
+		if (spellBookList[| i] >= 0) {
+			// get the bbox params for the current spell
+			var left	= nameSlotLefts[| i];
+			var right	= nameSlotRights[| i];
+			var top		= nameSlotTops[| i];
+			var bottom	= nameSlotBottoms[| i];
+			
+			// check for a collision
+			if (collision_rectangle(left, top, right, bottom, mouse, false, false)) {
+				displaySpell = spellBookList[| i];
+				builder_load_spell_params();
+				break;
+			}
+		}
+	
+		i++;
+	}
+}
+// if shit is not being pressed
+else {
+	// check if displaySpell is set
+	if (displaySpell >= 0) {
+		displaySpell = -1;
+		builder_load_spell_params();
 	}
 }
 
@@ -201,20 +225,22 @@ if pageFlip {
 				}
 			}
 		}
+		else {
 	
-		// check if flipping left
-		if flipLeft {
-			// if flip is over, change pageFlip to false
-			if (flipFrame == 0) {
-				if !(global.gameTime mod modVar) {
-					pageFlip = false;	
+			// check if flipping left
+			if flipLeft {
+				// if flip is over, change pageFlip to false
+				if (flipFrame == 0) {
+					if !(global.gameTime mod modVar) {
+						pageFlip = false;	
+					}
 				}
-			}
-			
-			// if flip isn't over, decrement frame
-			if (flipFrame > 0) {
-				if !(global.gameTime mod modVar) {
-					flipFrame--;	
+				
+				// if flip isn't over, decrement frame
+				if (flipFrame > 0) {
+					if !(global.gameTime mod modVar) {
+						flipFrame--;	
+					}
 				}
 			}
 		}
@@ -231,16 +257,7 @@ if !drawFlip {
 
 if !(onlineWaiting) {	
 	if (global.start) {
-		player.spellBookString = "";
-		player.spellBookString = encode_list(spellBookList);			
-		
-		if (instance_exists(onlineEnemy)) {
-			client_set_match_ready();	
-			onlineWaiting = true;		
-		}
-		else	{			
-			room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);
-		}
+		spellBookTargetX = 0 - (spriteWidth / 2);
 	}
 }
 
@@ -255,8 +272,15 @@ if (onlineWaiting) {
 	}
 }
 
-if (x == targetX) && (targetX == 0 - (spriteWidth / 2)) {
-
-	// destroy self
-	instance_destroy(self);	
+if (spellBookX == spellBookTargetX) && (spellBookTargetX == (0 - (spriteWidth / 2))) {
+	player.spellBookString = "";
+	player.spellBookString = encode_list(spellBookList);			
+	
+	if (instance_exists(onlineEnemy)) {
+		client_set_match_ready();	
+		onlineWaiting = true;		
+	}
+	else	{
+		room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);
+	}
 }

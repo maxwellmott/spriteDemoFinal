@@ -23,12 +23,15 @@ var i = 0;	repeat (8) {
 	var ty = round(sy + (nameSlotHeight / 2) + 2);
 	
 	// check if selectedSpellSlot is i
-	if (i == selectedSpellSlot) {
+	if (i == selectedSpellSlot)
+	&& (displaySpell < 0) {
 		// draw the name slot
 		draw_sprite(spr_spellBookNameSlot, 1, sx, sy);
 		
-		// indicate that it is time to select
-		draw_text_pixel_perfect(tx, ty, "Press Space to Select the Above Spell", 10, nameSlotWidth - 4);
+		if !(global.gameTime mod 32 < 16) {
+			// indicate that it is time to select
+			draw_text_pixel_perfect(tx, ty, "Press Space to Select the Above Spell", 10, nameSlotWidth - 4);
+		}
 	}
 	// if selectedSpell is not i
 	else {
@@ -81,8 +84,13 @@ draw_sprite(spellBookSprite, spellBookFrame, spellBookX, spellBookY);
 if !(drawFlip) && (spellBookFrame == 5) {
 	draw_set_font(spellbookFont);
 	
-	draw_sprite(spr_spellBookIconSheet, currentSpell, spellBookX, spellBookY + 4);
-
+	if (displaySpell < 0) {
+		draw_sprite(spr_spellBookIconSheet, currentSpell, spellBookX, spellBookY + 4);
+	}
+	else {
+		draw_sprite(spr_spellBookIconSheet, displaySpell, spellBookX, spellBookY + 4);
+	}
+	
 	draw_sprite(spr_spellRangeIndicator, spellRange, rangeDrawX, rangeDrawY);
 	draw_sprite(spr_spellTypeIndicator, spellType, typeDrawX, typeDrawY);
 	

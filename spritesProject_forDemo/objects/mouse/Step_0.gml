@@ -49,6 +49,12 @@ if (instance_exists(spar)) {
 	}
 }
 
+// check if spellBookBuilder is active
+if (instance_exists(spellBookBuilder)) {
+	if (global.shiftPressed) image_index = 2;
+	else image_index = 0;
+}
+
 // get input from gamepad
 if (global.controllerType == controllerTypes.gamepad) {
 	x += gamepad_axis_value(0, gp_axisrh);
