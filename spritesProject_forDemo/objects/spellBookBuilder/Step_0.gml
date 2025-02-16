@@ -87,7 +87,7 @@ if (spellBookX == spellBookTargetX)
 				}
 			}
 			
-			if (global.menu_left) {
+			if (global.menuLeft) {
 				// check if currentSpellIndex is at 0
 				if (currentSpellIndex > 0) {
 					
@@ -113,7 +113,7 @@ if (spellBookX == spellBookTargetX)
 				}
 			}
 		
-			if (global.menu_right) {
+			if (global.menuRight) {
 				// check if currentSpellIndex is at max
 				if (currentSpellIndex < ds_list_size(categoryLists[| currentCategory]) - 1) {					
 					pageFlip = true;

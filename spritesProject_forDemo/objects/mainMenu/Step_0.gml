@@ -46,11 +46,11 @@ var i = 0;	repeat (MAIN_MENU_BUTTONS.HEIGHT) {
 	i++;	
 }
 
-if (global.menu_down) {
+if (global.menuDown) {
 	selectedButton++;
 }
 
-if (global.menu_up) {
+if (global.menuUp) {
 	selectedButton--;
 }
 

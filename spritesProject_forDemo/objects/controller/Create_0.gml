@@ -6,30 +6,38 @@ enum controllerTypes {
 }
 
 #region INITIALIZE GLOBAL VARS
-global.shiftPressed		=	noone;
-global.shiftReleased	=	noone;
+global.shiftPressed		=	0;
+global.shiftReleased	=	0;
 
-global.click		=	noone;
-global.select		=	noone;
-global.back			=	noone;
-global.start		=	noone;
+global.click			=	0;
+global.select			=	0;
+global.back				=	0;
+global.start			=	0;
+						
+global.rightBumper		=	0;
+global.leftBumper		=	0;
+						
+global.charLeft			=	0;
+global.charRight		=	0;
+global.charUp			=	0;
+global.charDown			=	0;
+						
+global.menuLeft			=	0;
+global.menuRight		=	0;
+global.menuUp			=	0;
+global.menuDown			=	0;
+						
+global.gpMouseRight		=	0;
+global.gpMouseLeft		=	0;
+global.gpMouseUp		=	0;
+global.gpMouseDown		=	0;
 
-global.rightBumper	=	noone;
-global.leftBumper	=	noone;
+global.menuStop			=	0;
 
-global.char_left	=	noone;
-global.char_right	=	noone;
-global.char_up		=	noone;
-global.char_down	=	noone;
-
-global.menu_left	=	noone;
-global.menu_right	=	noone;
-global.menu_up		=	noone;
-global.menu_down	=	noone;
 #endregion
 
 // initialize controllerType
-global.controllerType = controllerTypes.keyboard;
+global.controllerType = controllerTypes.gamepad;
 
 // make mouse cursor invisible
 window_set_cursor(cr_none);

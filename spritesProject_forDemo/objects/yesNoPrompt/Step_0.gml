@@ -1,8 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
 
-index -= global.menu_up;
-index += global.menu_down;
+index -= global.menuUp;
+index += global.menuDown;
 
 if (index > 1) index = 0;
 if (index < 0) index = 1;

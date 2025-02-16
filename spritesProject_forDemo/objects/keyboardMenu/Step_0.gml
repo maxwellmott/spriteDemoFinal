@@ -34,19 +34,19 @@ var i = 0;	repeat (charCount + 4) {
 }
 
 // use arrow keys to change selectedKey
-if (global.menu_right) {
+if (global.menuRight) {
 	if (selectedKey < charCount + 3) {
 		selectedKey++;	
 	}
 }
 
-if (global.menu_left) {
+if (global.menuLeft) {
 	if (selectedKey > 0) {
 		selectedKey--;	
 	}
 }
 
-if (global.menu_down) {
+if (global.menuDown) {
 	if (selectedKey div columnCount < 3) {
 		selectedKey += columnCount;	
 	}
@@ -57,7 +57,7 @@ if (global.menu_down) {
 	}
 }
 
-if (global.menu_up) {
+if (global.menuUp) {
 	if (selectedKey div columnCount > 0) {
 		selectedKey -= columnCount;	
 	}

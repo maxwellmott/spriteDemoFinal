@@ -234,6 +234,7 @@
     {"id":{"name":"scr_dataManagement","path":"scripts/scr_dataManagement/scr_dataManagement.yy",},},
     {"id":{"name":"scr_dialogue","path":"scripts/scr_dialogue/scr_dialogue.yy",},},
     {"id":{"name":"scr_doors","path":"scripts/scr_doors/scr_doors.yy",},},
+    {"id":{"name":"scr_dyes","path":"scripts/scr_dyes/scr_dyes.yy",},},
     {"id":{"name":"scr_effectChecks","path":"scripts/scr_effectChecks/scr_effectChecks.yy",},},
     {"id":{"name":"scr_enemyAI_core_functions","path":"scripts/scr_enemyAI_core_functions/scr_enemyAI_core_functions.yy",},},
     {"id":{"name":"scr_enemyAI_gridBuilder","path":"scripts/scr_enemyAI_gridBuilder/scr_enemyAI_gridBuilder.yy",},},

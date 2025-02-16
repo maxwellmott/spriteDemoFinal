@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_dyes",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_dyes",
+  "parent":{
+    "name":"HUMANS",
+    "path":"folders/Scripts/HUMANS.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

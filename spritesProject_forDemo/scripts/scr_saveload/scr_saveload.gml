@@ -5,7 +5,7 @@
 /// works mostly the same
 function start_new_game() {
 	create_once(0,	0, LAYER.sprites, player);
-	player.location = locations.miriabramExt;
+	player.location = locations.miriabramDorm1;
 	
 	build_npc_location_list(npcLocationList);
 	edit_npc_location_lists(npcLocationList);

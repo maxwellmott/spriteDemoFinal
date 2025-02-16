@@ -189,10 +189,10 @@ function player_move() {
 	if (instance_exists(menu)) return -1;
 	
 	// store all globals in locals
-	var right	= global.char_right;
-	var left	= global.char_left;
-	var up		= global.char_up;
-	var down	= global.char_down;
+	var right	= global.charRight;
+	var left	= global.charLeft;
+	var up		= global.charUp;
+	var down	= global.charDown;
 
 	hmove = right - left;
 	vmove = down - up;	

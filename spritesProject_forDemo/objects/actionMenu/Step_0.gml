@@ -24,7 +24,7 @@ if (introFinished)
 	}	
 	
 	// check for right directional input
-	if (global.menu_right) {
+	if (global.menuRight) {
 		// check if the selectedButton is higher than 0
 		if (selectedButton < ACTION_MENU_OPTIONS.HEIGHT - 1) {
 			selectedButton++;	
@@ -32,7 +32,7 @@ if (introFinished)
 	}
 	
 	// check for left directional input
-	if (global.menu_left) {
+	if (global.menuLeft) {
 		// check if the selectedButton is lower than the highest emote
 		if (selectedButton > 0) {
 			selectedButton--;	
@@ -40,7 +40,7 @@ if (introFinished)
 	}
 	
 	// check for up directional input
-	if (global.menu_up) {
+	if (global.menuUp) {
 		// check if the selectedButton is on the top row
 		if (selectedButton div 2 > 0) {
 			selectedButton -= 2;	
@@ -48,7 +48,7 @@ if (introFinished)
 	}
 	
 	// check for down directional input
-	if (global.menu_down) {
+	if (global.menuDown) {
 		// check if the selectedButton is on the bottom row
 		if (selectedButton div 2 < (ACTION_MENU_OPTIONS.HEIGHT div 2) - 1) 
 		|| (selectedButton == ACTION_MENU_OPTIONS.HEIGHT - 3) {

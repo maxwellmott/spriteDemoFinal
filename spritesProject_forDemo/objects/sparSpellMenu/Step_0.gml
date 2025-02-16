@@ -55,7 +55,7 @@ if (x == targetX)
 		}
 		
 		if !(pageFlip) {
-			if (global.menu_left) {
+			if (global.menuLeft) {
 				// check if index is at 0
 				if (index > 0) {
 					pageFlip = true;
@@ -77,7 +77,7 @@ if (x == targetX)
 				}
 			}
 		
-			if (global.menu_right) {
+			if (global.menuRight) {
 				// check if index is at max
 				if (index < spellBookHeight - 1) {
 					spar.potentialSpellCost = 0;

@@ -29,7 +29,7 @@ if !(onlineWaiting) {
 	#region MANAGE SELECTOR MOVEMENT
 if !(optionsChangingUp)
 	&& !(optionsChangingDown) {
-	if (global.menu_up) 
+	if (global.menuUp) 
 	&& (currentRow > 0) {
 		selectedNameSlot -= rowWidth;
 		
@@ -57,7 +57,7 @@ if !(optionsChangingUp)
 		}
 	}
 	
-	if (global.menu_down)
+	if (global.menuDown)
 	&& (selectedNameSlot + 2 < rosterHeight) {
 		selectedNameSlot += rowWidth;
 		
@@ -85,7 +85,7 @@ if !(optionsChangingUp)
 		}
 	}
 	
-	if (global.menu_left)
+	if (global.menuLeft)
 	&& (selectedNameSlot > 0) {
 		selectedNameSlot -= 1;	
 		
@@ -113,7 +113,7 @@ if !(optionsChangingUp)
 		}
 	}
 	
-	if (global.menu_right) 
+	if (global.menuRight) 
 	&& (selectedNameSlot < rosterHeight - 1) {
 		selectedNameSlot += 1;
 		

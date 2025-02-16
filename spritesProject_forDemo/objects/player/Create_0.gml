@@ -265,3 +265,6 @@ favoriteSpells = ds_list_create();
 
 // initialize player favorite sprites lists
 favoriteSprites = ds_list_create();
+
+// create unlocked dyes list
+unlockedDyes = ds_list_create();

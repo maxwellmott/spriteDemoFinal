@@ -237,6 +237,8 @@ function npc_load_parameters(_id) {
 	parametersLoaded = true;
 }
 
+
+
 ///@desc This function is called when an NPC collides with one of the offscreen gates. 
 /// The function moves them to the next location in that direction if there is one.
 function gate_check_npc() {

@@ -2,7 +2,7 @@
 // You can write your code in this editor
 
 // handle right key input
-if (global.menu_right) {
+if (global.menuRight) {
 	index++;
 	
 	if (index >= sparActions.height) index = 0;
@@ -11,7 +11,7 @@ if (global.menu_right) {
 }
 
 // handle left key input
-if (global.menu_left) {
+if (global.menuLeft) {
 	index--;
 	
 	if (index < 0) index = sparActions.height - 1;

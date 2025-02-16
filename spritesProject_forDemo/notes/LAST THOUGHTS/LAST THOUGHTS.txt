@@ -835,3 +835,9 @@ COMING BACK FROM PLAYTEST BUILD
 			-game does not support saving/loading which is a time sink for testing
 			-no doors to enter different rooms which is a time sink for testing
 			-selecting unfinished main menu options breaks the game
+			
+	2/16
+	
+			GOT THE CHARACTER CREATOR COMMENTED OUT AND MOST OF THE SAVE/LOAD SORTED OUT
+			
+			GO TO SLEEP AND THEN FINISH BOTH OF THEM WHEN YOU WAKE UP--CREATE NEW NEWGAME START FLOW

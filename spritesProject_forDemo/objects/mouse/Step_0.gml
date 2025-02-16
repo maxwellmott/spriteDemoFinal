@@ -57,8 +57,13 @@ if (instance_exists(spellBookBuilder)) {
 
 // get input from gamepad
 if (global.controllerType == controllerTypes.gamepad) {
-	x += gamepad_axis_value(0, gp_axisrh);
-	y += gamepad_axis_value(0, gp_axislh);
+	x += global.gpMouseRight;
+	x -= global.gpMouseLeft;
+	y += global.gpMouseDown;
+	y -= global.gpMouseUp;	
+	
+	x = clamp(x, leftEdge, rightEdge);
+	y = clamp(y, topEdge, bottomEdge);
 }
 
 // get input from mouse
@@ -105,7 +110,3 @@ if ((alarm[1] == -1) and (global.click > 0)) {
 	image_index = 1;
 	alarm[1] = 15;	
 }
-
-// make sure x and y are on whole pixel values
-x = round(x);
-y = round(y);

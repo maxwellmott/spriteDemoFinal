@@ -24,7 +24,7 @@ if (introFinished)
 && !(outroStarted) {
 	if !(turningPage) {	
 		if (pageIndex < (ds_list_size(pages) div 2) -1) {
-			if (global.menu_right) {
+			if (global.menuRight) {
 				pageIndex++;
 				turningPageRight = true;	
 				flipFrame = 0;
@@ -33,7 +33,7 @@ if (introFinished)
 		}
 		
 		if (pageIndex > 0) {
-			if (global.menu_left) {
+			if (global.menuLeft) {
 				pageIndex--;
 				turningPageLeft = true;
 				flipFrame = 3;
