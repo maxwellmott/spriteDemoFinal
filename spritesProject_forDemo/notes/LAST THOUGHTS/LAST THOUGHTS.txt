@@ -853,5 +853,11 @@ COMING BACK FROM PLAYTEST BUILD
 				-draw all selectors
 				-draw all names
 				-allow menu navigation using arrow keys + space/enter/tab
-				-prompt player to confirm their choices after hitting enter or hitting tab while on the last phase
+				-prompt player to confirm their choices after hitting enter or hitting space while on the last phase
 				-finish clean up event to lead into keyboard menu for name selection and save file creation
+				
+			JUST KIDDING, I ENDED UP STAYING AWAKE SUPER LATE AND GETTING MORE WORK DONE. HERE IS THE NEW LIST:
+				-allow menu navigation using arrow keys + space/enter/tab
+				-prompt player to confirm their choices after hitting enter or hitting space while on the last phase
+				-finish clean up event to lead into keyboard menu for name selection and save file creation
+				

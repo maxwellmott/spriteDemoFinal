@@ -99,9 +99,17 @@ var i = 0;	repeat (2) {
 	i++;
 }
 
+// set all draw vals
+draw_set(fa_center, fa_middle, 1.0, COL_BLACK);
+
+// set font
+draw_set_font(plainFont);
+
 // draw outfit name
+draw_text_pixel_perfect(nameDrawX, outfitNameY, outfitNameList[| outfit], 9, 256);
 
 // draw hairstyle name
+draw_text_pixel_perfect(nameDrawX, hairstyleNameY, hairstyleNameList[| hairstyle], 9, 256);
 
 // use a switch statement to check each possible phase to draw the appropriate selector
 switch (phase) {
@@ -122,15 +130,49 @@ switch (phase) {
 	break;
 	
 	case CHARACTER_CREATOR_PHASES.OUTFIT_SELECTION:
+		// check the frames for timing
+		if (global.gameTime mod 24 > 12) {
+			// draw the selection indicator
+			draw_sprite(spr_ccSelectionIndicator, 0, nameDrawX, outfitNameY - 3);	
+		}
 	break;
 	
 	case CHARACTER_CREATOR_PHASES.OUTFIT_COLOR_SELECTION:
+		// get the position of the selected outfit color on the colorList
+		var colorNum = ds_list_find_index(colorList, skintone);
+		
+		// get the position of the colorNum on the usableDyes list
+		var index = ds_list_find_index(usableDyes, colorNum);
+		
+		// get the left and top of the current outfit color splotch
+		var left	= outfitColorLefts[| index];
+		var top		= outfitColorTops[| index];
+		
+		// draw the dye selector at this position
+		draw_sprite(spr_dyeSelector, 0, left, top);
 	break;
 	
 	case CHARACTER_CREATOR_PHASES.HAIRSTYLE_SELECTION:
+		// check the frames for timing
+		if (global.gameTime mod 24 > 12) {
+			// draw the selection indicator
+			draw_sprite(spr_ccSelectionIndicator, 0, nameDrawX, hairstyleNameY - 3);
+		}
 	break;
 	
 	case CHARACTER_CREATOR_PHASES.HAIR_COLOR_SELECTION: 	
+		// get the position of the selected hair color on the colorList
+		var colorNum = ds_list_find_index(colorList, hairColor);
+		
+		// get the position of the colorNum on the usableHairColors list
+		var index = ds_list_find_index(usableHairColors, colorNum);
+		
+		// get the left and top of the current hair color splotch
+		var left	= hairColorLefts[| index];
+		var top		= hairColorTops[| index];
+		
+		// draw the dye selector at this position
+		draw_sprite(spr_dyeSelector, 0, left, top);
 	break;
 }
 

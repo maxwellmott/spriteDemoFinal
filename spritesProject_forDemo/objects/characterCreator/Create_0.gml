@@ -13,9 +13,11 @@ accessoryColorID	= -1;
 
 // initialize all name lists
 outfitNameList		= ds_list_create();
-hatNameList			= ds_list_create();
-shoesNameList		= ds_list_create();
-accessoryNameList	= ds_list_create();
+hairstyleNameList	= ds_list_create();
+
+// decode all name lists
+decode_list(global.allOutfitNames,		outfitNameList);
+decode_list(global.allHairstyleNames,	hairstyleNameList);
 
 // initialize mirror shine position
 mirrorShineX = -1;
@@ -247,6 +249,15 @@ outfitClickFrame = 0;
 
 // initialize hairstyleClickFrame
 hairstyleClickFrame = 0;
+
+// get outfitNameY
+outfitNameY = outfitArrowBottoms[| 0] - (outfitArrowBottoms[| 0] - outfitArrowTops[| 0]) + 11;
+
+// get hairstyleNameY
+hairstyleNameY = hairArrowBottoms[| 0] - (hairArrowBottoms[| 0] - hairArrowTops[| 0]) + 11;
+
+// get nameDrawX 
+nameDrawX = guiWidth / 2;
 
 // indicate that it is time for the transition manager to fade back out
 global.roomBuilt = true;
