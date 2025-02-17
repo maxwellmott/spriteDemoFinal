@@ -47,7 +47,7 @@ switch (state) {
 				break;
 				
 				case rm_appearanceEditor:
-					create_once(0, 0, LAYER.meta, characterCreator);
+					create_once(0, 0, LAYER.meta, appearanceMenu);
 					create_once(0, 0, LAYER.ui, mouse);
 					state = transitionStates.fadingOut;
 				break;
@@ -83,8 +83,15 @@ switch (state) {
 					state = transitionStates.fadingOut;
 				break;
 				
+				case rm_characterCreator:
+					create_once(0, 0, LAYER.meta, characterCreator);
+					create_once(0, 0, LAYER.ui, mouse);
+					state = transitionStates.fadingOut;
+				break;
+				
 				default:
 					state = transitionStates.fadingOut;
+				break;
 			}
 			#endregion
 		}

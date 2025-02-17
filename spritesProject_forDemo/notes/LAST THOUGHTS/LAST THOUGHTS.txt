@@ -841,3 +841,9 @@ COMING BACK FROM PLAYTEST BUILD
 			GOT THE CHARACTER CREATOR COMMENTED OUT AND MOST OF THE SAVE/LOAD SORTED OUT
 			
 			GO TO SLEEP AND THEN FINISH BOTH OF THEM WHEN YOU WAKE UP--CREATE NEW NEWGAME START FLOW
+			
+			GOT MOST OF THE CHARACTER CREATOR FINISHED. HERE'S WHAT REMAINS:
+				-check for button click
+				-draw selectors and names
+				-allow for menu navigation
+				-finish clean up event to lead into keyboard menu for name selection and save file creation

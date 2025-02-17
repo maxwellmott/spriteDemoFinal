@@ -74,10 +74,4 @@ if (instance_exists(overworld))
 	&& !(global.rightBumper) {
 		open_action_menu();	
 	}
-	
-	// for debugging only
-	if (global.shiftReleased) {
-		global.keyboardPrompt = KEYBOARD_PROMPTS.CHARACTER_NAME;
-		room_transition(x, y, facing, rm_keyboardMenu, bgm_menuTheme);
-	}
 }

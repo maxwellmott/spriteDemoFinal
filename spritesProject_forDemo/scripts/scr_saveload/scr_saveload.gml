@@ -12,7 +12,7 @@ function start_new_game() {
 	
 	ds_list_destroy(npcLocationList);
 	
-	room_transition(128, 160, directions.south, rm_overworld, bgm_springRelaxSunny);
+	room_transition(128, 160, directions.south, rm_characterCreator, bgm_menuTheme);
 }
 
 ///@desc This function stores a given string of data in a buffer and then saves that buffer

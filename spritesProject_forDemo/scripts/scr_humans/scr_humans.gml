@@ -2,8 +2,8 @@
 #macro humanSheetWidth		384
 #macro humanSheetHeight		42
 
-#macro int_rect_breadth	= 4;
-#macro int_rect_length	= 12; 
+#macro int_rect_breadth		4
+#macro int_rect_length		12 
 
 // enumerator to store the four cardinal directions
 enum directions {

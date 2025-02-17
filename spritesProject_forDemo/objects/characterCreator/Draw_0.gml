@@ -1,9 +1,19 @@
 
 // draw background
+draw_sprite(spr_characterCreatorBackground, 0, 0, 0);
 
-// draw all dyes for each appearance element
+// use a repeat loop to draw all skintone splotches
+
+// use a repeat loop to draw all outfit color splotches
+
+// use a repeat loop to draw all hair color splotches
+
+// draw both outfit arrows
+
+// draw both hairstyle arrows
 
 // use a switch statement to check each possible phase
+/*
 switch (phase) {
 	case CHARACTER_CREATOR_PHASES.SKINTONE_SELECTION:
 	break;
@@ -20,3 +30,4 @@ switch (phase) {
 	case CHARACTER_CREATOR_PHASES.HAIR_COLOR_SELECTION: 	
 	break;
 }
+*/

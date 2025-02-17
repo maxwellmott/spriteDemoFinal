@@ -1,9 +1,9 @@
 {
   "$GMScript":"v1",
-  "%Name":"scr_dyes",
+  "%Name":"scr_characterCreator",
   "isCompatibility":false,
   "isDnD":false,
-  "name":"scr_dyes",
+  "name":"scr_characterCreator",
   "parent":{
     "name":"HUMANS",
     "path":"folders/Scripts/HUMANS.yy",

@@ -37,7 +37,7 @@ global.menuStop			=	0;
 #endregion
 
 // initialize controllerType
-global.controllerType = controllerTypes.gamepad;
+global.controllerType = controllerTypes.keyboard;
 
 // make mouse cursor invisible
 window_set_cursor(cr_none);

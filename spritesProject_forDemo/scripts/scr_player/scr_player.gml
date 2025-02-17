@@ -65,6 +65,8 @@ function player_load_appearance() {
 	ds_list_destroy(cl);
 }
 
+
+
 function player_set_draw_position() {
 	drawX = x - 12;
 	drawY = y - 21;
@@ -181,7 +183,6 @@ function player_draw_from_state() {
 		break;
 	}
 }
-
 ///@desc This function is called by the player step event, while in the overworld. The 
 /// function gets controller input and checks if the player is moving
 function player_move() {

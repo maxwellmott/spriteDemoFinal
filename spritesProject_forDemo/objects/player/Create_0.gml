@@ -55,8 +55,8 @@ facing = -1;
 location = -1;
 
 // initialize appearance
-//				skintone							outfit								outfitColor						hairstyle									hairColor							hat							hatColor					shoes								shoeColor				accessory
-appearance =	string(colors.skintone2) + "," +	string(outfits.overalls) + "," +	string(colors.indigo) + "," +	string(hairstyles.shortStraight) + "," +	string(colors.chartreuse) + "," +	string(hats.cowboy) + "," + string(colors.noir) + "," + string(footwear.sandals) + "," +	string(colors.cyan) + ",-1,-1,";
+//				skintone							outfit								outfitColor								hairstyle									hairColor								hat							hatColor								shoes								shoeColor							accessory
+appearance =	string(COLORS.SKINTONE_2) + "," +	string(outfits.overalls) + "," +	string(COLORS.FARSEED_WHITE) + "," +	string(hairstyles.shortStraight) + "," +	string(COLORS.SPRINGSAP_GOLD) + "," +	string(hats.cowboy) + "," + string(COLORS.OBSIDIAN_BLACK) + "," +	string(footwear.sandals) + "," +	string(COLORS.COMMON_GEM_BLUE) +	",-1,-1,";
 
 // load player appearance
 player_load_appearance();

@@ -1,13 +1,6 @@
-
 // initialize player display position
 playerDisplayX		= -1;
 playerDisplayY		= -1;
-
-// initialize all appearance param IDs
-outfitID			= -1;
-hatID				= -1;
-shoes				= -1;
-accessory			= -1;
 
 // initialize playerFacing
 playerFacing = directions.south;
@@ -28,8 +21,68 @@ accessoryNameList	= ds_list_create();
 mirrorShineX = -1;
 mirrorShineY = -1;
 
-// initialize dyes list
+// rebuild the color list
+colorList = ds_list_create();
+
+// decode color list
+decode_list(global.allColors, colorList);
+
+// initialize usableOutfits list
+usableOutfits = ds_list_create();
+
+// initialize usable dyes list
 usableDyes = ds_list_create();
+
+// initialize skintonesList
+skintones = ds_list_create();
+
+// initialize hairstyles list
+usableHairstyles = ds_list_create();
+
+// initialize usable hairColors list
+usableHairColors = ds_list_create();
+
+// populate outfit list
+ds_list_add(usableOutfits,		
+	outfits.plainGown,	
+	outfits.tradGi,	
+	outfits.tradLounge
+);
+
+// populate dye list
+ds_list_add(usableDyes,		
+	COLORS.DRYBRUSH_GREEN,
+	COLORS.FIRMROOT_BROWN,
+	COLORS.WILD_YAM_PURPLE
+);	
+
+// populate skintones list
+ds_list_add(skintones,
+	COLORS.SKINTONE_1,
+	COLORS.SKINTONE_2,
+	COLORS.SKINTONE_3,
+	COLORS.SKINTONE_4,
+	COLORS.SKINTONE_5,
+	COLORS.SKINTONE_6
+);
+
+// populate hairstyles list
+ds_list_add(usableHairstyles,
+	hairstyles.longStraight,
+	hairstyles.shortStraight,
+	hairstyles.shortMessy
+);
+
+// populate hairColors list
+ds_list_add(usableHairColors,
+	COLORS.HAIR_BLACK,
+	COLORS.HAIR_BLONDE,
+	COLORS.HAIR_DIRTY_BLONDE,
+	COLORS.HAIR_BROWN,
+	COLORS.HAIR_DARK_BROWN,
+	COLORS.HAIR_RED,
+	COLORS.HAIR_ORANGE
+);	
 
 // initialize index
 index = 0;
@@ -74,7 +127,114 @@ hairColorRights		= ds_list_create();
 hairColorTops		= ds_list_create();
 hairColorBottoms	= ds_list_create();
 
-// populate all bbox dimension lists
+// use a repeat loop to poulate skintone bbox dimensions
+var i = 0;	repeat (ds_list_size(skintones)) {
+	// get all dimensions
+	var left	= 38 + (i * 32);
+	var right	= 58 + (i * 32);
+	var top		= 46;
+	var bottom	= 61;
+	
+	// set all dimensions on the proper list
+	skintoneLefts[| i]		= left;
+	skintoneRights[| i]		= right;
+	skintoneTops[| i]		= top;
+	skintoneBottoms[| i]	= bottom;
+	
+	// increment i
+	i++;
+}
+
+// use a repeat loop to populate outfit arrow bbox dimensions
+var i = 0;	repeat (2) {
+	// get all dimensions
+	var left	= 36 + (i * 173); 
+	var right	= 46 + (i * 173);
+	var top		= 75;
+	var bottom	= 90;
+	
+	// set all dimensions on the proper list
+	outfitArrowLefts[| i]		= left;
+	outfitArrowRights[| i]		= right;
+	outfitArrowTops[| i]		= top;
+	outfitArrowBottoms[| i]		= bottom;
+	
+	// increment i
+	i++;
+}
+
+// use a repeat loop to populate outfit color bbox dimensions
+var i = 0;	repeat (ds_list_size(usableDyes)) {
+	// get all dimensions
+	var left	= 35 + (i * 8);
+	var right	= 41 + (i * 8);
+	var top		= 95;
+	var bottom	= 101;
+	
+	// set all dimensions on the proper list
+	outfitColorLefts[| i]		= left;
+	outfitColorRights[| i]		= right;
+	outfitColorTops[| i]		= top;
+	outfitColorBottoms[| i]		= bottom;
+	
+	
+	// increment i
+	i++;
+}
+
+// use a repeat loop to populate hair arrow bbox dimensions
+var i = 0;	repeat (2) {
+	// get all dimensions
+	var left	= 36 + (i * 173);
+	var right	= 46 + (i * 173);
+	var top		= 121;
+	var bottom	= 136;
+	
+	// set all dimensions on the proper list
+	hairArrowLefts[| i]		= left;
+	hairArrowRights[| i]	= right;
+	hairArrowTops[| i]		= top;
+	hairArrowBottoms[| i]	= bottom;
+	
+	
+	// increment i
+	i++;
+}
+
+// use a repeat loop to populate hair color bbox dimensions
+var i = 0;	repeat (ds_list_size(usableHairColors)) {
+	// get all dimensions
+	var left	= 35 + (i * 8);
+	var right	= 41 + (i * 8);
+	var top		= 141;
+	var bottom	= 147;
+	
+	// set all dimensions on the proper list
+	hairColorLefts[| i]		= left;
+	hairColorRights[| i]	= right;
+	hairColorTops[| i]		= top;
+	hairColorBottoms[| i]	= bottom;
+	
+	
+	// increment i
+	i++;
+}
+
+// initialize appearance list
+appearance = ds_list_create();
+
+// initialize all appearance elements
+skintone		= 	skintones[|			irandom_range(0, ds_list_size(skintones))];
+outfit			= 	usableOutfits[|		irandom_range(0, ds_list_size(usableOutfits))];
+outfitColor		= 	usableDyes[|		irandom_range(0, ds_list_size(usableDyes))];
+hairstyle		= 	usableHairstyles[|	irandom_range(0, ds_list_size(usableHairstyles))];
+hairColor		= 	usableHairColors[|	irandom_range(0, ds_list_size(usableHairColors))];
+hat				= 	hats.nothing;
+hatColor		=	COLORS.DYNSVEIL_BROWN;
+shoes			= 	footwear.sandals;
+shoeColor		= 	COLORS.FIRMROOT_BROWN;
+accessory		= 	-1;
+accessoryColor	= 	-1;
 
 // indicate that it is time for the transition manager to fade back out
 global.roomBuilt = true;

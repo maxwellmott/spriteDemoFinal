@@ -91,7 +91,7 @@ function master_grid_add_literature(_ID) {
 }
 
 // add all literature to literature grid
-master_grid_add_literature(literatureIDs.inhumanEntities, "Inhuman Entities", "Gregoria Von Verstolen", guiBook, colors.darkGreen, textGrid[# 1, literatureIDs.inhumanEntities], cursiveFont, encode_list(inhumanEntitiesImages));
+master_grid_add_literature(literatureIDs.inhumanEntities, "Inhuman Entities", "Gregoria Von Verstolen", guiBook, COLORS.STUMPMOSS_GREEN, textGrid[# 1, literatureIDs.inhumanEntities], cursiveFont, encode_list(inhumanEntitiesImages));
 
 // encode listerature grid
 global.allLiterature = encode_grid(global.literatureGrid);
