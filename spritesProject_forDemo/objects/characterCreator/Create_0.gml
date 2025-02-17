@@ -1,6 +1,6 @@
 // initialize player display position
-playerDisplayX		= -1;
-playerDisplayY		= -1;
+playerDisplayX		= 115;
+playerDisplayY		= 160;
 
 // initialize playerFacing
 playerFacing = directions.south;
@@ -84,9 +84,6 @@ ds_list_add(usableHairColors,
 	COLORS.HAIR_ORANGE
 );	
 
-// initialize index
-index = 0;
-
 // create character creator phases enum
 enum CHARACTER_CREATOR_PHASES {
 	SKINTONE_SELECTION,
@@ -132,8 +129,8 @@ var i = 0;	repeat (ds_list_size(skintones)) {
 	// get all dimensions
 	var left	= 38 + (i * 32);
 	var right	= 58 + (i * 32);
-	var top		= 46;
-	var bottom	= 61;
+	var top		= 42;
+	var bottom	= 58;
 	
 	// set all dimensions on the proper list
 	skintoneLefts[| i]		= left;
@@ -220,21 +217,36 @@ var i = 0;	repeat (ds_list_size(usableHairColors)) {
 	i++;
 }
 
+// set random seed
+randomize();
+
 // initialize appearance list
 appearance = ds_list_create();
 
 // initialize all appearance elements
-skintone		= 	skintones[|			irandom_range(0, ds_list_size(skintones))];
-outfit			= 	usableOutfits[|		irandom_range(0, ds_list_size(usableOutfits))];
-outfitColor		= 	usableDyes[|		irandom_range(0, ds_list_size(usableDyes))];
-hairstyle		= 	usableHairstyles[|	irandom_range(0, ds_list_size(usableHairstyles))];
-hairColor		= 	usableHairColors[|	irandom_range(0, ds_list_size(usableHairColors))];
+skintone		=	colorList[|skintones[|			irandom_range(0, ds_list_size(skintones) - 1)]];
+outfit			= 	usableOutfits[|					irandom_range(0, ds_list_size(usableOutfits) - 1)];
+outfitColor		= 	colorList[| usableDyes[|		irandom_range(0, ds_list_size(usableDyes) - 1)]];
+hairstyle		= 	usableHairstyles[|				irandom_range(0, ds_list_size(usableHairstyles) - 1)];
+hairColor		= 	colorList[| usableHairColors[|	irandom_range(0, ds_list_size(usableHairColors) - 1)]];
 hat				= 	hats.nothing;
 hatColor		=	COLORS.DYNSVEIL_BROWN;
 shoes			= 	footwear.sandals;
 shoeColor		= 	COLORS.FIRMROOT_BROWN;
 accessory		= 	-1;
 accessoryColor	= 	-1;
+
+// initialize currentOutfitArrow variable
+currentOutfitArrow = -1;
+
+// initialize currentHairstyleArrow variable
+currentHairstyleArrow = -1;
+
+// initialize arrowClickFrame
+outfitClickFrame = 0;
+
+// initialize hairstyleClickFrame
+hairstyleClickFrame = 0;
 
 // indicate that it is time for the transition manager to fade back out
 global.roomBuilt = true;

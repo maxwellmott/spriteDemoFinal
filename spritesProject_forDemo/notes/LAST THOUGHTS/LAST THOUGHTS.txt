@@ -847,3 +847,11 @@ COMING BACK FROM PLAYTEST BUILD
 				-draw selectors and names
 				-allow for menu navigation
 				-finish clean up event to lead into keyboard menu for name selection and save file creation
+				
+	2/17
+			EVERYTHING THAT IS LEFT RE THE CHARACTER CREATOR
+				-draw all selectors
+				-draw all names
+				-allow menu navigation using arrow keys + space/enter/tab
+				-prompt player to confirm their choices after hitting enter or hitting tab while on the last phase
+				-finish clean up event to lead into keyboard menu for name selection and save file creation
