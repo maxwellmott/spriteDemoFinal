@@ -13,7 +13,7 @@ else	{
 }
 
 // draw currently selected spells
-var i = 0;	repeat (8) {
+var i = 0;	repeat (ds_list_size(spellBookList)) {
 	// get x and y for nameslot
 	var sx = nameSlotLefts[| i];
 	var sy = nameSlotTops[| i];

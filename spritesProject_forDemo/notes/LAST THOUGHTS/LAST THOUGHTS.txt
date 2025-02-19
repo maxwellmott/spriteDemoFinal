@@ -869,3 +869,14 @@ COMING BACK FROM PLAYTEST BUILD
 			AFTER THAT, FINISH ALL THE SAVE/LOAD FUNCTIONS (ON THE SAVE LOAD SCRIPT) AND PLACE THEM PROPERLY. TEST, THEN
 			CREATE DOCUMENTATIONS, UPDATE SERVER, AND SEND TO PLAYTESTERS.
 				
+			OKAY--FINISHED DEBUGGING AFTER ALL THE CHANGES TO THE PLAYER CREATE EVENT. FINISH THE ABOVE ITEMS AND THEN CONSULT
+			THE FOLLOWING LIST
+			
+			REVISED LIST FROM YIMING MEETING:
+			
+			-server does not delete old rooms when there is nobody in them
+			-server does not allow rejoining of old rooms after crashing
+			
+			-game does not support saving/loading which is a time sink for testing
+			-no doors to enter different rooms which is a time sink for testing
+			-selecting unfinished main menu options breaks the game (just make the last couple of menus)

@@ -73,10 +73,30 @@ year	= 512;
 	unlockedDoors = "";
 
 	// initialize all unlocked talismans
-	talismans = "";
+	talismans = currentTeam;
+	
+	/*
+	// FOR TESTING PURPOSES ONLY!!!!!!!
+	var l = ds_list_create(); var i = 0;	repeat (SPRITES.HEIGHT) {
+		l[| i] = i;
+		
+		// increment i
+		i++;
+	}	talismans = encode_list(l);		ds_list_destroy(l);
+	*/
 	
 	// initialize knownSpells
-	knownSpells = ds_list_create();
+	knownSpells = currentSpellBook;
+	
+	/*
+	// FOR TESTING PURPOSES ONLY!!!!!!!
+	var l = ds_list_create(); var i = 0;	repeat (SPELLS.HEIGHT) {
+		l[| i] = i;
+		
+		// increment i
+		i++;
+	}	knownSpells = encode_list(l);		ds_list_destroy(l);
+	*/
 
 	// initialize unlockedTitles
 	unlockedTitles = ds_list_create();
