@@ -5,7 +5,7 @@ name = "";
 clientID = -1;
 onlineRating = -1;
 roomID = -1;
-teamString = "";
+currentTeam = "";
 teamList = ds_list_create();
 
 maxHP = MAX_HP;

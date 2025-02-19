@@ -10,10 +10,10 @@ if (instance_exists(onlineEnemy)) {
 
 alarmTime = 4;
 
-// get talismans list
-var talismanString = player.talismanString;
+// get  list
+var talismans = player.talismans;
 talismanList = ds_list_create();
-decode_list(talismanString, talismanList);
+decode_list(talismans, talismanList);
 
 // convert all spriteIDs from strings to reals
 var i = 0;	repeat (ds_list_size(talismanList)) {
@@ -25,7 +25,7 @@ var i = 0;	repeat (ds_list_size(talismanList)) {
 // get current team
 teamList = ds_list_create();
 
-decode_list(player.teamString, teamList);
+decode_list(player.currentTeam, teamList);
 
 // initialize visible row count
 visibleRowCount = 4;

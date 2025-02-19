@@ -339,7 +339,7 @@ draw_set_alpha(1.0);
 	draw_text_pixel_perfect(guiWidth - npw + 7, guiHeight - nph - 14, n1, 7, 256);
 	
 	// draw player title
-	draw_sprite(spr_sparTitlesSheet, playerOne.selectedTitle, 157, 211);
+	draw_sprite(spr_sparTitlesSheet, playerOne.title, 157, 211);
 	
 	// draw enemy name
 	draw_text_pixel_perfect(6, -14, n2, 7, 256);

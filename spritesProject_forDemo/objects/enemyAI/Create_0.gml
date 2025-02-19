@@ -6,23 +6,23 @@ ID = global.opponent
 // initialize name
 name = "";
 
-// initialize teamString
-talismanString = "";
+// initialize currentTeam
+talismans = "";
 
 // initialize knownSpells
 knownSpells = ds_list_create();
 
-// initialize spellBookString
-spellBookString = "";
+// initialize currentSpellBook
+currentSpellBook = "";
 
 // initialize knownSpells string
-knownSpellString = "";
+knownSpells = "";
 
 // initialize spellString
 spellString = "";
 
 // initialize spellBook
-spellBook = ds_list_create();
+spellBookList = ds_list_create();
 
 // initialize team
 teamList = ds_list_create();

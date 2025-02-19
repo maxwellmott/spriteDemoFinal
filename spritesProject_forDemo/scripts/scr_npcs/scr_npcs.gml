@@ -72,9 +72,9 @@ convert_grid_to_map(mercurioResponseGrid, mercurioResponseMap);
 
 #region BUILD ALL TALISMAN LISTS
 
-var mercurioTalismans = ds_list_create();
+var mercurio = ds_list_create();
 
-ds_list_add(mercurioTalismans,
+ds_list_add(mercurio,
 				SPRITES.DEMOLITOPS,
 				SPRITES.ZEPHIRA,
 				SPRITES.FISHMONGER,
@@ -197,8 +197,8 @@ function master_grid_add_npc(_ID) {
 	}
 }
 
-// add all npcs to npcGrid		ID							NAME									WALKING SPRITE			MEDITATING SPRITE			EATING SPRITE			DRINKING SPRITE			WAVEPHONE SPRITE				TALISMANS							SPELLS								RESPONSES									LOCATIONS							RESPONSE FUNCTION
-master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",								spr_mercurioWalking,	spr_mercurioMeditating,		spr_mercurioEating,		spr_mercurioDrinking,	spr_mercurioWavephone,			encode_list(mercurioTalismans),		encode_list(mercurioSpells),		encode_map(mercurioResponseMap),			encode_list(mercurioLocations),		mercurio_respond);
+// add all npcs to npcGrid		ID							NAME									WALKING SPRITE			MEDITATING SPRITE			EATING SPRITE			DRINKING SPRITE			WAVEPHONE SPRITE											SPELLS								RESPONSES									LOCATIONS							RESPONSE FUNCTION
+master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",								spr_mercurioWalking,	spr_mercurioMeditating,		spr_mercurioEating,		spr_mercurioDrinking,	spr_mercurioWavephone,			encode_list(mercurio),		encode_list(mercurioSpells),		encode_map(mercurioResponseMap),			encode_list(mercurioLocations),		mercurio_respond);
 
 // encode the grid
 global.allNPCs = encode_grid(global.npcGrid);
@@ -227,7 +227,7 @@ function npc_load_parameters(_id) {
 	wavephoneSprite		= real(string_digits(grid[# npcParams.wavephoneSprite,	ID]));
 	responseFunction	= real(string_digits(grid[# npcParams.respondFunction,	ID]));
 	
-	//decode_list(grid[# npcParams.talismans,		ID],		talismans);
+	//decode_list(grid[# npcParams.,		ID],		);
 	//decode_list(grid[# npcParams.spells,			ID],		SPELLS);
 	decode_map(grid[# npcParams.responses,		ID],		responseMap);
 	
@@ -318,8 +318,6 @@ function edit_npc_location_lists(_locationList) {
 	decode_grid(global.allLocations, grid);		
 	
 	var _location = 0;	repeat (locations.height) {
-		randomize();
-		
 		var encList = grid[# locationParams.npcList, _location];
 		var npcList	= ds_list_create();
 		

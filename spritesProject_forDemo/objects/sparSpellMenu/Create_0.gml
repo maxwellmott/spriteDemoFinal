@@ -19,7 +19,7 @@ y = (guiHeight / 2) - 8;
 
 index = 0;
 
-currentSpell = player.spellBook[| index];
+currentSpell = player.spellBookList[| index];
 
 name			=	"";
 description		=	"";
@@ -46,7 +46,7 @@ modVar = 6;
 
 drawFlip = false;
 
-spellBookHeight = ds_list_size(player.spellBook);
+spellBookHeight = ds_list_size(player.spellBookList);
 
 // spar spell info display params
 

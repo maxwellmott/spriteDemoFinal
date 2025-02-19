@@ -35,7 +35,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_ccConfirmWindow",
+    "path":"sprites/spr_ccConfirmWindow/spr_ccConfirmWindow.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }

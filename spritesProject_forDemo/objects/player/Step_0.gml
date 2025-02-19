@@ -1,11 +1,10 @@
 event_inherited();
 
+#region OVERWORLD MOVEMENT AND INTERACTION
+// get appearance variables
 if !(appearanceLoaded) {
 	player_load_appearance();	
 }
-
-#region OVERWORLD MOVEMENT AND INTERACTION
-// get appearance variables
 
 if (instance_exists(overworld)) 
 && !(instance_exists(menu)) {

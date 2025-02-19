@@ -275,18 +275,18 @@ function player_build_spellBookGrid() {
 	decode_grid(global.allSpells, grid);
 
 	// build spellBook list
-	spellBook = ds_list_create();
-	decode_list(spellBookString, spellBook);
+	spellBookList = ds_list_create();
+	decode_list(currentSpellBook, spellBookList);
 
 	// resize spellBookGrid if needed
-	if (ds_grid_height(spellBookGrid) != ds_list_size(spellBook)) {
-		ds_grid_resize(spellBookGrid, SPELL_PARAMS.HEIGHT, ds_list_size(spellBook));
+	if (ds_grid_height(spellBookGrid) != ds_list_size(spellBookList)) {
+		ds_grid_resize(spellBookGrid, SPELL_PARAMS.HEIGHT, ds_list_size(spellBookList));
 	}
 
 	// use a repeat loop to add the info for each spell in spellBook
-	var i = 0;	repeat (ds_list_size(spellBook)) {
+	var i = 0;	repeat (ds_list_size(spellBookList)) {
 		// get id
-		var spellID = spellBook[| i];
+		var spellID = spellBookList[| i];
 		
 		// use a repeat loop to set all vars
 		var j = 0;	repeat (SPELL_PARAMS.HEIGHT) {

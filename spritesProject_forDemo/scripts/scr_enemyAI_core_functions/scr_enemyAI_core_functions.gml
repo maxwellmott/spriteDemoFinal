@@ -11,12 +11,12 @@ function enemyAI_get_params() {
 	decode_grid(global.allNPCs, grid);
 	
 	// use npcID to get params
-	talismanString	= grid[# npcParams.talismans,	ID];
+	talismans	= grid[# npcParams.talismans,	ID];
 	name			= grid[# npcParams.name,		ID];
-	spellBookString	= grid[# npcParams.spells,		ID];
+	currentSpellBook	= grid[# npcParams.spells,		ID];
 	
-	// decode talismanString and spellString
-	decode_list(talismanString, roster);
+	// decode talismans and spellString
+	decode_list(talismans, roster);
 	
 	// delete temporary grid
 	ds_grid_destroy(grid);

@@ -5,6 +5,23 @@
 #macro int_rect_breadth		4
 #macro int_rect_length		12 
 
+enum genders {
+	male,
+	female,
+	nonbinary,
+	height
+}
+
+enum pronoun_types {
+	possessive,					// HIS/HERS/THEIRS
+	direct_referential,			// HE/SHE/THEY
+	passive_referential,		// HIM/HER/THEM
+	present_conjunctive,		// HE'S/SHE'S/THEY'RE
+	past_conjunctive,			// HE'S/SHE'S/THEY'VE
+	passive_conjunctive,		// HE'D/SHE'D/THEY'D
+	height
+}
+
 // enumerator to store the four cardinal directions
 enum directions {
 	south,
@@ -42,16 +59,16 @@ function human_walk() {
 	&& !(instance_exists(menu)) {
 		if moving {
 			// horizontal movement and collision
-			if !(tile_meeting(x + hmove, y, tm_water, waterTileChecker)) 
-			&& !(tile_meeting(x + hmove, y, tm_collidables, collidableTileChecker)) 
+			if !(tile_meeting(x + hmove, y, overworld.tm_water, waterTileChecker)) 
+			&& !(tile_meeting(x + hmove, y, overworld.tm_collidables, collidableTileChecker)) 
 			&& !(place_meeting(x + hmove, y, sceneryCollidable)) 
 			&& !(place_meeting(x + hmove, y, human)) {
 				x = round(x + hmove);
 			}
 		
 			// vertical movement and collision
-			if !(tile_meeting(x, y + vmove, tm_water, waterTileChecker)) 
-			&& !(tile_meeting(x, y + vmove, tm_collidables, collidableTileChecker)) 
+			if !(tile_meeting(x, y + vmove, overworld.tm_water, waterTileChecker)) 
+			&& !(tile_meeting(x, y + vmove, overworld.tm_collidables, collidableTileChecker)) 
 			&& !(place_meeting(x, y + vmove, sceneryCollidable)) 
 			&& !(place_meeting(x, y + vmove, human)) {
 				y = round(y + vmove);
@@ -76,16 +93,16 @@ function human_swim() {
 	&& !(instance_exists(menu)) {	
 		if moving {
 			// horizontal movement and collision
-			if !(tile_meeting(x + hmove, y, tm_ground, groundTileChecker))
-			&& !(tile_meeting(x + hmove, y, tm_collidables, collidableTileChecker)) 
+			if !(tile_meeting(x + hmove, y, overworld.tm_ground, groundTileChecker))
+			&& !(tile_meeting(x + hmove, y, overworld.tm_collidables, collidableTileChecker)) 
 			&& !(place_meeting(x + hmove, y, sceneryCollidable)) 
 			&& !(place_meeting(x + hmove, y, human)) {
 				x = round(x + hmove);
 			}
 		
 			// vertical movement and collision
-			if !(tile_meeting(x, y + vmove, tm_ground, groundTileChecker))
-			&& !(tile_meeting(x, y + vmove, tm_collidables, collidableTileChecker))
+			if !(tile_meeting(x, y + vmove, overworld.tm_ground, groundTileChecker))
+			&& !(tile_meeting(x, y + vmove, overworld.tm_collidables, collidableTileChecker))
 			&& !(place_meeting(x, y + vmove, sceneryCollidable))
 			&& !(place_meeting(x, y + vmove, human)) {
 				y = round(y + vmove);
@@ -295,8 +312,8 @@ function check_water_get_out(_x, _y) {
 	var spawnY = _y;
 	
 	// get all necessary tilemaps
-	var tmCollidable	= player.tm_collidables;
-	var tmWater			= player.tm_water;
+	var tmCollidable	= overworld.tm_collidables;
+	var tmWater			= overworld.tm_water;
 	
 	// set maskWidth and maskHeight (should be 18 and 3)
 	var maskWidth	= 18;
@@ -361,8 +378,8 @@ function check_water_get_in(_x, _y) {
 	var spawnY = _y;
 	
 	// get all necessary tilemaps
-	var tmCollidable	= player.tm_collidables;
-	var tmGround		= player.tm_ground;
+	var tmCollidable	= overworld.tm_collidables;
+	var tmGround		= overworld.tm_ground;
 	
 	// set maskWidth and maskHeight (should be 18 and 3)
 	var maskWidth	= 18;

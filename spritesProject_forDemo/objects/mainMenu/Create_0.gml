@@ -1,7 +1,7 @@
 create_once(player.x, player.y, LAYER.mouse, mouse);
 
 enum MAIN_MENU_BUTTONS {
-	TALISMANS,
+	TEAM,
 	SPELLS,
 	CONTACTS,
 	TODO_LIST,
@@ -39,15 +39,15 @@ var i = 0;	repeat (MAIN_MENU_BUTTONS.HEIGHT) {
 	var nm			= -1;
 	
 	switch (i) {
-		case MAIN_MENU_BUTTONS.TALISMANS:
-			name	= "TALISMANS";
+		case MAIN_MENU_BUTTONS.TEAM:
+			name	= "TEAM";
 			top		= y - 37;
 			bottom	= top + 10;
 			nm		= rm_teambuilder;
 		break;
 		
 		case MAIN_MENU_BUTTONS.SPELLS:
-			name	= "SPELLS";
+			name	= "SPELLBOOK";
 			top		= y - 24;
 			bottom	= top + 10;
 			nm		= rm_spellbookBuilder;

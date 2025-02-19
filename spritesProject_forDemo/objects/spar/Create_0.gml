@@ -28,7 +28,7 @@ if (instance_exists(onlineEnemy)) {
 	playerTwo = onlineEnemy;
 	
 	with (playerTwo) {
-		decode_list(teamString, teamList);
+		decode_list(currentTeam, teamList);
 	}
 }
 else {
@@ -41,10 +41,11 @@ playerTwo.enemy = playerOne;
 
 // set player's spellBookGrid and
 // decode their teamList
-with (playerOne) {
+with (player) {
+	spellBookList = ds_list_create();
 	player_build_spellBookGrid();	
 	teamList = ds_list_create();
-	decode_list(teamString, teamList);
+	decode_list(currentTeam, teamList);
 }
 
 // create all allies and enemies

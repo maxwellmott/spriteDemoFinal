@@ -286,9 +286,9 @@ if (selectorMoved) {
 		if (global.start) {
 			if (ds_list_size(teamList) == 4)
 			&& (selectedTeamSlot == -1) {			
-				// set player.teamString
-				player.teamString = "";
-				player.teamString = encode_list(teamList);
+				// set player.currentTeam
+				player.currentTeam = "";
+				player.currentTeam = encode_list(teamList);
 			
 				instance_destroy(id);	
 			}
@@ -302,9 +302,9 @@ if (selectorMoved) {
 				// set player.teamList
 				player.teamList = teamList;			
 				
-				// set player.teamString
-				player.teamString = "";
-				player.teamString = encode_list(teamList);
+				// set player.currentTeam
+				player.currentTeam = "";
+				player.currentTeam = encode_list(teamList);
 				
 				// call function to submit team
 				submit_team_begin();

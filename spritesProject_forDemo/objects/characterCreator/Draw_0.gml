@@ -139,7 +139,7 @@ switch (phase) {
 	
 	case CHARACTER_CREATOR_PHASES.OUTFIT_COLOR_SELECTION:
 		// get the position of the selected outfit color on the colorList
-		var colorNum = ds_list_find_index(colorList, skintone);
+		var colorNum = ds_list_find_index(colorList, outfitColor);
 		
 		// get the position of the colorNum on the usableDyes list
 		var index = ds_list_find_index(usableDyes, colorNum);
@@ -176,4 +176,43 @@ switch (phase) {
 	break;
 }
 
+// check if the confirm window is present
+if (phase >= CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
+	// check that we are not exiting
+	if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_EXIT) {		
+		// set alpha for dark rectangle
+		draw_set_alpha((image_index / confirmWindowMaxFrame) * 0.85);
+		
+		// draw a rectangle over everything else
+		draw_rectangle_color(0, 0, guiWidth, guiHeight, c_black, c_black, c_black, c_black, false);
+		
+		// reset alpha
+		draw_set_alpha(1.0);
+		
+		// draw the confirm window
+		draw_self();
+	}
+	// if we ARE exiting
+	else {
+		// set alpha for dark rectangle
+		draw_set_alpha(((confirmWindowMaxFrame - image_index) / confirmWindowMaxFrame) * 0.85);
+		
+		// draw a rectangle over everything else
+		draw_rectangle_color(0, 0, guiWidth, guiHeight, c_black, c_black, c_black, c_black, false);
+		
+		// reset alpha
+		draw_set_alpha(1.0);
+		
+		// draw the confirm window in reverse
+		draw_sprite(sprite_index, confirmWindowMaxFrame - image_index, x, y);
+	}
+}
+
+// check if the confirm window is set
+if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
+	// draw the yes no button
+	draw_sprite(spr_ccYesNo, ynSelection, yesButtonLeft, yesButtonTop);
+}
+
+// draw the sample player
 character_creator_draw_player(skintone, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory, accessoryColor);

@@ -617,10 +617,10 @@ function well_read(_inst) {
 	
 	// decode that player's knownSpells list
 	var knownList = ds_list_create();
-	decode_list(t.knownSpellString, knownList);
+	decode_list(t.knownSpells, knownList);
 	
 	var bookList = ds_list_create();
-	decode_list(t.spellBookString, bookList);
+	decode_list(t.currentSpellBook, bookList);
 	
 	// get the number of spells known by their respective player
 	var knownSpellsCount = ds_list_size(knownList);
@@ -642,8 +642,8 @@ function well_read(_inst) {
 				// add that spell to the spell book
 				bookList[| 8] = sid;
 				
-				// encode bookList as player's new spellBookString
-				t.spellBookString = encode_list(bookList);
+				// encode bookList as player's new currentSpellBook
+				t.currentSpellBook = encode_list(bookList);
 				
 				// rebuild the player's spellbook grid
 				with (t) {

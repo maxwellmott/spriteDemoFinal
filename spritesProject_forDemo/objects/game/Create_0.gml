@@ -29,7 +29,7 @@ drawNums = "";
 npcLocationList = ds_list_create();
 
 if (is_debug_overlay_open()) {
-	start_new_game();	
+	game_start();	
 	show_debug_overlay(false);
 }
 

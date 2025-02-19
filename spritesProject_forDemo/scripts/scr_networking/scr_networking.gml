@@ -229,7 +229,7 @@ function client_request_team() {
 	&& (data[? "enemyTeam"] != -1) {
 		show_debug_message("Enemy team has been received!");
 		
-		onlineEnemy.teamString = data[? "enemyTeam"];
+		onlineEnemy.currentTeam = data[? "enemyTeam"];
 		
 		room_transition(player.x, player.y, player.facing, rm_spellbookBuilder, bgm_menuTheme);
 	}
@@ -490,7 +490,7 @@ function submit_team_begin() {
 	show_debug_message("Submitting team selection...");
 	
 	ds_map_add(data, "type",		MESSAGE_TYPES.CLIENT_SUBMIT_TEAM);
-	ds_map_add(data, "team",		player.teamString);
+	ds_map_add(data, "team",		player.currentTeam);
 	ds_map_add(data, "clientID",	player.clientID);
 	
 	var dataJson = json_encode(data);

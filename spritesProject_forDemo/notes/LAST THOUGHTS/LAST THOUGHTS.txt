@@ -133,7 +133,7 @@ BATTLE SCENE TODO:
 		I finished up basic attacks and I'm moving onto spells. I created a script called scr_spellFX where you can build
 	the lists of spell animations and spellFX functions.
 	
-		I also fixed the spellBook UI, so you can effectively select a spell now. There is still some debugging to do.
+		I also fixed the spellBookList UI, so you can effectively select a spell now. There is still some debugging to do.
 		
 		Spells are working! And the spellFX script is mostly built. Should be a breeze!
 		
@@ -860,4 +860,12 @@ COMING BACK FROM PLAYTEST BUILD
 				-allow menu navigation using arrow keys + space/enter/tab
 				-prompt player to confirm their choices after hitting enter or hitting space while on the last phase
 				-finish clean up event to lead into keyboard menu for name selection and save file creation
+				
+	2/18
+			CHARACTER CREATOR IS COMPLETE. 
+			
+			THERE NEEDS TO BE ONE MORE PROMPT AFTER THE KEYBOARD MENU THAT ALLOWS THE PLAYER TO SELECT THEIR PRONOUNS.
+			
+			AFTER THAT, FINISH ALL THE SAVE/LOAD FUNCTIONS (ON THE SAVE LOAD SCRIPT) AND PLACE THEM PROPERLY. TEST, THEN
+			CREATE DOCUMENTATIONS, UPDATE SERVER, AND SEND TO PLAYTESTERS.
 				

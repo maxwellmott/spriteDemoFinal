@@ -20,8 +20,8 @@ create_once(guiWidth / 2, guiHeight / 2, LAYER.mouse, mouse);
 // initialize teamList
 teamList = ds_list_create();
 
-// decode player's teamString into teamList
-decode_list(player.teamString, teamList);
+// decode player's currentTeam into teamList
+decode_list(player.currentTeam, teamList);
 
 // initialize spriteGrid
 spriteGrid = ds_grid_create(SPRITE_PARAMS.HEIGHT, SPRITES.HEIGHT);
@@ -66,8 +66,8 @@ ds_grid_destroy(spriteGrid);
 // initialize the knownSpellList
 knownSpellList = ds_list_create();
 
-// decode the player's knownSpellString to the knownSpellList
-decode_list(player.knownSpellString, knownSpellList);
+// decode the player's knownSpells to the knownSpellList
+decode_list(player.knownSpells, knownSpellList);
 
 // initialize categoryChanging
 categoryChanging = false;
@@ -92,8 +92,8 @@ var i = SPELL_TYPES.HEIGHT;	repeat (SPELL_TYPES.HEIGHT + 1) {
 // initialize the spellBookList
 spellBookList = ds_list_create();
 
-// decode the player's spellBookString to the spellBookList
-decode_list(player.spellBookString, spellBookList);
+// decode the player's currentSpellBook to the spellBookList
+decode_list(player.currentSpellBook, spellBookList);
 
 // initialize the spellGrid
 spellGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);

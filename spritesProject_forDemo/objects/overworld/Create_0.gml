@@ -94,10 +94,10 @@ var layerNum = 1; repeat(4) {
 	layerNum++;
 }
 
-player.tm_ground		= tilemapList[| tilemaps.ground];
-player.tm_water			= tilemapList[| tilemaps.water];
-player.tm_upstairs		= tilemapList[| tilemaps.upperStory];
-player.tm_collidables	= tilemapList[| tilemaps.collidables];
+tm_ground		= tilemapList[| tilemaps.ground];
+tm_water		= tilemapList[| tilemaps.water];
+tm_upstairs		= tilemapList[| tilemaps.upperStory];
+tm_collidables	= tilemapList[| tilemaps.collidables];
 
 place_literature(literatureString);
 place_scenery(objectString);

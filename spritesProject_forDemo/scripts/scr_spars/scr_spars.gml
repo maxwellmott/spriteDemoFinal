@@ -661,7 +661,7 @@ function sprite_build_ready_display() {
 	}
 	
 	if (selectedAction >= sparActions.height) {
-		readyDisplay = "casting " + player.spellBookGrid[# SPELL_PARAMS.NAME, ds_list_find_index(player.spellBook, selectedAction - sparActions.height)];
+		readyDisplay = "casting " + player.spellBookGrid[# SPELL_PARAMS.NAME, ds_list_find_index(player.spellBookList, selectedAction - sparActions.height)];
 	}
 	
 	readyDisplayBuilt = true;

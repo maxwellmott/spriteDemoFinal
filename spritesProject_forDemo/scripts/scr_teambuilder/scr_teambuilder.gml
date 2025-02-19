@@ -67,7 +67,7 @@ function teambuilder_stat_coverage_calculate_score() {
 function teambuilder_spellbook_usage_calculate_score() {
 	var sb = ds_list_create();
 	
-	decode_list(player.spellBookString, sb);
+	decode_list(player.currentSpellBook, sb);
 	
 	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
 	

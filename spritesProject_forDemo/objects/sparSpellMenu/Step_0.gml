@@ -70,7 +70,7 @@ if (x == targetX)
 					index--;
 				
 					// set current spell
-					currentSpell = player.spellBook[| index];
+					currentSpell = player.spellBookList[| index];
 					
 					// get spell params
 					spellbook_load_spell_params();
@@ -94,7 +94,7 @@ if (x == targetX)
 					index++;
 					
 					// set current spell
-					currentSpell = player.spellBook[| index];
+					currentSpell = player.spellBookList[| index];
 					
 					// get spell params
 					spellbook_load_spell_params();

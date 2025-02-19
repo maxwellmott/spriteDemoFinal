@@ -257,6 +257,9 @@ if !drawFlip {
 
 if !(onlineWaiting) {	
 	if (global.start) {
+		player.currentSpellBook = "";
+		player.currentSpellBook = encode_list(spellBookList);	
+		
 		spellBookTargetX = 0 - (spriteWidth / 2);
 	}
 }
@@ -273,9 +276,6 @@ if (onlineWaiting) {
 }
 
 if (spellBookX == spellBookTargetX) && (spellBookTargetX == (0 - (spriteWidth / 2))) {
-	player.spellBookString = "";
-	player.spellBookString = encode_list(spellBookList);			
-	
 	if (instance_exists(onlineEnemy)) {
 		client_set_match_ready();	
 		onlineWaiting = true;		

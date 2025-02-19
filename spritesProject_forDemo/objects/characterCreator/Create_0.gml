@@ -1,3 +1,7 @@
+// set x and y as center (this is for the confirm window)
+x = guiWidth / 2;
+y = (guiHeight / 2) - 22;
+
 // initialize player display position
 playerDisplayX		= 115;
 playerDisplayY		= 160;
@@ -93,7 +97,9 @@ enum CHARACTER_CREATOR_PHASES {
 	OUTFIT_COLOR_SELECTION,
 	HAIRSTYLE_SELECTION,
 	HAIR_COLOR_SELECTION,
-	CONFIRM_SELECTION,	
+	CONFIRM_WINDOW_ENTER,
+	CONFIRM_SELECTION,
+	CONFIRM_WINDOW_EXIT,
 	HEIGHT
 }
 
@@ -258,6 +264,23 @@ hairstyleNameY = hairArrowBottoms[| 0] - (hairArrowBottoms[| 0] - hairArrowTops[
 
 // get nameDrawX 
 nameDrawX = guiWidth / 2;
+
+// set all bbox dimensions for yes button
+yesButtonLeft	= 80;
+yesButtonRight	= 104;
+yesButtonTop	= 128;
+yesButtonBottom = 140;
+
+noButtonLeft	= 152;
+noButtonRight	= 176;
+noButtonTop		= 128;
+noButtonBottom	= 140;
+
+// initialize ynSelection to no (no = 0, yes = 1)
+ynSelection = 0;
+
+// initialize confirmWindowMaxFrame
+confirmWindowMaxFrame = 4;
 
 // indicate that it is time for the transition manager to fade back out
 global.roomBuilt = true;
