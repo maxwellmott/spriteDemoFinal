@@ -1,8 +1,23 @@
 /// @desc
 
+// initialize time for new game
+seconds = 0;
+minutes = 40;
+hours	= 23;
+day		= 14;
+weekday	= weekdays.hyggsun;
+season	= seasons.daysOfBones;
+year	= 512;
+
+// inherit human create event
+event_inherited();
+
 #region		INITIALIZE ALL PRIMARY PARAMETERS SET BY THE PLAYER
 	// initialize name
 	name = "";
+	
+	// initialize pronouns
+	pronouns = -1;
 	
 	// initialize appearance
 	appearance = "0,0,0,0,0,0,0,0,0,-1,-1,";
@@ -43,31 +58,16 @@
 
 #endregion 
 
-// inherit human create event
-event_inherited();
-
-// initialize time for new game
-seconds = 0;
-minutes = 40;
-hours	= 23;
-day		= 14;
-weekday	= weekdays.hyggsun;
-season	= seasons.daysOfBones;
-year	= 512;
-
 #region		INITIALIZE ALL UNLOCKABLES LISTS
-	// initialize all appearance param lists (hairstyles are 
-	// gotten by the haircut menu depending on the player's
-	// quest completion.
-	unlockedOutfits			= "";
-	unlockedHats			= "";
-	unlockedShoes			= "";
-	unlockedAccessories		= "";
+	// initialize wardrobe grid (this will be a list of lists, each list token 
+	// is a sublist of unlocked items. the list is ordered according to the appearance
+	// params enum)
+	wardrobe = "";
 
 	// initialize unlocked clothing dyes (hairColors are 
 	// gotten by the haircut menu depending on the player's
 	// quest completion.
-	unlockedDyes			= "";
+	palette			= "";
 	
 	// initialize all previously unlocked doors
 	unlockedDoors = "";
@@ -85,8 +85,8 @@ year	= 512;
 	}	talismans = encode_list(l);		ds_list_destroy(l);
 	*/
 	
-	// initialize knownSpells
-	knownSpells = currentSpellBook;
+	// initialize compendium
+	compendium = currentSpellBook;
 	
 	/*
 	// FOR TESTING PURPOSES ONLY!!!!!!!
@@ -95,21 +95,27 @@ year	= 512;
 		
 		// increment i
 		i++;
-	}	knownSpells = encode_list(l);		ds_list_destroy(l);
+	}	compendium = encode_list(l);		ds_list_destroy(l);
 	*/
 
-	// initialize unlockedTitles
-	unlockedTitles = ds_list_create();
+	// initialize titles
+	titles = ds_list_create();
 	
 	// set all titles to -1
 	var i = 0;	repeat (SPAR_TITLES.HEIGHT) {
-		unlockedTitles[|i] = -1;
+		titles[|i] = -1;
 	
 		i++;	
 	}
 	
-	// initialize unlockedContacts
-	unlockedContacts = "";
+	// initialize contacts
+	contacts = "";
+	
+	// initialize all unlocked books list
+	library = "";
+	
+	// initialize list of quest completion lists
+	quests = "";
 
 #endregion
 
@@ -211,23 +217,25 @@ year	= 512;
 	
 #endregion
 
-// initialize various battle ranking scores
-roninScore			= 150;
-roninMatchCount		= 0;
-roninWinCount		= 0;
-roninLoseCount		= 0;
-
-onlineRating		= 150;
-onlineMatchCount	= 0;
-onlineWinCount		= 0;
-onlineLoseCount		= 0;
-
-// initialize all lists to track sprite and spell usage
-roninSpellUseCounts		= "";
-onlineSpellUseCounts	= "";
-
-roninSpriteUseCounts	= "";
-onlineSpriteUseCounts	= "";
-
-roninSpriteWinCounts	= "";
-onlineSpriteWinCounts	= "";
+#region		INITIALIZE ALL VARIABLES USED TO TRACK ELO AND FAVORITES
+	// initialize various battle ranking scores
+	roninScore			= 150;
+	roninMatchCount		= 0;
+	roninWinCount		= 0;
+	roninLoseCount		= 0;
+	
+	onlineRating		= 150;
+	onlineMatchCount	= 0;
+	onlineWinCount		= 0;
+	onlineLoseCount		= 0;
+	
+	// initialize all lists to track sprite and spell usage
+	roninSpellUseCounts		= "";
+	onlineSpellUseCounts	= "";
+	
+	roninSpriteUseCounts	= "";
+	onlineSpriteUseCounts	= "";
+	
+	roninSpriteWinCounts	= "";
+	onlineSpriteWinCounts	= "";
+#endregion

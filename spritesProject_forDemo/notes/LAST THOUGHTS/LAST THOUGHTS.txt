@@ -7,7 +7,7 @@ BATTLE SCENE TODO:
 
 	-spell info display						2 POINTS				2 POINTS DONE
 	-spellFX screen functions				5 POINTS				5 POINTS DONE
-	-make spell UI adhere to knownSpells	4 POINTS				4 POINTS DONE
+	-make spell UI adhere to compendium	4 POINTS				4 POINTS DONE
 	-prototype turn selection algorithm		3 POINTS				
 	-add spell animations					4 POINTS				4 POINTS DONE
 	-finish spells and effects				2 POINTS				2 POINTS DONE
@@ -880,3 +880,10 @@ COMING BACK FROM PLAYTEST BUILD
 			-game does not support saving/loading which is a time sink for testing
 			-no doors to enter different rooms which is a time sink for testing
 			-selecting unfinished main menu options breaks the game (just make the last couple of menus)
+			
+	2/23
+	
+			FIX THE LOAD FUNCTION TO MATCH THE SAVE FUNCTION
+			MAKE MORE APPEARANCE ITEMS AND FIX THE ONES THAT EXIST
+			MAKE THE APPEARANCE EDITOR
+			MAKE THE ARTWORK FOR THE OVERWORLD ACTION MENU

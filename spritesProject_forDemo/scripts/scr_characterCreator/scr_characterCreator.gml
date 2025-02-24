@@ -12,17 +12,17 @@ function character_creator_draw_player(_skintone, _outfit, _outfitColor, _hair, 
 ///@desc This function is called by the character creator in the clean up event. It sets
 /// all the chosen appearance parameters as the player's set appearance parameters.
 function character_creator_save_appearance() {
-	appearance[| appearanceParams.skintone]			= ds_list_find_index(colorList, skintone);
-	appearance[| appearanceParams.outfit]			= outfit;
-	appearance[| appearanceParams.outfitColor]		= ds_list_find_index(colorList, outfitColor);
-	appearance[| appearanceParams.hairstyle]		= hairstyle;
-	appearance[| appearanceParams.hairColor]		= ds_list_find_index(colorList, hairColor);
-	appearance[| appearanceParams.hat]				= hat;
-	appearance[| appearanceParams.hatColor]			= hatColor;
-	appearance[| appearanceParams.shoes]			= shoes;
-	appearance[| appearanceParams.shoeColor]		= shoeColor;
-	appearance[| appearanceParams.accessory]		= accessory;
-	appearance[| appearanceParams.accessoryColor]	= accessoryColor;
+	appearance[| APPEARANCE_PARAMS.skintone]			= ds_list_find_index(colorList, skintone);
+	appearance[| APPEARANCE_PARAMS.outfit]			= outfit;
+	appearance[| APPEARANCE_PARAMS.outfitColor]		= ds_list_find_index(colorList, outfitColor);
+	appearance[| APPEARANCE_PARAMS.hairstyle]		= hairstyle;
+	appearance[| APPEARANCE_PARAMS.hairColor]		= ds_list_find_index(colorList, hairColor);
+	appearance[| APPEARANCE_PARAMS.hat]				= hat;
+	appearance[| APPEARANCE_PARAMS.hatColor]			= hatColor;
+	appearance[| APPEARANCE_PARAMS.shoes]			= shoes;
+	appearance[| APPEARANCE_PARAMS.shoeColor]		= shoeColor;
+	appearance[| APPEARANCE_PARAMS.accessory]		= accessory;
+	appearance[| APPEARANCE_PARAMS.accessoryColor]	= accessoryColor;
 	
 	player.appearance = encode_list(appearance);
 }

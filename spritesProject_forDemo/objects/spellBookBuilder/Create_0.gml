@@ -66,8 +66,8 @@ ds_grid_destroy(spriteGrid);
 // initialize the knownSpellList
 knownSpellList = ds_list_create();
 
-// decode the player's knownSpells to the knownSpellList
-decode_list(player.knownSpells, knownSpellList);
+// decode the player's compendium to the knownSpellList
+decode_list(player.compendium, knownSpellList);
 
 // initialize categoryChanging
 categoryChanging = false;

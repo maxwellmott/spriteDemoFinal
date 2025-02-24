@@ -40,17 +40,17 @@ function player_load_appearance() {
 	decode_list(global.allColors, cl);
 	
 	// get all parameters
-	skintone		= list[| appearanceParams.skintone];
-	outfit			= list[| appearanceParams.outfit];
-	outfitColor		= list[| appearanceParams.outfitColor];
-	hairstyle		= list[| appearanceParams.hairstyle];
-	hairColor		= list[| appearanceParams.hairColor];
-	hat				= list[| appearanceParams.hat];
-	hatColor		= list[| appearanceParams.hatColor];
-	shoes			= list[| appearanceParams.shoes];
-	shoeColor		= list[| appearanceParams.shoeColor];
-	accessory		= list[| appearanceParams.accessory];
-	accessoryColor	= list[| appearanceParams.accessoryColor];
+	skintone		= list[| APPEARANCE_PARAMS.skintone];
+	outfit			= list[| APPEARANCE_PARAMS.outfit];
+	outfitColor		= list[| APPEARANCE_PARAMS.outfitColor];
+	hairstyle		= list[| APPEARANCE_PARAMS.hairstyle];
+	hairColor		= list[| APPEARANCE_PARAMS.hairColor];
+	hat				= list[| APPEARANCE_PARAMS.hat];
+	hatColor		= list[| APPEARANCE_PARAMS.hatColor];
+	shoes			= list[| APPEARANCE_PARAMS.shoes];
+	shoeColor		= list[| APPEARANCE_PARAMS.shoeColor];
+	accessory		= list[| APPEARANCE_PARAMS.accessory];
+	accessoryColor	= list[| APPEARANCE_PARAMS.accessoryColor];
 	
 	// get all colors from color list using colorIDs
 	skintone		= cl[| skintone];

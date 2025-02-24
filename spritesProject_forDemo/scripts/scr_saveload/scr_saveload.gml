@@ -85,18 +85,38 @@ function build_save_file() {
 		ds_list_mark_as_map(_root_list, ds_list_size(_root_list) - 1);
 	
 		// add all of the player's parameters to the ds_map
-		ds_map_add(_map, "name",				name);
-		ds_map_add(_map, "unlockedDoors",		unlockedDoors);
-		ds_map_add(_map, "appearance",			appearance);
-		ds_map_add(_map, "team",				currentTeam);
-		ds_map_add(_map, "talismans",			talismans);
-		ds_map_add(_map, "spells",				knownSpells);
-		ds_map_add(_map, "spellBookList",		currentSpellBook);
-		ds_map_add(_map, "contacts",			contactString);
-		ds_map_add(_map, "roninScore",			string(roninScore));
-		ds_map_add(_map, "roninMatchCount",		string(roninMatchCount));
-		ds_map_add(_map, "onlineRating",		string(onlineRating));
-		ds_map_add(_map, "onlineMatchCount",	string(onlineMatchCount));
+		ds_map_add(_map, "day",						string(day));
+		ds_map_add(_map, "weekday",					string(weekday));
+		ds_map_add(_map, "season",					string(season));
+		ds_map_add(_map, "year",					string(year));
+		ds_map_add(_map, "name",					name);
+		ds_map_add(_map, "pronouns",				string(pronouns));
+		ds_map_add(_map, "appearance",				appearance);
+		ds_map_add(_map, "currentTeam",				currentTeam);
+		ds_map_add(_map, "currentSpellbook",		currentSpellbook);
+		ds_map_add(_map, "title",					string(title));
+		ds_map_add(_map, "wardrobe",				wardrobe);
+		ds_map_add(_map, "palette",					palette);
+		ds_map_add(_map, "unlockedDoors",			unlockedDoors);
+		ds_map_add(_map, "talismans",				talismans);
+		ds_map_add(_map, "compendium",				compendium);
+		ds_map_add(_map, "accolades",				accolades);
+		ds_map_add(_map, "contacts",				contacts);
+		ds_map_add(_map, "quests",					quests);
+		ds_map_add(_map, "roninScore",				string(roninScore));		
+		ds_map_add(_map, "roninMatchCount",			string(roninMatchCount));		
+		ds_map_add(_map, "roninWinCount",			string(roninWinCount));		
+		ds_map_add(_map, "roninLoseCount",			string(roninLoseCount));		
+		ds_map_add(_map, "onlineRating",			string(onlineRating));		
+		ds_map_add(_map, "onlineMatchCount",		string(onlineMatchCount));	
+		ds_map_add(_map, "onlineWinCount",			string(onlineWinCount));		
+		ds_map_add(_map, "onlineLoseCount",			string(onlineLoseCount));		
+		ds_map_add(_map, "roninSpellUseCounts",		roninSpellUseCounts);		
+		ds_map_add(_map, "onlineSpellUseCounts",	onlineSpellUseCounts);
+		ds_map_add(_map, "roninSpriteUseCounts",	roninSpriteUseCounts);
+		ds_map_add(_map, "onlineSpriteUseCounts",	onlineSpriteUseCounts);
+		ds_map_add(_map, "roninSpriteWinCounts",	roninSpriteWinCounts);
+		ds_map_add(_map, "onlineSpriteWinCounts",	onlineSpriteWinCounts);
 	}
 	
 	// Wrap all of that in one ds_map
@@ -136,7 +156,7 @@ function load_save_file() {
 				currentTeam			= _map[? "team"];
 				talismans		= _map[? ""];
 				wardrobeString		= _map[? "wardrobe"];
-				knownSpells	= _map[? "spells"];
+				compendium	= _map[? "spells"];
 				currentSpellBook		= _map[? "spellBookList"];
 				contactString		= _map[? "contacts"];
 				roninScore			= real(_map[? "roninScore"]);

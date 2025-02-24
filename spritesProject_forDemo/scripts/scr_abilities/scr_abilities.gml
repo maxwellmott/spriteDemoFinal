@@ -615,9 +615,9 @@ function well_read(_inst) {
 		return -1;
 	}
 	
-	// decode that player's knownSpells list
+	// decode that player's compendium list
 	var knownList = ds_list_create();
-	decode_list(t.knownSpells, knownList);
+	decode_list(t.compendium, knownList);
 	
 	var bookList = ds_list_create();
 	decode_list(t.currentSpellBook, bookList);
@@ -631,7 +631,7 @@ function well_read(_inst) {
 		
 		// use a while loop to randomly select a spell that isn't in the spellbook
 		while !(spellSet) {
-			// get a random number within the size of the knownSpells list
+			// get a random number within the size of the compendium list
 			var r = irandom_range(0, knownSpellsCount);
 			
 			// get the spell stored at that number

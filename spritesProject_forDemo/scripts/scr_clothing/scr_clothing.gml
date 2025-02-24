@@ -1,4 +1,4 @@
-enum appearanceParams {
+enum APPEARANCE_PARAMS {
 	skintone,
 	outfit,
 	outfitColor,

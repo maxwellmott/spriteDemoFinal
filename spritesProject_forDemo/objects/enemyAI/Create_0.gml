@@ -9,14 +9,14 @@ name = "";
 // initialize currentTeam
 talismans = "";
 
-// initialize knownSpells
-knownSpells = ds_list_create();
+// initialize compendium
+compendium = ds_list_create();
 
 // initialize currentSpellBook
 currentSpellBook = "";
 
-// initialize knownSpells string
-knownSpells = "";
+// initialize compendium string
+compendium = "";
 
 // initialize spellString
 spellString = "";
