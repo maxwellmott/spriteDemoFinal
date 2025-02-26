@@ -1,5 +1,6 @@
-/// @description Insert description here
-// You can write your code in this editor
+// set x and y as center (this is for the pronoun window)
+x = guiWidth / 2;
+y = (guiHeight / 2) - 22;
 
 // get promptID
 promptID = global.keyboardPrompt;
@@ -201,5 +202,29 @@ var i = 0;	repeat (charCount + 4) {
 	// increment i
 	i++;	
 }
+
+pnMenuEntering	= false;
+pnMenuExiting	= false;
+pnMenuPresent	= false;
+
+selectedPronouns = -1;
+
+pronounWindowMaxFrame = 4;
+
+sheButtonLeft = 32;
+theyButtonLeft = 92;
+heButtonLeft = 152;
+
+sheButtonTop = 128;
+theyButtonTop = 128;
+heButtonTop = 128;
+
+sheButtonRight = 56;
+theyButtonRight = 116;
+heButtonRight = 176;
+
+sheButtonBottom = 140;
+theyButtonBottom = 140;
+heButtonBottom = 140;
 
 global.roomBuilt = true;

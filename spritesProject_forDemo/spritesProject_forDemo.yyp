@@ -476,6 +476,8 @@
     {"id":{"name":"spr_postIndustrialCupboardMask","path":"sprites/spr_postIndustrialCupboardMask/spr_postIndustrialCupboardMask.yy",},},
     {"id":{"name":"spr_prismatterBattle","path":"sprites/spr_prismatterBattle/spr_prismatterBattle.yy",},},
     {"id":{"name":"spr_privateRoomLabel","path":"sprites/spr_privateRoomLabel/spr_privateRoomLabel.yy",},},
+    {"id":{"name":"spr_pronounSelectionButtons","path":"sprites/spr_pronounSelectionButtons/spr_pronounSelectionButtons.yy",},},
+    {"id":{"name":"spr_pronounSelectionWindow","path":"sprites/spr_pronounSelectionWindow/spr_pronounSelectionWindow.yy",},},
     {"id":{"name":"spr_pugiloonBattle","path":"sprites/spr_pugiloonBattle/spr_pugiloonBattle.yy",},},
     {"id":{"name":"spr_punklopsBattle","path":"sprites/spr_punklopsBattle/spr_punklopsBattle.yy",},},
     {"id":{"name":"spr_rankedMatchLabel","path":"sprites/spr_rankedMatchLabel/spr_rankedMatchLabel.yy",},},

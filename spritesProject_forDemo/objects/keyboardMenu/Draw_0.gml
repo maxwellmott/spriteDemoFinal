@@ -171,3 +171,41 @@ if (global.gameTime mod 64 < 32) {
 draw_set(fa_left, fa_middle, 1.0, COL_BLACK);
 
 draw_text_pixel_perfect(inputStringX, inputStringY - 5, inputString, 1, 256);
+
+// check if the confirm window is present
+if (pnMenuEntering + pnMenuExiting + pnMenuPresent > 0) {
+	// check that we are not exiting
+	if !(pnMenuExiting) {
+		// set alpha for dark rectangle
+		draw_set_alpha((image_index / pronounWindowMaxFrame) * 0.85);
+		
+		// draw a rectangle over everything else
+		draw_rectangle_color(0, 0, guiWidth, guiHeight, c_black, c_black, c_black, c_black, false);
+		
+		// reset alpha
+		draw_set_alpha(1.0);
+		
+		// draw the confirm window
+		draw_self();
+	}
+	// if we ARE exiting
+	else {
+		// set alpha for dark rectangle
+		draw_set_alpha(((pronounWindowMaxFrame - image_index) / pronounWindowMaxFrame) * 0.85);
+		
+		// draw a rectangle over everything else
+		draw_rectangle_color(0, 0, guiWidth, guiHeight, c_black, c_black, c_black, c_black, false);
+		
+		// reset alpha
+		draw_set_alpha(1.0);
+		
+		// draw the confirm window in reverse
+		draw_sprite(sprite_index, pronounWindowMaxFrame - image_index, x, y);
+	}
+}
+
+// check if the confirm window is set
+if (pnMenuPresent) {
+	// draw the yes no button
+	draw_sprite(spr_pronounSelectionButtons, selectedPronouns, sheButtonLeft, sheButtonTop);
+}

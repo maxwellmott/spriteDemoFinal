@@ -393,6 +393,8 @@
     {"name":"spr_postIndustrialCupboardMask","order":16,"path":"sprites/spr_postIndustrialCupboardMask/spr_postIndustrialCupboardMask.yy",},
     {"name":"spr_prismatterBattle","order":19,"path":"sprites/spr_prismatterBattle/spr_prismatterBattle.yy",},
     {"name":"spr_privateRoomLabel","order":6,"path":"sprites/spr_privateRoomLabel/spr_privateRoomLabel.yy",},
+    {"name":"spr_pronounSelectionButtons","order":6,"path":"sprites/spr_pronounSelectionButtons/spr_pronounSelectionButtons.yy",},
+    {"name":"spr_pronounSelectionWindow","order":5,"path":"sprites/spr_pronounSelectionWindow/spr_pronounSelectionWindow.yy",},
     {"name":"spr_pugiloonBattle","order":60,"path":"sprites/spr_pugiloonBattle/spr_pugiloonBattle.yy",},
     {"name":"spr_punklopsBattle","order":37,"path":"sprites/spr_punklopsBattle/spr_punklopsBattle.yy",},
     {"name":"spr_rankedMatchLabel","order":5,"path":"sprites/spr_rankedMatchLabel/spr_rankedMatchLabel.yy",},

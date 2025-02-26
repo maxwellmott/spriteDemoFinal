@@ -6,9 +6,9 @@
 #macro int_rect_length		12 
 
 enum genders {
-	male,
 	female,
 	nonbinary,
+	male,
 	height
 }
 

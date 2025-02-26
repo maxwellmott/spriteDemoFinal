@@ -119,8 +119,19 @@ enum KEYBOARD_PROMPT_PARAMS {
 
 // create all keyboard prompt functions
 function keyboard_accept_character_name() {
+	// set pnMenuEntering to true
+	pnMenuEntering = true;
+}
+
+//  
+function keyboard_accept_name_and_pronouns() {
+	// set player name
 	player.name = inputString;
 	
+	// set player pronouns
+	player.pronouns = selectedPronouns;
+	
+	// put the player back into the overworld
 	room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);
 }
 

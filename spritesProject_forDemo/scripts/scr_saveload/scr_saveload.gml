@@ -147,22 +147,38 @@ function load_save_file() {
 
 			create_once(x, y, LAYER.sprites, player);
 			with (player) {
-				name				= _map[? "name"];
-				location			= real(_map[? "location"]);
-				x					= real(_map[? "x"]);
-				y					= real(_map[? "y"]);
-				unlockedDoors		= _map[? "unlockedDoors"];
-				appearance			= _map[? "appearance"];
-				currentTeam			= _map[? "team"];
-				talismans		= _map[? ""];
-				wardrobeString		= _map[? "wardrobe"];
-				compendium	= _map[? "spells"];
-				currentSpellBook		= _map[? "spellBookList"];
-				contactString		= _map[? "contacts"];
-				roninScore			= real(_map[? "roninScore"]);
-				roninMatchCount		= real(_map[? "roninMatchCount"]);
-				onlineRating		= real(_map[? "onlineRating"]);
-				onlineMatchCount	= real(_map[? "onlineMatchCount"]);
+				day							= real(_map[? "day"]);					
+				weekday						= real(_map[? "weekday"]);				
+				season						= real(_map[? "season"]);				
+				year						= real(_map[? "year"]);					
+				name						= _map[? "name"];					
+				pronouns					= real(_map[? "pronouns"]);
+				appearance					= _map[? "appearance"];			
+				currentTeam					= _map[? "currentTeam"];			
+				currentSpellbook			= _map[? "currentSpellbook"];		
+				title						= real(_map[? "title"]);				
+				wardrobe					= _map[? "wardrobe"];				
+				palette						= _map[? "palette"];				
+				unlockedDoors				= _map[? "unlockedDoors"];		
+				talismans					= _map[? "talismans"];			
+				compendium					= _map[? "compendium"];
+				accolades					= _map[? "accolades"];			
+				contacts					= _map[? "contacts"];				
+				quests						= _map[? "quests"];				
+				roninScore					= real(_map[? "roninScore"]);			
+				roninMatchCount				= real(_map[? "roninMatchCount"]);		
+				roninWinCount				= real(_map[? "roninWinCount"]);		
+				roninLoseCount				= real(_map[? "roninLoseCount"]);		
+				onlineRating				= real(_map[? "onlineRating"]);			
+				onlineMatchCount			= real(_map[? "onlineMatchCount"]);		
+				onlineWinCount				= real(_map[? "onlineWinCount"]);		
+				onlineLoseCount				= real(_map[? "onlineLoseCount"]);		
+				roninSpellUseCounts			= _map[? "roninSpellUseCounts"];	
+				onlineSpellUseCounts		= _map[? "onlineSpellUseCounts"];	
+				roninSpriteUseCounts		= _map[? "roninSpriteUseCounts"];	
+				onlineSpriteUseCounts		= _map[? "onlineSpriteUseCounts"];
+				roninSpriteWinCounts		= _map[? "roninSpriteWinCounts"];	
+				onlineSpriteWinCounts		= _map[? "onlineSpriteWinCounts"];
 			}
 		}
 	}

@@ -36,7 +36,10 @@
   "resourceType":"GMObject",
   "resourceVersion":"2.0",
   "solid":false,
-  "spriteId":null,
+  "spriteId":{
+    "name":"spr_pronounSelectionWindow",
+    "path":"sprites/spr_pronounSelectionWindow/spr_pronounSelectionWindow.yy",
+  },
   "spriteMaskId":null,
   "visible":true,
 }
