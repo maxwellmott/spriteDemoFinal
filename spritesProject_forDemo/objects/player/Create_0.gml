@@ -115,7 +115,7 @@ event_inherited();
 	library = "";
 	
 	// initialize list of quest completion lists
-	quests = "";
+	todoList = "";
 
 #endregion
 

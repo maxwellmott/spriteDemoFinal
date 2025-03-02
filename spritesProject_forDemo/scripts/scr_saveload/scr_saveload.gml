@@ -102,7 +102,7 @@ function build_save_file() {
 		ds_map_add(_map, "compendium",				compendium);
 		ds_map_add(_map, "accolades",				accolades);
 		ds_map_add(_map, "contacts",				contacts);
-		ds_map_add(_map, "quests",					quests);
+		ds_map_add(_map, "todoList",					todoList);
 		ds_map_add(_map, "roninScore",				string(roninScore));		
 		ds_map_add(_map, "roninMatchCount",			string(roninMatchCount));		
 		ds_map_add(_map, "roninWinCount",			string(roninWinCount));		
@@ -164,7 +164,7 @@ function load_save_file() {
 				compendium					= _map[? "compendium"];
 				accolades					= _map[? "accolades"];			
 				contacts					= _map[? "contacts"];				
-				quests						= _map[? "quests"];				
+				todoList						= _map[? "todoList"];				
 				roninScore					= real(_map[? "roninScore"]);			
 				roninMatchCount				= real(_map[? "roninMatchCount"]);		
 				roninWinCount				= real(_map[? "roninWinCount"]);		

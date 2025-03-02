@@ -3,23 +3,23 @@
   "%Name":"hairSheet",
   "bboxMode":0,
   "bbox_bottom":181,
-  "bbox_left":5,
+  "bbox_left":4,
   "bbox_right":378,
-  "bbox_top":51,
+  "bbox_top":50,
   "collisionKind":1,
   "collisionTolerance":0,
   "DynamicTexturePage":false,
   "edgeFiltering":false,
   "For3D":false,
   "frames":[
-    {"$GMSpriteFrame":"","%Name":"b2802758-b9d5-456b-af50-6998e16779aa","name":"b2802758-b9d5-456b-af50-6998e16779aa","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
+    {"$GMSpriteFrame":"","%Name":"575b6a4b-a36d-45c1-b77b-9797a4d656c9","name":"575b6a4b-a36d-45c1-b77b-9797a4d656c9","resourceType":"GMSpriteFrame","resourceVersion":"2.0",},
   ],
   "gridX":0,
   "gridY":0,
   "height":210,
   "HTile":false,
   "layers":[
-    {"$GMImageLayer":"","%Name":"fca509d0-332c-492a-9ec4-fae37eb7a2a1","blendMode":0,"displayName":"default","isLocked":false,"name":"fca509d0-332c-492a-9ec4-fae37eb7a2a1","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
+    {"$GMImageLayer":"","%Name":"dc6e8dfb-d20f-43ec-af30-6005bb10469c","blendMode":0,"displayName":"default","isLocked":false,"name":"dc6e8dfb-d20f-43ec-af30-6005bb10469c","opacity":100.0,"resourceType":"GMImageLayer","resourceVersion":"2.0","visible":true,},
   ],
   "name":"hairSheet",
   "nineSlice":null,
@@ -69,8 +69,8 @@
     "tracks":[
       {"$GMSpriteFramesTrack":"","builtinName":0,"events":[],"inheritsTrackColour":true,"interpolation":1,"isCreationTrack":false,"keyframes":{"$KeyframeStore<SpriteFrameKeyframe>":"","Keyframes":[
             {"$Keyframe<SpriteFrameKeyframe>":"","Channels":{
-                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"b2802758-b9d5-456b-af50-6998e16779aa","path":"sprites/hairSheet/hairSheet.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
-              },"Disabled":false,"id":"fc86a232-65ca-4acb-bbe4-d7f48c8c9766","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
+                "0":{"$SpriteFrameKeyframe":"","Id":{"name":"575b6a4b-a36d-45c1-b77b-9797a4d656c9","path":"sprites/hairSheet/hairSheet.yy",},"resourceType":"SpriteFrameKeyframe","resourceVersion":"2.0",},
+              },"Disabled":false,"id":"3737c173-e813-4fd8-affb-934d1a1fdffa","IsCreationKey":false,"Key":0.0,"Length":1.0,"resourceType":"Keyframe<SpriteFrameKeyframe>","resourceVersion":"2.0","Stretch":false,},
           ],"resourceType":"KeyframeStore<SpriteFrameKeyframe>","resourceVersion":"2.0",},"modifiers":[],"name":"frames","resourceType":"GMSpriteFramesTrack","resourceVersion":"2.0","spriteId":null,"trackColour":0,"tracks":[],"traits":0,},
     ],
     "visibleRange":null,
