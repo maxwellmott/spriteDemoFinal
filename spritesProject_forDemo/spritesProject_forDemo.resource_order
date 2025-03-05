@@ -216,6 +216,7 @@
     {"name":"accessorySheet","order":1,"path":"sprites/accessorySheet/accessorySheet.yy",},
     {"name":"activeSpriteCutout","order":28,"path":"sprites/activeSpriteCutout/activeSpriteCutout.yy",},
     {"name":"EMPTY_SPRITE","order":12,"path":"sprites/EMPTY_SPRITE/EMPTY_SPRITE.yy",},
+    {"name":"eyewearSheet","order":11,"path":"sprites/eyewearSheet/eyewearSheet.yy",},
     {"name":"fallbackTexture","order":6,"path":"sprites/fallbackTexture/fallbackTexture.yy",},
     {"name":"groundFramesExt","order":1,"path":"sprites/groundFramesExt/groundFramesExt.yy",},
     {"name":"groundFramesInt","order":3,"path":"sprites/groundFramesInt/groundFramesInt.yy",},

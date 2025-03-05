@@ -45,6 +45,7 @@ event_inherited();
 	
 	// initialize all appearance parameters
 	skintone		= 0;
+	eyewear			= 0;
 	outfit			= 0;
 	outfitColor		= 0;
 	hairstyle		= 0;
@@ -239,3 +240,19 @@ event_inherited();
 	roninSpriteWinCounts	= "";
 	onlineSpriteWinCounts	= "";
 #endregion
+
+// FOR TESTING PURPOSES ONLY
+// POPULATE WARDROBE GRID WITH ALL OPTIONS
+var i = 0;	repeat (APPEARANCE_PARAMS.height) {
+	// TODO GET THE NUMBER OF ITEMS FOR THE CURRENT APPEARANCE PARAMS
+	var n = -1;
+	
+	var j = 0;	repeat (n) {
+		
+		// increment j
+		j++;
+	}
+	
+	// increment i
+	i++;
+}

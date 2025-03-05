@@ -1,5 +1,6 @@
 enum APPEARANCE_PARAMS {
 	skintone,
+	eyewear,
 	outfit,
 	outfitColor,
 	hairstyle,
@@ -10,6 +11,13 @@ enum APPEARANCE_PARAMS {
 	shoeColor,
 	accessory,
 	accessoryColor,
+	height
+}
+
+enum spectacles {
+	none,
+	readers,
+	blackShades,
 	height
 }
 
@@ -52,6 +60,9 @@ enum footwear {
 enum accessories {
 	height
 }
+
+// load eyewearTextGrid from csv file
+var eyewearTextGrid		= load_csv("EYEWEAR_NAMES.csv");
 
 // load outfitTextGrid from csv file
 var outfitTextGrid		= load_csv("OUTFIT_NAMES.csv");

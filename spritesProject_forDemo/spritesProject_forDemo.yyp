@@ -286,6 +286,7 @@
     {"id":{"name":"collidablesTilesInt","path":"sprites/collidablesTilesInt/collidablesTilesInt.yy",},},
     {"id":{"name":"doorSheet","path":"sprites/doorSheet/doorSheet.yy",},},
     {"id":{"name":"EMPTY_SPRITE","path":"sprites/EMPTY_SPRITE/EMPTY_SPRITE.yy",},},
+    {"id":{"name":"eyewearSheet","path":"sprites/eyewearSheet/eyewearSheet.yy",},},
     {"id":{"name":"fallbackTexture","path":"sprites/fallbackTexture/fallbackTexture.yy",},},
     {"id":{"name":"groundFramesExt","path":"sprites/groundFramesExt/groundFramesExt.yy",},},
     {"id":{"name":"groundFramesInt","path":"sprites/groundFramesInt/groundFramesInt.yy",},},
