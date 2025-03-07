@@ -51,7 +51,6 @@ function player_load_appearance() {
 	shoes			= list[| APPEARANCE_PARAMS.shoes];
 	shoeColor		= list[| APPEARANCE_PARAMS.shoeColor];
 	accessory		= list[| APPEARANCE_PARAMS.accessory];
-	accessoryColor	= list[| APPEARANCE_PARAMS.accessoryColor];
 	
 	// get all colors from color list using colorIDs
 	skintone		= cl[| skintone];
@@ -59,7 +58,6 @@ function player_load_appearance() {
 	hairColor		= cl[| hairColor];
 	hatColor		= cl[| hatColor];
 	shoeColor		= cl[| shoeColor];
-	accessoryColor	= cl[| accessoryColor];
 	
 	// destroy temp lists
 	ds_list_destroy(list);
@@ -107,37 +105,37 @@ function player_set_frames() {
 ///@desc This function is called by the player_draw_from_state function when drawing
 /// the player in the human draw event, while in the overworld. The function draws the
 /// player in their standard state (walking)
-function draw_standard_player(_skintone, _eyewear, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {
+function draw_standard_player(_skintone, _eyewear, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory) {
 	draw_sprite_part_ext(humanBody,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	0,								humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _skintone,		1.0);
 	draw_sprite_part_ext(outfitSheet,	0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _outfit,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _outfitColor,	1.0);
 	draw_sprite_part_ext(hairSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _hair,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _hairColor,	1.0);
 	draw_sprite_part_ext(hatSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _hat,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _hatColor,		1.0);
 	draw_sprite_part_ext(shoeSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _shoes,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _shoeColor,	1.0);
-	//draw_sprite_part_ext(accessorySheet,0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _accessory,	humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _accColor,	1.0);
+	draw_sprite_part_ext(accessorySheet,0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _accessory,	humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, c_white,		1.0);
 }
 
 ///@desc This function is called by the player_draw_from_state function when drawing
 /// the player in the human draw event, while in the overworld. The function draws the
 /// player's eating animation
-function draw_eating_player(_skintone, _eyewear, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {
+function draw_eating_player(_skintone, _eyewear, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory) {
 }
 
 ///@desc This function is called by the player_draw_from_state function when drawing
 /// the player in the human draw event, while in the overworld. The function draws the
 /// player's eating animation
-function draw_drinking_player(_skintone, _eyewear, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
+function draw_drinking_player(_skintone, _eyewear, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory) {	
 }
 
 ///@desc This function is called by the player_draw_from_state function when drawing
 /// the player in the human draw event, while in the overworld. The function draws the
 /// player's wavephone animation
-function draw_wavephone_player(_skintone, _eyewear, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
+function draw_wavephone_player(_skintone, _eyewear, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory) {	
 	draw_sprite_part_ext(wavephoneHumanBody,	frame,	0,									facing * humanSpriteHeight,		24,	42, drawX, drawY, 1, 1, _skintone,		1.0);
 	draw_sprite_part_ext(outfitSheet,			0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * _outfit,		24, 42, drawX, drawY, 1, 1, _outfitColor,	1.0);
 	draw_sprite_part_ext(hairSheet,				0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * _hair,		24, 42, drawX, drawY, 1, 1, _hairColor,		1.0);
 	draw_sprite_part_ext(hatSheet,				0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * _hat,		24, 42, drawX, drawY, 1, 1, _hatColor,		1.0);
 	draw_sprite_part_ext(shoeSheet,				0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * _shoes,		24, 42, drawX, drawY, 1, 1, _shoeColor,		1.0);
-	//draw_sprite_part_ext(accessorySheet,		0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * _accessory,	24, 42, drawX, drawY, 1, 1, _accColor,		1.0);
+	draw_sprite_part_ext(accessorySheet,		0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * _accessory,	24, 42, drawX, drawY, 1, 1, c_white,		1.0);
 	draw_sprite_part_ext(wavephoneSheet,		frame,	0,									facing * humanSpriteHeight,		24, 42, drawX, drawY, 1, 1, c_white,		1.0);
 	draw_sprite_part_ext(wavephoneHands,		frame,	0,									facing * humanSpriteHeight,		24, 42, drawX, drawY, 1, 1, _skintone,		1.0);
 }
@@ -145,7 +143,7 @@ function draw_wavephone_player(_skintone, _eyewear, _outfit, _outfitColor, _hair
 ///@desc This function is called by the player_draw_from_state function when drawing
 /// the player in the human draw event, while in the overworld. The function draws the
 /// player's meditating animation
-function draw_meditating_player(_skintone, _eyewear, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory, _accColor) {	
+function draw_meditating_player(_skintone, _eyewear, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory) {	
 }
 
 ///@desc This function is called by the player_draw_from_state function when drawing
@@ -164,23 +162,23 @@ function player_draw_from_state() {
 	switch (state) {
 		case humanStates.standard:
 			if swimming		draw_swimming_player(skintone, eyewear, hairstyle, hairColor, hat, hatColor);
-			if !swimming	draw_standard_player(skintone, eyewear, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory, accessoryColor);
+			if !swimming	draw_standard_player(skintone, eyewear, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory);
 		break;
 		
 		case humanStates.drinking:
-			draw_drinking_player(skintone, eyewear, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory, accessoryColor);
+			draw_drinking_player(skintone, eyewear, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory);
 		break;
 		
 		case humanStates.eating:
-			draw_eating_player(skintone, eyewear, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory, accessoryColor);
+			draw_eating_player(skintone, eyewear, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory);
 		break;
 		
 		case humanStates.meditating:
-			draw_meditating_player(skintone, eyewear, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory, accessoryColor);
+			draw_meditating_player(skintone, eyewear, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory);
 		break;
 		
 		case humanStates.playingWavephone:
-			draw_wavephone_player(skintone, eyewear, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory, accessoryColor);
+			draw_wavephone_player(skintone, eyewear, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory);
 		break;
 	}
 }

@@ -54,8 +54,7 @@ event_inherited();
 	hatColor		= 0;
 	shoes			= 0;
 	shoeColor		= 0;
-	accessory		= -1;
-	accessoryColor	= -1;
+	accessory		= 0;
 
 #endregion 
 
@@ -102,7 +101,9 @@ event_inherited();
 	// initialize titles
 	titles = ds_list_create();
 	
-	// set all titles to -1
+	// set all titles to -1 (this is not just for testing--this is so that
+	// all titles are still instantiated with a spot on the list, they are
+	// simply initialized as LOCKED
 	var i = 0;	repeat (SPAR_TITLES.HEIGHT) {
 		titles[|i] = -1;
 	
@@ -154,7 +155,7 @@ event_inherited();
 	minFrame = 0;
 	maxFrame = 0;
 	
-	// set appearance loaded to false
+	// intialize appearance loaded as false
 	appearanceLoaded = false;
 	
 	// initialize state
@@ -241,18 +242,80 @@ event_inherited();
 	onlineSpriteWinCounts	= "";
 #endregion
 
-// FOR TESTING PURPOSES ONLY
-// POPULATE WARDROBE GRID WITH ALL OPTIONS
+// --------------------------FOR TESTING PURPOSES ONLY----------------------------
+// -------------------POPULATE WARDROBE LIST WITH ALL OPTIONS---------------------
+
+// initialize a dummy wardrobe list
+var wl = ds_list_create();
+
 var i = 0;	repeat (APPEARANCE_PARAMS.height) {
-	// TODO GET THE NUMBER OF ITEMS FOR THE CURRENT APPEARANCE PARAMS
+	// initialize n
 	var n = -1;
 	
+	// create a dummy item list
+	var il = ds_list_create();
+	
+	// get the number of items for the current appearance parameter
+	switch (i) {
+		case APPEARANCE_PARAMS.outfit:
+			n = outfits.height;
+		break;
+	
+		case APPEARANCE_PARAMS.eyewear:
+			n = spectacles.height;
+		break;
+		
+		case APPEARANCE_PARAMS.hat:
+			n = hats.height;
+		break;
+		
+		case APPEARANCE_PARAMS.shoes:
+			n = footwear.height;
+		break;
+		
+		case APPEARANCE_PARAMS.accessory:
+			n = accessories.height;
+		break;
+	}
+	
+	// use a repeat loop to build each list
 	var j = 0;	repeat (n) {
+		// add the next item to the item list
+		ds_list_add(il, j);
 		
 		// increment j
 		j++;
 	}
 	
+	// add the encoded item list to the wardrobe list
+	ds_list_add(wl, encode_list(il));
+	
+	// destroy the dummy item list
+	ds_list_destroy(il);
+	
 	// increment i
 	i++;
 }
+
+// set wardrobe to equal the encoded wardrobe list
+wardrobe = encode_list(wl);
+
+// destroy the dummy wardrobe list
+ds_list_destroy(wl);
+
+// create a dummy palette list
+var pl = ds_list_create();
+
+// use a repeat loop to add all of the colors to player's palette
+i = 0;	repeat (COLORS.SKINTONE_1) {
+	ds_list_add(pl, i);
+
+	// increment i	
+	i++;
+}
+
+// set the player's palette to equal the encoded dummy list
+palette = encode_list(pl);
+
+// destroy the dummy palette list
+ds_list_destroy(pl);

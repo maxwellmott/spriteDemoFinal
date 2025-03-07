@@ -10,7 +10,6 @@ enum APPEARANCE_PARAMS {
 	shoes,
 	shoeColor,
 	accessory,
-	accessoryColor,
 	height
 }
 
@@ -58,6 +57,9 @@ enum footwear {
 }
 
 enum accessories {
+	none,
+	legendBroadsword,
+	legendMedallion,
 	height
 }
 

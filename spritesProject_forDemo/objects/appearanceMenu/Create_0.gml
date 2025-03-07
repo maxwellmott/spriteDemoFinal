@@ -14,7 +14,6 @@ playerFacing = directions.south;
 outfitColorID		= -1;
 hatColorID			= -1;
 shoesColorID		= -1;
-accessoryColorID	= -1;
 
 // initialize all name lists
 outfitNameList		= ds_list_create();
@@ -59,10 +58,26 @@ usableFootwear = ds_list_create();
 // initialize usable dyes list
 usableDyes = ds_list_create();
 
-// TODO POPULATE ALL USABLE LISTS BY COPYING THEM FROM PLAYER WARDROBE GRID
+// decode outfits string from player's wardrobe to usableOutfits
+decode_list(player.wardrobe[| APPEARANCE_PARAMS.outfit],	usableOutfits);
+
+// decode hats string from player's wardrobe to usableHats
+decode_list(player.wardrobe[| APPEARANCE_PARAMS.hat],		usableHats);
+
+// decode shoes string from player's wardrobe to usableFootwear
+decode_list(player.wardrobe[| APPEARANCE_PARAMS.shoes],		usableFootwear);
+
+// decode eyewear string from player's wardrobe to usableEyewear
+decode_list(player.wardrobe[| APPEARANCE_PARAMS.eyewear],	usableEyewear);
+
+// decode accessories string from player's wardrobe to usableAccessories
+decode_list(player.wardrobe[| APPEARANCE_PARAMS.accessory],	usableAccessories);
+
+// decode usableDyes from player's usableDyes
+decode_list(player.palette, usableDyes);
 
 // create character creator phases enum
-enum CHARACTER_CREATOR_PHASES {
+enum APPEARANCE_EDITOR_PHASES {
 	OUTFIT_SELECTION,
 	OUTFIT_COLOR_SELECTION,
 	HAT_SELECTION,
@@ -78,7 +93,7 @@ enum CHARACTER_CREATOR_PHASES {
 }
 
 // initialize phase
-phase = CHARACTER_CREATOR_PHASES.OUTFIT_SELECTION;
+phase = APPEARANCE_EDITOR_PHASES.OUTFIT_SELECTION;
 
 // initialize lists containing bbox dimensions for all selection elements
 skintoneLefts		= ds_list_create();
@@ -205,18 +220,17 @@ randomize();
 // initialize appearance list
 appearance = ds_list_create();
 
-// initialize all appearance elements
-skintone		=	colorList[|skintones[|			irandom_range(0, ds_list_size(skintones) - 1)]];
-outfit			= 	usableOutfits[|					irandom_range(0, ds_list_size(usableOutfits) - 1)];
-outfitColor		= 	colorList[| usableDyes[|		irandom_range(0, ds_list_size(usableDyes) - 1)]];
-hairstyle		= 	usableHairstyles[|				irandom_range(0, ds_list_size(usableHairstyles) - 1)];
-hairColor		= 	colorList[| usableHairColors[|	irandom_range(0, ds_list_size(usableHairColors) - 1)]];
-hat				= 	hats.nothing;
-hatColor		=	COLORS.DYNSVEIL_BROWN;
-shoes			= 	footwear.sandals;
-shoeColor		= 	COLORS.FIRMROOT_BROWN;
-accessory		= 	-1;
-accessoryColor	= 	-1;
+// initialize all appearance elements using player's currently set choices
+skintone		=	player.skintone;
+outfit			= 	player.outfit;		
+outfitColor		= 	player.outfitColor;	
+hairstyle		= 	player.hairstyle;	
+hairColor		= 	player.hairColor;	
+hat				= 	player.hat;			
+hatColor		=	player.hatColor;	
+shoes			= 	player.shoes;		
+shoeColor		= 	player.shoeColor;	
+accessory		= 	player.accessory;	
 
 // initialize currentOutfitArrow variable
 currentOutfitArrow = -1;

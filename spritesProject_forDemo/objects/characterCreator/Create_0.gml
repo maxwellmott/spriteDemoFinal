@@ -13,7 +13,6 @@ playerFacing = directions.south;
 outfitColorID		= -1;
 hatColorID			= -1;
 shoesColorID		= -1;
-accessoryColorID	= -1;
 
 // initialize all name lists
 outfitNameList		= ds_list_create();
@@ -242,7 +241,6 @@ hatColor		=	COLORS.DYNSVEIL_BROWN;
 shoes			= 	footwear.sandals;
 shoeColor		= 	COLORS.FIRMROOT_BROWN;
 accessory		= 	-1;
-accessoryColor	= 	-1;
 
 // initialize currentOutfitArrow variable
 currentOutfitArrow = -1;
