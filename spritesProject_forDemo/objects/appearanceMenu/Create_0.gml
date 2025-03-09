@@ -95,130 +95,91 @@ enum APPEARANCE_EDITOR_PHASES {
 // initialize phase
 phase = APPEARANCE_EDITOR_PHASES.OUTFIT_SELECTION;
 
-// initialize lists containing bbox dimensions for all selection elements
-skintoneLefts		= ds_list_create();
-skintoneRights		= ds_list_create();
-skintoneTops		= ds_list_create();
-skintoneBottoms		= ds_list_create();
+// initialize lists containing bbox dimensions for all selection elements						
+dyeLefts				= ds_list_create();
+dyeRights				= ds_list_create();
 
-outfitArrowLefts	= ds_list_create();
-outfitArrowRights	= ds_list_create();
-outfitArrowTops		= ds_list_create();
-outfitArrowBottoms	= ds_list_create();
+outfitColorTops			= ds_list_create();
+outfitColorBottoms		= ds_list_create();
 
-outfitColorLefts	= ds_list_create();
-outfitColorRights	= ds_list_create();
-outfitColorTops		= ds_list_create();
-outfitColorBottoms	= ds_list_create();
+hatColorTops			= ds_list_create();
+hatColorBottoms			= ds_list_create();
 
-hairArrowLefts		= ds_list_create();
-hairArrowRights		= ds_list_create();
-hairArrowTops		= ds_list_create();
-hairArrowBottoms	= ds_list_create();
+shoeColorTops			= ds_list_create();
+shoeColorBottoms		= ds_list_create();
 
-hairColorLefts		= ds_list_create();
-hairColorRights		= ds_list_create();
-hairColorTops		= ds_list_create();
-hairColorBottoms	= ds_list_create();
+// set leftArrowLeft and leftArrowRight
+leftArrowLeft			= 4;
+leftArrowRight			= 14;
 
-// use a repeat loop to poulate skintone bbox dimensions
-var i = 0;	repeat (ds_list_size(skintones)) {
-	// get all dimensions
-	var left	= 38 + (i * 32);
-	var right	= 58 + (i * 32);
-	var top		= 42;
-	var bottom	= 58;
-	
-	// set all dimensions on the proper list
-	skintoneLefts[| i]		= left;
-	skintoneRights[| i]		= right;
-	skintoneTops[| i]		= top;
-	skintoneBottoms[| i]	= bottom;
-	
-	// increment i
-	i++;
-}
+// set rightArrowLeft and rightArrowRight
+rightArrowLeft			= 136;
+rightArrowRight			= 146;
 
-// use a repeat loop to populate outfit arrow bbox dimensions
-var i = 0;	repeat (2) {
-	// get all dimensions
-	var left	= 36 + (i * 173); 
-	var right	= 46 + (i * 173);
-	var top		= 75;
-	var bottom	= 90;
-	
-	// set all dimensions on the proper list
-	outfitArrowLefts[| i]		= left;
-	outfitArrowRights[| i]		= right;
-	outfitArrowTops[| i]		= top;
-	outfitArrowBottoms[| i]		= bottom;
-	
-	// increment i
-	i++;
-}
+// set outfitArrowTop and outfitArrowBottom
+outfitArrowTop			= 32;
+outfitArrowBottom		= 42;
 
-// use a repeat loop to populate outfit color bbox dimensions
+// set hatArrowTop and hatArrowBottom
+hatArrowTop				= 72;
+hatArrowBottom			= 82;
+
+// set shoeArrowTop and shoeArrowBottom
+shoeArrowTop			= 112;
+shoeArrowBottom			= 122;
+
+// set eyewearArrowTop and eyewearArrowBottom
+eyewearArrowTop			= 152;
+eyewearArrowBottom		= 162;
+
+// set accessoryArrowTop and accessoryArrowBottom
+accessoryArrowTop		= 192;
+accessoryArrowBottom	= 202;
+
+// set nameChangeButton dimensions
+nameChangeButtonLeft	= 148;
+nameChangeButtonRight	= 196;
+nameChangeButtonTop		= 130;
+nameChangeButtonBottom	= 150;
+
+// set genderChangeButton dimensions
+genderChangeButtonLeft		= 204;
+genderChangeButtonRight		= 252;
+genderChangeButtonTop		= 130;
+genderChangeButtonBottom	= 150;
+
+// set dyesPerRow
+var dyesPerRow = 10;
+
+// use a repeat loop to set all dye dimensions (for all elements--outfit color, hat color, shoe color)
 var i = 0;	repeat (ds_list_size(usableDyes)) {
-	// get all dimensions
-	var left	= 35 + (i * 8);
-	var right	= 41 + (i * 8);
-	var top		= 95;
-	var bottom	= 101;
+	// get the row and columns using i
+	var rowNum			= i div dyesPerRow;
+	var colNum			= i mod dyesPerRow;
 	
-	// set all dimensions on the proper list
-	outfitColorLefts[| i]		= left;
-	outfitColorRights[| i]		= right;
-	outfitColorTops[| i]		= top;
-	outfitColorBottoms[| i]		= bottom;
+	// set the left and right of the given dye (they are vertically aligned
+	// are therefore shared between all elements)
+	var left			= 174 + (colNum * 8);
+	var right			= 180 + (colNum * 8);
 	
+	// set the top and bottom for the outfitColor of this number
+	var outfitTop		= 24 + (rowNum * 8);
+	var outfitBottom	= 30 + (colNum * 8);
 	
-	// increment i
-	i++;
-}
-
-// use a repeat loop to populate hair arrow bbox dimensions
-var i = 0;	repeat (2) {
-	// get all dimensions
-	var left	= 36 + (i * 173);
-	var right	= 46 + (i * 173);
-	var top		= 121;
-	var bottom	= 136;
+	// set the top and bottom for the hatColor of this number
+	var hatTop			= outfitTop + 40;
+	var hatBottom		= outfitBottom + 40;
 	
-	// set all dimensions on the proper list
-	hairArrowLefts[| i]		= left;
-	hairArrowRights[| i]	= right;
-	hairArrowTops[| i]		= top;
-	hairArrowBottoms[| i]	= bottom;
-	
+	// set the top and bottom for the shoeColor of this number
+	var shoeTop			= hatTop + 40;
+	var shoeBottom		= hatBottom + 40;
 	
 	// increment i
 	i++;
 }
-
-// use a repeat loop to populate hair color bbox dimensions
-var i = 0;	repeat (ds_list_size(usableHairColors)) {
-	// get all dimensions
-	var left	= 35 + (i * 8);
-	var right	= 41 + (i * 8);
-	var top		= 141;
-	var bottom	= 147;
-	
-	// set all dimensions on the proper list
-	hairColorLefts[| i]		= left;
-	hairColorRights[| i]	= right;
-	hairColorTops[| i]		= top;
-	hairColorBottoms[| i]	= bottom;
-	
-	
-	// increment i
-	i++;
-}
-
-// set random seed
-randomize();
 
 // initialize appearance list
-appearance = ds_list_create();
+appearance = player.appearance;
 
 // initialize all appearance elements using player's currently set choices
 skintone		=	player.skintone;
@@ -235,23 +196,50 @@ accessory		= 	player.accessory;
 // initialize currentOutfitArrow variable
 currentOutfitArrow = -1;
 
-// initialize currentHairstyleArrow variable
-currentHairstyleArrow = -1;
+// initialize currentHatArrow variable
+currentHatArrow = -1;
 
-// initialize arrowClickFrame
+// initialize currentShoeArrow variable
+currentShoeArrow = -1;
+
+// initialize currentEyewearArrow variable
+currentEyewearArrow = -1;
+
+// initialize currentAccessoryArrow variable
+currentAccessoryArrow = -1;
+
+// initialize outfitClickFrame
 outfitClickFrame = 0;
 
-// initialize hairstyleClickFrame
-hairstyleClickFrame = 0;
+// initialize hatClickFrame
+hatClickFrame = 0;
 
+// initialize shoeClickFrame
+shoeClickFrame = 0;
+
+// initialize eyewearClickFrame
+eyewearClickFrame = 0;
+
+// initialize accessoryClickFrame
+accessoryClickFrame = 0;
+// TODOTODOTODOTODOTODOTODOTODOTODOTO START HERE WHEN YOU GET BACK TO FIXING THIS SCRIPT
 // get outfitNameY
-outfitNameY = outfitArrowBottoms[| 0] - (outfitArrowBottoms[| 0] - outfitArrowTops[| 0]) + 11;
+outfitNameY = -1;
 
-// get hairstyleNameY
-hairstyleNameY = hairArrowBottoms[| 0] - (hairArrowBottoms[| 0] - hairArrowTops[| 0]) + 11;
+// get hatNameY
+hatNameY = -1;
+
+// get shoeNameY
+shoeNameY = -1;
+
+// get eyewearNameY
+eyewearNameY = -1;
+
+// get accessoryNameY
+accessoryNameY = -1;
 
 // get nameDrawX 
-nameDrawX = guiWidth / 2;
+nameDrawX = -1;
 
 // set all bbox dimensions for yes button
 yesButtonLeft	= 80;
