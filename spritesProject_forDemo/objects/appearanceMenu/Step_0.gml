@@ -48,10 +48,230 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 	// check if the mouse is being clicked
 	if (global.click) {
 		// use a repeat loop to check for a collision with each dye
-			// if there is a collision, set that dye as the color of the
-			// given element, then set the phase to the selection of that color
+		var i = 0;	repeat (ds_list_size(usableDyes)) {
+			// get all bbox dimensions
+			var left	= dyeLefts[| i];
+			var right	= dyeRights[| i];
 			
-		// check for a collision with each arrow
+			var outfitTop		= outfitColorTops[| i];
+			var outfitBottom	= outfitColorBottoms[| i];
+			
+			var hatTop			= hatColorTops[| i];
+			var hatBottom		= hatColorBottoms[| i];
+			
+			var shoeTop			= shoeColorTops[| i];
+			var shoeBottom		= shoeColorBottoms[| i];
+					
+			// check for a collision with the given outfit dye splotch
+			if (collision_rectangle(left, outfitTop, right, outfitBottom, mouse, true, false)) {
+				// set that dye as the current outfitColor
+				outfitColor = colorList[| usableDyes[| i]];
+				
+				// set the phase to outfit color selection
+				phase = APPEARANCE_EDITOR_PHASES.OUTFIT_COLOR_SELECTION;
+			}
+			
+			// check for a collision with the given hat dye splotch
+			if (collision_rectangle(left, hatTop, right, hatBottom, mouse, true, false)) {
+				// set that dye as the current hatColor
+				hatColor = colorList[| usableDyes[| i]];
+				
+				// set the phase to hat color selection
+				phase = APPEARANCE_EDITOR_PHASES.HAT_COLOR_SELECTION;
+			}
+			
+			// check for a collision with the given shoe dye splotch
+			if (collision_rectangle(left, shoeTop, right, shoeBottom, mouse, true, false)) {
+				// set that dye as the current shoeColor
+				shoeColor = colorList[| usableDyes[| i]];
+				
+				// set the phase to shoe color selection
+				phase = APPEARANCE_EDITOR_PHASES.SHOE_COLOR_SELECTION;
+			}
+			
+			// increment i
+			i++;
+		}
+		
+		// check that there is not already an outfitArrow being clicked
+		if (currentOutfitArrow == -1) {
+			// find the current outfitNum
+			var outfitNum = ds_list_find_index(usableOutfits, outfit);
+			
+			// check for a collision with the left outfitArrow
+			if (collision_rectangle(leftArrowLeft, outfitArrowTop, leftArrowRight, outfitArrowBottom, mouse, true, false)) {
+				// check that this is not the first outfit
+				if (outfitNum > 0) {
+					// move to the last outfit
+					outfit = usableOutfits[| outfitNum - 1];
+					
+					// set currentOutfitArrow to 0
+					currentOutfitArrow = 0;
+					
+					// set outfitClickFrame
+					outfitClickFrame = global.gameTime mod 24;
+				}
+			}
+			
+			// check for a collision with the right outfitArrow
+			if (collision_rectangle(rightArrowLeft, outfitArrowTop, rightArrowRight, outfitArrowBottom, mouse, true, false)) {
+				// check that this is not the last outfit
+				if (outfitNum < ds_list_size(usableOutfits) - 1) {
+					// move to the next outfit
+					outfit = usableOutfits[| outfitNum + 1];
+					
+					// set currentOutfitArrow to 1
+					currentOutfitArrow = 1;
+					
+					// set outfitClickFrame
+					outfitClickFrame = global.gameTime mod 24;
+				}
+			}
+		}
+		
+		// check that there is not already a hatArrow being clicked
+		if (currentHatArrow == -1) {
+			// find the current hatNum
+			var hatNum = ds_list_find_index(usableHats, hat);
+			
+			// check for a collision with the left hatArrow
+			if (collision_rectangle(leftArrowLeft, hatArrowTop, leftArrowRight, hatArrowBottom, mouse, true, false)) {
+				// check that this is not the first hat
+				if (hatNum > 0) {
+					// move to the last hat
+					hat = usableHats[| hatNum - 1];
+					
+					// set currentHatArrow to 0
+					currentHatArrow = 0;
+					
+					// set hatClickFrame
+					hatClickFrame = global.gameTime mod 24;
+				}
+			}
+			
+			// check for a collision with the right hatArrow
+			if (collision_rectangle(rightArrowLeft, hatArrowTop, rightArrowRight, hatArrowBottom, mouse, true, false)) {
+				// check that this is not the last hat
+				if (hatNum < ds_list_size(usableHats) - 1) {
+					// move to the next hat
+					hat = usableHats[| hatNum + 1];
+					
+					// set currentHatArrow to 1
+					currentHatArrow = 1;
+					
+					// set hatClickFrame
+					hatClickFrame = global.gameTime mod 24;
+				}
+			}
+		}
+		
+		// check that there is not already a shoeArrow being clicked
+		if (currentShoeArrow == -1) {
+			// find the current shoeNum
+			var shoeNum = ds_list_find_index(usableFootwear, shoes);
+			
+			// check for a collision with the left shoeArrow
+			if (collision_rectangle(leftArrowLeft, shoeArrowTop, leftArrowRight, shoeArrowBottom, mouse, true, false)) {
+				// check that this is not the first shoes
+				if (shoeNum > 0) {
+					// move to the last shoes
+					shoes = usableFootwear[| shoeNum - 1];
+					
+					// set currentShoeArrow to 0
+					currentShoeArrow = 0;
+					
+					// set shoeClickFrame
+					shoeClickFrame = global.gameTime mod 24;
+				}
+			}
+			
+			// check for a collision with the right shoeArrow
+			if (collision_rectangle(rightArrowLeft, shoeArrowTop, rightArrowRight, shoeArrowBottom, mouse, true, false)) {
+				// check that this is not the last shoes
+				if (shoeNum < ds_list_size(usableFootwear) - 1) {
+					// move to the next shoes
+					shoes = usableFootwear[| shoeNum + 1];
+					
+					// set currentShoeArrow to 1
+					currentShoeArrow = 1;
+					
+					// set shoeClickFrame
+					shoeClickFrame = global.gameTime mod 24;
+				}
+			}
+		}
+		
+		// check that there is not already an eyewearArrow being clicked
+		if (currentEyewearArrow == -1) {
+			// find the current eyewearNum
+			var eyewearNum = ds_list_find_index(usableEyewear, eyewear);
+			
+			// check for a collision with the left eyewearArrow
+			if (collision_rectangle(leftArrowLeft, eyewearArrowTop, leftArrowRight, eyewearArrowBottom, mouse, true, false)) {
+				// check that this is not the first eyewear
+				if (eyewearNum > 0) {
+					// move to the last eyewear
+					eyewear = usableEyewear[| eyewearNum - 1];
+					
+					// set currentEyewearArrow to 0
+					currentEyewearArrow = 0;
+					
+					// set eyewearClickFrame
+					eyewearClickFrame = global.gameTime mod 24;
+				}
+			}
+			
+			// check for a collision with the right eyewearArrow
+			if (collision_rectangle(rightArrowLeft, eyewearArrowTop, rightArrowRight, eyewearArrowBottom, mouse, true, false)) {
+				// check that this is not the last eyewear
+				if (eyewearNum < ds_list_size(usableEyewear) - 1) {
+					// move to the next eyewear
+					eyewear = usableEyewear[| eyewearNum + 1];
+					
+					// set currentEyewearArrow to 1
+					currentEyewearArrow = 1;
+					
+					// set eyewearClickFrame
+					eyewearClickFrame = global.gameTime mod 24;
+				}
+			}
+		}
+		
+		// check that there is not already an accessoryArrow being clicked
+		if (currentAccessoryArrow == -1) {
+			// find the current accessoryNum
+			var accessoryNum = ds_list_find_index(usableAccessories, accessory);
+			
+			// check for a collision with the left accessoryArrow
+			if (collision_rectangle(leftArrowLeft, accessoryArrowTop, leftArrowRight, accessoryArrowBottom, mouse, true, false)) {
+				// check that this is not the first accessory
+				if (accessoryNum > 0) {
+					// move to the last accessory
+					accessory = usableAccessories[| accessoryNum - 1];
+					
+					// set the currentAccessoryArrow to 0
+					currentAccessoryArrow = 0;
+					
+					// set accessoryClickFrame
+					accessoryClickFrame = global.gameTime mod 24;
+				}
+			}
+			
+			// check for a collision with the right accessoryArrow
+			if (collision_rectangle(rightArrowLeft, accessoryArrowTop, rightArrowRight, accessoryArrowBottom, mouse, true, false)) {
+				// check that this is not the first accessory
+				if (accessoryNum < ds_list_size(usableAccessories) - 1) {
+					// move to the next accessory
+					accessory = usableAccessories[| accessoryNum + 1];
+					
+					// set the currentAccessoryArrow to 1
+					currentAccessoryArrow = 1;
+					
+					// set accessoryClickFrame
+					accessoryClickFrame = global.gameTime mod 24;
+				}
+			}
+		}
 		
 		// check for a collision with the nameChangeButton
 	}

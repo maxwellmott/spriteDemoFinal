@@ -12,10 +12,19 @@ var i = 0;	repeat (ds_list_size(usableDyes)) {
 	var hatTop			= hatColorTops[| i];
 	var shoeTop			= shoeColorTops[| i];
 	
+	// FOR TESTING ONLY
+	var right			= dyeRights[| i];
+	var outfitBottom	= outfitColorBottoms[| i];
+	var hatBottom		= hatColorBottoms[| i];
+	var shoeBottom		= shoeColorBottoms[| i];
+	
 	// draw all splotches with a color blend
 	draw_sprite_ext(spr_dyeSplotch, 0, left, outfitTop,	1, 1, 0, colorList[| usableDyes[| i]], 1.0);
 	draw_sprite_ext(spr_dyeSplotch, 0, left, hatTop,	1, 1, 0, colorList[| usableDyes[| i]], 1.0);
 	draw_sprite_ext(spr_dyeSplotch, 0, left, shoeTop,	1, 1, 0, colorList[| usableDyes[| i]], 1.0);
+	
+	// FOR TESTING ONLY
+	draw_rectangle(left, outfitTop, right, outfitBottom, false);
 	
 	// increment i
 	i++;
@@ -42,7 +51,7 @@ i = 0;	repeat (2) {
 		top		= outfitArrowTop;
 		
 		// draw the arrow with the appropriate frame
-		draw_sprite(spr_ccLeftArrow, f, left, top);
+		draw_sprite(spr_appearanceEditorLeftArrow, f, left, top);
 	}
 	
 	// check if this is the right arrow
@@ -52,7 +61,7 @@ i = 0;	repeat (2) {
 		top		= outfitArrowTop;
 		
 		// draw the arrow with the appropriate frame	
-		draw_sprite(spr_ccRightArrow, f, left, top);
+		draw_sprite(spr_appearanceEditorRightArrow, f, left, top);
 	}
 	// increment i
 	i++;
@@ -75,7 +84,7 @@ i = 0;	repeat (2) {
 		top		= hatArrowTop;
 		
 		// draw the arrow with the appropriate frame
-		draw_sprite(spr_ccLeftArrow, f, left, top);
+		draw_sprite(spr_appearanceEditorLeftArrow, f, left, top);
 	}
 	
 	// check if this is the right arrow
@@ -85,7 +94,7 @@ i = 0;	repeat (2) {
 		top		= hatArrowTop;
 		
 		// draw the arrow with the appropriate frame	
-		draw_sprite(spr_ccRightArrow, f, left, top);
+		draw_sprite(spr_appearanceEditorRightArrow, f, left, top);
 	}
 	// increment i
 	i++;
@@ -108,7 +117,7 @@ i = 0;	repeat (2) {
 		top		= shoeArrowTop;
 		
 		// draw the arrow with the appropriate frame
-		draw_sprite(spr_ccLeftArrow, f, left, top);
+		draw_sprite(spr_appearanceEditorLeftArrow, f, left, top);
 	}
 	
 	// check if this is the right arrow
@@ -118,7 +127,7 @@ i = 0;	repeat (2) {
 		top		= shoeArrowTop;
 		
 		// draw the arrow with the appropriate frame	
-		draw_sprite(spr_ccRightArrow, f, left, top);
+		draw_sprite(spr_appearanceEditorRightArrow, f, left, top);
 	}
 	// increment i
 	i++;
@@ -141,7 +150,7 @@ i = 0;	repeat (2) {
 		top		= eyewearArrowTop;
 		
 		// draw the arrow with the appropriate frame
-		draw_sprite(spr_ccLeftArrow, f, left, top);
+		draw_sprite(spr_appearanceEditorLeftArrow, f, left, top);
 	}
 	
 	// check if this is the right arrow
@@ -151,7 +160,7 @@ i = 0;	repeat (2) {
 		top		= eyewearArrowTop;
 		
 		// draw the arrow with the appropriate frame	
-		draw_sprite(spr_ccRightArrow, f, left, top);
+		draw_sprite(spr_appearanceEditorRightArrow, f, left, top);
 	}
 	// increment i
 	i++;
@@ -174,7 +183,7 @@ i = 0;	repeat (2) {
 		top		= accessoryArrowTop;
 		
 		// draw the arrow with the appropriate frame
-		draw_sprite(spr_ccLeftArrow, f, left, top);
+		draw_sprite(spr_appearanceEditorLeftArrow, f, left, top);
 	}
 	
 	// check if this is the right arrow
@@ -184,7 +193,7 @@ i = 0;	repeat (2) {
 		top		= accessoryArrowTop;
 		
 		// draw the arrow with the appropriate frame	
-		draw_sprite(spr_ccRightArrow, f, left, top);
+		draw_sprite(spr_appearanceEditorRightArrow, f, left, top);
 	}
 	// increment i
 	i++;
