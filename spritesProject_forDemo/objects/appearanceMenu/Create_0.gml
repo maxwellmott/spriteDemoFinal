@@ -4,8 +4,8 @@ x = guiWidth / 2;
 y = (guiHeight / 2) - 22;
 
 // initialize player display position
-playerDisplayX		= 115;
-playerDisplayY		= 160;
+playerDisplayX		= 188;
+playerDisplayY		= 165;
 
 // initialize playerFacing
 playerFacing = directions.south;

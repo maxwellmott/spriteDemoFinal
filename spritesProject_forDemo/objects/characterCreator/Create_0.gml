@@ -23,8 +23,8 @@ decode_list(global.allOutfitNames,		outfitNameList);
 decode_list(global.allHairstyleNames,	hairstyleNameList);
 
 // initialize mirror shine position
-mirrorShineX = -1;
-mirrorShineY = -1;
+mirrorShineX = 136;
+mirrorShineY = 160;
 
 // rebuild the color list
 colorList = ds_list_create();
@@ -231,6 +231,7 @@ randomize();
 appearance = ds_list_create();
 
 // initialize all appearance elements
+eyewear			=	0;
 skintone		=	colorList[|skintones[|			irandom_range(0, ds_list_size(skintones) - 1)]];
 outfit			= 	usableOutfits[|					irandom_range(0, ds_list_size(usableOutfits) - 1)];
 outfitColor		= 	colorList[| usableDyes[|		irandom_range(0, ds_list_size(usableDyes) - 1)]];
@@ -240,7 +241,7 @@ hat				= 	hats.nothing;
 hatColor		=	COLORS.DYNSVEIL_BROWN;
 shoes			= 	footwear.sandals;
 shoeColor		= 	COLORS.FIRMROOT_BROWN;
-accessory		= 	-1;
+accessory		= 	0;
 
 // initialize currentOutfitArrow variable
 currentOutfitArrow = -1;

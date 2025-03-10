@@ -361,6 +361,7 @@
     {"id":{"name":"spr_canukiBattle","path":"sprites/spr_canukiBattle/spr_canukiBattle.yy",},},
     {"id":{"name":"spr_ccConfirmWindow","path":"sprites/spr_ccConfirmWindow/spr_ccConfirmWindow.yy",},},
     {"id":{"name":"spr_ccLeftArrow","path":"sprites/spr_ccLeftArrow/spr_ccLeftArrow.yy",},},
+    {"id":{"name":"spr_ccMirrorShine","path":"sprites/spr_ccMirrorShine/spr_ccMirrorShine.yy",},},
     {"id":{"name":"spr_ccRightArrow","path":"sprites/spr_ccRightArrow/spr_ccRightArrow.yy",},},
     {"id":{"name":"spr_ccSelectionIndicator","path":"sprites/spr_ccSelectionIndicator/spr_ccSelectionIndicator.yy",},},
     {"id":{"name":"spr_ccYesNo","path":"sprites/spr_ccYesNo/spr_ccYesNo.yy",},},

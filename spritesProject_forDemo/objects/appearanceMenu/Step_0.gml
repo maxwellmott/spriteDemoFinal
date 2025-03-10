@@ -83,7 +83,7 @@ switch (phase) {
 			// check for right input
 			if (global.menuRight) {
 				// check that the current outfit is not the last outfit
-				if (outfitNum != ds_list_size(usableOutfits) - 1) {				
+				if (outfitNum < ds_list_size(usableOutfits) - 1) {		
 					// move to the next outfit
 					outfit = usableOutfits[| outfitNum + 1];
 					

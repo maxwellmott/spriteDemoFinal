@@ -1,4 +1,3 @@
-
 // draw background
 draw_sprite(spr_characterCreatorBackground, 0, 0, 0);
 
@@ -215,4 +214,7 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 }
 
 // draw the sample player
-character_creator_draw_player(skintone, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory);
+character_creator_draw_player(eyewear, skintone, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory);
+
+// draw the mirror shine
+draw_sprite(spr_ccMirrorShine, 0, mirrorShineX, mirrorShineY);

@@ -285,6 +285,7 @@
     {"name":"spr_canukiBattle","order":35,"path":"sprites/spr_canukiBattle/spr_canukiBattle.yy",},
     {"name":"spr_ccConfirmWindow","order":11,"path":"sprites/spr_ccConfirmWindow/spr_ccConfirmWindow.yy",},
     {"name":"spr_ccLeftArrow","order":6,"path":"sprites/spr_ccLeftArrow/spr_ccLeftArrow.yy",},
+    {"name":"spr_ccMirrorShine","order":15,"path":"sprites/spr_ccMirrorShine/spr_ccMirrorShine.yy",},
     {"name":"spr_ccRightArrow","order":7,"path":"sprites/spr_ccRightArrow/spr_ccRightArrow.yy",},
     {"name":"spr_ccSelectionIndicator","order":9,"path":"sprites/spr_ccSelectionIndicator/spr_ccSelectionIndicator.yy",},
     {"name":"spr_ccYesNo","order":10,"path":"sprites/spr_ccYesNo/spr_ccYesNo.yy",},
