@@ -16,7 +16,7 @@ enum APPEARANCE_PARAMS {
 enum spectacles {
 	none,
 	readers,
-	blackShades,
+	coolShades,
 	height
 }
 
@@ -58,28 +58,31 @@ enum footwear {
 
 enum accessories {
 	none,
-	legendBroadsword,
-	legendMedallion,
+	legendaryBroadsword,
+	mythicalMedallion,
 	height
 }
 
 // load eyewearTextGrid from csv file
-var eyewearTextGrid		= load_csv("EYEWEAR_NAMES.csv");
+var eyewearTextGrid		= load_csv("EYEWEAR_ENGLISH.csv");
 
 // load outfitTextGrid from csv file
-var outfitTextGrid		= load_csv("OUTFIT_NAMES.csv");
+var outfitTextGrid		= load_csv("OUTFITS_ENGLISH.csv");
 
 // load hatTextGrid from csv file
-var hatTextGrid			= load_csv("HAT_NAMES.csv");
+var hatTextGrid			= load_csv("HATS_ENGLISH.csv");
 
 // load accessoryTextGrid from csv file
-var accessoryTextGrid	= load_csv("ACCESSORY_NAMES.csv");
+var accessoryTextGrid	= load_csv("ACCESSORIES_ENGLISH.csv");
 
 // load hairstyleTextGrid from csv file
-var hairstyleTextGrid	= load_csv("HAIRSTYLE_NAMES.csv");
+var hairstyleTextGrid	= load_csv("HAIRSTYLES_ENGLISH.csv");
 
 // load footwearTextGrid from csv file
-var footwearTextGrid	= load_csv("FOOTWEAR_NAMES.csv");
+var footwearTextGrid	= load_csv("FOOTWEAR_ENGLISH.csv");
+
+// create eyewear name list
+global.eyewearNameList		= ds_list_create();
 
 // create outfit name list
 global.outfitNameList		= ds_list_create();
@@ -141,6 +144,15 @@ var i = 0;	repeat (footwear.height) {
 	i++;
 }
 
+// populate eyewearNameList
+var i = 0;	repeat (spectacles.height) {
+	// add the proper text to the list
+	global.eyewearNameList[| i] = eyewearTextGrid[# 1, i];
+	
+	// increment i
+	i++;
+}
+
 // encode and delete the outfitNameList
 global.allOutfitNames		= encode_list(global.outfitNameList);
 ds_list_destroy(global.outfitNameList);
@@ -161,7 +173,12 @@ ds_list_destroy(global.hairstyleNameList);
 global.allFootwearNames		= encode_list(global.footwearNameList);
 ds_list_destroy(global.footwearNameList);
 
-// destroy all text grids
+// encode and delete the eyewearNameList
+global.allEyewearNames		= encode_list(global.eyewearNameList);
+ds_list_destroy(global.eyewearNameList);
+
+// destroy all text 
+ds_grid_destroy(eyewearTextGrid);
 ds_grid_destroy(outfitTextGrid);
 ds_grid_destroy(hatTextGrid);
 ds_grid_destroy(accessoryTextGrid);

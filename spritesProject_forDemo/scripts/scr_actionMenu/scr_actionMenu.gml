@@ -17,7 +17,8 @@ enum ACTION_MENU_OPTION_PARAMS {
 
 // create all action menu option functions
 function open_appearance_editor() {
-	
+	// OPEN APPEARANCE EDITOR
+	room_transition(player.x, player.y, player.facing, rm_appearanceEditor, bgm_menuTheme);
 }
 
 function open_overworld_spells() {

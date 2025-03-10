@@ -16,6 +16,7 @@ hatColorID			= -1;
 shoesColorID		= -1;
 
 // initialize all name lists
+eyewearNameList		= ds_list_create();
 outfitNameList		= ds_list_create();
 hatNameList			= ds_list_create();
 shoesNameList		= ds_list_create();
@@ -26,6 +27,10 @@ decode_list(global.allOutfitNames,		outfitNameList);
 decode_list(global.allHatNames,			hatNameList);
 decode_list(global.allFootwearNames,	shoesNameList);
 decode_list(global.allAccessoryNames,	accessoryNameList);
+
+// decode player wardrobe list
+wardrobeList = ds_list_create();
+decode_list(player.wardrobe, wardrobeList);
 
 // initialize mirror shine position
 mirrorShineX = -1;
@@ -59,19 +64,19 @@ usableFootwear = ds_list_create();
 usableDyes = ds_list_create();
 
 // decode outfits string from player's wardrobe to usableOutfits
-decode_list(player.wardrobe[| APPEARANCE_PARAMS.outfit],	usableOutfits);
+decode_list(wardrobeList[| APPEARANCE_PARAMS.outfit],	usableOutfits);
 
 // decode hats string from player's wardrobe to usableHats
-decode_list(player.wardrobe[| APPEARANCE_PARAMS.hat],		usableHats);
+decode_list(wardrobeList[| APPEARANCE_PARAMS.hat],		usableHats);
 
 // decode shoes string from player's wardrobe to usableFootwear
-decode_list(player.wardrobe[| APPEARANCE_PARAMS.shoes],		usableFootwear);
+decode_list(wardrobeList[| APPEARANCE_PARAMS.shoes],		usableFootwear);
 
 // decode eyewear string from player's wardrobe to usableEyewear
-decode_list(player.wardrobe[| APPEARANCE_PARAMS.eyewear],	usableEyewear);
+decode_list(wardrobeList[| APPEARANCE_PARAMS.eyewear],	usableEyewear);
 
 // decode accessories string from player's wardrobe to usableAccessories
-decode_list(player.wardrobe[| APPEARANCE_PARAMS.accessory],	usableAccessories);
+decode_list(wardrobeList[| APPEARANCE_PARAMS.accessory],	usableAccessories);
 
 // decode usableDyes from player's usableDyes
 decode_list(player.palette, usableDyes);
@@ -137,16 +142,10 @@ accessoryArrowTop		= 192;
 accessoryArrowBottom	= 202;
 
 // set nameChangeButton dimensions
-nameChangeButtonLeft	= 148;
-nameChangeButtonRight	= 196;
-nameChangeButtonTop		= 130;
-nameChangeButtonBottom	= 150;
-
-// set genderChangeButton dimensions
-genderChangeButtonLeft		= 204;
-genderChangeButtonRight		= 252;
-genderChangeButtonTop		= 130;
-genderChangeButtonBottom	= 150;
+nameChangeButtonLeft	= 174;
+nameChangeButtonRight	= 132;
+nameChangeButtonTop		= 224;
+nameChangeButtonBottom	= 152;
 
 // set dyesPerRow
 var dyesPerRow = 10;
@@ -174,6 +173,19 @@ var i = 0;	repeat (ds_list_size(usableDyes)) {
 	var shoeTop			= hatTop + 40;
 	var shoeBottom		= hatBottom + 40;
 	
+	// add all dimensions to all lists
+	ds_list_add(dyeLefts,			left);
+	ds_list_add(dyeRights,			right);
+	
+	ds_list_add(outfitColorTops,	outfitTop);
+	ds_list_add(outfitColorBottoms,	outfitBottom);
+	
+	ds_list_add(hatColorTops,		hatTop);
+	ds_list_add(hatColorBottoms,	hatBottom);
+	
+	ds_list_add(shoeColorTops,		shoeTop);
+	ds_list_add(shoeColorBottoms,	shoeBottom);
+	
 	// increment i
 	i++;
 }
@@ -183,6 +195,7 @@ appearance = player.appearance;
 
 // initialize all appearance elements using player's currently set choices
 skintone		=	player.skintone;
+eyewear			=	player.eyewear;
 outfit			= 	player.outfit;		
 outfitColor		= 	player.outfitColor;	
 hairstyle		= 	player.hairstyle;	
@@ -222,24 +235,24 @@ eyewearClickFrame = 0;
 
 // initialize accessoryClickFrame
 accessoryClickFrame = 0;
-// TODOTODOTODOTODOTODOTODOTODOTODOTO START HERE WHEN YOU GET BACK TO FIXING THIS SCRIPT
+
 // get outfitNameY
-outfitNameY = -1;
+outfitNameY = 37;
 
 // get hatNameY
-hatNameY = -1;
+hatNameY = 77;
 
 // get shoeNameY
-shoeNameY = -1;
+shoeNameY = 117;
 
 // get eyewearNameY
-eyewearNameY = -1;
+eyewearNameY = 157;
 
 // get accessoryNameY
-accessoryNameY = -1;
+accessoryNameY = 197;
 
 // get nameDrawX 
-nameDrawX = -1;
+nameDrawX = 73;
 
 // set all bbox dimensions for yes button
 yesButtonLeft	= 80;
