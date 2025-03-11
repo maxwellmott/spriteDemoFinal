@@ -527,11 +527,8 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 			// set yn selection
 			ynSelection = 1;
 			
-			// set keyboard prompt
-			global.keyboardPrompt = KEYBOARD_PROMPTS.CHARACTER_NAME;
-			
 			// transition to keyboard menu for name entry
-			room_transition(128, 160, player.facing, rm_keyboardMenu, bgm_menuTheme);
+			room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);
 		}
 		
 		// check for a collision with the no button
@@ -571,11 +568,8 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 		}
 		// check if index is 1
 		if (ynSelection == 1) {
-			// set keyboard prompt
-			global.keyboardPrompt = KEYBOARD_PROMPTS.CHARACTER_NAME;
-			
 			// transition to the keyboard menu to enter a name
-			room_transition(128, 160, player.facing, rm_keyboardMenu, bgm_menuTheme);
+			room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);
 		}
 	}
 }

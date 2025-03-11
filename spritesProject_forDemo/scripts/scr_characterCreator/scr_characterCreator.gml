@@ -19,9 +19,9 @@ function character_creator_save_appearance() {
 	appearance[| APPEARANCE_PARAMS.hairstyle]		= hairstyle;
 	appearance[| APPEARANCE_PARAMS.hairColor]		= ds_list_find_index(colorList, hairColor);
 	appearance[| APPEARANCE_PARAMS.hat]				= hat;
-	appearance[| APPEARANCE_PARAMS.hatColor]		= hatColor;
+	appearance[| APPEARANCE_PARAMS.hatColor]		= ds_list_find_index(colorList, hatColor);
 	appearance[| APPEARANCE_PARAMS.shoes]			= shoes;
-	appearance[| APPEARANCE_PARAMS.shoeColor]		= shoeColor;
+	appearance[| APPEARANCE_PARAMS.shoeColor]		= ds_list_find_index(colorList, shoeColor);
 	appearance[| APPEARANCE_PARAMS.accessory]		= accessory;
 	
 	player.appearance = encode_list(appearance);

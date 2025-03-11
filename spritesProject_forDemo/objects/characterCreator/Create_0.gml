@@ -238,9 +238,9 @@ outfitColor		= 	colorList[| usableDyes[|		irandom_range(0, ds_list_size(usableDy
 hairstyle		= 	usableHairstyles[|				irandom_range(0, ds_list_size(usableHairstyles) - 1)];
 hairColor		= 	colorList[| usableHairColors[|	irandom_range(0, ds_list_size(usableHairColors) - 1)]];
 hat				= 	hats.nothing;
-hatColor		=	COLORS.DYNSVEIL_BROWN;
+hatColor		=	colorList[| COLORS.DYNSVEIL_BROWN];
 shoes			= 	footwear.sandals;
-shoeColor		= 	COLORS.FIRMROOT_BROWN;
+shoeColor		= 	colorList[| COLORS.FIRMROOT_BROWN];
 accessory		= 	0;
 
 // initialize currentOutfitArrow variable
