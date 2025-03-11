@@ -38,6 +38,8 @@ ds_list_destroy(hairColorRights);
 ds_list_destroy(hairColorTops);
 ds_list_destroy(hairColorBottoms);
 
+ds_list_destroy(colorList);
+
 ds_list_destroy(appearance);
 
 player.appearanceLoaded = false;

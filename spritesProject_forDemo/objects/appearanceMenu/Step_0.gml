@@ -103,7 +103,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the first outfit
 				if (outfitNum > 0) {
 					// move to the last outfit
-					outfit = usableOutfits[| outfitNum - 1];
+					outfit = real(usableOutfits[| outfitNum - 1]);
 					
 					// set currentOutfitArrow to 0
 					currentOutfitArrow = 0;
@@ -118,7 +118,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the last outfit
 				if (outfitNum < ds_list_size(usableOutfits) - 1) {
 					// move to the next outfit
-					outfit = usableOutfits[| outfitNum + 1];
+					outfit = real(usableOutfits[| outfitNum + 1]);
 					
 					// set currentOutfitArrow to 1
 					currentOutfitArrow = 1;
@@ -139,7 +139,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the first hat
 				if (hatNum > 0) {
 					// move to the last hat
-					hat = usableHats[| hatNum - 1];
+					hat = real(usableHats[| hatNum - 1]);
 					
 					// set currentHatArrow to 0
 					currentHatArrow = 0;
@@ -154,7 +154,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the last hat
 				if (hatNum < ds_list_size(usableHats) - 1) {
 					// move to the next hat
-					hat = usableHats[| hatNum + 1];
+					hat = real(usableHats[| hatNum + 1]);
 					
 					// set currentHatArrow to 1
 					currentHatArrow = 1;
@@ -175,7 +175,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the first shoes
 				if (shoeNum > 0) {
 					// move to the last shoes
-					shoes = usableFootwear[| shoeNum - 1];
+					shoes = real(usableFootwear[| shoeNum - 1]);
 					
 					// set currentShoeArrow to 0
 					currentShoeArrow = 0;
@@ -190,7 +190,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the last shoes
 				if (shoeNum < ds_list_size(usableFootwear) - 1) {
 					// move to the next shoes
-					shoes = usableFootwear[| shoeNum + 1];
+					shoes = real(usableFootwear[| shoeNum + 1]);
 					
 					// set currentShoeArrow to 1
 					currentShoeArrow = 1;
@@ -211,7 +211,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the first eyewear
 				if (eyewearNum > 0) {
 					// move to the last eyewear
-					eyewear = usableEyewear[| eyewearNum - 1];
+					eyewear = real(usableEyewear[| eyewearNum - 1]);
 					
 					// set currentEyewearArrow to 0
 					currentEyewearArrow = 0;
@@ -226,7 +226,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the last eyewear
 				if (eyewearNum < ds_list_size(usableEyewear) - 1) {
 					// move to the next eyewear
-					eyewear = usableEyewear[| eyewearNum + 1];
+					eyewear = real(usableEyewear[| eyewearNum + 1]);
 					
 					// set currentEyewearArrow to 1
 					currentEyewearArrow = 1;
@@ -247,7 +247,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the first accessory
 				if (accessoryNum > 0) {
 					// move to the last accessory
-					accessory = usableAccessories[| accessoryNum - 1];
+					accessory = real(usableAccessories[| accessoryNum - 1]);
 					
 					// set the currentAccessoryArrow to 0
 					currentAccessoryArrow = 0;
@@ -262,7 +262,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the first accessory
 				if (accessoryNum < ds_list_size(usableAccessories) - 1) {
 					// move to the next accessory
-					accessory = usableAccessories[| accessoryNum + 1];
+					accessory = real(usableAccessories[| accessoryNum + 1]);
 					
 					// set the currentAccessoryArrow to 1
 					currentAccessoryArrow = 1;
@@ -279,7 +279,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 
 // use a switch statement to properly manage directional input
 switch (phase) {
-	case CHARACTER_CREATOR_PHASES.OUTFIT_SELECTION:
+	case APPEARANCE_EDITOR_PHASES.OUTFIT_SELECTION:
 		// check that an arrow is not already clicked
 		if (currentOutfitArrow == -1) {
 			// find the current outfitNum
@@ -290,7 +290,7 @@ switch (phase) {
 				// check that the current outfit is not the first outfit
 				if (outfitNum > 0) {
 					// move to the last outfit
-					outfit = usableOutfits[| outfitNum - 1];
+					outfit = real(usableOutfits[| outfitNum - 1]);
 					
 					// set currentOutfitArrow to 0
 					currentOutfitArrow = 0;
@@ -305,7 +305,7 @@ switch (phase) {
 				// check that the current outfit is not the last outfit
 				if (outfitNum < ds_list_size(usableOutfits) - 1) {		
 					// move to the next outfit
-					outfit = usableOutfits[| outfitNum + 1];
+					outfit = real(usableOutfits[| outfitNum + 1]);
 					
 					// set currentOutfitArrow to 1
 					currentOutfitArrow = 1;
@@ -317,7 +317,7 @@ switch (phase) {
 		}
 	break;
 	
-	case CHARACTER_CREATOR_PHASES.OUTFIT_COLOR_SELECTION:
+	case APPEARANCE_EDITOR_PHASES.OUTFIT_COLOR_SELECTION:
 		// get colorNum
 		var colorNum = ds_list_find_index(colorList, outfitColor);
 		
@@ -335,7 +335,177 @@ switch (phase) {
 		}
 	break;
 
-	//@TODO COMPLETE THIS SWITH STATEMENT (SIMPLY LADD ALL THE OTHER ELEMENT AND COLOR SELECTION PHASES)
+	case APPEARANCE_EDITOR_PHASES.HAT_SELECTION:
+		// check that an arrow is not already clicked
+		if (currentHatArrow == -1) {
+			// find the current hatNum
+			var hatNum = ds_list_find_index(usableHats, hat);
+		
+			// check for left input
+			if (global.menuLeft) {
+				// check that the current hat is not the first outfit
+				if (hatNum > 0) {
+					// move to the last outfit
+					hat = real(usableHats[| hatNum - 1]);
+					
+					// set currentHatArrow to 0
+					currentHatArrow = 0;
+					
+					// set hatClickFrame
+					hatClickFrame = global.gameTime mod 24;
+				}
+			}
+		
+			// check for right input
+			if (global.menuRight) {
+				// check that the current hat is not the last hat
+				if (hatNum < ds_list_size(usableHats) - 1) {		
+					// move to the next hat
+					hat = real(usableOutfits[| hatNum + 1]);
+					
+					// set currentOutfitArrow to 1
+					currentHatArrow = 1;
+					
+					// set outfitClickFrame
+					hatClickFrame = global.gameTime mod 24;
+				}
+			}
+		}
+	break;
+	
+	case APPEARANCE_EDITOR_PHASES.HAT_COLOR_SELECTION:
+		// get colorNum
+		var colorNum = ds_list_find_index(colorList, hatColor);
+		
+		// get index
+		var index = ds_list_find_index(usableDyes, colorNum);
+		
+		// check for left input
+		if (global.menuLeft) {
+			if (index > 0)								hatColor = colorList[| usableDyes[| index - 1]];
+		}
+		
+		// check for right input
+		if (global.menuRight) {
+			if (index < ds_list_size(usableDyes) - 1)	hatColor = colorList[| usableDyes[| index + 1]];
+		}
+	break;
+	
+	case APPEARANCE_EDITOR_PHASES.SHOE_SELECTION:
+		// check that an arrow is not already clicked
+		if (currentShoeArrow == -1) {
+			// find the current shoeNum
+			var shoeNum = ds_list_find_index(usableFootwear, shoes);
+			
+			// check for left input
+			if (global.menuLeft) {
+				// check that the current shoes are not the first shoes
+				if (shoeNum > 0) {
+					// move to the last shoes
+					shoes = real(usableFootwear[| shoeNum - 1]);
+					
+					// set currentShoeArrow to 0
+					currentShoeArrow = 0;
+					
+					// set shoeClickFrame
+					shoeClickFrame = global.gameTime mod 24;
+				}
+			}
+			
+			// check for right input
+			if (global.menuRight) {
+				// check that the current shoes are not the last shoes
+				if (shoeNum < ds_list_size(usableFootwear) - 1) {
+					// move to the next shoes
+					shoes = real(usableFootwear[| shoeNum + 1]);
+					
+					// set currentShoeArrow to 1
+					currentShoeArrow = 1;
+					
+					// set shoeClickFrame
+					shoeClickFrame = global.gameTime mod 24;
+				}
+			}
+		}
+	break;
+	
+	case APPEARANCE_EDITOR_PHASES.SHOE_COLOR_SELECTION:
+		// get colorNum
+		var colorNum = ds_list_find_index(colorList, shoeColor);
+		
+		// get index
+		var index = ds_list_find_index(usableDyes, colorNum);
+		
+		// check for left input
+		if (global.menuLeft) {
+			if (index > 0)								shoeColor = colorList[| usableDyes[| index - 1]];
+		}
+		
+		// check for right input
+		if (global.menuRight) {
+			if (index < ds_list_size(usableDyes) - 1)	shoeColor = colorList[| usableDyes[| index + 1]];
+		}
+	break;
+	
+	case APPEARANCE_EDITOR_PHASES.EYEWEAR_SELECTION:
+		// check that an arrow is not already clicked
+		if (currentEyewearArrow == -1) {
+			// find the current eyewearNum
+			var eyewearNum = ds_list_find_index(usableEyewear, eyewear);
+			
+			// check for left input
+			if (global.menuLeft) {
+				// check that the current eyewear is not the first eyewear
+				if (eyewearNum > 0) {
+					// move to the last eyewear
+					eyewear = real(usableEyewear[| eyewearNum - 1]);
+					
+					// set the currentEyewearArrow to 0
+					currentEyewearArrow = 0;
+					
+					// set eyewearClickFrame
+					eyewearClickFrame = global.gameTime mod 24;
+				}
+			}
+			
+			// check for right input
+			if (global.menuRight) {
+				// check that the current eyewear is not the last eyewear
+				if (eyewearNum < ds_list_size(usableEyewear)) {
+					// move to the next eyewear
+					eyewear = real(usableEyewear[| eyewearNum + 1]);
+					
+					// set the currentEyewearArrow to 1
+					currentEyewearArrow = 1;
+					
+					// set eyewearClickFrame
+					eyewearClickFrame = global.gameTime mod 24;
+				}
+			}
+		}
+	break;
+	
+	case APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION:
+		// check that an arrow is not already clicked
+		if (currentAccessoryArrow == -1) {
+			// find the current accessoryNum
+			var accessoryNum = ds_list_find_index(usableAccessories, accessory);
+			
+			// check for left input
+			if (global.menuLeft) {
+				// check that the current accessory is not the first accessory
+				if (accessoryNum > 0) {
+					// move to the last accessory
+					accessory = real(usableAccessories[| accessoryNum - 1]);
+					
+					// set the currentAccessoryArrow to 0
+					currentAccessoryArrow = 0;
+					
+					// set accessoryClickFrame
+					accessoryClickFrame = global.gameTime mod 24;
+				}
+			}
+		}
 }
 
 // check if the current phase is confirm_window_enter

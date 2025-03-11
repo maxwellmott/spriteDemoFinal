@@ -163,7 +163,7 @@ var i = 0;	repeat (ds_list_size(usableDyes)) {
 	
 	// set the top and bottom for the outfitColor of this number
 	var outfitTop		= 24 + (rowNum * 8);
-	var outfitBottom	= 30 + (colNum * 8);
+	var outfitBottom	= 30 + (rowNum * 8);
 	
 	// set the top and bottom for the hatColor of this number
 	var hatTop			= outfitTop + 40;
@@ -191,7 +191,7 @@ var i = 0;	repeat (ds_list_size(usableDyes)) {
 }
 
 // initialize appearance list
-appearance = player.appearance;
+appearance = ds_list_create();
 
 // initialize all appearance elements using player's currently set choices
 skintone		=	player.skintone;
