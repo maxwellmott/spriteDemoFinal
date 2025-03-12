@@ -143,12 +143,18 @@ accessoryArrowBottom	= 202;
 
 // set nameChangeButton dimensions
 nameChangeButtonLeft	= 174;
-nameChangeButtonRight	= 132;
-nameChangeButtonTop		= 224;
+nameChangeButtonRight	= 224;
+nameChangeButtonTop		= 132;
 nameChangeButtonBottom	= 152;
 
+// initialize nameChangeButtonFrame
+nameChangeButtonFrame = 0;
+
+// initialize nameChangeButtonTime
+nameChangeButtonTime = -1;
+
 // set dyesPerRow
-var dyesPerRow = 10;
+dyesPerRow = 10;
 
 // use a repeat loop to set all dye dimensions (for all elements--outfit color, hat color, shoe color)
 var i = 0;	repeat (ds_list_size(usableDyes)) {

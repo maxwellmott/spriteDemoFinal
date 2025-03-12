@@ -946,3 +946,20 @@ COMING BACK FROM PLAYTEST BUILD
 				-CLICKING ON A SHOE COLOR PROMPTS TO CLOSE THE MENU
 				-NEED TO ADD THE NAMECHANGE BUTTON
 				-EYEWEAR ISN'T BEING DRAWN IN THE OVERWORLD
+				
+			LIST FOR APPEARANCE MENUS!
+			
+				-find out why eyewear isn't being drawn in the overworld
+				-make a selection indicator for left column of appearance menu
+				-add all selection indicators to appearance menu draw phase
+				-fix all bugs with keyboard menu
+					-still able to select keys when pnoun menu is up
+					-prompt text not being drawn
+					-pnoun options off center
+				-fix all bugs with character creator
+					-add mirror shine
+				
+			NOTE FOR COLOR PALETTE:
+				-try selecting a few base colors, then finding the values you get when overlaying them with
+				the grayscale appearance elements--use the normal, dark, and extra dark versions of each base
+				color for the dyes!!

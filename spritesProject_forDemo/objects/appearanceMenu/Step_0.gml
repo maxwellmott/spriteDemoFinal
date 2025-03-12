@@ -43,6 +43,15 @@ if (currentAccessoryArrow >= 0) {
 	}
 }
 
+// check if nameChangeButtonTime has been set
+if (nameChangeButtonTime != -1) {
+	// check if the nameChangeButtonTime has been reached
+	if (global.gameTime mod 24 == nameChangeButtonTime) {
+		nameChangeButtonFrame = 0;
+		nameChangeButtonTime = -1;
+	}
+}
+
 // check that the phase is not past accessorySelection (this would mean that the confirmWindow is open
 if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 	// check if the mouse is being clicked
@@ -274,6 +283,19 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 		}
 		
 		// check for a collision with the nameChangeButton
+		if (collision_rectangle(nameChangeButtonLeft, nameChangeButtonTop, nameChangeButtonRight, nameChangeButtonBottom, mouse, true, false)) {
+			// set nameChangeButtonFrame to 1
+			nameChangeButtonFrame = 1;
+			
+			// set nameChangeButtonTime
+			nameChangeButtonTime = global.gameTime mod 24;
+			
+			// set the keyboard prompt
+			global.keyboardPrompt = KEYBOARD_PROMPTS.CHARACTER_NAME;
+			
+			// begin a transition into the keyboard room
+			room_transition(player.x, player.y, player.facing, rm_keyboardMenu, bgm_menuTheme);
+		}
 	}
 }
 
@@ -314,6 +336,16 @@ switch (phase) {
 					outfitClickFrame = global.gameTime mod 24;
 				}
 			}
+			
+			// check for up input
+			if (global.menuUp) {
+				// SFX POST NEGATIVE SFX
+			}
+			
+			// check for down input
+			if (global.menuDown) {
+				phase = APPEARANCE_EDITOR_PHASES.HAT_SELECTION;
+			}
 		}
 	break;
 	
@@ -332,6 +364,32 @@ switch (phase) {
 		// check for right input
 		if (global.menuRight) {
 			if (index < ds_list_size(usableDyes) - 1)	outfitColor = colorList[| usableDyes[| index + 1]];
+		}
+		
+		// check for up input
+		if (global.menuUp) {
+			// check if the next row up is available
+			if ((index - dyesPerRow) >= 0) {
+				index -= dyesPerRow;	
+			}
+			// if the next row up is not available
+			else {
+				// SFX POST NEGATIVE SFX
+			}
+		}
+		
+		// check for down input
+		if (global.menuDown) {
+			// check if the next row down is available
+			if ((index + dyesPerRow) < ds_list_size(usableDyes)) {
+				// move to the next row down
+				index += dyesPerRow;
+			}
+			// if the next row down is not available
+			else {
+				// move to the next dye selection
+				phase = APPEARANCE_EDITOR_PHASES.HAT_COLOR_SELECTION;
+			}
 		}
 	break;
 
@@ -371,6 +429,16 @@ switch (phase) {
 				}
 			}
 		}
+		
+		// check for up input
+		if (global.menuUp) {
+			phase = APPEARANCE_EDITOR_PHASES.OUTFIT_SELECTION;
+		}
+		
+		// check for down input
+		if (global.menuDown) {
+			phase = APPEARANCE_EDITOR_PHASES.SHOE_SELECTION;
+		}
 	break;
 	
 	case APPEARANCE_EDITOR_PHASES.HAT_COLOR_SELECTION:
@@ -388,6 +456,33 @@ switch (phase) {
 		// check for right input
 		if (global.menuRight) {
 			if (index < ds_list_size(usableDyes) - 1)	hatColor = colorList[| usableDyes[| index + 1]];
+		}
+		
+		// check for up input
+		if (global.menuUp) {
+			// check if the next row up is available
+			if ((index - dyesPerRow) >= 0) {
+				index -= dyesPerRow;
+			}
+			// if the next row up is not available
+			else {
+				// move to the last dye selection
+				phase = APPEARANCE_EDITOR_PHASES.OUTFIT_COLOR_SELECTION;
+			}
+		}
+		
+		// check for down input
+		if (global.menuDown) {
+			// check if the next row down is available
+			if ((index + dyesPerRow) < ds_list_size(usableDyes)) {
+				// move to the next row down
+				index += dyesPerRow;
+			}
+			// if the next row down is not available
+			else {
+				// move to the next dye selection
+				phase = APPEARANCE_EDITOR_PHASES.SHOE_COLOR_SELECTION;
+			}
 		}
 	break;
 	
@@ -426,6 +521,16 @@ switch (phase) {
 					shoeClickFrame = global.gameTime mod 24;
 				}
 			}
+			
+			// check for up input
+			if (global.menuUp) {
+				phase = APPEARANCE_EDITOR_PHASES.HAT_SELECTION;
+			}
+			
+			// check for down input
+			if (global.menuDown) {
+				phase = APPEARANCE_EDITOR_PHASES.EYEWEAR_SELECTION;
+			}
 		}
 	break;
 	
@@ -444,6 +549,32 @@ switch (phase) {
 		// check for right input
 		if (global.menuRight) {
 			if (index < ds_list_size(usableDyes) - 1)	shoeColor = colorList[| usableDyes[| index + 1]];
+		}
+		
+		// check for up input
+		if (global.menuUp) {
+			// check if the next row up is available
+			if ((index - dyesPerRow) >= 0) {
+				index -= dyesPerRow;	
+			}
+			// if the next row up is not available
+			else {
+				// move to the last dye selection
+				phase = APPEARANCE_EDITOR_PHASES.HAT_COLOR_SELECTION;
+			}
+		}
+		
+		// check for down input
+		if (global.menuDown) {
+			// check if the next row down is available
+			if ((index + dyesPerRow) < ds_list_size(usableDyes)) {
+				// move to the next row down
+				index += dyesPerRow;
+			}
+			// if the next row down is not available
+			else {
+				// SFX POST NEGATIVE SFX
+			}
 		}
 	break;
 	
@@ -471,7 +602,7 @@ switch (phase) {
 			// check for right input
 			if (global.menuRight) {
 				// check that the current eyewear is not the last eyewear
-				if (eyewearNum < ds_list_size(usableEyewear)) {
+				if (eyewearNum < ds_list_size(usableEyewear) - 1) {
 					// move to the next eyewear
 					eyewear = real(usableEyewear[| eyewearNum + 1]);
 					
@@ -481,6 +612,16 @@ switch (phase) {
 					// set eyewearClickFrame
 					eyewearClickFrame = global.gameTime mod 24;
 				}
+			}
+			
+			// check for up input
+			if (global.menuUp) {
+				phase = APPEARANCE_EDITOR_PHASES.SHOE_SELECTION;
+			}
+			
+			// check for down input
+			if (global.menuDown) {
+				phase = APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION;
 			}
 		}
 	break;
@@ -505,18 +646,43 @@ switch (phase) {
 					accessoryClickFrame = global.gameTime mod 24;
 				}
 			}
+			
+			// check for right input
+			if (global.menuRight) {
+				// check that the current accessory is not the last accessory
+				if (accessoryNum < (ds_list_size(usableAccessories) - 1)) {
+					// move to the next accessory
+					accessory = real(usableAccessories[| accessoryNum + 1]);
+					
+					// set the currentAccessoryArrow to 0
+					currentAccessoryArrow = 0;
+					
+					// set accessoryClickFrame
+					accessoryClickFrame = global.gameTime mod 24;
+				}
+			}
+		}
+		
+		// check for up input
+		if (global.menuUp) {
+			phase = APPEARANCE_EDITOR_PHASES.EYEWEAR_SELECTION;
+		}
+		
+		// check for down input
+		if (global.menuDown) {
+			// SFX POST NEGATIVE SFX
 		}
 }
 
 // check if the current phase is confirm_window_enter
-if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
+if (phase == APPEARANCE_EDITOR_PHASES.CONFIRM_WINDOW_ENTER) {
 	if (image_index >= confirmWindowMaxFrame) {
-		phase = CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION;
+		phase = APPEARANCE_EDITOR_PHASES.CONFIRM_SELECTION;
 	}
 }
 
 // check if the current phase is confirm_selection
-if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
+if (phase == APPEARANCE_EDITOR_PHASES.CONFIRM_SELECTION) {
 	// clamp image index
 	image_index = confirmWindowMaxFrame;
 	
@@ -540,7 +706,7 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 			image_index = 0;
 			
 			// set phase to confirm window exit
-			phase = CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_EXIT;
+			phase = APPEARANCE_EDITOR_PHASES.CONFIRM_WINDOW_EXIT;
 		}
 	}
 	
@@ -550,7 +716,7 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 		image_index = 0;
 		
 		// set phase to confirm window exit
-		phase = CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_EXIT;
+		phase = APPEARANCE_EDITOR_PHASES.CONFIRM_WINDOW_EXIT;
 	}
 	
 	// navigate index based on player input
@@ -564,7 +730,7 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 		// check if index is 0
 		if (ynSelection == 0) {
 			// set phase to confirm window exit
-			phase = CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_EXIT;	
+			phase = APPEARANCE_EDITOR_PHASES.CONFIRM_WINDOW_EXIT;	
 		}
 		// check if index is 1
 		if (ynSelection == 1) {
@@ -575,34 +741,16 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 }
 
 // check if the current phase is confirm window exit
-if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_EXIT) {
+if (phase == APPEARANCE_EDITOR_PHASES.CONFIRM_WINDOW_EXIT) {
 	// check if	image_index has reached the end
 	if (image_index >= confirmWindowMaxFrame) {
 		// reset phase to skintone selection
-		phase = CHARACTER_CREATOR_PHASES.SKINTONE_SELECTION;
+		phase = APPEARANCE_EDITOR_PHASES.OUTFIT_SELECTION;
 	}
 }
 
 // check that the current phase is NOT confirm_selection
-if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
-	// check for up input
-	if (global.menuUp) {
-		// check that this is not the first phase
-		if (phase > 0) {		
-			// decrement phase
-			phase--;
-		}
-	}
-	
-	// check for down input
-	if (global.menuDown) {
-		// check that this is not the final phase before confirm selection
-		if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
-			// increment phase
-			phase++;
-		}
-	}
-	
+if (phase < APPEARANCE_EDITOR_PHASES.CONFIRM_WINDOW_ENTER) {	
 	// check if select is being pressed
 	if (global.select) {
 		// increment phase
@@ -611,8 +759,8 @@ if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
 
 	// check if back is being pressed
 	if (global.back) {
-		// check that the current phase is not skintone_selection
-		if (phase != CHARACTER_CREATOR_PHASES.SKINTONE_SELECTION) {
+		// check that the current phase is not the first phase
+		if (phase > 0) {
 			// decrement phase
 			phase--;
 		}
@@ -621,7 +769,7 @@ if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
 	// check if start is being pressed
 	if (global.start) {
 		// set phase to confirm_window_enter
-		phase = CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER;
+		phase = APPEARANCE_EDITOR_PHASES.CONFIRM_WINDOW_ENTER;
 	}
 }
 

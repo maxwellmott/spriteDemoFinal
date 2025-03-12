@@ -190,6 +190,8 @@ i = 0;	repeat (2) {
 	i++;
 }
 
+draw_sprite(spr_nameChangeButton, nameChangeButtonFrame, nameChangeButtonLeft, nameChangeButtonTop);
+
 // set all draw vals
 draw_set(fa_center, fa_middle, 1.0, COL_BLACK);
 
@@ -213,7 +215,7 @@ draw_text_pixel_perfect(nameDrawX, accessoryNameY,	accessoryNameList[| accessory
 
 // use a switch statement to check each possible phase to draw the appropriate selector
 switch (phase) {	
-	case CHARACTER_CREATOR_PHASES.OUTFIT_SELECTION:
+	case APPEARANCE_EDITOR_PHASES.OUTFIT_SELECTION:
 		// check the frames for timing
 		if (global.gameTime mod 24 > 12) {
 			// draw the selection indicator
@@ -221,7 +223,7 @@ switch (phase) {
 		}
 	break;
 	
-	case CHARACTER_CREATOR_PHASES.OUTFIT_COLOR_SELECTION:
+	case APPEARANCE_EDITOR_PHASES.OUTFIT_COLOR_SELECTION:
 		// get the position of the selected outfit color on the colorList
 		var colorNum = ds_list_find_index(colorList, outfitColor);
 		
@@ -238,9 +240,9 @@ switch (phase) {
 }
 
 // check if the confirm window is present
-if (phase >= CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
+if (phase >= APPEARANCE_EDITOR_PHASES.CONFIRM_WINDOW_ENTER) {
 	// check that we are not exiting
-	if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_EXIT) {		
+	if (phase < APPEARANCE_EDITOR_PHASES.CONFIRM_WINDOW_EXIT) {		
 		// set alpha for dark rectangle
 		draw_set_alpha((image_index / confirmWindowMaxFrame) * 0.85);
 		
@@ -270,7 +272,7 @@ if (phase >= CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
 }
 
 // check if the confirm window is set
-if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
+if (phase == APPEARANCE_EDITOR_PHASES.CONFIRM_SELECTION) {
 	// draw the yes no button
 	draw_sprite(spr_ccYesNo, ynSelection, yesButtonLeft, yesButtonTop);
 }
