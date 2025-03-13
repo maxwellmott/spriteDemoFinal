@@ -963,3 +963,16 @@ COMING BACK FROM PLAYTEST BUILD
 				-try selecting a few base colors, then finding the values you get when overlaying them with
 				the grayscale appearance elements--use the normal, dark, and extra dark versions of each base
 				color for the dyes!!
+				
+				-start by screenshotting some favorite colors in the appearanceEditor and then color pick in aseprite
+				
+		3/12
+			
+			finished all bugs aside from centering pnoun menu.
+			
+				-add save/load function calls
+				-center pnoun menu
+				-correct dyes (add one more) using the above instructions
+				-add final server functionality
+				-create positive/negative haptics function and add calls!
+				

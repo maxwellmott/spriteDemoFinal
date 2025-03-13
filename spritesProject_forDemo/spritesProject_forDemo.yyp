@@ -346,6 +346,7 @@
     {"id":{"name":"spr_actionMenu","path":"sprites/spr_actionMenu/spr_actionMenu.yy",},},
     {"id":{"name":"spr_anachronautBattle","path":"sprites/spr_anachronautBattle/spr_anachronautBattle.yy",},},
     {"id":{"name":"spr_appearanceEditorBackground","path":"sprites/spr_appearanceEditorBackground/spr_appearanceEditorBackground.yy",},},
+    {"id":{"name":"spr_appearanceEditorIndicator","path":"sprites/spr_appearanceEditorIndicator/spr_appearanceEditorIndicator.yy",},},
     {"id":{"name":"spr_appearanceEditorLeftArrow","path":"sprites/spr_appearanceEditorLeftArrow/spr_appearanceEditorLeftArrow.yy",},},
     {"id":{"name":"spr_appearanceEditorRightArrow","path":"sprites/spr_appearanceEditorRightArrow/spr_appearanceEditorRightArrow.yy",},},
     {"id":{"name":"spr_appearanceMenuMirrorShine","path":"sprites/spr_appearanceMenuMirrorShine/spr_appearanceMenuMirrorShine.yy",},},

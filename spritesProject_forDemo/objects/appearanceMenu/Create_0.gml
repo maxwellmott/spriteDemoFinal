@@ -33,8 +33,8 @@ wardrobeList = ds_list_create();
 decode_list(player.wardrobe, wardrobeList);
 
 // initialize mirror shine position
-mirrorShineX = -1;
-mirrorShineY = -1;
+mirrorShineX = 212;
+mirrorShineY = 166;
 
 // rebuild the color list
 colorList = ds_list_create();

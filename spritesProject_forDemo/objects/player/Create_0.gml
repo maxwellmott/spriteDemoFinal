@@ -56,6 +56,8 @@ event_inherited();
 	shoeColor		= 0;
 	accessory		= 0;
 
+	// initialize hatSurface
+	hatSurface = surface_create(24, 42);
 #endregion 
 
 #region		INITIALIZE ALL UNLOCKABLES LISTS

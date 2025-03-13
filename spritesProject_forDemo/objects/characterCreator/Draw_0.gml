@@ -175,6 +175,9 @@ switch (phase) {
 	break;
 }
 
+// draw the mirror shine
+draw_sprite(spr_ccMirrorShine, 0, mirrorShineX, mirrorShineY);
+
 // check if the confirm window is present
 if (phase >= CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
 	// check that we are not exiting
@@ -216,5 +219,3 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 // draw the sample player
 character_creator_draw_player(eyewear, skintone, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory);
 
-// draw the mirror shine
-draw_sprite(spr_ccMirrorShine, 0, mirrorShineX, mirrorShineY);

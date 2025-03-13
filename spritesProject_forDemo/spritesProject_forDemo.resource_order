@@ -273,6 +273,7 @@
     {"name":"spr_accidentalKey","order":4,"path":"sprites/spr_accidentalKey/spr_accidentalKey.yy",},
     {"name":"spr_actionMenu","order":16,"path":"sprites/spr_actionMenu/spr_actionMenu.yy",},
     {"name":"spr_anachronautBattle","order":53,"path":"sprites/spr_anachronautBattle/spr_anachronautBattle.yy",},
+    {"name":"spr_appearanceEditorIndicator","order":16,"path":"sprites/spr_appearanceEditorIndicator/spr_appearanceEditorIndicator.yy",},
     {"name":"spr_appearanceEditorLeftArrow","order":13,"path":"sprites/spr_appearanceEditorLeftArrow/spr_appearanceEditorLeftArrow.yy",},
     {"name":"spr_appearanceEditorRightArrow","order":14,"path":"sprites/spr_appearanceEditorRightArrow/spr_appearanceEditorRightArrow.yy",},
     {"name":"spr_appearanceMenuMirrorShine","order":3,"path":"sprites/spr_appearanceMenuMirrorShine/spr_appearanceMenuMirrorShine.yy",},

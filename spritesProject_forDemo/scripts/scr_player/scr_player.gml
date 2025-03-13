@@ -109,6 +109,19 @@ function draw_standard_player(_skintone, _eyewear, _outfit, _outfitColor, _hair,
 	draw_sprite_part_ext(humanBody,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	0,								humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _skintone,		1.0);
 	draw_sprite_part_ext(outfitSheet,	0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _outfit,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _outfitColor,	1.0);
 	draw_sprite_part_ext(hairSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _hair,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _hairColor,	1.0);
+	
+	if (hat != hats.nothing) {
+		// make sure surface exists
+		if (surface_exists(hatSurface)) {
+			// draw the hatSurface
+			draw_surface(hatSurface, drawX, drawY);
+		}
+		// else, create it
+		else {
+			hatSurface = surface_create(24, 42);		
+		}
+	}
+	
 	draw_sprite_part_ext(hatSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _hat,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _hatColor,		1.0);
 	draw_sprite_part_ext(shoeSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _shoes,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _shoeColor,	1.0);
 	draw_sprite_part_ext(accessorySheet,0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _accessory,	humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, c_white,		1.0);

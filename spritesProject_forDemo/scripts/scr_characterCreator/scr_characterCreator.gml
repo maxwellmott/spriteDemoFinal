@@ -14,6 +14,7 @@ function character_creator_draw_player(_eyewear, _skintone, _outfit, _outfitColo
 /// all the chosen appearance parameters as the player's set appearance parameters.
 function character_creator_save_appearance() {
 	appearance[| APPEARANCE_PARAMS.skintone]		= ds_list_find_index(colorList, skintone);
+	appearance[| APPEARANCE_PARAMS.eyewear]			= eyewear;
 	appearance[| APPEARANCE_PARAMS.outfit]			= outfit;
 	appearance[| APPEARANCE_PARAMS.outfitColor]		= ds_list_find_index(colorList, outfitColor);
 	appearance[| APPEARANCE_PARAMS.hairstyle]		= hairstyle;

@@ -219,7 +219,7 @@ switch (phase) {
 		// check the frames for timing
 		if (global.gameTime mod 24 > 12) {
 			// draw the selection indicator
-			draw_sprite(spr_ccSelectionIndicator, 0, nameDrawX, outfitNameY - 3);	
+			draw_sprite(spr_appearanceEditorIndicator, 0, nameDrawX + 1, outfitNameY);	
 		}
 	break;
 	
@@ -237,7 +237,72 @@ switch (phase) {
 		// draw the dye selector at this position
 		draw_sprite(spr_dyeSelector, 0, left, top);
 	break;
+	
+	case APPEARANCE_EDITOR_PHASES.HAT_SELECTION:
+		// check the frames for timing
+		if (global.gameTime mod 24 > 12) {
+			// draw the selection indicator
+			draw_sprite(spr_appearanceEditorIndicator, 0, nameDrawX + 1, hatNameY);	
+		}
+	break;
+	
+	case APPEARANCE_EDITOR_PHASES.HAT_COLOR_SELECTION:
+		// get the position of the selected hat color on the colorList
+		var colorNum = ds_list_find_index(colorList, hatColor);
+		
+		// get the position of the colorNum on the usableDyes list
+		var index = ds_list_find_index(usableDyes, colorNum);
+		
+		// get the left and top of the current hat color splotch
+		left	= dyeLefts[| index];
+		top		= hatColorTops[| index];
+		
+		// draw the dye selector at this position
+		draw_sprite(spr_dyeSelector, 0, left, top);
+	break;
+	
+	case APPEARANCE_EDITOR_PHASES.SHOE_SELECTION:
+		// check the frames for timing
+		if (global.gameTime mod 24 > 12) {
+			// draw the selection indicator
+			draw_sprite(spr_appearanceEditorIndicator, 0, nameDrawX + 1, shoeNameY);
+		}
+	break;
+	
+	case APPEARANCE_EDITOR_PHASES.SHOE_COLOR_SELECTION:
+		// get the position of the selected shoe color on the colorList
+		var colorNum = ds_list_find_index(colorList, shoeColor);
+		
+		// get the position of the colorNum on the usableDyes list
+		var index = ds_list_find_index(usableDyes, colorNum);
+		
+		// get the left and top of the current shoe color splotch
+		left	= dyeLefts[| index];
+		top		= shoeColorTops[| index];
+		
+		// draw the dye selector at this position
+		draw_sprite(spr_dyeSelector, 0, left, top);
+	break;
+	
+	case APPEARANCE_EDITOR_PHASES.EYEWEAR_SELECTION:
+		// check the frames for timing
+		if (global.gameTime mod 24 > 12) {
+			// draw the selection indicator
+			draw_sprite(spr_appearanceEditorIndicator, 0, nameDrawX + 1, eyewearNameY);
+		}
+	break;
+	
+	case APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION:
+		// check the frames for timing
+		if (global.gameTime mod 24 > 12) {
+			// draw the selection indicator
+			draw_sprite(spr_appearanceEditorIndicator, 0, nameDrawX + 1, accessoryNameY);
+		}
+	break;
 }
+
+// draw the mirror shine
+draw_sprite(spr_appearanceMenuMirrorShine, 0, mirrorShineX, mirrorShineY);
 
 // check if the confirm window is present
 if (phase >= APPEARANCE_EDITOR_PHASES.CONFIRM_WINDOW_ENTER) {

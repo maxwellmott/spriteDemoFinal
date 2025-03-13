@@ -23,8 +23,8 @@ decode_list(global.allOutfitNames,		outfitNameList);
 decode_list(global.allHairstyleNames,	hairstyleNameList);
 
 // initialize mirror shine position
-mirrorShineX = 136;
-mirrorShineY = 160;
+mirrorShineX = 140;
+mirrorShineY = 164;
 
 // rebuild the color list
 colorList = ds_list_create();

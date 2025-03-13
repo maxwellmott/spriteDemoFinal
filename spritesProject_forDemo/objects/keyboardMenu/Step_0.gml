@@ -33,51 +33,54 @@ var i = 0;	repeat (charCount + 4) {
 	i++;
 }
 
-// use arrow keys to change selectedKey
-if (global.menuRight) {
-	if (selectedKey < charCount + 3) {
-		selectedKey++;	
+// check that pnoun menu is not up
+if (pnMenuEntering + pnMenuExiting + pnMenuPresent == 0) {
+	// use arrow keys to change selectedKey
+	if (global.menuRight) {
+		if (selectedKey < charCount + 3) {
+			selectedKey++;	
+		}
 	}
-}
-
-if (global.menuLeft) {
-	if (selectedKey > 0) {
-		selectedKey--;	
+	
+	if (global.menuLeft) {
+		if (selectedKey > 0) {
+			selectedKey--;	
+		}
 	}
-}
-
-if (global.menuDown) {
-	if (selectedKey div columnCount < 3) {
-		selectedKey += columnCount;	
+	
+	if (global.menuDown) {
+		if (selectedKey div columnCount < 3) {
+			selectedKey += columnCount;	
+		}
+		else {
+			if (selectedKey <= charCount) {
+				selectedKey = charCount + 1;	
+			}
+		}
 	}
-	else {
-		if (selectedKey <= charCount) {
+	
+	if (global.menuUp) {
+		if (selectedKey div columnCount > 0) {
+			selectedKey -= columnCount;	
+		}
+		else {
 			selectedKey = charCount + 1;	
 		}
 	}
-}
-
-if (global.menuUp) {
-	if (selectedKey div columnCount > 0) {
-		selectedKey -= columnCount;	
+	
+	// check for select click
+	if (global.select) {
+		keyboard_press_key(selectedKey);	
 	}
-	else {
-		selectedKey = charCount + 1;	
-	}
-}
-
-// check for select click
-if (global.select) {
-	keyboard_press_key(selectedKey);	
-}
-
-// check for start click
-if (global.start) {
-	if (selectedKey != charCount + 3) {
-		selectedKey = charCount + 3;	
-	}
-	else {
-		keyboard_press_key(charCount + 3);
+	
+	// check for start click
+	if (global.start) {
+		if (selectedKey != charCount + 3) {
+			selectedKey = charCount + 3;	
+		}
+		else {
+			keyboard_press_key(charCount + 3);
+		}
 	}
 }
 
