@@ -102,7 +102,7 @@ function build_save_file() {
 		ds_map_add(_map, "compendium",				compendium);
 		ds_map_add(_map, "accolades",				accolades);
 		ds_map_add(_map, "contacts",				contacts);
-		ds_map_add(_map, "todoList",					todoList);
+		ds_map_add(_map, "todoList",				todoList);
 		ds_map_add(_map, "roninScore",				string(roninScore));		
 		ds_map_add(_map, "roninMatchCount",			string(roninMatchCount));		
 		ds_map_add(_map, "roninWinCount",			string(roninWinCount));		

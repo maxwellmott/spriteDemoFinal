@@ -259,8 +259,8 @@ function get_interactable() {
 
 	// start swimming
 	if !(swimming) 
-	&& (tile_meeting(checkerX, checkerY, tm_water, waterTileChecker)) 
-	&& !(tile_meeting(checkerX, checkerY, tm_collidables, collidableTileChecker))
+	&& (tile_meeting(checkerX, checkerY, overworld.tm_water, waterTileChecker)) 
+	&& !(tile_meeting(checkerX, checkerY, overworld.tm_collidables, collidableTileChecker))
 	&& !(place_meeting(checkerX, checkerY, sceneryCollidable)) {
 		return interactions.swimStart;
 	}
