@@ -7,10 +7,10 @@
 /// works mostly the same
 function game_start() {
 	// create the player object
-	create_once(0,	0, LAYER.sprites, player);
+	create_once(128,	160, LAYER.sprites, player);
 	
 	// set the player's location to the starting area
-	player.location = locations.miriabramExt;
+	player.location = locations.miriabramDorm1;
 	
 	// check if there is a save file on this machine
 	if (file_exists(SAVE_FILE_NAME)) {

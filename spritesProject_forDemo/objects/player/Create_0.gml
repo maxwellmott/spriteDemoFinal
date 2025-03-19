@@ -32,8 +32,8 @@ event_inherited();
 	title = SPAR_TITLES.MONK;
 	
 	// initialize x and y
-	x = 0;
-	y = 0;
+	x = 128;
+	y = 160;
 	
 	// initialize draw x and draw y (this correction is 
 	// due to the fact that the players appearance elements
