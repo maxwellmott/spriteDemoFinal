@@ -211,9 +211,9 @@ selectedPronouns = -1;
 
 pronounWindowMaxFrame = 4;
 
-sheButtonLeft = 32;
-theyButtonLeft = 92;
-heButtonLeft = 152;
+sheButtonLeft = (guiWidth / 2) - 72;
+theyButtonLeft = sheButtonLeft + 60;
+heButtonLeft = theyButtonLeft + 60;
 
 sheButtonTop = 128;
 theyButtonTop = 128;

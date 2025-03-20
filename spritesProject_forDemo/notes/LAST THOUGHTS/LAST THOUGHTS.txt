@@ -976,3 +976,12 @@ COMING BACK FROM PLAYTEST BUILD
 				-add final server functionality
 				-create positive/negative haptics function and add calls!
 				
+		3/19
+		
+			DO THE FOLLOWING IN THE GIVEN ORDER
+		
+				-correct dyes (add one more dye) using the above instructions
+				-create positive/negative haptics functions and add calls!
+				-set up build for playtesters (add SPARMASTERS HANDBOOK)
+				-add save/load function calls
+				-add final server functionality

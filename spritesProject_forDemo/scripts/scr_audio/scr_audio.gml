@@ -2,6 +2,10 @@
 #macro	CENTRAL_TONE			440
 #macro	BITS_PER_SAMPLE			16
 
+// this number determines which positive/negative haptic sound should play next
+global.currentHapticNum = 0;
+
+
 // this is an enum that stores all phases of an ADSR
 // filter. This is used by the wavephoneController to
 // navigate through different phases and gliding towards
@@ -392,10 +396,22 @@ function audio_push_emitter() {
 	var _x = x;
 	var _y = y;
 	var songID = wps_test;
-	
-	
 }
 
+// 
 function audio_push_sfx() {
 
+}
+
+
+function audio_push_positive_haptic() {
+	// push the appropriate positive haptic sound
+	
+	// increment the haptic num
+}
+
+function audio_push_negative_haptic() {
+	// push the appropriate negative haptic sound
+	
+	// increment the haptic num
 }

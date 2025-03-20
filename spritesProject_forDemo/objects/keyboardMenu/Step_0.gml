@@ -142,14 +142,14 @@ if (pnMenuPresent) {
 		selectedPronouns--;
 		
 		// clamp selectedPronouns
-		selectedPronouns = clamp(selectedPronouns, 0, genders.height);
+		selectedPronouns = clamp(selectedPronouns, 0, genders.height - 1);
 	}
 	
 	if (global.menuRight) {
 		selectedPronouns++;	
 		
 		// clamp selectedPronouns
-		selectedPronouns = clamp(selectedPronouns, 0, genders.height);
+		selectedPronouns = clamp(selectedPronouns, 0, genders.height - 1);
 	}
 	
 	// check if select is being pressed
