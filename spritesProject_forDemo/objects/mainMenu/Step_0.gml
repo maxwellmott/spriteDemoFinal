@@ -19,6 +19,9 @@ if !(outroStarted) {
 	if (introFinished) {
 		if (global.back) 
 		|| (global.start) {
+			// push close soul stone sfx
+			audio_push_sfx(sfx_closeSoulStone);
+			
 			image_index = 0;
 			outroStarted = true;	
 		}

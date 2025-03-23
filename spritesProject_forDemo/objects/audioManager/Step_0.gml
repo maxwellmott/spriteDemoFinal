@@ -1,23 +1,27 @@
-// check that there is not sfx playing already
+// check if currentSFX is not yet set
 if (currentSFX == -1) {
+	// check that the transitionManager is not present
+	if !(instance_exists(transitionManager)) {
+		// check if bgmGain is less than 1.0
+		if (bgmGain < 1.0) {
+			// increment bgmGain
+			bgmGain += 0.0125
+			audio_sound_gain(currentBGM, bgmGain, 0);
+		}
+	}
+	
 	// check if there are any sfx IDs on the sfxQueue
-	if (ds_list_size(global.sfxQueue) > 0) {
+	if (ds_list_size(sfxQueue) > 0) {
+		// set bgmGain to 0
+		bgmGain = 0.0;
+		audio_sound_gain(currentBGM, bgmGain, 0);
+		
 		// start playing the given sfx
-		currentSFX = audio_play_sound(global.sfxQueue[| 0], 1, 0);
+		currentSFX = audio_play_sound(sfxQueue[| 0], 1, 0, sfxGain);
 		
 		// remove it from the sfxQueue
-		ds_list_delete(global.sfxQueue, 0);
-	}
-}
-// if there is sfx playing
-else {
-	// check if currentBGM's gain is higher than 0.6
-	/*
-	if (bgmGain > 0.6) {	
-		bgmGain -= 0.05;
-		audio_sound_gain(currentBGM, bgmGain, 0);	
-	}
-	*/
+		ds_list_delete(sfxQueue, 0);
+	}	
 }
 
 // check if any emitters have been added to the emitterQueue
@@ -37,8 +41,7 @@ if (ds_list_size(global.emitterQueue) > 0) {
 	
 	// set all params for the new emitter
 	audio_emitter_position(emitter, emitterX, emitterY, 0);
-	audio_emitter_falloff(emitter, 150, 150, 1);
-	audio_emitter_pitch(emitter, bgmPitch);	
+	audio_emitter_falloff(emitter, 150, 150, 1)
 	
 	// add that emitter to currentEmitters
 	ds_list_add(currentEmitters, emitter);
@@ -65,25 +68,6 @@ if (currentSFX != -1) {
 		
 		// reset currentSFX
 		currentSFX = -1;
-	}
-}
-	
-// check if the we are in the overworld
-if (instance_exists(overworld)) 
-&& !(instance_exists(menu)) {
-	// check if player is outdoors
-	if (overworld.outdoorLocation) {
-		// check if it is raining
-		if (global.rainActive) {
-			bgmEffect = audio_effect_create(AudioEffectType.LPF2, {bypass : false, cutoff : lin_to_db(cutoffValue), q : lin_to_db(qValue)});
-		}
-	}
-	// if player is indoors
-	else {
-		// check if it is raining
-		if (global.rainActive) {
-			bgmEffect = audio_effect_create(AudioEffectType.LPF2, {bypass : false, cutoff : lin_to_db(cutoffValue), q : lin_to_db(qValue)});
-		}
 	}
 }
 
@@ -117,10 +101,3 @@ if (ds_list_size(currentEmitters) > 0) {
 		i++;
 	}
 }
-
-// FOR TESTING ONLY
-if (keyboard_check_released(ord("W")))	cutoffValue += 0.05;
-if (keyboard_check_released(ord("S")))	cutoffValue -= 0.05;
-
-if (keyboard_check_released(ord("A")))	qValue		+= 0.05;
-if (keyboard_check_released(ord("D")))	qValue		-= 0.05;

@@ -985,3 +985,6 @@ COMING BACK FROM PLAYTEST BUILD
 				-set up build for playtesters (add SPARMASTERS HANDBOOK)
 				-add save/load function calls
 				-add final server functionality
+				
+		3/22
+				keep working on correcting the dyes and adding all of the UI sfx

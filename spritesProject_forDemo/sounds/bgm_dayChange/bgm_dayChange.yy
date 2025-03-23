@@ -12,8 +12,8 @@
   "duration":57.600044,
   "name":"bgm_dayChange",
   "parent":{
-    "name":"Sounds",
-    "path":"folders/Sounds.yy",
+    "name":"BGM",
+    "path":"folders/Sounds/BGM.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

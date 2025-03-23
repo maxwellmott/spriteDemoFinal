@@ -12,8 +12,8 @@
   "duration":177.60005,
   "name":"bgm_sparNormal",
   "parent":{
-    "name":"Sounds",
-    "path":"folders/Sounds.yy",
+    "name":"BGM",
+    "path":"folders/Sounds/BGM.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

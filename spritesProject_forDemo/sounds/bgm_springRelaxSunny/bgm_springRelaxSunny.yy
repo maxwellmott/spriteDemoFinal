@@ -12,8 +12,8 @@
   "duration":115.20004,
   "name":"bgm_springRelaxSunny",
   "parent":{
-    "name":"Sounds",
-    "path":"folders/Sounds.yy",
+    "name":"BGM",
+    "path":"folders/Sounds/BGM.yy",
   },
   "preload":false,
   "resourceType":"GMSound",

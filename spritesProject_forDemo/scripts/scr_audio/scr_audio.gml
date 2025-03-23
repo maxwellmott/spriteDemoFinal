@@ -3,8 +3,7 @@
 #macro	BITS_PER_SAMPLE			16
 
 // this number determines which positive/negative haptic sound should play next
-global.currentHapticNum = 0;
-
+global.hapNum = 0;
 
 // this is an enum that stores all phases of an ADSR
 // filter. This is used by the wavephoneController to
@@ -370,10 +369,6 @@ global.allAccidentals = encode_list(global.accidentalsList);
 ds_list_destroy(global.accidentalsList);
 
 // this is a ds list that is used to keep track of any
-// sfx that have been pushed to eventually start playing
-global.sfxQueue = ds_list_create();
-
-// this is a ds list that is used to keep track of any
 // emitters that have been pushed to eventually start playing.
 // Each emitter on the queue will be stored as an encoded list
 // of parameters that will be gotten by the audioManager and then
@@ -399,19 +394,54 @@ function audio_push_emitter() {
 }
 
 // 
-function audio_push_sfx() {
-
+function audio_push_sfx(_sfxID) {
+	// store args in locals
+	var sfxID = _sfxID;
+	
+	// get the size of the sfxQueue
+	var h = ds_list_size(audioManager.sfxQueue);
+	
+	// store the sfxID on the sfxQueue at position h
+	audioManager.sfxQueue[| h] = sfxID;
 }
 
 
-function audio_push_positive_haptic() {
-	// push the appropriate positive haptic sound
+function audio_push_success_haptic() {
+	// initialize variable to store haptic sfx id
+	var sfxID = -1;
 	
-	// increment the haptic num
+	// use a switch statement to get the appropriate sfxID using global.hapNum
+	switch (global.hapNum) {
+		case 0:
+			sfxID = sfx_success1;
+		break;
+		
+		case 1:
+			sfxID = sfx_success2;
+		break;
+		
+		case 2:
+			sfxID = sfx_success3;
+		break;
+	}
+	
+	// increment the hapNum
+	global.hapNum++;
+	
+	// wrap the hapNum
+	if (global.hapNum > 2)		global.hapNum = 0;
+	
+	// push audio sfx
+	audio_push_sfx(sfxID);
 }
 
-function audio_push_negative_haptic() {
-	// push the appropriate negative haptic sound
+function audio_push_failure_haptic() {
+	// set sfxID to failure haptic
+	var sfxID = sfx_failure;
 	
-	// increment the haptic num
+	// reset the hapNum
+	global.hapNum = 0;
+	
+	// push audio sfx
+	audio_push_sfx(sfxID);
 }

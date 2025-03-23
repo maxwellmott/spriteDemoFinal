@@ -381,11 +381,17 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 	if (global.select) {
 		// check if index is 0
 		if (ynSelection == 0) {
+			// push failure haptic
+			audio_push_failure_haptic();
+			
 			// set phase to confirm window exit
 			phase = CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_EXIT;	
 		}
 		// check if index is 1
 		if (ynSelection == 1) {
+			// push success haptic
+			audio_push_success_haptic();
+			
 			// set keyboard prompt
 			global.keyboardPrompt = KEYBOARD_PROMPTS.CHARACTER_NAME;
 			
@@ -408,6 +414,9 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_EXIT) {
 if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
 	// check for up input
 	if (global.menuUp) {
+		// push failure haptic
+		audio_push_failure_haptic();
+		
 		// check that this is not the first phase
 		if (phase > 0) {		
 			// decrement phase
@@ -417,18 +426,27 @@ if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
 	
 	// check for down input
 	if (global.menuDown) {
+		// push success haptic
+		audio_push_success_haptic();
+		
 		// increment phase
 		phase++;
 	}
 	
 	// check if select is being pressed
 	if (global.select) {
+		// push success haptic
+		audio_push_success_haptic();
+		
 		// increment phase
 		phase++;
 	}
 
 	// check if back is being pressed
 	if (global.back) {
+		// push failure haptic
+		audio_push_failure_haptic();
+		
 		// check that the current phase is not skintone_selection
 		if (phase != CHARACTER_CREATOR_PHASES.SKINTONE_SELECTION) {
 			// decrement phase
@@ -438,6 +456,9 @@ if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
 	
 	// check if start is being pressed
 	if (global.start) {
+		// push success haptic
+		audio_push_success_haptic();
+		
 		// set phase to confirm_window_enter
 		phase = CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER;
 	}

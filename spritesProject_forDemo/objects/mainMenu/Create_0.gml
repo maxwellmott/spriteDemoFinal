@@ -1,5 +1,8 @@
 create_once(player.x, player.y, LAYER.mouse, mouse);
 
+// push open soul stone sfx
+audio_push_sfx(sfx_openSoulStone);
+
 enum MAIN_MENU_BUTTONS {
 	TEAM,
 	SPELLS,

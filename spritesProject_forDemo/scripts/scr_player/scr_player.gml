@@ -264,7 +264,7 @@ function spar_begin_ingame() {
 }
 
 ///@desc This function is called when the player is in the overworld and presses start
-function open_main_menu() {
+function open_main_menu() {	
 	create_once(0, 0, LAYER.meta, mainMenu);	
 }
 

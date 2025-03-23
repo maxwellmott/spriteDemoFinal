@@ -22,13 +22,8 @@ selectedGain = 8;
 // application surface of audio
 bus = audio_bus_main;
 
-// but actually you will need one for the sfx because you don't want 
-// effects to be layered over those
-sfxBus = audio_bus_create();
-
 // initialize currentEmitters
 currentEmitters = ds_list_create();
 
-// for testing only
-cutoffValue = 0.1;
-qValue = 2;
+// initialize sfxQueue
+sfxQueue = ds_list_create();
