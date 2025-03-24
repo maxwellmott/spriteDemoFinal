@@ -23,6 +23,14 @@ if (currentSFX == -1) {
 		ds_list_delete(sfxQueue, 0);
 	}	
 }
+// if currentSFX IS set
+else {
+	// check if currentSFX is done playing
+	if !(audio_is_playing(currentSFX)) {
+		// reset currentSFX
+		currentSFX = -1;
+	}
+}
 
 // check if any emitters have been added to the emitterQueue
 if (ds_list_size(global.emitterQueue) > 0) {	
@@ -52,23 +60,6 @@ if (ds_list_size(global.emitterQueue) > 0) {
 	
 	// remove it from the emitterQueue
 	ds_list_delete(global.emitterQueue, 0);
-}
-
-// check if there is sfx playing
-if (currentSFX != -1) {
-	// get length and position
-	var l = audio_sound_length(currentSFX);
-	var p = audio_sound_get_track_position(currentSFX);
-	
-	// check if the first loop has been completed
-	if (p > (l / 2)) {
-		
-		// stop playing the sfx
-		audio_stop_sound(currentSFX);
-		
-		// reset currentSFX
-		currentSFX = -1;
-	}
 }
 
 // loop background music
