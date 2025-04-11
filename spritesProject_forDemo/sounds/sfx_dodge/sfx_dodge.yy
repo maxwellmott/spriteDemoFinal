@@ -7,7 +7,7 @@
   },
   "bitDepth":1,
   "bitRate":128,
-  "compression":1,
+  "compression":3,
   "conversionMode":0,
   "duration":0.833379,
   "name":"sfx_dodge",

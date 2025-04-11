@@ -82,7 +82,7 @@ function spar_effect_push_alert(_effectID) {
 function effect_alert_get_args() {
 	if (ds_list_size(alertParams) > 1) {
 		var i = 1;	repeat (ds_list_size(alertParams) - 1) {
-			global.argumentList[| i - 1] = real(string_digits(alertParams[| i]));
+			global.argumentList[| i - 1] = string_get_asset_ID(alertParams[| i]);
 			
 			i++;	
 		}
@@ -3699,7 +3699,7 @@ function deflect_spell(_atkr, _targ, _damg, _spell) {
 	decode_list(global.allSpellAnimations, list);
 	
 	// get the animation sprite
-	animation = real(string_digits(list[| spellID]));
+	animation = string_get_asset_ID(list[| spellID]);
 	
 	// destroy temp list
 	ds_list_destroy(list);

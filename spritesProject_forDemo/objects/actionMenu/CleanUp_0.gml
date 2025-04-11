@@ -2,7 +2,7 @@
 // You can write your code in this editor
 
 if (selectedButton != -1) {
-	var func = real(string_digits(optionGrid[# ACTION_MENU_OPTION_PARAMS.FUNCTION, selectedButton]));
+	var func = string_get_asset_ID(optionGrid[# ACTION_MENU_OPTION_PARAMS.FUNCTION, selectedButton]);
 	func();	
 }
 

@@ -18,15 +18,15 @@ var i = 0;	repeat (charCount + 4) {
 	
 	// check for a collision between the mouse and the current key
 	if (collision_rectangle(left, top, right, bottom, mouse, false, false)) {
-		// set selectedKey
-		selectedKey = i;
-		
 		// check for mouse click
 		if (global.click) {
+			// push click haptic
+			audio_push_sfx(sfx_click);
+			
 			alarm[0] = 16;
 			pressedKey = i;
 			
-			keyboard_press_key(selectedKey);
+			keyboard_press_key(pressedKey);
 		}
 	}
 	
@@ -37,18 +37,27 @@ var i = 0;	repeat (charCount + 4) {
 if (pnMenuEntering + pnMenuExiting + pnMenuPresent == 0) {
 	// use arrow keys to change selectedKey
 	if (global.menuRight) {
+		// push click haptic
+		audio_push_sfx(sfx_click);
+		
 		if (selectedKey < charCount + 3) {
 			selectedKey++;	
 		}
 	}
 	
 	if (global.menuLeft) {
+		// push click haptic
+		audio_push_sfx(sfx_click);
+		
 		if (selectedKey > 0) {
 			selectedKey--;	
 		}
 	}
 	
 	if (global.menuDown) {
+		// push click haptic
+		audio_push_sfx(sfx_click);
+		
 		if (selectedKey div columnCount < 3) {
 			selectedKey += columnCount;	
 		}
@@ -60,6 +69,9 @@ if (pnMenuEntering + pnMenuExiting + pnMenuPresent == 0) {
 	}
 	
 	if (global.menuUp) {
+		// push click haptic
+		audio_push_sfx(sfx_click);
+		
 		if (selectedKey div columnCount > 0) {
 			selectedKey -= columnCount;	
 		}
@@ -70,11 +82,25 @@ if (pnMenuEntering + pnMenuExiting + pnMenuPresent == 0) {
 	
 	// check for select click
 	if (global.select) {
+		// push click haptic
+		audio_push_sfx(sfx_click);
+		
 		keyboard_press_key(selectedKey);	
+	}
+	
+	// check for back click
+	if (global.back) {
+		// push failure haptic
+		audio_push_failure_haptic();
+		
+		inputString = string_delete(inputString, string_length(inputString), 1);
 	}
 	
 	// check for start click
 	if (global.start) {
+		// push success haptic
+		audio_push_success_haptic();
+		
 		if (selectedKey != charCount + 3) {
 			selectedKey = charCount + 3;	
 		}
@@ -101,6 +127,9 @@ if (pnMenuPresent) {
 	if (global.click) {
 		// check for a collision with the she button
 		if (collision_rectangle(sheButtonLeft, sheButtonTop, sheButtonRight, sheButtonBottom, mouse, true, false)) {
+			// push success haptic
+			audio_push_success_haptic();
+
 			// set selectedPronouns
 			selectedPronouns = genders.female;
 			
@@ -110,6 +139,9 @@ if (pnMenuPresent) {
 		
 		// check for a collision with the they button
 		if (collision_rectangle(theyButtonLeft, theyButtonTop, theyButtonRight, theyButtonBottom, mouse, true, false)) {
+			// push success haptic
+			audio_push_success_haptic();
+			
 			// set selectedPronouns
 			selectedPronouns = genders.nonbinary;
 			
@@ -119,6 +151,9 @@ if (pnMenuPresent) {
 		
 		// check for a collision with the he button
 		if (collision_rectangle(heButtonLeft, heButtonTop, heButtonRight, heButtonBottom, mouse, true, false)) {
+			// push success haptic
+			audio_push_success_haptic();
+			
 			// set selectedPronouns
 			selectedPronouns = genders.male;
 			
@@ -129,6 +164,9 @@ if (pnMenuPresent) {
 	
 	// check for back input
 	if (global.back) {
+		// push failure haptic
+		audio_push_failure_haptic();
+		
 		// set image index back to 0
 		image_index = 0;
 		
@@ -139,6 +177,9 @@ if (pnMenuPresent) {
 	
 	// navigate index based on player input
 	if (global.menuLeft) {
+		// push click haptic
+		audio_push_sfx(sfx_click);
+		
 		selectedPronouns--;
 		
 		// clamp selectedPronouns
@@ -146,6 +187,9 @@ if (pnMenuPresent) {
 	}
 	
 	if (global.menuRight) {
+		// push click haptic
+		audio_push_sfx(sfx_click);
+		
 		selectedPronouns++;	
 		
 		// clamp selectedPronouns
@@ -154,6 +198,10 @@ if (pnMenuPresent) {
 	
 	// check if select is being pressed
 	if (global.select) {
+		// push success haptic
+		audio_push_success_haptic();
+		
+		// accept name and pronouns
 		keyboard_accept_name_and_pronouns();
 	}
 }

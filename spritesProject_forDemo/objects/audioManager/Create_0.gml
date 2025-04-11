@@ -25,5 +25,5 @@ bus = audio_bus_main;
 // initialize currentEmitters
 currentEmitters = ds_list_create();
 
-// initialize sfxQueue
-sfxQueue = ds_list_create();
+// initialize newSFX
+newSFX = -1;

@@ -7,9 +7,9 @@
   },
   "bitDepth":1,
   "bitRate":128,
-  "compression":1,
+  "compression":3,
   "conversionMode":0,
-  "duration":2.933379,
+  "duration":2.666712,
   "name":"sfx_openSoulStone",
   "parent":{
     "name":"SFX",

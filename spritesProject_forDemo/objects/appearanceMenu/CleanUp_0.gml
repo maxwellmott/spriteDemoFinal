@@ -33,3 +33,5 @@ ds_list_destroy(usableAccessories);
 ds_list_destroy(appearance);
 
 player.appearanceLoaded = false;
+
+build_save_file();

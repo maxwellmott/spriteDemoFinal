@@ -9,23 +9,24 @@ if (currentSFX == -1) {
 			audio_sound_gain(currentBGM, bgmGain, 0);
 		}
 	}
-	
-	// check if there are any sfx IDs on the sfxQueue
-	if (ds_list_size(sfxQueue) > 0) {
-		// set bgmGain to 0
-		bgmGain = 0.0;
-		audio_sound_gain(currentBGM, bgmGain, 0);
-		
-		// start playing the given sfx
-		currentSFX = audio_play_sound(sfxQueue[| 0], 1, 0, sfxGain);
-		
-		// remove it from the sfxQueue
-		ds_list_delete(sfxQueue, 0);
-	}	
 }
-// if currentSFX IS set
-else {
-	// check if currentSFX is done playing
+
+// check if there is a new sound effect
+if (newSFX != -1) {
+	// set bgmGain to 0
+	bgmGain = 0.2;
+	audio_sound_gain(currentBGM, bgmGain, 0);
+	
+	// start playing the given sfx
+	currentSFX = audio_play_sound(newSFX, 1, 0, sfxGain);
+	
+	// reset newSFX
+	newSFX = -1;
+}	
+
+// check if currentSFX has been set
+if (currentSFX != -1) {
+	// check if the sound is no longer playing
 	if !(audio_is_playing(currentSFX)) {
 		// reset currentSFX
 		currentSFX = -1;

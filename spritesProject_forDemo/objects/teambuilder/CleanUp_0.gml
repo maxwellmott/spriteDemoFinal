@@ -8,5 +8,7 @@ ds_grid_destroy(spriteGrid);
 if (instance_exists(onlineEnemy)) {
 	room_transition(player.x, player.y, player.facing, rm_spellbookBuilder, bgm_menuTheme);	
 }	else	{
-	room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);	
+	room_transition(player.x, player.y, player.facing, rm_overworld, bgm_magicIsInTheAir);	
 }
+
+build_save_file();

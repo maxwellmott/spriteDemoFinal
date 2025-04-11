@@ -311,7 +311,7 @@ function player_build_spellBookGrid() {
 			|| (j == SPELL_PARAMS.RANGE)
 			|| (j == SPELL_PARAMS.ID)
 			|| (j == SPELL_PARAMS.TYPE)	{
-				spellBookGrid[# j, i] = real(string_digits(spellBookGrid[# j, i]));	
+				spellBookGrid[# j, i] = string_get_asset_ID(spellBookGrid[# j, i]);	
 			}
 			
 			// increment j

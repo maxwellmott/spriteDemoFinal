@@ -167,9 +167,16 @@ if (global.gameTime mod 64 < 32) {
 	draw_sprite(spr_keyboardMenuTypeLine, 0, typeLineStartX + string_width(inputString), typeLineStartY);
 }
 
+// set the draw params
+draw_set(fa_center, fa_middle, 1.0, COL_BLACK);
+
+// draw the prompt string
+draw_text_pixel_perfect(128, 28, promptString, 7, 244);
+
 // set draw params
 draw_set(fa_left, fa_middle, 1.0, COL_BLACK);
 
+// draw the current text
 draw_text_pixel_perfect(inputStringX, inputStringY - 5, inputString, 1, 256);
 
 // check if the confirm window is present

@@ -11,7 +11,7 @@ decode_grid(global.allOverworldAlerts, alertGrid);
 
 text		= alertGrid[# overworldAlertParams.text,			alertID];
 ynPrompt	= real(alertGrid[# overworldAlertParams.ynPrompt,	alertID]);
-func		= real(string_digits(alertGrid[# overworldAlertParams.func,		alertID]));
+func		= string_get_asset_ID(alertGrid[# overworldAlertParams.func,		alertID]);
 
 ds_grid_destroy(alertGrid);
 

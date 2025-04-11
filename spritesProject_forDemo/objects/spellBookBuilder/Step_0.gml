@@ -281,6 +281,6 @@ if (spellBookX == spellBookTargetX) && (spellBookTargetX == (0 - (spriteWidth / 
 		onlineWaiting = true;		
 	}
 	else	{
-		room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);
+		room_transition(player.x, player.y, player.facing, rm_overworld, bgm_magicIsInTheAir);
 	}
 }

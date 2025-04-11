@@ -7,9 +7,9 @@
   },
   "bitDepth":1,
   "bitRate":128,
-  "compression":1,
+  "compression":3,
   "conversionMode":0,
-  "duration":0.500045,
+  "duration":0.333379,
   "name":"sfx_success3",
   "parent":{
     "name":"SFX",
@@ -21,5 +21,5 @@
   "sampleRate":44100,
   "soundFile":"sfx_success3.wav",
   "type":0,
-  "volume":1.0,
+  "volume":0.65,
 }

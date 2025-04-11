@@ -694,7 +694,7 @@ if (phase == APPEARANCE_EDITOR_PHASES.CONFIRM_SELECTION) {
 			ynSelection = 1;
 			
 			// transition to keyboard menu for name entry
-			room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);
+			room_transition(player.x, player.y, player.facing, rm_overworld, bgm_magicIsInTheAir);
 		}
 		
 		// check for a collision with the no button
@@ -735,7 +735,7 @@ if (phase == APPEARANCE_EDITOR_PHASES.CONFIRM_SELECTION) {
 		// check if index is 1
 		if (ynSelection == 1) {
 			// transition to the keyboard menu to enter a name
-			room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);
+			room_transition(player.x, player.y, player.facing, rm_overworld, bgm_magicIsInTheAir);
 		}
 	}
 }

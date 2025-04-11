@@ -127,9 +127,9 @@ function place_scenery(_encodedList) {
 		var spr			= grid[# sceneryParams.sprite,			ID];
 		var mask		= grid[# sceneryParams.mask,			ID];
 		
-		type		= string_digits(type);
-		spr			= string_digits(spr);
-		mask		= string_digits(mask);
+		type		= real(type);
+		spr			= string_get_asset_ID(spr);
+		mask		= string_get_asset_ID(mask);
 
 		// get the proper object and create it
 		var obj		= scenery_get_object_index(type);

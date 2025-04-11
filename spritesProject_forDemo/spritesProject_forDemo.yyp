@@ -1,5 +1,5 @@
 {
-  "$GMProject":"",
+  "$GMProject":"v1",
   "%Name":"spritesProject_forDemo",
   "AudioGroups":[
     {"$GMAudioGroup":"","%Name":"audiogroup_default","name":"audiogroup_default","resourceType":"GMAudioGroup","resourceVersion":"2.0","targets":-1,},
@@ -89,6 +89,7 @@
     {"$GMFolder":"","%Name":"INT","folderPath":"folders/Tile Sets/INT.yy","name":"INT","resourceType":"GMFolder","resourceVersion":"2.0",},
     {"$GMFolder":"","%Name":"Timelines","folderPath":"folders/Timelines.yy","name":"Timelines","resourceType":"GMFolder","resourceVersion":"2.0",},
   ],
+  "ForcedPrefabProjectReferences":[],
   "IncludedFiles":[
     {"$GMIncludedFile":"","%Name":"ABILITIES_ENGLISH.csv","CopyToMask":-1,"filePath":"datafiles","name":"ABILITIES_ENGLISH.csv","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
     {"$GMIncludedFile":"","%Name":"ACCESSORIES_ENGLISH.csv","CopyToMask":-1,"filePath":"datafiles","name":"ACCESSORIES_ENGLISH.csv","resourceType":"GMIncludedFile","resourceVersion":"2.0",},
@@ -114,7 +115,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.11.0.179",
+    "IDEVersion":"2024.13.0.190",
   },
   "name":"spritesProject_forDemo",
   "resources":[
@@ -275,10 +276,12 @@
     {"id":{"name":"scr_transitions","path":"scripts/scr_transitions/scr_transitions.yy",},},
     {"id":{"name":"scr_ui","path":"scripts/scr_ui/scr_ui.yy",},},
     {"id":{"name":"scr_weather","path":"scripts/scr_weather/scr_weather.yy",},},
+    {"id":{"name":"bgm_createYourCharacter","path":"sounds/bgm_createYourCharacter/bgm_createYourCharacter.yy",},},
     {"id":{"name":"bgm_dayChange","path":"sounds/bgm_dayChange/bgm_dayChange.yy",},},
+    {"id":{"name":"bgm_magicIsInTheAir","path":"sounds/bgm_magicIsInTheAir/bgm_magicIsInTheAir.yy",},},
     {"id":{"name":"bgm_menuTheme","path":"sounds/bgm_menuTheme/bgm_menuTheme.yy",},},
     {"id":{"name":"bgm_sparNormal","path":"sounds/bgm_sparNormal/bgm_sparNormal.yy",},},
-    {"id":{"name":"bgm_springRelaxSunny","path":"sounds/bgm_springRelaxSunny/bgm_springRelaxSunny.yy",},},
+    {"id":{"name":"sfx_click","path":"sounds/sfx_click/sfx_click.yy",},},
     {"id":{"name":"sfx_closeSoulStone","path":"sounds/sfx_closeSoulStone/sfx_closeSoulStone.yy",},},
     {"id":{"name":"sfx_dodge","path":"sounds/sfx_dodge/sfx_dodge.yy",},},
     {"id":{"name":"sfx_failure","path":"sounds/sfx_failure/sfx_failure.yy",},},

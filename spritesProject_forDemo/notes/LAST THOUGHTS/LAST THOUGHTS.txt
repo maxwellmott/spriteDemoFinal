@@ -25,8 +25,8 @@ BATTLE SCENE TODO:
 	-fix ready display						2 POINTS				2 POINTS DONE
 	-fix fonts								3 POINTS				3 POINTS DONE
 	-build audio manager					3 POINTS				3 POINTS DONE
-	-add music								4 POINTS				
-	-add all SFX							4 POINTS				4 POINTS DONE
+	-add music								4 POINTS				4 POINTS DONE
+	-add all SFX							4 POINTS				
 	-add hp and mp bars						1 POINT					1 POINT DONE
 	-complete nearby list functionality		1 POINT					1 POINT DONE
 	-switch out all sprite artwork			2 POINTS				2 POINTS DONE
@@ -991,3 +991,11 @@ COMING BACK FROM PLAYTEST BUILD
 				
 		3/21
 				^^^
+				
+		3/24
+				^^^
+				
+		4/1
+				prioritize adding sfx for spars so that you can make the spar video
+				
+		

@@ -131,8 +131,11 @@ function keyboard_accept_name_and_pronouns() {
 	// set player pronouns
 	player.pronouns = selectedPronouns;
 	
+	// save game
+	build_save_file();
+	
 	// put the player back into the overworld
-	room_transition(player.x, player.y, player.facing, rm_overworld, bgm_springRelaxSunny);
+	room_transition(player.x, player.y, player.facing, rm_overworld, bgm_magicIsInTheAir);
 }
 
 function keyboard_accept_team_name() {

@@ -5,12 +5,8 @@
 
 // enumerator containing door IDs
 enum doors {
-	placidValleyToPit,
-	pitFoyerToPlacidValley,
-	pitFoyerToThePit,
-	thePitToPitFoyer,
-	placidValleyToVerdmanFarms,
-	verdmanFarmsToPlacidValley,
+	TEST_DOOR_EXT,
+	TEST_DOOR_DORM,
 	height
 }
 
@@ -48,13 +44,15 @@ global.doorGrid = ds_grid_create(doorParams.height, doors.height);
 // define add door function
 function master_grid_add_door(_id, _location, _x, _y, _locked, _newLocation, _newFacing, _newX, _newY, _spriteTop, _upperFloor) {
 	var i = 0; repeat (doorParams.height) {
-		global.doorGrid[# i, _id] = argument[i];	
+		global.doorGrid[# i, _id] = argument[i];
 		i++;
 	}
 }
 
-//						ID									LOCATION					X		Y	LOCKED	NEWLOCATION					NEWFACING			NEW X	NEW Y	SPRITETOP				UPPER FLOOR
-//master_grid_add_door(	doors.placidValleyToPit,			locations.placidValley,		672,	80,	true,	locations.pitFoyer,			directions.north,	118,	118,	beachStoneSpriteTop,	false);
+//						ID									LOCATION					X		Y		LOCKED	NEWLOCATION					NEWFACING			NEW X	NEW Y	SPRITETOP				UPPER FLOOR
+//master_grid_add_door(	doors.placidValleyToPit,			locations.placidValley,		672,	80,		true,	locations.pitFoyer,			directions.north,	118,	118,	beachStoneSpriteTop,	false);
+master_grid_add_door(	doors.TEST_DOOR_EXT,				locations.miriabramExt,		352,	240,	false,	locations.miriabramDorm1,	directions.north,	176,	284,	firmwoodSpriteTop,		false);
+master_grid_add_door(	doors.TEST_DOOR_DORM,				locations.miriabramDorm1,	128,	276,	false,	locations.miriabramExt,		directions.south,	400,	276,	firmwoodSpriteTop,		true);
 
 // encode master grid
 global.allDoors = encode_grid(global.doorGrid);

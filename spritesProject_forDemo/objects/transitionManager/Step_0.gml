@@ -7,11 +7,13 @@ switch (state) {
 			
 			if (newBGM != -1) 
 			&& (audioManager.currentBGM != -1) {
-				audioManager.bgmGain = 1.0 - alpha;
-				audio_sound_gain(audioManager.currentBGM, audioManager.bgmGain, 0);
+				// check if there is a new background music
+				if (newBGM != audio_sound_get_asset(audioManager.currentBGM)) {
+					audioManager.bgmGain = 1.0 - alpha;
+					audio_sound_gain(audioManager.currentBGM, audioManager.bgmGain, 0);
+				}
 			}
-		}
-		
+		}		
 		else {
 			state = transitionStates.transitioning;	
 		}
@@ -21,10 +23,13 @@ switch (state) {
 		if (room != global.newRoom) {
 			room_goto(global.newRoom);
 		}
-		
+	
 		if (room == global.newRoom) {
 			audioManager.bgmGain = 1.0;
-			audioManager.currentBGM = audio_play_sound(newBGM, 1, 0, audioManager.bgmGain);
+			// check if there is a new background music
+			if (newBGM != audio_sound_get_asset(audioManager.currentBGM)) {
+				audioManager.currentBGM = audio_play_sound(newBGM, 1, 0, audioManager.bgmGain);
+			}
 			
 			#region ROOM BUILDER
 			switch(room) {

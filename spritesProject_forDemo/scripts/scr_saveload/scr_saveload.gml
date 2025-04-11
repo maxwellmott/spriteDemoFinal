@@ -12,23 +12,29 @@ function game_start() {
 	// set the player's location to the starting area
 	player.location = locations.miriabramDorm1;
 	
+	// build all NPC location lists for the first time
+	build_npc_location_list(npcLocationList);
+	
+	// edit all npc location lists based on the day
+	edit_npc_location_lists(npcLocationList);
+	
+	// destroy the npcLocationList
+	ds_list_destroy(npcLocationList);
+	
 	// check if there is a save file on this machine
 	if (file_exists(SAVE_FILE_NAME)) {
+		// load the save file
+		load_save_file();
 		
+		// set the player's location to the starting area
+		player.location = locations.miriabramDorm1;
+		
+		room_transition(128, 160, directions.south, rm_overworld, bgm_magicIsInTheAir);
 	}
 	// if there is not already a save file
-	else {
-		// build all NPC location lists for the first time
-		build_npc_location_list(npcLocationList);
-		
-		// edit all npc location lists based on the day
-		edit_npc_location_lists(npcLocationList);
-		
-		// destroy the npcLocationList
-		ds_list_destroy(npcLocationList);
-		
+	else {		
 		// transition to the character creator
-		room_transition(128, 160, directions.south, rm_characterCreator, bgm_menuTheme);
+		room_transition(128, 160, directions.south, rm_characterCreator, bgm_createYourCharacter);
 	}
 }
 
@@ -93,14 +99,21 @@ function build_save_file() {
 		ds_map_add(_map, "pronouns",				string(pronouns));
 		ds_map_add(_map, "appearance",				appearance);
 		ds_map_add(_map, "currentTeam",				currentTeam);
-		ds_map_add(_map, "currentSpellbook",		currentSpellbook);
+		ds_map_add(_map, "currentSpellBook",		currentSpellBook);
+		ds_map_add(_map, "presetTeamList",			presetTeamList);
 		ds_map_add(_map, "title",					string(title));
+		ds_map_add(_map, "firstFloorTileset",		string(firstFloorTileset));
+		ds_map_add(_map, "secondFloorTileset",		string(secondFloorTileset));
+		ds_map_add(_map, "outdoorTileset",			string(outdoorTileset));
+		ds_map_add(_map, "firstFloorScenery",		firstFloorScenery);
+		ds_map_add(_map, "secondFloorScenery",		secondFloorScenery);
+		ds_map_add(_map, "outdoorScenery",			outdoorScenery);
 		ds_map_add(_map, "wardrobe",				wardrobe);
 		ds_map_add(_map, "palette",					palette);
 		ds_map_add(_map, "unlockedDoors",			unlockedDoors);
 		ds_map_add(_map, "talismans",				talismans);
 		ds_map_add(_map, "compendium",				compendium);
-		ds_map_add(_map, "accolades",				accolades);
+		ds_map_add(_map, "titles",					titles);
 		ds_map_add(_map, "contacts",				contacts);
 		ds_map_add(_map, "todoList",				todoList);
 		ds_map_add(_map, "roninScore",				string(roninScore));		
@@ -155,14 +168,21 @@ function load_save_file() {
 				pronouns					= real(_map[? "pronouns"]);
 				appearance					= _map[? "appearance"];			
 				currentTeam					= _map[? "currentTeam"];			
-				currentSpellbook			= _map[? "currentSpellbook"];		
-				title						= real(_map[? "title"]);				
+				currentSpellBook			= _map[? "currentSpellBook"];		
+				presetTeamList				= _map[? "presetTeamList"];
+				title						= real(_map[? "title"]);		
+				firstFloorTileset			= real(_map[? "firstFloorTileset"]);
+				secondFloorTileset			= real(_map[? "secondFloorTileset"]);
+				outdoorTileset				= real(_map[? "outdoorTileset"]);
+				firstFloorScenery			= _map[? "firstFloorScenery"];
+				secondFloorScenery			= _map[? "secondFloorScenery"];
+				outdoorScenery				= _map[? "thirdFloorScenery"];
 				wardrobe					= _map[? "wardrobe"];				
 				palette						= _map[? "palette"];				
 				unlockedDoors				= _map[? "unlockedDoors"];		
 				talismans					= _map[? "talismans"];			
 				compendium					= _map[? "compendium"];
-				accolades					= _map[? "accolades"];			
+				titles						= _map[? "titles"];			
 				contacts					= _map[? "contacts"];				
 				todoList						= _map[? "todoList"];				
 				roninScore					= real(_map[? "roninScore"]);			

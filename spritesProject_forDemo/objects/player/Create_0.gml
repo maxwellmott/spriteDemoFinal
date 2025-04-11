@@ -2,8 +2,9 @@
 
 // initialize time for new game
 seconds = 0;
-minutes = 40;
-hours	= 23;
+minutes = 30
+;
+hours	= 8;
 day		= 14;
 weekday	= weekdays.hyggsun;
 season	= seasons.daysOfBones;
@@ -20,13 +21,16 @@ event_inherited();
 	pronouns = -1;
 	
 	// initialize appearance
-	appearance = "0,0,0,0,0,0,0,0,0,-1,-1,";
+	appearance = "0,0,0,0,0,0,0,0,0,0,0,";
 	
 	// initialize currentTeam
 	currentTeam = string(SPRITES.PODRIC) + "," + string(SPRITES.DIIPSY) + "," + string(SPRITES.GLIDRAKE) + "," + string(SPRITES.HACHACHACHA) + ",";
 	
 	// initialize currentSpellBook
 	currentSpellBook = string(SPELLS.FIREBALL) + "," + string(SPELLS.SHOCK) + "," + string(SPELLS.DECAY) + "," + string(SPELLS.HOLY_WATER) + "," + string(SPELLS.EXPEL_FORCE) + "," + string(SPELLS.HEALING_LIGHT) + "," + string(SPELLS.EMPATHIZE) + ",";
+	
+	// initialize presetTeamList
+	presetTeamList = "";
 	
 	// set title
 	title = SPAR_TITLES.MONK;
@@ -58,6 +62,16 @@ event_inherited();
 
 	// initialize hatSurface
 	hatSurface = surface_create(24, 42);
+	
+	// initialize variables for house decor
+	firstFloorTileset	= -1;
+	secondFloorTileset	= -1;
+	outdoorTileset		= -1;
+	
+	firstFloorScenery	= "";
+	secondFloorScenery	= "";
+	outdoorScenery		= "";
+	
 #endregion 
 
 #region		INITIALIZE ALL UNLOCKABLES LISTS
@@ -77,7 +91,6 @@ event_inherited();
 	// initialize all unlocked talismans
 	talismans = currentTeam;
 	
-	/*
 	// FOR TESTING PURPOSES ONLY!!!!!!!
 	var l = ds_list_create(); var i = 0;	repeat (SPRITES.HEIGHT) {
 		l[| i] = i;
@@ -85,12 +98,11 @@ event_inherited();
 		// increment i
 		i++;
 	}	talismans = encode_list(l);		ds_list_destroy(l);
-	*/
 	
 	// initialize compendium
 	compendium = currentSpellBook;
 	
-	/*
+	
 	// FOR TESTING PURPOSES ONLY!!!!!!!
 	var l = ds_list_create(); var i = 0;	repeat (SPELLS.HEIGHT) {
 		l[| i] = i;
@@ -98,7 +110,6 @@ event_inherited();
 		// increment i
 		i++;
 	}	compendium = encode_list(l);		ds_list_destroy(l);
-	*/
 
 	// initialize titles
 	titles = ds_list_create();

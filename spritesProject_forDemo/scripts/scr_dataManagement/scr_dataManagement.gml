@@ -480,17 +480,19 @@ function ds_grid_remove_row(_grid, _row) {
 	ds_grid_resize(_grid, w, h - 1);
 }
 
-global.practiceGrid = ds_grid_create(8, 8);
-
-var i = 0;	repeat (ds_grid_height(global.practiceGrid)) {
-	var j = 0;	repeat (ds_grid_width(global.practiceGrid)) {
-		global.practiceGrid[# j, i] = "";
-		global.practiceGrid[# j, i] = string(j) + string(i);
+function string_get_asset_ID(_assetString) {
+	// store args in locals
+	var as = _assetString;
 	
-		j++;
-	}
-
-	i++;	
+	// find the position of the first space
+	var firstPos = string_pos(" ", as);
+	
+	// find the next space
+	var secondPos = string_pos_ext(" ", as, firstPos + 1);
+	
+	// clear string through second space
+	as = string_delete(as, 0, secondPos);
+	
+	// return the asset id of the corrected string
+	return asset_get_index(as);
 }
-
-ds_grid_remove_row(global.practiceGrid, 6);

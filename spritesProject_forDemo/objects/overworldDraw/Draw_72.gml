@@ -25,7 +25,7 @@ if (overworld.sceneryCreated) {
 			with (lamppost) {
 				draw_sprite_ext(lightMask, 0, x, lightY, lightScale + ls, lightScale + ls, 0, c_white, 1.0);
 			}
-			
+
 			if (instance_exists(mouse)) {
 				with (mouse) {
 					draw_self();	
@@ -145,7 +145,15 @@ var i = 0;	repeat (ds_list_size(overworld.tilemapList) - 1) {
 // prepare the upper story surface
 surface_set_target(upperStorySurface);
 	draw_tilemap(overworld.tilemapList[| tilemaps.upperStory], 0, 0);
-
+	
+	if (instance_exists(door)) {
+		with (door) {
+			if (upperFloor) {
+				draw_sprite_part(doorSheet, frame, 0, spriteTop, spriteWidth, spriteHeight, x, y);	
+			}
+		}
+	}
+	
 	// change blendmode to subtractive
 	gpu_set_blendmode(bm_subtract);
 	

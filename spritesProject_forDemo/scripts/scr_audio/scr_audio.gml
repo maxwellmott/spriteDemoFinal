@@ -398,11 +398,8 @@ function audio_push_sfx(_sfxID) {
 	// store args in locals
 	var sfxID = _sfxID;
 	
-	// get the size of the sfxQueue
-	var h = ds_list_size(audioManager.sfxQueue);
-	
-	// store the sfxID on the sfxQueue at position h
-	audioManager.sfxQueue[| h] = sfxID;
+	// set new sfx
+	audioManager.newSFX = sfxID;
 }
 
 

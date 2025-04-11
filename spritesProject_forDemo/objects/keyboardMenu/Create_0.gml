@@ -13,7 +13,7 @@ decode_grid(global.allKeyboardPrompts, g);
 
 // get all params from temp grid
 promptString	= g[# KEYBOARD_PROMPT_PARAMS.PROMPT_STRING,			promptID];
-acceptFunction	= real(string_digits(g[# KEYBOARD_PROMPT_PARAMS.ACCEPT_FUNCTION,	promptID]));
+acceptFunction	= string_get_asset_ID(g[# KEYBOARD_PROMPT_PARAMS.ACCEPT_FUNCTION, promptID]);
 limit			= real(g[# KEYBOARD_PROMPT_PARAMS.CHAR_LIMIT,		promptID]);
 
 // destroy temp grid

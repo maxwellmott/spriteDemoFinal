@@ -17,7 +17,7 @@ if (currentHairstyleArrow >= 0) {
 }
 
 // check if the mouse is being clicked
-if (global.click) {
+if (global.click) {	
 	// use a repeat loop to check all skintones for mouse collisions
 	var i = 0;	repeat (ds_list_size(skintones)) {
 		// get all bbox dimensions
@@ -28,6 +28,9 @@ if (global.click) {
 		
 		// check for a collision
 		if (collision_rectangle(left, top, right, bottom, mouse, true, false)) {
+			// push click haptic
+			audio_push_sfx(sfx_click);
+			
 			// set this skintone as the selected skintone
 			skintone = colorList[| skintones[| i]];
 			
@@ -52,6 +55,9 @@ if (global.click) {
 		
 		// check for a collision
 		if (collision_rectangle(left, top, right, bottom, mouse, true, false)) {
+			// push click haptic
+			audio_push_sfx(sfx_click);
+			
 			// set the phase to outfit selection
 			phase = CHARACTER_CREATOR_PHASES.OUTFIT_SELECTION;
 			
@@ -103,6 +109,9 @@ if (global.click) {
 		
 		// check for a collision
 		if (collision_rectangle(left, top, right, bottom, mouse, true, false)) {
+			// push click haptic
+			audio_push_sfx(sfx_click);
+			
 			// set this outfitColor as the selected outfitColor
 			outfitColor = colorList[| usableDyes[| i]];
 			
@@ -127,6 +136,9 @@ if (global.click) {
 		
 		// check for a collision
 		if (collision_rectangle(left, top, right, bottom, mouse, true, false)) {
+			// push click haptic
+			audio_push_sfx(sfx_click);
+			
 			// set the phase to hairstyle selection
 			phase = CHARACTER_CREATOR_PHASES.HAIRSTYLE_SELECTION;
 			
@@ -178,6 +190,9 @@ if (global.click) {
 		
 		// check for a collision
 		if (collision_rectangle(left, top, right, bottom, mouse, true, false)) {
+			// push click haptic
+			audio_push_sfx(sfx_click);
+			
 			// set this hairColor as the selected hairColor
 			hairColor = colorList[| usableHairColors[| i]];
 			
@@ -201,12 +216,24 @@ switch (phase) {
 	
 		// check for left input
 		if (global.menuLeft) {
-			if (index > 0)	skintone = colorList[| skintones[| index - 1]];
+			if (index > 0)	{
+				// push click haptic
+				audio_push_sfx(sfx_click);
+				
+				// set new skintone
+				skintone = colorList[| skintones[| index - 1]];
+			}
 		}
 		
 		// check for right input
 		if (global.menuRight) {
-			if (index < ds_list_size(skintones) - 1)	skintone = colorList[| skintones[| index + 1]];
+			if (index < ds_list_size(skintones) - 1) {
+				// push click haptic
+				audio_push_sfx(sfx_click);
+				
+				// set new skintone
+				skintone = colorList[| skintones[| index + 1]];
+			}
 		}
 	break;
 	
@@ -220,6 +247,9 @@ switch (phase) {
 			if (global.menuLeft) {
 				// check that the current outfit is not the first outfit
 				if (outfitNum > 0) {
+					// push click haptic
+					audio_push_sfx(sfx_click);
+					
 					// move to the last outfit
 					outfit = usableOutfits[| outfitNum - 1];
 					
@@ -234,7 +264,10 @@ switch (phase) {
 			// check for right input
 			if (global.menuRight) {
 				// check that the current outfit is not the last outfit
-				if (outfitNum != ds_list_size(usableOutfits) - 1) {				
+				if (outfitNum != ds_list_size(usableOutfits) - 1) {			
+					// push click haptic
+					audio_push_sfx(sfx_click);
+					
 					// move to the next outfit
 					outfit = usableOutfits[| outfitNum + 1];
 					
@@ -257,12 +290,24 @@ switch (phase) {
 		
 		// check for left input
 		if (global.menuLeft) {
-			if (index > 0)								outfitColor = colorList[| usableDyes[| index - 1]];
+			if (index > 0)	{
+				// push click haptic
+				audio_push_sfx(sfx_click);
+				
+				// set new outfit color
+				outfitColor = colorList[| usableDyes[| index - 1]];
+			}
 		}
 		
 		// check for right input
 		if (global.menuRight) {
-			if (index < ds_list_size(usableDyes) - 1)	outfitColor = colorList[| usableDyes[| index + 1]];
+			if (index < ds_list_size(usableDyes) - 1) {
+				// push click haptic
+				audio_push_sfx(sfx_click);
+				
+				// set new outfit color
+				outfitColor = colorList[| usableDyes[| index + 1]];
+			}
 		}
 	break;
 	
@@ -276,6 +321,9 @@ switch (phase) {
 			if (global.menuLeft) {
 				// check that the current hairstyle is not the first hairstyle
 				if (hairstyleNum > 0) {
+					// push click haptic
+					audio_push_sfx(sfx_click);
+					
 					// move to the last hairstyle
 					hairstyle = usableHairstyles[| hairstyleNum - 1];
 					
@@ -291,6 +339,9 @@ switch (phase) {
 			if (global.menuRight) {
 				// check that the current hairstyle is not the last hairstyle
 				if (hairstyleNum != ds_list_size(usableHairstyles) - 1) {
+					// push click haptic
+					audio_push_sfx(sfx_click);
+					
 					// move to the next hairstyle
 					hairstyle = usableHairstyles[| hairstyleNum + 1];
 					
@@ -313,12 +364,24 @@ switch (phase) {
 		
 		// check for left input
 		if (global.menuLeft) {
-			if (index > 0)									hairColor = colorList[| usableHairColors[| index - 1]];
+			if (index > 0) {
+				// push click haptic
+				audio_push_sfx(sfx_click);
+				
+				// set new hairColor
+				hairColor = colorList[| usableHairColors[| index - 1]];
+			}
 		}
 		
 		// check for right input
 		if (global.menuRight) {
-			if (index < ds_list_size(usableHairColors) - 1)	hairColor = colorList[| usableHairColors[| index + 1]];
+			if (index < ds_list_size(usableHairColors) - 1) {
+				// push click haptic
+				audio_push_sfx(sfx_click);
+				
+				// set new hairColor
+				hairColor = colorList[| usableHairColors[| index + 1]];
+			}
 		}
 	break;
 }
@@ -339,6 +402,9 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 	if (global.click) {
 		// check for a collision with the yes button
 		if (collision_rectangle(yesButtonLeft, yesButtonTop, yesButtonRight, yesButtonBottom, mouse, true, false)) {
+			// push success haptic
+			audio_push_success_haptic();
+			
 			// set yn selection
 			ynSelection = 1;
 			
@@ -346,11 +412,14 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 			global.keyboardPrompt = KEYBOARD_PROMPTS.CHARACTER_NAME;
 			
 			// transition to keyboard menu for name entry
-			room_transition(128, 160, player.facing, rm_keyboardMenu, bgm_menuTheme);
+			room_transition(128, 160, player.facing, rm_keyboardMenu, bgm_createYourCharacter);
 		}
 		
 		// check for a collision with the no button
 		if (collision_rectangle(noButtonLeft, noButtonTop, noButtonRight, noButtonBottom, mouse, true, false)) {
+			// push failure haptic
+			audio_push_failure_haptic();
+			
 			// set yn selection
 			ynSelection = 0;
 			
@@ -364,6 +433,9 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 	
 	// check for back input
 	if (global.back) {
+		// push failure haptic
+		audio_push_failure_haptic();
+		
 		// set image index back to 0
 		image_index = 0;
 		
@@ -396,7 +468,7 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_SELECTION) {
 			global.keyboardPrompt = KEYBOARD_PROMPTS.CHARACTER_NAME;
 			
 			// transition to the keyboard menu to enter a name
-			room_transition(128, 160, player.facing, rm_keyboardMenu, bgm_menuTheme);
+			room_transition(128, 160, player.facing, rm_keyboardMenu, bgm_createYourCharacter);
 		}
 	}
 }
@@ -414,8 +486,8 @@ if (phase == CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_EXIT) {
 if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
 	// check for up input
 	if (global.menuUp) {
-		// push failure haptic
-		audio_push_failure_haptic();
+		// push click haptic
+		audio_push_sfx(sfx_click);
 		
 		// check that this is not the first phase
 		if (phase > 0) {		
@@ -426,8 +498,8 @@ if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
 	
 	// check for down input
 	if (global.menuDown) {
-		// push success haptic
-		audio_push_success_haptic();
+		// push click haptic
+		audio_push_sfx(sfx_click);
 		
 		// increment phase
 		phase++;
@@ -435,8 +507,8 @@ if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
 	
 	// check if select is being pressed
 	if (global.select) {
-		// push success haptic
-		audio_push_success_haptic();
+		// push click haptic
+		audio_push_sfx(sfx_click);
 		
 		// increment phase
 		phase++;
@@ -444,8 +516,8 @@ if (phase < CHARACTER_CREATOR_PHASES.CONFIRM_WINDOW_ENTER) {
 
 	// check if back is being pressed
 	if (global.back) {
-		// push failure haptic
-		audio_push_failure_haptic();
+		// push click haptic
+		audio_push_sfx(sfx_click);
 		
 		// check that the current phase is not skintone_selection
 		if (phase != CHARACTER_CREATOR_PHASES.SKINTONE_SELECTION) {
