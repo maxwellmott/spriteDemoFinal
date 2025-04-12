@@ -112,9 +112,6 @@ enum sparActions {
 	height
 }
 
-// switch global.roomBuilt to true to end transition
-global.roomBuilt = true;
-
 // initialize selectionMsgX and selectionMsgY
 selectionMsgX = guiWidth / 2;
 selectionMsgY = (guiHeight / 2) - 7;

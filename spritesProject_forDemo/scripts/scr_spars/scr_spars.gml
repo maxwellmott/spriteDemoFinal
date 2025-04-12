@@ -317,10 +317,10 @@ function player_submit_turn() {
 		
 		network_send_udp_raw(spar.client, SERVER_ADDRESS, PORT_NUM, spar.onlineBuffer, buffer_tell(spar.onlineBuffer));
 		
-		player.ready = true;
-		
 		spar.onlineWaiting = true;	
 	}
+	
+	player.ready = true;
 }
 
 ///@desc This function is called when the player hits tab after submitting their 

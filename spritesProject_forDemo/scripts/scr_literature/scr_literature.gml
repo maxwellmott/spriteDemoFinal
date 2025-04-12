@@ -74,7 +74,7 @@ var textGrid = load_csv("LITERATURE_ENGLISH.csv");
 	var inhumanEntitiesImages = ds_list_create();
 	
 	// add all images
-	ds_list_add(inhumanEntitiesImages, string_digits(spr_inhumanEntities1) + ",");
+	ds_list_add(inhumanEntitiesImages,	string(asset_get_index(spr_inhumanEntities1)) + ",");
 	
 #endregion
 
@@ -212,8 +212,8 @@ function book_build_text(_string) {
 				var endPos		= string_pos("*", text);
 				var imageLength = endPos - 1;
 				var imageString = string_copy(text, 1, imageLength + 1);
-				var imageIndex	= string_get_asset_ID(imageString);
-				var imageID		= string_get_asset_ID(spriteIDs[|imageIndex]);
+				var imageIndex	= real(string_digits(imageString));
+				var imageID		= real(string_digits(spriteIDs[| imageIndex]));
 				var imageHeight = sprite_get_height(imageID);
 				
 				var linesNeeded = (imageHeight div height);

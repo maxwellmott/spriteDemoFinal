@@ -997,5 +997,9 @@ COMING BACK FROM PLAYTEST BUILD
 				
 		4/1
 				prioritize adding sfx for spars so that you can make the spar video
+		
+		4/12 
+				worked through most of the weirdness that came with the new gms update
+				need to fix some weirdness with the spar spell menu :(
 				
 		

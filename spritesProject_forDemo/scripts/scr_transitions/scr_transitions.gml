@@ -27,6 +27,7 @@ function overworld_transition(_newX, _newY, _newFacing, _newLocation) {
 	global.newFacing	= _newFacing;
 	player.location		= _newLocation;
 	global.newRoom		= rm_overworld;
+	global.newBGM		= -1;
 	
 	instance_destroy(overworld);
 	

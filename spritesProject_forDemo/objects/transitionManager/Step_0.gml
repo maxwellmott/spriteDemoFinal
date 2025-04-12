@@ -27,7 +27,8 @@ switch (state) {
 		if (room == global.newRoom) {
 			audioManager.bgmGain = 1.0;
 			// check if there is a new background music
-			if (newBGM != audio_sound_get_asset(audioManager.currentBGM)) {
+			if (newBGM != audio_sound_get_asset(audioManager.currentBGM)) 
+			&& (newBGM != -1) {
 				audioManager.currentBGM = audio_play_sound(newBGM, 1, 0, audioManager.bgmGain);
 			}
 			
