@@ -32,24 +32,24 @@ var effectGrid = ds_grid_create(SPAR_EFFECT_PARAMS.HEIGHT, SPAR_EFFECTS.HEIGHT);
 
 decode_grid(global.allSparEffects, effectGrid);
 
-effectFunction	= string_get_asset_ID(effectGrid[# SPAR_EFFECT_PARAMS.EFFECT_FUNCTION,				effectID]);
+effectFunction	= correct_string_after_decode(effectGrid[# SPAR_EFFECT_PARAMS.EFFECT_FUNCTION,				effectID]);
 alertText		= effectGrid[# SPAR_EFFECT_PARAMS.ALERT_TEXT,										effectID];
-animation		= string_get_asset_ID(effectGrid[# SPAR_EFFECT_PARAMS.ANIMATION,						effectID]);
+animation		= correct_string_after_decode(effectGrid[# SPAR_EFFECT_PARAMS.ANIMATION,						effectID]);
 
 if (ds_list_size(alertParams) == 5) {
-	effectFunction(global.argumentList[| 0], global.argumentList[| 1], global.argumentList[| 2], global.argumentList[| 3]);
+	script_execute(effectFunction, global.argumentList[| 0], global.argumentList[| 1], global.argumentList[| 2], global.argumentList[| 3]);
 }
 
 if (ds_list_size(alertParams) == 4) {
-	effectFunction(global.argumentList[| 0], global.argumentList[| 1], global.argumentList[| 2]);
+	script_execute(effectFunction, global.argumentList[| 0], global.argumentList[| 1], global.argumentList[| 2]);
 }
 
 if (ds_list_size(alertParams) == 3) {
-	effectFunction(global.argumentList[| 0], global.argumentList[| 1]);
+	script_execute(effectFunction, global.argumentList[| 0], global.argumentList[| 1]);
 }
 
 if (ds_list_size(alertParams) == 2) {
-	effectFunction(global.argumentList[| 0]);
+	script_execute(effectFunction, global.argumentList[| 0]);
 }	
 
 if (ds_list_size(alertParams) == 1) {

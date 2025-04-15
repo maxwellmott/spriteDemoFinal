@@ -13,7 +13,8 @@ else	{
 }
 
 // draw currently selected spells
-var i = 0;	repeat (ds_list_size(spellBookList)) {
+var i = 0;	repeat (8) {
+	
 	// get x and y for nameslot
 	var sx = nameSlotLefts[| i];
 	var sy = nameSlotTops[| i];
@@ -38,9 +39,13 @@ var i = 0;	repeat (ds_list_size(spellBookList)) {
 		// draw the name slot
 		draw_sprite(spr_spellBookNameSlot, 0, sx, sy);
 		
-		// draw the name
-		draw_text_pixel_perfect(tx, ty, spellGrid[# SPELL_PARAMS.NAME, spellBookList[| i]], 10, nameSlotWidth - 4);
+		// ensure that this spell is actually set
+		if (i < ds_list_size(spellBookList)) {
+			// draw the name
+			draw_text_pixel_perfect(tx, ty, spellGrid[# SPELL_PARAMS.NAME, spellBookList[| i]], 10, nameSlotWidth - 4);
+		}
 	}
+	
 	
 	// increment i
 	i++;

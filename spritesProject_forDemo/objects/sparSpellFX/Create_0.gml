@@ -59,7 +59,7 @@ if (spellID >= 0) {
 	decode_list(global.allSpellAnimations, list);
 	
 	// get the animation sprite
-	spellAnimation = string_get_asset_ID(list[| spellID]);
+	spellAnimation = correct_string_after_decode(list[| spellID]);
 	
 	// destroy temp list
 	ds_list_destroy(list);

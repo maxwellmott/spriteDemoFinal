@@ -71,6 +71,17 @@ if (instance_exists(overworld))
 	
 	if (global.leftBumper) 
 	&& !(global.rightBumper) {
-		open_action_menu();	
+		open_action_menu();
+	}
+}
+
+// FOR TESTING ONLY!!!
+if (instance_exists(overworld)) {
+	if !(instance_exists(menu)) {
+		if (global.shiftPressed)
+		&& (global.select) {
+			global.opponent = npcs.mercurioGallant;
+			spar_begin_ingame();
+		}
 	}
 }

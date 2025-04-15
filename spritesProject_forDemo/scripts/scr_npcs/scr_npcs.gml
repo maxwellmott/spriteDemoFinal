@@ -220,12 +220,12 @@ function npc_load_parameters(_id) {
 	// get all parameters
 	name				= grid[# npcParams.name,				ID];
 	
-	walkingSprite		= string_get_asset_ID(grid[# npcParams.walkingSprite,		ID]);
-	meditatingSprite	= string_get_asset_ID(grid[# npcParams.meditatingSprite,	ID]);
-	eatingSprite		= string_get_asset_ID(grid[# npcParams.eatingSprite,		ID]);
-	drinkingSprite		= string_get_asset_ID(grid[# npcParams.drinkingSprite,		ID]);
-	wavephoneSprite		= string_get_asset_ID(grid[# npcParams.wavephoneSprite,		ID]);
-	responseFunction	= string_get_asset_ID(grid[# npcParams.respondFunction,		ID]);
+	walkingSprite		= correct_string_after_decode(grid[# npcParams.walkingSprite,		ID]);
+	meditatingSprite	= correct_string_after_decode(grid[# npcParams.meditatingSprite,	ID]);
+	eatingSprite		= correct_string_after_decode(grid[# npcParams.eatingSprite,		ID]);
+	drinkingSprite		= correct_string_after_decode(grid[# npcParams.drinkingSprite,		ID]);
+	wavephoneSprite		= correct_string_after_decode(grid[# npcParams.wavephoneSprite,		ID]);
+	responseFunction	= correct_string_after_decode(grid[# npcParams.respondFunction,		ID]);
 	
 	//decode_list(grid[# npcParams.,		ID],		);
 	//decode_list(grid[# npcParams.spells,			ID],		SPELLS);

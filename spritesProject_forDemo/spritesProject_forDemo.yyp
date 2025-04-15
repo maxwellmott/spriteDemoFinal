@@ -280,7 +280,7 @@
     {"id":{"name":"bgm_dayChange","path":"sounds/bgm_dayChange/bgm_dayChange.yy",},},
     {"id":{"name":"bgm_magicIsInTheAir","path":"sounds/bgm_magicIsInTheAir/bgm_magicIsInTheAir.yy",},},
     {"id":{"name":"bgm_menuTheme","path":"sounds/bgm_menuTheme/bgm_menuTheme.yy",},},
-    {"id":{"name":"bgm_sparNormal","path":"sounds/bgm_sparNormal/bgm_sparNormal.yy",},},
+    {"id":{"name":"bgm_theCanyonBetween","path":"sounds/bgm_theCanyonBetween/bgm_theCanyonBetween.yy",},},
     {"id":{"name":"sfx_click","path":"sounds/sfx_click/sfx_click.yy",},},
     {"id":{"name":"sfx_closeSoulStone","path":"sounds/sfx_closeSoulStone/sfx_closeSoulStone.yy",},},
     {"id":{"name":"sfx_dodge","path":"sounds/sfx_dodge/sfx_dodge.yy",},},

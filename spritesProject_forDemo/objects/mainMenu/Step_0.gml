@@ -37,10 +37,8 @@ var i = 0;	repeat (MAIN_MENU_BUTTONS.HEIGHT) {
 	var right	= buttonRightList[| i];
 	var nm		= newMenuList[| i];
 	
-	if (collision_rectangle(left, top, right, bottom, mouse, false, false)) {
-		selectedButton = i;
-		
-		if (global.click) {
+	if (global.click) {
+		if (collision_rectangle(left, top, right, bottom, mouse, false, false)) {		
 			// open the linked menu
 			if (nm >= 0) {
 				room_transition(player.x, player.y, player.facing, nm, bgm_menuTheme);

@@ -87,7 +87,7 @@ var layerNum = 1; repeat(4) {
 			break;
 	}
 	
-	if (tSet != string(noone)) tSet = string_get_asset_ID(tSet);
+	if (tSet != string(noone)) tSet = correct_string_after_decode(tSet);
 	
 	if (tSet != noone) {tilemapList[| layerNum - 1] = place_all_tiles(layerName, tSet, encGrid, tileRowCount, tileColumnCount)};
 	

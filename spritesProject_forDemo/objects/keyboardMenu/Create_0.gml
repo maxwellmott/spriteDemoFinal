@@ -13,7 +13,7 @@ decode_grid(global.allKeyboardPrompts, g);
 
 // get all params from temp grid
 promptString	= g[# KEYBOARD_PROMPT_PARAMS.PROMPT_STRING,			promptID];
-acceptFunction	= string_get_asset_ID(g[# KEYBOARD_PROMPT_PARAMS.ACCEPT_FUNCTION, promptID]);
+acceptFunction	= correct_string_after_decode(g[# KEYBOARD_PROMPT_PARAMS.ACCEPT_FUNCTION, promptID]);
 limit			= real(g[# KEYBOARD_PROMPT_PARAMS.CHAR_LIMIT,		promptID]);
 
 // destroy temp grid
@@ -219,9 +219,9 @@ sheButtonTop = 128;
 theyButtonTop = 128;
 heButtonTop = 128;
 
-sheButtonRight = 56;
-theyButtonRight = 116;
-heButtonRight = 176;
+sheButtonRight = sheButtonLeft + 32;
+theyButtonRight = theyButtonLeft + 32;
+heButtonRight = heButtonLeft + 32;
 
 sheButtonBottom = 140;
 theyButtonBottom = 140;

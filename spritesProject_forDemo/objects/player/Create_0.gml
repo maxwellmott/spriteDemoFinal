@@ -186,6 +186,9 @@ event_inherited();
 #endregion
 
 #region		INITIALIZE ALL VARIABLES USED FOR SPARRING
+	// initialize spellBookList to be used during spars
+	spellBookList = -1;
+
 	// initialize HP and MP
 	maxHP = MAX_HP;
 	maxMP = MAX_MP;
@@ -215,7 +218,7 @@ event_inherited();
 	rustY	= guiHeight - 8;
 	
 	// initialize spellBookGrid
-	spellBookGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLMAX);
+	spellBookGrid = -1;
 	
 	// initialize enemy
 	enemy = noone;

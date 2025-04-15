@@ -81,10 +81,10 @@ function spar_effect_push_alert(_effectID) {
 /// for the execute_arguments function being used to call the effect function attached to the alert
 function effect_alert_get_args() {
 	if (ds_list_size(alertParams) > 1) {
-		var i = 1;	repeat (ds_list_size(alertParams) - 1) {
-			global.argumentList[| i - 1] = string_get_asset_ID(alertParams[| i]);
+		var i = 1;	repeat (ds_list_size(alertParams) - 1) {			
+			global.argumentList[| i - 1] = correct_string_after_decode(alertParams[| i]);
 			
-			i++;	
+			i++;
 		}
 	}
 }
@@ -3699,7 +3699,7 @@ function deflect_spell(_atkr, _targ, _damg, _spell) {
 	decode_list(global.allSpellAnimations, list);
 	
 	// get the animation sprite
-	animation = string_get_asset_ID(list[| spellID]);
+	animation = correct_string_after_decode(list[| spellID]);
 	
 	// destroy temp list
 	ds_list_destroy(list);

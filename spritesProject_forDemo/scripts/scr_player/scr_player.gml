@@ -108,6 +108,7 @@ function player_set_frames() {
 function draw_standard_player(_skintone, _eyewear, _outfit, _outfitColor, _hair, _hairColor, _hat, _hatColor, _shoes, _shoeColor, _accessory) {
 	draw_sprite_part_ext(humanBody,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	0,								humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _skintone,		1.0);
 	draw_sprite_part_ext(outfitSheet,	0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _outfit,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _outfitColor,	1.0);
+	draw_sprite_part_ext(eyewearSheet,	0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _eyewear,	humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, c_white,		1.0);
 	draw_sprite_part_ext(hairSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _hair,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _hairColor,	1.0);
 	
 	if (hat != hats.nothing) {
@@ -260,7 +261,7 @@ function gate_check_player() {
 /// a transition.
 function spar_begin_ingame() {
 	global.sparType = sparTypes.inGame;
-	room_transition(200, 400, directions.south, rm_battleScene, bgm_sparNormal);
+	room_transition(200, 400, directions.south, rm_battleScene, bgm_theCanyonBetween);
 }
 
 ///@desc This function is called when the player is in the overworld and presses start
@@ -281,7 +282,12 @@ function open_action_menu() {
 ///@desc This function is called at the beginning of a spar. It takes the human's
 /// spell selections and builds a ds_grid of all their parameters so that the info
 /// can be quickly accessed.
-function player_build_spellBookGrid() {	
+function player_build_spellBookGrid() {
+	// create player grid
+	if !(ds_exists(spellBookGrid, ds_type_grid)) {
+		spellBookGrid = ds_grid_create(SPELL_PARAMS.HEIGHT, ds_list_size(spellBookList));	
+	}
+	
 	// decode spell grid
 	var grid = ds_grid_create(SPELL_PARAMS.HEIGHT, SPELLS.HEIGHT);
 	decode_grid(global.allSpells, grid);
@@ -305,13 +311,15 @@ function player_build_spellBookGrid() {
 			// set proper value
 			spellBookGrid[# j,	i] = grid[# j, spellID];
 			
-			if (j == SPELL_PARAMS.EFFECT)
-			|| (j == SPELL_PARAMS.DODGEABLE)
+			if (j == SPELL_PARAMS.DODGEABLE)
 			|| (j == SPELL_PARAMS.POWER)
 			|| (j == SPELL_PARAMS.RANGE)
 			|| (j == SPELL_PARAMS.ID)
 			|| (j == SPELL_PARAMS.TYPE)	{
-				spellBookGrid[# j, i] = string_get_asset_ID(spellBookGrid[# j, i]);	
+				spellBookGrid[# j, i] = real(spellBookGrid[# j, i]);	
+			}
+			else if (j == SPELL_PARAMS.EFFECT) {
+				spellBookGrid[# j, i] = correct_string_after_decode(spellBookGrid[# j, i]);	
 			}
 			
 			// increment j

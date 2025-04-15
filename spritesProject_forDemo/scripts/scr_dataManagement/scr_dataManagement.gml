@@ -493,6 +493,41 @@ function string_get_asset_ID(_assetString) {
 	// clear string through second space
 	as = string_delete(as, 0, secondPos);
 	
-	// return the asset id of the corrected string
-	return asset_get_index(as);
+	// check if this returns an asset ID
+	if (asset_get_index(as) != -1) {
+		// return the asset id of the corrected string
+		return asset_get_index(as);
+	}
+	// if it didn't return an asset ID
+	else {
+		// return the number in case it's an instance ID
+		return real(as);
+	}
+}
+
+function correct_string_after_decode(_string) {
+	var str = _string;
+	
+	// check if the string contains characters
+	if (string_letters(str) != "") {
+		// get the first space
+		var pos = string_pos(" ", str);
+		
+		// if there is a space
+		if (pos != -1) {
+			// get the first word
+			var fw = string_copy(str, 0, pos - 1);
+			
+			// check if the first word is ref
+			if (fw == "ref") {
+				return string_get_asset_ID(str);
+			}
+		}
+	}
+	else {
+		if (string_count("-1", str) == 0)
+		&& (string_count("-4", str) == 0) {
+			return real(string_digits(str));
+		}
+	}
 }

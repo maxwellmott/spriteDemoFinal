@@ -1,13 +1,10 @@
-/// @desc
-data = ds_map_create();
-
-smw = 0;
-
 // I guess the only way for me to use gms2's built in animation system is to 
 // make the object sprite whatever sprite I want to display. Whatever. I'll have to 
 // set these built-ins to whatever values I need when other things like this occur.
 sprite_index = spr_sparSwapCloud;
 image_speed = 1;
+
+data = ds_map_create();
 
 depth = get_layer_depth(LAYER.ui);
 
@@ -46,6 +43,19 @@ with (player) {
 	player_build_spellBookGrid();	
 	teamList = ds_list_create();
 	decode_list(currentTeam, teamList);
+	
+		// convert all tokens from string to real
+	var i = 0;	repeat (ds_list_size(spellBookList)) {
+		// check that the spell is not "-1" or "-4"
+		if (spellBookList[| i] != "-1")
+		&& (spellBookList[| i] != "-4") {
+			// convert from string to real
+			spellBookList[| i] = real(spellBookList[| i]);
+		}
+		
+		// increment i
+		i++;
+	}
 }
 
 // create all allies and enemies

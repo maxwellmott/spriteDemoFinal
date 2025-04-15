@@ -640,7 +640,7 @@ function well_read(_inst) {
 			// check that that spell is not already in the spellbook
 			if (ds_list_find_index(bookList, sid) == -1) {
 				// add that spell to the spell book
-				bookList[| 8] = sid;
+				bookList[| ds_list_size(player.spellBookList)] = sid;
 				
 				// encode bookList as player's new currentSpellBook
 				t.currentSpellBook = encode_list(bookList);

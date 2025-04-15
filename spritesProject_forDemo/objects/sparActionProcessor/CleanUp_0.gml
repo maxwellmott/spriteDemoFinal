@@ -5,6 +5,8 @@ targetSprite.currentPose = SPRITE_POSES.IDLE;
 activeSprite.currentPose = SPRITE_POSES.IDLE;
 
 if (instance_exists(spar)) {
-	spar.turnMsg = "";
-	spar.turnGrid[# TURN_GRID.ACTION, turnRow] = -1;
+	if (spar.winner == noone) {
+		spar.turnMsg = "";
+		spar.turnGrid[# TURN_GRID.ACTION, turnRow] = -1;
+	}
 }

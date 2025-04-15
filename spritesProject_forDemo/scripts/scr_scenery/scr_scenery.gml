@@ -128,8 +128,8 @@ function place_scenery(_encodedList) {
 		var mask		= grid[# sceneryParams.mask,			ID];
 		
 		type		= real(type);
-		spr			= string_get_asset_ID(spr);
-		mask		= string_get_asset_ID(mask);
+		spr			= correct_string_after_decode(spr);
+		mask		= correct_string_after_decode(mask);
 
 		// get the proper object and create it
 		var obj		= scenery_get_object_index(type);

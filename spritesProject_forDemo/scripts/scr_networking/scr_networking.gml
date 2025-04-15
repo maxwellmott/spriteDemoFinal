@@ -364,7 +364,7 @@ function check_enemy_ready() {
 	if (data[? "ready"]) {
 		show_debug_message("Both players are ready to begin!");
 		
-		room_transition(player.x, player.y, player.facing, rm_battleScene, bgm_sparNormal);
+		room_transition(player.x, player.y, player.facing, rm_battleScene, bgm_theCanyonBetween);
 	}
 	else {
 		show_debug_message("Enemy is not yet ready to begin...");

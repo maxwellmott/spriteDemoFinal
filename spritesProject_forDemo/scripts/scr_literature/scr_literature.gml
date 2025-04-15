@@ -113,7 +113,7 @@ function literature_get_params() {
 	ds_list_destroy(colorList)
 	
 	text =	tempGrid[# literatureParams.text, ID];
-	font =	string_get_asset_ID(tempGrid[# literatureParams.font, ID]);
+	font =	correct_string_after_decode(tempGrid[# literatureParams.font, ID]);
 	
 	var encList = tempGrid[# literatureParams.images,		ID];
 	decode_list(encList, spriteIDs);
@@ -364,7 +364,7 @@ function place_literature(_encodedList) {
 		
 		// this is the type of object to create (guiBook guiScroll, guiDocument)
 		var obj	= grid[# literatureParams.object,	ID];
-		obj	= string_get_asset_ID(obj);
+		obj	= correct_string_after_decode(obj);
 		
 		var z = scenery_get_depth(_y);
 		

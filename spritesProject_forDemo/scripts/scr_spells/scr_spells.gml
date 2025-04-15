@@ -1036,7 +1036,7 @@ function processor_load_spell_params() {
 	spellCost		= real(grid[# SPELL_PARAMS.COST,					currentSpell]);
 	spellType		= real(grid[# SPELL_PARAMS.TYPE,					currentSpell]);
 	spellPower		= real(grid[# SPELL_PARAMS.POWER,					currentSpell]);
-	spellEffect		= string_get_asset_ID(grid[# SPELL_PARAMS.EFFECT,	currentSpell]);
+	spellEffect		= correct_string_after_decode(grid[# SPELL_PARAMS.EFFECT,	currentSpell]);
 	spellDodgeable	= real(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
 	spellRange		= real(grid[# SPELL_PARAMS.RANGE,					currentSpell]);
 	bypassDodge		= real(grid[# SPELL_PARAMS.BYPASS_DODGE,			currentSpell]);
@@ -1059,7 +1059,7 @@ function builder_load_spell_params() {
 		spellCost		= real(grid[# SPELL_PARAMS.COST,					currentSpell]);
 		spellType		= real(grid[# SPELL_PARAMS.TYPE,					currentSpell]);
 		spellPower		= real(grid[# SPELL_PARAMS.POWER,					currentSpell]);
-		spellEffect		= string_get_asset_ID(grid[# SPELL_PARAMS.EFFECT,	currentSpell]);
+		spellEffect		= correct_string_after_decode(grid[# SPELL_PARAMS.EFFECT,	currentSpell]);
 		spellDodgeable	= real(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
 		spellRange		= real(grid[# SPELL_PARAMS.RANGE,					currentSpell]);
 		description		= grid[# SPELL_PARAMS.DESCRIPTION,					currentSpell];
@@ -1070,7 +1070,7 @@ function builder_load_spell_params() {
 		spellCost		= real(grid[# SPELL_PARAMS.COST,					displaySpell]);
 		spellType		= real(grid[# SPELL_PARAMS.TYPE,					displaySpell]);
 		spellPower		= real(grid[# SPELL_PARAMS.POWER,					displaySpell]);
-		spellEffect		= string_get_asset_ID(grid[# SPELL_PARAMS.EFFECT,	displaySpell]);
+		spellEffect		= correct_string_after_decode(grid[# SPELL_PARAMS.EFFECT,	displaySpell]);
 		spellDodgeable	= real(grid[# SPELL_PARAMS.DODGEABLE,				displaySpell]);
 		spellRange		= real(grid[# SPELL_PARAMS.RANGE,					displaySpell]);
 		description		= grid[# SPELL_PARAMS.DESCRIPTION,					displaySpell];	
