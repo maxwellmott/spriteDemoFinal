@@ -113,14 +113,12 @@ function draw_standard_player(_skintone, _eyewear, _outfit, _outfitColor, _hair,
 	
 	if (hat != hats.nothing) {
 		// make sure surface exists
-		if (surface_exists(hatSurface)) {
-			// draw the hatSurface
-			draw_surface(hatSurface, drawX, drawY);
+		if !(surface_exists(hatSurface)) {
+			hatSurface = surface_create(24, 42);
 		}
-		// else, create it
-		else {
-			hatSurface = surface_create(24, 42);		
-		}
+		
+		// draw the hatSurface
+		draw_surface(hatSurface, drawX, drawY);		
 	}
 	
 	draw_sprite_part_ext(hatSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * _hat,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, _hatColor,		1.0);
