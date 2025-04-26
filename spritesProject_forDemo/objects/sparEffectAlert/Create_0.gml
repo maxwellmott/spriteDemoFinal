@@ -70,26 +70,45 @@ if (ds_exists(effectedSprites, ds_type_list)) {
 		}
 	}
 }
-	
-if (effectedPlayer == BOTH_PLAYERS_EFFECTED) {
-	if (ds_exists(xList, ds_type_list)) {
-		xList[| 0] = spar.playerOne.x;
-		xList[| 1] = spar.playerTwo.x;
 
-		yList[| 0] = spar.playerOne.y;
-		yList[| 1] = spar.playerTwo.y;
+if (effectID != SPAR_EFFECTS.ARENA_CHANGE_VOLCANO)
+&& (effectID != SPAR_EFFECTS.ARENA_CHANGE_OCEAN)
+&& (effectID != SPAR_EFFECTS.ARENA_CHANGE_CLOUDS)
+&& (effectID != SPAR_EFFECTS.ARENA_CHANGE_FOREST)
+&& (effectID != SPAR_EFFECTS.DESTROY_ARENA) {	
+	if (effectedPlayer == BOTH_PLAYERS_EFFECTED) {
+		if (ds_exists(xList, ds_type_list)) {
+			xList[| 0] = spar.playerOne.x;
+			xList[| 1] = spar.playerTwo.x;
+	
+			yList[| 0] = spar.playerOne.y;
+			yList[| 1] = spar.playerTwo.y;
+		}
+	}
+	else if (effectedPlayer == spar.playerOne) {
+		if (ds_exists(xList, ds_type_list)) {
+			xList[| 0] = spar.playerOne.x;
+			yList[| 0] = spar.playerOne.y;
+		}
+	}
+	else if (effectedPlayer == spar.playerTwo) {
+		if (ds_exists(xList, ds_type_list)) {
+			xList[| 0] = spar.playerTwo.x;
+			yList[| 1] = spar.playerTwo.y;
+		}
 	}
 }
-else if (effectedPlayer == spar.playerOne) {
+else {
 	if (ds_exists(xList, ds_type_list)) {
-		xList[| 0] = spar.playerOne.x;
-		yList[| 0] = spar.playerOne.y;
-	}
-}
-else if (effectedPlayer == spar.playerTwo) {
-	if (ds_exists(xList, ds_type_list)) {
-		xList[| 0] = spar.playerTwo.x;
-		yList[| 1] = spar.playerTwo.y;
+		xList[| 0] = 0;
+		xList[| 1] = guiWidth / 4;	
+		xList[| 2] = guiWidth / 2;	
+		xList[| 3] = guiWidth * 0.75;
+		
+		yList[| 0] = guiHeight / 2;
+		yList[| 1] = guiHeight / 2;
+		yList[| 2] = guiHeight / 2;
+		yList[| 3] = guiHeight / 2;
 	}
 }
 

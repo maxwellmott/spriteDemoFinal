@@ -273,4 +273,6 @@ var i = 0;	repeat (ds_list_size(spriteList)) {
 
 turnCancelled = false;
 
+newArena = -1;
+
 global.roomBuilt = true;

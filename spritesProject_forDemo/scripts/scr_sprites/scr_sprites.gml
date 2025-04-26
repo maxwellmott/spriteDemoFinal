@@ -1783,9 +1783,9 @@ function sprite_add_to_grid(_ID) {
 		i++;
 	}
 }
-	
+
 #region ALL SPRITE DATA
-//					ID						NAME				SPRITE					ABILITY								ALIGNMENT			USABLE SPELLS							POWER	RES		FIRE	WATER	STORM	EARTH	AGL		LUCK	SIZE
+//					ID						NAME				SPRITE					ABILITY								ALIGNMENT				USABLE SPELLS						POWER	RES		FIRE	WATER	STORM	EARTH	AGL		LUCK	SIZE
 sprite_add_to_grid(SPRITES.HACHACHACHA,		"Hacha-Chacha",		spr_hachaChachaBattle,	ABILITIES.HOT_TO_THE_TOUCH,			ALIGNMENTS.NATURAL,		encode_list(hachaSpells),			80,		50,		170,	50,		75,		110,	90,		150,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.DIIPSY,			"Diipsy",			spr_diipsyBattle,		ABILITIES.WAVY_DANCE,				ALIGNMENTS.NATURAL,		encode_list(diipsySpells),			50,		105,	85,		165,	140,	95,		125,	100,	SPRITE_SIZES.SMALL);
 sprite_add_to_grid(SPRITES.GLIDRAKE,		"Glidrake",			spr_glidrakeBattle,		ABILITIES.STORM_SURFER,				ALIGNMENTS.NATURAL,		encode_list(glidrakeSpells),		115,	60,		130,	65,		165,	50,		150,	90,		SPRITE_SIZES.MEDIUM);

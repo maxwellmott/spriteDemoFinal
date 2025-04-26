@@ -13,6 +13,14 @@ if !(check_sprites_done_flashing()) {
 	exit;	
 }
 
+if (currentArena != newArena) {
+	if (sprite_index == sparFX_arenaChange) {
+		if (image_index >= 4) {
+			currentArena = newArena;	
+		}
+	}
+}
+
 if (instance_exists(sparEffectAlert)) {
 	exit;	
 }

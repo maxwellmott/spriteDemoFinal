@@ -54,7 +54,9 @@ var i = 0; repeat (8) {
 	
 	if (inst.dodging) && (inst.sprite == spr_sparDodge) {
 		spriteFrame = image_index;
-	}	else _spriteFrame = 0;
+		
+		if (spriteFrame > image_number - 1)	spriteFrame = image_number - 1;
+	}
 	
 	// check if sprite is flashing
 	if (inst.flashRate != -1) {
@@ -279,10 +281,19 @@ draw_set_alpha(1.0);
 			var a = sparActionProcessor.activeSprite;
 			var t = sparActionProcessor.targetSprite;
 		
+			// initialize frame var
+			var f = 0;
+		
+			// check if the dodge animation is present
+			if (t.sprite_index == spr_sparDodge) {
+				// correct frame if animation is complete
+				if (t.image_index > t.image_number - 1)	f = t.image_number - 1;
+			}
+			
 			gpu_set_fog(true, c_white, 0.0, 1.0);
 		
 			// draw target sprite normal
-			draw_sprite_ext(t.sprite, 0, t.x, t.y, t.xscale, 1, 0, c_white, sparActionProcessor.shadeAlpha);
+			draw_sprite_ext(t.sprite, f, t.x, t.y, t.xscale, 1, 0, c_white, sparActionProcessor.shadeAlpha);
 			
 			gpu_set_fog(false, c_white, 0.0, 1.0);
 		
@@ -676,7 +687,7 @@ if (onlineWaiting) {
 	else if (modVar < 28)	str += "..";
 	else if (modVar < 42)	str += ".";
 	
-	draw_text_pixel_perfect(guiWidth / 2, guiHeight / 2, str, 1, 256);
+	draw_text_pixel_perfect(guiWidth / 2, guiHeight / 2, str, 1, 256); 
 }
 
 #endregion

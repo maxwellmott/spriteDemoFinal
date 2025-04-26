@@ -202,7 +202,7 @@ if (state == ACTION_PROCESSOR_STATES.DISPLAY_MSG) {
 		}	else {
 			spar.turnMsg = targetSprite.name + " dodged " + activeSprite.name + "'s attack";
 			
-			if (alarm[0] == -1)		alarm[0] = 90;
+			if (alarm[0] == -1)		alarm[0] = 60;
 			exit;
 		}
 	}

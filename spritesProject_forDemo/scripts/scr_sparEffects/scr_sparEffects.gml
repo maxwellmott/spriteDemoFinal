@@ -387,7 +387,9 @@ enum SPAR_EFFECT_PARAMS {
 ///@desc SPAR EFFECT: sets the current ARENA to VOLCANO
 function arena_change_volcano() {
 	if (spar.currentArena != ARENAS.VOLCANO) {
-		spar.currentArena = ARENAS.VOLCANO;
+		spar.newArena = ARENAS.VOLCANO;
+		spar.image_index = 0;
+		spar.image_speed = 0;
 	}	else	{
 		ds_list_destroy(effectedSprites);
 		instance_destroy(id);	
@@ -397,7 +399,9 @@ function arena_change_volcano() {
 ///@desc SPAR EFFECT: sets the current ARENA to OCEAN
 function arena_change_ocean() {
 	if (spar.currentArena != ARENAS.OCEAN) {
-		spar.currentArena = ARENAS.OCEAN;
+		spar.newArena = ARENAS.OCEAN;
+		spar.image_index = 0;
+		spar.image_speed = 0;
 	}	else	{
 		ds_list_destroy(effectedSprites);
 		instance_destroy(id);	
@@ -407,7 +411,9 @@ function arena_change_ocean() {
 ///@desc SPAR EFFECT: sets the current ARENA to STRATOS
 function arena_change_clouds() {
 	if (spar.currentArena != ARENAS.CLOUDS) {
-		spar.currentArena = ARENAS.CLOUDS;
+		spar.newArena = ARENAS.CLOUDS;
+		spar.image_index = 0;
+		spar.image_speed = 0;
 	}	else	{
 		ds_list_destroy(effectedSprites);
 		instance_destroy(id);	
@@ -417,7 +423,9 @@ function arena_change_clouds() {
 ///@desc SPAR EFFECT: sets the current ARENA to FOREST
 function arena_change_forest() {
 	if (spar.currentArena != ARENAS.FOREST) {
-		spar.currentArena = ARENAS.FOREST;
+		spar.newArena = ARENAS.FOREST;
+		spar.image_index = 0;
+		spar.image_speed = 0;
 	}	else	{
 		ds_list_destroy(effectedSprites);
 		instance_destroy(id);	
@@ -427,7 +435,9 @@ function arena_change_forest() {
 ///@desc SPAR EFFECT: sets the current ARENA to NORMAL
 function arena_change_normal() {
 	if (spar.currentArena != -1) {
-		spar.currentArena = -1;
+		spar.newArena = -1;
+		spar.image_index = 0;
+		spar.image_speed = 0;
 	}	else	{
 		ds_list_destroy(effectedSprites);
 		instance_destroy(id);	
@@ -3005,7 +3015,9 @@ function forest_earth_increase_damage() {
 /// the arena_change_normal effect, because they trigger different effects/abilities
 function destroy_arena() {
 	if (spar.currentArena != -1) {
-		spar.currentArena = -1;	
+		spar.newArena = -1;	
+		spar.image_index = 0;
+		spar.image_speed = 0;
 	}	else	ds_list_destroy(effectedSprites);	effectedSprites = -1;	instance_destroy(id);	
 }
 

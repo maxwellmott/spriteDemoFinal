@@ -85,6 +85,12 @@ if (spellRange == -1) {
 	}
 }
 
+outOfRange = false;
+
+if (ds_list_find_index(spar.inRangeSprites, targetSprite) == -1) {
+	outOfRange = true;
+}
+
 enum ACTION_PROCESSOR_STATES {
 	FADING_IN,
 	CALCULATING,
@@ -163,9 +169,3 @@ if (currentSpell >= 0) {
 
 spar_check_black_hole_absorb_spell();
 spar_check_ball_lightning_absorb_spell();
-
-outOfRange = false;
-
-if (ds_list_find_index(spar.inRangeSprites, targetSprite) == -1) {
-	outOfRange = true;
-}
