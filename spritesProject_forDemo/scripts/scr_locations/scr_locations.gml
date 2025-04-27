@@ -3,6 +3,7 @@ enum locations {
 	miriabramFoyer,
 	miriabramLibrary,
 	miriabramDorm1,			//main character's room
+	miriabramHallway,
 	miriabramDojo,
 	miriabramHMQuarters,
 	miriabramExt,
@@ -38,6 +39,7 @@ enum locationParams {
 
 // create all object lists
 var miriabramFoyerList				= ds_list_create();
+var miriabramHallwayList			= ds_list_create();
 var miriabramDorm1List				= ds_list_create();
 var miriabramDojoList				= ds_list_create();
 var miriabramLibraryList			= ds_list_create();
@@ -65,6 +67,16 @@ var miriabramExt_groundTiles		= ds_list_create();
 var miriabramExt_waterTiles			= ds_list_create();
 var miriabramExt_collidables		= ds_list_create();
 var miriabramExt_upperStory			= ds_list_create();
+
+var miriabramFoyer_groundTiles		= ds_list_create();
+var miriabramFoyer_waterTiles		= ds_list_create();
+var miriabramFoyer_collidables		= ds_list_create();
+var miriabramFoyer_upperStory		= ds_list_create();
+
+var miriabramHallway_groundTiles	= ds_list_create();
+var miriabramHallway_waterTiles		= ds_list_create();
+var miriabramHallway_collidables	= ds_list_create();
+var miriabramHallway_upperStory		= ds_list_create();
 
 var miriabramDorm1_groundTiles		= ds_list_create();
 var miriabramDorm1_collidables		= ds_list_create();
@@ -182,6 +194,82 @@ ds_list_add(miriabramExt_upperStory,		0,	0,	0,	0,	0,	0,	12,	60,	60,	60,	60, 60, 
 											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0)	//25
 #endregion
 
+#region	 MIRIABRAM UPSTAIRS HALLWAY
+
+// GROUND TILES
+//			NAME							1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22
+ds_list_add(miriabramHallway_groundTiles,	0,	0,	0,	0,	4,	4,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	4,	4,	0,	0,	0,	0,	// 1
+											0,	0,	0,	0,	14,	14,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	14, 14,	0,	0,	0,	0,	// 2
+											0,	0,	0,	0,	24,	24,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	24, 24,	0,	0,	0,	0,	// 3
+											0,	1,	2,	2,	2,	2,	2,	2,	2,	2,	2,	2,	2,	2,	2,	2,	2,	2,	2,	2,	3,	0,	// 4
+											0,	11,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	13,	0,	// 5
+											0,	11,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	13,	0,	// 6
+											0,	11,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	13,	0,	// 7
+											0,	11,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	12,	13,	0,	// 8
+											0,	21,	22,	22,	22,	22,	22,	22,	22,	22,	22,	22,	22,	22,	22,	22,	22,	22,	22,	22, 23,	0,	// 9
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 10
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 11
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 12
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 13
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 14
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0);	// 15
+										
+// GROUND TILES
+//			NAME							1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22
+ds_list_add(miriabramHallway_collidables,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 1
+											4,	1,	2,	3,	0,	0,	2,	2,	2,	2,	2,	2,	2,	2,	2,	2,	0,	0,	1,	2,	3,	5,	// 2
+											4,	1,	2,	3,	0,	0,	2,	2,	2,	2,	2,	2,	2,	2,	2,	2,	0,	0,	1,	2,	3,	5,	// 3
+											4,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	5,	// 4
+											4,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	5,	// 5
+											4,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	5,	// 6
+											4,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	5,	// 7
+											21,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	22,	// 8
+											21,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	22,	// 9
+											6,	7,	7,	7,	7,	7,	7,	7,	7,	7,	7,	7,	7,	7,	7,	7,	7,	7,	7,	7,	7,	8,	// 10
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 11 
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 12
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 13
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 14
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0);	// 15
+										
+// GROUND TILES
+//			NAME							1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22
+ds_list_add(miriabramHallway_upperStory,	32,	23,	23,	4,	0,	0,	3,	23,	23,	23,	23,	23,	23,	23,	23,	23,	0,	0,	2,	23,	23,	34,	// 1
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 2
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 3
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 4
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 5
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 6
+											0,	23,	23,	23,	23,	23,	23,	23,	23,	23,	23,	23,	23,	23,	23,	23,	23,	23,	23,	23,	23,	0,	// 7
+											0,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	0,	// 8
+											0,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	33,	0,	// 9
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 10 
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 11
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 12
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 13
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 14
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0);	// 15
+
+// GROUND TILES
+//			NAME							1	2	3	4	5	6	7	8	9	10	11	12	13	14	15	16	17	18	19	20	21	22
+ds_list_add(miriabramHallway_waterTiles,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 1
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 2
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 3
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 4
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 5
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 6
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 7
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 8
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 9
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 10
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 11
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 12
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 13
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	// 14
+											0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0,	0);	// 15
+																														
+#endregion
+
 #region MIRIABRAM DORM 1
 
 // GROUND TILES
@@ -256,6 +344,7 @@ var miriabramExtNPCs	= ds_list_create();
 #region PREPARE LITERATURE LISTS
 var miriabramExtLiterature = ds_list_create();
 var miriabramDorm1Literature = ds_list_create();
+var miriabramHallwayLiterature = ds_list_create();
 /*
 //			list name					x			y			ID
 ds_list_add(miriabramExtLiterature,		"404,"+		"304,"+		string(literatureIDs.inhumanEntities)+",",
@@ -281,9 +370,10 @@ function master_grid_add_location(_ID) {
 	}
 }
 
-// add all locations		ID								NAME											DESCRIPTION										TILE COL COUNT	TILE ROW COUNT	OBJECT STRING							COLLIDABLE TILESET				GROUND TILESET				WATER TILESET				UPPER STORY TILESET				COLLISION MAP									GROUND TILEMAP								WATER TILEMAP								UPPER STORY TILES						TO NORTH		TO EAST		TO SOUTH		TO WEST			NPCS	LITERATURE	
-master_grid_add_location(	locations.miriabramExt,			textGrid[# 1, locations.miriabramExt],			textGrid[# 2, locations.miriabramExt],			25,				25,				encode_list(miriabramExtList),			tlst_collidablesExt,			tlst_groundExt,				tlst_waterExt,				tlst_upstairsExt,				encode_list(miriabramExt_collidables),			encode_list(miriabramExt_groundTiles),		encode_list(miriabramExt_waterTiles),		encode_list(miriabramExt_upperStory),	noone,			noone,		noone,			noone,			noone,	encode_list(miriabramExtLiterature));
-master_grid_add_location(	locations.miriabramDorm1,		textGrid[# 1, locations.miriabramDorm1],		textGrid[# 2, locations.miriabramDorm1],		10,				12,				encode_list(miriabramDorm1List),		tlst_collidablesInt,			tlst_groundInt,				tlst_waterExt,				tlst_upstairsInt,				encode_list(miriabramDorm1_collidables),		encode_list(miriabramDorm1_groundTiles),	encode_list(miriabramDorm1_water),			encode_list(miriabramDorm1_upperStory), noone,			noone,		noone,			noone,			noone,	encode_list(miriabramDorm1Literature));				
+// add all locations		ID								NAME											DESCRIPTION										TILE COL COUNT	TILE ROW COUNT	OBJECT STRING							COLLIDABLE TILESET				GROUND TILESET				WATER TILESET				UPPER STORY TILESET				COLLISION MAP									GROUND TILEMAP								WATER TILEMAP								UPPER STORY TILES							TO NORTH		TO EAST		TO SOUTH		TO WEST			NPCS	LITERATURE	
+master_grid_add_location(	locations.miriabramExt,			textGrid[# 1, locations.miriabramExt],			textGrid[# 2, locations.miriabramExt],			25,				25,				encode_list(miriabramExtList),			tlst_collidablesExt,			tlst_groundExt,				tlst_waterExt,				tlst_upstairsExt,				encode_list(miriabramExt_collidables),			encode_list(miriabramExt_groundTiles),		encode_list(miriabramExt_waterTiles),		encode_list(miriabramExt_upperStory),		noone,			noone,		noone,			noone,			noone,	encode_list(miriabramExtLiterature));
+master_grid_add_location(	locations.miriabramHallway,		textGrid[# 1, locations.miriabramHallway],		textGrid[# 2, locations.miriabramHallway],		22,				15,				encode_list(miriabramHallwayList),		tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramHallway_collidables),		encode_list(miriabramHallway_groundTiles),	encode_list(miriabramHallway_waterTiles),	encode_list(miriabramHallway_upperStory),	noone,			noone,		noone,			noone,			noone,	encode_list(miriabramHallwayLiterature));
+master_grid_add_location(	locations.miriabramDorm1,		textGrid[# 1, locations.miriabramDorm1],		textGrid[# 2, locations.miriabramDorm1],		10,				12,				encode_list(miriabramDorm1List),		tlst_collidablesInt,			tlst_groundInt,				tlst_waterExt,				tlst_upstairsInt,				encode_list(miriabramDorm1_collidables),		encode_list(miriabramDorm1_groundTiles),	encode_list(miriabramDorm1_water),			encode_list(miriabramDorm1_upperStory),		noone,			noone,		noone,			noone,			noone,	encode_list(miriabramDorm1Literature));				
 #endregion
 
 // encode the grid

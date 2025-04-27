@@ -64,7 +64,7 @@
     },
     "name":"spr_sparDodge",
     "playback":1,
-    "playbackSpeed":16.0,
+    "playbackSpeed":24.0,
     "playbackSpeedType":0,
     "resourceType":"GMSequence",
     "resourceVersion":"2.0",
