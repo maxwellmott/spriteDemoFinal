@@ -1,27 +1,36 @@
+
+/// IMPORTANT NOTE ABT NPCS
+/// THE DECISION TO TRANSPORT TO A NEW LOCATION SHOULD COME AS
+/// AN ACTION INDICATED ON THE NPCS PATH LIST. THIS SHOULD ALWAYS
+/// OCCUR WHEN THE NPC HAS REACHED THE GIVEN MEANS OF TRANSPORT (DOOR,
+/// STAIRWAY, EDGE OF SCREEN, ETC)
+
 // enumerator containing npc IDs
 enum npcs {
-	mercurioGallant,
-	indigoMyst,
-	marcoBladesman,
-	naimaHeartseer,
-	thorntonVerdman,
-	graciaVerdman,
-	martinFoamhyde,
-	locklanFoamhyde,
-	eliciaLancer,
-	cyrilSenut,
-	cianaBeachfoot,
-	jadeStonegrasp,
-	marigoldBushward,
-	violetBushward,
-	yvesFennet,
-	plumFennet,
-	victorStalwarden,
-	brutoLancer,
-	dimVonVerstolen,
-	perniciaVonVerstolen,
-	xandraSenut,
-	salvadorSenut,
+	mercurioGallant,		// 2 years older than you--lives with aunt and uncle in big house off campus
+	indigoMyst,				// your same age--lives in the school with you
+	dynoBladesman,			// 1 year older than you--lives in the school with you
+	naimaHeartseer,			// 4 years older than you--lives with mentors at the Wavist Academy
+	thorntonVerdman,		// 9 years older than you--graduated from miriabram school in the past, hangs around and helps out sometimes
+	graciaVerdman,			// thornton's aunt, gay as hell, very nice and insightful, fought to keep her farmland when food synthesis was invented
+	martinFoamhyde,			// locklan's father--used to be pretty cool. He's caved in a lot to make room for Locklan's beliefs. Used to volunteer at the library when bookish was still young and needed help :')
+	locklanFoamhyde,		// 8 years older than you--graduated from miriabram in the past, rich pickme boy who joined the military (tries to pressure mercurio to be like him)
+	eliciaLancer,			// 11 years older than you--graduated from miriabram in the past, distant relative of Lady Ellevere
+	cyrilSenut,				// 16 years older than you. wants desperately to fit into both worlds--the world of his parents, and the world of his friends
+	cianaBeachfoot,			// 11 years older than you. miriabram grad. born Ciana Foamhyde--locklan's cousin. She is giving Paris Hilton Enlightenment tm. Totally nihilistic because her experiences showed her the truth of humanity at an early age.
+	jadeStonegrasp,			// Mercurio's aunt and foster mother--she and her husband want mercurio to grow into a young man who makes their charity worthwhile...yeh
+	marigoldBushward,		// 7 years older than you, graduated from miriabram school (and both of the other academies on stackrock) she takes herself very seriously and doesn't want to be seen as a silly hippy like her relatives
+	violetBushward,			// 7 years older than you, studied at miriabram school but never graduated, indefinitely studying at Wavist Academy (basically has a residency but no degree), she's good but didn't learn properly
+	yvesFennet,				// 13 years older than you, graduated early from miriabram school. Keeps to herself these days. She lives with her family in Soulsprig, but it's clear that she is totally focused on her magical practices.
+	plumFennet,				// 10 years older than you, graduated from miriabram school and the burnishing school. They work as a crystal architect. Their work incorporates cutting edge tech that they personally invent. Besties with Thornton
+	victorStalwarden,		// 17 years older than you. Graduated from miriabram school. total fucking douchebag. Current archbishop of the military. Basically inherited the title from his father, Percival. Typical douchey blonde boy
+	brutoLancer,			// 15 years older than you. Studied at miriabram school but never graduated. Total douchebag. Bullied Elicia all her life. Now he lives alone in their family's giant estate. Under the High Council's thumb.
+	dimVonVerstolen,		// 16 years older than you. Graduated from miriabram and the burnishing school. Current Overseer of Von Verstolen Labs. Not an evil person, just really strange and lonely.
+	perniciaVonVerstolen,	// 18 years older than you. Graduated from miriabram and the burnishing school. Current Head Developer at Von Verstolen Labs. Sort of an evil person. Tortures her cowardly little brother.
+	xandraSenut,			// born xandra lancer. Elicia's cousin. They are friends still, even though they have very different lives. Sometimes they argue, but they know they're all they've got.
+	salvadorSenut,			// wealthy politician who is trying to get a seat in the High Council (probably never will since he isn't of one of the main houses)
+	eoghanStonesword,		// current headmaster of miriabram. He was the first man to sit as the headmaster at miriabram school. He is over 100 years old and is not interested in immortality. He's a real sweetie.
+	dianaSenut,				// current practicing master of miriabram. She will someday take Eoghan's place as headmaster, until then she is training under him. Her brother, Salvador, does not approve of this.
 	height
 }
 

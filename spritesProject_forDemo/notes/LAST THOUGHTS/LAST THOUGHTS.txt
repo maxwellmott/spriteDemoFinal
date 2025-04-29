@@ -1002,4 +1002,8 @@ COMING BACK FROM PLAYTEST BUILD
 				worked through most of the weirdness that came with the new gms update
 				need to fix some weirdness with the spar spell menu :(
 				
+		4/28
 		
+				finishing inputting all tile data for all locations in demo
+				then add all objects, doors, and literature
+				once finished with the above, start completing the remaining soulstone menus (todoList, ronin+, settings)
