@@ -1007,3 +1007,7 @@ COMING BACK FROM PLAYTEST BUILD
 				finishing inputting all tile data for all locations in demo
 				then add all objects, doors, and literature
 				once finished with the above, start completing the remaining soulstone menus (todoList, ronin+, settings)
+				
+		5/2
+		
+				add 
