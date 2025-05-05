@@ -1,5 +1,7 @@
 ///@desc
 
+instance_destroy(scenery);
+instance_destroy(literature);
 instance_destroy(overworldDraw);
 instance_destroy(tileChecker_debug);
 instance_destroy(collidableTileChecker);

@@ -13,6 +13,10 @@ enum doors {
 	MIRIABRAM_HALLWAY_TO_FOYER_RIGHT,
 	MIRIABRAM_FOYER_TO_HALLWAY_LEFT,
 	MIRIABRAM_FOYER_TO_HALLWAY_RIGHT,
+	MIRIABRAM_HALLWAY_TO_MIRIABRAM_LIBRARY,
+	MIRIABRAM_LIBRARY_TO_MIRIABRAM_HALLWAY,
+	MIRIABRAM_FOYER_TO_MIRIABRAM_DOJO,
+	MIRIABRAM_DOJO_TO_MIRIABRAM_FOYER,
 	height
 }
 
@@ -55,15 +59,19 @@ function master_grid_add_door(_id, _location, _x, _y, _locked, _newLocation, _ne
 	}
 }
 
-//						ID											LOCATION					X		Y		LOCKED	NEWLOCATION					NEWFACING			NEW X	NEW Y	SPRITETOP						UPPER FLOOR
-master_grid_add_door(	doors.MIRIABRAM_EXT_TO_FOYER,				locations.miriabramExt,		352,	240,	false,	locations.miriabramFoyer,	directions.north,	176,	284,	firmwoodSpriteTop,				false);
-master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_FOYER_LEFT,		locations.miriabramHallway,	128,	304,	false,	locations.miriabramFoyer,	directions.south,	160,	92,		invisiblePortalDoorSpriteTop,	false);
-master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_FOYER_RIGHT, 	locations.miriabramHallway,	496,	304,	false,	locations.miriabramFoyer,	directions.south,	544,	92,		invisiblePortalDoorSpriteTop,	false);
-master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_HALLWAY_LEFT,		locations.miriabramFoyer,	128,	36,		false,	locations.miriabramHallway,	directions.south,	160,	92,		invisiblePortalDoorSpriteTop,	false);
-master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_HALLWAY_RIGHT,		locations.miriabramFoyer,	512,	36,		false,	locations.miriabramHallway, directions.south,	544,	92,		invisiblePortalDoorSpriteTop,	false);
-master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_EXT,				locations.miriabramFoyer,	352,	400,	false,	locations.miriabramExt,		directions.south,	400,	276,	firmwoodSpriteTop,				true);
-master_grid_add_door(	doors.MIRIABRAM_DORM_1_TO_HALLWAY,			locations.miriabramDorm1,	112,	276,	false,	locations.miriabramHallway,	directions.north,	160,	110,	firmwoodSpriteTop,				true);
-master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_DORM_1,			locations.miriabramHallway,	144,	92,		false,	locations.miriabramDorm1,	directions.north,	400,	276,	firmwoodSpriteTop,				true);
+//						ID												LOCATION					X		Y		LOCKED	NEWLOCATION					NEWFACING			NEW X	NEW Y	SPRITETOP						UPPER FLOOR
+master_grid_add_door(	doors.MIRIABRAM_EXT_TO_FOYER,					locations.miriabramExt,		352,	240,	false,	locations.miriabramFoyer,	directions.north,	352,	376,	firmwoodSpriteTop,				false);
+master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_FOYER_LEFT,			locations.miriabramHallway,	112,	296,	false,	locations.miriabramFoyer,	directions.south,	160,	96,		invisiblePortalDoorSpriteTop,	false);
+master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_FOYER_RIGHT, 		locations.miriabramHallway,	496,	296,	false,	locations.miriabramFoyer,	directions.south,	544,	96,		invisiblePortalDoorSpriteTop,	false);
+master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_HALLWAY_LEFT,			locations.miriabramFoyer,	112,	36,		false,	locations.miriabramHallway,	directions.north,	160,	256,	invisiblePortalDoorSpriteTop,	false);
+master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_HALLWAY_RIGHT,			locations.miriabramFoyer,	496,	36,		false,	locations.miriabramHallway, directions.north,	544,	256,	invisiblePortalDoorSpriteTop,	false);
+master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_EXT,					locations.miriabramFoyer,	304,	374,	false,	locations.miriabramExt,		directions.south,	400,	276,	firmwoodSpriteTop,				true);
+master_grid_add_door(	doors.MIRIABRAM_DORM_1_TO_HALLWAY,				locations.miriabramDorm1,	112,	276,	false,	locations.miriabramHallway,	directions.south,	128,	88,		firmwoodSpriteTop,				true);
+master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_DORM_1,				locations.miriabramHallway,	80,		48,		false,	locations.miriabramDorm1,	directions.north,	160,	280,	firmwoodSpriteTop,				false);
+master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_MIRIABRAM_LIBRARY,	locations.miriabramHallway,	304,	246,	false,	locations.miriabramLibrary,	directions.south,	352,	96,		firmwoodSpriteTop,				true);
+master_grid_add_door(	doors.MIRIABRAM_LIBRARY_TO_MIRIABRAM_HALLWAY,	locations.miriabramLibrary,	304,	48,		false,	locations.miriabramHallway,	directions.north,	352,	248,	firmwoodSpriteTop,				false);
+master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_MIRIABRAM_DOJO,		locations.miriabramFoyer,	304,	48,		false,	locations.miriabramDojo,	directions.north,	352,	376,	firmwoodSpriteTop,				false);
+master_grid_add_door(	doors.MIRIABRAM_DOJO_TO_MIRIABRAM_FOYER,		locations.miriabramDojo,	304,	374,	false,	locations.miriabramFoyer,	directions.south,	352,	96,		firmwoodSpriteTop,				true);
 
 // encode master grid
 global.allDoors = encode_grid(global.doorGrid);

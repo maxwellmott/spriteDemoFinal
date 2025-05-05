@@ -1008,6 +1008,12 @@ COMING BACK FROM PLAYTEST BUILD
 				then add all objects, doors, and literature
 				once finished with the above, start completing the remaining soulstone menus (todoList, ronin+, settings)
 				
-		5/2
+		5/4
 		
-				add 
+				all doors for current areas added and tuned.
+				make a tilemap for PM and HM quarters
+				add PM and HM quarters to the location grid
+				input tile data for PM and HM quarters
+				add doors for PM and HM quarters
+				
+				begin adding scenery, add footsteps
