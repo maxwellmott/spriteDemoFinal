@@ -1,7 +1,7 @@
 // this macro indicates the top position of the invisible door 
 // sprite to make it easy to check if that's the type of door
 // you're dealing with
-#macro	invisiblePortalDoorSpriteTop	288
+#macro	invisiblePortalDoorSpriteTop	192
 
 // enumerator containing door IDs
 enum doors {
@@ -17,6 +17,10 @@ enum doors {
 	MIRIABRAM_LIBRARY_TO_MIRIABRAM_HALLWAY,
 	MIRIABRAM_FOYER_TO_MIRIABRAM_DOJO,
 	MIRIABRAM_DOJO_TO_MIRIABRAM_FOYER,
+	MIRIABRAM_HALLWAY_TO_MIRIABRAM_HM_QUARTERS,
+	MIRIABRAM_HM_QUARTERS_TO_MIRIABRAM_HALLWAY,
+	MIRIABRAM_HALLWAY_TO_MIRIABRAM_PM_QUARTERS,
+	MIRIABRAM_PM_QUARTERS_TO_MIRIABRAM_HALLWAY,
 	height
 }
 
@@ -33,6 +37,7 @@ enum doorParams {
 	newY,
 	spriteTop,
 	upperFloor,
+	collidable,
 	height
 }
 
@@ -40,38 +45,42 @@ enum doorParams {
 
 // these variables all contain the top position for each
 // respective type of door on the door sheet sprite
-var firmwoodSpriteTop	= 0;
-var beachStoneSpriteTop = 48;
-var greenGlassSpriteTop	= 96;
-var frondweaveSpriteTop	= 144;
-var lavaRockSpriteTop	= 192;
-var blueGlassSpriteTop	= 240;
-var portalSpriteTop		= invisiblePortalDoorSpriteTop;
+var firmwoodSpriteTop		= 0;
+var beachStoneSpriteTop		= 48;
+var frondweaveSpriteTop		= 96;
+var lavaRockSpriteTop		= 144;
+var portalSpriteTop			= invisiblePortalDoorSpriteTop;
+var leftExitFirmwoodTop		= 240;
+var rightExitFirmwoodTop	= 288;
 
 // create master grid
 global.doorGrid = ds_grid_create(doorParams.height, doors.height);
 
 // define add door function
-function master_grid_add_door(_id, _location, _x, _y, _locked, _newLocation, _newFacing, _newX, _newY, _spriteTop, _upperFloor) {
+function master_grid_add_door(_id, _location, _x, _y, _locked, _newLocation, _newFacing, _newX, _newY, _spriteTop, _upperFloor, _collidable) {
 	var i = 0; repeat (doorParams.height) {
 		global.doorGrid[# i, _id] = argument[i];
 		i++;
 	}
 }
 
-//						ID												LOCATION					X		Y		LOCKED	NEWLOCATION					NEWFACING			NEW X	NEW Y	SPRITETOP						UPPER FLOOR
-master_grid_add_door(	doors.MIRIABRAM_EXT_TO_FOYER,					locations.miriabramExt,		352,	240,	false,	locations.miriabramFoyer,	directions.north,	352,	376,	firmwoodSpriteTop,				false);
-master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_FOYER_LEFT,			locations.miriabramHallway,	112,	296,	false,	locations.miriabramFoyer,	directions.south,	160,	96,		invisiblePortalDoorSpriteTop,	false);
-master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_FOYER_RIGHT, 		locations.miriabramHallway,	496,	296,	false,	locations.miriabramFoyer,	directions.south,	544,	96,		invisiblePortalDoorSpriteTop,	false);
-master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_HALLWAY_LEFT,			locations.miriabramFoyer,	112,	36,		false,	locations.miriabramHallway,	directions.north,	160,	256,	invisiblePortalDoorSpriteTop,	false);
-master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_HALLWAY_RIGHT,			locations.miriabramFoyer,	496,	36,		false,	locations.miriabramHallway, directions.north,	544,	256,	invisiblePortalDoorSpriteTop,	false);
-master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_EXT,					locations.miriabramFoyer,	304,	374,	false,	locations.miriabramExt,		directions.south,	400,	276,	firmwoodSpriteTop,				true);
-master_grid_add_door(	doors.MIRIABRAM_DORM_1_TO_HALLWAY,				locations.miriabramDorm1,	112,	276,	false,	locations.miriabramHallway,	directions.south,	128,	88,		firmwoodSpriteTop,				true);
-master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_DORM_1,				locations.miriabramHallway,	80,		48,		false,	locations.miriabramDorm1,	directions.north,	160,	280,	firmwoodSpriteTop,				false);
-master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_MIRIABRAM_LIBRARY,	locations.miriabramHallway,	304,	246,	false,	locations.miriabramLibrary,	directions.south,	352,	96,		firmwoodSpriteTop,				true);
-master_grid_add_door(	doors.MIRIABRAM_LIBRARY_TO_MIRIABRAM_HALLWAY,	locations.miriabramLibrary,	304,	48,		false,	locations.miriabramHallway,	directions.north,	352,	248,	firmwoodSpriteTop,				false);
-master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_MIRIABRAM_DOJO,		locations.miriabramFoyer,	304,	48,		false,	locations.miriabramDojo,	directions.north,	352,	376,	firmwoodSpriteTop,				false);
-master_grid_add_door(	doors.MIRIABRAM_DOJO_TO_MIRIABRAM_FOYER,		locations.miriabramDojo,	304,	374,	false,	locations.miriabramFoyer,	directions.south,	352,	96,		firmwoodSpriteTop,				true);
+//						ID													LOCATION							X		Y		LOCKED	NEWLOCATION						NEWFACING			NEW X	NEW Y	SPRITETOP						UPPER FLOOR		COLLIDABLE
+master_grid_add_door(	doors.MIRIABRAM_EXT_TO_FOYER,						locations.miriabramExt,				384,	240,	false,	locations.miriabramFoyer,		directions.north,	352,	376,	firmwoodSpriteTop,				false,			false);
+master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_FOYER_LEFT,				locations.miriabramHallway,			144,	296,	false,	locations.miriabramFoyer,		directions.south,	160,	96,		invisiblePortalDoorSpriteTop,	false,			false);
+master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_FOYER_RIGHT, 			locations.miriabramHallway,			528,	296,	false,	locations.miriabramFoyer,		directions.south,	544,	96,		invisiblePortalDoorSpriteTop,	false,			false);
+master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_HALLWAY_LEFT,				locations.miriabramFoyer,			144,	36,		false,	locations.miriabramHallway,		directions.north,	160,	256,	invisiblePortalDoorSpriteTop,	false,			false);
+master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_HALLWAY_RIGHT,				locations.miriabramFoyer,			528,	36,		false,	locations.miriabramHallway,		directions.north,	544,	256,	invisiblePortalDoorSpriteTop,	false,			false);
+master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_EXT,						locations.miriabramFoyer,			336,	374,	false,	locations.miriabramExt,			directions.south,	400,	276,	firmwoodSpriteTop,				true,			false);
+master_grid_add_door(	doors.MIRIABRAM_DORM_1_TO_HALLWAY,					locations.miriabramDorm1,			176,	278,	false,	locations.miriabramHallway,		directions.south,	160,	88,		firmwoodSpriteTop,				true,			false);
+master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_DORM_1,					locations.miriabramHallway,			144,	48,		false,	locations.miriabramDorm1,		directions.north,	160,	280,	firmwoodSpriteTop,				false,			false);
+master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_MIRIABRAM_LIBRARY,		locations.miriabramHallway,			336,	246,	false,	locations.miriabramLibrary,		directions.south,	352,	96,		firmwoodSpriteTop,				true,			false);
+master_grid_add_door(	doors.MIRIABRAM_LIBRARY_TO_MIRIABRAM_HALLWAY,		locations.miriabramLibrary,			336,	48,		false,	locations.miriabramHallway,		directions.north,	352,	248,	firmwoodSpriteTop,				false,			false);
+master_grid_add_door(	doors.MIRIABRAM_FOYER_TO_MIRIABRAM_DOJO,			locations.miriabramFoyer,			336,	48,		false,	locations.miriabramDojo,		directions.north,	352,	376,	firmwoodSpriteTop,				false,			false);
+master_grid_add_door(	doors.MIRIABRAM_DOJO_TO_MIRIABRAM_FOYER,			locations.miriabramDojo,			336,	374,	false,	locations.miriabramFoyer,		directions.south,	352,	96,		firmwoodSpriteTop,				true,			false);
+master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_MIRIABRAM_HM_QUARTERS,	locations.miriabramHallway,			3,		152,	false,	locations.miriabramHMQuarters,	directions.west,	140,	140,	leftExitFirmwoodTop,			false,			true);
+master_grid_add_door(	doors.MIRIABRAM_HM_QUARTERS_TO_MIRIABRAM_HALLWAY,	locations.miriabramHMQuarters,		140,	140,	false,	locations.miriabramHallway,		directions.east,	56,		188,	rightExitFirmwoodTop,			false,			true);
+master_grid_add_door(	doors.MIRIABRAM_HALLWAY_TO_MIRIABRAM_PM_QUARTERS,	locations.miriabramHallway,			669,	152,	false,	locations.miriabramPMQuarters,	directions.east,	140,	140,	rightExitFirmwoodTop,			false,			true);
+master_grid_add_door(	doors.MIRIABRAM_PM_QUARTERS_TO_MIRIABRAM_HALLWAY,	locations.miriabramPMQuarters,		140,	140,	false,	locations.miriabramHallway,		directions.east,	640,	188,	leftExitFirmwoodTop,			false,			true);
 
 // encode master grid
 global.allDoors = encode_grid(global.doorGrid);
@@ -154,9 +163,20 @@ function place_doors() {
 		// check if door's location matches player's location
 		if (grid[# doorParams.location, i] == player.location) {
 
-			// create the door
-			var d = instance_create_depth(x, y, get_layer_depth(LAYER.sprites), door);
-		
+			// check if the door is collidable
+			if (grid[# doorParams.collidable, i]) {
+				// create the doorCollidable
+				var d = instance_create_depth(x, y, get_layer_depth(LAYER.sprites), doorCollidable);
+			}
+			// if the door is not collidable
+			else {
+				// create the door
+				var d = instance_create_depth(x, y, get_layer_depth(LAYER.sprites), door);
+			}		
+			
+			// get spriteTop
+			d.spriteTop		= real(grid[# doorParams.spriteTop, i]);
+			
 			// set all of its parameters			
 			d.ID			= i;
 			d.x				= real(grid[# doorParams.X, i]);
@@ -170,10 +190,10 @@ function place_doors() {
 			d.newFacing		= real(grid[# doorParams.newFacing, i]);
 			d.newX			= real(grid[# doorParams.newX, i]);
 			d.newY			= real(grid[# doorParams.newY, i]);
-			d.spriteTop		= real(grid[# doorParams.spriteTop, i]);
+			
 			
 			if (d.spriteTop == invisiblePortalDoorSpriteTop) {
-				//d.visible = false;
+				d.visible = false;
 			}
 
 			d.upperFloor	= real(grid[# doorParams.upperFloor, i]);

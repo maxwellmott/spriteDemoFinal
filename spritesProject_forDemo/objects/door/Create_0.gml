@@ -15,4 +15,3 @@ spriteTop			= noone;
 spriteWidth			= 64
 spriteHeight		= 48;
 frame				= 0;
-upperFloor			= false;

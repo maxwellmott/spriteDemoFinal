@@ -1,6 +1,6 @@
 {
   "$GMObject":"",
-  "%Name":"door",
+  "%Name":"doorCollidable",
   "eventList":[
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":3,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
@@ -8,13 +8,16 @@
     {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":2,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
   ],
   "managed":true,
-  "name":"door",
+  "name":"doorCollidable",
   "overriddenProperties":[],
   "parent":{
     "name":"scenery",
     "path":"folders/Objects/Overworld/scenery.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"sceneryCollidable",
+    "path":"objects/sceneryCollidable/sceneryCollidable.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
@@ -34,8 +37,8 @@
   "solid":false,
   "spriteId":null,
   "spriteMaskId":{
-    "name":"spr_doorMask",
-    "path":"sprites/spr_doorMask/spr_doorMask.yy",
+    "name":"spr_doorCollidableMask",
+    "path":"sprites/spr_doorCollidableMask/spr_doorCollidableMask.yy",
   },
   "visible":true,
 }

@@ -1017,3 +1017,15 @@ COMING BACK FROM PLAYTEST BUILD
 				add doors for PM and HM quarters
 				
 				begin adding scenery, add footsteps
+				
+		5/5
+		
+				needed to make some changes to allow for horizontal doors lmao
+				there is now a separate object for collidable doors in case they need to replace walls etc
+				
+				fix the upstairs layer for most rooms aside from dorm 1
+				
+				make tilemaps for PM and HM quarters
+				input tile data for PM and HM quarters
+				
+				begin adding scenery, add footstep sfx

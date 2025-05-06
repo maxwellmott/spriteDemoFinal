@@ -95,7 +95,7 @@ function human_swim() {
 			// horizontal movement and collision
 			if !(tile_meeting(x + hmove, y, overworld.tm_ground, groundTileChecker))
 			&& !(tile_meeting(x + hmove, y, overworld.tm_collidables, collidableTileChecker)) 
-			&& !(place_meeting(x + hmove, y, sceneryCollidable)) 
+			&& !(place_meeting(x + hmove, y, sceneryCollidable))
 			&& !(place_meeting(x + hmove, y, human)) {
 				x = round(x + hmove);
 			}
@@ -220,6 +220,10 @@ function get_interactable() {
 					player.currentDoor = inst;
 					return interactions.doorCheck;
 				break;
+				
+				case doorCollidable:
+					player.currentDoor = inst;
+					return interactions.doorCheck;
 				
 				case literature:
 					player.currentLiterature = inst;

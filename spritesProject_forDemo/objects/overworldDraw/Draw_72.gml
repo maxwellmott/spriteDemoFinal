@@ -270,10 +270,10 @@ surface_set_target(upperStorySurface);
 	}
 	
 	// set circle radius
-	var r = 20 + (sin(global.gameTime / 40) * 2);
+	var r = 10 + (sin(global.gameTime / 40) * 1.5);
 
 	// draw a circle over the player
-	draw_circle(player.x - 1, player.y - 6, r, false);
+	draw_circle(player.x - 1, player.y - 7, r, false);
 
 	// change blendmode back to normal
 	gpu_set_blendmode(bm_normal);
