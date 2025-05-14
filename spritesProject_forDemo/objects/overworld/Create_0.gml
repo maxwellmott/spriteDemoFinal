@@ -55,6 +55,7 @@ locationName	= locationGrid[# locationParams.name, locationID];
 
 var objectString		= ds_grid_get(locationGrid,	locationParams.objectString,	locationID);
 var literatureString	= ds_grid_get(locationGrid, locationParams.literatureList,	locationID);
+var bookcaseString		= ds_grid_get(locationGrid, locationParams.bookcaseList,	locationID);
 
 tilemapList = ds_list_create();
 
@@ -99,6 +100,7 @@ tm_water		= tilemapList[| tilemaps.water];
 tm_upstairs		= tilemapList[| tilemaps.upperStory];
 tm_collidables	= tilemapList[| tilemaps.collidables];
 
+place_bookcases(bookcaseString);
 place_literature(literatureString);
 place_scenery(objectString);
 place_doors();

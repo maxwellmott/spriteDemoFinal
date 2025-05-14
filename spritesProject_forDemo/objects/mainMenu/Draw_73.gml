@@ -51,6 +51,13 @@ if !(outroStarted) {
 				draw_sprite(spr_mainMenuSelector, 0, rightSelectorX, sy);		
 			}
 		}		
+		
+		// set font
+		draw_set_font(digiClockFont);
+		
+		// draw digital clock
+		draw_text_pixel_perfect(x, y + 40, string(player.hours mod 12) + ":" + string(player.minutes), 6, guiWidth);
+		
 		// set alpha to shineAlpha
 		draw_set_alpha(shineAlpha);
 		

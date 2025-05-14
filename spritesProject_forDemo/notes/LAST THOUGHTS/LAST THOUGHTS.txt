@@ -1029,3 +1029,10 @@ COMING BACK FROM PLAYTEST BUILD
 				input tile data for PM and HM quarters
 				
 				begin adding scenery, add footstep sfx
+				
+		5/8
+		
+				ADD NEW GROUND TILESET
+				FIX HALLWAY UPSTAIRS TILESET
+				ADD CLOCK TO MAIN MENU WITH NEW FONT
+				

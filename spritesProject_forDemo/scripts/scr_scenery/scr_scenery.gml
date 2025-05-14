@@ -20,6 +20,10 @@ enum sceneryIDs {
 	lavishDiningTable,
 	ruggedDiningTable,
 	ruggedSleepingPad,
+	traditionalWindowIndoorUpstairs,
+	traditionalWindowIndoorNormal,
+	traditionalWindowOutdoor,
+	traditionalWoodenBookcase,
 	height
 }
 
@@ -63,27 +67,31 @@ function master_grid_add_scenery(_ID) {
 	}
 }
 
-// add all objects to master grid	ID										TYPE					SPRITE							MASK								NAME
-master_grid_add_scenery(			sceneryIDs.firmrootTree,				sceneryTypes.tree,		spr_firmrootTree,				spr_firmrootMask,					"FIRMROOT TREE");
-master_grid_add_scenery(			sceneryIDs.farseedTree,					sceneryTypes.tree,		spr_farseedTree,				spr_farseedMask,					"FARSEED TREE");
-master_grid_add_scenery(			sceneryIDs.graywoodTree,				sceneryTypes.tree,		spr_graywoodTree,				spr_graywoodMask,					"GRAYWOOD TREE");
-master_grid_add_scenery(			sceneryIDs.firmrootCluster,				sceneryTypes.cluster,	spr_firmrootCluster,			spr_firmrootClusterMask,			"FIRMROOT CLUSTER");
-master_grid_add_scenery(			sceneryIDs.farseedCluster,				sceneryTypes.cluster,	spr_farseedCluster,				spr_farseedClusterMask,				"FARSEED CLUSTER");
-master_grid_add_scenery(			sceneryIDs.graywoodCluster,				sceneryTypes.cluster,	spr_graywoodCluster,			spr_graywoodClusterMask,			"GRAYWOOD CLUSTER");
-master_grid_add_scenery(			sceneryIDs.boulderCluster,				sceneryTypes.cluster,	spr_boulderCluster,				spr_boulderClusterMask,				"BOULDER CLUSTER");
-master_grid_add_scenery(			sceneryIDs.subBoulderCluster,			sceneryTypes.cluster,	spr_subBoulderCluster,			spr_subBoulderClusterMask,			"SUBBOULDER CLUSTER");
-master_grid_add_scenery(			sceneryIDs.cityStreetlight,				sceneryTypes.lamppost,	spr_cityStreetlight,			spr_cityStreetlightMask,			"CITY STREETLIGHT");
-master_grid_add_scenery(			sceneryIDs.cityShortLamp,				sceneryTypes.lamppost,	spr_cityShortlamp,				spr_cityShortlampMask,				"CITY SHORT LAMP");
-master_grid_add_scenery(			sceneryIDs.crystalLampPost,				sceneryTypes.lamppost,	spr_crystalStreetlight,			spr_crystalStreetlightMask,			"CRYSTAL STREETLIGHT");
-master_grid_add_scenery(			sceneryIDs.boulder,						sceneryTypes.boulder,	spr_boulder,					spr_boulderMask,					"BOULDER");
-master_grid_add_scenery(			sceneryIDs.subBoulder,					sceneryTypes.boulder,	spr_subBoulder,					spr_subBoulderMask,					"SUBMERGED BOULDER");
-master_grid_add_scenery(			sceneryIDs.retroSendport,				sceneryTypes.sendport,	spr_sendport,					spr_sendportMask,					"RETRO SENDPORT");
-master_grid_add_scenery(			sceneryIDs.modernCoffeeTable,			sceneryTypes.table,		spr_modernCoffeeTable,			spr_modernCoffeeTableMask,			"MODERN COFFEE TABLE");
-master_grid_add_scenery(			sceneryIDs.postIndustrialCountertop,	sceneryTypes.table,		spr_postIndustrialCountertop,	spr_postIndustrialCountertopMask,	"POST INDUSTRIAL COUNTERTOP");
-master_grid_add_scenery(			sceneryIDs.postIndustrialCupboard,		sceneryTypes.table,		spr_postIndustrialCupboard,		spr_postIndustrialCupboardMask,		"POST INDUSTRIAL CUPBOARD");
-master_grid_add_scenery(			sceneryIDs.lavishDiningTable,			sceneryTypes.table,		spr_lavishDiningTable,			spr_lavishDiningTableMask,			"LAVISH DINING TABLE");
-master_grid_add_scenery(			sceneryIDs.ruggedDiningTable,			sceneryTypes.table,		spr_ruggedDiningTable,			spr_ruggedDiningTableMask,			"RUGGED DINING TABLE");
-master_grid_add_scenery(			sceneryIDs.ruggedSleepingPad,			sceneryTypes.bed,		spr_ruggedSleepingPad,			spr_ruggedSleepingPad,				"RUGGED SLEEPING PAD");
+// add all objects to master grid	ID											TYPE					SPRITE									MASK									NAME
+master_grid_add_scenery(			sceneryIDs.firmrootTree,					sceneryTypes.tree,		spr_firmrootTree,						spr_firmrootMask,						"FIRMROOT TREE");
+master_grid_add_scenery(			sceneryIDs.farseedTree,						sceneryTypes.tree,		spr_farseedTree,						spr_farseedMask,						"FARSEED TREE");
+master_grid_add_scenery(			sceneryIDs.graywoodTree,					sceneryTypes.tree,		spr_graywoodTree,						spr_graywoodMask,						"GRAYWOOD TREE");
+master_grid_add_scenery(			sceneryIDs.firmrootCluster,					sceneryTypes.cluster,	spr_firmrootCluster,					spr_firmrootClusterMask,				"FIRMROOT CLUSTER");
+master_grid_add_scenery(			sceneryIDs.farseedCluster,					sceneryTypes.cluster,	spr_farseedCluster,						spr_farseedClusterMask,					"FARSEED CLUSTER");
+master_grid_add_scenery(			sceneryIDs.graywoodCluster,					sceneryTypes.cluster,	spr_graywoodCluster,					spr_graywoodClusterMask,				"GRAYWOOD CLUSTER");
+master_grid_add_scenery(			sceneryIDs.boulderCluster,					sceneryTypes.cluster,	spr_boulderCluster,						spr_boulderClusterMask,					"BOULDER CLUSTER");
+master_grid_add_scenery(			sceneryIDs.subBoulderCluster,				sceneryTypes.cluster,	spr_subBoulderCluster,					spr_subBoulderClusterMask,				"SUBBOULDER CLUSTER");
+master_grid_add_scenery(			sceneryIDs.cityStreetlight,					sceneryTypes.lamppost,	spr_cityStreetlight,					spr_cityStreetlightMask,				"CITY STREETLIGHT");
+master_grid_add_scenery(			sceneryIDs.cityShortLamp,					sceneryTypes.lamppost,	spr_cityShortlamp,						spr_cityShortlampMask,					"CITY SHORT LAMP");
+master_grid_add_scenery(			sceneryIDs.crystalLampPost,					sceneryTypes.lamppost,	spr_crystalStreetlight,					spr_crystalStreetlightMask,				"CRYSTAL STREETLIGHT");
+master_grid_add_scenery(			sceneryIDs.boulder,							sceneryTypes.boulder,	spr_boulder,							spr_boulderMask,						"BOULDER");
+master_grid_add_scenery(			sceneryIDs.subBoulder,						sceneryTypes.boulder,	spr_subBoulder,							spr_subBoulderMask,						"SUBMERGED BOULDER");
+master_grid_add_scenery(			sceneryIDs.retroSendport,					sceneryTypes.sendport,	spr_sendport,							spr_sendportMask,						"RETRO SENDPORT");
+master_grid_add_scenery(			sceneryIDs.modernCoffeeTable,				sceneryTypes.table,		spr_modernCoffeeTable,					spr_modernCoffeeTableMask,				"MODERN COFFEE TABLE");
+master_grid_add_scenery(			sceneryIDs.postIndustrialCountertop,		sceneryTypes.table,		spr_postIndustrialCountertop,			spr_postIndustrialCountertopMask,		"POST INDUSTRIAL COUNTERTOP");
+master_grid_add_scenery(			sceneryIDs.postIndustrialCupboard,			sceneryTypes.table,		spr_postIndustrialCupboard,				spr_postIndustrialCupboardMask,			"POST INDUSTRIAL CUPBOARD");
+master_grid_add_scenery(			sceneryIDs.lavishDiningTable,				sceneryTypes.table,		spr_lavishDiningTable,					spr_lavishDiningTableMask,				"LAVISH DINING TABLE");
+master_grid_add_scenery(			sceneryIDs.ruggedDiningTable,				sceneryTypes.table,		spr_ruggedDiningTable,					spr_ruggedDiningTableMask,				"RUGGED DINING TABLE");
+master_grid_add_scenery(			sceneryIDs.ruggedSleepingPad,				sceneryTypes.bed,		spr_ruggedSleepingPad,					spr_ruggedSleepingPad,					"RUGGED SLEEPING PAD");
+master_grid_add_scenery(			sceneryIDs.traditionalWindowOutdoor,		sceneryTypes.window,	spr_traditionalWindowOutdoor,			spr_traditionalWindowOutdoor,			"TRADITIONAL WINDOW");
+master_grid_add_scenery(			sceneryIDs.traditionalWindowIndoorNormal,	sceneryTypes.window,	spr_traditionalWindowIndoor,			spr_traditionalWindowIndoor,			"TRADITIONAL WINDOW");
+master_grid_add_scenery(			sceneryIDs.traditionalWindowIndoorUpstairs, sceneryTypes.window,	spr_traditionalWindowIndoorUpstairs,	spr_traditionalWindowIndoorUpstairs,	"TRADITIONAL WINDOW");
+master_grid_add_scenery(			sceneryIDs.traditionalWoodenBookcase,		sceneryTypes.bookcase,	spr_traditionalWoodenBookcase,			spr_traditionalWoodenBookcaseMask,		"TRADITIONAL WOODEN BOOKCASE");
 
 // convert grid to an encoded string
 global.allScenery = encode_grid(global.sceneryGrid);
@@ -259,10 +267,6 @@ function scenery_get_object_index(_type) {
 		
 		case sceneryTypes.window:
 			return window;
-		break;
-		
-		case sceneryTypes.bookcase:
-			return bookcase;
 		break;
 		
 		case sceneryTypes.boulder:

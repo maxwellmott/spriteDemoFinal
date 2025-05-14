@@ -128,6 +128,14 @@ if (overworld.sceneryCreated) {
 				}
 			}
 		
+			if (instance_exists(window)) {
+				with (window) {
+					if (window.frame == 1) {
+						app_surface_draw_scenery();
+					}
+				}
+			}
+			
 		gpu_set_blendmode(bm_normal);
 	
 	surface_reset_target();
@@ -274,6 +282,14 @@ surface_set_target(upperStorySurface);
 
 	// draw a circle over the player
 	draw_circle(player.x - 1, player.y - 7, r, false);
+
+	if (instance_exists(window)) {
+		with (window) {
+				draw_sprite(spriteID, frame, x, y);
+				draw_sprite(spriteID, frame, x, y);
+				draw_sprite(spriteID, frame, x, y);
+		}
+	}
 
 	// change blendmode back to normal
 	gpu_set_blendmode(bm_normal);

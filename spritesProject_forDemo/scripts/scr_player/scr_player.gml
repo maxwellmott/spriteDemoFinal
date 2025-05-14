@@ -198,7 +198,8 @@ function player_draw_from_state() {
 /// function gets controller input and checks if the player is moving
 function player_move() {
 	
-	if (instance_exists(menu)) return -1;
+	if (instance_exists(menu))	return -1;
+	if !(global.roomBuilt)		return -1;
 	
 	// store all globals in locals
 	var right	= global.charRight;

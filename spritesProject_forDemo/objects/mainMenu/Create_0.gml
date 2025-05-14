@@ -6,7 +6,7 @@ audio_push_sfx(sfx_openSoulStone);
 enum MAIN_MENU_BUTTONS {
 	TEAM,
 	SPELLS,
-	CONTACTS,
+	PRESETS,
 	TODO_LIST,
 	RONIN,
 	SETTINGS,
@@ -56,8 +56,8 @@ var i = 0;	repeat (MAIN_MENU_BUTTONS.HEIGHT) {
 			nm		= rm_spellbookBuilder;
 		break;
 		
-		case MAIN_MENU_BUTTONS.CONTACTS:
-			name	= "CONTACTS";
+		case MAIN_MENU_BUTTONS.PRESETS:
+			name	= "PRESETS";
 			top		= y - 11;
 			bottom	= top + 10;
 			nm		= -1;

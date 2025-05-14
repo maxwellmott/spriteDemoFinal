@@ -1,3 +1,5 @@
+#macro		BOOKCASE_BOOK_INDICATOR		-800
+
 // enumerator containing literature IDs
 enum literatureIDs {
 	inhumanEntities,					//a book describing everything about sprites from a scientific perspective
@@ -361,6 +363,26 @@ function place_literature(_encodedList) {
 		var _x = string_digits(params[|0]);
 		var _y = string_digits(params[|1]);
 		var ID = string_digits(params[|2]);
+		
+		// check if this is a bookcase book
+		if (_x == BOOKCASE_BOOK_INDICATOR) {
+			// use a repeat loop to check each bookcase			
+			var i = 0;	repeat (instance_number(bookcase)) {
+				// get the id of the next bookcase instance
+				var bcid = instance_find(bookcase, i);
+				
+				// check if this bookcaseNum matches the given y for this book
+				if (bcid.bookcaseNum == _y) {
+					// add this book's ID to this bookcase
+					ds_list_add(bcid.bookList, ID);
+					
+					// break the repeat loop
+					break;
+				}
+
+				i++;
+			}
+		}
 		
 		// this is the type of object to create (guiBook guiScroll, guiDocument)
 		var obj	= grid[# literatureParams.object,	ID];

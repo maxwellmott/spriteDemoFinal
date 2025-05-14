@@ -184,3 +184,14 @@ ds_grid_destroy(hatTextGrid);
 ds_grid_destroy(accessoryTextGrid);
 ds_grid_destroy(hairstyleTextGrid);
 ds_grid_destroy(footwearTextGrid);
+
+
+
+// create openHat list
+global.openHats = ds_list_create();
+
+//ds_list_add(global.openHats, 0, 1);
+
+// encode openHats list
+
+// delete openHats list

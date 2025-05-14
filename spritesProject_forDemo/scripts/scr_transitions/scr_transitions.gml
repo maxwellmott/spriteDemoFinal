@@ -31,6 +31,8 @@ function overworld_transition(_newX, _newY, _newFacing, _newLocation) {
 	
 	instance_destroy(overworld);
 	
+	player.currentDoor = -1;
+	
 	create_once(0, 0, LAYER.meta, transitionManager);
 }
 

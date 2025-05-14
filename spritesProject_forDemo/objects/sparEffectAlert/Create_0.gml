@@ -112,6 +112,21 @@ else {
 	}
 }
 
+if (effectID == SPAR_EFFECTS.BESTOW_MINDSET)
+|| (effectID == SPAR_EFFECTS.BESTOW_MINDSET_TEAM)
+|| (effectID == SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ALLIES)
+|| (effectID == SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_ENEMIES)
+|| (effectID == SPAR_EFFECTS.BESTOW_MINDSET_NEARBY_SPRITES) {
+	// if this is a curse
+	if (global.argumentList[| 1] >= MINDSETS.TREE_CURSE) {
+		animation = sparFX_receiveCurse;
+	}
+	// if this is a blessing
+	else {
+		animation = sparFX_receiveBlessing;
+	}
+}
+
 // set the alarm that will start the animation if there is one or 
 // destroy the alert if there isn't one
 alarm[0] = 90;

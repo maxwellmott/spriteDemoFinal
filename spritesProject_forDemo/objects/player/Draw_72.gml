@@ -10,7 +10,7 @@ if (hat != hats.nothing) {
 	surface_set_target(hatSurface);
 	
 		// copy a section to the hatSurface
-		surface_copy_part(hatSurface, 0, 0, application_surface, drawX, drawY, 24, 11);
+		hatSurface = surface_copy_part(hatSurface, 0, 0, application_surface, drawX, drawY, 24, 11);
 		
 		// set blendmode to subtractive
 		gpu_set_blendmode(bm_subtract);
