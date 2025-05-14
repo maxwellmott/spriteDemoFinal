@@ -229,6 +229,11 @@ function get_interactable() {
 					player.currentLiterature = inst;
 					return interactions.read;
 				break;
+				
+				case bookcase:
+					global.speaker = inst;
+					return interactions.bookcase;
+				break;
 			}
 			
 			// check if it is an NPC
@@ -304,6 +309,8 @@ function interact() {
 			case interactions.talk:			create_once(0, 0, LAYER.ui, talkBubble);							break;
 			
 			case interactions.sendport:		sendport.frame = 1;	sendport.alarm[0] = 12;							break;
+			
+			case interactions.bookcase:		create_once(0, 0, LAYER.ui, responseMenu);
 	}
 }
 

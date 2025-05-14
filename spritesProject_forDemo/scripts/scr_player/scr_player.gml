@@ -10,6 +10,7 @@ enum interactions {
 	talk,
 	read,
 	sendport,
+	bookcase,
 	height
 }
 

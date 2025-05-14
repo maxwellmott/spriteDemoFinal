@@ -5,3 +5,5 @@
 event_inherited();
 
 bookcaseNum = -1;
+
+bookList = ds_list_create();

@@ -6,7 +6,7 @@ var i = 0;	repeat (responseCount) {
 	var bottom	= bottomList[| i];
 	
 	if (collision_rectangle(left, top, right, bottom, mouse, true, false)) {
-		selectedResponse = i;	
+		selectedResponse = i;
 	
 		if (global.click) {
 			instance_destroy(id);	

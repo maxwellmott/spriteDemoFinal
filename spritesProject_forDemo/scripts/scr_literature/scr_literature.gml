@@ -1,4 +1,4 @@
-#macro		BOOKCASE_BOOK_INDICATOR		-800
+#macro		BOOKCASE_BOOK_INDICATOR		8004123
 
 // enumerator containing literature IDs
 enum literatureIDs {
@@ -360,9 +360,9 @@ function place_literature(_encodedList) {
 		var params = ds_list_create();
 		decode_list(str, params);
 		
-		var _x = string_digits(params[|0]);
-		var _y = string_digits(params[|1]);
-		var ID = string_digits(params[|2]);
+		var _x = real(string_digits(params[|0]));
+		var _y = real(string_digits(params[|1]));
+		var ID = real(string_digits(params[|2]));
 		
 		// check if this is a bookcase book
 		if (_x == BOOKCASE_BOOK_INDICATOR) {
@@ -383,21 +383,23 @@ function place_literature(_encodedList) {
 				i++;
 			}
 		}
+		// if this was not a bookcase book
+		else {
+			// this is the type of object to create (guiBook guiScroll, guiDocument)
+			var obj	= grid[# literatureParams.object,	ID];
+			obj	= correct_string_after_decode(obj);
 		
-		// this is the type of object to create (guiBook guiScroll, guiDocument)
-		var obj	= grid[# literatureParams.object,	ID];
-		obj	= correct_string_after_decode(obj);
+			var z = scenery_get_depth(_y);
 		
-		var z = scenery_get_depth(_y);
+			var inst = instance_create_depth(_x, _y, z, literature);
 		
-		var inst = instance_create_depth(_x, _y, z, literature);
-		
-		inst.x		= _x;
-		inst.y		= _y;
-		inst.ID		= ID;
-		inst.obj	= obj;
-		
-		i++;
+			inst.x		= _x;
+			inst.y		= _y;
+			inst.ID		= ID;
+			inst.obj	= obj;
+			
+			i++;
+		}
 	}
 }
 

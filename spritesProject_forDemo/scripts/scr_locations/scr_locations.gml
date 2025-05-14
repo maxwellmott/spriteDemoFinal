@@ -751,8 +751,9 @@ var miriabramHMQuartersLiterature	= ds_list_create();
 var miriabramPMQuartersLiterature	= ds_list_create();
 var miriabramExtLiterature			= ds_list_create();
 
-//			list name					x			y			ID
-ds_list_add(miriabramDorm1Literature,	"132,"+		"68,"+		string(literatureIDs.inhumanEntities)+",");
+//			list name					x										y			ID
+ds_list_add(miriabramDorm1Literature,	"132,"+									"68,"+		string(literatureIDs.inhumanEntities)+",",
+										string(BOOKCASE_BOOK_INDICATOR)+","+	"0,"+		string(literatureIDs.inhumanEntities)+",");
 
 #endregion
 
