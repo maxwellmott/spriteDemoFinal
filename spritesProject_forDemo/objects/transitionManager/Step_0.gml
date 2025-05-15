@@ -95,6 +95,11 @@ switch (state) {
 					state = transitionStates.fadingOut;
 				break;
 				
+				case rm_sparSetsMenu:
+					create_once(0, 0, LAYER.meta, sparSetsMenu);
+					create_once(0, 0, LAYER.ui, mouse);
+					state = transitionStates.fadingOut;
+				
 				default:
 					state = transitionStates.fadingOut;
 				break;

@@ -3,7 +3,7 @@ var i = 0;	repeat (responseCount) {
 	var col		= COL_BLACK;
 	
 	if (selectedResponse == i) {
-		frame = 1;	
+		frame = 1;
 		col = COL_WHITE;
 	}
 	
