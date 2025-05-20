@@ -60,8 +60,8 @@ event_inherited();
 	shoeColor		= 0;
 	accessory		= 0;
 
-	// initialize hatSurface
-	hatSurface = surface_create(24, 42);
+	// initialize playerAppearanceSurface
+	playerAppearanceSurface = surface_create(24, 42);
 	
 	// initialize variables for house decor
 	firstFloorTileset	= -1;
@@ -335,3 +335,5 @@ palette = encode_list(pl);
 
 // destroy the dummy palette list
 ds_list_destroy(pl);
+
+// 

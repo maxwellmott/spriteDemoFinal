@@ -11,7 +11,7 @@ global.mpSpendingSprite = -1;
 
 ///@desc This function asks for one argument--the ID of an effect from the SPAR_EFFECTS
 /// enum--but it is meant to be overloaded with any arguments that the given function
-/// requires. This function is called by spells and abilities and different checks that 
+/// requires. This function is called by spells and abilities and different checks that
 /// would result in a spar effect needing to be somehow applied. The function takes
 /// the ID of the given effect function, as well as any overloading args and stores
 /// them on an encoded list which is then pushed to the spar effectAlertList.

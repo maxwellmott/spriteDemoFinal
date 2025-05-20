@@ -60,6 +60,9 @@ function player_load_appearance() {
 	hatColor		= cl[| hatColor];
 	shoeColor		= cl[| shoeColor];
 	
+	hairstyle = hairstyles.longStraight;
+	hairColor = cl[| COLORS.HAIR_DARK_BROWN];
+	
 	// destroy temp lists
 	ds_list_destroy(list);
 	ds_list_destroy(cl);
@@ -107,24 +110,40 @@ function player_set_frames() {
 /// the player in the human draw event, while in the overworld. The function draws the
 /// player in their standard state (walking)
 function draw_standard_player() {
-	draw_sprite_part_ext(humanBody,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	0,								humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, skintone,		1.0);
-	draw_sprite_part_ext(outfitSheet,	0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * outfit,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, outfitColor,	1.0);
-	draw_sprite_part_ext(eyewearSheet,	0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * eyewear,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, c_white,		1.0);
-	draw_sprite_part_ext(hairSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * hairstyle,	humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, hairColor,		1.0);
+	surface_set_target(playerAppearanceSurface);
 	
-	if (hat != hats.nothing) {
-		// make sure surface exists
-		if !(surface_exists(hatSurface)) {
-			hatSurface = surface_create(24, 42);
+		draw_sprite_part_ext(humanBody,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	0,								humanSpriteWidth, humanSpriteHeight, 0, 0, 1, 1, skintone,		1.0);
+		draw_sprite_part_ext(outfitSheet,	0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * outfit,		humanSpriteWidth, humanSpriteHeight, 0, 0, 1, 1, outfitColor,	1.0);
+		draw_sprite_part_ext(eyewearSheet,	0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * eyewear,		humanSpriteWidth, humanSpriteHeight, 0, 0, 1, 1, c_white,		1.0);
+		draw_sprite_part_ext(hairSheet,		0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * hairstyle,	humanSpriteWidth, humanSpriteHeight, 0, 0, 1, 1, hairColor,		1.0);
+		
+		// check if the player is wearing a hat
+		if (hat != hats.nothing) {
+			// set blend mode to subtractive
+			gpu_set_blendmode(bm_subtract);
+		
+				// draw rectangle
+				draw_rectangle_color(0, 0, 24, 11, c_black, c_black, c_black, c_black, false);
+			
+			// reset blendmode
+			gpu_set_blendmode(bm_normal);
 		}
 		
-		// draw the hatSurface
-		draw_surface(hatSurface, drawX, drawY);		
-	}
+		draw_sprite_part_ext(hatSheet,			0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * hat,			humanSpriteWidth, humanSpriteHeight, 0, 0, 1, 1, hatColor,	1.0);
+
+		draw_sprite_part_ext(shoeSheet,			0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * shoes,		humanSpriteWidth, humanSpriteHeight, 0, 0, 1, 1, shoeColor,	1.0);
+		draw_sprite_part_ext(accessorySheet,	0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * accessory,	humanSpriteWidth, humanSpriteHeight, 0, 0, 1, 1, c_white,	1.0);
 	
-	draw_sprite_part_ext(hatSheet,			0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * hat,			humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, hatColor,		1.0);
-	draw_sprite_part_ext(shoeSheet,			0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * shoes,		humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, shoeColor,		1.0);
-	draw_sprite_part_ext(accessorySheet,	0, (facing * (humanSpriteWidth * 4)) + (frame * humanSpriteWidth),	humanSheetHeight * accessory,	humanSpriteWidth, humanSpriteHeight, drawX, drawY, 1, 1, c_white,		1.0);
+	surface_reset_target();
+}
+
+function player_draw_appearance_surface() {
+		// check if playerAppearanceSurface was deleted
+		if !(surface_exists(playerAppearanceSurface)) {
+			playerAppearanceSurface = surface_create(24, 42);
+		}
+	
+		draw_surface(playerAppearanceSurface, drawX, drawY);
 }
 
 ///@desc This function is called by the player_draw_from_state function when drawing
@@ -172,6 +191,14 @@ function draw_swimming_player() {
 ///@desc This function is called in the human draw event, while in the overworld. The
 /// function checks the player's current state and then draws the appropriate animation
 function player_draw_from_state() {
+	// clear playerAppearanceSurface
+	surface_set_target(playerAppearanceSurface);
+	
+		draw_clear_alpha(c_black, 0);
+	
+	// reset surface target
+	surface_reset_target();
+	
 	switch (state) {
 		case humanStates.standard:
 			if swimming		draw_swimming_player();
@@ -275,8 +302,8 @@ function open_emote_menu() {
 }
 
 ///@desc This function is called whenever the action menu is opened
-function open_action_menu() {
-	create_once(0, 0, LAYER.meta, actionMenu);	
+function open_cube_menu() {
+	create_once(0, 0, LAYER.meta, rdmsCube);
 }
 
 ///@desc This function is called at the beginning of a spar. It takes the human's

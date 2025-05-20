@@ -1,5 +1,12 @@
 event_inherited();
 
+if (global.shiftPressed)
+&& (keyboard_check_released(ord("Q"))) {
+	appearance[| APPEARANCE_PARAMS.hairstyle] = hairstyles.shortMessy;
+	appearance[| APPEARANCE_PARAMS.hairColor] = COLORS.DYNOCTA_PINK;
+	appearanceLoaded = false;
+}
+
 #region OVERWORLD MOVEMENT AND INTERACTION
 // get appearance variables
 if !(appearanceLoaded) {
@@ -71,7 +78,7 @@ if (instance_exists(overworld))
 	
 	if (global.leftBumper) 
 	&& !(global.rightBumper) {
-		open_action_menu();
+		open_cube_menu();
 	}
 }
 

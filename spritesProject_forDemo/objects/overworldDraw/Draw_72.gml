@@ -157,7 +157,7 @@ surface_set_target(upperStorySurface);
 	if (instance_exists(door)) {
 		with (door) {
 			if (upperFloor) {
-				draw_sprite_part(doorSheet, frame, 0, spriteTop, spriteWidth, spriteHeight, x, y);	
+				draw_sprite_part(doorSheet, frame, 0, spriteTop, spriteWidth, spriteHeight, x, y);
 			}
 		}
 	}

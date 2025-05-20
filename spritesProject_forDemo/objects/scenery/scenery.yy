@@ -12,10 +12,7 @@
     "name":"scenery",
     "path":"folders/Objects/Overworld/scenery.yy",
   },
-  "parentObjectId":{
-    "name":"interactable",
-    "path":"objects/interactable/interactable.yy",
-  },
+  "parentObjectId":null,
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,

@@ -12,6 +12,10 @@ if (surface_exists(application_surface)) {
 	draw_surface_stretched(application_surface, 0, 0, display_get_gui_width(), display_get_gui_height());
 }
 
+// calculate the x and y scale for drawing the app surface to the hat surface
+var xScale = display_get_width() div guiWidth;
+var yScale = round(display_get_height() / guiHeight);
+
 if (instance_exists(overworldDraw)) {
 	if (overworld.tilemapList[| tilemaps.upperStory] != -1) {
 		if (surface_exists(overworldDraw.upperStorySurface)) {

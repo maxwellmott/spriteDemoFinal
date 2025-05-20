@@ -13,7 +13,10 @@
     "name":"scenery",
     "path":"folders/Objects/Overworld/scenery.yy",
   },
-  "parentObjectId":null,
+  "parentObjectId":{
+    "name":"scenery",
+    "path":"objects/scenery/scenery.yy",
+  },
   "persistent":false,
   "physicsAngularDamping":0.1,
   "physicsDensity":0.5,
