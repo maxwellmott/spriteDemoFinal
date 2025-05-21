@@ -9,6 +9,19 @@ enum CUBE_MENU_PHASES {
 	HEIGHT,
 }
 
+// declare an enumerator containing all buttons
+enum CUBE_MENU_BUTTONS {
+	TALISMANS,
+	WAVEPHONE,
+	INVENTORY,
+	WARDROBE,
+	SPELLBOOK,
+	HEIGHT	
+}
+
+// initialize index
+index = CUBE_MENU_BUTTONS.TALISMANS;
+
 surfaceWidth = 112;
 surfaceHeight = 100;
 
@@ -29,20 +42,20 @@ openingFinalFrame = 12;
 closingFinalFrame = 10;
 
 // initialize all button positions
-wavephoneButtonX	= (surfaceWidth / 2) - 25;
-wavephoneButtonY	= (surfaceHeight / 2) - 58;
+wavephoneButtonX	= centerX - 32;
+wavephoneButtonY	= centerY - 8;
 
-talismanButtonX		= (surfaceWidth / 2) - 27;
-talismanButtonY		= (surfaceHeight / 2) - 102;
+talismanButtonX		= centerX - 28;
+talismanButtonY		= centerY - 36;
 
-inventoryButtonX	= surfaceWidth / 2;
-inventoryButtonY	= (surfaceHeight / 2) - 88;
+inventoryButtonX	= centerX;
+inventoryButtonY	= centerY - 32;
 
-wardrobeButtonX		= (surfaceWidth / 2) + 31;
-wardrobeButtonY		= (surfaceHeight / 2) - 102;
+wardrobeButtonX		= centerX + 32;
+wardrobeButtonY		= centerY - 40;
 
-spellbookButtonX	= (surfaceWidth / 2) + 24;
-spellbookButtonY	= (surfaceHeight / 2) - 71;
+spellbookButtonX	= centerX + 8;
+spellbookButtonY	= centerY - 24;
 
 cubeX = centerX;
 cubeY = surfaceHeight - 9;
@@ -67,10 +80,29 @@ frontLightCycle = 8;
 glowBarFrame = 0;
 
 // initialize all bbox lists
+var xDiff = abs((guiWidth / 2) - centerX);
+var yDiff = abs((guiHeight / 2) - centerY);
 
+var wavephoneWidth		= sprite_get_width(spr_cubeMenu_wavephoneButton);
+var wavephoneHeight		= sprite_get_height(spr_cubeMenu_wavephoneButton);
+
+var talismanWidth		= sprite_get_width(spr_cubeMenu_talismanButton);
+var talismanHeight		= sprite_get_height(spr_cubeMenu_talismanButton);
+
+var inventoryWidth		= sprite_get_width(spr_cubeMenu_inventoryButton);
+var inventoryHeight		= sprite_get_height(spr_cubeMenu_inventoryButton);
+
+var wardrobeWidth		= sprite_get_width(spr_cubeMenu_mirrorButton);
+var wardrobeHeight		= sprite_get_height(spr_cubeMenu_mirrorButton);
+
+var spellbookWidth		= sprite_get_width(spr_cubeMenu_spellbookButton);
+var spellbookHeight		= sprite_get_height(spr_cubeMenu_spellbookButton);
 
 // set all bbox values 
-
+bboxLefts		= ds_list_create();
+bboxRights		= ds_list_create();
+bboxTops		= ds_list_create();
+bboxBottoms		= ds_list_create();
 
 // initialize index
 index = -1;

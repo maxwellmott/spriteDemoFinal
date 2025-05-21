@@ -15,15 +15,6 @@ surface_set_target(cubeMenuSurface);
 		case CUBE_MENU_PHASES.OPENING:
 			// add the backlight sprite
 			draw_sprite(spr_cubeMenu_backlight, image_index, centerX, centerY);
-			
-			// lower alpha
-			draw_set_alpha(0.25);
-			
-				// draw the backlight sprite again
-				draw_sprite(spr_cubeMenu_backlight, image_index, centerX, centerY);
-			
-			// reset alpha
-			draw_set_alpha(1.0);
 		
 			// if top is not yet open
 			if !(topOpen) {
@@ -43,17 +34,31 @@ surface_set_target(cubeMenuSurface);
 			draw_sprite(spr_cubeMenu_mirrorButton,		0,	wardrobeButtonX,	wardrobeButtonY);
 			draw_sprite(spr_cubeMenu_spellbookButton,	0,	spellbookButtonX,	spellbookButtonY);
 			
+			// use a switch index to properly draw the currently selected button
+			switch(index) {
+				case CUBE_MENU_BUTTONS.TALISMANS:
+				
+				break;
+				
+				case CUBE_MENU_BUTTONS.WAVEPHONE:
+				
+				break;
+				
+				case CUBE_MENU_BUTTONS.INVENTORY:
+				
+				break;
+				
+				case CUBE_MENU_BUTTONS.WARDROBE:
+				
+				break;
+				
+				case CUBE_MENU_BUTTONS.SPELLBOOK:
+				
+				break;
+			}
+			
 			// add the backlight sprite
 			draw_sprite(spr_cubeMenu_frontlight, image_index, centerX, centerY);
-			
-			// lower alpha
-			draw_set_alpha(0.25);
-			
-				// draw the frontlight sprite again
-				draw_sprite(spr_cubeMenu_frontlight, image_index, centerX, centerY);
-			
-			// reset alpha
-			draw_set_alpha(1.0);
 			
 			// check that glowBarFrame is not past glowBarFrameCount
 			if (glowBarFrame < glowBarFrameCount) {
@@ -76,15 +81,6 @@ surface_set_target(cubeMenuSurface);
 			// add the backlight sprite
 			draw_sprite(spr_cubeMenu_backlight, image_index, centerX, centerY);
 		
-			// lower alpha
-			draw_set_alpha(0.25);
-			
-				// draw the backlight sprite again
-				draw_sprite(spr_cubeMenu_backlight, image_index, centerX, centerY);
-			
-			// reset alpha
-			draw_set_alpha(1.0);
-		
 			// draw still frame
 			draw_sprite(spr_cubeMenu_opening, openingFinalFrame, cubeX, cubeY);
 		
@@ -97,15 +93,6 @@ surface_set_target(cubeMenuSurface);
 			
 			// add the backlight sprite
 			draw_sprite(spr_cubeMenu_frontlight, image_index, centerX, centerY);
-			
-			// lower alpha
-			draw_set_alpha(0.25);
-			
-				// draw the frontlight sprite again
-				draw_sprite(spr_cubeMenu_frontlight, image_index, centerX, centerY);
-			
-			// reset alpha
-			draw_set_alpha(1.0);
 			
 			// check that glowBarFrame is not past glowBarFrameCount
 			if (glowBarFrame < glowBarFrameCount) {

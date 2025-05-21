@@ -42,7 +42,7 @@ if (instance_exists(overworldDraw)) {
 if (instance_exists(cubeMenu)) {
 	with (cubeMenu) {
 		// set alpha as relative to the distance between rectangleY and rectTargetY and the height of the rectangle
-		var a = ((80 - (rectangleY + 40)) / rectangleHeight) * 0.65;
+		var a = ((80 - (rectangleY + 40)) / rectangleHeight) * 0.85;
 		draw_set_alpha(a);
 		
 		// draw a rectangle over the screen
@@ -58,6 +58,9 @@ if (instance_exists(cubeMenu)) {
 		
 		// draw cubeMenuSurface
 		draw_surface_ext(cubeMenuSurface, (display_get_gui_width() / 2) - ((surfaceWidth / 2) * (display_get_gui_width() / guiWidth)), (display_get_gui_height() / 2) - (((surfaceHeight / 2) - 24) * (display_get_gui_height() / guiHeight)), display_get_gui_width() / guiWidth, display_get_gui_height() / guiHeight, 0, c_white, 1.0);
+	
+		// redraw mouse
+		draw_sprite_ext(mouse.sprite_index, mouse.image_index, device_mouse_x_to_gui(0), device_mouse_y_to_gui(0), display_get_gui_width() / guiWidth, display_get_gui_height() / guiHeight, 0, c_white, 1.0);
 	}
 }
 

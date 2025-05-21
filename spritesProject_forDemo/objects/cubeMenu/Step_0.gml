@@ -30,6 +30,27 @@ switch (phase) {
 	
 	case CUBE_MENU_PHASES.DISPLAY:
 		// use a switch statement to manage button input
+		switch(index) {
+			case CUBE_MENU_BUTTONS.TALISMANS:
+			
+			break;
+			
+			case CUBE_MENU_BUTTONS.WAVEPHONE:
+			
+			break;
+			
+			case CUBE_MENU_BUTTONS.INVENTORY:
+			
+			break;
+			
+			case CUBE_MENU_BUTTONS.WARDROBE:
+			
+			break;
+			
+			case CUBE_MENU_BUTTONS.SPELLBOOK:
+			
+			break;
+		}
 		
 		// check for a click
 			// check all bboxes for collisions with the mouse
