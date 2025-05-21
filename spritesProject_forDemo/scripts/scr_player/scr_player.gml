@@ -303,7 +303,7 @@ function open_emote_menu() {
 
 ///@desc This function is called whenever the action menu is opened
 function open_cube_menu() {
-	create_once(0, 0, LAYER.meta, rdmsCube);
+	create_once(0, 0, LAYER.meta, cubeMenu);
 }
 
 ///@desc This function is called at the beginning of a spar. It takes the human's

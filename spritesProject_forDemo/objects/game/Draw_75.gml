@@ -39,4 +39,26 @@ if (instance_exists(overworldDraw)) {
 	}
 }
 
+if (instance_exists(cubeMenu)) {
+	with (cubeMenu) {
+		// set alpha as relative to the distance between rectangleY and rectTargetY and the height of the rectangle
+		var a = ((80 - (rectangleY + 40)) / rectangleHeight) * 0.65;
+		draw_set_alpha(a);
+		
+		// draw a rectangle over the screen
+		draw_rectangle_color(0, 0, display_get_gui_width(), display_get_gui_height(), c_black, c_black, c_black, c_black, false);
+		
+		draw_set_alpha(1);
+		
+		// check if rectangleSurface doesn't exist
+		if !(surface_exists(cubeMenuSurface)) {
+			// create rectangleSurface
+			cubeMenuSurface = surface_create(surfaceWidth, surfaceHeight);
+		}
+		
+		// draw cubeMenuSurface
+		draw_surface_ext(cubeMenuSurface, (display_get_gui_width() / 2) - ((surfaceWidth / 2) * (display_get_gui_width() / guiWidth)), (display_get_gui_height() / 2) - (((surfaceHeight / 2) - 24) * (display_get_gui_height() / guiHeight)), display_get_gui_width() / guiWidth, display_get_gui_height() / guiHeight, 0, c_white, 1.0);
+	}
+}
+
 draw_surface_stretched(guiSurface, 0, 0, display_get_gui_width(), display_get_gui_height());
