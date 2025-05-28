@@ -484,8 +484,14 @@ function npc_set_frames() {
 ///@desc This function is called to increment the frame variable for humans and npcs
 function animate_human() {
 	// increment frame when appropriate
-	if !(global.gameTime mod 8) frame++;
-
+	if !(global.gameTime mod 8) {
+		frame++;
+		
+		if (frame mod 2 == 0) {
+			audio_push_sfx(global.currentFootstepSound);	
+		}
+	}
+	
 	// wrap using min and maxFrame
 	if frame > maxFrame frame = minFrame;
 }

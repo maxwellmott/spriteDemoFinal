@@ -29,7 +29,16 @@ function game_start() {
 		// set the player's location to the starting area
 		player.location = locations.miriabramDorm1;
 		
-		room_transition(128, 160, directions.south, rm_overworld, bgm_magicIsInTheAir);
+		// @TODO replace this with a full blown function that also appears at 
+		// the end of dayChange
+		if (global.rainActive) {
+			var s = bgm_anotherBlessedDay;
+		}
+		else {
+			var s = bgm_magicIsInTheAir;	
+		}
+		
+		room_transition(128, 160, directions.south, rm_overworld, s);
 	}
 	// if there is not already a save file
 	else {		
@@ -130,6 +139,7 @@ function build_save_file() {
 		ds_map_add(_map, "onlineSpriteUseCounts",	onlineSpriteUseCounts);
 		ds_map_add(_map, "roninSpriteWinCounts",	roninSpriteWinCounts);
 		ds_map_add(_map, "onlineSpriteWinCounts",	onlineSpriteWinCounts);
+		ds_map_add(_map, "lastMatchResultsList",	lastMatchResultsList);
 	}
 	
 	// Wrap all of that in one ds_map
@@ -199,6 +209,7 @@ function load_save_file() {
 				onlineSpriteUseCounts		= _map[? "onlineSpriteUseCounts"];
 				roninSpriteWinCounts		= _map[? "roninSpriteWinCounts"];	
 				onlineSpriteWinCounts		= _map[? "onlineSpriteWinCounts"];
+				lastMatchResultsList		= _map[? "lastMatchResultsList"];
 			}
 		}
 	}

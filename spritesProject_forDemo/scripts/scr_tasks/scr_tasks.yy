@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_tasks",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_tasks",
+  "parent":{
+    "name":"OVERWORLD",
+    "path":"folders/Scripts/OVERWORLD.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

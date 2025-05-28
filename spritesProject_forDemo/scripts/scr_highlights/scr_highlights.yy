@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_highlights",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_highlights",
+  "parent":{
+    "name":"HUMANS",
+    "path":"folders/Scripts/HUMANS.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

@@ -59,6 +59,25 @@ global.emotionNames = encode_list(nameList);
 
 ds_list_destroy(nameList);
 
+// declare an enum containing all dialogue unlock types
+enum DIALOGUE_UNLOCK_TYPES {
+	SPELL,
+	TALISMAN,
+	CONTACT,
+	TASK_SUCCESS,	// call this when adding new tasks as well since it is the same functionality (unstarted tasks store -1, first step is 0, second step is 1)
+	TASK_FAILURE,
+	CLOTHING_DYE,
+	HAIR_DYE,
+	OUTFIT,
+	HAIRSTYLE,
+	HAT,
+	FOOTWEAR,
+	ACCESSORY,
+	EYEWEAR,
+	INVENTORY_ITEM,
+	HEIGHT
+}
+
 /*
 	encoding key
 	
@@ -486,3 +505,6 @@ function talk_bubble_build_dialogue() {
 		}
 	}
 }
+	
+///@desc This function is called whenever dialogue is used as a means to unlock
+/// something for the player.

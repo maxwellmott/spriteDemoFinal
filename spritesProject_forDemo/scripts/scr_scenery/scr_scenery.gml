@@ -24,6 +24,7 @@ enum sceneryIDs {
 	traditionalWindowIndoorNormal,
 	traditionalWindowOutdoor,
 	traditionalWoodenBookcase,
+	traditionalWoodenBedframe,
 	height
 }
 
@@ -92,6 +93,7 @@ master_grid_add_scenery(			sceneryIDs.traditionalWindowOutdoor,		sceneryTypes.wi
 master_grid_add_scenery(			sceneryIDs.traditionalWindowIndoorNormal,	sceneryTypes.window,	spr_traditionalWindowIndoor,			spr_traditionalWindowIndoor,			"TRADITIONAL WINDOW");
 master_grid_add_scenery(			sceneryIDs.traditionalWindowIndoorUpstairs, sceneryTypes.window,	spr_traditionalWindowIndoorUpstairs,	spr_traditionalWindowIndoorUpstairs,	"TRADITIONAL WINDOW");
 master_grid_add_scenery(			sceneryIDs.traditionalWoodenBookcase,		sceneryTypes.bookcase,	spr_traditionalWoodenBookcase,			spr_traditionalWoodenBookcaseMask,		"TRADITIONAL WOODEN BOOKCASE");
+master_grid_add_scenery(			sceneryIDs.traditionalWoodenBedframe,		sceneryTypes.bed,		spr_traditionalWoodenBedframe,			spr_traditionalWoodenBedframeMask,		"TRADITIONAL WOODEN BEDFRAME");
 
 // convert grid to an encoded string
 global.allScenery = encode_grid(global.sceneryGrid);
@@ -308,10 +310,13 @@ function scenery_get_object_index(_type) {
 }
 
 ///@desc This function draws all of the scenery objects in the room
-function app_surface_draw_scenery() {
-	surface_set_target(application_surface);
-		draw_sprite(spriteID, frame, x, y);
-	surface_reset_target();
+function draw_scenery() {
+	draw_sprite(spriteID, frame, x, y);
+	
+	// check if any beds exist
+	if (object_index == bed) {
+		draw_sprite_part(comforterSheet, 0, 0, spriteTop, spriteWidth, spriteHeight, x - (spriteWidth / 2), y - spriteHeight);
+	}	
 }
 
 ///@desc This function can be called to set the depth of a scenery object

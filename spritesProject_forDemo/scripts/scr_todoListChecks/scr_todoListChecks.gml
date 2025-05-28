@@ -1,0 +1,11 @@
+// declare an enum containing all types of todoListChecks
+enum TODO_LIST_CHECK_TYPES {
+	DIALOGUE_PERFORMED,
+	RESPONSE_GIVEN,
+	BOOK_PAGE_READ,
+	SPAR_LOSS,
+	SPAR_VICTORY,
+	TASK_SUCCESS,
+	TASK_FAILURE,
+	HEIGHT	
+}

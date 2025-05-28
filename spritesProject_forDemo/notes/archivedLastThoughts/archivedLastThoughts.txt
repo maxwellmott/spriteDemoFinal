@@ -1,0 +1,1038 @@
+dIt's been a while since I checked in here, I deleted all past notes so I can start fresh with the demo from here on out.
+
+I'm going to start by building a list of everything that needs to be finished with the battle scene, then I'll refer to that list
+in each of the "last thoughts" notes to follow.
+
+BATTLE SCENE TODO:
+
+	-spell info display						2 POINTS				2 POINTS DONE
+	-spellFX screen functions				5 POINTS				5 POINTS DONE
+	-make spell UI adhere to compendium		4 POINTS				4 POINTS DONE
+	-prototype turn selection algorithm		3 POINTS				
+	-add spell animations					4 POINTS				4 POINTS DONE
+	-finish spells and effects				2 POINTS				2 POINTS DONE
+	-add abilities							4 POINTS				4 POINTS DONE
+	-priority spells						2 POINTS				2 POINTS DONE
+	-add all new sprites					2 POINTS				2 POINTS DONE
+	-create demo scripts*					2 POINTS				
+	-program spellbook icons				1 POINT					1 POINT DONE
+	-program sparSwapProcessor				2 POINTS				2 POINTS DONE
+	-program sparRestProcessor				2 POINTS				2 POINTS DONE
+	-program sparDodgeProcessor				2 POINTS				2 POINTS DONE
+	-add turn number screen					2 POINTS				
+	-finish sparActionProcessor				4 POINTS				4 POINTS DONE
+	-create turn message functionality		1 POINT					1 POINT DONE
+	-fix ready display						2 POINTS				2 POINTS DONE
+	-fix fonts								3 POINTS				3 POINTS DONE
+	-build audio manager					3 POINTS				3 POINTS DONE
+	-add music								4 POINTS				4 POINTS DONE
+	-add all SFX							4 POINTS				
+	-add hp and mp bars						1 POINT					1 POINT DONE
+	-complete nearby list functionality		1 POINT					1 POINT DONE
+	-switch out all sprite artwork			2 POINTS				2 POINTS DONE
+	-agility sort							3 POINTS				3 POINTS DONE
+	-build teambuilder						5 POINTS				5 POINTS DONE
+	-build spellBookBuilder					5 POINTS				5 POINTS DONE
+	-build onlineLobby						5 POINTS				5 POINTS DONE
+	-test client for private rooms			5 POINTS				5 POINTS DONE
+	-test client for matchmaking			5 POINTS
+	
+	*demo scripts cannot be built until full versions are complete (npcs, sprites, spells, abilities)
+	
+1/16 (added hp and mp bars) &&& (fixed ready display)
+
+		This was my first time back working on the battle scene. It feels good that there's not much left to complete.
+	I finally tackled the issue concerning the direction in which a sprite is stretched by the draw_sprite_stretched function. I am
+	now drawing the player's and enemy's hp and mp bars to two separate surfaces. The player's surface is then drawn with an x
+	scale of -1 using the draw_surface_ext function.
+	
+		Fixing the ready display was more of a difficult matter. First I had to fix the format_text function. I made it more specific to the
+	ready display system, and I added a note about that to the description of the function. Once that was fixed, I decided to take the names 
+	out of the picture completely and replace them with a reference to their enemy or ally number respectively. This will make it easier as 
+	well when the player is seeing a sprite for the first time and they don't yet know the sprite's name. I also changed the font to the 
+	plainFont since it's much easier to fit everything on the banner in an organized fashion.
+	
+1/17 
+	
+		Today I just did some tidying up (corrected the casing of all the sprite and spell enums). I also commented out some yet-to-be-written
+	processes. I also started working on spell functions, but only completed the solar flare function.
+	
+		I need to determine exactly how it should look in-game when a swap occurs (this means intentionally and by some spell effect). Ideally,
+	the same object will be used for both types of swaps, and any pre-turn swapping will occur all at once. I would love to have an animation
+	that covers the sprites when the swap occurs, but I think it would be best to get the process working first and then see what might look good.
+	
+	
+2/1 
+		Today I tried my best to get the rest processor working completely. As expected, there are a few bugs leftover, but most of the functionality is
+	there. Here is a list of bugs to tackle tomorrow:
+	
+		- animation isn't stopping once it's finished. Do real-time-debugging and watch spar.image_index
+		- mp bar isn't being corrected. I put a breakpoint where the mp is being replenished so that I can watch what happens there.
+		- not really a bug, but I don't like the pace of the hourglass wiggle. Try some other stuff and see if you can get it right.
+		
+		Aside from that, I also decided I should add a moment before the process phase where a black screen fades in halway and the current turn number is displayed.
+	This would offer a nice beat between the clicking of the ready button and the beginning of the turn, but it would also be a good way to get the turn number in
+	there somehow as there isn't room for it in the UI as of right now.
+	
+	Good luck tomorrow!
+	
+	
+2/2		(finished rest processor)
+		Today I finished the rest processor. The bugs were easy fixes. I removed the hourglass because I didn't like the look of it.
+	Everything feels smooth and I'm ready to move on to the action processor. There are however a few bugs I'll note here:
+		
+		- The game currently breaks if you don't do a swap, I'm thinking that this has something to do with the rest check in the swap step event
+		- Not really a bug, but you need to figure out how to go about telling the player whether they have enough MP to swap, and then deplete that MP upon swapping.
+		
+	That's actually all the bugs I can think of currently, I'll test the game in the morning and see if there's anything else that pops up.
+	
+2/3
+		Today I did some debugging. You can now take multiple turns per test and there is no problem with selecting only rests. Dodges and basic attacks are next!
+		
+2/5	(finished dodge announcer, finished turn message functionality, fixed fonts)
+
+	Today was a good day! Let's keep the momentum going! Tomorrow finish up priority spells and get started on the action processor!
+	
+	The priority spell list has been started in the spells script. The check for priority spells is happening in the priority case of the switch statement
+	in the spar object step event. Good luck!
+	
+2/9 
+	-finish spell functions
+	-create a non-demo version of the spell icon art sheet
+	-test priority spells
+	
+	
+	finished most spell functions. Here are some things to keep note of:
+		-	going to change rearrange and tidal force so that the swap occurs at the end of the effect
+		-	need to redo damage calculation functions so that I can finish pyrokinesis, psychic impact, and psychic fissure
+		
+		
+2/16
+	Today I added all of the 4 frame sprite artwork. I also brought over the corrected scripts from the calculator.
+	The spell animations have also been added into the game, now I just need to program the spellFX object!
+	
+	Start your next session by correcting the damage calculation functions so that they work in the context of the
+	sparActionProcessor. Then test a basic attack, then start working on spells!
+	
+2/17 
+	Today I finished the sparActionProcessor.
+	
+	The two main things left before spells will be totally ready are:
+		-write the spellFX object (step phase should basically copy the dodge FX logic in the actionProcessor step phase
+		-write a means for finding the next sprite to cast a spell/make a basic attack (wrote pseudocode in a note on my phone)
+		
+2/18
+	I'm almost to the point where I can successfully make a basic attack.
+	
+	There is still some debugging left to do before I can move on from basic attacks to spells.
+	
+	I also started working on the first turntaking algorithm called mercurio_selection_algorithm
+	
+2/19
+
+		I finished up basic attacks and I'm moving onto spells. I created a script called scr_spellFX where you can build
+	the lists of spell animations and spellFX functions.
+	
+		I also fixed the spellBookList UI, so you can effectively select a spell now. There is still some debugging to do.
+		
+		Spells are working! And the spellFX script is mostly built. Should be a breeze!
+		
+2/20
+		Okay, we are officially in the "finishing up" phase. Spells are testable and fully working with animations and 
+	everything. The last three systems to finish building are the online multiplayer, the spellFX functions, and the 
+	local enemy turntaking algorithms.
+	
+		Aside from that, Yiming and I both just have a lot of art (and I have music and SFX) to finish creating. I THINK NOW
+	WOULD BE A GOOD TIME TO DO SOME TESTING TO PUT TOGETHER A LIST OF BUGS AS WELL UI FAILINGS AND THINGS THAT I DON'T FEEL
+	FLOW WELL.
+	
+3/5
+
+		Wrote most of the code for the teambuilder. Need to test it still. There is a line of code in the overworld create event
+	that is forcing a spar to begin right at the beginning. Find a way to alter this for the sake of testing the teambuilder.
+	
+	
+	I DETERMINED THE BEST NEXT STEP FOR TESTING TEAMBUILDER AND OTHER MENUS:
+	
+		just build the overworld main menu. It needs to get done, it's a pivotal part of the overworld. This will allow you to fully
+		test every menu nested within in an isolated fashion. 
+		
+		
+3/8 
+		A GMS update broke my game again. The problem is definitely somewhere in the overworld create event. The wrong data is being pulled
+		from the locationGrid somehow. This either means that indeces are not lining up anymore, or something about the decode_grid function
+		is not working properly. 
+		
+		Good luck. Thanks GMS -_-
+		
+		Got the GMS related bugs sorted out and everything is running fine again. Now to try and fix the issues with the playtest build!
+		
+		
+COMING BACK FROM PLAYTEST BUILD
+
+	Before I go into detail about the first steps coming back from the playtest build/doing serverside work, I'm going to go through each script and
+	do some serious organizing.
+	
+	As you go through each script, follow these steps to quickly organize:
+	
+		-Check each declaration on the page
+		-make sure that the function/variable is still necessary--if not, safely delete the declaration and all references to it
+		-make sure that the function/variable has an adequate description and that associated lines have in-line comments
+		-make sure that the function/variable is on the right page/in the right spot--this means both the regrouping/reordering of items on the page,
+			but also the moving of different items onto different scripts when necessary
+			
+		GENERAL SCRIPTS HAVE BEEN COMPLETED!
+			notes:	need to figure out what to do with keypads. If you want to keep it, then rework it and make
+					it cleaner. If you don't want to keep it, find a way to safely delete all of it.
+					
+		OVERWORLD SCRIPTS HAVE BEEN COMPLETED!
+			notes:	ended up deleting all references to keypads, I was also able to completely get rid of the lighting script which
+					is pretty cool. Hopefully the downsizing continues!
+					
+		PLAYER SCRIPTS HAVE BEEN COMPLETED!
+			notes:	took this opportunity to change the player's draw function back to the more optimal version wherein
+					the player character is drawn layer by layer each step for each of their clothing items, as opposed
+					to dynamically creating a sprite to be used.
+		
+
+
+	5/27
+
+	okay, I've taken a break from working on spring cleaning. Soon enough, I'll finish the sparring scripts and then get
+	started on objects. I finally got the spell animations and all of that looking pretty good. The lack of a basic attack
+	animation is really obvious now.
+	
+	I need to see what the pose functionality looks like with this new system. If I need to wait until the final release,
+	that's fine. If it doesn't look good, that's even finer.
+	
+	FINAL STEPS FOR SPARS:
+	
+		-FINISH ALL ABILITY FUNCTIONS
+		-FINISH ABILITY TYPE ENUM
+		-FINISH ABILITY GRID
+		-FINISH ALL ABILITY CHECK FUNCTIONS AND CALLS
+		
+		-FIX READY DISPLAY TEXT
+		
+		-CREATE EFFECTS ENUM
+		-FINISH EFFECT ALERT OBJECT
+		-ADD EFFECT ANIMATIONS
+		-FIX SPELL EFFECT SYSTEM SO THAT IT STORES 
+			AN ID THAT GETS ADDED TO THE ALERT LIST 
+			(DON'T JUST CALL THE FUNCTION IN THE ACTION PROCESSOR)
+			
+			
+			
+	5/28
+	
+		Started doing some p heavy work on the new spar effects system. I'm going to work more on it tonight and give a more
+		solid explanation of the overall system. For now, here is this list:
+			-finish all spar effect functions
+			-replace spar effect function calls in spell functions with spar_effect_push_alert
+			-build sparAlert object
+			
+	5/29
+	
+		Still working on the replacing all of the spar effect function calls with spar_effect_push_alert.
+		
+		I left off at ball_lightning!
+		
+	5/30
+	
+		Added some more effects. Still finishing up spell effect call replacements. I left off at Hikams
+		
+	5/31 
+	
+		LEFT OFF AT REARRANGE!
+		
+	6/1 
+		LEFT OFF AT BARTER TRICK!!
+		
+		Finished replacing all of the references in the spell functions. The next steps are listed below:
+			- finish all spar_effect functions
+			- finish all spar_effect alert texts
+			- finish sparEffectAlert object
+			- finish all ability functions
+			- add all ability checks
+			- add spellFail check
+			- add all effect checks
+			
+		Started working on spar effect functions
+		
+	6/2
+		CONTINUING SPAR EFFECT FUNCTIONS ---- LEFT OFF AT ENERGY_BLAST_GLOBAL
+		
+		LIST OF REMAINING TASKS:
+			- ability checks
+			- ability functions
+			- ability check functions
+			- effect checks
+			- effect check functions
+			- effect alert text
+			- effect animation timing (display animation after clicking through or loop animation until click through)
+			- effect animation placement
+			- effect animation sprites
+			- damage alteration check
+			- spell fail check
+			
+	6/3
+			ADD BERSERK AND INVULNERABLE ENDING FUNCTIONS FOR ALL SCOPES
+			FIND ALL instance_destroy(id) ON EFFECTS SCRIPT AND ENSURE THAT THERE IS A ds_list_add(effectedSprites, AS WELL
+			
+			still working on adding references for effect animations	---- decide what to do about moves like sneak attack and skydive
+	
+	6/4
+			Finished adding all sprite references to spar effect grid.
+			I still need to add all of the currently existing effect animations
+			Still need to finish the build alert text function and the effectAlert object
+			
+	6/6
+	
+			Finished setting subject/object/effectedPlayer/effectedSprites for every spar effect function
+			need to finish the build alert text function
+			then its time for abilities, ability checks and effect checks!
+			
+			I ended up getting some more work done. The effect alert system is finished, but there is
+			some testing that needs to be done. If you run a match and cast a spell with an effect,
+			you'll see the issue and can get to it.
+			
+	6/7
+	
+			Spar effects are working! I'll have to keep debugging every spell and every effect over time, but 
+			that's what the playtesting phase is for!
+			
+			I'm going to start another note called spars remaining so that I can log bugs and unfinished code!
+			
+			Great job getting this up and running, playtesting is right around the corner!
+			
+	6/29
+	
+			I got most of the spell info display working. The last issues are within the format_text function. I can't
+			seem to find a way to accurately and dynamically check the width of a string. There are a lot of kinks to work
+			out with this. I think it may come down to doing kerning in a different way. Some of the positioning looks weird,
+			I wonder if it's because I have all of the characters set to the far right of their respective panel as opposed to
+			being centered.
+			
+	6/30
+			I changed the format text function again and now it mostly works. I realized also that I don't need to draw the name
+			on the info display, so I can either rework the layout to make more room for the description, or think of a way to use
+			that space otherwise.
+			
+	7/1
+			I finished the spell display and finished migrating assets over for the build I'm sending to Yiming
+			
+			It's time to implement the new effect that occurs during spell animations. Refer to the YimingTalkNotes
+			for exact details on what should happen. Look into the fastest way to draw things in grayscale in gms2
+		
+	7/6
+			Checking in on this document. 
+			
+			I'm currently working through the list of everything left in the battle scene that I'm keeping on the 
+			SPARS REMAINING note document. Today I finished up all of the changes Yiming and I had talked about. 
+			
+			This is what the list looks like as I'm typing this:
+			
+								------BUGS------
+				-selecting a spell then selecting swap with a different sprite resets the nextTurnFinalMP
+				-lady solanu's grace creates a bug in the effect alert object
+				-action reselection not resetting nextTurnFinalMP
+				-hover menu is drawn in the wrong position (and looks generally ugly)
+				-drain health call is selecting drain magic effect function
+				-selecting a swap and a rest keeps the rest from restoring MP. Sometimes swaps don't charge MP.
+				
+						---INCOMPLETE---
+				-turnBegin animation
+				-battle start animation
+				-win/lose screen
+				-ability functions
+				-ability grid
+				-ability check functions
+				-effect check functions
+				-effect/ability check calls
+				-damage alteration (damage effect spells list + damage effect check)
+				-ready display
+				-names not drawn
+				-titles not drawn
+				-turn timer
+				
+			Good luck <3 Things are looking great!!
+			
+			
+	7/15
+	
+			TODAY I WAS WORKING THROUGH THE BUG THAT OCCURS AFTER USING LADY SOLANUS GRACE.
+			
+			THE PROBLEM:	CHECKING FOR SPELL FAILURE ONCE EFFECT ALERT HAS BEEN CREATED IS NOT GOOD
+			SOLUTION:		MOVED THE SPELL FAILURE CHECK TO THE SPELL FUNCTION FOR LADY SOLANUS GRACE (ALSO FIXED HEALING LIGHT AND VOLCANIC ERUPTION)
+			REMAINING:		STILL CHECKS FOR FAILURE TO EARLY TO SKIP THE ANIMATION. STILL NEED TO CORRECT ALL OTHER SPELLS WITH A FAILURE CONDITION.
+			
+			completed solving the bug. I moved the spellEffect call earlier in the action processor. This creates a new issue that I will add to the list of spar bugs
+			
+				NEW ISSUE:	spells that take damage into consideration must calculate damage within the spell function since the call now occurs before the damage calc.
+								another option could be calcing damage in the create event and only applying it if necessary (this is optimal but might be difficult)
+							
+							
+	7/22
+			TODAY I WAS WORKING THROUGH THE RESETTING OF TOTAL SELECTION COST DEPENDING ON DIFFERENT TURN SELECTION CHANGES.
+			
+			SO FAR I'VE GOTTEN MOST OF THEM HAMMERED OUT. THERE ARE STILL A FEW REMAINING BUT IT'S HARD TO KEEP TRACK SO I'M GOING TO MAKE A LIST HERE
+			
+			
+			
+			SPRITE |	PREVIOUS ACTION		|	NEW ACTION			//										CORRECTION
+			selAlly			swapping				any									subtract swap cost from nextTurnFinalMP. reset swapPartner's selection params.
+			selAlly			spell					any									subtract original spellCost from nextTurnFinalMP.
+					
+					
+	7/29
+	
+			Okay. Everything is a mess now. A lot of weird bugs are occurring. It's time to clean up the spar scripts and then do some in depth debugging. Be ready to rework
+			systems if you need to. Currently the most bugs are produced when switching around different selections. There is also a bug wherein selecting fireball results in
+			selecting to rest.
+			
+			Good luck <3
+			
+	
+	8/11
+			Okay, things are looking quite good!
+			
+			Last thing I was working on:
+					Finished a few corrections regarding damage. NOTE-- this might have left me with some issues RE the subject and object of some sparEffectAlerts because I had thought
+				it was no longer necessary to pass those arguments within the spar_effect_push_alert function call in some of the spell functions. I think I fixed them all, but I might
+				have missed one or two.
+				
+					After I finished all of that, I was working on the effectCheck functions in scr_effectChecks. These functions are all meant to be called at different times during the
+				spar (for example, spar_check_miasma would be called at the beginning of each turn). When you log on next, just get back to work on this script. Once this is finished, you
+				can start finishing up all of the ability functions. Then the ability check functions, then place the ability check functions in their proper place!
+				
+	8/14
+			I got a lot of work done with the effect check system. Most of the remaining checks are obvious, you just need to go through the functions on the effectCheck script
+		and complete all of them. Once you've done that, just global search for each function to make sure it's being called in all of the right places.
+		
+			None of this has been tested so for, but once the rest of the functions are finished and in place, start testing out each effect!
+			
+			
+	8/18
+		Here is a short list of things I know I need to do:
+			-add undertow, typhoon, and magnetic pulse to priority spells and change undertow and typhoon to force_swap (make sure MAGpulse has higher power than purifying flame)
+			-make all ability functions and check functions!
+			-make a spar_effect for ability calls so that they can always show the same alert animation and formatted text "__'s ability, _______ was triggered!"
+			
+	8/19
+		Running into a weird bug. Recreate by attempting to swap the same sprite twice in one match. Watch spar.allyList and spar.teamList. Also check ready display before second swap
+		
+	8/30
+		Finish the ability script and add place all ability check calls
+		
+	9/1	
+		Abilities What's Left:
+			- finish all ability functions (first couple are done--use them as a reference)
+			- add ability name animation (animation can be its own object. it should be set in the activate_ability function)
+			- test
+			
+		-add weak elemental spells that provide solid buffs
+		
+	9/13 removed some notes to clear space for the above list. Books are done. Ability checks are done.
+	
+	9/16
+		Finished a couple of new spar effects that will make things easier for some of the funky abilities. namely, kronarc, drumline, scrootineyes, and jackhammer
+		
+		You will likely need to make another global variable and a new spar effect for abilities that change the stat used to calculate basic attack damage (exonolith and cragma)
+	
+		kronarc's arbitrate turn shouldn't happen twice if drumline is also present
+		
+		range improve is not working
+		
+	9/19
+		I have finished spars to the point that I need to now move onto the overworld.
+		
+		Since I'm just focusing on completing something that I can submit for pax, it's probably time for me
+		to move on to the overworld and make the demo feel more like an actual game. I'll create a list on a separate note that
+		broadly contains everything that must be completed before submitting to pax by nov 4th.
+		
+		I'll make another note that contains more specifically everything that needs fixing in the overworld.
+		
+		I also corrected the spars remaining note so that it only contains things that must still be completed/perfected at THIS point.
+		
+	9/20
+	
+		I GOT MY PRIORITIES IN ORDER REGARDING THE NEXT MONTH AND A HALF.
+			THIS WEEK, I WANT TO GET A PLAYTEST BUILD PUT TOGETHER AND SENT TO MY FRIENDS.
+			
+			THEN, I WILL WORK ON DRM AND A TIMEBOMB SCRIPT SO THAT I CAN HAVE THEM SEND COPIES
+			TO PEOPLE THAT I DON'T KNOW AND DISTRIBUTE IT TO WHOEVER JOINS THE DISCORD.
+			
+			I GOT THE AUDIO MANAGER WORKING ENOUGH FOR THE PLAYTESTING BUILD, SO NOW I JUST NEED TO COMPLETE
+			THE FOLLOWING:
+				-DEBUG ALL ABILITIES AND SPELLS
+				-NEW SPELLBOOK BUILDER
+				-CHARACTER CREATOR
+				-SAVE/LOAD
+				-SPAR INFORMATION BOOK W ART
+				-ADD ALL MUSIC AND SFX
+				-OVERWORLD INTERACTABLE TO ACCESS ONLINE LOBBY
+				-CREATE A SMALL ROOM WITH THE PLAYER AND THAT INTERACTABLE AND 
+						COMMENT OUT ALL OF THE TIME INCREMENTING FUNCTIONS
+						
+	9/23
+	
+			I DID A LOT OF DEBUGGING
+			
+			I NEED TO FINISH UP THE PLAYTESTING BUILD IN TIME FOR SATURDAY
+			
+			ONLY THINGS LEFT ARE OVERWORLD RELATED. I SHOULD DO SOME MORE PLAYTESTING AS WELL TO FIND AND FIX AS MANY BUGS AS POSSIBLE.
+			
+			ALSO YOU NEED TO ADD THE TURN TIMER!
+			
+	9/25
+	
+			I GOT A BUNCH OF SPAR BUGS FIGURED OUT. JUST KEEP TESTING, IF YOU COME ACROSS A SPELL OR ABILITY THAT YOU HAVEN'T TESTED, TEST IT!
+			
+			STILL SOME ISSUES WITH MINDSETS--NO OTHER BUGS FOUND SO FAR. YOU STILL NEED TO TEST INVULNERABILITY AS WELL AS MANY TRICK AND PHYSICAL SPELLS
+			
+	10/9
+			FIXED A BUNCH OF OVERWORLD DRAW STUFF. I'M GOING TO MAKE AN OPENING AND CLOSING ANIMATION FOR BOOKS AND DRAW THEM THE SAME WAY THE MAIN MENU IS BEING DRAWN
+			
+			I'M ALSO GOING TO START ON THE CHARACTER CREATOR, WHICH MEANS I'LL NEED TO ADD MIRRORS (THIS IS HOW YOU ALTER YOUR APPEARANCE)
+			
+			I added all the sprites and the font for the keyboard menu and got it integrated to the OW layout
+			
+	10/10
+			FINISHED THE KEYBOARD MENU. THERE IS STILL DEBUG CODE TO RESET YOUR NAME BY CLICKING SHIFT IN THE OVERWORLD.
+			
+			ONCE THE CHARACTER CREATOR IS FINISHED, MOVE THIS CODE TO THE END OF THE CHARACTOR CREATOR (SO LONG AS THIS IS THE BEGINNING OF A NEW FILE)
+			
+	10/14
+			Emote system is almost complete.
+			
+			There are some issues with the emote menu
+			
+			I also need to add some more NPCs and NPC dialogue to test the functionality of NPCs adding emotes to the grid through encoded dialogue
+			
+	10/15
+	
+			Starting to realize I don't really have a deadline aside from pax next year (scary)
+			
+			Menus are coming along quickly. I'm going to get the character creator finished, and then finish
+			every other part of the action menu.
+			
+			SO YOU DON'T FORGET:
+			
+			Action Menu Options:
+				-change appearance
+				-play wavephone
+				-cast spell
+				-access inventory
+			
+			Basics of inventory/items:
+				-all obtainable items will have an "inventory" sprite. There will be a grid specifically
+					for obtainable inventory items (some will also be scenery, some will also be food, some will
+					also be literature, etc)
+				-most items will prompt you to add them to your inventory (picking berries off of a bush, ordering
+					food at a restaurant "is that for here or to go?", some books will be obtainable as well, depending
+					on where you find them.
+				-so books will have an "obtainable" boolean variable along with other items in a similar boat
+				-"placing" items will not be an option until you have 
+				
+				
+			Basics of spells:
+				-When a spell is cast, a black circle appears center-screen. Inside the black circle, the spell animation
+					from the battle scene will play. (for animations that take up the whole screen, I will use elements
+					of Yiming's work to recreate smaller versions)
+				-scenery objects and npcs will have a list of "applicableSpells". If the list is greater than 0 items long,
+					they will run a "listen_for_spell" function that takes a spell ID and a function (both stored on the
+					applicableSpells function as an encoded list). 
+						If that spell is cast while they're on the screen:
+							-an overworld alert will explain that a piece of scenery has responded to the spell
+							-an npc will display an emote that indicates they have a new piece of dialogue awaiting you
+							
+			Basics of Wavephone
+				-When you take out your wavephone, an indicator appears on the screen in front of a rolling grid.
+				-The indicator is drawn two surfaces. One surface has the current indicator drawn in the center. Both
+					surfaces draw the indicator relative to the mouse's y position on the screen. The second surface
+					draws everything in one color at half alpha, it never clears itself so you can see the trail of where
+					the indicator has been (the trail is only drawn while a note is being played)
+				-Different sections of the screen will be broken up into two octaves of notes. (if using keyboard)
+				-If using gamepad, the pitch will be relative to the position of the right analog stick
+				-Different buttons will play different tones. Ideally: One synth tone, one noise tone, one triangle tone
+				-Change pitch on one sound file using built-in pitch changing functions
+				
+			Basics of change appearance
+				-Open up a version of the character creator that excludes name entry and skintone selection
+				-only allow colors of dyes that have been unlocked in-game
+				
+	10/16
+	
+			I added all of the new clothing artwork. I also added the artwork for the appearance editor and the character creator. I also created
+			and added the art for the wavephone display.
+			
+			Wavephone display tracker works like this:
+			
+				-tracker is displayed on the staff relative to mouse y on the screen (or gamepad right analog stick y)
+				-multiple surfaces of the same size are being drawn between the tracker and the staff
+				-when playing a tone, the tracker draws itself (in a faint yellow color) onto the surfaces while they continously
+					slide to the left (similar to ready button)
+				-surfaces do not clear themselves until they are completely off screen.
+				
+	10/19
+			I've been steadily working through the action menu. I got the menu itself complete. I just need to add artwork for each button, and finish
+			each function that is stored on the action menu option grid.
+			
+			Once the action menu and all subsequent menus are complete, it's time to finish all the submenus attached to the main menu.
+			
+			After that, it's time to fix dialogue textboxes and the response system.
+			
+	10/20
+	
+			get the sine of the times (lmao) every frame and use these two functions to destroy the old buffer and then create and play a new one.
+			
+			You'll need to do the math to use the sine of the times (lmao) to create a .wav file. Try and find the video of that guy doing it in c#
+			
+			here are the built-in functions you'll need:
+			
+				audio_create_buffer_sound();
+	
+				audio_free_buffer_sound();
+				
+	10/20
+	
+			Well it's making noise and it doesn't sound too bad! For day one I think that's a good start!
+			
+			Going to try and implement an audio bus with a low and high pass filter and some reverb!
+			
+	10/28
+			Okay, that ended up being a bit of a timesink, but it's workable for now!
+			
+			Next up, appearance menus:
+				-	Create some accessory art
+				-	Create all clothing text grids
+				-	Create dyes list
+				-	build appearance menu!
+				
+	10/29
+			Completely debug NPC dialogue (you'll need to debug the build dialogue function)
+			
+			build the character creator
+			
+	11/1
+	
+			Okay! I got the dialogue system working in a new and better way. Here is a quick writeup:
+			
+					I changed the grid encoding/decoding functions so that they can feasibly house infinite nested grids with no issues. I left solid
+				comments throughout the new functions, so things should be pretty clear. They've also been thoroughly tested, so there shouldn't be any
+				concern from here on out.
+				
+					This is so that I can use the new structure of:
+						
+						Player Interacts With NPC -->	NPC response function sets global.dialogueGrid (one of the grids stored on the NPC's response map)
+						--> first row of response grid is displayed	--> IF (there is more than one row on the grid) {
+																			--> create the response menu
+																			--> get the corresponding grid stored on the player response map
+																			--> display response options
+																			--> GET (player response option)
+																				--> display the next row of the NPC response grid
+						--> IF (the displayed NPC response has *GIFT* indicated in the text
+							--> player receives inventory item or unlockable from the NPC
+							--> overworld alert is displayed for either inventory item or unlockable
+						--> IF (the displayed NPC response has *SPAR* indicated in the text
+							--> begin a spar upon closing the talkBubble
+						
+					This is what you need to do to get the above system working:
+						-- FIX SPAR INDICATION TO TALK BUBBLE BUILD FUNCTION
+						-- ADD GIFT INDICAITON TO TALK BUBBLE BUILD FUNCTION
+						-- CREATE RESPONSE MENU
+						-- FIX TALK BUBBLE CREATE EVENT (display global.currentDialogueRow--this needs to be added)
+						
+	11/2		DEBUG THE EMOTE QUEUE FUNCITONALITY IN THE STEP EVENT OF THE TALK BUBBLE
+				CREATE THE RESPONSE MENU OBJECT
+				
+	11/3		Okay, I'm shifting over to the turntaking algorithms since that's the priority now. Start by finishing all of the pseudocode in the document titled: ENEMY AI WRITEUP
+	
+	11/15
+	
+		CONTINUE WORKING ON THE SPELL EVAL FUNCTIONS
+		
+	11/23
+	
+		PICK UP WHERE YOU LEFT OFF ON ENEMY AI CORE FUNCTIONS
+		
+	11/26
+		
+		ENEMY AI:
+			-add a functionality that tracks the projected gain/loss of MP for the turn and also checks this projected gain/loss when checking for MP costs
+			-complete the mercurio day one function
+			-complete all core functions
+			-test
+			-rework each chunk of code for each sprite on mercurio's team so that they can be used as portable functions to select the turns of any sprites of that archetype
+			
+	12/12
+	
+			- almost done testing each spell, then I will test each ability and return to enemy ai while I also finish the overworld and complete playtesting
+			
+	12/28
+	
+			- hail sphera isn't depleting hp for some reason
+			
+	12/29 
+	
+			- finished testing all spells!
+			- add all the updated sprite artwork to gms2
+			- fill out data for all "NEW_SPRITES" and "NEW_ABILITIES"
+			
+	1/1
+	
+			I just finished inputting most of the data for the new sprites that had yet to be added.
+			
+			I still need to build three abilities. 
+			
+			FLAMILIAR	-- ENDLESS WICK (need to add ability check for "spell cost check"
+			VEWRR		-- TEARS AND JEERS
+			DECIDRUID	-- PERENNIAL GROWTH (need to add an "immobile" variable that keeps the user from selecting a new action)
+			
+	1/4
+			-flamiliar ability complete
+			-vewrr ability complete
+			-decidruid ability complete
+			
+	1/10
+			-check inrange after forced swap!
+			
+	1/16
+			-add a pause during the announcement of the upcoming action (e.g. "Demolitops is preparing to make an attack!")
+			-stop displaying the announcement after the pause
+			
+			-left off at metal muncher (put chromaliodon back on the team)
+			
+	1/19
+	
+			-ability testing finished!
+			-time to work on the rest of the spar bugs, tomorrow you can announce playtesting!
+			
+	1/20
+			-FINISH HPMP NUMBERS DISPLAY
+			-CHANGE FLASHING BAR FUNCTIONALITY -- NOT AN ANIMATED SPRITE, JUST SWITCH BETWEEN DRAWING THE FLASHING BAR AND THE REGULAR MP BAR BASED ON GLOBAL.GAMETIME
+			-FINISH FLASHING BAR FUNCTIONALITY
+			-DRAW nextTurnFinalMP INSTEAD OF CURRENT MP WHENEVER DRAWING FLASHING BAR
+			-ALLOW OUT OF RANGE SPELL/ATTACK SELECTION
+			-PERFORM A RANGE CHECK DURING THE CREATE PHASE OF THE SPAR ACTION PROCESSOR
+			-CHANGING THE LAST TWO BULLETS MAY REQUIRE YOU TO REWORK SCROOTINEYES' AND JACKHAMMER'S ABILITIES
+			
+	1/26
+			-FINISHED HPMP NUMBERS DISPLAY
+			
+			I'm trying to fix the whole system for tracking the potential cost etc.
+			
+			Here's the plan:
+				-global.mpCostDiff should only be called within the functions to set potential costs									CHECK
+				-potentialCost functions can remain where they are																		CHECK
+				-the spar step event should use the selectedActions and selectedTargets of each ally to calculate the totalCosts		CHECK
+				-calculation should only occur during the selectionPhase of the spar													
+				
+			I finished making all of the above changes and there was a huge dropoff in gamespeed which was surprising.
+			
+			I'll have to do some in-depth debugging and figure out what the problem is. I'm worried it's just too complex of an operation to run so frequently.
+			
+			FIRST THING TO TRY:		add a boolean variable for whether the cost has been checked since a sprite made their selection. You can switch the boolean to
+									false at the end of the set_action, set_target, set_self_target functions. Switch the boolean to true after performing the operation
+									in the spar step.
+				
+	1/27
+	
+			OKAY, IT'S FINISHED!
+			
+			CHANGES FOR RANGE CHECK:
+				- add a range check to the actionProcessor
+				- move the range correction ability check to the actionProcessor range check
+				- display out of range indicator when hovering over an out of range sprite
+				- add a spar effect for "out of range target selected" and push the alert whenever the user selects an out of range target
+			
+			RESTING SHOULD ALWAYS REGAIN THE SAME AMOUNT OF MP
+			
+	1/31
+			I just need to add a range check to the action processor. I also still need to add the ability check here (it should be fine to just do another range check ability check)
+			
+	2/1	
+	
+			Okay. I completely finished correcting range checks and mp tracking. There may still be a few bugs with the latter, but it waits to be seen.
+			
+			Next up:
+				-rebuild the list of remaining spar bugs
+				-make a list of all remaining spell and effect animations
+				-add the new name font
+				-add titles
+				-make documentation for playtesters
+				-schedule the first playtesting session!
+				
+				
+					BUGS ENCOUNTERED WHEN PLAYTESTING WITH YIMING ON FEBRUARY 1 2025
+		
+		-server does not delete old rooms when there is nobody in them
+		-server does not allow team/spell/turn deselection
+		-server does not allow rejoining of old rooms
+		
+		-game does not support saving/loading which is a time sink for testing
+		-no doors to enter different rooms which is a time sink for testing
+		-selecting unfinished main menu options breaks the game
+		
+		-various inconveniences in the UI:
+			-teambuilder:
+				-when selecting, allow:
+					-nameplate click to select new sprite
+					-teammate click to swap positions
+				-reveal entire new page of sprites after scrolling
+			-spell selector:
+				-include an inspect menu for selected spells
+				-"waiting for player..." not displayed\
+				
+				
+	YOU FIXED SCROOTINEYES' ABILITY, YOU NEED TO FIX JACKHAMMER'S IN THE SAME WAY!!!!
+	
+	MAKE A LIST OF ALL THE SPAR EFFECT ANIMATIONS YOU STILL NEED!!!!
+			
+	ACCURACY ISSUES WITH NAMESLOTS IN TEAMBUILDER--OTHERWISE FINISHED!!!
+	
+	
+	2/7
+			REVISED LIST FROM YIMING MEETING:
+			
+			-server does not delete old rooms when there is nobody in them
+			-server does not allow team/spell/turn deselection
+			-server does not allow rejoining of old rooms
+			
+			-game does not support saving/loading which is a time sink for testing
+			-no doors to enter different rooms which is a time sink for testing
+			-selecting unfinished main menu options breaks the game
+			
+			-various inconveniences in the UI:
+				-spell selector:
+					-include an inspect menu for selected spells
+					-"waiting for player..." not displayed
+					
+			-fix jackhammer's ability to match scrootineyes'
+			
+	2/8
+	
+			REVISED LIST FROM YIMING MEETING:
+			
+			-server does not delete old rooms when there is nobody in them
+			-server does not allow rejoining of old rooms after crashing
+			
+			-game does not support saving/loading which is a time sink for testing
+			-no doors to enter different rooms which is a time sink for testing
+			-selecting unfinished main menu options breaks the game
+			
+			-various inconveniences in the UI:
+				-spell selector:
+					-include an inspect menu for selected spells
+					-"waiting for player..." not displayed
+					
+	2/11
+			REVISED LIST FROM YIMING MEETING:
+			
+			-server does not delete old rooms when there is nobody in them
+			-server does not allow rejoining of old rooms after crashing
+			
+			-game does not support saving/loading which is a time sink for testing
+			-no doors to enter different rooms which is a time sink for testing
+			-selecting unfinished main menu options breaks the game
+			
+	2/16
+	
+			GOT THE CHARACTER CREATOR COMMENTED OUT AND MOST OF THE SAVE/LOAD SORTED OUT
+			
+			GO TO SLEEP AND THEN FINISH BOTH OF THEM WHEN YOU WAKE UP--CREATE NEW NEWGAME START FLOW
+			
+			GOT MOST OF THE CHARACTER CREATOR FINISHED. HERE'S WHAT REMAINS:
+				-check for button click
+				-draw selectors and names
+				-allow for menu navigation
+				-finish clean up event to lead into keyboard menu for name selection and save file creation
+				
+	2/17
+			EVERYTHING THAT IS LEFT RE THE CHARACTER CREATOR
+				-draw all selectors
+				-draw all names
+				-allow menu navigation using arrow keys + space/enter/tab
+				-prompt player to confirm their choices after hitting enter or hitting space while on the last phase
+				-finish clean up event to lead into keyboard menu for name selection and save file creation
+				
+			JUST KIDDING, I ENDED UP STAYING AWAKE SUPER LATE AND GETTING MORE WORK DONE. HERE IS THE NEW LIST:
+				-allow menu navigation using arrow keys + space/enter/tab
+				-prompt player to confirm their choices after hitting enter or hitting space while on the last phase
+				-finish clean up event to lead into keyboard menu for name selection and save file creation
+				
+	2/18
+			CHARACTER CREATOR IS COMPLETE. 
+			
+			THERE NEEDS TO BE ONE MORE PROMPT AFTER THE KEYBOARD MENU THAT ALLOWS THE PLAYER TO SELECT THEIR PRONOUNS.
+			
+			AFTER THAT, FINISH ALL THE SAVE/LOAD FUNCTIONS (ON THE SAVE LOAD SCRIPT) AND PLACE THEM PROPERLY. TEST, THEN
+			CREATE DOCUMENTATIONS, UPDATE SERVER, AND SEND TO PLAYTESTERS.
+				
+			OKAY--FINISHED DEBUGGING AFTER ALL THE CHANGES TO THE PLAYER CREATE EVENT. FINISH THE ABOVE ITEMS AND THEN CONSULT
+			THE FOLLOWING LIST
+			
+			REVISED LIST FROM YIMING MEETING:
+			
+			-server does not delete old rooms when there is nobody in them
+			-server does not allow rejoining of old rooms after crashing
+			
+			-game does not support saving/loading which is a time sink for testing
+			-no doors to enter different rooms which is a time sink for testing
+			-selecting unfinished main menu options breaks the game (just make the last couple of menus)
+			
+	2/23
+	
+			FIX THE LOAD FUNCTION TO MATCH THE SAVE FUNCTION
+			MAKE MORE APPEARANCE ITEMS AND FIX THE ONES THAT EXIST
+			MAKE THE APPEARANCE EDITOR
+			MAKE THE ARTWORK FOR THE OVERWORLD ACTION MENU
+			
+	2/25
+			FINISHED SAVE/LOAD FUNCTIONS
+			FINISHED PRONOUN MENU
+			
+			MAKE MORE APPEARANCE ITEMS AND FIX EXISTING ONES
+			MAKE THE APPEARANCE EDITOR
+			MAKE THE ARTWORK FOR THE OVERWORLD ACTION MENU
+			
+	3/1
+	
+			ALL STARTING APPEARANCE OPTIONS FIXED (ASIDE FROM COLORS--ALL OF WHICH WILL NEED SOME TOUCHING UP AT SOME POINT)
+			
+			MAKE MORE APPEARANCE ITEMS
+			MAKE THE APPEARANCE EDITOR
+			MAKE THE ARTWORK FOR THE OVERWORLD ACTION MENU
+			
+			ADD ROOM REBUILDING LOGIC TO SERVER
+			ADD ROOM TIMEOUT/ROOM DELETION TO SERVER
+			
+			CREATE SPAR HANDBOOK
+			
+	3/4
+			MAKE A FEW ACCESSORIES
+			FIX ALL DRAW FUNCTIONS TO INCLUDE ACCESSORIES AND EYEWEAR
+			FINISH POPULATING THE WARDROBE GRID AT THE BOTTOM OF THE PLAYER CREATE EVENT
+			FINISH BUILDING APPEARANCE EDITOR OBJECT (NEARLY FINISHED WITH THE CREATE PHASE, PICK UP AT USABLE LIST POPULATION)
+			
+		3/6
+		
+			FINISH MAKING ROOM FOR ARROWS IN THE APPEARANCE EDITOR ARTWORK
+			MAKE THE ARROW BUTTONS FOR THE APPEARANCE EDITOR
+			ADD THE ARROW DIMENSIONS AND DYE DIMENSIONS TO THE CREATE EVENT OF THE APPEARANCE EDITOR
+			FIX A COPY OF THE CHARACTER CREATOR STEP EVENT TO WORK FOR THE APPEARANCE EDITOR
+			
+		3/7
+			BREAK DOWN ART ELEMENTS FROM APPEARANCE EDITOR
+			ADD ALL BBOX DIMENSIONS TO CREATE EVENT
+			FIX A COPY OF THE CHARACTER CREATOR STEP EVENT TO WORK FOR THE APPEARANCE EDITOR
+			
+		3/8
+			FINISH THE CREATE EVENT OF THE APPEARANCE EDITOR (PICK UP AT THE TODO COMMENT)
+			BUILD APPEARANCE EDITOR STEP EVENT
+			
+		3/9
+			DOING SOME DEBUGGIN WITH THE APPEARANCE EDITOR--NEED TO JUST GO THROUGH 
+			AND COMPLETELY FINISH THE STEP AND DRAW EVENTS
+			
+		3/10
+			FOUND A LOT OF BUGS IN THE APPEARANCE EDITOR--CURRENTLY DRAWING RECTANGLES OVER ALL OF THE DYE SPLOTCHES
+			NEED TO FIX BBOX DIMENSIONS FOR DYES
+			
+			STILL SOME BUGS WITH THE APPEARANCE EDITOR--JUST RUN IT AND GO FROM THERE
+			
+		3/11
+			APPEARANCE EDITOR IS MOSTLY WORKING:
+				-CLICKING ON A SHOE COLOR PROMPTS TO CLOSE THE MENU
+				-NEED TO ADD THE NAMECHANGE BUTTON
+				-EYEWEAR ISN'T BEING DRAWN IN THE OVERWORLD
+				
+			LIST FOR APPEARANCE MENUS!
+			
+				-find out why eyewear isn't being drawn in the overworld
+				-make a selection indicator for left column of appearance menu
+				-add all selection indicators to appearance menu draw phase
+				-fix all bugs with keyboard menu
+					-still able to select keys when pnoun menu is up
+					-prompt text not being drawn
+					-pnoun options off center
+				-fix all bugs with character creator
+					-add mirror shine
+				
+			NOTE FOR COLOR PALETTE:
+				-try selecting a few base colors, then finding the values you get when overlaying them with
+				the grayscale appearance elements--use the normal, dark, and extra dark versions of each base
+				color for the dyes!!
+				
+				-start by screenshotting some favorite colors in the appearanceEditor and then color pick in aseprite
+				
+		3/12
+			
+			finished all bugs aside from centering pnoun menu.
+			
+				-add save/load function calls
+				-center pnoun menu
+				-correct dyes (add one more) using the above instructions
+				-add final server functionality
+				-create positive/negative haptics function and add calls!
+				
+		3/19
+		
+			DO THE FOLLOWING IN THE GIVEN ORDER
+		
+				-correct dyes (add one more dye) using the above instructions
+				-create positive/negative haptics functions and add calls!
+				-set up build for playtesters (add SPARMASTERS HANDBOOK)
+				-add save/load function calls
+				-add final server functionality
+				
+		3/22
+				keep working on correcting the dyes and adding all of the UI sfx
+				
+		3/21
+				^^^
+				
+		3/24
+				^^^
+				
+		4/1
+				prioritize adding sfx for spars so that you can make the spar video
+		
+		4/12 
+				worked through most of the weirdness that came with the new gms update
+				need to fix some weirdness with the spar spell menu :(
+				
+		4/28
+		
+				finishing inputting all tile data for all locations in demo
+				then add all objects, doors, and literature
+				once finished with the above, start completing the remaining soulstone menus (todoList, ronin+, settings)
+				
+		5/4
+		
+				all doors for current areas added and tuned.
+				make a tilemap for PM and HM quarters
+				add PM and HM quarters to the location grid
+				input tile data for PM and HM quarters
+				add doors for PM and HM quarters
+				
+				begin adding scenery, add footsteps
+				
+		5/5
+		
+				needed to make some changes to allow for horizontal doors lmao
+				there is now a separate object for collidable doors in case they need to replace walls etc
+				
+				fix the upstairs layer for most rooms aside from dorm 1
+				
+				make tilemaps for PM and HM quarters
+				input tile data for PM and HM quarters
+				
+				begin adding scenery, add footstep sfx
+				
+		5/8
+		
+				ADD NEW GROUND TILESET
+				FIX HALLWAY UPSTAIRS TILESET
+				ADD CLOCK TO MAIN MENU WITH NEW FONT
+				

@@ -2,6 +2,8 @@
 #macro playerStartY			128
 #macro playerStartFacing	directions.south
 
+global.currentFootstepSound = sfx_footstep_woodenFloor;
+
 // interactions enum
 enum interactions {
 	swimStart,
@@ -238,8 +240,15 @@ function player_move() {
 	hmove = right - left;
 	vmove = down - up;	
 	
+	if !(moving) 
+	&& (abs(hmove) + abs(vmove) > 0) {
+		global.firstStepFrame = global.gameTime;
+	}
+	
 	human_check_moving();
-	if moving human_set_facing();
+	if moving {
+		human_set_facing();
+	}
 }
 
 ///@desc This function is called by the overworld step event. The function constantly checks
@@ -372,3 +381,4 @@ function player_display_emote(_emotionID) {
 	overworld.activeEmotes[# 0, gh]		= e;
 	overworld.activeEmotes[# 1, gh]		= player.id;
 }
+

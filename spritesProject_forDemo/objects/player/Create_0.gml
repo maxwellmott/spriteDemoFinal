@@ -112,16 +112,20 @@ event_inherited();
 	}	compendium = encode_list(l);		ds_list_destroy(l);
 
 	// initialize titles
-	titles = ds_list_create();
+	var tList = ds_list_create();
+	titles = "";
 	
 	// set all titles to -1 (this is not just for testing--this is so that
 	// all titles are still instantiated with a spot on the list, they are
 	// simply initialized as LOCKED
 	var i = 0;	repeat (SPAR_TITLES.HEIGHT) {
-		titles[|i] = -1;
+		ds_list_add(tList, -1);
 	
-		i++;	
+		i++;
 	}
+	
+	// encode the now populated titles list
+	titles = encode_list(tList);
 	
 	// initialize contacts
 	contacts = "";
@@ -131,7 +135,25 @@ event_inherited();
 	
 	// initialize list of quest completion lists
 	todoList = "";
-
+	var tdList = ds_list_create();
+	
+	// populate the tdList
+	var i = 0;	repeat (TASKS.HEIGHT) {
+		ds_list_add(tdList, -1);
+		
+		// increment i
+		i++;
+	}
+	
+	// encode the now populated todoList
+	todoList = encode_list(tdList);
+	
+	// initialize list of failedTasks
+	failedTasks = "";
+	
+	// initialize list of completedTasks
+	completedTasks = "";
+	
 #endregion
 
 #region		INITIALIZE ALL VARIABLES USED FOR OVERWORLD NAVIGATION
@@ -235,7 +257,7 @@ event_inherited();
 	
 #endregion
 
-#region		INITIALIZE ALL VARIABLES USED TO TRACK ELO AND FAVORITES
+#region		INITIALIZE ALL CAREER TRACKING VARIABLES
 	// initialize various battle ranking scores
 	roninScore			= 150;
 	roninMatchCount		= 0;
@@ -256,6 +278,22 @@ event_inherited();
 	
 	roninSpriteWinCounts	= "";
 	onlineSpriteWinCounts	= "";
+	
+	// initialize the list to track whether the player last defeated or lost to any given NPC
+	// (-1 means never fought before, 0 means lost, 1 means won)
+	var lmrList = ds_list_create();
+	lastMatchResultsList	= "";
+	
+	// populate lastMatchResultsList
+	var i = 0;	repeat (npcs.height) {
+		ds_list_add(lmrList, -1);
+		
+		i++;	
+	}
+	
+	// encode the now populated lastMatchResults list
+	lastMatchResultsList = encode_list(lmrList);
+	
 #endregion
 
 // --------------------------FOR TESTING PURPOSES ONLY----------------------------

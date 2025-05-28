@@ -120,6 +120,7 @@ function door_check() {
 	if !(inst.locked) {
 		inst.open = true;
 		overworld_transition(inst.newX, inst.newY, inst.newFacing, inst.newLocation);
+		audio_push_sfx(sfx_doorOpen);
 	}
 }
 

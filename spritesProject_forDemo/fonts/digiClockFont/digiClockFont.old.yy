@@ -23,6 +23,7 @@
     "55":{"character":55,"h":27,"offset":0,"shift":4,"w":3,"x":40,"y":2,},
     "56":{"character":56,"h":27,"offset":0,"shift":4,"w":3,"x":45,"y":2,},
     "57":{"character":57,"h":27,"offset":0,"shift":4,"w":3,"x":50,"y":2,},
+    "58":{"character":58,"h":27,"offset":0,"shift":2,"w":1,"x":55,"y":2,},
     "9647":{"character":9647,"h":27,"offset":6,"shift":31,"w":19,"x":2,"y":31,},
   },
   "hinting":2,

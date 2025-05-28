@@ -56,7 +56,7 @@ locationName	= locationGrid[# locationParams.name, locationID];
 var objectString		= ds_grid_get(locationGrid,	locationParams.objectString,	locationID);
 var literatureString	= ds_grid_get(locationGrid, locationParams.literatureList,	locationID);
 var bookcaseString		= ds_grid_get(locationGrid, locationParams.bookcaseList,	locationID);
-
+var bedString			= ds_grid_get(locationGrid, locationParams.bedList,			locationID);
 tilemapList = ds_list_create();
 
 // PLACE ALL TILES
@@ -104,6 +104,7 @@ place_bookcases(bookcaseString);
 place_literature(literatureString);
 place_scenery(objectString);
 place_doors();
+place_beds(bedString);
 
 // create the overworld alerts stack
 alertStack = ds_list_create();

@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":0.300045,
+  "duration":0.30004534,
   "name":"sfx_click",
   "parent":{
     "name":"SFX",

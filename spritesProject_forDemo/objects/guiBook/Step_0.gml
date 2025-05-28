@@ -25,6 +25,7 @@ if (introFinished)
 	if !(turningPage) {	
 		if (pageIndex < (ds_list_size(pages) div 2) -1) {
 			if (global.menuRight) {
+				audio_push_sfx(sfx_bookNextPage);
 				pageIndex++;
 				turningPageRight = true;	
 				flipFrame = 0;
@@ -34,6 +35,7 @@ if (introFinished)
 		
 		if (pageIndex > 0) {
 			if (global.menuLeft) {
+				audio_push_sfx(sfx_bookLastPage);
 				pageIndex--;
 				turningPageLeft = true;
 				flipFrame = 3;
@@ -74,12 +76,13 @@ if (introFinished)
 	
 		if (flipFrame < 3) && !(global.gameTime mod 6) {
 			flipFrame++;
-		}	
+		}
 	}
 	
 	if (global.back) {
 		image_index = 0;
 		outroStarted = true;
+		audio_push_sfx(sfx_bookClose);
 	}
 }
 

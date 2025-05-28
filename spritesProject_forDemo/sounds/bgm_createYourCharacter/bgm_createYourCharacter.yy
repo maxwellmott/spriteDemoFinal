@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":149.43338,
+  "duration":55.079185,
   "name":"bgm_createYourCharacter",
   "parent":{
     "name":"BGM",

@@ -1,17 +1,19 @@
 {
   "$GMObject":"",
   "%Name":"bed",
-  "eventList":[],
+  "eventList":[
+    {"$GMEvent":"v1","%Name":"","collisionObjectId":null,"eventNum":0,"eventType":0,"isDnD":false,"name":"","resourceType":"GMEvent","resourceVersion":"2.0",},
+  ],
   "managed":true,
   "name":"bed",
   "overriddenProperties":[],
   "parent":{
-    "name":"non-collidable",
-    "path":"folders/Objects/Overworld/scenery/non-collidable.yy",
+    "name":"collidable",
+    "path":"folders/Objects/Overworld/scenery/collidable.yy",
   },
   "parentObjectId":{
-    "name":"scenery",
-    "path":"objects/scenery/scenery.yy",
+    "name":"sceneryCollidable",
+    "path":"objects/sceneryCollidable/sceneryCollidable.yy",
   },
   "persistent":false,
   "physicsAngularDamping":0.1,

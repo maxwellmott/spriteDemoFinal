@@ -55,8 +55,17 @@ if !(outroStarted) {
 		// set font
 		draw_set_font(digiClockFont);
 		
+		var clockString = "";
+		
+		if (player.minutes < 10) {
+			clockString = string(player.hours mod 12) + ":" + "0" + string(player.minutes);	
+		}
+		else {
+			clockString = string(player.hours mod 12) + ":" + string(player.minutes);	
+		}
+		
 		// draw digital clock
-		draw_text_pixel_perfect(x, y + 40, string(player.hours mod 12) + ":" + string(player.minutes), 6, guiWidth);
+		draw_text_pixel_perfect(x, y + 40, clockString, 6, guiWidth);
 		
 		// set alpha to shineAlpha
 		draw_set_alpha(shineAlpha);

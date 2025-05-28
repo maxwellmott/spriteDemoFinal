@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_beds",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_beds",
+  "parent":{
+    "name":"OVERWORLD",
+    "path":"folders/Scripts/OVERWORLD.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}

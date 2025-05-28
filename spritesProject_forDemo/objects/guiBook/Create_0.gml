@@ -1,6 +1,8 @@
 /// @description Insert description here
 // You can write your code in this editor
 
+audio_push_sfx(sfx_bookOpen);
+
 ID = -1;
 
 name	= "";

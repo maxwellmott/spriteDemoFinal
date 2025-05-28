@@ -1,0 +1,13 @@
+{
+  "$GMScript":"v1",
+  "%Name":"scr_unlockAlerts",
+  "isCompatibility":false,
+  "isDnD":false,
+  "name":"scr_unlockAlerts",
+  "parent":{
+    "name":"HUMANS",
+    "path":"folders/Scripts/HUMANS.yy",
+  },
+  "resourceType":"GMScript",
+  "resourceVersion":"2.0",
+}
