@@ -23,7 +23,8 @@ enum TASKS {
 enum TASK_PARAMS {
 	ID,
 	NAME,
-	STEP_LIST,
+	TRIGGER_LIST,
+	INSTRUCTIONS_LIST,
 	MULLIGAN,
 	HEIGHT
 }
@@ -31,11 +32,17 @@ enum TASK_PARAMS {
 // get all text from csv file
 var textGrid = load_csv("TASKS_ENGLISH.csv");
 
+// create all trigger lists
+var prefestivalJittersTriggers = ds_list_create();
+
+// populate all trigger lists			ID													ARG 1								ARG 2
+ds_list_add(prefestivalJittersTriggers,	string(TODO_LIST_CHECK_TYPES.SPAR_COMPLETE)+","+	string(npcs.mercurioGallant)+","+	string(-1)+",");
+
 // create the task master grid
-global.taskGrid = ds_grid_create(TASKS.HEIGHT, TASK_PARAMS.HEIGHT);
+global.taskGrid = ds_grid_create(TASK_PARAMS.HEIGHT, TASKS.HEIGHT);
 
 // create a function to add tasks to the master grid
-function master_grid_add_task(_ID, _name, _stepList, _mulligan) {
+function master_grid_add_task(_ID, _name, _instructionsList, _mulligan) {
 	var i = 0;	repeat (TASK_PARAMS.HEIGHT) {
 		// set next param on the grid
 		global.taskGrid[# i, _ID] = argument[i];
@@ -45,8 +52,8 @@ function master_grid_add_task(_ID, _name, _stepList, _mulligan) {
 	}
 }
 
-// add all tasks
-master_grid_add_task(TASKS.PREFESTIVAL_JITTERS, textGrid[# 1, TASKS.PREFESTIVAL_JITTERS],	textGrid[# 2, TASKS.PREFESTIVAL_JITTERS],	false);
+// add all tasks	 ID							NAME										TRIGGER LIST										INSTRUCTIONS LIST
+master_grid_add_task(TASKS.PREFESTIVAL_JITTERS, textGrid[# 1, TASKS.PREFESTIVAL_JITTERS],	encode_list(prefestivalJittersTriggers),			textGrid[# 2, TASKS.PREFESTIVAL_JITTERS],	false);
 
 // encode the master grid
 global.allTasks = encode_grid(global.taskGrid);
@@ -92,6 +99,12 @@ function player_update_todoList(_taskID, _failed) {
 		// add the failed task
 		player_add_failed_task(tid);
 	}
+	
+	// push an unlockAlert for todoList update
+	player_push_unlock_alert(UNLOCK_TYPES.TODO_LIST_UPDATE);
+	
+	// encode the todoList
+	player.todoList = encode_list(tdList);
 }
 
 function player_add_completed_task(_taskID) {

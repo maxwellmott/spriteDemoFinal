@@ -17,6 +17,14 @@ enum UNLOCK_TYPES {
 	HEIGHT
 }
 
+function player_push_unlock_alert(_unlockType) {
+	// store args in locals
+	var type = _unlockType;
+	
+	// add this alert type to the overworld unlockAlertList
+	ds_list_add(player.unlockAlertList, type);
+}
+
 function player_unlock_talisman(_talismanID) {
 	
 }

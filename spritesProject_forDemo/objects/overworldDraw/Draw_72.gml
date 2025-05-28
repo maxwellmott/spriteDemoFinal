@@ -128,6 +128,16 @@ if (overworld.sceneryCreated) {
 				}
 			}
 		
+			if (instance_exists(unlockAlert)) {
+				with (unlockAlert) {
+					draw_set_alpha(alpha);
+					
+					draw_sprite(spr_unlockAlerts, num, x, y);	
+				
+					draw_set_alpha(1.0);
+				}
+			}
+		
 			if (instance_exists(window)) {
 				with (window) {
 					if (window.frame == 1) {
@@ -278,6 +288,16 @@ var i = 0;	repeat (ds_list_size(overworld.tilemapList) - 1) {
 			}
 		}
 		
+		if (instance_exists(unlockAlert)) {
+			with (unlockAlert) {
+				draw_set_alpha(alpha);
+				
+				draw_sprite(spr_unlockAlerts, num, x, y);	
+			
+				draw_set_alpha(1.0);
+			}
+		}
+		
 		// set circle radius
 		var r = 10 + (sin(global.gameTime / 40) * 1.5);
 	
@@ -291,6 +311,7 @@ var i = 0;	repeat (ds_list_size(overworld.tilemapList) - 1) {
 					draw_sprite(spriteID, frame, x, y);
 			}
 		}
+		
 	
 		// change blendmode back to normal
 		gpu_set_blendmode(bm_normal);

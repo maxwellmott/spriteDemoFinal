@@ -382,3 +382,29 @@ function player_display_emote(_emotionID) {
 	overworld.activeEmotes[# 1, gh]		= player.id;
 }
 
+///@desc This function is called whenver an inGame match is completed.
+function player_update_last_match_results_list(_npcID, _playerWon) {
+	// store args in locals
+	var npcID = _npcID;
+	var pwon = _playerWon;
+	
+	// decode the player's lastMatchResultsList
+	var l = ds_list_create();
+	decode_list(player.lastMatchResultsList, l);
+	
+	// check if the player won
+	if (pwon) {
+		// set the given npc as having been defeated last
+		l[| npcID] = 1;
+	}
+	// if the player lost
+	else {
+		l[| npcID] = 0;
+	}
+	
+	// encode lastMatchResultsList
+	player.lastMatchResultsList = encode_list(l);
+	
+	// delete the temp list
+	ds_list_destroy(l);
+}

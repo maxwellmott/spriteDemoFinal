@@ -13,6 +13,9 @@ year	= 512;
 // inherit human create event
 event_inherited();
 
+// create the unlockAlertList
+unlockAlertList = ds_list_create();
+
 #region		INITIALIZE ALL PRIMARY PARAMETERS SET BY THE PLAYER
 	// initialize name
 	name = "";
@@ -144,6 +147,8 @@ event_inherited();
 		// increment i
 		i++;
 	}
+	
+	tdList[| 0] = 0;
 	
 	// encode the now populated todoList
 	todoList = encode_list(tdList);

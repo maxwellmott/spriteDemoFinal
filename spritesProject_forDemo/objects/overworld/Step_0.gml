@@ -1,10 +1,24 @@
 /// @desc
 
 // if there are no menus open and the alert stack is not empty, create an alert
-if (instance_exists(overworld)) 
-&& !(instance_exists(menu)) {
+if !(instance_exists(menu)) {
 	if (ds_list_size(alertStack) > 0) {
 		if !(instance_exists(overworldAlert)) instance_create_depth(0, 0, get_layer_depth(LAYER.uiFront), overworldAlert);
+	}
+}
+
+// ensure that transition is not happening
+if !(instance_exists(transitionManager)) {
+	// get the number of unlockAlerts present
+	var uan = instance_number(unlockAlert);
+	
+	// get the size of the unlockAlertsList
+	var uals = ds_list_size(player.unlockAlertList);
+	
+	// check if uan is less than the size of the unlockAlertList
+	if (uan < uals) {
+		// create a new unlockAlert
+		instance_create_depth(x, y, get_layer_depth(LAYER.ui), unlockAlert);
 	}
 }
 
