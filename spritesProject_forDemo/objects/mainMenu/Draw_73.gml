@@ -24,7 +24,7 @@ if !(outroStarted) {
 		var hh = round(sprite_get_height(spr_mainMenuButton) / 2);
 		
 		// draw all main menu buttons
-		var i = 0;	repeat (MAIN_MENU_BUTTONS.HEIGHT) {
+		var i = 0;	repeat (buttonCount) {
 			var left = buttonLeftList[| i];
 			var top = buttonTopList[| i];
 			
@@ -64,8 +64,18 @@ if !(outroStarted) {
 			clockString = string(player.hours mod 12) + ":" + string(player.minutes);	
 		}
 		
+		if (player.hours < 12) {
+			var ff = 0;
+		}
+		else {
+			var ff = 1;
+		}
+		
 		// draw digital clock
-		draw_text_pixel_perfect(x, y + 40, clockString, 6, guiWidth);
+		draw_text_pixel_perfect(x - 7, y + 40, clockString, 6, guiWidth);
+		
+		// draw ampm sprite
+		draw_sprite(spr_ampmSprite, ff, x + 7, y + 49);
 		
 		// set alpha to shineAlpha
 		draw_set_alpha(shineAlpha);

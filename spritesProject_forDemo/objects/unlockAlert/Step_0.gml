@@ -2,7 +2,7 @@
 y = camera.y - (guiHeight / 2) + (40 + (40 * num));
 
 // reset x in case camera.x changes
-y = camera.x - (guiWidth / 2) + 12;
+x = camera.x - (guiWidth / 2) + 12;
 
 // reset type in case num changes
 type = player.unlockAlertList[| num];
@@ -11,7 +11,7 @@ type = player.unlockAlertList[| num];
 if (fadingOut) {
 	// check if alpha is greater than 0
 	if (alpha > 0.0) {
-		alpha -= 0.5;	
+		alpha -= 0.025;
 	}
 	// if alpha is equal to or less than 0
 	else {

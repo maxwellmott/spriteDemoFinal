@@ -263,6 +263,9 @@ unlockAlertList = ds_list_create();
 #endregion
 
 #region		INITIALIZE ALL CAREER TRACKING VARIABLES
+	// initialize officialLeagueRanking (-1 indicates unregistered)
+	leagueRanking		= -1;
+
 	// initialize various battle ranking scores
 	roninScore			= 150;
 	roninMatchCount		= 0;

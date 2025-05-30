@@ -68,7 +68,7 @@ var textGrid = load_csv("COLORS_ENGLISH.csv");
 // create color list
 var masterList = ds_list_create();
 
-// create all colors							$BBGGRR
+// create all colors									$BBGGRR
 ds_list_insert(masterList,	COLORS.DYNOCTA_PINK,		$ff00ff);
 ds_list_insert(masterList,	COLORS.POND_LILY_PINK,		$ffa0c8);
 ds_list_insert(masterList,	COLORS.WINTERBERRY_RED,		$000080);

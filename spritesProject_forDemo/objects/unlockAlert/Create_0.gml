@@ -1,4 +1,4 @@
-num = instance_count - 1;
+num = instance_number(unlockAlert) - 1;
 
 x = camera.x - (guiWidth / 2) + 12;
 y = camera.y - (guiHeight / 2) + (40 + (40 * num));

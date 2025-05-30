@@ -30,7 +30,7 @@ if !(outroStarted) {
 	}
 }
 
-var i = 0;	repeat (MAIN_MENU_BUTTONS.HEIGHT) {
+var i = 0;	repeat (buttonCount) {
 	var left	= buttonLeftList[| i];
 	var top		= buttonTopList[| i];
 	var bottom	= buttonBottomList[| i];
@@ -57,12 +57,12 @@ if (global.menuUp) {
 	selectedButton--;
 }
 
-if (selectedButton >= MAIN_MENU_BUTTONS.HEIGHT) {
-	selectedButton -= MAIN_MENU_BUTTONS.HEIGHT;	
+if (selectedButton >= buttonCount) {
+	selectedButton -= buttonCount;	
 }
 
 if (selectedButton < 0) {
-	selectedButton += MAIN_MENU_BUTTONS.HEIGHT;	
+	selectedButton += buttonCount;	
 }
 
 if (global.select) {
