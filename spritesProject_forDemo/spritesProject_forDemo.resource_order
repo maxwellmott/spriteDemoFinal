@@ -163,6 +163,7 @@
     {"name":"talkBubble","order":6,"path":"objects/talkBubble/talkBubble.yy",},
     {"name":"tileChecker_debug","order":2,"path":"objects/tileChecker_debug/tileChecker_debug.yy",},
     {"name":"titleScreen","order":7,"path":"objects/titleScreen/titleScreen.yy",},
+    {"name":"todoListMenu","order":6,"path":"objects/todoListMenu/todoListMenu.yy",},
     {"name":"todoMenu","order":2,"path":"objects/todoMenu/todoMenu.yy",},
     {"name":"transitionManager","order":2,"path":"objects/transitionManager/transitionManager.yy",},
     {"name":"tree","order":6,"path":"objects/tree/tree.yy",},

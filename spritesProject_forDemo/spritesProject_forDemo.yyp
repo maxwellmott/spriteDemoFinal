@@ -226,6 +226,7 @@
     {"id":{"name":"teambuilder","path":"objects/teambuilder/teambuilder.yy",},},
     {"id":{"name":"tileChecker_debug","path":"objects/tileChecker_debug/tileChecker_debug.yy",},},
     {"id":{"name":"titleScreen","path":"objects/titleScreen/titleScreen.yy",},},
+    {"id":{"name":"todoListMenu","path":"objects/todoListMenu/todoListMenu.yy",},},
     {"id":{"name":"todoMenu","path":"objects/todoMenu/todoMenu.yy",},},
     {"id":{"name":"transitionManager","path":"objects/transitionManager/transitionManager.yy",},},
     {"id":{"name":"tree","path":"objects/tree/tree.yy",},},

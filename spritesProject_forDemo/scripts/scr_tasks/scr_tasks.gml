@@ -247,6 +247,30 @@ function task_get_step_count(_taskID) {
 
 
 ///@desc This function is used to draw the surface for the player's todoList menu
-function player_todo_list_draw_surface() {
+function player_todo_list_create_surface() {
+	// decode nameList and descriptionList
 	
+	// initialize windowWidth and windowHeight
+	
+	// initialize surfaceWidth
+	surfaceWidth = guiWidth - 24;
+
+	// initialize surfaceHeight
+	
+	// initialize surfaceDrawX and surfaceDrawY
+	
+	// initialize nameDrawX and descriptionDrawX
+	
+	// intialize textDrawY
+	
+	// initialize surfaceWindowRatio 
+	
+	// use a repeat loop to draw each item
+	
+		// draw name from name list
+		
+		// draw description from description list
+		
+		// draw separator
+		
 }

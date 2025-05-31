@@ -53,3 +53,20 @@
 		-add all check types to the enum
 		-finish all cases for all check types
 		-place function in all locations
+		
+5/30/2025
+
+	FINISH PLAYER ROOM:
+		-add rug
+		-move bookcase
+		-add one more bookcase
+		-add plants
+		
+	ADD TODO LIST TO THE GAME:
+		-finish draw todo list function (on scr_tasks)
+		-finish pseudocode for step, draw, and cleanup
+		
+	FINISH ALL TODOLIST CHECK FUNCTIONS:
+		-add all check types to the enum
+		-finish all cases for all check types
+		-place function in all locations
