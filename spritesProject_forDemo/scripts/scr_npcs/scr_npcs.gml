@@ -190,6 +190,35 @@ function mercurio_respond() {
 	return eg;	
 }
 
+function npc_get_response(_npcID) {
+	// store args in locals
+	var npcID = _npcID;
+	
+	// get factors for response selection
+	var wd	= player.weekday;
+	var h	= player.hours;
+	var s	= player.season;
+	var l	= overworld.location;
+	var r	= global.rainActive;
+	
+	// use a conditional statement to get the NPC's general "small talk" response
+		// each conditional should return an ID from an enumerator containing names 
+		// of different archetypal dialogues shared by all NPCs (rainySummerNight, sunnyFallMorning, etc)
+		// NOTE maybe also take the moon and the NPC's current routine into consideration
+	
+	// use one long if else, else, else, etc statement to determine if there is a piece of
+	// special dialogue that should be used to replace the dialogue selecetd above. 
+	// NOTE the if/else for each special dialogue should be listed in order of most conditions
+	// to least conditions.
+	
+	// FOR TESTING ONLY:
+	global.dialogueKey = "mercurioSparPrompt1";
+	
+	// set the encoded grid as the value stored at the dialogueKey
+	var eg = ds_map_find_value(global.speaker.responseMap, global.dialogueKey);
+		
+}
+
 #endregion
 
 // load csv file to textGrid

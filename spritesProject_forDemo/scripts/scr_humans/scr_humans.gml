@@ -246,7 +246,7 @@ function get_interactable() {
 				global.dialogueColumn	= 0;
 				
 				// get the encoded grid of dialogue for this situation using the given npc's response function
-				var eg = inst.responseFunction();
+				var eg = npc_get_response(inst.ID);
 				
 				// create the dialogueGrid (will be resized in the decode grid function)
 				global.dialogueGrid	= ds_grid_create(0, 0);

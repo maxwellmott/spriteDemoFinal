@@ -187,7 +187,7 @@ function load_save_file() {
 				firstFloorScenery			= _map[? "firstFloorScenery"];
 				secondFloorScenery			= _map[? "secondFloorScenery"];
 				outdoorScenery				= _map[? "thirdFloorScenery"];
-				wardrobe					= _map[? "wardrobe"];				
+				//wardrobe					= _map[? "wardrobe"];				
 				palette						= _map[? "palette"];				
 				unlockedDoors				= _map[? "unlockedDoors"];		
 				talismans					= _map[? "talismans"];			

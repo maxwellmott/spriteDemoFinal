@@ -1,0 +1,26 @@
+6/2/2025
+
+	FIX DIALOGUE FUNCTION VIA NOTE
+		-change "response function" parameter to "special dialogue selection function"
+		-each npc uses the standard dialogue selection (each NPC needs to have keys with matching suffixes (e.g. "mercurioDayThreePreMatch, indigoDayThreePreMatch)
+		-create a list of key suffixes as well as an enumerator matching the names to numbers so it's easy to check each NPC's responses by the same key data (only need to find the correct suffix based on time of day etc)
+		
+6/3/2025
+
+	FIX DIALOGUE FUNCTION VIA NOTE
+		-change "response function" parameter to "special dialogue selection function"
+		-each npc uses the standard dialogue selection (each NPC needs to have keys with matching suffixes (e.g. "mercurioDayThreePreMatch, indigoDayThreePreMatch)
+		-create a list of key suffixes as well as an enumerator matching the names to numbers so it's easy to check each NPC's responses by the same key data (only need to find the correct suffix based on time of day etc)
+		-started changing the system, left a note in the new function explaining where I left off
+		
+	CHANGE LIST ENCODING TO MATCH GRID:
+		-need to do this now so I can infinitely nest lists for the dialogue lists for cutscenes
+	
+	CODE AND TEST FIRST CUTSCENE
+		-finish the cutscene script
+		-create and pseudocode the cutscene object
+		-finish fixing infinite list encoding
+		-settle on a format for the dialogue_list (csv file called  "DEMO_CUTSCENE_1_ENGLISH.csv")
+		
+		
+	

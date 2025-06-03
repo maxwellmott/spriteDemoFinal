@@ -39,7 +39,9 @@ enum hairstyles {
 	longStraight,
 	puffyOldMan,
 	shortMessy,
-	height	
+	libertyHawk,
+	fadedBuzz,
+	height
 }
 
 enum hats {
@@ -51,8 +53,10 @@ enum hats {
 }
 
 enum footwear {
+	barefoot,
 	sandals,
 	trainers,
+	cuteClogs,
 	height	
 }
 

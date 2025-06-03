@@ -62,8 +62,8 @@ function player_load_appearance() {
 	hatColor		= cl[| hatColor];
 	shoeColor		= cl[| shoeColor];
 	
-	hairstyle = hairstyles.longStraight;
-	hairColor = cl[| COLORS.HAIR_DARK_BROWN];
+	hairstyle = hairstyles.libertyHawk;
+	hairColor = cl[| COLORS.HAIR_LIGHT_GREEN];
 	
 	// destroy temp lists
 	ds_list_destroy(list);
