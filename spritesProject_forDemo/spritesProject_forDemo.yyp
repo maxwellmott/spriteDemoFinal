@@ -168,6 +168,7 @@
     {"id":{"name":"contactsMenu","path":"objects/contactsMenu/contactsMenu.yy",},},
     {"id":{"name":"controller","path":"objects/controller/controller.yy",},},
     {"id":{"name":"cubeMenu","path":"objects/cubeMenu/cubeMenu.yy",},},
+    {"id":{"name":"cutscene","path":"objects/cutscene/cutscene.yy",},},
     {"id":{"name":"dayChange","path":"objects/dayChange/dayChange.yy",},},
     {"id":{"name":"DEBUG","path":"objects/DEBUG/DEBUG.yy",},},
     {"id":{"name":"door","path":"objects/door/door.yy",},},

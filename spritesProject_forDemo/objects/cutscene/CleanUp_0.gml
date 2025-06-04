@@ -1,0 +1,1 @@
+// delete all lists created by this object

@@ -5,6 +5,7 @@
 		-each npc uses the standard dialogue selection (each NPC needs to have keys with matching suffixes (e.g. "mercurioDayThreePreMatch, indigoDayThreePreMatch)
 		-create a list of key suffixes as well as an enumerator matching the names to numbers so it's easy to check each NPC's responses by the same key data (only need to find the correct suffix based on time of day etc)
 		
+
 6/3/2025
 
 	FIX DIALOGUE FUNCTION VIA NOTE
@@ -22,5 +23,26 @@
 		-finish fixing infinite list encoding
 		-settle on a format for the dialogue_list (csv file called  "DEMO_CUTSCENE_1_ENGLISH.csv")
 		
+
+6/4/2025
+
+	FIX DIALOGUE FUNCTION VIA NOTE
+		-change "response function" parameter to "special dialogue selection function"
+		-each npc uses the standard dialogue selection (each NPC needs to have keys with matching suffixes (e.g. "mercurioDayThreePreMatch, indigoDayThreePreMatch)
+		-create a list of key suffixes as well as an enumerator matching the names to numbers so it's easy to check each NPC's responses by the same key data (only need to find the correct suffix based on time of day etc)
+		-started changing the system, left a note in the new function explaining where I left off
 		
+	CHANGE LIST ENCODING TO MATCH GRID:
+		-need to do this now so I can infinitely nest lists for the dialogue lists for cutscenes
 	
+	ADD BOOKISH AND SPARMATE TO THE OVERWORLD
+		-add their art to the game
+		-create a script for overworldSprites
+		-write all the pseudocode for the owSprite object
+	
+	CODE AND TEST FIRST CUTSCENE
+		-ADD BOOKISH AND SPARMATE FIRST!!!!
+		-fix encoding key in scr_dialogue to contain any missing items from the encoding key in scr_cutscenes
+		-make the dialogue sheet for the first cutscene
+		-add all NPC art required for the first cutscene
+		-add all NPCs to the grid that are required for the first cutscene

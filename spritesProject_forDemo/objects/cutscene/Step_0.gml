@@ -1,0 +1,1 @@
+cutscene_process_dialogue(dialogueIndex);

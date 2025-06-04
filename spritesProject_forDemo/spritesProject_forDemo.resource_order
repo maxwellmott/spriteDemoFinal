@@ -110,6 +110,7 @@
     {"name":"contactsMenu","order":1,"path":"objects/contactsMenu/contactsMenu.yy",},
     {"name":"controller","order":5,"path":"objects/controller/controller.yy",},
     {"name":"cubeMenu","order":15,"path":"objects/cubeMenu/cubeMenu.yy",},
+    {"name":"cutscene","order":17,"path":"objects/cutscene/cutscene.yy",},
     {"name":"dayChange","order":12,"path":"objects/dayChange/dayChange.yy",},
     {"name":"DEBUG","order":5,"path":"objects/DEBUG/DEBUG.yy",},
     {"name":"door","order":2,"path":"objects/door/door.yy",},
