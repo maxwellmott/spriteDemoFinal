@@ -12,7 +12,7 @@ switch (phase) {
 			// check if rectangleSurfaceY is greater than rectTargetY
 			if (rectangleY > rectTargetY) {
 				// move rectangleY toward rectTargetY
-				rectangleY--;
+				rectangleY -= 2;
 			}
 			// if rectangleSurfaceY is less than or equal to rectTargetY
 			else {	
@@ -238,7 +238,7 @@ switch (phase) {
 	case CUBE_MENU_PHASES.CLOSING:
 		// check if rectangleY is less than rectTargetY
 		if (rectangleY < rectTargetY) {
-			rectangleY++;
+			rectangleY += 2;
 		}
 		// if rectangleY has reached rectTargetY
 		else {

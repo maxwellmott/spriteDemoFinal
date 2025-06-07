@@ -47,6 +47,8 @@ enum MESSAGE_TYPES  {
 	HEIGHT              
 }
 
+// @TODO add ROOM_TIMEOUT message type
+
 ///@desc This function contains the switch statement central to the client-side state machine that manages online
 /// communications. Each potential state has a matching function named in lower case that is called when the client 
 /// receives a message of that type
@@ -131,9 +133,13 @@ function online_message_handler(_type) {
 		case MESSAGE_TYPES.CLIENT_CANCEL_TURN:
 			client_cancel_turn();
 	}
+	
+	// @TODO add ROOM_TIMEOUT message type and call to timeout_close_room function
 }
 
 #region FUNCTIONS CALLED WHEN A MESSAGE FROM THE SERVER IS RECEIVED 
+
+// @TODO add timeout_close_room function
 
 ///@desc This function is called when the client receives a message from the server indicating that this client
 /// was successfully added to the matchmaking queue. The function stores the given values (client ID, type, and 
