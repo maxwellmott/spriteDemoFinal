@@ -1,3 +1,4 @@
+/*
 ///@desc This function takes a ds_list and loops through it,
 /// converting it into a string with some parse character separating
 /// each item from the list
@@ -48,6 +49,38 @@ function encode_list(_list) {
 	// return the substring
 	return substring;
 }
+*/
+
+function encode_list(_list) {
+	var l = _list;
+	
+	// set navigation characters
+	var tokenStartChar	= "`";
+	
+	var listStartChar	= "<";
+	var listEndChar		= ">";
+	
+	// get list size
+	var size			= ds_list_size(l);
+	
+	var substring = listStartChar;	
+	
+	// repeat for all tokens
+	var i = 0;	repeat (size) {
+		if (l[| i] != -1) {
+			substring += tokenStartChar;
+			
+			substring += string(l[| i]);
+		}
+	
+		// increment i
+		i++;
+	}
+	
+	substring += listEndChar;
+	
+	return substring;
+}
 
 ///@desc This function takes a ds_grid and loops through it,
 /// converting it into a string with two parse characters to
@@ -75,12 +108,12 @@ function encode_grid(_grid) {
 		substring += rowStartChar;
 		
 		// repeat for all rows
-		repeat (ds_grid_width(_grid)) {
+		repeat (colCount) {
 			if (g[# ii, i] != -1) {
 				substring += colStartChar;
 				
 				// add the grid token at i, ii to the return string
-				substring += string(_grid[# ii, i]);
+				substring += string(g[# ii, i]);
 			
 				// add the parse character to the string
 				substring += colEndChar;
@@ -146,40 +179,107 @@ function encode_map(_map) {
 ///@desc This function takes an encoded list and turns it back into a ds_list
 /// so that it's easier to access quickly
 function decode_list(_list, _target) {
-	// ensure that the list is a string
-	var list = string(_list);
+	var l = _list;
 	
-	// check for structs
-	var hasStructs = false;
+	_target[| 0] = "";
+
+	var listStartChar	= "<";
+	var listEndChar		= ">";
 	
-	if (string_count(";", list) > 0)	hasStructs = true;
-
-	// set parse character
-	if (hasStructs) {var parseChar = ";";}
-	else	{var parseChar = ",";}
-
-	// count list tokens
-	var listSize = string_count(parseChar, list);
+	var tokenStartChar	= "`";
 	
-	// copy the list to an empty string
-	var substring = list;
-
-	// repeat for every token in the list
-	var i = 0;
-	repeat (listSize) {
-	// find the first token in the string
-		var position = string_pos(parseChar, substring);
-		var token = string_copy(substring, 1, position - 1);
-
-		// put the token on the list
-		_target[|i] = token;
-
-		// delete the token from the string
-		var temp = string_delete(substring, 1, position);
-		substring = temp;
+	var currentToken	= -1;
+	
+	var nextTokenStart	= -1;
+	var nextTokenEnd	= -1;
+	
+	var listLength		= string_length(l);
+	
+	var nextListStart	= -1;
+	var nextListEnd		= -1;
+	
+	var nextChar		= -1;
+	
+	var substring		= "";
+	
+	// delete the opening bracket
+	l = string_delete(l, 1, 1);
+	
+	// search through the encoded list and add data token by token
+	var i = 0;	while (i < listLength) {
+		nextChar = string_char_at(l, 1);
 		
-		// increment i
-		i++;
+		// if this is the beginning of a new token
+		if (nextChar == "`") {
+			// initialize the next token
+			_target[| currentToken + 1] = "";
+			
+			// remove this character
+			l = string_delete(l, 1, 1);
+			
+			// increment current token
+			currentToken++;
+			
+			// increment i
+			i++;
+		}
+		
+		// if this is the beginning of a new list
+		else if (nextChar == "<") {
+			// get the start and end of the nested list
+			var startPos = string_pos_ext(listStartChar, l, 2);
+			var endPos = string_pos_ext(listEndChar, l, 2);
+			
+			if (startPos < endPos) 
+			&& (startPos > 0) {
+				while (startPos < endPos)
+				&& (startPos > 0) {
+					// add everything up until the nextGridEnd to the current column and row position
+					_target[| currentToken] += string_copy(l, 0, startPos);
+					
+					// delete everything up until nextGridEnd from the encoded grid
+					l = string_delete(l, 0, endPos);
+					
+					// increment i by the number of characters just added
+					i += endPos;
+					
+					// get the position of the next listStartChar and the next listEndChar
+					startPos	= string_pos_ext(listStartChar, l, 2);
+					endPos		= string_pos_ext(listEndChar, l, 2);
+				}
+			}
+			else {
+				// add everything up until the nextGridEnd to the current column and row position
+				_target[| currentToken] += string_copy(l, 0, endPos);
+				
+				// delete everything up until nextGridEnd from the encoded grid
+				l = string_delete(l, 0, endPos);
+				
+				// increment i by the number of characters just added (nextGridEnd + 1)
+				i += endPos;
+			}
+		}
+	
+		// if this is a list end character
+		else if (nextChar == ">") {
+			// remove this from the string
+			l = string_delete(l, 1, 1);
+			
+			// increment i
+			i++;
+		}
+			
+		// if this is any other character
+		else {
+			// add it to the currentToken
+			_target[| currentToken] += nextChar;
+			
+			// remove this character
+			l = string_delete(l, 1, 1);
+			
+			// increment i
+			i++;
+		}
 	}
 }
 
@@ -217,8 +317,6 @@ function decode_grid(_grid, _target) {
 	var nextGridEnd		= -1;
 	
 	var nextChar		= "";
-	
-	var nestedGridCount = 0;
 	
 	var substring = "";
 	
@@ -293,11 +391,12 @@ function decode_grid(_grid, _target) {
 		// if this is the beginning of a nested grid
 		else if (nextChar == gridStartChar) {
 			// get the position of the next gridStartChar and the next gridEndChar
-			nextGridStart	= string_pos(gridStartChar, g);
-			nextGridEnd		= string_pos(gridEndChar, g);
+			nextGridStart	= string_pos_ext(gridStartChar, g, 2);
+			nextGridEnd		= string_pos_ext(gridEndChar, g, 2);
 			
 			// check if nextGridStart comes before nextGridEnd (this indicates that there is another nested grid)
-			if (nextGridStart < nextGridEnd) {
+			if (nextGridStart < nextGridEnd) 
+			&& (nextGridStart > 0) {
 				while (nextGridStart < nextGridEnd) 
 				&& (nextGridStart > 0) {
 					// add everything up until the nextGridEnd to the current column and row position
@@ -310,8 +409,8 @@ function decode_grid(_grid, _target) {
 					i += nextGridEnd;
 					
 					// get the position of the next gridStartChar and the next gridEndChar
-					nextGridStart	= string_pos(gridStartChar, g);
-					nextGridEnd		= string_pos(gridEndChar, g);
+					nextGridStart	= string_pos_ext(gridStartChar, g, 2);
+					nextGridEnd		= string_pos_ext(gridEndChar, g, 2);
 				}
 			}
 			// if nextGridStart comes AFTER nextGridEnd (this indicates that there are no other nested grids)
@@ -341,7 +440,7 @@ function decode_grid(_grid, _target) {
 			_target[# currentCol, currentRow] += nextChar;
 			
 			// remove this character
-			g = string_delete(g, 0, 1);
+			g = string_delete(g, 1, 1);
 			
 			// increment i
 			i++;

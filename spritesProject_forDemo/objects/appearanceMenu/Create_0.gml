@@ -1,4 +1,6 @@
 
+player.appearanceLoaded = false;
+
 // set x and y as center (this is for the confirm window)
 x = guiWidth / 2;
 y = (guiHeight / 2) - 22;

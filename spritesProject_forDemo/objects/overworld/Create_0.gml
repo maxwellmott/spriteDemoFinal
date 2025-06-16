@@ -100,27 +100,34 @@ tm_water		= tilemapList[| tilemaps.water];
 tm_upstairs		= tilemapList[| tilemaps.upperStory];
 tm_collidables	= tilemapList[| tilemaps.collidables];
 
-place_bookcases(bookcaseString);
-place_literature(literatureString);
-place_scenery(objectString);
+if (bookcaseString != "<>")		place_bookcases(bookcaseString);
+if (literatureString != "<>")	place_literature(literatureString);
+if (objectString != "<>")		place_scenery(objectString);
+
 place_doors();
-place_beds(bedString);
+
+if (bedString != "<>")			place_beds(bedString);
 
 // create the overworld alerts stack
 alertStack = ds_list_create();
 
 // get location's npc list
 npcList	= ds_list_create();
-decode_list(locationGrid[# locationParams.npcList,	locationID], npcList);
 
-var firstEntry = npcList[|0];
+if (locationGrid[# locationParams.npcList, locationID] != "-4")
+&& (locationGrid[# locationParams.npcList, locationID] != "-1")
+&& (locationGrid[# locationParams.npcList, locationID] != "0") {
+	decode_list(locationGrid[# locationParams.npcList,	locationID], npcList);
 
-var i = 0; repeat (ds_list_size(npcList)) {
-	var _npc = instance_create_depth(32, 276, LAYER.sprites, npc);
+	var firstEntry = npcList[|0];
 	
-	_npc.ID = string_digits(npcList[| i]);
-	
-	i++;
+	var i = 0; repeat (ds_list_size(npcList)) {
+		var _npc = instance_create_depth(32, 276, LAYER.sprites, npc);
+		
+		_npc.ID = string_digits(npcList[| i]);
+		
+		i++;
+	}
 }
 
 // create overworldDraw object

@@ -76,7 +76,7 @@ var textGrid = load_csv("LITERATURE_ENGLISH.csv");
 	var inhumanEntitiesImages = ds_list_create();
 	
 	// add all images
-	ds_list_add(inhumanEntitiesImages,	string(asset_get_index(spr_inhumanEntities1)) + ",");
+	ds_list_add(inhumanEntitiesImages,	"<`"+string(asset_get_index(spr_inhumanEntities1)) + ">");
 	
 #endregion
 

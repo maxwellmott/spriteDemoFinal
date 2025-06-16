@@ -100,13 +100,13 @@ var i = 0; repeat (8) {
 
 	// if sprite's readyDisplay is built, draw the box and the text
 	if (inst.readyDisplayBuilt) {
-		draw_set_halign(fa_left);
-		draw_set_valign(fa_top);
+		draw_set_halign(fa_center);
+		draw_set_valign(fa_middle);
 		
 		draw_set_font(plainFont);
 		
 		draw_sprite(spr_readyDisplayBox, 0, inst.x, inst.y);
-		draw_text_pixel_perfect(inst.x - 27, inst.y - 15, inst.readyDisplay, 7, sprite_get_width(spr_readyDisplayBox) - 4);
+		draw_text_pixel_perfect(inst.x, inst.y, inst.readyDisplay, 7, sprite_get_width(spr_readyDisplayBox) - 4);
 	}
 	
 	// reset halign and valign
@@ -161,7 +161,7 @@ draw_set_alpha(1.0);
 					draw_sprite(spr_sparActionButton, inst.frame, inst.x, inst.y);
 					draw_set_color(inst.textColor);
 					
-					draw_text_pixel_perfect(inst.x, inst.y + 3, inst.name, 1, 256);
+					draw_text_pixel_perfect(inst.x + 1, inst.y + 3, inst.name, 1, 256);
 					
 					i++;
 				}
@@ -471,8 +471,8 @@ draw_set_alpha(1.0);
 				draw_set_valign(fa_middle);
 				
 				// draw alignment and size
-				draw_text(hoverMenu_alignmentX,		hoverMenu_alignmentY + 2,	"TYPE   " + sprite_get_alignment_string(hs.currentAlign));
-				draw_text(hoverMenu_sizeX,			hoverMenu_sizeY + 3,		"SIZE   " + sprite_get_size_string(hs.currentSize));
+				draw_text(hoverMenu_alignmentX,		hoverMenu_alignmentY - 2,	"TYPE   " + sprite_get_alignment_string(hs.currentAlign));
+				draw_text(hoverMenu_sizeX,			hoverMenu_sizeY - 1,		"SIZE   " + sprite_get_size_string(hs.currentSize));
 				
 				draw_set_halign(fa_center);
 				
@@ -642,13 +642,20 @@ draw_set_alpha(1.0);
 					draw_set(fa_left, fa_top, 1.0, COL_BLACK);
 
 					// draw ability name
-					draw_text_pixel_perfect(hoverMenu_abilityNameX, hoverMenu_abilityNameY, hs.currentAbilityName, 1, guiWidth - 6);
+					draw_text_pixel_perfect(hoverMenu_abilityNameX, hoverMenu_abilityNameY - 1, hs.currentAbilityName, 1, guiWidth - 6);
 					
 					// set draw params
 					draw_set(fa_center, fa_top, 1.0, COL_BLACK);
 					
+					// set different font
+					draw_set_font(spellbookFont);
+					
 					// draw ability desc
-					draw_text_pixel_perfect(hoverMenu_abilityDescX, hoverMenu_abilityDescY, hs.currentAbilityDesc, 1, guiWidth - 6);
+					draw_text_pixel_perfect(hoverMenu_abilityDescX, hoverMenu_abilityDescY - 4, hs.currentAbilityDesc, 1, guiWidth - 6);
+
+					// reset font to plain
+					draw_set_font(plainFont);
+					
 				#endregion
 			}
 		}
@@ -702,5 +709,23 @@ if (onlineWaiting) {
 		draw_set_alpha(1.0);
 		
 		draw_text_pixel_perfect(guiWidth / 2, guiHeight / 2, winLoseDisplay.text, 1, 256);
+	}
+#endregion
+
+#region TIMEOUT ALERT
+	if (playerTwo.object_index == onlineEnemy) {
+		if (instance_exists(onlineRoomTimeoutAlert)) {
+			draw_set_alpha(0.8);
+			
+			draw_rectangle_color(0, 0, guiWidth, guiHeight, c_black, c_black, c_black, c_black, false);	
+			
+			draw_set_alpha(1.0);
+			
+			draw_set_font(plainFont);
+			
+			draw_set(fa_middle, fa_center, 1.0, c_white);
+			
+			draw_text_pixel_perfect(guiWidth / 2, guiHeight / 2, "This room timed out and will now be closed. \n If you are seeing this, your ELO will not be affected.", 7, 256);
+		}
 	}
 #endregion

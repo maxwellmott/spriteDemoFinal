@@ -1,5 +1,3 @@
-
-// @TODO MOVE THIS TO OVERWORLD DRAW
 if !(surface_exists(game.guiSurface)) {
 	game.guiSurface = surface_create(guiWidth, guiHeight);
 }

@@ -44,10 +44,9 @@ enum MESSAGE_TYPES  {
 	CLIENT_CANCEL_TEAM,			// the client is backing out of team selection
 	CLIENT_CANCEL_SPELLBOOK,	// the client is backing out of spellbook selection
 	CLIENT_CANCEL_TURN,			// the client is backing out of turn selection
+	ROOM_TIMEOUT,				// this indicates that the room has timed out
 	HEIGHT              
 }
-
-// @TODO add ROOM_TIMEOUT message type
 
 ///@desc This function contains the switch statement central to the client-side state machine that manages online
 /// communications. Each potential state has a matching function named in lower case that is called when the client 
@@ -132,14 +131,26 @@ function online_message_handler(_type) {
 		
 		case MESSAGE_TYPES.CLIENT_CANCEL_TURN:
 			client_cancel_turn();
+		break;
+		
+		case MESSAGE_TYPES.ROOM_TIMEOUT:
+			room_timeout();
+		break;
 	}
 	
-	// @TODO add ROOM_TIMEOUT message type and call to timeout_close_room function
 }
 
 #region FUNCTIONS CALLED WHEN A MESSAGE FROM THE SERVER IS RECEIVED 
 
-// @TODO add timeout_close_room function
+///@desc This function is called when the server notices that it has been more than
+/// four minutes since a turn was taken
+function room_timeout() {
+	// post a debug message
+	show_debug_message("This room has timed out. It will now close");
+	
+	// create the room timeout object
+	create_once(0, 0, LAYER.meta, onlineRoomTimeoutAlert);
+}
 
 ///@desc This function is called when the client receives a message from the server indicating that this client
 /// was successfully added to the matchmaking queue. The function stores the given values (client ID, type, and 

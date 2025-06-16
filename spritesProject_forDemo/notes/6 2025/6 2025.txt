@@ -65,7 +65,7 @@
 		
 	CODE AND TEST FIRST CUTSCENE:
 		-ADD BOOKISH AND SPARMATE FIRST!!!!
-		-fix encoding key in scr_dialogue to contain any missing items from the encoding key in scr_cutscenes
+		-fix dialogue encoding key via the note above it
 		-make the dialogue sheet for the first cutscene
 		-add all NPC art required for the first cutscene
 		-add all NPCs to the grid that are required for the first cutscene

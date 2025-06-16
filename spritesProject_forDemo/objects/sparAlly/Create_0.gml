@@ -24,6 +24,9 @@ spar.spriteList[| spotNum]	= id;
 x = (64 * allyNum) + 32;
 y = guiHeight - 48;
 
+startY = y;
+gameTimeDiff = -1;
+
 // initialize name
 name = "";
 

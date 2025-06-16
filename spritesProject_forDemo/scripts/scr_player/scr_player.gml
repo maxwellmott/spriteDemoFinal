@@ -68,6 +68,8 @@ function player_load_appearance() {
 	// destroy temp lists
 	ds_list_destroy(list);
 	ds_list_destroy(cl);
+	
+	appearanceLoaded = true;
 }
 
 

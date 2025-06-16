@@ -185,6 +185,7 @@ function spar_set_action() {
 			sprite.turnReady = true;
 			spar.selectionPhase = SELECTION_PHASES.ALLY;
 			
+			player.selectedAlly = -1			
 		break;
 		
 		case sparActions.swap:		
@@ -209,6 +210,8 @@ function spar_set_action() {
 			sprite.selectedAction = action;
 			sprite.turnReady = true;
 			spar.selectionPhase = SELECTION_PHASES.ALLY;
+			
+			player.selectedAlly = -1;
 		break;
 	}
 
@@ -737,6 +740,8 @@ function spar_set_target() {
 		selectedTarget = player.selectedAlly.spotNum;
 		turnReady = true;
 	}
+	
+	player.selectedAlly = -1;
 }
 
 ///@desc This function sets the selected ally's action and target with global.action
@@ -766,6 +771,8 @@ function self_target_set() {
 	player.selectedAlly.selectedAction = global.action;
 	player.selectedAlly.selectedTarget = -1;
 	player.selectedAlly.turnReady = true;
+	
+	player.selectedAlly = -1;
 }
 
 ///@desc This function should be called at the beginning of a spar since

@@ -113,10 +113,10 @@ var mercurioLocations	= ds_list_create();
 
 // populate all location lists
 //			list name				
-ds_list_add(mercurioLocations,	string(locations.miriabramExt) + ",",													//hyggsun
-								string(locations.miriabramLibrary) + ",",												//plughsun
-								string(locations.miriabramLibrary) + ","	+ string(locations.miriabramDojo) + ",",	//rumnsun
-								string(locations.miriabramExt) + ",");													//famelsun
+ds_list_add(mercurioLocations,	"<`"+string(locations.miriabramExt) + ">",													//hyggsun
+								"<`"+string(locations.miriabramLibrary) + ">",												//plughsun
+								"<`"+string(locations.miriabramLibrary) + "`"	+ string(locations.miriabramDojo) + ">",	//rumnsun
+								"<`"+string(locations.miriabramExt) + ">");													//famelsun
 								
 #endregion
 
@@ -317,21 +317,23 @@ function build_npc_location_list(_targetList) {
 		var encList		= grid[# npcParams.locations, i];
 		
 		// break if no locations
-		if (string_digits(encList) == noone) {
-			i++;	break;
+		if (encList != "-4")
+		&& (encList != "-1")
+		&& (encList != "0") {
+		
+			// create two dummy lists
+			var weekList	= ds_list_create();
+			
+			// decode the first encoded list to the full week dummy list
+			decode_list(encList, weekList);
+			
+			// get encoded list of locations for the current weekday from weekList
+			encList = weekList[| player.weekday];
+			
+			// decode the second encoded list to the single day dummy list
+			decode_list(encList, tl);
+		
 		}
-		
-		// create two dummy lists
-		var weekList	= ds_list_create();
-		
-		// decode the first encoded list to the full week dummy list
-		decode_list(encList, weekList);
-		
-		// get encoded list of locations for the current weekday from weekList
-		encList = weekList[| player.weekday];
-		
-		// decode the second encoded list to the single day dummy list
-		decode_list(encList, tl);
 		
 		// increment i
 		i++;
@@ -359,19 +361,25 @@ function edit_npc_location_lists(_locationList) {
 		var encList = grid[# locationParams.npcList, _location];
 		var npcList	= ds_list_create();
 		
-		decode_list(encList, npcList);
+		// break if no locations
+		if (encList != "-4")
+		&& (encList != "-1")
+		&& (encList != "0") {
 		
-		ds_list_reset(npcList);
+			decode_list(encList, npcList);
 		
-		var _npc = 0;		repeat (npcs.height) {
-			if locationList[| _npc] == _location {
-				ds_list_add(npcList, _npc);
+			ds_list_reset(npcList);
+		
+			var _npc = 0;		repeat (npcs.height) {
+				if locationList[| _npc] == _location {
+					ds_list_add(npcList, _npc);
+				}
+				
+				_npc++;
 			}
-			
-			_npc++;
-		}
 		
-		grid[# locationParams.npcList, _location] = encode_list(npcList);
+			grid[# locationParams.npcList, _location] = encode_list(npcList);
+		}
 		
 		_location++;
 	}

@@ -8,13 +8,12 @@ if (global.shiftPressed)
 }
 
 #region OVERWORLD MOVEMENT AND INTERACTION
-// get appearance variables
-if !(appearanceLoaded) {
-	player_load_appearance();	
-}
-
 if (instance_exists(overworld)) 
 && !(instance_exists(menu)) {
+	if !(appearanceLoaded) {
+		player_load_appearance();
+	}
+	
 	if (state == humanStates.standard) {
 		player_move(); 
 	}

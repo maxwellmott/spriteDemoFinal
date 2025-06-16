@@ -35,8 +35,8 @@ var textGrid = load_csv("TASKS_ENGLISH.csv");
 // create all trigger lists
 var prefestivalJittersTriggers = ds_list_create();
 
-// populate all trigger lists			ID													ARG 1								ARG 2
-ds_list_add(prefestivalJittersTriggers,	string(TODO_LIST_CHECK_TYPES.SPAR_COMPLETE)+","+	string(npcs.mercurioGallant)+","+	string(-1)+",");
+// populate all trigger lists			ID														ARG 1									ARG 2
+ds_list_add(prefestivalJittersTriggers,	"<`"+string(TODO_LIST_CHECK_TYPES.SPAR_COMPLETE)+""+	"`"+string(npcs.mercurioGallant)+""+	"`"+string(-1)+">");
 
 // create the task master grid
 global.taskGrid = ds_grid_create(TASK_PARAMS.HEIGHT, TASKS.HEIGHT);

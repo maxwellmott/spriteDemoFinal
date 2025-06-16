@@ -24,13 +24,13 @@ unlockAlertList = ds_list_create();
 	pronouns = -1;
 	
 	// initialize appearance
-	appearance = "0,0,0,0,0,0,0,0,0,0,0,";
+	appearance = "<`0`0`0`0`0`0`0`0`0`0`0>";
 	
 	// initialize currentTeam
-	currentTeam = string(SPRITES.PODRIC) + "," + string(SPRITES.DIIPSY) + "," + string(SPRITES.GLIDRAKE) + "," + string(SPRITES.HACHACHACHA) + ",";
+	currentTeam = "<`" + string(SPRITES.PODRIC) + "`" + string(SPRITES.DIIPSY) + "`" + string(SPRITES.GLIDRAKE) + "`" + string(SPRITES.HACHACHACHA) + ">";
 	
 	// initialize currentSpellBook
-	currentSpellBook = string(SPELLS.FIREBALL) + "," + string(SPELLS.SHOCK) + "," + string(SPELLS.DECAY) + "," + string(SPELLS.HOLY_WATER) + "," + string(SPELLS.EXPEL_FORCE) + "," + string(SPELLS.HEALING_LIGHT) + "," + string(SPELLS.EMPATHIZE) + ",";
+	currentSpellBook = "<`" + string(SPELLS.FIREBALL) + "`" + string(SPELLS.SHOCK) + "`" + string(SPELLS.DECAY) + "`" + string(SPELLS.HOLY_WATER) + "`" + string(SPELLS.EXPEL_FORCE) + "`" + string(SPELLS.HEALING_LIGHT) + "`" + string(SPELLS.EMPATHIZE) + ">";
 	
 	// initialize presetTeamList
 	presetTeamList = "";

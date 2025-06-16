@@ -1930,7 +1930,7 @@ function sprite_get_alignment_string(_alignment) {
 	
 	switch (a) {
 		case ALIGNMENTS.ASTRAL:		return "ASTRAL";
-		case ALIGNMENTS.MECHANICAL:	return "MECHANICAL";
+		case ALIGNMENTS.MECHANICAL:	return "MECH.";
 		case ALIGNMENTS.NATURAL:	return "NATURAL";
 	}
 	

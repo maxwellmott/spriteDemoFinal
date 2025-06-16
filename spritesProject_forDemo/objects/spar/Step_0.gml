@@ -910,15 +910,15 @@ switch (sparPhase) {
 					// switch statement to set selectionMsg text
 					switch(a) {
 						case sparActions.attack:
-							selectionMsg = "Select a sprite within range to target with a basic attack";
+							selectionMsg = "Select a target!";
 						break;
 						
 						case sparActions.swap:
-							selectionMsg = "Select the sprite with whom " + player.selectedAlly.name + " should swap";
+							selectionMsg = "Select a target!";
 						break;
 					}
 					
-					if (a >= sparActions.height)	selectionMsg = "Select a sprite within range to target with a spell";
+					if (a >= sparActions.height)	selectionMsg = "Select a target!";
 					
 					// handle backspace input
 					if (global.back) {

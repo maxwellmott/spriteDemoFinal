@@ -52,22 +52,22 @@ var miriabramExtList				= ds_list_create();
 
 // populate all object lists with arguments for structs
 
-//			list name				x			y			ID
-ds_list_add(miriabramFoyerList,		"128,"+		"408,"+		string(sceneryIDs.traditionalWindowIndoorUpstairs)+",",	
-									"212,"+		"408,"+		string(sceneryIDs.traditionalWindowIndoorUpstairs)+",",	
-									"296,"+		"408,"+		string(sceneryIDs.traditionalWindowIndoorUpstairs)+",",	
-									"376,"+		"408,"+		string(sceneryIDs.traditionalWindowIndoorUpstairs)+",",	
-									"460,"+		"408,"+		string(sceneryIDs.traditionalWindowIndoorUpstairs)+",",	
-									"544,"+		"408,"+		string(sceneryIDs.traditionalWindowIndoorUpstairs)+",");
+//			list name				x				y				ID
+ds_list_add(miriabramFoyerList,		"<`128"+		"`408"+		"`"+string(sceneryIDs.traditionalWindowIndoorUpstairs)+">",	
+									"<`212"+		"`408"+		"`"+string(sceneryIDs.traditionalWindowIndoorUpstairs)+">",	
+									"<`296"+		"`408"+		"`"+string(sceneryIDs.traditionalWindowIndoorUpstairs)+">",	
+									"<`376"+		"`408"+		"`"+string(sceneryIDs.traditionalWindowIndoorUpstairs)+">",	
+									"<`460"+		"`408"+		"`"+string(sceneryIDs.traditionalWindowIndoorUpstairs)+">",	
+									"<`544"+		"`408"+		"`"+string(sceneryIDs.traditionalWindowIndoorUpstairs)+">");
 									
 //			list name				x			y			ID
 //ds_list_add(miriabramHallwayList,	);
 							
-//			list name				x			y			ID
-ds_list_add(miriabramDorm1List,		"209,"+		"104,"+		string(sceneryIDs.retroSendport)+",",
-									"162,"+		"104,"+		string(sceneryIDs.postIndustrialCupboard)+",",	
-									"128,"+		"96,"+		string(sceneryIDs.traditionalWindowIndoorNormal)+",",
-									"192,"+		"96,"+		string(sceneryIDs.traditionalWindowIndoorNormal)+",");
+//			list name				x				y			ID
+ds_list_add(miriabramDorm1List,		"<`209"+		"`104"+	"`"+string(sceneryIDs.retroSendport)+">",
+									"<`162"+		"`104"+	"`"+string(sceneryIDs.postIndustrialCupboard)+">",	
+									"<`128"+		"`96"+		"`"+string(sceneryIDs.traditionalWindowIndoorNormal)+">",
+									"<`192"+		"`96"+		"`"+string(sceneryIDs.traditionalWindowIndoorNormal)+">");
 
 //			list name				x			y			ID
 //ds_list_add(miriabramDojoList,	);
@@ -81,11 +81,11 @@ ds_list_add(miriabramDorm1List,		"209,"+		"104,"+		string(sceneryIDs.retroSendpo
 //			list name				x			y			ID
 //ds_list_add(miriabramPMQuartersList,	);
 
-//			list name				x			y			ID										
-ds_list_add(miriabramExtList,		"368,"+		"344,"+		string(sceneryIDs.crystalLampPost)+",",
-									"368,"+		"472,"+		string(sceneryIDs.crystalLampPost)+",",
-									"432,"+		"344,"+		string(sceneryIDs.crystalLampPost)+",",
-									"432,"+		"472,"+		string(sceneryIDs.crystalLampPost)+",");
+//			list name				x				y				ID										
+ds_list_add(miriabramExtList,		"<`368"+		"`344"+		"`"+string(sceneryIDs.crystalLampPost)+">",
+									"<`368"+		"`472"+		"`"+string(sceneryIDs.crystalLampPost)+">",
+									"<`432"+		"`344"+		"`"+string(sceneryIDs.crystalLampPost)+">",
+									"<`432"+		"`472"+		"`"+string(sceneryIDs.crystalLampPost)+">");
 							
 #endregion
 
@@ -752,9 +752,9 @@ var miriabramHMQuartersLiterature	= ds_list_create();
 var miriabramPMQuartersLiterature	= ds_list_create();
 var miriabramExtLiterature			= ds_list_create();
 
-//			list name					x										y			ID
-ds_list_add(miriabramDorm1Literature,	"132,"+									"68,"+		string(literatureIDs.inhumanEntities)+",",
-										string(BOOKCASE_BOOK_INDICATOR)+","+	"0,"+		string(literatureIDs.inhumanEntities)+",");
+//			list name					x											y			ID
+ds_list_add(miriabramDorm1Literature,	"<`132"+									"`68"+		"`"+string(literatureIDs.inhumanEntities)+">",
+										"<`"+string(BOOKCASE_BOOK_INDICATOR)+""+	"`0"+		"`"+string(literatureIDs.inhumanEntities)+">");
 
 #endregion
 
@@ -769,8 +769,8 @@ var miriabramHMQuartersBookcases	= ds_list_create();
 var miriabramPMQuartersBookcases	= ds_list_create();
 var miriabramExtBookcases			= ds_list_create();
 
-//			list name					x			y			ID													BOOKCASE NUM
-ds_list_add(miriabramDorm1Bookcases,	"113,"+		"200,"+		string(sceneryIDs.traditionalWoodenBookcase)+","+	"0,");
+//			list name					x				y			ID														BOOKCASE NUM
+ds_list_add(miriabramDorm1Bookcases,	"<`113"+		"`200"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+""+	"`0>");
 
 #endregion
 
@@ -785,8 +785,8 @@ var miriabramHMQuartersBeds		= ds_list_create();
 var miriabramPMQuartersBeds		= ds_list_create();
 var miriabramExtBeds			= ds_list_create();
 
-//			list name					x			y			ID													COMFORTER ID
-ds_list_add(miriabramDorm1Beds,			"113,"+				"120,"+				string(sceneryIDs.traditionalWoodenBedframe)+","+	string(COMFORTERS.AFFORDABLE_MODERN)+",");
+//			list name					x						y					ID														COMFORTER ID
+ds_list_add(miriabramDorm1Beds,			"<`113"+				"`120"+				"`"+string(sceneryIDs.traditionalWoodenBedframe)+""+	"`"+string(COMFORTERS.AFFORDABLE_MODERN)+">");
 
 #endregion
 

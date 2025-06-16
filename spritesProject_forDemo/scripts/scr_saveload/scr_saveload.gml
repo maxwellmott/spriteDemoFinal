@@ -9,6 +9,10 @@ function game_start() {
 	// create the player object
 	create_once(128,	160, LAYER.sprites, player);
 	
+	if (file_exists(SAVE_FILE_NAME)) {
+		file_delete(SAVE_FILE_NAME);	
+	}
+	
 	// set the player's location to the starting area
 	player.location = locations.miriabramDorm1;
 	
@@ -21,6 +25,9 @@ function game_start() {
 	// destroy the npcLocationList
 	ds_list_destroy(npcLocationList);
 	
+	room_transition(128, 160, directions.south, rm_characterCreator, bgm_createYourCharacter);
+	
+	/*
 	// check if there is a save file on this machine
 	if (file_exists(SAVE_FILE_NAME)) {
 		// load the save file
@@ -44,7 +51,8 @@ function game_start() {
 	else {		
 		// transition to the character creator
 		room_transition(128, 160, directions.south, rm_characterCreator, bgm_createYourCharacter);
-	}
+	
+	*/
 }
 
 ///@desc This function stores a given string of data in a buffer and then saves that buffer

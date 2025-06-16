@@ -22,6 +22,12 @@ function draw_text_pixel_perfect(_x, _y, _text, _separation, _width) {
 	var ss = _separation;
 	var ww = _width;
 	
+	var f = draw_get_font();
+	
+	if (f == plainFont) {
+		yy -= 6;	
+	}
+	
 	if (xx mod 1 != 0) {
 		xx -= xx mod 1;	
 	}
