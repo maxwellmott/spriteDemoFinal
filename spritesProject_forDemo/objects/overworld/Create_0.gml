@@ -118,8 +118,6 @@ if (locationGrid[# locationParams.npcList, locationID] != "-4")
 && (locationGrid[# locationParams.npcList, locationID] != "-1")
 && (locationGrid[# locationParams.npcList, locationID] != "0") {
 	decode_list(locationGrid[# locationParams.npcList,	locationID], npcList);
-
-	var firstEntry = npcList[|0];
 	
 	var i = 0; repeat (ds_list_size(npcList)) {
 		var _npc = instance_create_depth(32, 276, LAYER.sprites, npc);
@@ -128,6 +126,30 @@ if (locationGrid[# locationParams.npcList, locationID] != "-4")
 		
 		i++;
 	}
+}
+
+// decode overworld sprite grid
+var osg = ds_grid_create(OVERWORLD_SPRITE_PARAMS.HEIGHT, SPRITES.HEIGHT);
+decode_grid(global.allOverworldSprites, osg);
+
+var i = 0;	repeat (SPRITES.HEIGHT) {
+	
+	var locationList = osg[# OVERWORLD_SPRITE_PARAMS.LOCATION_LIST, i];
+	
+	var locationFunc = correct_string_after_decode(osg[# OVERWORLD_SPRITE_PARAMS.LOCATION_CHECK_FUNCTION, i]);
+	
+	if (locationList != "-4")
+	&& (locationList != "-1") 
+	&& (locationList != "0") {
+		var ll = ds_list_create();
+		decode_list(locationList, ll);
+		
+		if (ds_list_find_index(ll, string(locationID)) != -1) {
+			locationFunc();
+		}
+	}
+	
+	i++;
 }
 
 // create overworldDraw object

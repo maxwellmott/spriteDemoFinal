@@ -34,20 +34,20 @@ enum npcs {
 	height
 }
 
-// enumerator containing npcParams
-enum npcParams {
+// enumerator containing NPC_PARAMS
+enum NPC_PARAMS {
 	ID,
-	name,
-	walkingSprite,
-	meditatingSprite,
-	eatingSprite,
-	drinkingSprite,
-	wavephoneSprite,
-	talismans,
-	spells,
-	responses,
-	locations,
-	respondFunction,
+	NAME,
+	WALKING_SPRITE,
+	MEDITATING_SPRITE,
+	EATING_SPRITE,
+	DRINKING_SPRITE,
+	WAVEPHONE_SPRITE,
+	TALISMANS,
+	SPELLS,
+	RESPONSE_MAP,
+	LOCATIONS,
+	RESPOND_FUNCTION,
 	height
 }
 
@@ -198,7 +198,7 @@ function npc_get_response(_npcID) {
 	var wd	= player.weekday;
 	var h	= player.hours;
 	var s	= player.season;
-	var l	= overworld.location;
+	var l	= overworld.locationID;
 	var r	= global.rainActive;
 	
 	// use a conditional statement to get the NPC's general "small talk" response
@@ -211,9 +211,6 @@ function npc_get_response(_npcID) {
 	// NOTE the if/else for each special dialogue should be listed in order of most conditions
 	// to least conditions.
 	
-	// FOR TESTING ONLY:
-	global.dialogueKey = "mercurioSparPrompt1";
-	
 	// set the encoded grid as the value stored at the dialogueKey
 	var eg = ds_map_find_value(global.speaker.responseMap, global.dialogueKey);
 		
@@ -225,11 +222,11 @@ function npc_get_response(_npcID) {
 var textGrid = load_csv("npcs_english.csv");
 
 // create npcGrid
-global.npcGrid = ds_grid_create(npcParams.height, npcs.height);
+global.npcGrid = ds_grid_create(NPC_PARAMS.height, npcs.height);
 
 // create function to add to master grid
 function master_grid_add_npc(_ID) {
-	var i = 0; repeat (npcParams.height) {
+	var i = 0; repeat (NPC_PARAMS.height) {
 		global.npcGrid[# i, _ID] = argument[i];
 		i++;
 	}
@@ -252,22 +249,22 @@ function npc_load_parameters(_id) {
 	var ID = _id;
 	
 	// decode npc grid
-	var grid = ds_grid_create(npcParams.height, npcs.height);
+	var grid = ds_grid_create(NPC_PARAMS.height, npcs.height);
 	decode_grid(global.allNPCs, grid);
 	
 	// get all parameters
-	name				= grid[# npcParams.name,				ID];
+	name				= grid[# NPC_PARAMS.NAME,				ID];
 	
-	walkingSprite		= correct_string_after_decode(grid[# npcParams.walkingSprite,		ID]);
-	meditatingSprite	= correct_string_after_decode(grid[# npcParams.meditatingSprite,	ID]);
-	eatingSprite		= correct_string_after_decode(grid[# npcParams.eatingSprite,		ID]);
-	drinkingSprite		= correct_string_after_decode(grid[# npcParams.drinkingSprite,		ID]);
-	wavephoneSprite		= correct_string_after_decode(grid[# npcParams.wavephoneSprite,		ID]);
-	responseFunction	= correct_string_after_decode(grid[# npcParams.respondFunction,		ID]);
+	walkingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.WALKING_SPRITE,		ID]);
+	meditatingSprite	= correct_string_after_decode(grid[# NPC_PARAMS.MEDITATING_SPRITE,	ID]);
+	eatingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.EATING_SPRITE,		ID]);
+	drinkingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.DRINKING_SPRITE,		ID]);
+	wavephoneSprite		= correct_string_after_decode(grid[# NPC_PARAMS.WAVEPHONE_SPRITE,		ID]);
+	responseFunction	= correct_string_after_decode(grid[# NPC_PARAMS.RESPOND_FUNCTION,		ID]);
 	
-	//decode_list(grid[# npcParams.,		ID],		);
-	//decode_list(grid[# npcParams.spells,			ID],		SPELLS);
-	decode_map(grid[# npcParams.responses,		ID],		responseMap);
+	//decode_list(grid[# NPC_PARAMS.,		ID],		);
+	//decode_list(grid[# NPC_PARAMS.spells,			ID],		SPELLS);
+	decode_map(grid[# NPC_PARAMS.RESPONSE_MAP,		ID],		responseMap);
 	
 	// get npcListIndex using npcID
 	npcListIndex = ds_list_find_index(overworld.npcList, ID);
@@ -307,22 +304,33 @@ function gate_check_npc() {
 
 // this function returns a list of each NPC's chosen location for the next day in order of NPC ID
 // the list is then used to edit the npc lists stored for each location
-function build_npc_location_list(_targetList) {
-	var tl	 = _targetList;
-	var grid = ds_grid_create(npcParams.height, npcs.height);
+function build_npc_location_list() {
+	var grid = ds_grid_create(NPC_PARAMS.height, npcs.height);
 	decode_grid(global.allNPCs, grid);
 	
 	var i = 0;	repeat (npcs.height) {		
 		// get encoded list of locations for all weekdays from npc grid
-		var encList		= grid[# npcParams.locations, i];
+		var encList		= grid[# NPC_PARAMS.LOCATIONS, i];
 		
 		// break if no locations
-		if (encList != "-4")
-		&& (encList != "-1")
-		&& (encList != "0") {
+		if (encList == "-4")
+		|| (encList == "-1")
+		|| (encList == "0") {
+			break;
+		}
+		else {
+		
+			//@TODO THIS IS NOT FINISHED. THE ONLY REASON THIS WORKS IS THAT
+			// WE ARE BREAKING THE LOOP RIGHT AFTER DECODING MERCURIO'S LOCATIONS
+			// TO THE LOCATION LIST. IDEALLY, THE END OF EACH LOOP SHOULD SELECT
+			// A SINGLE LOCATION (IF THERE ARE MULTIPLE) AND THEN PLACE IT ON
+			// THE NPC LOCATION LIST AT POSITION i.
+			
+			// I'M NOT SURE IF I'LL KEEP THIS LOGIC ANYWAY AFTER SUBMITTING FOR PAX.
 		
 			// create two dummy lists
 			var weekList	= ds_list_create();
+			var dayList		= ds_list_create();
 			
 			// decode the first encoded list to the full week dummy list
 			decode_list(encList, weekList);
@@ -330,9 +338,9 @@ function build_npc_location_list(_targetList) {
 			// get encoded list of locations for the current weekday from weekList
 			encList = weekList[| player.weekday];
 			
-			// decode the second encoded list to the single day dummy list
-			decode_list(encList, tl);
-		
+			// add the day list to the location list 
+			decode_list(encList, global.npcLocationList);
+
 		}
 		
 		// increment i
@@ -351,9 +359,7 @@ function draw_npc() {
 
 ///@desc This function takes the list of npc locations and uses it to change each location's list of 
 // present NPCs for the following day
-function edit_npc_location_lists(_locationList) {
-	var locationList = _locationList;
-	
+function edit_npc_location_lists() {	
 	var grid = ds_grid_create(locationParams.height, locations.height);
 	decode_grid(global.allLocations, grid);		
 	
@@ -371,7 +377,7 @@ function edit_npc_location_lists(_locationList) {
 			ds_list_reset(npcList);
 		
 			var _npc = 0;		repeat (npcs.height) {
-				if locationList[| _npc] == _location {
+				if global.npcLocationList[| _npc] == _location {
 					ds_list_add(npcList, _npc);
 				}
 				

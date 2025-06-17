@@ -26,7 +26,7 @@ debugDraw = false;
 
 drawNums = "";
 
-npcLocationList = ds_list_create();
+global.npcLocationList = ds_list_create();
 
 if (is_debug_overlay_open()) {
 	game_start();	

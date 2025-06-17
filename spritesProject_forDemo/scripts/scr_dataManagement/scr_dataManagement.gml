@@ -235,7 +235,7 @@ function decode_list(_list, _target) {
 				while (startPos < endPos)
 				&& (startPos > 0) {
 					// add everything up until the nextGridEnd to the current column and row position
-					_target[| currentToken] += string_copy(l, 0, startPos);
+					_target[| currentToken] += string_copy(l, 0, endPos);
 					
 					// delete everything up until nextGridEnd from the encoded grid
 					l = string_delete(l, 0, endPos);
@@ -506,6 +506,10 @@ function convert_grid_to_map(_grid, _target) {
 /// I'm not sure why this function even exists, but I'm currently using it to reset
 /// the NPC list, so until I rework that somehow or at least check in on it, this stays)
 function ds_list_reset(_list) {
+	if (_list == -1) {
+		return -1;	
+	}
+	
 	var l = _list;
 	
 	var i = 0; repeat (ds_list_size(l)) {
@@ -625,7 +629,8 @@ function correct_string_after_decode(_string) {
 	}
 	else {
 		if (string_count("-1", str) == 0)
-		&& (string_count("-4", str) == 0) {
+		&& (string_count("-4", str) == 0) 
+		&& (string_length(str) > 0) {
 			return real(string_digits(str));
 		}
 	}

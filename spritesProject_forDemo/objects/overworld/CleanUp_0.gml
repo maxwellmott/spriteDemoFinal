@@ -10,6 +10,7 @@ instance_destroy(groundTileChecker);
 instance_destroy(sendport);
 instance_destroy(door);
 instance_destroy(npc);
+instance_destroy(owSprite);
 
 layer_tilemap_destroy(tilemapList[| tilemaps.ground]);
 layer_tilemap_destroy(tilemapList[| tilemaps.water]);

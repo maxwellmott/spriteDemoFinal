@@ -1,5 +1,9 @@
--build new response menu to replace yes no prompt
--build cutscene system
--debug battle scene
--add npcs
--create first two cutscenes and add all dialogue for early day on the first day!
+TEST DIALOGUE WITH BOOKISH UNTIL IT WORKS
+ADD BOOKCASES TO LIBRARY
+MAKE BOOKISH PATH MORE INTERESTING
+FIX BOOKISH ANIMATION SPEED
+
+IF THERE IS TIME, GET THE TODO LIST MENU WORKING
+
+WRITE SCRIPT FOR VIDEO
+TAKE VIDEO

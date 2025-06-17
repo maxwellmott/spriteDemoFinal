@@ -9,32 +9,26 @@ function game_start() {
 	// create the player object
 	create_once(128,	160, LAYER.sprites, player);
 	
-	if (file_exists(SAVE_FILE_NAME)) {
-		file_delete(SAVE_FILE_NAME);	
-	}
-	
 	// set the player's location to the starting area
-	player.location = locations.miriabramDorm1;
+	player.location = locations.miriabramExt;
 	
 	// build all NPC location lists for the first time
-	build_npc_location_list(npcLocationList);
+	build_npc_location_list();
 	
 	// edit all npc location lists based on the day
-	edit_npc_location_lists(npcLocationList);
+	edit_npc_location_lists();
 	
 	// destroy the npcLocationList
-	ds_list_destroy(npcLocationList);
+	ds_list_destroy(global.npcLocationList);
 	
-	room_transition(128, 160, directions.south, rm_characterCreator, bgm_createYourCharacter);
-	
-	/*
+
 	// check if there is a save file on this machine
 	if (file_exists(SAVE_FILE_NAME)) {
 		// load the save file
 		load_save_file();
 		
 		// set the player's location to the starting area
-		player.location = locations.miriabramDorm1;
+		player.location = locations.miriabramExt;
 		
 		// @TODO replace this with a full blown function that also appears at 
 		// the end of dayChange
@@ -51,8 +45,7 @@ function game_start() {
 	else {		
 		// transition to the character creator
 		room_transition(128, 160, directions.south, rm_characterCreator, bgm_createYourCharacter);
-	
-	*/
+	}
 }
 
 ///@desc This function stores a given string of data in a buffer and then saves that buffer

@@ -62,7 +62,8 @@ function human_walk() {
 			if !(tile_meeting(x + hmove, y, overworld.tm_water, waterTileChecker)) 
 			&& !(tile_meeting(x + hmove, y, overworld.tm_collidables, collidableTileChecker)) 
 			&& !(place_meeting(x + hmove, y, sceneryCollidable)) 
-			&& !(place_meeting(x + hmove, y, human)) {
+			&& !(place_meeting(x + hmove, y, human)) 
+			&& !(place_meeting(x + hmove, y, owSprite)) {
 				x = round(x + hmove);
 			}
 		
@@ -70,7 +71,8 @@ function human_walk() {
 			if !(tile_meeting(x, y + vmove, overworld.tm_water, waterTileChecker)) 
 			&& !(tile_meeting(x, y + vmove, overworld.tm_collidables, collidableTileChecker)) 
 			&& !(place_meeting(x, y + vmove, sceneryCollidable)) 
-			&& !(place_meeting(x, y + vmove, human)) {
+			&& !(place_meeting(x, y + vmove, human)) 
+			&& !(place_meeting(x, y + vmove, owSprite)) {
 				y = round(y + vmove);
 			}
 		}
@@ -237,7 +239,8 @@ function get_interactable() {
 			}
 			
 			// check if it is an NPC
-			if (oi == npc) {
+			if (oi == npc) 
+			|| (oi == owSprite) {
 				// set the speaking NPC
 				global.speaker	= inst;
 				
@@ -245,9 +248,14 @@ function get_interactable() {
 				global.dialogueRow		= 0;
 				global.dialogueColumn	= 0;
 				
-				// get the encoded grid of dialogue for this situation using the given npc's response function
-				var eg = npc_get_response(inst.ID);
+				if (oi == npc) {
+					// get the encoded grid of dialogue for this situation using the given npc's response function
+					var eg = npc_get_response(inst.ID);
+				}
 				
+				if (oi == owSprite) {
+					var eg = inst.respondFunction();	
+				}
 				// create the dialogueGrid (will be resized in the decode grid function)
 				global.dialogueGrid	= ds_grid_create(0, 0);
 				

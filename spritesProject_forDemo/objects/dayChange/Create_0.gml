@@ -59,10 +59,10 @@ enum dcDisplay {
 
 displaying = dcDisplay.day;
 
-npcLocationList	= ds_list_create();
+global.npcLocationList	= ds_list_create();
 
-build_npc_location_list(npcLocationList);
+build_npc_location_list();
 
-edit_npc_location_lists(npcLocationList);
+edit_npc_location_lists();
 
 global.roomBuilt = true;
