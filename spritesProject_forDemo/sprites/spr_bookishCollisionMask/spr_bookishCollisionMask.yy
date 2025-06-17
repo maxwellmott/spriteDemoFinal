@@ -23,7 +23,7 @@
   ],
   "name":"spr_bookishCollisionMask",
   "nineSlice":null,
-  "origin":7,
+  "origin":4,
   "parent":{
     "name":"MASKS",
     "path":"folders/Sprites/owSprites/MASKS.yy",
@@ -78,7 +78,7 @@
     "visibleRange":null,
     "volume":1.0,
     "xorigin":12,
-    "yorigin":42,
+    "yorigin":21,
   },
   "swatchColours":null,
   "swfPrecision":0.5,

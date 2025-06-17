@@ -343,4 +343,4 @@ if (phase == APPEARANCE_EDITOR_PHASES.CONFIRM_SELECTION) {
 }
 
 // draw the sample player
-character_creator_draw_player(eyewear, skintone, outfit, outfitColor, hairstyle, hairColor, hat, hatColor, shoes, shoeColor, accessory);
+draw_surface(playerAppearanceSurface, playerDisplayX, playerDisplayY);

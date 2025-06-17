@@ -18,11 +18,12 @@ enum OVERWORLD_SPRITE_PARAMS {
 
 // create an enumerator of owSprite states
 enum OVERWORLD_SPRITE_STATES {
+	PLACEHOLDER,
+	FOLLOWING_PATH,
 	IDLE,
 	ERRATIC_LOOKING,
 	SPINNING_CLOCKWISE,
 	SPINNING_COUNTERCLOCKWISE,
-	FOLLOWING_PATH,
 	HORIZONTAL_DISTANCE_FROM_TARGET,
 	VERTICAL_DISTANCE_FROM_TARGET,
 	TENDING_SHOP,
@@ -43,8 +44,11 @@ function overworld_sprite_load_parameters() {
 	spriteHeight		= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.SPRITE_HEIGHT,			ID]);
 	behaviorFunction	= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.BEHAVIOR_FUNCTION,		ID]);
 	respondFunction		= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.RESPOND_FUNCTION,			ID]);
-	responseMap			= g[# OVERWORLD_SPRITE_PARAMS.RESPONSE_MAP,				ID];
+	var em				= g[# OVERWORLD_SPRITE_PARAMS.RESPONSE_MAP,				ID];
 	sprite				= idleAnimation;
+	
+	responseMap			= ds_map_create();
+	decode_map(em, responseMap);
 	
 	loaded = true;
 }
@@ -81,6 +85,10 @@ function draw_overworld_sprite() {
 
 function overworld_sprite_state_machine() {
 	switch (state) {
+		case OVERWORLD_SPRITE_STATES.IDLE:
+			moving = false;
+		break;
+		
 		case OVERWORLD_SPRITE_STATES.ERRATIC_LOOKING:
 			if (global.gameTime mod 8 == 0) {
 				randomize();
@@ -182,8 +190,25 @@ function overworld_sprite_state_machine() {
 								
 								decode_list(pathList[| pathStep], nextCoords);
 								
-								nextX = correct_string_after_decode(nextCoords[| 0]);
+								if (string_count("-", nextCoords[| 0]) > 0) {
+									nextX = real(string_digits(nextCoords[| 0])) * -1;
+								}
+								else {
+									nextX = correct_string_after_decode(nextCoords[| 0]);	
+								}
+								
 								nextY = correct_string_after_decode(nextCoords[| 1]);
+								
+								// check if a negative value was given to indicate a temporary change in state
+								if (nextX < 0) {
+									// set state as equal to the absolute value of the negative number given
+									state = abs(nextX);	
+									
+									// set the alarm using the number given for y (this is how long we will remain in this state)
+									if (alarm[0] == -1) {
+										alarm[0] = nextY;	
+									}
+								}
 							}
 							// if we are not looping the path
 							else {
@@ -209,8 +234,14 @@ function overworld_sprite_state_machine() {
 							// decode the nextCoords
 							decode_list(pathList[| pathStep], nextCoords);	
 						
+							if (string_count("-", nextCoords[| 0]) > 0) {
+								nextX = real(string_digits(nextCoords[| 0])) * -1;
+							}
+							else {
+								nextX = correct_string_after_decode(nextCoords[| 0]);	
+							}
+						
 							// get nextX and nextY
-							nextX = correct_string_after_decode(nextCoords[| 0]);
 							nextY = correct_string_after_decode(nextCoords[| 1]);
 							
 							// check if a negative value was given to indicate a temporary change in state
@@ -220,7 +251,7 @@ function overworld_sprite_state_machine() {
 								
 								// set the alarm using the number given for y (this is how long we will remain in this state)
 								if (alarm[0] == -1) {
-									alarm[0] = nextY;	
+									alarm[0] = nextY;
 								}
 							}
 						}
@@ -243,6 +274,27 @@ function overworld_sprite_state_machine() {
 							}
 							
 							decode_list(pathList[| pathStep], nextCoords);
+							
+							if (string_count("-", nextCoords[| 0]) > 0) {
+								nextCoords[| 0] = real(string_digits(nextCoords[| 0])) * -1;
+							}
+							else {
+								nextX = correct_string_after_decode(nextCoords[| 0]);	
+							}
+							
+							// get nextX and nextY
+							nextY = correct_string_after_decode(nextCoords[| 1]);
+							
+							// check if a negative value was given to indicate a temporary change in state
+							if (nextX < 0) {
+								// set state as equal to the absolute value of the negative number given
+								state = abs(nextX);	
+								
+								// set the alarm using the number given for y (this is how long we will remain in this state)
+								if (alarm[0] == -1) {
+									alarm[0] = nextY;
+								}
+							}
 						}
 						// if we are not looping the path
 						else {
@@ -261,13 +313,17 @@ function overworld_sprite_state_machine() {
 						// reset nextCoords list
 						ds_list_reset(nextCoords);
 						
-						if (nextCoords = -1) {
-							nextCoords = ds_list_create();	
+						if (nextCoords == -1) {
+							nextCoords = ds_list_create();
 						}
 						
 						// decode the nextCoords
-						decode_list(pathList[| pathStep], nextCoords);	
-					
+						decode_list(pathList[| pathStep], nextCoords);
+						
+						if (string_count("-", nextCoords[| 0]) > 0) {
+							nextCoords[| 0] = real(string_digits(nextCoords[| 0])) * -1;
+						}
+						
 						// get nextX and nextY
 						nextX = correct_string_after_decode(nextCoords[| 0]);
 						nextY = correct_string_after_decode(nextCoords[| 1]);
@@ -275,7 +331,7 @@ function overworld_sprite_state_machine() {
 						// check if a negative value was given to indicate a temporary change in state
 						if (nextX < 0) {
 							// set state as equal to the absolute value of the negative number given
-							state = abs(nextX);	
+							state = abs(nextX);
 							
 							// set the alarm using the number given for y (this is how long we will remain in this state)
 							if (alarm[0] == -1) {
@@ -322,7 +378,8 @@ function overworld_sprite_set_depth() {
 	function bookish_behavior() {
 		switch (overworld.locationID) {
 			case locations.miriabramLibrary:
-				if (state != OVERWORLD_SPRITE_STATES.FOLLOWING_PATH) {
+				if (state != OVERWORLD_SPRITE_STATES.FOLLOWING_PATH) 
+				&& (alarm[0] == -1) {
 					state = OVERWORLD_SPRITE_STATES.FOLLOWING_PATH;
 					
 					var l = ds_list_create();
@@ -395,8 +452,8 @@ function overworld_sprite_set_depth() {
 				
 				inst.ID = SPRITES.BOOKISH;
 			
-				x = 200;
-				y = 200;
+				x = 80;
+				y = 192;
 			break;
 		}
 	}
@@ -416,7 +473,7 @@ function master_grid_add_overworld_sprite(_ID, _collisionMask, _walkingAnimation
 }
 
 // add all overworld sprites to the master grid
-master_grid_add_overworld_sprite(SPRITES.BOOKISH,	spr_bookishCollisionMask,	spr_bookishWalk,	spr_bookishIdle,	encode_list(bookishSpecialAnimations),	2, 24, 42, bookish_behavior, bookish_respond, encode_map(bookishResponseMap), encode_list(bookishLocationList), bookish_location_check);
+master_grid_add_overworld_sprite(SPRITES.BOOKISH,	spr_bookishCollisionMask,	spr_bookishWalk,	spr_bookishIdle,	encode_list(bookishSpecialAnimations),	5, 24, 42, bookish_behavior, bookish_respond, encode_map(bookishResponseMap), encode_list(bookishLocationList), bookish_location_check);
 
 // encode grid
 global.allOverworldSprites = encode_grid(global.overworldSpritesGrid);

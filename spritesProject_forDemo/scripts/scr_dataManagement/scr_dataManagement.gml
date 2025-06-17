@@ -67,11 +67,9 @@ function encode_list(_list) {
 	
 	// repeat for all tokens
 	var i = 0;	repeat (size) {
-		if (l[| i] != -1) {
-			substring += tokenStartChar;
-			
-			substring += string(l[| i]);
-		}
+		substring += tokenStartChar;
+		
+		substring += string(l[| i]);
 	
 		// increment i
 		i++;

@@ -44,16 +44,6 @@ if (spellID < 0) {
 
 #region SPELLS
 if (spellID >= 0) {
-	// decode spellFX list
-	var list = ds_list_create();
-	decode_list(global.allSpellFX, list);
-	
-	// get spellFX function
-	spellFX = list[| spellID];
-	
-	// destroy temp list
-	ds_list_destroy(list);
-	
 	// decode spell animation list
 	var list = ds_list_create();
 	decode_list(global.allSpellAnimations, list);

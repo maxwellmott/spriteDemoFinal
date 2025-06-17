@@ -211,9 +211,12 @@ function npc_get_response(_npcID) {
 	// NOTE the if/else for each special dialogue should be listed in order of most conditions
 	// to least conditions.
 	
+	global.dialogueKey = "mercurioSparPrompt1";
+	
 	// set the encoded grid as the value stored at the dialogueKey
 	var eg = ds_map_find_value(global.speaker.responseMap, global.dialogueKey);
-		
+
+	return eg;		
 }
 
 #endregion
@@ -338,9 +341,7 @@ function build_npc_location_list() {
 			// get encoded list of locations for the current weekday from weekList
 			encList = weekList[| player.weekday];
 			
-			// add the day list to the location list 
-			decode_list(encList, global.npcLocationList);
-
+			global.npcLocationList[| i] = dayList[| 0];
 		}
 		
 		// increment i
@@ -373,8 +374,6 @@ function edit_npc_location_lists() {
 		&& (encList != "0") {
 		
 			decode_list(encList, npcList);
-		
-			ds_list_reset(npcList);
 		
 			var _npc = 0;		repeat (npcs.height) {
 				if global.npcLocationList[| _npc] == _location {

@@ -1,3 +1,5 @@
+playerAppearanceSurface = surface_create(24, 42);
+
 // set x and y as center (this is for the confirm window)
 x = guiWidth / 2;
 y = (guiHeight / 2) - 22;
@@ -75,7 +77,8 @@ ds_list_add(skintones,
 ds_list_add(usableHairstyles,
 	hairstyles.longStraight,
 	hairstyles.shortStraight,
-	hairstyles.shortMessy
+	hairstyles.shortMessy,
+	hairstyles.libertyHawk
 );
 
 // populate hairColors list

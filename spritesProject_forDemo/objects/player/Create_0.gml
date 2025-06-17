@@ -2,8 +2,7 @@
 
 // initialize time for new game
 seconds = 0;
-minutes = 30
-;
+minutes = 30;
 hours	= 8;
 day		= 14;
 weekday	= weekdays.hyggsun;

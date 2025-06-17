@@ -1,5 +1,4 @@
 /// @desc
-
 x = 0;
 y = guiHeight - sprite_get_height(spr_talkBubble);
 

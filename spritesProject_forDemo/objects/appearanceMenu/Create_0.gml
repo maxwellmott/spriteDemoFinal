@@ -1,3 +1,4 @@
+playerAppearanceSurface = surface_create(24, 42);
 
 player.appearanceLoaded = false;
 

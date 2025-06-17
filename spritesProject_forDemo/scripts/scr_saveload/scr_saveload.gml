@@ -6,11 +6,15 @@
 /// the game-start flow. In the playtest build, this function is called playtest_begin() and
 /// works mostly the same
 function game_start() {
+	if (file_exists(SAVE_FILE_NAME)) {
+		file_delete(SAVE_FILE_NAME);	
+	}
+	
 	// create the player object
 	create_once(128,	160, LAYER.sprites, player);
 	
 	// set the player's location to the starting area
-	player.location = locations.miriabramExt;
+	player.location = locations.miriabramLibrary;
 	
 	// build all NPC location lists for the first time
 	build_npc_location_list();
@@ -28,7 +32,7 @@ function game_start() {
 		load_save_file();
 		
 		// set the player's location to the starting area
-		player.location = locations.miriabramExt;
+		player.location = locations.miriabramLibrary;
 		
 		// @TODO replace this with a full blown function that also appears at 
 		// the end of dayChange
@@ -125,7 +129,7 @@ function build_save_file() {
 		ds_map_add(_map, "compendium",				compendium);
 		ds_map_add(_map, "titles",					titles);
 		ds_map_add(_map, "contacts",				contacts);
-		//ds_map_add(_map, "todoList",				todoList);
+		ds_map_add(_map, "todoList",				todoList);
 		ds_map_add(_map, "roninScore",				string(roninScore));		
 		ds_map_add(_map, "roninMatchCount",			string(roninMatchCount));		
 		ds_map_add(_map, "roninWinCount",			string(roninWinCount));		
@@ -140,7 +144,7 @@ function build_save_file() {
 		ds_map_add(_map, "onlineSpriteUseCounts",	onlineSpriteUseCounts);
 		ds_map_add(_map, "roninSpriteWinCounts",	roninSpriteWinCounts);
 		ds_map_add(_map, "onlineSpriteWinCounts",	onlineSpriteWinCounts);
-		//ds_map_add(_map, "lastMatchResultsList",	lastMatchResultsList);
+		ds_map_add(_map, "lastMatchResultsList",	lastMatchResultsList);
 	}
 	
 	// Wrap all of that in one ds_map
@@ -188,14 +192,14 @@ function load_save_file() {
 				firstFloorScenery			= _map[? "firstFloorScenery"];
 				secondFloorScenery			= _map[? "secondFloorScenery"];
 				outdoorScenery				= _map[? "thirdFloorScenery"];
-				//wardrobe					= _map[? "wardrobe"];				
+				wardrobe					= _map[? "wardrobe"];				
 				palette						= _map[? "palette"];				
 				unlockedDoors				= _map[? "unlockedDoors"];		
 				talismans					= _map[? "talismans"];			
 				compendium					= _map[? "compendium"];
 				titles						= _map[? "titles"];			
 				contacts					= _map[? "contacts"];				
-				//todoList						= _map[? "todoList"];				
+				todoList						= _map[? "todoList"];				
 				roninScore					= real(_map[? "roninScore"]);			
 				roninMatchCount				= real(_map[? "roninMatchCount"]);		
 				roninWinCount				= real(_map[? "roninWinCount"]);		

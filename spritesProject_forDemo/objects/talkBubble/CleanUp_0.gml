@@ -1,3 +1,5 @@
+player_check_update_todo_list(TODO_LIST_CHECK_TYPES.DIALOGUE_PERFORMED);
+
 global.select = 0;
 
 if (presentGift) {
