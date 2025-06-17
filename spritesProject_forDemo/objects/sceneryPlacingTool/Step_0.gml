@@ -24,7 +24,7 @@ if (device_mouse_check_button_released(0, mb_left)) {
 		
 		// get params from grid using ID
 		var type		= string_digits(grid[# sceneryParams.type,			ID]);
-		var spr			= string_digits(grid[# sceneryParams.sprite,			ID]);
+		var spr			= string_digits(grid[# sceneryParams.sprite,		ID]);
 		var mask		= string_digits(grid[# sceneryParams.mask,			ID]);
 
 		// get the proper object and create it

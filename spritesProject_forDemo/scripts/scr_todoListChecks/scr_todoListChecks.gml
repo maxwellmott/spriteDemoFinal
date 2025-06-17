@@ -3,7 +3,7 @@ enum TODO_LIST_CHECK_TYPES {					// ARGUMENTS EXPECTED ON THE TRIGGER LISTS (EXC
 	SPAR_WON,									// NPC TO SPAR,				LIST OF SPRITES TO USE (IF ANY)	
 	SPAR_LOST,									// NPC TO SPAR,				LIST OF SPRITES TO USE (IF ANY)
 	SPAR_COMPLETE,								// NPC TO SPAR				LIST OF SPRITES TO USE (IF ANY)
-	DIALOGUE_PERFORMED,							// NPC TO SPEAK TO,			DIALOGUE KEY,
+	DIALOGUE_PERFORMED,							// DIALOGUE KEY
 	RESPONSE_GIVEN,								// NPC TO SPEAK TO,			DIALOGUE KEY,	RESPONSE TO SELECT
 	BOOK_PAGE_READ,								// BOOK TO READ,			PAGE TO READ
 	TASK_PROGRESS,								// TASK TO PROGRESS IN,		STEP TO PROGRESS PAST
@@ -120,6 +120,44 @@ function player_check_update_todo_list(_todoListCheckType) {
 				i++;
 				
 				// destroy temp lists
+				ds_list_destroy(ftl);
+				ds_list_destroy(args);
+			}
+		break;
+		
+		case TODO_LIST_CHECK_TYPES.DIALOGUE_PERFORMED:
+			var i = 0;	repeat (ds_list_size(l)) {
+				// get the next task id
+				var tid = i;
+				
+				// correct the value for -1 and nonreal
+				if (l[| tid] == "-1") {
+					l[| tid] = -1;
+				}
+				else {
+					l[| tid] = real(l[| tid]);	
+				}
+				
+				// get the next step id
+				var sid = l[| tid];
+				
+				// get the full trigger list
+				var ftl = ds_list_create();
+				decode_list(g[# TASK_PARAMS.TRIGGER_LIST, tid], ftl);
+				
+				// get the arguments list for the current step off the full trigger list
+				var args = ds_list_create();
+				decode_list(ftl[| sid], args);
+				
+				// check if dialogueKey is equal to the first arg
+				if (dialogueKey == args[| 1]) {
+					player_update_todoList(tid, false);	
+				}
+				
+				// increment i
+				i++;
+				
+				// destroy the temp lists
 				ds_list_destroy(ftl);
 				ds_list_destroy(args);
 			}

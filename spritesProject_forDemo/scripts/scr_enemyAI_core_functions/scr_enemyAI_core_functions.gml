@@ -5,15 +5,15 @@ global.bestDamage	= -1;
 
 function enemyAI_get_params() {
 	// create temporary grid
-	var grid = ds_grid_create(npcParams.height, npcs.height);
+	var grid = ds_grid_create(NPC_PARAMS.height, npcs.height);
 	
 	// decode npcGrid
 	decode_grid(global.allNPCs, grid);
 	
 	// use npcID to get params
-	talismans	= grid[# npcParams.talismans,	ID];
-	name			= grid[# npcParams.name,		ID];
-	currentSpellBook	= grid[# npcParams.spells,		ID];
+	talismans	= grid[# NPC_PARAMS.TALISMANS,			ID];
+	name			= grid[# NPC_PARAMS.NAME,			ID];
+	currentSpellBook	= grid[# NPC_PARAMS.SPELLS,		ID];
 	
 	// decode talismans and spellString
 	decode_list(talismans, roster);
