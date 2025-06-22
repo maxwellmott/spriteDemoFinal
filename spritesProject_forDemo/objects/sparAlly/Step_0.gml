@@ -3,10 +3,10 @@
 
 	if (id == player.selectedAlly) {
 		if (gameTimeDiff == -1) {
-			gameTimeDiff = (sin(global.gameTime / (8 * currentSize) + 8) * 2);
+			gameTimeDiff = (sin(global.gameTime / (8 * (currentSize + 1)) + 8) * 2);
 		}
 		
-		y = startY + (sin(global.gameTime / (8 * currentSize) + 8) * 2) - gameTimeDiff;	
+		y = startY + (sin(global.gameTime / (8 * currentSize) + 8) * 2) - gameTimeDiff;
 	}
 	else {
 		y = startY;	

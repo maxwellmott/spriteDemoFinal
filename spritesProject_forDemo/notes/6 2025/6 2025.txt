@@ -97,3 +97,72 @@
 		-enemyAI will be selected from the grid using plainly written enumerator IDs that appear on sparPrompts within dialogue
 		-so, dialogue might contain a spar prompt that also contains string(ENEMY_AI.MERCURIO_FESTIVAL_MATCH_TWO)
 		-enemyAI rosters will still contain more than 4 sprites, but will be more focused than I had planned
+		
+
+
+
+
+
+
+
+6/22/2025
+
+
+FIX DIALOGUE FUNCTION VIA NOTE:
+		-change "response function" parameter to "special dialogue selection function"
+		-each npc uses the standard dialogue selection (each NPC needs to have keys with matching suffixes (e.g. "mercurioDayThreePreMatch, indigoDayThreePreMatch)
+		-create a list of key suffixes as well as an enumerator matching the names to numbers so it's easy to check each NPC's responses by the same key data (only need to find the correct suffix based on time of day etc)
+		-started changing the system, left a note in the new function explaining where I left off
+		
+	CHANGE LIST ENCODING TO MATCH GRID:
+		-need to do this now so I can infinitely nest lists for the dialogue lists for cutscenes
+		
+	ADD BOOKISH AND SPARMATE TO THE OVERWORLD:
+		-add their art to the game
+		-create a script for overworldSprites
+		-write all the pseudocode for the owSprite object
+		
+	CODE AND TEST FIRST CUTSCENE:
+		-ADD BOOKISH AND SPARMATE FIRST!!!!
+		-fix dialogue encoding key via the note above it
+		-make the dialogue sheet for the first cutscene
+		-add all NPC art required for the first cutscene
+		-add all NPCs to the grid that are required for the first cutscene
+		
+	ADD SERVER TIMEOUT LOGIC:
+		-complete all @TODO notes
+		-add object to announce timeout to the player
+		
+	FINISH ALL CUTSCENE SCRIPTS:
+		-complete the cutscene script for the first cutscene
+		
+	ADD UPDATED TASKS FUNCTIONALITY:
+		-add list of updatedTasks that is added to if tasks completed while out of the overworld
+		-post all updatedTasks once in the overworld
+		
+	ADD ALL NPC LOGIC TO OWSPRITES:
+		-anything an NPC can do in the overworld, a sprite can also do in the overworld
+		
+	ADD/TEST NPC MOVEMENT IN DIALOGUE:
+		-add coordinate lists to list encoding
+		-make the talkbubble close until coords are done being walked
+		-add door usage indication to coordinate lists
+	
+	FINISH MERCURIO'S TURNTAKING ALGORITHM:
+		-just finish it up and get something that works
+	
+	FINISH ENEMYAI GRID FUNCTIONALITY:
+		-nothing regarding spars should be on the npc grid
+		-enemyAI will be selected from the grid using plainly written enumerator IDs that appear on sparPrompts within dialogue
+		-so, dialogue might contain a spar prompt that also contains string(ENEMY_AI.MERCURIO_FESTIVAL_MATCH_TWO)
+		-enemyAI rosters will still contain more than 4 sprites, but will be more focused than I had planned
+		
+WHILE YOU'RE IN THE CAR:
+
+	-FINISH ADDING SPARMATE TO THE GRID (MAKE SURE YOU CREATE A SPECIAL ANIMATIONS LIST FOR HIM)
+	-PUT SPARMATE IN THE DOJO AND HAVE HIM IDLE. EVERY SO OFTEN, HAVE HIM DO HIS PUNCHING ANIMATION.
+	-CHANGE SPARMATE'S NAME TO SPARTNER EVERYWHERE
+	-ADD DIALOGUE FOR SPARTNER
+	-DEBUG BOOKISH'S DIALOGUE
+	-MAKE NEW TALK BUBBLES PER THE NEW LOGIC
+	-WRITE NEW TALK BUBBLE SYSTEM

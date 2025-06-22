@@ -260,7 +260,7 @@ function overworld_sprite_state_machine() {
 				// if nextCoords have NOT been set
 				else {
 					// check if we have completed the path
-					if (pathStep > ds_list_size(pathList)) {
+					if (pathStep >= ds_list_size(pathList)) {
 						// check if we are looping the path
 						if (loopingPath) {
 							// reset pathStep
@@ -473,7 +473,8 @@ function master_grid_add_overworld_sprite(_ID, _collisionMask, _walkingAnimation
 }
 
 // add all overworld sprites to the master grid
-master_grid_add_overworld_sprite(SPRITES.BOOKISH,	spr_bookishCollisionMask,	spr_bookishWalk,	spr_bookishIdle,	encode_list(bookishSpecialAnimations),	5, 24, 42, bookish_behavior, bookish_respond, encode_map(bookishResponseMap), encode_list(bookishLocationList), bookish_location_check);
+master_grid_add_overworld_sprite(SPRITES.BOOKISH,	spr_bookishCollisionMask,	spr_bookishWalk,				spr_bookishIdle,	encode_list(bookishSpecialAnimations),	5,	24, 42, bookish_behavior,	bookish_respond,	encode_map(bookishResponseMap),		encode_list(bookishLocationList),	bookish_location_check);
+//master_grid_add_overworld_sprite(SPRITES.SPARMATE,	spr_sparmateCollisionMask,	spr_sparmateWalk,				spr_sparmateIdle,	encode_list(sparmateSpecialAnimations),	5,	24, 42,	sparmate_behavior,	sparmate_respond,	encode_map(sparmateResponseMap),	encode_list(sparmateLocationList),	sparmate_location_check);
 
 // encode grid
 global.allOverworldSprites = encode_grid(global.overworldSpritesGrid);

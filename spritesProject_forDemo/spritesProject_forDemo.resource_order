@@ -533,6 +533,7 @@
     {"name":"spr_sparHum","order":8,"path":"sprites/spr_sparHum/spr_sparHum.yy",},
     {"name":"spr_sparInvulnerable","order":36,"path":"sprites/spr_sparInvulnerable/spr_sparInvulnerable.yy",},
     {"name":"spr_sparMagicSliver","order":20,"path":"sprites/spr_sparMagicSliver/spr_sparMagicSliver.yy",},
+    {"name":"spr_sparmate","order":1,"path":"sprites/spr_sparmate/spr_sparmate.yy",},
     {"name":"spr_sparmateBattle","order":56,"path":"sprites/spr_sparmateBattle/spr_sparmateBattle.yy",},
     {"name":"spr_sparMessage","order":14,"path":"sprites/spr_sparMessage/spr_sparMessage.yy",},
     {"name":"spr_sparMiasma","order":9,"path":"sprites/spr_sparMiasma/spr_sparMiasma.yy",},

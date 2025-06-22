@@ -5,6 +5,7 @@ enum PATHS {
 
 var bookishLibraryPath = ds_list_create();
 
+								// the first step of a path like this should always match the sprite's starting coordinates for that room
 ds_list_add(bookishLibraryPath, "<`80`208>","<`180`208>","<`180`320>","<`144`320>",
 								"<`144`304>","<`-2`200>","<`144`320>","<`112`320>","<`112`304>",
 								"<`-2`200>","<`112`320>","<`272`320>","<`272`304>","<`-2`200>",

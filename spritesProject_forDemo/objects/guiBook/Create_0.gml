@@ -46,7 +46,7 @@ flipFrame = 0;
 
 textColor = $14506e;
 
-fontHeight = 8;
+fontHeight = 9;
 
 introFinished = false;
 outroStarted = false;
