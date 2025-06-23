@@ -166,3 +166,10 @@ WHILE YOU'RE IN THE CAR:
 	-DEBUG BOOKISH'S DIALOGUE
 	-MAKE NEW TALK BUBBLES PER THE NEW LOGIC
 	-WRITE NEW TALK BUBBLE SYSTEM
+	
+	today, I finished adding sparmate to the grid. Got everything to the point that sparmate is
+	on screen, looking great!
+	
+	I still need to debug the sprites' dialogue, for some reason the text is getting corrupted.
+	
+	I made the new talk bubble artwork, just need to add them into the game

@@ -200,6 +200,13 @@ function decode_list(_list, _target) {
 	
 	var substring		= "";
 	
+	// check the number of items on the list
+	var n = string_count("`", l);
+	
+	if (n <= 0) {
+		return -1;	
+	}
+	
 	// delete the opening bracket
 	l = string_delete(l, 1, 1);
 	

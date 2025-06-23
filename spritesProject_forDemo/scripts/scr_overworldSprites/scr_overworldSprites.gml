@@ -38,7 +38,7 @@ function overworld_sprite_load_parameters() {
 	sprite_index		= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.COLLISION_MASK,			ID]);
 	walkingAnimation	= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.WALKING_ANIMATION,		ID]);
 	idleAnimation		= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.IDLE_ANIMATION,			ID]);
-	specialAnimations	= g[# OVERWORLD_SPRITE_PARAMS.SPECIAL_ANIMATIONS_LIST,	ID];
+	var el				= g[# OVERWORLD_SPRITE_PARAMS.SPECIAL_ANIMATIONS_LIST,	ID];
 	animationSpeed		= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.ANIMATION_SPEED,			ID]);
 	spriteWidth			= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.SPRITE_WIDTH,				ID]);
 	spriteHeight		= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.SPRITE_HEIGHT,			ID]);
@@ -49,6 +49,9 @@ function overworld_sprite_load_parameters() {
 	
 	responseMap			= ds_map_create();
 	decode_map(em, responseMap);
+	
+	specialAnimations	= ds_list_create();
+	decode_list(el, specialAnimations);
 	
 	loaded = true;
 }
@@ -69,17 +72,22 @@ function overworld_sprite_animate() {
 }
 
 function overworld_sprite_manage_moving() {
-	if (moving) {
-		sprite = walkingAnimation;
-	}
-	else {
-		sprite = idleAnimation;	
+	if (state != OVERWORLD_SPRITE_STATES.SPECIAL_ANIMATION) {
+		if (moving) {
+			sprite = walkingAnimation;
+		}
+		else {
+			sprite = idleAnimation;	
+		}
 	}
 }
 
 function draw_overworld_sprite() {
 	if (state != OVERWORLD_SPRITE_STATES.SPECIAL_ANIMATION) {
 		draw_sprite_part(sprite, frame, 0, spriteHeight * facing, spriteWidth, spriteHeight, drawX, drawY);
+	}
+	else {
+		draw_sprite(sprite, frame, drawX, drawY);	
 	}
 }
 
@@ -356,7 +364,9 @@ function overworld_sprite_state_machine() {
 		break;
 		
 		case OVERWORLD_SPRITE_STATES.SPECIAL_ANIMATION:
-		
+			if (frame >= sprite_get_number(sprite) - 1) {
+				state = -1;
+			}
 		break;
 	}
 }
@@ -371,6 +381,10 @@ function overworld_sprite_set_depth() {
 
 #region		CREATE ALL SPECIAL ANIMATION LISTS
 	var bookishSpecialAnimations = ds_list_create();
+	
+	var sparmateSpecialAnimations = ds_list_create();
+	
+	ds_list_add(sparmateSpecialAnimations, spr_sparmatePunching);
 #endregion
 
 #region		CREATE ALL BEHAVIOR FUNCTIONS
@@ -399,7 +413,26 @@ function overworld_sprite_set_depth() {
 	}
 	
 	function sparmate_behavior() {
-		
+		switch (overworld.locationID) {
+			case locations.miriabramDojo:
+				if (state == OVERWORLD_SPRITE_STATES.IDLE) {
+					if (global.gameTime mod 480 == 0) {
+						state = OVERWORLD_SPRITE_STATES.SPECIAL_ANIMATION;
+						sprite = correct_string_after_decode(specialAnimations[| 0]);
+						frame = 0;
+						animationSpeed = 8;
+					}
+				}
+				
+				if (state == -1) {
+					state = OVERWORLD_SPRITE_STATES.IDLE;	
+					frame = 0;
+					animationSpeed = 24;
+				}
+				
+			break;
+			
+		}
 	}
 	
 #endregion
@@ -423,6 +456,20 @@ function overworld_sprite_set_depth() {
 		}
 	}
 	
+	function sparmate_respond() {
+		// decode player todoList
+		var tdl = ds_list_create();
+		decode_list(player.todoList, tdl);
+		
+		// FOR TESTING ONLY
+		global.dialogueKey = "spartnerMorningGreeting";
+		
+		// set the encoded grid as the value stored at the dialogueKey
+		var eg = ds_map_find_value(responseMap, global.dialogueKey);
+		
+		return eg;
+	}
+	
 #endregion
 
 #region		LOAD ALL RESPONSE MAPS
@@ -433,6 +480,12 @@ function overworld_sprite_set_depth() {
 	var bookishResponseMap = ds_map_create();
 	convert_grid_to_map(bookishResponseGrid, bookishResponseMap);
 	
+	var sparmateResponseGrid = load_csv("DEMO_SPARTNER_ENGLISH.csv");
+	
+	fix_response_grid(sparmateResponseGrid);
+	var sparmateResponseMap = ds_map_create();
+	convert_grid_to_map(sparmateResponseGrid, sparmateResponseMap);
+	
 #endregion
 
 #region		CREATE ALL LOCATION LISTS
@@ -441,6 +494,10 @@ function overworld_sprite_set_depth() {
 	
 	ds_list_add(bookishLocationList, locations.miriabramLibrary);
 	
+	var sparmateLocationList = ds_list_create();
+	
+	ds_list_add(sparmateLocationList, locations.miriabramDojo);
+	
 #endregion
 
 #region		CREATE ALL LOCATION CHECK FUNCTIONS
@@ -448,12 +505,19 @@ function overworld_sprite_set_depth() {
 	function bookish_location_check() {
 		switch (overworld.locationID) {
 			case locations.miriabramLibrary:
-				var inst = instance_create_depth(200, 200, 0, owSprite);
+				var inst = instance_create_depth(80, 192, 0, owSprite);
 				
 				inst.ID = SPRITES.BOOKISH;
-			
-				x = 80;
-				y = 192;
+			break;
+		}
+	}
+	
+	function sparmate_location_check() {
+		switch (overworld.locationID) {
+			case locations.miriabramDojo:
+				var inst = instance_create_depth(200, 200, 0, owSprite);
+				
+				inst.ID = SPRITES.SPARMATE;
 			break;
 		}
 	}
@@ -473,8 +537,8 @@ function master_grid_add_overworld_sprite(_ID, _collisionMask, _walkingAnimation
 }
 
 // add all overworld sprites to the master grid
-master_grid_add_overworld_sprite(SPRITES.BOOKISH,	spr_bookishCollisionMask,	spr_bookishWalk,				spr_bookishIdle,	encode_list(bookishSpecialAnimations),	5,	24, 42, bookish_behavior,	bookish_respond,	encode_map(bookishResponseMap),		encode_list(bookishLocationList),	bookish_location_check);
-//master_grid_add_overworld_sprite(SPRITES.SPARMATE,	spr_sparmateCollisionMask,	spr_sparmateWalk,				spr_sparmateIdle,	encode_list(sparmateSpecialAnimations),	5,	24, 42,	sparmate_behavior,	sparmate_respond,	encode_map(sparmateResponseMap),	encode_list(sparmateLocationList),	sparmate_location_check);
+master_grid_add_overworld_sprite(SPRITES.BOOKISH,	spr_bookishCollisionMask,	spr_bookishWalk,				spr_bookishIdle,	encode_list(bookishSpecialAnimations),	8,	24, 42, bookish_behavior,	bookish_respond,	encode_map(bookishResponseMap),		encode_list(bookishLocationList),	bookish_location_check);
+master_grid_add_overworld_sprite(SPRITES.SPARMATE,	spr_spartnerCollisionMask,	spr_spartnerWalk,				spr_sparmateIdle,	encode_list(sparmateSpecialAnimations),	20,	24, 42,	sparmate_behavior,	sparmate_respond,	encode_map(sparmateResponseMap),	encode_list(sparmateLocationList),	sparmate_location_check);
 
 // encode grid
 global.allOverworldSprites = encode_grid(global.overworldSpritesGrid);

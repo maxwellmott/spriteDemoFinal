@@ -14,7 +14,7 @@ function game_start() {
 	create_once(128,	160, LAYER.sprites, player);
 	
 	// set the player's location to the starting area
-	player.location = locations.miriabramLibrary;
+	player.location = locations.miriabramDojo;
 	
 	// build all NPC location lists for the first time
 	build_npc_location_list();
@@ -32,7 +32,7 @@ function game_start() {
 		load_save_file();
 		
 		// set the player's location to the starting area
-		player.location = locations.miriabramLibrary;
+		player.location = locations.miriabramDojo;
 		
 		// @TODO replace this with a full blown function that also appears at 
 		// the end of dayChange
