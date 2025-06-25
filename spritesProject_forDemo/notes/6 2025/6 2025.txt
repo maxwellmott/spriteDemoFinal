@@ -173,3 +173,16 @@ WHILE YOU'RE IN THE CAR:
 	I still need to debug the sprites' dialogue, for some reason the text is getting corrupted.
 	
 	I made the new talk bubble artwork, just need to add them into the game
+	
+
+
+
+
+6/24/25
+
+	Finished most of the todoMenu. I still need to finish debugging it by checking it then talking to Bookish.
+	I'll have to debug the scroll functionality once there is enough tasks in the game to allow for it.
+	
+	After that, you need to debug sprite dialogue and fix the talkBubbles.
+	
+	Then it's time to get back to cutscenes, and turntaking algorithms!

@@ -35,7 +35,7 @@ function game_start() {
 		load_save_file();
 		
 		// set the player's location to the starting area
-		player.location = locations.miriabramDojo;
+		player.location = locations.miriabramLibrary;
 		
 		// @TODO replace this with a full blown function that also appears at 
 		// the end of dayChange

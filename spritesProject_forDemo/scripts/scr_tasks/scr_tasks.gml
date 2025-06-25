@@ -256,7 +256,7 @@ function task_get_step_count(_taskID) {
 
 
 ///@desc This function is used to draw the surface for the player's todoList menu
-function player_todoList_create_surface() {
+function todoList_create_surface() {
 	// check if there is any text
 	if (text != "") {
 		// initialize windowWidth and windowHeight
@@ -268,7 +268,7 @@ function player_todoList_create_surface() {
 		
 		// initialize surfaceDrawX and surfaceDrawY
 		surfaceDrawX = 16;
-		surfaceDrawY = 32;
+		surfaceDrawY = 24
 		
 		// initialize nameDrawX and descriptionDrawX
 		nameDrawX = 64;
@@ -295,12 +295,16 @@ function player_todoList_create_surface() {
 		// initialize scrollBarIndex
 		scrollBarIndex = 0;
 		
-		// 
+		// initialize scrollBarBottom
+		scrollBarBottom = scrollBarIndex + scrollBarHeight + scrollBarStartY;
+		
+		// create the textSurface
+		textSurface = surface_create(surfaceWidth, surfaceHeight);
 	}
 }
 
 ///@desc This function is used to build the text for the player's todoList menu
-function player_todoList_build_text() {
+function todoList_build_text() {
 	// initialize text
 	text = "";
 	
@@ -328,10 +332,12 @@ function player_todoList_build_text() {
 				
 				// add name and description to text
 				text += name;
-				text += "/n";
+				text += "\n";
+				text += "\n";
 				text += description;
-				text += "/n";
-				text += "/n";
+				text += "\n";
+				text += "\n";
+				text += "\n";
 				
 				// increment i
 				i++;
@@ -348,8 +354,8 @@ function player_todoList_build_text() {
 	if (ds_list_size(ctl) > 0) {
 		// add header
 		text += "COMPLETED TASKS";
-		text += "/n";
-		text += "/n";
+		text += "\n";
+		text += "\n";
 		
 		// use a repeat loop to add each item
 		var i = 0;	repeat (ds_list_size(tdl)) {
@@ -358,12 +364,12 @@ function player_todoList_build_text() {
 			
 			// add the name
 			text += name;
-			text += "/n";
+			text += "\n";
 			
 			i++;
 		}
 		
-		text += "/n";
+		text += "\n";
 	}
 	
 	// decode failed tasks list
@@ -374,8 +380,8 @@ function player_todoList_build_text() {
 	if (ds_list_size(ftl) > 0) {
 		// add header
 		text += "FAILED TASKS";
-		text += "/n";
-		text += "/n";
+		text += "\n";
+		text += "\n";
 		
 		// use a repeat loop to add each item
 		var i = 0;	repeat (ds_list_size(tdl)) {
@@ -384,12 +390,12 @@ function player_todoList_build_text() {
 			
 			// add the name
 			text += name;
-			text += "/n";
+			text += "\n";
 			
 			i++;
 		}
 		
-		text += "/n";
+		text += "\n";
 	}
 	*/
 }
@@ -397,15 +403,62 @@ function player_todoList_build_text() {
 ///@desc This function is called in the step event of the todoMenu. It gets and
 /// processes any input that would alter the position of the scrollBar
 function todoList_check_scrollBar() {
+	// check if scrollBar has not reached the bottom
+	if (scrollBarBottom < scrollBarEndY) {
+		// check for controller input
+		if (global.menuDown) {
+			// increment scrollBarIndex
+			scrollBarIndex++;		
+		}
+		
+		// check for mouse click
+			// check for mouse collision
+				// move it to mouse y
+					// clamp it to scrollBarEndY
+	}
 	
+	// check if scrollBar has not reached the top
+	if (scrollBarIndex > 0) {
+		// check for controller input
+		if (global.menuUp) {	
+			// decrement scrollBarIndex
+			scrollBarIndex--;	
+		}
+		
+		// check for mouse click
+			// check for mouse collision
+				// move it to mouse y
+					// clamp it to scrollBarEndY
+	}
 }
 
 function todoList_draw_text() {
+	// ensure that the surface exists
+	if !(surface_exists(textSurface)) {
+		textSurface = surface_create(surfaceWidth, surfaceHeight);
+	}
 	
+	// draw surface part
+	draw_surface_part(textSurface, 0, scrollBarIndex, windowWidth, windowHeight, surfaceDrawX, surfaceDrawY);
 }
 
 function todoList_create_text_surface() {
+	// ensure that the textSurface exists
+	if !(surface_exists(textSurface)) {
+		textSurface = surface_create(surfaceWidth, surfaceHeight);
+	}
 	
+	// set surface target
+	surface_set_target(textSurface);
+	
+		// set draw params
+		draw_set(fa_center, fa_top, 1.0, $0ecc2e);
+	
+		// draw the text to the surface
+		draw_text_pixel_perfect(surfaceWidth / 2, textDrawY, text, 9, surfaceWidth - 16);
+		
+	// reset surface target
+	surface_reset_target();
 }
 
 function todoList_draw_scrollBar() {
