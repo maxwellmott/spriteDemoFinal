@@ -120,14 +120,14 @@ var i = 0;	repeat (buttonCount) {
 				name	= "TODO LIST";
 				top		= y - 11;
 				bottom	= top + 10;
-				nm		= -1;
+				nm		= rm_todoList;
 			break;
 			
 			case MAIN_MENU_BUTTONS.CALENDAR:
 				name	= "CALENDAR";
 				top		= y + 2;
 				bottom	= top + 10;
-				nm		= rm_todoList;
+				nm		= -1;
 			break;
 			
 			case MAIN_MENU_BUTTONS.RONIN:

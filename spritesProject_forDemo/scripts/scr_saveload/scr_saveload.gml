@@ -6,9 +6,12 @@
 /// the game-start flow. In the playtest build, this function is called playtest_begin() and
 /// works mostly the same
 function game_start() {
+	
+	/*
 	if (file_exists(SAVE_FILE_NAME)) {
 		file_delete(SAVE_FILE_NAME);	
 	}
+	*/
 	
 	// create the player object
 	create_once(128,	160, LAYER.sprites, player);

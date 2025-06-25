@@ -41,7 +41,7 @@ var i = 0;	repeat (buttonCount) {
 		if (collision_rectangle(left, top, right, bottom, mouse, false, false)) {		
 			// open the linked menu
 			if (nm >= 0) {
-				room_transition(player.x, player.y, player.facing, nm, bgm_menuTheme);
+				room_transition(player.x, player.y, player.facing, nm, bgm_loveStarvedLandscape);
 			}
 		}
 	}
@@ -68,7 +68,7 @@ if (selectedButton < 0) {
 if (global.select) {
 	var nm = newMenuList[| selectedButton];
 	
-	room_transition(player.x, player.y, player.facing, nm, bgm_menuTheme);
+	room_transition(player.x, player.y, player.facing, nm, bgm_loveStarvedLandscape);
 }
 
 if (outroStarted) {

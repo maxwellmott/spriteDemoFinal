@@ -6,7 +6,7 @@ ds_grid_destroy(spriteGrid);
 
 // if you're online, move to spellbook builder
 if (instance_exists(onlineEnemy)) {
-	room_transition(player.x, player.y, player.facing, rm_spellbookBuilder, bgm_menuTheme);	
+	room_transition(player.x, player.y, player.facing, rm_spellbookBuilder, bgm_loveStarvedLandscape);	
 }	else	{
 	room_transition(player.x, player.y, player.facing, rm_overworld, bgm_magicIsInTheAir);	
 }

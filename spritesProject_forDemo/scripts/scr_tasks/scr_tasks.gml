@@ -102,7 +102,7 @@ function player_update_todoList(_taskID, _failed) {
 	}
 	
 	// push an unlockAlert for todoList update
-	player_push_unlock_alert(UNLOCK_TYPES.TODO_LIST_UPDATE);
+	player_push_unlock_alert(UNLOCK_TYPES.todoList_UPDATE);
 	
 	// encode the todoList
 	player.todoList = encode_list(tdList);
@@ -223,23 +223,31 @@ function player_task_get_step_num(_taskID) {
 /// finally moves into the postgame phase. Any nonPostGameTasks
 /// will be auto-failed, and any postGameAlternateTasks will swap
 /// their progress value with their respective mainGame counterparts
-function player_update_todo_list_for_postgame() {
+function player_update_todoList_for_postgame() {
 	
 }
 
 ///@desc This function will be called when the player
 /// decides or is forced to reset the time loop. All task
 /// progress will be reset (excluding completed tasks)
-function player_update_todo_list_time_loop() {
+function player_update_todoList_time_loop() {
 	
 }
 
 function task_get_step_count(_taskID) {
+	// store args in locals
+	var tid = _taskID;
+	
 	// decode the task grid
 	var g = ds_grid_create(TASK_PARAMS.HEIGHT, TASKS.HEIGHT);
 	decode_grid(global.allTasks, g);
 	
-	// get the number of steps for this task
+	// decode the list of steps for this task
+	var l = ds_list_create();
+	decode_list(g[# TASK_PARAMS.TRIGGER_LIST, tid], l);
+	
+	// return the number of steps for this task
+	return ds_list_size(l);
 }
 
 
@@ -248,30 +256,158 @@ function task_get_step_count(_taskID) {
 
 
 ///@desc This function is used to draw the surface for the player's todoList menu
-function player_todo_list_create_surface() {
-	// decode nameList and descriptionList
-	
-	// initialize windowWidth and windowHeight
-	
-	// initialize surfaceWidth
-	surfaceWidth = guiWidth - 24;
+function player_todoList_create_surface() {
+	// check if there is any text
+	if (text != "") {
+		// initialize windowWidth and windowHeight
+		windowWidth = 224;
+		windowHeight = 160;
+		
+		// initialize surfaceWidth
+		surfaceWidth = 224;
+		
+		// initialize surfaceDrawX and surfaceDrawY
+		surfaceDrawX = 16;
+		surfaceDrawY = 32;
+		
+		// initialize nameDrawX and descriptionDrawX
+		nameDrawX = 64;
+		descriptionDrawX = 192;
+		
+		// get surfaceHeight
+		surfaceHeight = string_height(text) + 8 + (string_width(text) / (windowWidth - 16));
+		
+		// get textDrawY
+		textDrawY = 8;
+		
+		// surfaceWindowRatio
+		surfaceWindowRatio = surfaceHeight / windowHeight;
+		
+		// initialize scrollBarStartY
+		scrollBarStartY = 48;
+		
+		// initialize scrollBarEndY
+		scrollBarEndY = 136;
+		
+		// get scrollBarHeight
+		scrollBarHeight = (scrollBarEndY - scrollBarStartY) * surfaceWindowRatio;
+		
+		// initialize scrollBarIndex
+		scrollBarIndex = 0;
+		
+		// 
+	}
+}
 
-	// initialize surfaceHeight
+///@desc This function is used to build the text for the player's todoList menu
+function player_todoList_build_text() {
+	// initialize text
+	text = "";
 	
-	// initialize surfaceDrawX and surfaceDrawY
+	// decode task grid
+	var tg = ds_grid_create(TASK_PARAMS.HEIGHT, TASKS.HEIGHT);
+	decode_grid(global.allTasks, tg);
 	
-	// initialize nameDrawX and descriptionDrawX
+	// decode player todoList
+	var tdl = ds_list_create();
+	decode_list(player.todoList, tdl);
 	
-	// intialize textDrawY
+	// check if there are any started tasks
+	if (ds_list_size(tdl) > 0) {
+		// use a repeat loop to add each item
+		var i = 0;	repeat (ds_list_size(tdl)) {
+			// check if the task has been started
+			if (tdl[| i] != "-1") {
+				// decode instructions list for this item
+				var il = ds_list_create();
+				decode_list(tg[# TASK_PARAMS.INSTRUCTIONS_LIST, i], il);
+				
+				// get the name and description of the task
+				var name = tg[# TASK_PARAMS.NAME, i];
+				var description = il[| i];
+				
+				// add name and description to text
+				text += name;
+				text += "/n";
+				text += description;
+				text += "/n";
+				text += "/n";
+				
+				// increment i
+				i++;
+			}
+		}
+	}
 	
-	// initialize surfaceWindowRatio 
+	/*
+	// decode completed tasks list
+	var ctl = ds_list_create();
+	decode_list(player.completedTasks, ctl);
 	
-	// use a repeat loop to draw each item
-	
-		// draw name from name list
+	// check if there are any completed tasks
+	if (ds_list_size(ctl) > 0) {
+		// add header
+		text += "COMPLETED TASKS";
+		text += "/n";
+		text += "/n";
 		
-		// draw description from description list
+		// use a repeat loop to add each item
+		var i = 0;	repeat (ds_list_size(tdl)) {
+			// get the name of the task
+			var name = tg[# TASK_PARAMS.NAME, ctl[| i]];
+			
+			// add the name
+			text += name;
+			text += "/n";
+			
+			i++;
+		}
 		
-		// draw separator
+		text += "/n";
+	}
+	
+	// decode failed tasks list
+	var ftl = ds_list_create();
+	decode_list(player.failedTasks, ftl);
+	
+	// check if there are any failed tasks
+	if (ds_list_size(ftl) > 0) {
+		// add header
+		text += "FAILED TASKS";
+		text += "/n";
+		text += "/n";
 		
+		// use a repeat loop to add each item
+		var i = 0;	repeat (ds_list_size(tdl)) {
+			// get the name of the task
+			var name = tg[# TASK_PARAMS.NAME, ftl[| i]];
+			
+			// add the name
+			text += name;
+			text += "/n";
+			
+			i++;
+		}
+		
+		text += "/n";
+	}
+	*/
+}
+
+///@desc This function is called in the step event of the todoMenu. It gets and
+/// processes any input that would alter the position of the scrollBar
+function todoList_check_scrollBar() {
+	
+}
+
+function todoList_draw_text() {
+	
+}
+
+function todoList_create_text_surface() {
+	
+}
+
+function todoList_draw_scrollBar() {
+	
 }

@@ -294,7 +294,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 			global.keyboardPrompt = KEYBOARD_PROMPTS.CHARACTER_NAME;
 			
 			// begin a transition into the keyboard room
-			room_transition(player.x, player.y, player.facing, rm_keyboardMenu, bgm_menuTheme);
+			room_transition(player.x, player.y, player.facing, rm_keyboardMenu, bgm_loveStarvedLandscape);
 		}
 	}
 }

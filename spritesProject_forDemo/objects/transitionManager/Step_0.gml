@@ -99,6 +99,13 @@ switch (state) {
 					create_once(0, 0, LAYER.meta, sparSetsMenu);
 					create_once(0, 0, LAYER.ui, mouse);
 					state = transitionStates.fadingOut;
+				break;
+				
+				case rm_todoList:
+					create_once(0, 0, LAYER.meta, todoMenu);
+					create_once(0, 0, LAYER.ui, mouse);
+					state = transitionStates.fadingOut;
+				break;
 				
 				default:
 					state = transitionStates.fadingOut;

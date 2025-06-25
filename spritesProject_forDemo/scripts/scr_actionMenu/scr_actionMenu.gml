@@ -1,15 +1,15 @@
 // create all action menu option functions
 function open_appearance_editor() {
 	// OPEN APPEARANCE EDITOR
-	room_transition(player.x, player.y, player.facing, rm_appearanceEditor, bgm_menuTheme);
+	room_transition(player.x, player.y, player.facing, rm_appearanceEditor, bgm_loveStarvedLandscape);
 }
 
 function open_spellbook_builder() {
-	room_transition(player.x, player.y, player.facing, rm_spellbookBuilder, bgm_menuTheme);
+	room_transition(player.x, player.y, player.facing, rm_spellbookBuilder, bgm_loveStarvedLandscape);
 }
 
 function open_teambuilder() {
-	room_transition(player.x, player.y, player.facing, rm_teambuilder, bgm_menuTheme);	
+	room_transition(player.x, player.y, player.facing, rm_teambuilder, bgm_loveStarvedLandscape);	
 }
 
 function open_wavephone_player() {

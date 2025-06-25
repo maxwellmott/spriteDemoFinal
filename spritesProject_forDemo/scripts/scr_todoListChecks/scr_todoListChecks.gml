@@ -37,131 +37,139 @@ function player_check_update_todo_list(_todoListCheckType) {
 	decode_grid(global.allTasks, g);
 	
 	switch (type) {
-		case TODO_LIST_CHECK_TYPES.SPAR_WON:
-			// use a repeat loop to check each item on the player's todo list
-			
-			// get arguments from list
-			
-			// check if the current values match the respective values given in the arguments
-				
-				// if all conditionals are satisfied, 
-			
-		break;
-		
-		case TODO_LIST_CHECK_TYPES.SPAR_LOST:
-		
-		break;
-		
-		case TODO_LIST_CHECK_TYPES.SPAR_COMPLETE:
-			// use a repeat loop to check each item on the player's todo list
-			var i = 0;	repeat (ds_list_size(l)) {
-				// get the next task id
-				var tid = i;
-				
-				// correct the value for -1 and nonreal
-				if (l[| tid] == "-1") {
-					l[| tid] = -1;
-				}
-				else {
-					l[| tid] = real(l[| tid]);	
-				}
-				
-				// get the next step id
-				var sid = l[| tid];
-				
-				// get the full trigger list
-				var ftl = ds_list_create();
-				decode_list(g[# TASK_PARAMS.TRIGGER_LIST, tid], ftl);
-				
-				// get the arguments list for the current step off the full trigger list
-				var args = ds_list_create();
-				decode_list(ftl[| sid], args);
+		#region SPAR WON
+			case TODO_LIST_CHECK_TYPES.SPAR_WON:
+				// use a repeat loop to check each item on the player's todo list
 				
 				// get arguments from list
-				var npcID = real(args[| 1]);
-				var spriteList = -1;
-			
-				// check if there is a spriteList to decode
-				if (args[| 2] != "-1") {
-					// decode spriteList
-					spriteList = ds_list_create();
-					decode_list(args[| 2], spriteList);
-				}
-				
-				// initialize the allSpritesPresent boolean variable
-				var allSpritesPresent = true;
-				
-				// check if there is a spriteList
-				if (spriteList != -1) {
-					// use a repeat loop to check if all sprites are present
-					var j = 0;	repeat (ds_list_size(spriteList)) {
-						// check if the given sprite is NOT on the player's team
-						if (ds_list_find_index(player.teamList, spriteList[| j]) == -1) {
-							// set allSpritesPresent to false
-							allSpritesPresent = false;
-							
-							// break the loop
-							break;
-						}
-						
-						// increment j
-						j++;
-					}
-				}
 				
 				// check if the current values match the respective values given in the arguments
-				if (spar.playerTwo.ID == npcID)
-				&& (allSpritesPresent) {
+					
 					// if all conditionals are satisfied, 
-					player_update_todoList(tid, false);
-				}
 				
-				// increment i
-				i++;
-				
-				// destroy temp lists
-				ds_list_destroy(ftl);
-				ds_list_destroy(args);
-			}
-		break;
+			break;
+		#endregion
 		
-		case TODO_LIST_CHECK_TYPES.DIALOGUE_PERFORMED:
-			var i = 0;	repeat (ds_list_size(l)) {
-				// get the next task id
-				var tid = i;
+		#region SPAR LOST
+			case TODO_LIST_CHECK_TYPES.SPAR_LOST:
+			
+			break;
+		#endregion
+		
+		#region SPAR COMPLETE
+			case TODO_LIST_CHECK_TYPES.SPAR_COMPLETE:
+				// use a repeat loop to check each item on the player's todo list
+				var i = 0;	repeat (ds_list_size(l)) {
+					// get the next task id
+					var tid = i;
+					
+					// correct the value for -1 and nonreal
+					if (l[| tid] == "-1") {
+						l[| tid] = -1;
+					}
+					else {
+						l[| tid] = real(l[| tid]);	
+					}
+					
+					// get the next step id
+					var sid = l[| tid];
+					
+					// get the full trigger list
+					var ftl = ds_list_create();
+					decode_list(g[# TASK_PARAMS.TRIGGER_LIST, tid], ftl);
+					
+					// get the arguments list for the current step off the full trigger list
+					var args = ds_list_create();
+					decode_list(ftl[| sid], args);
+					
+					// get arguments from list
+					var npcID = real(args[| 1]);
+					var spriteList = -1;
 				
-				// correct the value for -1 and nonreal
-				if (l[| tid] == "-1") {
-					l[| tid] = -1;
+					// check if there is a spriteList to decode
+					if (args[| 2] != "-1") {
+						// decode spriteList
+						spriteList = ds_list_create();
+						decode_list(args[| 2], spriteList);
+					}
+					
+					// initialize the allSpritesPresent boolean variable
+					var allSpritesPresent = true;
+					
+					// check if there is a spriteList
+					if (spriteList != -1) {
+						// use a repeat loop to check if all sprites are present
+						var j = 0;	repeat (ds_list_size(spriteList)) {
+							// check if the given sprite is NOT on the player's team
+							if (ds_list_find_index(player.teamList, spriteList[| j]) == -1) {
+								// set allSpritesPresent to false
+								allSpritesPresent = false;
+								
+								// break the loop
+								break;
+							}
+							
+							// increment j
+							j++;
+						}
+					}
+					
+					// check if the current values match the respective values given in the arguments
+					if (spar.playerTwo.ID == npcID)
+					&& (allSpritesPresent) {
+						// if all conditionals are satisfied, 
+						player_update_todoList(tid, false);
+					}
+					
+					// increment i
+					i++;
+					
+					// destroy temp lists
+					ds_list_destroy(ftl);
+					ds_list_destroy(args);
 				}
-				else {
-					l[| tid] = real(l[| tid]);	
+			break;
+		#endregion
+			
+		#region DIALOGUE PERFORMED
+			case TODO_LIST_CHECK_TYPES.DIALOGUE_PERFORMED:
+				var i = 0;	repeat (ds_list_size(l)) {
+					// get the next task id
+					var tid = i;
+					
+					// correct the value for -1 and nonreal
+					if (l[| tid] == "-1") {
+						l[| tid] = -1;
+					}
+					else {
+						l[| tid] = real(l[| tid]);	
+					}
+					
+					// get the next step id
+					var sid = l[| tid];
+					
+					// get the full trigger list
+					var ftl = ds_list_create();
+					decode_list(g[# TASK_PARAMS.TRIGGER_LIST, tid], ftl);
+					
+					// get the arguments list for the current step off the full trigger list
+					var args = ds_list_create();
+					decode_list(ftl[| sid], args);
+					
+					// check if dialogueKey is equal to the first arg
+					if (dialogueKey == args[| 1]) {
+						player_update_todoList(tid, false);	
+					}
+					
+					// increment i
+					i++;
+					
+					// destroy the temp lists
+					ds_list_destroy(ftl);
+					ds_list_destroy(args);
 				}
-				
-				// get the next step id
-				var sid = l[| tid];
-				
-				// get the full trigger list
-				var ftl = ds_list_create();
-				decode_list(g[# TASK_PARAMS.TRIGGER_LIST, tid], ftl);
-				
-				// get the arguments list for the current step off the full trigger list
-				var args = ds_list_create();
-				decode_list(ftl[| sid], args);
-				
-				// check if dialogueKey is equal to the first arg
-				if (dialogueKey == args[| 1]) {
-					player_update_todoList(tid, false);	
-				}
-				
-				// increment i
-				i++;
-				
-				// destroy the temp lists
-				ds_list_destroy(ftl);
-				ds_list_destroy(args);
-			}
-		break;
+			break;
+		#endregion
 	}
 	
 	// destroy the temp list and temp grid

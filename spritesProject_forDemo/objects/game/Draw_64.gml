@@ -5,7 +5,7 @@ surface_set_target(guiSurface);
 	var drawX = 32;
 	var drawY = guiHeight / 2;
 	
-	draw_text_pixel_perfect(drawX, drawY, string(player.x) + "," + string(player.y), 7, 256);
+	//draw_text_pixel_perfect(drawX, drawY, string(player.x) + "," + string(player.y), 7, 256);
 
 	if debugDraw {
 		var drawX = 16

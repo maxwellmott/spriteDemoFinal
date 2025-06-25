@@ -1,20 +1,7 @@
-// decode player's todoList
-todoList = ds_list_create();
-decode_list(player.todoList, todoList);
+// create the player's todoList text
+player_todoList_build_text();
 
-// decode player's failedTasks list
-failedList = ds_list_create();
-decode_list(player.failedTasks, failedList);
+// create the player's todoList surface
+player_todoList_create_surface();
 
-// decode player's completedTasks list
-completedList = ds_list_create();
-decode_list(player.completedTasks, completedList);
-
-// initialize scrollBarStartY
-scrollBarStartY = 32;
-
-// initialize scrollBarTop
-scrollBarTop = 0;
-
-// draw the player's todoList surface
-player_todo_list_create_surface();
+global.roomBuilt = true;
