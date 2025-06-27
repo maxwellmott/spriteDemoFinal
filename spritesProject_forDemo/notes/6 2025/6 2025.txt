@@ -186,3 +186,16 @@ WHILE YOU'RE IN THE CAR:
 	After that, you need to debug sprite dialogue and fix the talkBubbles.
 	
 	Then it's time to get back to cutscenes, and turntaking algorithms!
+	
+	
+
+6/26/25
+
+	Got back on track with my todo list spreadsheets.
+	
+	I fixed the talk bubbles almost completely. I might want to move sx and sy to block the speaker less.
+	
+	I also still need to debug the sprites' dialogue line-by-line.
+	
+	There are still a few things to fix with the todoList as well, and for whatever reason,
+	bookish' normal dialogue isn't loading after giving her quest dialogue to the player.

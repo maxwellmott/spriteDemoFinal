@@ -1,9 +1,18 @@
-sx = global.speaker.x;
-sy = global.speaker.y;
-
 speaker = global.speaker;
 
 global.speaker = -1;
+
+speaker.facing = player.facing + 2;
+
+if (speaker.facing > 3) {
+	speaker.facing -= 4;	
+}
+
+sx = speaker.x;
+sy = speaker.y;
+
+roomWidth = overworld.locationWidth;
+roomHeight = overworld.locationHeight;
 
 dialogueGrid	= global.dialogueGrid;
 dialogueRow		= global.dialogueRow;
@@ -16,98 +25,119 @@ global.dialogueRow		= -1;
 global.dialogueColumn	= -1;
 global.dialogueKey		= -1;
 
-bubbleSprite	= -1;
 bubbleX			= -1;
 bubbleY			= -1;
-bubbleWidth		= -1;
-bubbleHeight	= -1;
 textX			= -1;
 textY			= -1;
-textWidth		= -1;
+bubbleFrame		= -1;
 
-// check if speaker is left of the player
-if (sx < player.x) {
-	// check if there is room to draw the bubble to the left of the speaker
-	if (sx >= 140) {
-		// draw to the left of the speaker
-		bubbleSprite	= spr_talkBubbleLeft;
-		bubbleX			= sx - 12;
-		bubbleY			= sy;
-		
-		bubbleWidth		= sprite_get_width(bubbleSprite);
-		bubbleHeight	= sprite_get_height(bubbleSprite);
-		
-		textX			= bubbleX - bubbleWidth + 2;
-		textY			= bubbleY - (bubbleHeight / 2) + 2;
-		
-		textWidth		= bubbleWidth - 10;
-	}
-}
-else {	
-// if speaker is right of the player
-	// check if there is room to draw the bubble to the right of the speaker
-	if (sx <= overworld.locationWidth - 140) {
-		// draw to the right of the speaker
-		bubbleSprite	= spr_talkBubbleRight;
-		bubbleX			= sx + 12;
-		bubbleY			= sy;
-		
-		bubbleWidth		= sprite_get_width(bubbleSprite);
-		bubbleHeight	= sprite_get_height(bubbleSprite);
-		
-		textX			= bubbleX + 11;
-		textY			= bubbleY - (bubbleHeight / 2) - 3;
-		
-		textWidth		= bubbleWidth - 2;
-	}
-}
+bubbleSprite	= spr_talkBubble;
+bubbleWidth		= sprite_get_width(bubbleSprite);
+bubbleHeight	= sprite_get_height(bubbleSprite);
 
-// check if bubbleSprite has not yet been set
-if (bubbleSprite == -1) {
-	// check if the speaker is above the player
-	if (sy >= player.y) {	
-		// draw above the speaker
-		bubbleSprite	= spr_talkBubbleUp;
-		bubbleX			= sx;
-		bubbleY			= sy - 21;
+textWidth = bubbleWidth - 8;
+textHeight = bubbleHeight - 8;
+
+// check if speaker is in the left half of the room
+if (sx < roomWidth / 2) {
+	// set bubbleX for left half frames
+	bubbleX = sx + (bubbleWidth / 2);
+	
+	// check if the speaker is in the top half of the room
+	if (sy < roomHeight / 2) {
+		// set bubbleY for top half frames
+		bubbleY = sy + (bubbleHeight / 2);
 		
-		bubbleWidth		= sprite_get_width(bubbleSprite);
-		bubbleHeight	= sprite_get_height(bubbleSprite);
+		// set bubbleFrame to top left normal
+		bubbleFrame = TALK_BUBBLE_TYPES.TOP_LEFT_NORMAL;
 		
-		textX			= bubbleX - (bubbleWidth / 2) + 2;
-		textY			= bubbleY - bubbleHeight - 8;
+		// set textX and textY for top left normal
+		textX = sx + 3;
+		textY = sy + 11;
 		
-		textWidth		= bubbleWidth - 2;
-	}
-	else {
-	// if the speaker is below the player
-		// draw below the speaker
-		bubbleSprite	= spr_talkBubbleDown;	
-		bubbleX			= sx;
-		bubbleY			= sy + 21;
-		
-		bubbleWidth		= sprite_get_width(bubbleSprite);
-		bubbleHeight	= sprite_get_height(bubbleSprite);
-		
-		textX			= bubbleX - (bubbleWidth / 2) + 2;
-		textY			= bubbleY + bubbleHeight - 8;
-		
-		textWidth		= bubbleWidth - 2;
-		
-		// check if there is no room for the right half of the talk bubble
-		if (sx > overworld.locationWidth - ((bubbleWidth / 2) + 8)) {
-			bubbleSprite	= spr_talkBubbleSqueezeRight;
+		// check if the speaker is facing south (this means the player is below the speaker)
+		if (speaker.facing == directions.south) {
+			// reset the bubbleFrame to avoid the player
+			bubbleFrame = TALK_BUBBLE_TYPES.TOP_LEFT_FIXED;
 			
-			textX			= bubbleX - 120;
-			textY			= bubbleY - 40;		
+			// set textX and textY for top left fixed
+			textX = sx + 10;
+			textY = sy + 3;
 		}
+	}
+	
+	// check if the speaker is in the bottom half of the room
+	if (sy >= roomHeight / 2) {
+		// set bubbleY for bottom half frames
+		bubbleY = sy - (bubbleHeight / 2);
 		
-		// check if there is no room for the left half of the talk bubble
-		if (sx < (bubbleWidth / 2) + 8) {
-			bubbleSprite	= spr_talkBubbleSqueezeLeft;	
+		// set bubbleFrame to bottom left normal
+		bubbleFrame = TALK_BUBBLE_TYPES.BOTTOM_LEFT_NORMAL;
+		
+		// set textX and textY for bottom left normal
+		textX = sx + 3;
+		textY = xy - 46;
+		
+		// check if the speaker is facing south (this means the player is above the speaker)
+		if (speaker.facing == directions.north) {
+			// reset the bubbleFrame to avoid the player
+			bubbleFrame = TALK_BUBBLE_TYPES.BOTTOM_LEFT_FIXED;
 			
-			textX			= bubbleX - 4;
-			textY			= bubbleY + 8;
+			// set textX and textY for bottom left fixed
+			textX = sx + 10;
+			textY = sy - 38;
+		}
+	}
+}
+
+// check if the speaker is in the right half of the room
+if (sx >= roomWidth / 2) {
+	// set bubbleX for right half frames
+	bubbleX = sx + (bubbleWidth / 2);
+	
+	// check if the speaker is in the top half of the room
+	if (sy < roomHeight / 2) {
+		// set bubbleY for top half frames
+		bubbleY = sy + (bubbleHeight / 2);
+		
+		// set bubbleFrame to top right normal
+		bubbleFrame = TALK_BUBBLE_TYPES.TOP_RIGHT_NORMAL;
+		
+		// set textX and textY for top right normal
+		textX = sx - 117;
+		textY = sy + 11;
+		
+		// check if the speaker is facing south (this means the player is below the speaker)
+		if (speaker.facing == directions.south) {
+			// reset the bubbleFrame to avoid the player
+			bubbleFrame = TALK_BUBBLE_TYPES.TOP_RIGHT_FIXED;
+			
+			// set textX and textY for top right fixed
+			textX = sx - 124;
+			textY = sy + 3;
+		}
+	}
+	
+	// check if the speaker is in the bottom half of the room
+	if (sy >= roomHeight / 2) {
+		// set bubbleY for bottom half frames
+		bubbleY = sy - (bubbleHeight / 2);
+		
+		// set bubbleFrame to bottom right normal
+		bubbleFrame = TALK_BUBBLE_TYPES.BOTTOM_RIGHT_NORMAL;
+		
+		// set textX and textY for bottom right normal
+		textX = sx - 117;
+		textY = sy - 46;
+		
+		// check if the speaker is facing north (this means the player is above the speaker)
+		if (speaker.facing == directions.north) {
+			// reset the bubbleFrame to avoid the player
+			bubbleFrame = TALK_BUBBLE_TYPES.BOTTOM_RIGHT_FIXED;
+			
+			// set textX and textY for bottom right fixed
+			textX = sx - 124;
+			textY = sy - 38;
 		}
 	}
 }

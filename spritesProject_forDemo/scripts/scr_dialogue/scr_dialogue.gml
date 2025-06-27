@@ -1,3 +1,15 @@
+// this enumerator contains the different types of talkbubbles
+enum TALK_BUBBLE_TYPES {
+	TOP_LEFT_NORMAL,
+	TOP_LEFT_FIXED,
+	TOP_RIGHT_NORMAL,
+	TOP_RIGHT_FIXED,
+	BOTTOM_LEFT_NORMAL,
+	BOTTOM_LEFT_FIXED,
+	BOTTOM_RIGHT_NORMAL,
+	BOTTOM_RIGHT_FIXED
+}
+
 #macro	EMO_GIFT_NUM		414
 #macro	EMO_SPAR_NUM		416
 
