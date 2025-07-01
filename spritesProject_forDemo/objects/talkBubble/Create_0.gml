@@ -76,7 +76,7 @@ if (sx < roomWidth / 2) {
 		
 		// set textX and textY for bottom left normal
 		textX = sx + 3;
-		textY = xy - 46;
+		textY = sy - 46;
 		
 		// check if the speaker is facing south (this means the player is above the speaker)
 		if (speaker.facing == directions.north) {

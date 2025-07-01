@@ -1,3 +1,5 @@
+surfaceWindowRatio = -1;
+
 // create the player's todoList text
 todoList_build_text();
 

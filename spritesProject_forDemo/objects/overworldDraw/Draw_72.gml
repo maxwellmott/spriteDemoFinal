@@ -4,6 +4,10 @@ if !(surface_exists(lightingSurface)) {
 	lightingSurface		= surface_create(locationWidth, locationHeight);
 }
 
+if !(surface_exists(upperStorySurface)) {
+	upperStorySurface = surface_create(overworld.locationWidth, overworld.locationHeight);
+}
+
 surface_set_target(lightingSurface);
 	draw_clear_alpha(c_black, 0.0);
 surface_reset_target();

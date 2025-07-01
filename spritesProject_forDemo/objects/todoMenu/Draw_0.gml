@@ -5,5 +5,5 @@ if (text != "") {
 }
 
 if (surfaceWindowRatio > 1) {
-	todoList_draw_text();
+	todoList_draw_scrollBar();
 }

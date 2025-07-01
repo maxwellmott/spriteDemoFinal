@@ -114,7 +114,7 @@ function player_add_completed_task(_taskID) {
 	
 	// decode player's completedTasks list
 	var l = ds_list_create();
-	decode_list(player.failedTasks, l);
+	decode_list(player.completedTasks, l);
 	
 	// add this task to the player's completed tasks
 	ds_list_add(l, tid);
@@ -316,40 +316,47 @@ function todoList_build_text() {
 	var tdl = ds_list_create();
 	decode_list(player.todoList, tdl);
 	
+	// decode player failed tasks and completed tasks
+	var ftl = ds_list_create();
+	decode_list(player.failedTasks, ftl);
+	
+	var ctl = ds_list_create();
+	decode_list(player.completedTasks, ctl);
+	
 	// check if there are any started tasks
 	if (ds_list_size(tdl) > 0) {
 		// use a repeat loop to add each item
 		var i = 0;	repeat (ds_list_size(tdl)) {
 			// check if the task has been started
 			if (tdl[| i] != "-1") {
-				// decode instructions list for this item
-				var il = ds_list_create();
-				decode_list(tg[# TASK_PARAMS.INSTRUCTIONS_LIST, i], il);
-				
-				// get the name and description of the task
-				var name = tg[# TASK_PARAMS.NAME, i];
-				var description = il[| i];
-				
-				// add name and description to text
-				text += name;
-				text += "\n";
-				text += "\n";
-				text += description;
-				text += "\n";
-				text += "\n";
-				text += "\n";
-				
-				// increment i
-				i++;
+				// check that the task hasn't been completed or failed
+				if (ds_list_find_index(ctl, i) == -1)
+				&& (ds_list_find_index(ftl, i) == -1) {
+					// decode instructions list for this item
+					var il = ds_list_create();
+					decode_list(tg[# TASK_PARAMS.INSTRUCTIONS_LIST, i], il);
+					
+					// get the name and description of the task
+					var name = tg[# TASK_PARAMS.NAME, i];
+					var description = il[| tdl[| i]];
+					
+					// add name and description to text
+					text += name;
+					text += "\n";
+					text += "\n";
+					text += description;
+					text += "\n";
+					text += "\n";
+					text += "\n";
+					
+					// increment i
+					i++;
+				}
 			}
 		}
 	}
 	
-	/*
-	// decode completed tasks list
-	var ctl = ds_list_create();
-	decode_list(player.completedTasks, ctl);
-	
+	/*	
 	// check if there are any completed tasks
 	if (ds_list_size(ctl) > 0) {
 		// add header
@@ -371,10 +378,6 @@ function todoList_build_text() {
 		
 		text += "\n";
 	}
-	
-	// decode failed tasks list
-	var ftl = ds_list_create();
-	decode_list(player.failedTasks, ftl);
 	
 	// check if there are any failed tasks
 	if (ds_list_size(ftl) > 0) {
@@ -453,6 +456,9 @@ function todoList_create_text_surface() {
 	
 		// set draw params
 		draw_set(fa_center, fa_top, 1.0, $0ecc2e);
+		
+		// set font
+		draw_set_font(smallDigiFont);
 	
 		// draw the text to the surface
 		draw_text_pixel_perfect(surfaceWidth / 2, textDrawY, text, 9, surfaceWidth - 16);

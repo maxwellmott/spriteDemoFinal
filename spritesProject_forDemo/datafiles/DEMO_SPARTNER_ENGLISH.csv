@@ -1,6 +1,6 @@
-﻿placeholder,spartnerMorningGreeting,{([G'morning kid. . . Don't forget to make a decision about how you want to spend your day. It'll get away from you quickly.])}
-placeholder,spartnerTutorialPrompt,{([Such a lovely morning here at Miriabram. Good luck in the festival!])}
-placeholder,spartnerMercurioQuestion,"{([G'morning kid. . . Have you seen Mercurio? He's supposed to train with me today, but I haven't seen him.])([Huh. . . Well, I'll keep an eye out.][Oh! I wonder what he's doing out there. Will you ask him to come by?])}"
+﻿placeholder,spartnerMorningGreeting,{([ G'morning kid. . . Don't forget to make a decision about how you want to spend your day. It'll get away from you quickly.])}
+placeholder,spartnerTutorialPrompt,{([ Such a lovely morning here at Miriabram. Good luck in the festival!])}
+placeholder,spartnerMercurioQuestion,"{([ G'morning kid. . . Have you seen Mercurio? He's supposed to train with me today, but I haven't seen him.])([Huh. . . Well, I'll keep an eye out.][Oh! I wonder what he's doing out there. Will you ask him to come by?])}"
 placeholder,,
 placeholder,,
 placeholder,,

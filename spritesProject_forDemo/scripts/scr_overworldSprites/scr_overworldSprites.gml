@@ -454,6 +454,14 @@ function overworld_sprite_set_depth() {
 			
 			return eg;	
 		}
+		else {
+			global.dialogueKey = "bookishGreeting";
+			
+			// set the encoded grid as the value stored at the dialogueKey
+			var eg = ds_map_find_value(responseMap, global.dialogueKey);
+			
+			return eg;
+		}
 	}
 	
 	function sparmate_respond() {

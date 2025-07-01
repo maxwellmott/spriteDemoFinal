@@ -113,6 +113,21 @@ enum DIALOGUE_UNLOCK_TYPES {
 	&					= don't wait for player to click enter
 */
 
+
+///@desc This function will check the same thing for every NPC,
+/// it will basically find a key with a particular phrase in it
+/// (e.g. "morningGreeting") and return what it finds at that key
+function npc_check_general_dialogue() {
+	
+}
+
+///@desc This function simply calls the NPC specific function that
+/// checks heuristics in order of priority to get and return any
+/// special dialogue that might need to happen depending on the circumstances
+function npc_check_special_dialogue() {
+	
+}
+
 ///@desc This function is used to build the text pages from and properly
 /// handle all encoded symbols within a set of text being called for
 /// dialogue.
