@@ -28,3 +28,6 @@ respondFunction = -1;
 spriteWidth = -1;
 spriteHeight = -1;
 animationSpeed = -1;
+talkingSpeed = -1;
+voice = -1;
+vocalRange = -1;

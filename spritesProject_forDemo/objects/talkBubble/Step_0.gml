@@ -68,6 +68,22 @@ if (count < string_length(pages[| pageIndex])) {
 		
 		// increment count
 		count++;
+		
+		if !(global.gameTime mod (talkingSpeed * 4)) {
+			audio_push_sfx(voice);	
+		}
+	}
+	
+	// check for player input
+	if (global.select)
+	|| (global.back)
+	|| (global.start) {
+		currentText = pages[| pageIndex];
+		count = string_length(pages[| pageIndex]);
+		
+		global.select = 0;
+		global.back = 0;
+		global.start = 0;
 	}
 }
 
@@ -77,7 +93,9 @@ if count == string_length(pages[| pageIndex]) {
 	if (pageIndex == ds_list_size(pages) - 1) {
 		// check if waiting for player input
 		if (waitForInput) {
-			if (global.select) {
+			if (global.select) 
+			|| (global.back) 
+			|| (global.start) {
 				instance_destroy(id);
 			}
 		}
@@ -90,7 +108,9 @@ if count == string_length(pages[| pageIndex]) {
 	else {
 		// check if waiting for player input
 		if (waitForInput) {
-			if (global.select) {
+			if (global.select) 
+			|| (global.back) 
+			|| (global.start) {
 				pageIndex++;	
 				count = 1;
 			}

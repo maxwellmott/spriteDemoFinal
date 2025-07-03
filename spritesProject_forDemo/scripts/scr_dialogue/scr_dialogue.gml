@@ -76,8 +76,6 @@ enum DIALOGUE_UNLOCK_TYPES {
 	SPELL,
 	TALISMAN,
 	CONTACT,
-	TASK_SUCCESS,	// call this when adding new tasks as well since it is the same functionality (unstarted tasks store -1, first step is 0, second step is 1)
-	TASK_FAILURE,
 	CLOTHING_DYE,
 	HAIR_DYE,
 	OUTFIT,
@@ -356,7 +354,7 @@ function talk_bubble_build_dialogue() {
 				var checkString		= string_insert(nameString, pages[| currentPage], string_length(pages[| currentPage]));
 				var checkWidth		= string_width(checkString);
 				
-				if (checkWidth <= bubbleWidth) {
+				if (checkWidth <= textWidth) {
 					// if it fits, add the nameString to the currentLine of the currentPage
 					pages[| currentPage] = checkString;
 				}
@@ -460,7 +458,7 @@ function talk_bubble_build_dialogue() {
 			
 			var sl = string_length(pages[| currentPage]);
 			
-			if (checkWidth <= bubbleWidth) {
+			if (checkWidth <= textWidth) {
 				// if it fits, add the nextWord to the currentPage
 				pages[| currentPage] += nextWord;
 			}
@@ -505,7 +503,7 @@ function talk_bubble_build_dialogue() {
 			var checkString = char;
 			var checkWidth = string_width(checkString);
 			
-			if (checkWidth <= bubbleWidth) {
+			if (checkWidth <= textWidth) {
 				// add the character
 				pages[| currentPage] = string_insert(char, pages[| currentPage], string_length(pages[| currentPage]));
 				

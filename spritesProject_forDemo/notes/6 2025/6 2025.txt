@@ -201,7 +201,7 @@ WHILE YOU'RE IN THE CAR:
 	bookish' normal dialogue isn't loading after giving her quest dialogue to the player.
 	
 
-6/30
+6/30/25
 
 	I finished the todo list functionality. Now, a player can successfully complete a quest and the quest 
 	will progress off of their todo list. Now I just need to add the completedTasks and failedTasks draw functionality
@@ -211,3 +211,4 @@ WHILE YOU'RE IN THE CAR:
 	
 	There are still some issues with talk bubbles, I think you need to take a look
 	at the dimensions for the draw_text_pixel_perfect call
+	

@@ -636,6 +636,29 @@ function correct_string_after_decode(_string) {
 		if (string_count("-1", str) == 0)
 		&& (string_count("-4", str) == 0) 
 		&& (string_length(str) > 0) {
+			// check if this is a negative value
+			if (string_char_at(str, 1) == "-") {
+				var l1 = string_length(string_digits(str));
+				var l2 = string_length(str);
+				var diff = l2 - l1;
+				
+				if (diff - string_count(".", str) == 1) {
+					return real(str);	
+				}
+			}
+			
+			// check if this is a decimal value
+			if (string_count(".", str) == 1) {
+				var l1 = string_length(string_digits(str));
+				var l2 = string_length(str);
+				var diff = l2 - l1;
+				
+				if (diff == 1) {
+					return real(str);	
+				}
+			}
+
+			// return the number normally
 			return real(string_digits(str));
 		}
 	}

@@ -458,7 +458,7 @@ function todoList_create_text_surface() {
 		draw_set(fa_center, fa_top, 1.0, $0ecc2e);
 		
 		// set font
-		draw_set_font(smallDigiFont);
+		draw_set_font(plainFont);
 	
 		// draw the text to the surface
 		draw_text_pixel_perfect(surfaceWidth / 2, textDrawY, text, 9, surfaceWidth - 16);

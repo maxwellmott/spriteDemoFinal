@@ -1,0 +1,10 @@
+7/2/2025
+
+Today, I got the dialogue completely debugged and added voices and everything. 
+
+I won't need to revisit dialogue until it comes time to perfect all of the encoded features.
+That will probably happen once I near the end of cutscenes.
+
+From this point, it would probably be best to head right into cutscenes. That way, I can
+finish the gamestart flow, and get the tasks finalized (cutscenes will force me to finish
+adding all NPCs into the demo)

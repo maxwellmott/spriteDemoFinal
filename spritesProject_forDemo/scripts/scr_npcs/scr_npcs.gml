@@ -48,6 +48,9 @@ enum NPC_PARAMS {
 	RESPONSE_MAP,
 	LOCATIONS,
 	RESPOND_FUNCTION,
+	TALKING_SPEED,
+	VOICE,
+	VOCAL_RANGE,
 	height
 }
 
@@ -235,8 +238,8 @@ function master_grid_add_npc(_ID) {
 	}
 }
 
-// add all npcs to npcGrid		ID							NAME									WALKING SPRITE			MEDITATING SPRITE			EATING SPRITE			DRINKING SPRITE			WAVEPHONE SPRITE											SPELLS								RESPONSES									LOCATIONS							RESPONSE FUNCTION
-master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",								spr_mercurioWalking,	spr_mercurioMeditating,		spr_mercurioEating,		spr_mercurioDrinking,	spr_mercurioWavephone,			encode_list(mercurio),		encode_list(mercurioSpells),		encode_map(mercurioResponseMap),			encode_list(mercurioLocations),		mercurio_respond);
+// add all npcs to npcGrid		ID							NAME									WALKING SPRITE			MEDITATING SPRITE			EATING SPRITE			DRINKING SPRITE			WAVEPHONE SPRITE											SPELLS								RESPONSES									LOCATIONS							RESPONSE FUNCTION	TALKING SPEED	VOICE				VOCAL RANGE
+master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",								spr_mercurioWalking,	spr_mercurioMeditating,		spr_mercurioEating,		spr_mercurioDrinking,	spr_mercurioWavephone,			encode_list(mercurio),		encode_list(mercurioSpells),		encode_map(mercurioResponseMap),			encode_list(mercurioLocations),		mercurio_respond,	2,				sfx_mercurioVoice,	0.5);
 
 // encode the grid
 global.allNPCs = encode_grid(global.npcGrid);
@@ -261,9 +264,12 @@ function npc_load_parameters(_id) {
 	walkingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.WALKING_SPRITE,		ID]);
 	meditatingSprite	= correct_string_after_decode(grid[# NPC_PARAMS.MEDITATING_SPRITE,	ID]);
 	eatingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.EATING_SPRITE,		ID]);
-	drinkingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.DRINKING_SPRITE,		ID]);
-	wavephoneSprite		= correct_string_after_decode(grid[# NPC_PARAMS.WAVEPHONE_SPRITE,		ID]);
-	responseFunction	= correct_string_after_decode(grid[# NPC_PARAMS.RESPOND_FUNCTION,		ID]);
+	drinkingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.DRINKING_SPRITE,	ID]);
+	wavephoneSprite		= correct_string_after_decode(grid[# NPC_PARAMS.WAVEPHONE_SPRITE,	ID]);
+	responseFunction	= correct_string_after_decode(grid[# NPC_PARAMS.RESPOND_FUNCTION,	ID]);
+	talkingSpeed		= correct_string_after_decode(grid[# NPC_PARAMS.TALKING_SPEED,		ID]);
+	voice				= correct_string_after_decode(grid[# NPC_PARAMS.VOICE,				ID]);
+	vocalRange			= correct_string_after_decode(grid[# NPC_PARAMS.VOCAL_RANGE,		ID]);
 	
 	//decode_list(grid[# NPC_PARAMS.,		ID],		);
 	//decode_list(grid[# NPC_PARAMS.spells,			ID],		SPELLS);

@@ -86,3 +86,7 @@ emitterNum = -1;
 
 // tracks all dialogue spoken by this NPC since the player has been in this room
 spokenDialogue = ds_list_create();
+
+talkingSpeed		= -1;
+voice				= -1;
+vocalRange			= -1;

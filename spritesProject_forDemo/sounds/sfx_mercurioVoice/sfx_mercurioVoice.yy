@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"sfx_success3",
+  "%Name":"sfx_mercurioVoice",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,17 +9,17 @@
   "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":0.33337867,
-  "name":"sfx_success3",
+  "duration":0.40004537,
+  "name":"sfx_mercurioVoice",
   "parent":{
-    "name":"SFX",
-    "path":"folders/Sounds/SFX.yy",
+    "name":"NPC VOICES",
+    "path":"folders/Sounds/SFX/NPC VOICES.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"sfx_success3.wav",
+  "soundFile":"sfx_mercurioVoice.wav",
   "type":0,
-  "volume":0.65,
+  "volume":1.0,
 }

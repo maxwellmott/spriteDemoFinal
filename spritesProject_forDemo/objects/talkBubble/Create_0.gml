@@ -8,6 +8,10 @@ if (speaker.facing > 3) {
 	speaker.facing -= 4;	
 }
 
+talkingSpeed = speaker.talkingSpeed;
+voice = speaker.voice;
+vocalRange = speaker.vocalRange;
+
 sx = speaker.x;
 sy = speaker.y;
 
@@ -187,9 +191,6 @@ speedCount	= 0;
 // initialize waitForInput (boolean variable that tells the code if it should 
 // wait for the player to click enter before moving to the next page of dialogue)
 waitForInput = true;
-
-// variable to store the active talkingSpeed
-talkingSpeed = 1;
 
 // variable used to navigate pages
 pageIndex = 0;

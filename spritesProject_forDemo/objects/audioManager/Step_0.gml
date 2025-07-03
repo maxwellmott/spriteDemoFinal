@@ -17,8 +17,35 @@ if (newSFX != -1) {
 	bgmGain = 0.2;
 	audio_sound_gain(currentBGM, bgmGain, 0);
 	
+	// set pitch mod val
+	var pmv = 1;
+	
+	// set pitch range
+	var pr = -1;
+	
+	// check if this is dialogue sfx
+	if (instance_exists(talkBubble)) {
+		// set pitch range
+		pr = talkBubble.vocalRange;
+	}
+	
+	// check if these are footsteps
+	if (newSFX == sfx_footstep_woodenFloor) {
+		pr = 0.2;
+	}
+	
+	// check if range was set
+	if (pr != -1) {
+		// reset random seed
+		randomize();
+		
+		// get random pitch mod val using pitch range
+		var pmv = random_range(1 - (pr / 2), 1 + (pr / 2));
+	}
+
 	// start playing the given sfx
-	currentSFX = audio_play_sound(newSFX, 1, 0, sfxGain);
+	currentSFX = audio_play_sound(newSFX, 1, 0, sfxGain, 0, pmv);
+
 	
 	// reset newSFX
 	newSFX = -1;
