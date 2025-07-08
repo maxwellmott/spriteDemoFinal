@@ -9,11 +9,11 @@ enum CUTSCENES {
 // declare an enumerator containing all cutscene parameters
 enum CUTSCENE_PARAMS {
 	ID,
-	CHARACTER_LIST,					// list of character IDs (NPC enum for humans, sprite enum for sprites)
+	CHARACTER_LIST,					// list of character IDs (NPC enum for humans, sprite enum + NPCs.height for sprites)
 	CHARACTER_OBJ_TYPES,			// list of object tpyes for different characters on the above list
 	STARTING_COORDS_LIST,			// list of starting coordinates--indeces match up with character list
-	DIALOGUE_LIST,						// list of steps to be taken in the cutscene (each step is an encoded list containing [character list num, instructions (coordiates, dialogue, emoji, etc))]) on the given beat
-	SPEAKER_LIST,
+	DIALOGUE_LIST,					// list of steps to be taken in the cutscene (each step is an encoded list containing [character list num, instructions (coordiates, dialogue, emoji, etc))]) on the given beat
+	SPEAKER_LIST,				
 	START_LOCATION,		
 	START_CAMERA_FOLLOW,
 	HEIGHT
@@ -41,13 +41,17 @@ enum CUTSCENE_PARAMS {
 
 /* CUTSCENE DIALOGUE SPECIAL ACTION ENCODING KEY
 
-	...MOVE SPEAKER
-	...MOVE PLAYER
-	...MOVE CAMERA
+	...MOVE CHARACTER (player = npcs.height + sprites.height)
+	...MOVE LIST OF CHARACTERS (each character on list is paired with list of coordinates to follow)
+	...MOVE CAMERA 
 	...CHANGE CAMERA FOLLOW
 	...DISPLAY EMOJIS
 	...TRIGGER UNLOCK
-	...LOCATION TRANSITION
+	...CHANGE BACKGROUND MUSIC
+	...PAUSE BACKGROUND MUSIC
+	...LOAD NEW DIALOGUE GRID (This might happen if the player has to give input during a cutscene)
+	...END CUTSCENE
+	...START NEW CUTSCENE
 (add any of these that are missing from the dialogue encoding system)
 */
 
@@ -71,29 +75,7 @@ function master_grid_add_cutscene(_ID, _characterList, _characterObjTypes, _star
 
 // add all cutscenes to the master grid
 
-
-///@desc This function is called in the create event of the cutscene object. It performs a transition
-/// to the given startLocation, loads all necessary NPCs and owSprites, then puts all of their
-/// IDs on a list that matches the order of the stored characterList.
-function cutscene_create(_ID) {
-	// move to location
-	
-	// get NPC list
-	
-	// create all characters on character list
-	
-	// add all instance IDs to usbable list local to cutscene object
-	
-}
-
-function cutscene_process_dialogue(_dialogueIndex) {
-	// get next dialogue step
-	
-	// check what type of action this contains
-	
-	// check if stepFinished boolean is false
-		// use a switch statement to perform different operations depending on the action
-
-	// if stepFinished is true
-		// increment dialogueIndex
+///@desc This function is called whenever a new cutscene should begin
+function cutscene_begin(_cutsceneID) {
+		
 }

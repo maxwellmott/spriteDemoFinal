@@ -8,3 +8,19 @@ That will probably happen once I near the end of cutscenes.
 From this point, it would probably be best to head right into cutscenes. That way, I can
 finish the gamestart flow, and get the tasks finalized (cutscenes will force me to finish
 adding all NPCs into the demo)
+
+7/6/2025
+
+CUTSCENES:
+
+	-fix dialogue encoding system via note on scr_dialogue
+	-test new dialogue encoding system
+	-create and call new step event function for cutscene object
+	-write create and step event functions for cutscene object
+	-step event should check if the current step is complete (dialogue, movement, etc), then start the next one
+	-each step will be a row on an excel spreadsheet. Each row will contain: speaker (index on character list), step content (always in form of dialogue, even if it's just one encoded step), 
+	
+7/7/2025
+
+	-continue chipping away at the above list. Start by making a final decision about how to write action IDs (use macros that bind to strings e.g. INPUT_PLAYER_NAME = "INPUT PLAYER NAME" or use enumerated IDs)
+	

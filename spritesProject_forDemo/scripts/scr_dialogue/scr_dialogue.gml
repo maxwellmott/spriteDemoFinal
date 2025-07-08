@@ -91,18 +91,30 @@ enum DIALOGUE_UNLOCK_TYPES {
 /* FIX THE ENCODING KEY SO IT WORKS LIKE THIS
 
 	ONLY HAVE ONE ENCODED COMMAND, AND IT LOOKS LIKE THIS:
-		*ACTION ID*
-	WHEN YOU COME ACROSS AN ASTERISK, INSTEAD OF SIMPLY FINDING THE NEXT ASTERISK,
-	FIND THE NEXT SPACE. THE FIRST WORD WILL BE THE TYPE OF ACTION (THIS IS WHERE 
-	THE SWITCH STATEMENT COMES INTO PLAY). THE SECOND WORD WILL BE THE ID FOR THE 
-	ACTION CONCERNED. IF ACTION IS "ITEM", THEN ID WOULD PERTAIN TO THE INVENTORY
-	ITEM ENUMERATOR. IF ACTION IS "TALISMAN", THEN ID WOULD PERTAIN TO THE SPRITE
-	ENUMERATOR.
+		*<`ACTION _ID`ARGUMENT`ARGUMENT`...>*
+	WHEN YOU COME ACROSS AN ASTERISK, DECODE EVERYTHING BETWEEN IT
+	AND THE NEXT ONE AS A DS_LIST. DIFFERENT ACTIONS WILL HAVE DIFFERENT
+	ARGUMENTS, BUT ARGUMENT[0] WILL ALWAYS BE ACTION_ID
 
 */
 
 /*
-	encoding key
+	encoding key (character IDs refers to a specific ID for this context
+	
+	...ADD LIST OF PATHS (TWO LISTS, ONE LIST OF CHARACTER IDs, ONE LIST OF PATH IDS)
+	...MOVE CAMERA 
+	...CHANGE CAMERA FOLLOW
+	...DISPLAY EMOJIS
+	...TRIGGER UNLOCK
+	...CHANGE BACKGROUND MUSIC
+	...PAUSE BACKGROUND MUSIC
+	...LOAD NEW DIALOGUE GRID (This might happen if the player has to give input during a cutscene)
+	...END CUTSCENE
+	...START NEW CUTSCENE
+	...SKIP INPUT PAUSE
+	...INSERT PLAYER NAME
+	...INSERT PLAYER PRONOUNS
+	
 	
 	^[x,y][x,y]...^		= make speaker walk given path
 	*emotion*			= make speaker display given emotion
@@ -123,6 +135,14 @@ function npc_check_general_dialogue() {
 /// checks heuristics in order of priority to get and return any
 /// special dialogue that might need to happen depending on the circumstances
 function npc_check_special_dialogue() {
+	
+}
+
+///@desc This function is called by the talk_bubble_build_dialogue function
+/// whenever the function comes upon an encoded action. This function takes
+/// the encoded list stored between the asterisks, decodes it, then
+/// performs some action depending on the encoded information.
+function dialogue_perform_action(_encodedList) {
 	
 }
 
