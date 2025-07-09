@@ -143,7 +143,66 @@ function npc_check_special_dialogue() {
 /// the encoded list stored between the asterisks, decodes it, then
 /// performs some action depending on the encoded information.
 function dialogue_perform_action(_encodedList) {
+	// store args in locals
+	var el = _encodedList;
 	
+	// decode list of arguments
+	var args = ds_list_create();
+	decode_list(el, args);
+	
+	// get the the action ID from the list of arguments
+	var actionID = args[| 0];
+	
+	// use a switch statement to perform the action
+	switch (actionID) {
+		case "ADD PATHS":
+		
+		break;
+		
+		case "MOVE CAMERA":
+		
+		break;
+		
+		case "CHANGE CAMERA FOLLOW":
+		
+		break;
+		
+		case "DISPLAY EMOJIS":
+		
+		break;
+		
+		case "TRIGGER UNLOCK":
+		
+		break;
+		
+		case "CHANGE MUSIC":
+		
+		break;
+
+		case "CUTSCENE NEW DIALOGUE GRID":
+		
+		break;
+		
+		case "END CUTSCENE":
+		
+		break;
+		
+		case "START CUTSCENE":
+		
+		break;
+		
+		case "SKIP INPUT PAUSE":
+		
+		break;
+		
+		case "INSERT PLAYER NAME":
+		
+		break;
+		
+		case "INSERT PLAYER PRONOUNS":
+		
+		break;
+	}
 }
 
 ///@desc This function is used to build the text pages from and properly
