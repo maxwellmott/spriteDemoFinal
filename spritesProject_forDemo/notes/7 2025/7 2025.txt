@@ -30,3 +30,18 @@ CUTSCENES:
 	-determine the best way to indicate and process character paths and emotes (probably best to keep the grid)
 	-finish the case statements one-by-one, testing each one completely before moving on
 	-once you hit the cutscene related actions, start building/testing the first cutscene
+	
+7/11/2025
+
+	-labeled all the arguments for each item in the new dialogue encoding key
+	-need to go through mercurio's dialogue sheet and replace all old encoding symbols with new ones
+	-after doing so, write out the logic for each of those types of dialogue actions, then test
+	
+7/12/2025
+
+	-replaced all of mercurio's *SAD* etc calls with new *<`<>`<>>* ones
+	-finished the DISPLAY EMOTIONS section of the swtich statement in the new action process function
+	-realized that I'll need to follow the DISPLAY EMOTIONS method for all of these, since the text is processed in the create event, not while being displayed (need to indicate when to do it then wait)
+	-continue writing the cases for the switch statement in the action process function
+	-once you're finished with the action process function, replace all other action checks in the code with the new single asterisks check
+	-once the action process function and dialogue build function are both complete, test each type of action and debug until finished

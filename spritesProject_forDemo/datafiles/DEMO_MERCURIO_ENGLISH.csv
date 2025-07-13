@@ -1,12 +1,12 @@
-placeholder,mercurioPreMatch1,{([*0NERVOUS* I'm so nervous. I'm not sure if this is sweat or if I unlocked some powerful water spell. . . ])}
+placeholder,mercurioPreMatch1,{([*<`DISPLAY EMOJIS`<`0>`<`12>>* I'm so nervous. I'm not sure if this is sweat or if I unlocked some powerful water spell. . . ])}
 placeholder,mercurioPreMatch2,{([ The headmaster gave me the pep talk of a lifetime. Today I'm just gonna focus on doing better than yesterday. ])}
 placeholder,mercurioPreMatch3,{([ Apparently you and I are facing each other today! I can't wait to see what you throw at me! ])}
 placeholder,mercurioPreMatch4,{([ I'm feeling so fired up after our match yesterday! This wasn't so bad after all. ])}
-placeholder,mercurioPostMatch1,{([*0SAD* I barely lasted 5 minutes out there. . . I knew I'd choke if there were people here. Even Mr Domino came. God I'm so embarrassed. . . ])}
-placeholder,mercurioPostMatch2,"{([*0JOYFUL* Well, I still lost, but I had a lot of fun. I feel like I'm starting to get how swapping works. ])}"
-placeholder,mercurioPostMatch3,{([*0JOYFUL* I had a great time sparring with you. I learn so much from you guys. It's crazy how clearly I can see your thoughts when we're sparring. ])}
-placeholder,mercurioPostMatch4,{([*0JOYFUL* I wish you could've seen my spar against Marco! I almost had him. He even admitted he was nervous the whole second half of our match! ])}
-placeholder,mercurioOpponentPreMatch,"{([Alright _, it's finally our turn. Don't go easy on me! ])}"
+placeholder,mercurioPostMatch1,{([*<`DISPLAY EMOJIS`<`0>`<`4>>* I barely lasted 5 minutes out there. . . I knew I'd choke if there were people here. Even Mr Domino came. God I'm so embarrassed. . . ])}
+placeholder,mercurioPostMatch2,"{([*<`DISPLAY EMOJIS`<`0>`<`0>>* Well, I still lost, but I had a lot of fun. I feel like I'm starting to get how swapping works. ])}"
+placeholder,mercurioPostMatch3,{([*<`DISPLAY EMOJIS`<`0>`<`0>>* I had a great time sparring with you. I learn so much from you guys. It's crazy how clearly I can see your thoughts when we're sparring. ])}
+placeholder,mercurioPostMatch4,{([*<`DISPLAY EMOJIS`<`0>`<`0>>* I wish you could've seen my spar against Marco! I almost had him. He even admitted he was nervous the whole second half of our match! ])}
+placeholder,mercurioOpponentPreMatch,"{([Alright *<`INSERT PLAYER NAME>*, it's finally our turn. Don't go easy on me! ])}"
 placeholder,mercurioOpponentWon,{([I can't believe it! You'd better not have been going easy on me! ])}
 placeholder,mercurioOpponentLost,{([Ahhhh man! I thought I had you! ])}
 placeholder,mercurioCutsceneOneDialogueOne,{([Wait--w-why would we do that? I don't want random people from the island to come watch me spar. ])}
@@ -22,7 +22,7 @@ placeholder,mercurioDayTwoPreFest,{([TODO])}
 placeholder,mercurioDayThreePreFest,{([TODO])}
 placeholder,mercurioDayFourPreFest,{([TODO])}
 placeholder,mercurioByeMatch2,{([TODO])}
-placeholder,mercurioSparPrompt1,{([ I can't sleep quite yet. I keep thinking of my match earlier and I feel like my mind is on fire with new ideas. So what do you say? Wanna have a spar with me and help me prepare for tomorrow? ])([*0SAD* That's okay. . . I get it. . . ][*1SPAR* Alright! Don't underestimate me just because I'm new to this! ])}
+placeholder,mercurioSparPrompt1,{([ I can't sleep quite yet. I keep thinking of my match earlier and I feel like my mind is on fire with new ideas. So what do you say? Wanna have a spar with me and help me prepare for tomorrow? ])([*<`DISPLAY EMOJIS`<`0>`<`4>>*That's okay. . . I get it. . . ][*<`BEGIN SPAR>* Alright! Don't underestimate me just because I'm new to this! ])}
 placeholder,mercurioSparPrompt2,{([TODO])}
 placeholder,mercurioSparPrompt3,{([TODO])}
 placeholder,mercurioSparPrompt4,{([TODO])}

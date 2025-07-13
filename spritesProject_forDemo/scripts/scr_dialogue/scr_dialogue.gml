@@ -99,23 +99,27 @@ enum DIALOGUE_UNLOCK_TYPES {
 */
 
 /*
-	encoding key (character IDs refers to a specific ID for this context
+	encoding key (character IDs refers to a specific ID for this context wherein the lists of
+	npcs and the list of sprites are both added together.
 	
-	...ADD LIST OF PATHS (TWO LISTS, ONE LIST OF CHARACTER IDs, ONE LIST OF PATH IDS)
-	...MOVE CAMERA 
-	...CHANGE CAMERA FOLLOW
-	...DISPLAY EMOJIS
-	...TRIGGER UNLOCK
-	...CHANGE BACKGROUND MUSIC
-	...PAUSE BACKGROUND MUSIC
-	...LOAD NEW DIALOGUE GRID (This might happen if the player has to give input during a cutscene)
-	...END CUTSCENE
-	...START NEW CUTSCENE
-	...SKIP INPUT PAUSE
-	...INSERT PLAYER NAME
-	...INSERT PLAYER PRONOUNS
+	ID									ARGUMENTS
+	...ADD PATHS						LIST OF CHARACTERS TO MOVE						LIST OF PATHS TO FOLLOW (MATCH INDECES W CHARACTER LIST)
+	...MOVE CAMERA						PATH FOR CAMERA TO FOLLOW						SPEED FOR CAMERA TO MOVE (PIXELS PER 60 FRAMES)
+	...CHANGE CAMERA FOLLOW				CHARACTER ID OF THE OBJECT TO FOLLOW		
+	...DISPLAY EMOJIS					LIST OF CHARACTERS TO EMOTE						LIST OF EMOTIONS TO DISPLAY (NUMBERS FROM EMOTIONS ENUM)
+	...TRIGGER UNLOCK					UNLOCK TYPE ID									ID FOR PARTICULAR UNLOCK (ITEM ID, TALISMAN ID, SPELL ID, ETC)
+	...CHANGE MUSIC						ID OF NEW MUSIC	(-1 FOR STOP)			
+	...CUTSCENE NEW DIALOGUE GRID		THE NAME OF THE CSV FILE TO LOAD (WITH .csv)
+	...BEGIN SPAR
+	...END CUTSCENE						
+	...START NEW CUTSCENE				CUTSCENE ID
+	...SKIP INPUT PAUSE					
+	...INSERT PLAYER NAME				
+	...INSERT PLAYER PRONOUNS			PRONOUN TYPE ID (POSSESSIVE, CONJUNCTIVE, ETC)
 	
 	
+	
+	!!!DEPRECATED DIALOGUE KEY!!!
 	^[x,y][x,y]...^		= make speaker walk given path
 	*emotion*			= make speaker display given emotion
 	_					= insert player name
@@ -168,7 +172,45 @@ function dialogue_perform_action(_encodedList) {
 		break;
 		
 		case "DISPLAY EMOJIS":
-		
+			// get the list of characters
+			var charList = ds_list_create();
+			decode_list(args[| 1], charList);
+			
+			// get the list of emotions
+			var emoList = ds_list_create();
+			decode_list(args[| 2], emoList);
+			
+			// check each entry on the two lists
+			var i = 0;	repeat (ds_list_size(charList)) {
+				var emo = correct_string_after_decode(emoList[| i]);
+				
+				var char = correct_string_after_decode(charList[| i]);
+				
+				// if emotion is not SPAR, add emotion to grid
+				if (emo < emotions.height) 
+				&& (emo >= 0) {
+					// resize overworld.dialogueEmotes
+					ds_grid_resize(overworld.dialogueEmotes, 4, emoCount + 1);
+					
+					// store the currentPage in the emotion grid
+					overworld.dialogueEmotes[# 0, emoCount] = currentPage;
+					
+					// store the currentLength in the emotion grid
+					overworld.dialogueEmotes[# 1, emoCount] = string_length(pages[| currentPage]);
+					
+					// store the emoBool in the emotion grid
+					overworld.dialogueEmotes[# 2, emoCount] = true;		//@TODO REMOVE THIS!!!
+					
+					// store the emotion in the emotion grid
+					overworld.dialogueEmotes[# 3, emoCount] = emo;
+					
+					// increment emoCount
+					emoCount++;
+				}				
+			
+				// increment i
+				i++;
+			}
 		break;
 		
 		case "TRIGGER UNLOCK":
@@ -180,6 +222,10 @@ function dialogue_perform_action(_encodedList) {
 		break;
 
 		case "CUTSCENE NEW DIALOGUE GRID":
+		
+		break;
+		
+		case "BEGIN SPAR":
 		
 		break;
 		
