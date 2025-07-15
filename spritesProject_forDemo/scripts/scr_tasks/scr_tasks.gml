@@ -281,7 +281,7 @@ function todoList_create_surface() {
 		textDrawY = 8;
 		
 		// surfaceWindowRatio
-		surfaceWindowRatio = surfaceHeight / windowHeight;
+		surfaceWindowRatio = windowHeight / surfaceHeight;
 		
 		// initialize scrollBarStartY
 		scrollBarStartY = 48;
@@ -290,7 +290,7 @@ function todoList_create_surface() {
 		scrollBarEndY = 136;
 		
 		// get scrollBarHeight
-		scrollBarHeight = (scrollBarEndY - scrollBarStartY) * surfaceWindowRatio;
+		scrollBarHeight = surfaceWindowRatio * windowHeight;
 		
 		// initialize scrollBarIndex
 		scrollBarIndex = 0;

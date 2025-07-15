@@ -151,42 +151,17 @@ text = dialogueGrid[# dialogueColumn, dialogueRow];
 pages = ds_list_create();
 
 // grids to store any emojis, paths, or talking speeds 
-emoGrid			= ds_grid_create(4, 0);
-pathGrid		= ds_grid_create(4, 0);
-speedGrid		= ds_grid_create(3, 0);
 dialogueQueue	= ds_list_create();
 
-// variable to store the next path in a decoded list to be ready for use
-nextPath	= ds_list_create();
+// variable to store the new talkingSpeed
+newTalkingSpeed = -1;
 
-// variable to store the next emotion to display
-nextEmotion = -1;
-
-// variable to store the next talkingSpeed
-nextSpeed = -1;
-
-// boolean variables to signify whether dialogue should pause during
-// the next path/emote
-pathPauseBool	= -1;
-emotePauseBool	= -1;
-
-// variables to store the count at which to begin the next path/emotion/speed
-nextPathCount	= -1;
-nextEmoCount	= -1;
-nextSpeedCount	= -1;
-
-// variables to store the page on which to begin the next path/emotion/speed
-nextPathPage	= -1;
-nextEmoPage		= -1;
-nextSpeedPage	= -1;
+// grids to store any encoded paths or emotes
+dialogueEmotes = ds_grid_create(2, 0);
+dialoguePaths = ds_grid_create(2, 0);
 
 // variable to be increased as each letter is drawn to the screen
 count = 1;
-
-// variables to track the number of paths/emotes/speeds
-pathCount	= 0;
-emoCount	= 0;
-speedCount	= 0;
 
 // initialize waitForInput (boolean variable that tells the code if it should 
 // wait for the player to click enter before moving to the next page of dialogue)
@@ -198,6 +173,9 @@ pageIndex = 0;
 // initialize the beginSpar and presentGift variables
 beginSpar = false;
 presentGift = false;
+
+currentPage = 0;
+currentLine = 1;
 
 // build text
 talk_bubble_build_dialogue();

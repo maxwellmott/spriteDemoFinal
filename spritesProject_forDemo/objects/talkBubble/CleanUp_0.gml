@@ -20,7 +20,5 @@ if (ds_grid_height(dialogueGrid) > dialogueRow + 1) {
 	create_once(x, y, LAYER.meta, responseMenu);
 }
 
-ds_grid_destroy(emoGrid);
-ds_grid_destroy(pathGrid);
-ds_grid_destroy(speedGrid);
-ds_list_destroy(dialogueQueue);
+ds_grid_destroy(dialogueEmotes);
+ds_grid_destroy(dialoguePaths);

@@ -110,21 +110,15 @@ enum DIALOGUE_UNLOCK_TYPES {
 	...TRIGGER UNLOCK					UNLOCK TYPE ID									ID FOR PARTICULAR UNLOCK (ITEM ID, TALISMAN ID, SPELL ID, ETC)
 	...CHANGE MUSIC						ID OF NEW MUSIC	(-1 FOR STOP)			
 	...CUTSCENE NEW DIALOGUE GRID		THE NAME OF THE CSV FILE TO LOAD (WITH .csv)
-	...BEGIN SPAR
+	...BEGIN SPAR						(currently just starts a spar with the speaker, this should be fixed after completing the grid of npc sparsets)
 	...END CUTSCENE						
 	...START NEW CUTSCENE				CUTSCENE ID
 	...SKIP INPUT PAUSE					
 	...INSERT PLAYER NAME				
 	...INSERT PLAYER PRONOUNS			PRONOUN TYPE ID (POSSESSIVE, CONJUNCTIVE, ETC)
-	
-	
-	
-	!!!DEPRECATED DIALOGUE KEY!!!
-	^[x,y][x,y]...^		= make speaker walk given path
-	*emotion*			= make speaker display given emotion
-	_					= insert player name
-	|					= next page
-	&					= don't wait for player to click enter
+	...CHANGE TALKING SPEED				NEW TALKING SPEED
+	...RESET TALKING SPEED		
+	...NEXT PAGE
 */
 
 
@@ -139,6 +133,20 @@ function npc_check_general_dialogue() {
 /// checks heuristics in order of priority to get and return any
 /// special dialogue that might need to happen depending on the circumstances
 function npc_check_special_dialogue() {
+	
+}
+
+///@desc This function is called in the talk bubble clean up phase when there
+/// are paths on the dialoguePaths. It sets all of the given characters to begin walking
+/// the given paths.
+function dialogue_post_paths() {
+	
+}
+
+///@desc This function is called in the talk bubble clean up phase when there
+/// are emotes on the dialogueEmotes. It sets all of the given characters to begin
+/// displaying the given emotes.
+function dialogue_post_emotes() {
 	
 }
 
@@ -160,6 +168,36 @@ function dialogue_perform_action(_encodedList) {
 	// use a switch statement to perform the action
 	switch (actionID) {
 		case "ADD PATHS":
+			// get the list of characters
+			var charList = ds_list_create();
+			decode_list(args[| 1], charList);
+			
+			// get the list of paths
+			var pathList = ds_list_create();
+			decode_list(args[| 2], pathList);
+			
+			// check each entry on the two lists
+			var i = 0;	repeat (ds_list_size(charList)) {
+				var char = correct_string_after_decode(charList[| i]);
+				
+				var path = correct_string_after_decode(pathList[| i]);
+				
+				// if path is valid, add it to the grid
+				if (path < PATHS.HEIGHT) 
+				&& (path >= 0) {
+					// resize overworld.dialoguePaths
+					ds_grid_resize(dialoguePaths, 2, ds_list_size(charList));
+					
+					// store the character in the path grid
+					dialoguePaths[# 0, i] = char;
+					
+					// store the path in the grid
+					dialoguePaths[# 1, i] = path;
+				}
+				
+				// increment i
+				i++;
+			}
 		
 		break;
 		
@@ -186,26 +224,17 @@ function dialogue_perform_action(_encodedList) {
 				
 				var char = correct_string_after_decode(charList[| i]);
 				
-				// if emotion is not SPAR, add emotion to grid
+				// if emotion is valid, add it to the grid
 				if (emo < emotions.height) 
 				&& (emo >= 0) {
 					// resize overworld.dialogueEmotes
-					ds_grid_resize(overworld.dialogueEmotes, 4, emoCount + 1);
+					ds_grid_resize(dialogueEmotes, 2, ds_list_size(charList));
 					
-					// store the currentPage in the emotion grid
-					overworld.dialogueEmotes[# 0, emoCount] = currentPage;
-					
-					// store the currentLength in the emotion grid
-					overworld.dialogueEmotes[# 1, emoCount] = string_length(pages[| currentPage]);
-					
-					// store the emoBool in the emotion grid
-					overworld.dialogueEmotes[# 2, emoCount] = true;		//@TODO REMOVE THIS!!!
+					// store the character in the emotion grid
+					dialogueEmotes[# 0, i] = char;
 					
 					// store the emotion in the emotion grid
-					overworld.dialogueEmotes[# 3, emoCount] = emo;
-					
-					// increment emoCount
-					emoCount++;
+					dialogueEmotes[# 1, i] = emo;
 				}				
 			
 				// increment i
@@ -214,19 +243,26 @@ function dialogue_perform_action(_encodedList) {
 		break;
 		
 		case "TRIGGER UNLOCK":
-		
+			// get the unlock type
+			
+			// get the id indicating the specific unlockable
+			
+			// use a switch statement to call the correct unlock function for the given type
+			
 		break;
 		
 		case "CHANGE MUSIC":
-		
+			// get the indicated music id
+			
+			// pass a new bgm to the audioManager
 		break;
 
 		case "CUTSCENE NEW DIALOGUE GRID":
-		
+			
 		break;
 		
 		case "BEGIN SPAR":
-		
+			beginSpar = true;
 		break;
 		
 		case "END CUTSCENE":
@@ -238,30 +274,54 @@ function dialogue_perform_action(_encodedList) {
 		break;
 		
 		case "SKIP INPUT PAUSE":
-		
+			waitForInput = false;
 		break;
 		
 		case "INSERT PLAYER NAME":
-		
+			// get the player's name
+			var pn = player.name;
+			
+			// insert the player's name into the text, right after the encodedList
+			text = string_insert(pn, text, string_length(_encodedList));
 		break;
 		
 		case "INSERT PLAYER PRONOUNS":
+			
+		break;
+		
+		case "CHANGE TALKING SPEED":
 		
 		break;
+		
+		case "RESET TALKING SPEED":
+		
+		break;
+		
+		case "CHANGE VOCAL RANGE":
+		
+		break;
+		
+		case "RESET VOCAL RANGE":
+		
+		break;
+		
+		case "NEXT PAGE":
+			// increment currentPage and reset currentLine
+			currentPage++;
+			pages[|currentPage] = "";
+			currentLine = 1;
+		break;
 	}
+	
+	// delete the action code from the dialogue string
+	text = string_delete(text, 1, string_length(_encodedList));
 }
 
 ///@desc This function is used to build the text pages from and properly
 /// handle all encoded symbols within a set of text being called for
 /// dialogue.
 function talk_bubble_build_dialogue() {
-	var currentPage = 0;
-	
-	pages[| currentPage] = "";
-	
 	var last_space = 1;
-	
-	var currentLine = 1;
 	
 	var height = 6;
 	var maxLines = 3;
@@ -269,299 +329,23 @@ function talk_bubble_build_dialogue() {
 	pages[| currentPage] = "";
 
 	while (string_length(text) > 0) {
-		// check if the text signals to start walking a path
-		if (string_char_at(text, 1)) == "^" {											//READY TO TEST
-				// delete the opening signal character
-				text = string_delete(text, 1, 1);
-				
-				// get the number containing the truth value of whether dialogue
-				// should continue while the path is being walked
-				var boolString	= string_copy(text, 1, 1);
-				var pathBool	= real(boolString);
-				
-				// remove the number
-				text = string_delete(text, 1, 1);
-				
-				// find the position of the first bracket
-				var startPos = string_pos("[", text);				
-				
-				// find the next signal character to get the size of the coordString
-				var endPos = string_pos("^", text) -1;				
-				
-				// store the whole group of coordinate pairs in a substring
-				var coordString = string_copy(text, 1, endPos);
-				
-				// get the number of coordinate pairs
-				var coordCount = string_count("[", coordString);
-				
-				// create a list to store the coordinate pairs
-				var coordList = ds_list_create();
-				
-				// use a repeat loop to get each pair of coordinates
-				// and store them in an encoded list
-				var i = 0; repeat(coordCount) {
-					var openingPos = string_pos("[", coordString);
-					var closingPos = string_pos("]", coordString);
-					
-					var coords = string_copy(coordString, 1, closingPos);
-					
-					coordList[| i] = coords;
-					
-					coordString = string_delete(coordString, openingPos, closingPos);
-				}
-				
-				// delete the coordString from the text
-				text = string_delete(text, 1, endPos);
-				
-				// resize the pathGrid
-				ds_grid_resize(pathGrid, 4, pathCount + 1);
-				
-				// add currentPage to pathGrid
-				pathGrid[# 0, pathCount] = currentPage;
-				
-				// add currentLength to pathGrid
-				pathGrid[# 1, pathCount] = string_length(pages[| currentPage]);
-				
-				// add pathBool to pathGrid
-				pathGrid[# 2, pathCount] = pathBool;
-				
-				// add the encoded coordString to the pathGrid
-				pathGrid[# 3, pathCount] = encode_list(coordList);
-				
-				// increment pathCount
-				pathCount++;
-			}
 		
-		// check if the text signals to display an emotion
-		else if (string_char_at(text, 1)) == "*" {										//READY TO TEST
-				// delete the opening signal character
-				text = string_delete(text, 1, 1);
-				
-				// get the number at the beginning of the emotion string
-				// that represents the truth value of whether the dialogue should
-				// continue or pause
-				var boolString	= string_copy(text, 1, 1);
-				var emoBool		= real(boolString);
-				
-				// delete the boolString
-				text = string_delete(text, 1, 1);
-				
-				// get the position of the next signal character
-				var endPos = string_pos("*", text);
-				
-				// get emotion string
-				var emotionString = string_copy(text, 1, endPos - 1);
-				
-				// initialize emotion variable
-				var emo = -1;
-				
-				// get emoCount
-				var emoCount = ds_grid_height(overworld.dialogueEmotes);
-				
-				// use switch statement to get emotion from enum
-				switch (emotionString) {
-					case "JOYFUL":
-						emo = emotions.joyful;
-					break;
-					
-					case "ANGRY":
-						emo = emotions.angry;
-					break;
-					
-					case "IRKED":
-						emo = emotions.irked;
-					break;
-					
-					case "HAPPY":
-						emo = emotions.happy;
-					break;
-					
-					case "SAD":
-						emo = emotions.sad;
-					break;
-					
-					case "CRYING":
-						emo = emotions.crying;
-					break;
-					
-					case "PLEASED":
-						emo = emotions.pleased;
-					break;
-					
-					case "ENAMORED":
-						emo = emotions.enamored;
-					break;
-					
-					case "DISAPPOINTED":
-						emo = emotions.disappointed;
-					break;
-					
-					case "UNAMUSED":
-						emo = emotions.unamused;
-					break;
-					
-					case "DOUBTFUL":
-						emo = emotions.doubtful;
-					break;
-					
-					case "EMBARRASSED":
-						emo = emotions.embarrassed;
-					break;
-					
-					case "NERVOUS":
-						emo = emotions.nervous;
-					break;
-					
-					case "EYEROLL":
-						emo = emotions.eyeroll;
-					break;
-					
-					case "STUNNED":
-						emo = emotions.stunned;
-					break;
-					
-					case "SPAR":
-						emo = EMO_SPAR_NUM;
-						beginSpar = true;
-					break;
-					
-					case "GIFT":
-						emo = EMO_GIFT_NUM;
-						presentGift = true;
-					break;
-				}
-				
-				// delete emotion string from text
-				text = string_delete(text, 1, endPos);
-				
-				// if emotion is not SPAR, add emotion to grid
-				if (emo < emotions.height) 
-				&& (emo >= 0) {
-					// resize overworld.dialogueEmotes
-					ds_grid_resize(overworld.dialogueEmotes, 4, emoCount + 1);
-					
-					// store the currentPage in the emotion grid
-					overworld.dialogueEmotes[# 0, emoCount] = currentPage;
-					
-					// store the currentLength in the emotion grid
-					overworld.dialogueEmotes[# 1, emoCount] = string_length(pages[| currentPage]);
-					
-					// store the emoBool in the emotion grid
-					overworld.dialogueEmotes[# 2, emoCount] = emoBool;
-					
-					// store the emotion in the emotion grid
-					overworld.dialogueEmotes[# 3, emoCount] = emo;
-					
-					// increment emoCount
-					emoCount++;
-				}				
-			}
-		
-		// check if the text signals to insert the player's name
-		else if (string_char_at(text, 1)) == "_" {										//READY TO TEST
-				// delete the signal character
-				text = string_delete(text, 1, 1);
-				
-				// initialize punc variable
-				var punc = "";
-				
-				// check if there is punctuation immediately after the signal character
-				if (string_char_at(text, 1) != " ") {
-					punc = string_copy(text, 1, 1);
-				}
-				
-				// add punc variable to the player's name
-				var nameString = player.name;
-				var nameLength = string_length(nameString);
-				nameString = string_insert(punc, nameString, nameLength);
-				
-				// check if nameString will fit on the currentLine
-				var checkString		= string_insert(nameString, pages[| currentPage], string_length(pages[| currentPage]));
-				var checkWidth		= string_width(checkString);
-				
-				if (checkWidth <= textWidth) {
-					// if it fits, add the nameString to the currentLine of the currentPage
-					pages[| currentPage] = checkString;
-				}
-				// else statement in case it doesn't fit
-				else {
-					// if it doesn't fit, check to see if the next line will fit on the currentPage
-					if (currentLine + 1 <= maxLines) {
-						// if there's rooom on the currentPage for one more line, add the nameString to that line
-						pages[| currentPage] = string_insert("\n", pages[| currentPage], string_length(pages[| currentPage]));
-						pages[| currentPage] = string_insert(nameString, pages[| currentPage], string_length(pages[| currentPage]));
-						currentLine++;
-					}
-					// else statement in case there isn't room for one more line
-					else {
-							// if there's no room for one more line, increment current page
-							currentPage++;
-							pages[| currentPage] = "";
-							pageLength = string_length(pages[| currentPage]);
-							currentLine = 1;
-							
-							// add nameString to the new page
-							pages[| currentPage] = string_insert(nameString, pages[| currentPage], string_length(pages[| currentPage]));
-					}
-				}
-				
-				// delete nameString from text
-				var nameStringLength = string_length(nameString);
-				text = string_delete(text, 1, nameStringLength);
-			}
-		
-		// check if the text signals to skip to the next page
-		else if (string_char_at(text, 1)) == "|" {										//READY TO TEST
-				// delete the signal character
-				text = string_delete(text, 1, 1);
-				 
-				// increment currentPage and reset currentLine
-				currentPage++;
-				pages[|currentPage] = "";
-				currentLine = 1;
-			}
-		
-		// check if the text signals to move on without player input
-		else if (string_char_at(text, 1)) == "&" {										//READY TO TEST
-				// delete the signal character
-				text = string_delete(text, 1, 1);
-				
-				// set waitForInput to false
-				waitForInput = false;
-			}
-		
-		// check if the text signals to change the talkingSpeed
-		else if (string_char_at(text, 1)) == "$" {										//READY TO TEST
-				// delete first signal character
-				text = string_delete(text, 1, 1);
-				
-				// find next signal character
-				var endPos = string_pos("$", text);
-				
-				// get speed string
-				var speedString = string_copy(text, 1, endPos - 1);
-				
-				// get spd variable
-				var spd = real(speedString);
-				
-				// delete speed string from text
-				text = string_delete(text, 1, endPos);
-				
-				// resize speedGrid
-				ds_grid_resize(speedGrid, 3, speedCount + 1);
-				
-				// store the currentPage in the speed grid
-				speedGrid[# 0, speedCount] = currentPage;
-				
-				// store the currentLength in the speed grid
-				speedGrid[# 1, speedCount] = string_length(pages[| currentPage]);
-				
-				// store the emotion in the speed grid
-				speedGrid[# 2, speedCount] = spd;
-				
-				// increment emoCount
-				speedCount++;
-			}
+		// CHECK IF THE TEXT INDICATES A DIALOGUE ACTION
+		if (string_char_at(text, 1)) == "*" {										//READY TO TEST
+			// remove the first asterisk
+			text = string_delete(text, 1, 1);
+			
+			// find the position of the second asterisk
+			var endPos = string_pos("*", text);
+			
+			// get the encoded list
+			var el = string_copy(text, 1, endPos - 1);
+			
+			// remove the second asterisk
+			text = string_delete(text, endPos, 1);
+			
+			dialogue_perform_action(el);	
+		}
 		
 		// check if the next character is a space
 		else if (string_char_at(text, 1)) == " " {										//READY TO TEST
@@ -615,6 +399,7 @@ function talk_bubble_build_dialogue() {
 					pages[| currentPage] += nextWord;
 				}
 			}
+			
 			// delete nextWord from text
 			text = string_delete(text, 1, endPos - 1);
 		}
@@ -663,11 +448,9 @@ function talk_bubble_build_dialogue() {
 					
 				}
 			}
+			
 			// delete the character from the text
 			text = string_delete(text, 1, 1);
 		}
 	}
 }
-	
-///@desc This function is called whenever dialogue is used as a means to unlock
-/// something for the player.

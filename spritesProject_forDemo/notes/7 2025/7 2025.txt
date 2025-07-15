@@ -45,3 +45,16 @@ CUTSCENES:
 	-continue writing the cases for the switch statement in the action process function
 	-once you're finished with the action process function, replace all other action checks in the code with the new single asterisks check
 	-once the action process function and dialogue build function are both complete, test each type of action and debug until finished
+	
+7/14/2025
+	DID
+	-finished a good handful of the dialogue actions
+	-fixed the build text function to use the new dialogue_perform_action function
+	-tested the BEGIN SPAR dialogue action--it works!
+	
+	NEXT
+	-finish and test ADD PATHS dialogue action
+	-finish and test ADD EMOTES dialogue action
+	-finish and test TRIGGER UNLOCK dialogue action
+	-create first cutscene spreadsheet
+	-create function to create cutscenes on room change

@@ -1,0 +1,11 @@
+RUBUR'S TACKLE
+	-physical spell
+	-uses difference in sprite sizes to determine base power
+
+DION'S CALTROPS
+	-trick spell
+	-leaves caltrops on the target spot. After a swap, they deal physical damage and then disappear
+
+HIKAM'S HOT COALS
+	-trick spell
+	-leaves hot coals on the target spot. After a swap, they deal fire damage and then disappear
