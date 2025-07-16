@@ -54,7 +54,11 @@ CUTSCENES:
 	
 	NEXT
 	-finish and test ADD PATHS dialogue action
+			-change NPC states to mirror the OVERWORLD_SPRITE_STATES system. Maybe even totally combine the two and use character IDs ???
+			-finish the dialogue_post_paths function (not sure what it's called) and add the call to the clean up phase of the talk bubble (if it's not already there)
+			-basically, you want to put any player's on pathGrid into the "FOLLOW PATH" state, and then make their current path the one that's on pathGrid[# 2, i]
 	-finish and test ADD EMOTES dialogue action
 	-finish and test TRIGGER UNLOCK dialogue action
 	-create first cutscene spreadsheet
 	-create function to create cutscenes on room change
+	
