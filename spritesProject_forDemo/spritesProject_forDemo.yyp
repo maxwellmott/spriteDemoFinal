@@ -139,7 +139,7 @@
   "isEcma":false,
   "LibraryEmitters":[],
   "MetaData":{
-    "IDEVersion":"2024.13.0.190",
+    "IDEVersion":"2024.13.1.193",
   },
   "name":"spritesProject_forDemo",
   "resources":[
@@ -167,6 +167,8 @@
     {"id":{"name":"archivedLastThoughts","path":"notes/archivedLastThoughts/archivedLastThoughts.yy",},},
     {"id":{"name":"CHARACTER NOTES","path":"notes/CHARACTER NOTES/CHARACTER NOTES.yy",},},
     {"id":{"name":"game start flow","path":"notes/game start flow/game start flow.yy",},},
+    {"id":{"name":"NOTES FOR YIMING","path":"notes/NOTES FOR YIMING/NOTES FOR YIMING.yy",},},
+    {"id":{"name":"NPC LOCATIONS AND MOVEMENT","path":"notes/NPC LOCATIONS AND MOVEMENT/NPC LOCATIONS AND MOVEMENT.yy",},},
     {"id":{"name":"NPC SCHEDULING","path":"notes/NPC SCHEDULING/NPC SCHEDULING.yy",},},
     {"id":{"name":"OVERWORLD NOTES","path":"notes/OVERWORLD NOTES/OVERWORLD NOTES.yy",},},
     {"id":{"name":"PAX REMAINING","path":"notes/PAX REMAINING/PAX REMAINING.yy",},},

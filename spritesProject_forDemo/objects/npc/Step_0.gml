@@ -18,6 +18,7 @@ if (parametersLoaded) {
 		
 		// manage animation
 		if (state = humanStates.standard)	{
+			
 			if moving {
 				animate_human();
 			}	

@@ -1,56 +1,3 @@
-/*
-///@desc This function takes a ds_list and loops through it,
-/// converting it into a string with some parse character separating
-/// each item from the list
-function encode_list(_list) {
-	// store the list in a local variable
-	var list = _list;
-	
-	// it checks the list for commas to determine if it is a structList
-	var i = 0; var hasStructs = false;
-	repeat (ds_list_size(_list)) {
-		// get the current list item
-		var token = list[| i];
-		
-		// check for commas
-		var cc = string_count(",", string(token));
-		
-		// if there were commas, change hasStructs to true and break the loop
-		if (cc > 0) {
-			hasStructs = true;
-			break;
-		}
-		
-		i++;
-	}
-	
-	// it then sets the parse character depending on whether it is a structList
-	if (hasStructs) {var parseChar = ";";}
-	else	{var parseChar = ",";}
-	
-	// it creates an empty string for the return variable
-	var substring = "";
-	
-	// initializes i
-	var i = 0;
-	
-	// it repeats the copying process for every item in the list
-	repeat (ds_list_size(list)) {
-		// it copies the list item to the return string
-		substring += string(list[|i]);
-		
-		// then it adds the parse character
-		substring += parseChar;
-		
-		// increment i
-		i++;
-	}
-	
-	// return the substring
-	return substring;
-}
-*/
-
 function encode_list(_list) {
 	var l = _list;
 	
@@ -63,7 +10,7 @@ function encode_list(_list) {
 	// get list size
 	var size			= ds_list_size(l);
 	
-	var substring = listStartChar;	
+	var substring = listStartChar;
 	
 	// repeat for all tokens
 	var i = 0;	repeat (size) {
@@ -83,7 +30,7 @@ function encode_list(_list) {
 ///@desc This function takes a ds_grid and loops through it,
 /// converting it into a string with two parse characters to
 /// indicate the end of each entry or each row of entries
-function encode_grid(_grid) {	 
+function encode_grid(_grid) {
 	var g = _grid;
 	
 	// set navigation characters

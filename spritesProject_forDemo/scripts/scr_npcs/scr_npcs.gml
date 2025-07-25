@@ -39,6 +39,7 @@ enum NPC_PARAMS {
 	ID,
 	NAME,
 	WALKING_SPRITE,
+	SWIMMING_SPRITE,
 	MEDITATING_SPRITE,
 	EATING_SPRITE,
 	DRINKING_SPRITE,
@@ -84,9 +85,9 @@ convert_grid_to_map(mercurioResponseGrid, mercurioResponseMap);
 
 #region BUILD ALL TALISMAN LISTS
 
-var mercurio = ds_list_create();
+var mercurioTalismans = ds_list_create();
 
-ds_list_add(mercurio,
+ds_list_add(mercurioTalismans,
 				SPRITES.DEMOLITOPS,
 				SPRITES.ZEPHIRA,
 				SPRITES.FISHMONGER,
@@ -238,11 +239,14 @@ function master_grid_add_npc(_ID) {
 	}
 }
 
-// add all npcs to npcGrid		ID							NAME									WALKING SPRITE			MEDITATING SPRITE			EATING SPRITE			DRINKING SPRITE			WAVEPHONE SPRITE											SPELLS								RESPONSES									LOCATIONS							RESPONSE FUNCTION	TALKING SPEED	VOICE				VOCAL RANGE
-master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",								spr_mercurioWalking,	spr_mercurioMeditating,		spr_mercurioEating,		spr_mercurioDrinking,	spr_mercurioWavephone,			encode_list(mercurio),		encode_list(mercurioSpells),		encode_map(mercurioResponseMap),			encode_list(mercurioLocations),		mercurio_respond,	2,				sfx_mercurioVoice,	0.5);
+// add all npcs to npcGrid		ID							NAME									WALKING SPRITE			SWIMMING SPRITE			MEDITATING SPRITE			EATING SPRITE			DRINKING SPRITE			WAVEPHONE SPRITE				TALISMANS							SPELLS								RESPONSES									LOCATIONS							RESPONSE FUNCTION	TALKING SPEED	VOICE				VOCAL RANGE
+master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",								spr_mercurioWalking,	spr_mercurioWalking,	spr_mercurioMeditating,		spr_mercurioEating,		spr_mercurioDrinking,	spr_mercurioWavephone,			encode_list(mercurioTalismans),		encode_list(mercurioSpells),		encode_map(mercurioResponseMap),			encode_list(mercurioLocations),		mercurio_respond,	2,				sfx_mercurioVoice,	0.5);
 
 // encode the grid
 global.allNPCs = encode_grid(global.npcGrid);
+
+var ggg = ds_grid_create(NPC_PARAMS.height, npcs.height);
+decode_grid(global.allNPCs, ggg);
 
 // delete the grid
 ds_grid_destroy(global.npcGrid);
@@ -252,7 +256,7 @@ ds_grid_destroy(global.npcGrid);
 /// from the NPC grid
 function npc_load_parameters(_id) {	
 	// get local vars
-	var ID = _id;
+	var ID = correct_string_after_decode(_id);
 	
 	// decode npc grid
 	var grid = ds_grid_create(NPC_PARAMS.height, npcs.height);
@@ -262,6 +266,7 @@ function npc_load_parameters(_id) {
 	name				= grid[# NPC_PARAMS.NAME,				ID];
 	
 	walkingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.WALKING_SPRITE,		ID]);
+	swimmingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.SWIMMING_SPRITE,	ID]);
 	meditatingSprite	= correct_string_after_decode(grid[# NPC_PARAMS.MEDITATING_SPRITE,	ID]);
 	eatingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.EATING_SPRITE,		ID]);
 	drinkingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.DRINKING_SPRITE,	ID]);
@@ -271,7 +276,7 @@ function npc_load_parameters(_id) {
 	voice				= correct_string_after_decode(grid[# NPC_PARAMS.VOICE,				ID]);
 	vocalRange			= correct_string_after_decode(grid[# NPC_PARAMS.VOCAL_RANGE,		ID]);
 	
-	//decode_list(grid[# NPC_PARAMS.,		ID],		);
+	//decode_list(grid[# NPC_PARAMS.talismans,		ID],		TALISMANS);
 	//decode_list(grid[# NPC_PARAMS.spells,			ID],		SPELLS);
 	decode_map(grid[# NPC_PARAMS.RESPONSE_MAP,		ID],		responseMap);
 	

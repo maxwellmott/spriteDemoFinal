@@ -1,7 +1,7 @@
 
 if !(loaded) {
 	if (ID != -1) {
-		overworld_sprite_load_parameters();	
+		overworld_sprite_load_parameters();
 	}
 }
 

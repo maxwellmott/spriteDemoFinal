@@ -3,6 +3,7 @@ enum OVERWORLD_SPRITE_PARAMS {
 	ID,
 	COLLISION_MASK,
 	WALKING_ANIMATION,
+	SWIMMING_ANIMATION,
 	IDLE_ANIMATION,
 	SPECIAL_ANIMATIONS_LIST,
 	ANIMATION_SPEED,
@@ -40,6 +41,7 @@ function overworld_sprite_load_parameters() {
 	
 	sprite_index		= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.COLLISION_MASK,			ID]);
 	walkingAnimation	= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.WALKING_ANIMATION,		ID]);
+	swimmingAnimation	= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.SWIMMING_ANIMATION,		ID]);
 	idleAnimation		= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.IDLE_ANIMATION,			ID]);
 	var el				= g[# OVERWORLD_SPRITE_PARAMS.SPECIAL_ANIMATIONS_LIST,	ID];
 	animationSpeed		= correct_string_after_decode(g[# OVERWORLD_SPRITE_PARAMS.ANIMATION_SPEED,			ID]);
@@ -550,9 +552,9 @@ function master_grid_add_overworld_sprite(_ID) {
 	}
 }
 
-// add all overworld sprites to the master grid
-master_grid_add_overworld_sprite(SPRITES.BOOKISH,	spr_bookishCollisionMask,	spr_bookishWalk,				spr_bookishIdle,	encode_list(bookishSpecialAnimations),	8,	24, 42, bookish_behavior,	bookish_respond,	encode_map(bookishResponseMap),		encode_list(bookishLocationList),	bookish_location_check,		2,		sfx_bookishVoice,	0.65);
-master_grid_add_overworld_sprite(SPRITES.SPARMATE,	spr_spartnerCollisionMask,	spr_spartnerWalk,				spr_sparmateIdle,	encode_list(sparmateSpecialAnimations),	20,	24, 42,	sparmate_behavior,	sparmate_respond,	encode_map(sparmateResponseMap),	encode_list(sparmateLocationList),	sparmate_location_check,	4,		sfx_spartnerVoice,	0.15);
+// add all overworld sprites to the master grid		COLLISION MASK				WALKING ANIMATION				SWIMMING ANIMATION		IDLE ANIMATION		SPECIAL ANIMATIONS LIST					ANIMATION SPEED		WIDTH	HEIGHT		BEHAVIOR FUNCITON	RESPOND FUNCTION	RESPONSE MAP						LOCATIONS LIST						LOCATION CHECK FUNCTION		TALK SPEED		VOICE				VOCAL RANGE
+master_grid_add_overworld_sprite(SPRITES.BOOKISH,	spr_bookishCollisionMask,	spr_bookishWalk,				spr_bookishWalk,		spr_bookishIdle,	encode_list(bookishSpecialAnimations),	8,					24,		42,			bookish_behavior,	bookish_respond,	encode_map(bookishResponseMap),		encode_list(bookishLocationList),	bookish_location_check,		2,				sfx_bookishVoice,	0.65);
+master_grid_add_overworld_sprite(SPRITES.SPARMATE,	spr_spartnerCollisionMask,	spr_spartnerWalk,				spr_spartnerWalk,		spr_sparmateIdle,	encode_list(sparmateSpecialAnimations),	20,					24,		42,			sparmate_behavior,	sparmate_respond,	encode_map(sparmateResponseMap),	encode_list(sparmateLocationList),	sparmate_location_check,	4,				sfx_spartnerVoice,	0.15);
 
 // encode grid
 global.allOverworldSprites = encode_grid(global.overworldSpritesGrid);

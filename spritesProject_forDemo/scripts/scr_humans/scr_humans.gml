@@ -457,6 +457,8 @@ function check_water_get_in(_x, _y) {
 ///@desc This function is called in the NPC step event to set the proper sprite 
 /// depending on the NPC's current state
 function npc_set_sprite() {
+	
+	
 	// use the state to set the sprite
 	switch (state) {
 		case humanStates.standard:	
@@ -495,8 +497,10 @@ function animate_human() {
 	if !(global.gameTime mod 8) {
 		frame++;
 		
-		if (frame mod 2 == 0) {
-			audio_push_sfx(global.currentFootstepSound);	
+		if (object_index == player) {
+			if (frame mod 2 == 0) {
+				audio_push_sfx(global.currentFootstepSound);	
+			}
 		}
 	}
 	
