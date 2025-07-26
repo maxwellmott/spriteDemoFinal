@@ -105,12 +105,12 @@ function literature_get_params() {
 	
 	decode_grid(global.allLiterature, tempGrid);
 	
-	var colorNum	=	real(tempGrid[# literatureParams.color,		ID]);
+	var colorNum	=	correct_string_after_decode(tempGrid[# literatureParams.color,		ID]);
 	
 	var colorList = ds_list_create();
 	decode_list(global.allColors, colorList);
 	
-	color = real(colorList[|colorNum]);
+	color = correct_string_after_decode(colorList[|colorNum]);
 	
 	ds_list_destroy(colorList)
 	
@@ -214,8 +214,8 @@ function book_build_text(_string) {
 				var endPos		= string_pos("*", text);
 				var imageLength = endPos - 1;
 				var imageString = string_copy(text, 1, imageLength + 1);
-				var imageIndex	= real(string_digits(imageString));
-				var imageID		= real(string_digits(spriteIDs[| imageIndex]));
+				var imageIndex	= correct_string_after_decode(string_digits(imageString));
+				var imageID		= correct_string_after_decode(string_digits(spriteIDs[| imageIndex]));
 				var imageHeight = sprite_get_height(imageID);
 				
 				var linesNeeded = (imageHeight div height);
@@ -360,9 +360,9 @@ function place_literature(_encodedList) {
 		var params = ds_list_create();
 		decode_list(str, params);
 		
-		var _x = real(string_digits(params[|0]));
-		var _y = real(string_digits(params[|1]));
-		var ID = real(string_digits(params[|2]));
+		var _x = correct_string_after_decode(string_digits(params[|0]));
+		var _y = correct_string_after_decode(string_digits(params[|1]));
+		var ID = correct_string_after_decode(string_digits(params[|2]));
 		
 		// check if this is a bookcase book
 		if (_x == BOOKCASE_BOOK_INDICATOR) {

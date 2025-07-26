@@ -107,13 +107,13 @@ var i = 0;	repeat (ds_list_size(knownSpellList)) {
 	var s = knownSpellList[| i];
 	
 	// add the spell to the any categoryList
-	ds_list_add(categoryLists[| SPELL_TYPES.HEIGHT], real(s));
+	ds_list_add(categoryLists[| SPELL_TYPES.HEIGHT], correct_string_after_decode(s));
 	
 	// get the spell's type
 	var t = spellGrid[# SPELL_PARAMS.TYPE, s];
 	
 	// add the spell's ID to the respective categoryList
-	ds_list_add(categoryLists[| t], real(s));
+	ds_list_add(categoryLists[| t], correct_string_after_decode(s));
 	
 	// increment i
 	i++;		
@@ -126,7 +126,7 @@ selectedSpellSlot = -1;
 currentSpellIndex = 0;
 
 // initialize currentSpell
-currentSpell = real(knownSpellList[| currentSpellIndex]);
+currentSpell = correct_string_after_decode(knownSpellList[| currentSpellIndex]);
 
 // get all currentSpell params
 builder_load_spell_params();

@@ -556,15 +556,26 @@ function string_get_asset_ID(_assetString) {
 	// if it didn't return an asset ID
 	else {
 		// return the number in case it's an instance ID
-		return real(as);
+		return correct_string_after_decode(as);
 	}
 }
 
 function correct_string_after_decode(_string) {
 	var str = _string;
 	
-	// check if the string contains characters
-	if (string_letters(str) != "") {
+	// check if this is an empty string
+	if (string_length(str) <= 0) {
+		// return the string without any conversion
+		return str;
+	}
+	
+	// check if the string is just numbers
+	if (string_length(string_digits(str)) == string_length(str)) {
+		// return the string converted to a real
+		return real(str);	
+	}
+	// if the string is NOT just numbers
+	else if (string_length(string_letters(str)) > 0) {
 		// get the first space
 		var pos = string_pos(" ", str);
 		
@@ -577,36 +588,56 @@ function correct_string_after_decode(_string) {
 			if (fw == "ref") {
 				return string_get_asset_ID(str);
 			}
+			// if this is a normal string and not a reference ID
+			else {
+				// return the string without any conversion
+				return str;	
+			}
+		}
+		// if there are no spaces (probably means it's an encoded data structure)
+		else {
+			// return the string without any conversion
+			return str;	
 		}
 	}
+	// if the string does not contain characters
 	else {
-		if (string_count("-1", str) == 0)
-		&& (string_count("-4", str) == 0) 
-		&& (string_length(str) > 0) {
+		if (string_length(str) > 0) {
 			// check if this is a negative value
 			if (string_char_at(str, 1) == "-") {
+				// get the length of the string with ONLY digits
 				var l1 = string_length(string_digits(str));
+				
+				// get the length of the string without removing anything
 				var l2 = string_length(str);
+				
+				// get the difference between the two
 				var diff = l2 - l1;
 				
+				// if there are NO OTHER NON-NUMERICAL SYMBOLS aside from the negative sign (save for a decimal)
 				if (diff - string_count(".", str) == 1) {
+					// return the string converted to a real
 					return real(str);	
 				}
 			}
 			
 			// check if this is a decimal value
 			if (string_count(".", str) == 1) {
+				// get the length of the string with ONLY digits
 				var l1 = string_length(string_digits(str));
+				
+				// get the length of the string without removing anything
 				var l2 = string_length(str);
+				
+				// get the difference between the two
 				var diff = l2 - l1;
 				
+				// if the decimal is the only non-numerical symbol
 				if (diff == 1) {
+					// return the string converted to a real
 					return real(str);	
 				}
 			}
-
-			// return the number normally
-			return real(string_digits(str));
 		}
 	}
 }

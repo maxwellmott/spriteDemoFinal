@@ -24,7 +24,7 @@ alertParams = ds_list_create();
 
 decode_list(alertString, alertParams);
 
-effectID = real(alertParams[| 0]);
+effectID = correct_string_after_decode(alertParams[| 0]);
 
 effect_alert_get_args();
 

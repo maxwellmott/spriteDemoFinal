@@ -31,7 +31,7 @@ if (swapBegin) {
 		
 			// reset all of this sprites parameters
 			with (inst) {
-				spriteID = real(newSpriteID);
+				spriteID = correct_string_after_decode(newSpriteID);
 				newSpriteID  = -1;
 				
 				swapping = false;
@@ -39,7 +39,7 @@ if (swapBegin) {
 			}
 		
 			with (partnerInst) {
-				spriteID = real(newSpriteID);
+				spriteID = correct_string_after_decode(newSpriteID);
 				newSpriteID = -1;
 				
 				swapping = false;

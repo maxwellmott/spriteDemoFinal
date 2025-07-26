@@ -1033,15 +1033,15 @@ function processor_load_spell_params() {
 	
 	// use currentSpell to get all params
 	spellName		= grid[# SPELL_PARAMS.NAME,							currentSpell];
-	spellCost		= real(grid[# SPELL_PARAMS.COST,					currentSpell]);
-	spellType		= real(grid[# SPELL_PARAMS.TYPE,					currentSpell]);
-	spellPower		= real(grid[# SPELL_PARAMS.POWER,					currentSpell]);
+	spellCost		= correct_string_after_decode(grid[# SPELL_PARAMS.COST,					currentSpell]);
+	spellType		= correct_string_after_decode(grid[# SPELL_PARAMS.TYPE,					currentSpell]);
+	spellPower		= correct_string_after_decode(grid[# SPELL_PARAMS.POWER,					currentSpell]);
 	spellEffect		= correct_string_after_decode(grid[# SPELL_PARAMS.EFFECT,	currentSpell]);
-	spellDodgeable	= real(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
-	spellRange		= real(grid[# SPELL_PARAMS.RANGE,					currentSpell]);
-	bypassDodge		= real(grid[# SPELL_PARAMS.BYPASS_DODGE,			currentSpell]);
-	bypassFailure	= real(grid[# SPELL_PARAMS.BYPASS_FAILURE,			currentSpell]);
-	bypassRange		= real(grid[# SPELL_PARAMS.BYPASS_RANGE,			currentSpell]);
+	spellDodgeable	= correct_string_after_decode(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
+	spellRange		= correct_string_after_decode(grid[# SPELL_PARAMS.RANGE,					currentSpell]);
+	bypassDodge		= correct_string_after_decode(grid[# SPELL_PARAMS.BYPASS_DODGE,			currentSpell]);
+	bypassFailure	= correct_string_after_decode(grid[# SPELL_PARAMS.BYPASS_FAILURE,			currentSpell]);
+	bypassRange		= correct_string_after_decode(grid[# SPELL_PARAMS.BYPASS_RANGE,			currentSpell]);
 	
 	// destroy spell grid
 	ds_grid_destroy(grid);
@@ -1056,23 +1056,23 @@ function builder_load_spell_params() {
 	if (displaySpell == -1) {
 		// use currentSpell to get all params
 		spellName		= grid[# SPELL_PARAMS.NAME,							currentSpell];
-		spellCost		= real(grid[# SPELL_PARAMS.COST,					currentSpell]);
-		spellType		= real(grid[# SPELL_PARAMS.TYPE,					currentSpell]);
-		spellPower		= real(grid[# SPELL_PARAMS.POWER,					currentSpell]);
+		spellCost		= correct_string_after_decode(grid[# SPELL_PARAMS.COST,					currentSpell]);
+		spellType		= correct_string_after_decode(grid[# SPELL_PARAMS.TYPE,					currentSpell]);
+		spellPower		= correct_string_after_decode(grid[# SPELL_PARAMS.POWER,					currentSpell]);
 		spellEffect		= correct_string_after_decode(grid[# SPELL_PARAMS.EFFECT,	currentSpell]);
-		spellDodgeable	= real(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
-		spellRange		= real(grid[# SPELL_PARAMS.RANGE,					currentSpell]);
+		spellDodgeable	= correct_string_after_decode(grid[# SPELL_PARAMS.DODGEABLE,				currentSpell]);
+		spellRange		= correct_string_after_decode(grid[# SPELL_PARAMS.RANGE,					currentSpell]);
 		description		= grid[# SPELL_PARAMS.DESCRIPTION,					currentSpell];
 	}
 	else {
 		// use currentSpell to get all params
 		spellName		= grid[# SPELL_PARAMS.NAME,							displaySpell];
-		spellCost		= real(grid[# SPELL_PARAMS.COST,					displaySpell]);
-		spellType		= real(grid[# SPELL_PARAMS.TYPE,					displaySpell]);
-		spellPower		= real(grid[# SPELL_PARAMS.POWER,					displaySpell]);
+		spellCost		= correct_string_after_decode(grid[# SPELL_PARAMS.COST,					displaySpell]);
+		spellType		= correct_string_after_decode(grid[# SPELL_PARAMS.TYPE,					displaySpell]);
+		spellPower		= correct_string_after_decode(grid[# SPELL_PARAMS.POWER,					displaySpell]);
 		spellEffect		= correct_string_after_decode(grid[# SPELL_PARAMS.EFFECT,	displaySpell]);
-		spellDodgeable	= real(grid[# SPELL_PARAMS.DODGEABLE,				displaySpell]);
-		spellRange		= real(grid[# SPELL_PARAMS.RANGE,					displaySpell]);
+		spellDodgeable	= correct_string_after_decode(grid[# SPELL_PARAMS.DODGEABLE,				displaySpell]);
+		spellRange		= correct_string_after_decode(grid[# SPELL_PARAMS.RANGE,					displaySpell]);
 		description		= grid[# SPELL_PARAMS.DESCRIPTION,					displaySpell];	
 	}
 	// destroy spell grid

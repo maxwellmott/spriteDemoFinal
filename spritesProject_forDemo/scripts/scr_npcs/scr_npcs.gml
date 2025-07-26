@@ -299,7 +299,7 @@ function npc_load_parameters(_id) {
 	eatingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.EATING_SPRITE,		ID]);
 	drinkingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.DRINKING_SPRITE,	ID]);
 	wavephoneSprite		= correct_string_after_decode(grid[# NPC_PARAMS.WAVEPHONE_SPRITE,	ID]);
-	responseFunction	= correct_string_after_decode(grid[# NPC_PARAMS.RESPOND_FUNCTION,	ID]);
+	respondFunction	= correct_string_after_decode(grid[# NPC_PARAMS.RESPOND_FUNCTION,	ID]);
 	talkingSpeed		= correct_string_after_decode(grid[# NPC_PARAMS.TALKING_SPEED,		ID]);
 	voice				= correct_string_after_decode(grid[# NPC_PARAMS.VOICE,				ID]);
 	vocalRange			= correct_string_after_decode(grid[# NPC_PARAMS.VOCAL_RANGE,		ID]);

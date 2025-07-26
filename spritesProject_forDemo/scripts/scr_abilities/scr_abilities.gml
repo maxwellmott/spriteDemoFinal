@@ -1050,7 +1050,7 @@ function all_seeing_eyes(_inst) {
 			// check that this is not a basic attack
 			if (sparActionProcessor.currentSpell >= 0) {
 				// get spell type
-				var st = real(sg[# SPELL_PARAMS.TYPE, sparActionProcessor.currentSpell]);
+				var st = correct_string_after_decode(sg[# SPELL_PARAMS.TYPE, sparActionProcessor.currentSpell]);
 			
 				// check if spell is elemental or trick spell
 				if (st != SPELL_TYPES.PHYSICAL) {
@@ -1072,7 +1072,7 @@ function all_seeing_eyes(_inst) {
 			// check if it is using a trick or elemental spell
 			if (global.action >= sparActions.height) {
 				// get spell type
-				var st = real(sg[# SPELL_PARAMS.TYPE, global.action - sparActions.height]);		
+				var st = correct_string_after_decode(sg[# SPELL_PARAMS.TYPE, global.action - sparActions.height]);		
 				
 				// check if spell is elemental or trick spell
 				if (st != SPELL_TYPES.PHYSICAL) {
@@ -1559,7 +1559,7 @@ function spring_loaded(_inst) {
 			// check that this IS a basic attack
 			if (sparActionProcessor.currentSpell == -1) {
 				// get spell type
-				var st = real(sg[# SPELL_PARAMS.TYPE, sparActionProcessor.currentSpell]);
+				var st = correct_string_after_decode(sg[# SPELL_PARAMS.TYPE, sparActionProcessor.currentSpell]);
 			
 				// check if spell is elemental or trick spell
 				if (st != SPELL_TYPES.PHYSICAL) {

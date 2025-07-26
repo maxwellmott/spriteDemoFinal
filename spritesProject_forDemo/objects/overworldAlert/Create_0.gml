@@ -9,7 +9,7 @@ alertGrid = ds_grid_create(overworldAlertParams.height, overworldAlerts.height);
 decode_grid(global.allOverworldAlerts, alertGrid);
 
 text		= alertGrid[# overworldAlertParams.text,			alertID];
-ynPrompt	= real(alertGrid[# overworldAlertParams.ynPrompt,	alertID]);
+ynPrompt	= correct_string_after_decode(alertGrid[# overworldAlertParams.ynPrompt,	alertID]);
 func		= correct_string_after_decode(alertGrid[# overworldAlertParams.func,		alertID]);
 
 ds_grid_destroy(alertGrid);

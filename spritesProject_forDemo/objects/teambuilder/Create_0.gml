@@ -17,7 +17,7 @@ decode_list(talismans, talismanList);
 
 // convert all spriteIDs from strings to reals
 var i = 0;	repeat (ds_list_size(talismanList)) {
-	talismanList[| i] = real(talismanList[| i]);
+	talismanList[| i] = correct_string_after_decode(talismanList[| i]);
 	
 	i++;
 }

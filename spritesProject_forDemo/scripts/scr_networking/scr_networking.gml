@@ -279,15 +279,15 @@ function client_request_turn() {
 			var l =	g[# TURN_GRID.LUCK,	i];
 			
 			if (t != "-1") {
-				t = real(t);
+				t = correct_string_after_decode(t);
 			}
 			else {
 				t = -1;	
 			}
 			
-			s = real(s);
-			a = real(a);
-			l = real(l);
+			s = correct_string_after_decode(s);
+			a = correct_string_after_decode(a);
+			l = correct_string_after_decode(l);
 		
 			// add all turn data to spar.turnGrid
 			spar.turnGrid[# TURN_GRID.ALLY,	inst.spotNum] = 4 + s;	

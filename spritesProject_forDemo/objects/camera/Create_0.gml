@@ -8,4 +8,4 @@ var pm = matrix_build_projection_ortho(guiWidth, guiHeight, 1, 10000);
 camera_set_view_mat(cam, vm);
 camera_set_proj_mat(cam, pm);
 
-follow = noone;
+follow = -1;

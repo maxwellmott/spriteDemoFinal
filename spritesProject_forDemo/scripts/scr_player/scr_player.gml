@@ -28,7 +28,7 @@ function player_load_appearance() {
 	var i = 0;	repeat (ds_list_size(list)) {
 		if (list[| i] != "-1")
 		&& (list[| i] != -1) {
-			list[| i] = real(list[| i]);
+			list[| i] = correct_string_after_decode(list[| i]);
 		}
 		else {
 			list[| i] = -1;	
@@ -351,7 +351,7 @@ function player_build_spellBookGrid() {
 			|| (j == SPELL_PARAMS.RANGE)
 			|| (j == SPELL_PARAMS.ID)
 			|| (j == SPELL_PARAMS.TYPE)	{
-				spellBookGrid[# j, i] = real(spellBookGrid[# j, i]);	
+				spellBookGrid[# j, i] = correct_string_after_decode(spellBookGrid[# j, i]);	
 			}
 			else if (j == SPELL_PARAMS.EFFECT) {
 				spellBookGrid[# j, i] = correct_string_after_decode(spellBookGrid[# j, i]);	

@@ -13,3 +13,13 @@ stay the sole author of the pre-existing notes so that they don't get hard to re
 	
 	I haven't yet implemented the code to stop drawing sprites during certain spell animations, but
 	will get to it before our meeting on Monday!
+	
+7/26
+	Yoooo!
+	
+	Did some broad changes in the codebase while I start getting into the cleaning phase.
+	
+	If you run into any issues that I haven't mentioned, just go ahead and post a comment with the callstack,
+	or if it's a nonbreaking bug, just leave a comment here!
+	
+	There's info about the changes I made in the 7 2025 note under this same date (7/26)

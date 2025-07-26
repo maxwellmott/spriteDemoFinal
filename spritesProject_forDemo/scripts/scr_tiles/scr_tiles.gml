@@ -7,10 +7,10 @@
 function place_all_tiles(_tileLayer, _tileset, _encodedList, _rowCount, _columnCount) {	
 	// get vars
 	var tileLayer	= _tileLayer;
-	var tileset		= real(_tileset);
+	var tileset		= correct_string_after_decode(_tileset);
 	var encodedList = _encodedList;
-	var rowCount	= real(_rowCount);
-	var columnCount	= real(_columnCount);
+	var rowCount	= correct_string_after_decode(_rowCount);
+	var columnCount	= correct_string_after_decode(_columnCount);
 	
 	// create temp list
 	var list		= ds_list_create();

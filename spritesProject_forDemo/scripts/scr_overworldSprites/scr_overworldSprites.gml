@@ -21,7 +21,7 @@ enum OVERWORLD_SPRITE_PARAMS {
 }
 
 // create an enumerator of owSprite states
-enum OVERWORLD_SPRITE_STATES {
+enum OVERWORLD_CHARACTER_STATES {
 	PLACEHOLDER,
 	FOLLOWING_PATH,
 	IDLE,
@@ -80,7 +80,7 @@ function overworld_sprite_animate() {
 }
 
 function overworld_sprite_manage_moving() {
-	if (state != OVERWORLD_SPRITE_STATES.SPECIAL_ANIMATION) {
+	if (state != OVERWORLD_CHARACTER_STATES.SPECIAL_ANIMATION) {
 		if (moving) {
 			sprite = walkingAnimation;
 		}
@@ -91,7 +91,7 @@ function overworld_sprite_manage_moving() {
 }
 
 function draw_overworld_sprite() {
-	if (state != OVERWORLD_SPRITE_STATES.SPECIAL_ANIMATION) {
+	if (state != OVERWORLD_CHARACTER_STATES.SPECIAL_ANIMATION) {
 		draw_sprite_part(sprite, frame, 0, spriteHeight * facing, spriteWidth, spriteHeight, drawX, drawY);
 	}
 	else {
@@ -99,20 +99,20 @@ function draw_overworld_sprite() {
 	}
 }
 
-function overworld_sprite_state_machine() {
+function overworld_character_state_machine() {
 	switch (state) {
-		case OVERWORLD_SPRITE_STATES.IDLE:
+		case OVERWORLD_CHARACTER_STATES.IDLE:
 			moving = false;
 		break;
 		
-		case OVERWORLD_SPRITE_STATES.ERRATIC_LOOKING:
+		case OVERWORLD_CHARACTER_STATES.ERRATIC_LOOKING:
 			if (global.gameTime mod 8 == 0) {
 				randomize();
 				facing = irandom_range(0, 3);
 			}
 		break;
 		
-		case OVERWORLD_SPRITE_STATES.SPINNING_CLOCKWISE:
+		case OVERWORLD_CHARACTER_STATES.SPINNING_CLOCKWISE:
 			if (global.gameTime mod 8 == 0) {
 				facing++;
 				if (facing < 0) {
@@ -121,7 +121,7 @@ function overworld_sprite_state_machine() {
 			}
 		break;
 		
-		case OVERWORLD_SPRITE_STATES.SPINNING_COUNTERCLOCKWISE:
+		case OVERWORLD_CHARACTER_STATES.SPINNING_COUNTERCLOCKWISE:
 			if (global.gameTime mod 8 == 0) {
 				facing++;
 				if (facing > directions.west) {
@@ -130,7 +130,7 @@ function overworld_sprite_state_machine() {
 			}
 		break;
 		
-		case OVERWORLD_SPRITE_STATES.FOLLOWING_PATH:
+		case OVERWORLD_CHARACTER_STATES.FOLLOWING_PATH:
 			// check if the pathlist has been set
 			if (pathList != -1) {
 				// check if nextCoords have been set
@@ -144,10 +144,10 @@ function overworld_sprite_state_machine() {
 						moving = true;
 						
 						// check for a collision
-						if !(tile_meeting(x + (diff / abs(diff)), y, overworld.tm_water, waterTileChecker)) 
-						&& !(tile_meeting(x + (diff / abs(diff)), y, overworld.tm_collidables, collidableTileChecker)) 
-						&& !(place_meeting(x + (diff / abs(diff)), y, sceneryCollidable)) 
-						&& !(place_meeting(x + (diff / abs(diff)), y, human)) 
+						if !(tile_meeting(x + (diff / abs(diff)), y, overworld.tm_water, waterTileChecker))
+						&& !(tile_meeting(x + (diff / abs(diff)), y, overworld.tm_collidables, collidableTileChecker))
+						&& !(place_meeting(x + (diff / abs(diff)), y, sceneryCollidable))
+						&& !(place_meeting(x + (diff / abs(diff)), y, human))
 						&& !(place_meeting(x + (diff / abs(diff)), y, owSprite)) {
 							// move x toward target by 1
 							x += (diff / abs(diff));
@@ -207,7 +207,7 @@ function overworld_sprite_state_machine() {
 								decode_list(pathList[| pathStep], nextCoords);
 								
 								if (string_count("-", nextCoords[| 0]) > 0) {
-									nextX = real(string_digits(nextCoords[| 0])) * -1;
+									nextX = correct_string_after_decode(string_digits(nextCoords[| 0])) * -1;
 								}
 								else {
 									nextX = correct_string_after_decode(nextCoords[| 0]);	
@@ -251,7 +251,7 @@ function overworld_sprite_state_machine() {
 							decode_list(pathList[| pathStep], nextCoords);	
 						
 							if (string_count("-", nextCoords[| 0]) > 0) {
-								nextX = real(string_digits(nextCoords[| 0])) * -1;
+								nextX = correct_string_after_decode(string_digits(nextCoords[| 0])) * -1;
 							}
 							else {
 								nextX = correct_string_after_decode(nextCoords[| 0]);	
@@ -292,7 +292,7 @@ function overworld_sprite_state_machine() {
 							decode_list(pathList[| pathStep], nextCoords);
 							
 							if (string_count("-", nextCoords[| 0]) > 0) {
-								nextCoords[| 0] = real(string_digits(nextCoords[| 0])) * -1;
+								nextCoords[| 0] = correct_string_after_decode(string_digits(nextCoords[| 0])) * -1;
 							}
 							else {
 								nextX = correct_string_after_decode(nextCoords[| 0]);	
@@ -337,7 +337,7 @@ function overworld_sprite_state_machine() {
 						decode_list(pathList[| pathStep], nextCoords);
 						
 						if (string_count("-", nextCoords[| 0]) > 0) {
-							nextCoords[| 0] = real(string_digits(nextCoords[| 0])) * -1;
+							nextCoords[| 0] = correct_string_after_decode(string_digits(nextCoords[| 0])) * -1;
 						}
 						
 						// get nextX and nextY
@@ -359,19 +359,19 @@ function overworld_sprite_state_machine() {
 			}
 		break;
 		
-		case OVERWORLD_SPRITE_STATES.HORIZONTAL_DISTANCE_FROM_TARGET:
+		case OVERWORLD_CHARACTER_STATES.HORIZONTAL_DISTANCE_FROM_TARGET:
 		
 		break;
 		
-		case OVERWORLD_SPRITE_STATES.VERTICAL_DISTANCE_FROM_TARGET:
+		case OVERWORLD_CHARACTER_STATES.VERTICAL_DISTANCE_FROM_TARGET:
 		
 		break;
 		
-		case OVERWORLD_SPRITE_STATES.TENDING_SHOP:
+		case OVERWORLD_CHARACTER_STATES.TENDING_SHOP:
 		
 		break;
 		
-		case OVERWORLD_SPRITE_STATES.SPECIAL_ANIMATION:
+		case OVERWORLD_CHARACTER_STATES.SPECIAL_ANIMATION:
 			if (frame >= sprite_get_number(sprite) - 1) {
 				state = -1;
 			}
@@ -400,9 +400,9 @@ function overworld_sprite_set_depth() {
 	function bookish_behavior() {
 		switch (overworld.locationID) {
 			case locations.miriabramLibrary:
-				if (state != OVERWORLD_SPRITE_STATES.FOLLOWING_PATH) 
+				if (state != OVERWORLD_CHARACTER_STATES.FOLLOWING_PATH) 
 				&& (alarm[0] == -1) {
-					state = OVERWORLD_SPRITE_STATES.FOLLOWING_PATH;
+					state = OVERWORLD_CHARACTER_STATES.FOLLOWING_PATH;
 					
 					var l = ds_list_create();
 					decode_list(global.allPaths, l);
@@ -423,9 +423,9 @@ function overworld_sprite_set_depth() {
 	function sparmate_behavior() {
 		switch (overworld.locationID) {
 			case locations.miriabramDojo:
-				if (state == OVERWORLD_SPRITE_STATES.IDLE) {
+				if (state == OVERWORLD_CHARACTER_STATES.IDLE) {
 					if (global.gameTime mod 480 == 0) {
-						state = OVERWORLD_SPRITE_STATES.SPECIAL_ANIMATION;
+						state = OVERWORLD_CHARACTER_STATES.SPECIAL_ANIMATION;
 						sprite = correct_string_after_decode(specialAnimations[| 0]);
 						frame = 0;
 						animationSpeed = 8;
@@ -433,7 +433,7 @@ function overworld_sprite_set_depth() {
 				}
 				
 				if (state == -1) {
-					state = OVERWORLD_SPRITE_STATES.IDLE;	
+					state = OVERWORLD_CHARACTER_STATES.IDLE;	
 					frame = 0;
 					animationSpeed = 24;
 				}

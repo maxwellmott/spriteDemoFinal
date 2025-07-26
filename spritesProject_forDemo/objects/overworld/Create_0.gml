@@ -40,13 +40,13 @@ locationGrid = ds_grid_create(locationParams.height, locations.height);
 
 decode_grid(global.allLocations, locationGrid);
 
-northExit	= real(locationGrid[# locationParams.toNorth, locationID]);
-eastExit	= real(locationGrid[# locationParams.toEast, locationID]);
-southExit	= real(locationGrid[# locationParams.toSouth, locationID]);
-westExit	= real(locationGrid[# locationParams.toWest, locationID]);
+northExit	= correct_string_after_decode(locationGrid[# locationParams.toNorth, locationID]);
+eastExit	= correct_string_after_decode(locationGrid[# locationParams.toEast, locationID]);
+southExit	= correct_string_after_decode(locationGrid[# locationParams.toSouth, locationID]);
+westExit	= correct_string_after_decode(locationGrid[# locationParams.toWest, locationID]);
 
-tileRowCount	= real(locationGrid[# locationParams.tileRowCount, locationID]);
-tileColumnCount = real(locationGrid[# locationParams.tileColumnCount, locationID]);
+tileRowCount	= correct_string_after_decode(locationGrid[# locationParams.tileRowCount, locationID]);
+tileColumnCount = correct_string_after_decode(locationGrid[# locationParams.tileColumnCount, locationID]);
 
 locationWidth	= tileColumnCount * TILEWIDTH;
 locationHeight	= tileRowCount * TILEHEIGHT;
@@ -88,9 +88,9 @@ var layerNum = 1; repeat(4) {
 			break;
 	}
 	
-	if (tSet != string(noone)) tSet = correct_string_after_decode(tSet);
+	if (tSet != string(-1)) tSet = correct_string_after_decode(tSet);
 	
-	if (tSet != noone) {tilemapList[| layerNum - 1] = place_all_tiles(layerName, tSet, encGrid, tileRowCount, tileColumnCount)};
+	if (tSet != -1) {tilemapList[| layerNum - 1] = place_all_tiles(layerName, tSet, encGrid, tileRowCount, tileColumnCount)};
 	
 	layerNum++;
 }
@@ -100,13 +100,27 @@ tm_water		= tilemapList[| tilemaps.water];
 tm_upstairs		= tilemapList[| tilemaps.upperStory];
 tm_collidables	= tilemapList[| tilemaps.collidables];
 
-if (bookcaseString != "<>")		place_bookcases(bookcaseString);
-if (literatureString != "<>")	place_literature(literatureString);
-if (objectString != "<>")		place_scenery(objectString);
+if (bookcaseString != "<>")
+&& (bookcaseString != 0) {
+	place_bookcases(bookcaseString);
+}
+
+if (literatureString != "<>")	
+&& (literatureString != 0) {
+	place_literature(literatureString);
+}
+
+if (objectString != "<>")
+&& (objectString != 0) {
+	place_scenery(objectString);
+}
 
 place_doors();
 
-if (bedString != "<>")			place_beds(bedString);
+if (bedString != "<>")
+&& (bedString != 0) {
+	place_beds(bedString);
+}
 
 // create the overworld alerts stack
 alertStack = ds_list_create();

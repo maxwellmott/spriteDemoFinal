@@ -877,6 +877,10 @@ switch (sparPhase) {
 					// set selection message
 					selectionMsg = "Select a sprite to command";
 					
+					if (player.selectedAlly != -1) {
+						selectionPhase = SELECTION_PHASES.ACTION;
+					}
+					
 					// create ready button if all sprites are ready
 					if check_all_allies_ready() {
 						create_once(0, 0, LAYER.ui, sparReadyButton);	

@@ -54,7 +54,7 @@ CUTSCENES:
 	
 	NEXT
 	-finish and test ADD PATHS dialogue action
-			-change NPC states to mirror the OVERWORLD_SPRITE_STATES system. Maybe even totally combine the two and use character IDs ???
+			-change NPC states to mirror the OVERWORLD_CHARACTER_STATES system. Maybe even totally combine the two and use character IDs ???
 			-finish the dialogue_post_paths function (not sure what it's called) and add the call to the clean up phase of the talk bubble (if it's not already there)
 			-basically, you want to put any player's on pathGrid into the "FOLLOW PATH" state, and then make their current path the one that's on pathGrid[# 2, i]
 	-finish and test ADD EMOTES dialogue action
@@ -80,3 +80,12 @@ CUTSCENES:
 	
 	-create a list of "non visible target spells" and "non visible attacker spells"
 	-fade out the attacker and target for non visible attacker and target spells respectively
+	
+7/26/2025
+
+	removed all use of the "noone" term
+	knew that there was one use of it that was necessary
+	debugged until I found that spellRange in the sparActionProcessor create phase NEEDS to be initialized as -4
+	
+	I also fixed the "correct_string_after_decode" function and replaced all use of the "real(" function 
+	NEED TO FIND ANY TIMES THAT YOU ARE CHECKING FOR "-1" AND "-4" OUTSIDE OF THE CORRECT STRING AFTER DECODE FUNCTION

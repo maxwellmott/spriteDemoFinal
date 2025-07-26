@@ -61,7 +61,7 @@ function spar_effect_push_alert(_effectID) {
 				decode_list(alert, pl);
 				
 				// check if the current alert is of type "arbitate_turn"
-				if (real(pl[| 0]) == SPAR_EFFECTS.ARBITRATE_TURN) {
+				if (correct_string_after_decode(pl[| 0]) == SPAR_EFFECTS.ARBITRATE_TURN) {
 					// move this alert down one spot on the list
 					spar.effectAlertList[| i + 1] = alert;
 					

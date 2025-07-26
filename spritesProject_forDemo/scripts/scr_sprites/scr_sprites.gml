@@ -1876,29 +1876,29 @@ function sprite_load_parameters() {
 	
 	// use sprite grid to get parameters
 	name				= grid[# SPRITE_PARAMS.NAME,			spriteID];
-	sprite				= real(grid[# SPRITE_PARAMS.SPRITE,		spriteID]);
-	baseAlign			= real(grid[# SPRITE_PARAMS.ALIGNMENT,	spriteID]);
+	sprite				= correct_string_after_decode(grid[# SPRITE_PARAMS.SPRITE,		spriteID]);
+	baseAlign			= correct_string_after_decode(grid[# SPRITE_PARAMS.ALIGNMENT,	spriteID]);
 	var spellString		= grid[# SPRITE_PARAMS.SPELL_LIST,		spriteID];
-	basePower			= real(grid[# SPRITE_PARAMS.POWER,		spriteID]);
-	baseResistance		= real(grid[# SPRITE_PARAMS.RESISTANCE,	spriteID]);
-	baseFire			= real(grid[# SPRITE_PARAMS.FIRE,		spriteID]);
-	baseWater			= real(grid[# SPRITE_PARAMS.WATER,		spriteID]);
-	baseStorm			= real(grid[# SPRITE_PARAMS.STORM,		spriteID]);
-	baseEarth			= real(grid[# SPRITE_PARAMS.EARTH,		spriteID]);
-	baseAgility			= real(grid[# SPRITE_PARAMS.AGILITY,	spriteID]);
-	baseLuck			= real(grid[# SPRITE_PARAMS.LUCK,		spriteID]);
-	baseSize			= real(grid[# SPRITE_PARAMS.SIZE,		spriteID]);
+	basePower			= correct_string_after_decode(grid[# SPRITE_PARAMS.POWER,		spriteID]);
+	baseResistance		= correct_string_after_decode(grid[# SPRITE_PARAMS.RESISTANCE,	spriteID]);
+	baseFire			= correct_string_after_decode(grid[# SPRITE_PARAMS.FIRE,		spriteID]);
+	baseWater			= correct_string_after_decode(grid[# SPRITE_PARAMS.WATER,		spriteID]);
+	baseStorm			= correct_string_after_decode(grid[# SPRITE_PARAMS.STORM,		spriteID]);
+	baseEarth			= correct_string_after_decode(grid[# SPRITE_PARAMS.EARTH,		spriteID]);
+	baseAgility			= correct_string_after_decode(grid[# SPRITE_PARAMS.AGILITY,	spriteID]);
+	baseLuck			= correct_string_after_decode(grid[# SPRITE_PARAMS.LUCK,		spriteID]);
+	baseSize			= correct_string_after_decode(grid[# SPRITE_PARAMS.SIZE,		spriteID]);
 	
-	baseAbility			= real(grid[# SPRITE_PARAMS.ABILITY,	spriteID]);
+	baseAbility			= correct_string_after_decode(grid[# SPRITE_PARAMS.ABILITY,	spriteID]);
 	
 	// decode ability grid
 	var abltGrid = ds_grid_create(ABILITY_PARAMS.HEIGHT, ABILITIES.HEIGHT);
 	decode_grid(global.allAbilities, abltGrid);
 	
-	baseAbilityType		= real(abltGrid[# ABILITY_PARAMS.TYPE,				baseAbility]);
+	baseAbilityType		= correct_string_after_decode(abltGrid[# ABILITY_PARAMS.TYPE,				baseAbility]);
 	baseAbilityName		= abltGrid[# ABILITY_PARAMS.NAME,					baseAbility];
 	baseAbilityDesc		= abltGrid[# ABILITY_PARAMS.DESCRIPTION,			baseAbility];
-	baseAbilityFunction = real(abltGrid[# ABILITY_PARAMS.EFFECT_FUNCTION,	baseAbility]);
+	baseAbilityFunction = correct_string_after_decode(abltGrid[# ABILITY_PARAMS.EFFECT_FUNCTION,	baseAbility]);
 	
 	// set all current stats
 	currentPower			= basePower;

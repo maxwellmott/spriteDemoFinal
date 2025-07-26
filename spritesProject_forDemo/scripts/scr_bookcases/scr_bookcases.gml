@@ -24,10 +24,10 @@ function place_bookcases(_encodedList) {
 		decode_list(str, params);
 		
 		// store x, y, ID, and bookcaseNum in temp vars
-		var _x = real(params[|0]);
-		var _y = real(params[|1]);
-		var ID = real(params[|2]);
-		var bn = real(params[|3]);
+		var _x = correct_string_after_decode(params[|0]);
+		var _y = correct_string_after_decode(params[|1]);
+		var ID = correct_string_after_decode(params[|2]);
+		var bn = correct_string_after_decode(params[|3]);
 		
 		// get params from grid using ID
 		var type		= grid[# sceneryParams.type,			ID];
@@ -35,7 +35,7 @@ function place_bookcases(_encodedList) {
 		var mask		= grid[# sceneryParams.mask,			ID];
 		
 		// correct all values after decoding
-		type		= real(type);
+		type		= correct_string_after_decode(type);
 		spr			= correct_string_after_decode(spr);
 		mask		= correct_string_after_decode(mask);
 

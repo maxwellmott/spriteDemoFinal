@@ -15,7 +15,7 @@ enum TALK_BUBBLE_TYPES {
 
 // these global variables store the information about who is talking
 // and what they're saying
-global.speaker		= noone;
+global.speaker		= -1;
 global.dialogueGrid	= -1;
 
 // initialize global.dialogueRow

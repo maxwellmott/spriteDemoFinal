@@ -112,7 +112,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the first outfit
 				if (outfitNum > 0) {
 					// move to the last outfit
-					outfit = real(usableOutfits[| outfitNum - 1]);
+					outfit = correct_string_after_decode(usableOutfits[| outfitNum - 1]);
 					
 					// set currentOutfitArrow to 0
 					currentOutfitArrow = 0;
@@ -127,7 +127,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the last outfit
 				if (outfitNum < ds_list_size(usableOutfits) - 1) {
 					// move to the next outfit
-					outfit = real(usableOutfits[| outfitNum + 1]);
+					outfit = correct_string_after_decode(usableOutfits[| outfitNum + 1]);
 					
 					// set currentOutfitArrow to 1
 					currentOutfitArrow = 1;
@@ -148,7 +148,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the first hat
 				if (hatNum > 0) {
 					// move to the last hat
-					hat = real(usableHats[| hatNum - 1]);
+					hat = correct_string_after_decode(usableHats[| hatNum - 1]);
 					
 					// set currentHatArrow to 0
 					currentHatArrow = 0;
@@ -163,7 +163,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the last hat
 				if (hatNum < ds_list_size(usableHats) - 1) {
 					// move to the next hat
-					hat = real(usableHats[| hatNum + 1]);
+					hat = correct_string_after_decode(usableHats[| hatNum + 1]);
 					
 					// set currentHatArrow to 1
 					currentHatArrow = 1;
@@ -184,7 +184,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the first shoes
 				if (shoeNum > 0) {
 					// move to the last shoes
-					shoes = real(usableFootwear[| shoeNum - 1]);
+					shoes = correct_string_after_decode(usableFootwear[| shoeNum - 1]);
 					
 					// set currentShoeArrow to 0
 					currentShoeArrow = 0;
@@ -199,7 +199,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the last shoes
 				if (shoeNum < ds_list_size(usableFootwear) - 1) {
 					// move to the next shoes
-					shoes = real(usableFootwear[| shoeNum + 1]);
+					shoes = correct_string_after_decode(usableFootwear[| shoeNum + 1]);
 					
 					// set currentShoeArrow to 1
 					currentShoeArrow = 1;
@@ -220,7 +220,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the first eyewear
 				if (eyewearNum > 0) {
 					// move to the last eyewear
-					eyewear = real(usableEyewear[| eyewearNum - 1]);
+					eyewear = correct_string_after_decode(usableEyewear[| eyewearNum - 1]);
 					
 					// set currentEyewearArrow to 0
 					currentEyewearArrow = 0;
@@ -235,7 +235,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the last eyewear
 				if (eyewearNum < ds_list_size(usableEyewear) - 1) {
 					// move to the next eyewear
-					eyewear = real(usableEyewear[| eyewearNum + 1]);
+					eyewear = correct_string_after_decode(usableEyewear[| eyewearNum + 1]);
 					
 					// set currentEyewearArrow to 1
 					currentEyewearArrow = 1;
@@ -256,7 +256,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the first accessory
 				if (accessoryNum > 0) {
 					// move to the last accessory
-					accessory = real(usableAccessories[| accessoryNum - 1]);
+					accessory = correct_string_after_decode(usableAccessories[| accessoryNum - 1]);
 					
 					// set the currentAccessoryArrow to 0
 					currentAccessoryArrow = 0;
@@ -271,7 +271,7 @@ if (phase <= APPEARANCE_EDITOR_PHASES.ACCESSORY_SELECTION) {
 				// check that this is not the first accessory
 				if (accessoryNum < ds_list_size(usableAccessories) - 1) {
 					// move to the next accessory
-					accessory = real(usableAccessories[| accessoryNum + 1]);
+					accessory = correct_string_after_decode(usableAccessories[| accessoryNum + 1]);
 					
 					// set the currentAccessoryArrow to 1
 					currentAccessoryArrow = 1;
@@ -312,7 +312,7 @@ switch (phase) {
 				// check that the current outfit is not the first outfit
 				if (outfitNum > 0) {
 					// move to the last outfit
-					outfit = real(usableOutfits[| outfitNum - 1]);
+					outfit = correct_string_after_decode(usableOutfits[| outfitNum - 1]);
 					
 					// set currentOutfitArrow to 0
 					currentOutfitArrow = 0;
@@ -327,7 +327,7 @@ switch (phase) {
 				// check that the current outfit is not the last outfit
 				if (outfitNum < ds_list_size(usableOutfits) - 1) {		
 					// move to the next outfit
-					outfit = real(usableOutfits[| outfitNum + 1]);
+					outfit = correct_string_after_decode(usableOutfits[| outfitNum + 1]);
 					
 					// set currentOutfitArrow to 1
 					currentOutfitArrow = 1;
@@ -404,7 +404,7 @@ switch (phase) {
 				// check that the current hat is not the first outfit
 				if (hatNum > 0) {
 					// move to the last outfit
-					hat = real(usableHats[| hatNum - 1]);
+					hat = correct_string_after_decode(usableHats[| hatNum - 1]);
 					
 					// set currentHatArrow to 0
 					currentHatArrow = 0;
@@ -419,7 +419,7 @@ switch (phase) {
 				// check that the current hat is not the last hat
 				if (hatNum < ds_list_size(usableHats) - 1) {		
 					// move to the next hat
-					hat = real(usableOutfits[| hatNum + 1]);
+					hat = correct_string_after_decode(usableOutfits[| hatNum + 1]);
 					
 					// set currentOutfitArrow to 1
 					currentHatArrow = 1;
@@ -497,7 +497,7 @@ switch (phase) {
 				// check that the current shoes are not the first shoes
 				if (shoeNum > 0) {
 					// move to the last shoes
-					shoes = real(usableFootwear[| shoeNum - 1]);
+					shoes = correct_string_after_decode(usableFootwear[| shoeNum - 1]);
 					
 					// set currentShoeArrow to 0
 					currentShoeArrow = 0;
@@ -512,7 +512,7 @@ switch (phase) {
 				// check that the current shoes are not the last shoes
 				if (shoeNum < ds_list_size(usableFootwear) - 1) {
 					// move to the next shoes
-					shoes = real(usableFootwear[| shoeNum + 1]);
+					shoes = correct_string_after_decode(usableFootwear[| shoeNum + 1]);
 					
 					// set currentShoeArrow to 1
 					currentShoeArrow = 1;
@@ -589,7 +589,7 @@ switch (phase) {
 				// check that the current eyewear is not the first eyewear
 				if (eyewearNum > 0) {
 					// move to the last eyewear
-					eyewear = real(usableEyewear[| eyewearNum - 1]);
+					eyewear = correct_string_after_decode(usableEyewear[| eyewearNum - 1]);
 					
 					// set the currentEyewearArrow to 0
 					currentEyewearArrow = 0;
@@ -604,7 +604,7 @@ switch (phase) {
 				// check that the current eyewear is not the last eyewear
 				if (eyewearNum < ds_list_size(usableEyewear) - 1) {
 					// move to the next eyewear
-					eyewear = real(usableEyewear[| eyewearNum + 1]);
+					eyewear = correct_string_after_decode(usableEyewear[| eyewearNum + 1]);
 					
 					// set the currentEyewearArrow to 1
 					currentEyewearArrow = 1;
@@ -637,7 +637,7 @@ switch (phase) {
 				// check that the current accessory is not the first accessory
 				if (accessoryNum > 0) {
 					// move to the last accessory
-					accessory = real(usableAccessories[| accessoryNum - 1]);
+					accessory = correct_string_after_decode(usableAccessories[| accessoryNum - 1]);
 					
 					// set the currentAccessoryArrow to 0
 					currentAccessoryArrow = 0;
@@ -652,7 +652,7 @@ switch (phase) {
 				// check that the current accessory is not the last accessory
 				if (accessoryNum < (ds_list_size(usableAccessories) - 1)) {
 					// move to the next accessory
-					accessory = real(usableAccessories[| accessoryNum + 1]);
+					accessory = correct_string_after_decode(usableAccessories[| accessoryNum + 1]);
 					
 					// set the currentAccessoryArrow to 0
 					currentAccessoryArrow = 0;

@@ -162,10 +162,10 @@ unlockAlertList = ds_list_create();
 
 #region		INITIALIZE ALL VARIABLES USED FOR OVERWORLD NAVIGATION
 	// initialize currentDoor
-	currentDoor = noone;
+	currentDoor = -1;
 
 	// initialize currentLiterature
-	currentLiterature = noone;
+	currentLiterature = -1;
 
 	// initialize facing
 	facing = directions.south;
@@ -181,8 +181,8 @@ unlockAlertList = ds_list_create();
 	swimming			= false;
 	
 	// initialize pointer coordinates
-	pointerX			= noone;
-	pointerY			= noone;
+	pointerX			= -1;
+	pointerY			= -1;
 	
 	// initialize frame
 	frame = 0;
@@ -227,7 +227,7 @@ unlockAlertList = ds_list_create();
 	ready = false;
 	
 	// initialize selected ally
-	selectedAlly = noone;
+	selectedAlly = -1;
 	
 	// initialize hindrances
 	miasma	= false;
@@ -247,7 +247,7 @@ unlockAlertList = ds_list_create();
 	spellBookGrid = -1;
 	
 	// initialize enemy
-	enemy = noone;
+	enemy = -1;
 	
 	clientID	= -1;
 	clientType	= -1;

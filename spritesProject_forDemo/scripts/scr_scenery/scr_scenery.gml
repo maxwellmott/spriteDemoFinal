@@ -128,16 +128,16 @@ function place_scenery(_encodedList) {
 		var params = ds_list_create();
 		decode_list(str, params);
 		
-		var _x = real(params[|0]);
-		var _y = real(params[|1]);
-		var ID = real(params[|2]);
+		var _x = correct_string_after_decode(params[|0]);
+		var _y = correct_string_after_decode(params[|1]);
+		var ID = correct_string_after_decode(params[|2]);
 
 		// get params from grid using ID
 		var type		= grid[# sceneryParams.type,			ID];
 		var spr			= grid[# sceneryParams.sprite,			ID];
 		var mask		= grid[# sceneryParams.mask,			ID];
 		
-		type		= real(type);
+		type		= correct_string_after_decode(type);
 		spr			= correct_string_after_decode(spr);
 		mask		= correct_string_after_decode(mask);
 

@@ -4,7 +4,7 @@
 x = guiWidth / 2;
 y = 102;
 
-selectedButton = noone;
+selectedButton = -1;
 
 actionButtons = ds_list_create();
 

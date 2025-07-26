@@ -11,7 +11,7 @@ event_inherited();
 
 #region initialize base params
 // initialize ID
-ID = noone;
+ID = -1;
 
 // initialize name
 name = "";
@@ -42,7 +42,12 @@ vmove = 0;
 responseMap = ds_map_create();
 
 // response function
-responseFunction = noone;
+respondFunction = -1;
+
+// behavior function
+behaviorFunction = -1;
+
+
 
 npcListIndex = -1;
 

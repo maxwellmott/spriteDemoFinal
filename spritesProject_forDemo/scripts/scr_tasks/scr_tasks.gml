@@ -80,14 +80,14 @@ function player_update_todoList(_taskID, _failed) {
 		if (tdList[| tid] == "-1") {
 			tdList[| tid] = 0;
 		}	else	{
-			tdList[| tid] = real(tdList[| tid]) + 1;
+			tdList[| tid] = correct_string_after_decode(tdList[| tid]) + 1;
 		}
 		
 		// get the number of steps for this task
 		var s = task_get_step_count(tid);
 		
 		// check if the player has surpassed the final step
-		if (real(tdList[| tid]) >= s) {
+		if (correct_string_after_decode(tdList[| tid]) >= s) {
 			player_add_completed_task(tid);
 		}
 		
@@ -215,7 +215,7 @@ function player_task_get_step_num(_taskID) {
 	// if the task has been started
 	else {
 		// return the current step num
-		return real(s);
+		return correct_string_after_decode(s);
 	}
 }
 

@@ -50,7 +50,7 @@ with (player) {
 		if (spellBookList[| i] != "-1")
 		&& (spellBookList[| i] != "-4") {
 			// convert from string to real
-			spellBookList[| i] = real(spellBookList[| i]);
+			spellBookList[| i] = correct_string_after_decode(spellBookList[| i]);
 		}
 		
 		// increment i
@@ -107,10 +107,10 @@ sparComplete = false;
 turnCounter = 1;
 
 // initialize winner
-winner = noone;
+winner = -1;
 
 // initialize loser
-loser = noone;
+loser = -1;
 
 // create sparActions enum
 enum sparActions {

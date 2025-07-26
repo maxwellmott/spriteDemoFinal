@@ -255,10 +255,10 @@ function enemyAI_set_spellbook() {
 function enemyAI_set_team() {
 	randomize_list(roster);
 	
-	teamList[|0] = real(roster[|0]);
-	teamList[|1] = real(roster[|1]);
-	teamList[|2] = real(roster[|2]);
-	teamList[|3] = real(roster[|3]);
+	teamList[|0] = correct_string_after_decode(roster[|0]);
+	teamList[|1] = correct_string_after_decode(roster[|1]);
+	teamList[|2] = correct_string_after_decode(roster[|2]);
+	teamList[|3] = correct_string_after_decode(roster[|3]);
 }
 
 ///@desc This function is called when the player hits the "READY" button
@@ -903,7 +903,7 @@ function sprite_reload_sprite() {
 	decode_grid(global.allSprites, grid);
 	
 	// load sprite from grid
-	sprite = real(grid[# SPRITE_PARAMS.SPRITE,		spriteID]);
+	sprite = correct_string_after_decode(grid[# SPRITE_PARAMS.SPRITE,		spriteID]);
 	
 	// destroy grid
 	ds_grid_destroy(grid);

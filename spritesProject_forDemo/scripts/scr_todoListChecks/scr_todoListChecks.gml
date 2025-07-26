@@ -68,7 +68,7 @@ function player_check_update_todo_list(_todoListCheckType) {
 						l[| tid] = -1;
 					}
 					else {
-						l[| tid] = real(l[| tid]);	
+						l[| tid] = correct_string_after_decode(l[| tid]);	
 					}
 					
 					// get the next step id
@@ -146,7 +146,7 @@ function player_check_update_todo_list(_todoListCheckType) {
 						l[| tid] = -1;
 					}
 					else {
-						l[| tid] = real(l[| tid]);	
+						l[| tid] = correct_string_after_decode(l[| tid]);	
 					}
 					
 					// get the next step id

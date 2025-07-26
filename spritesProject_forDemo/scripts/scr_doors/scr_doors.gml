@@ -176,28 +176,28 @@ function place_doors() {
 			}		
 			
 			// get spriteTop
-			d.spriteTop		= real(grid[# doorParams.spriteTop, i]);
+			d.spriteTop		= correct_string_after_decode(grid[# doorParams.spriteTop, i]);
 			
 			// set all of its parameters			
 			d.ID			= i;
-			d.x				= real(grid[# doorParams.X, i]);
-			d.y				= real(grid[# doorParams.Y, i]);
-			var l			= real(grid[# doorParams.locked, i]);
+			d.x				= correct_string_after_decode(grid[# doorParams.X, i]);
+			d.y				= correct_string_after_decode(grid[# doorParams.Y, i]);
+			var l			= correct_string_after_decode(grid[# doorParams.locked, i]);
 			
 			// it might be better to check the locked door list in the door_check function
 			if l		d.locked = !check_player_unlocked_door(i);
 			
-			d.newLocation	= real(grid[# doorParams.newLocation, i]);
-			d.newFacing		= real(grid[# doorParams.newFacing, i]);
-			d.newX			= real(grid[# doorParams.newX, i]);
-			d.newY			= real(grid[# doorParams.newY, i]);
+			d.newLocation	= correct_string_after_decode(grid[# doorParams.newLocation, i]);
+			d.newFacing		= correct_string_after_decode(grid[# doorParams.newFacing, i]);
+			d.newX			= correct_string_after_decode(grid[# doorParams.newX, i]);
+			d.newY			= correct_string_after_decode(grid[# doorParams.newY, i]);
 			
 			
 			if (d.spriteTop == invisiblePortalDoorSpriteTop) {
 				d.visible = false;
 			}
 
-			d.upperFloor	= real(grid[# doorParams.upperFloor, i]);
+			d.upperFloor	= correct_string_after_decode(grid[# doorParams.upperFloor, i]);
 		}
 		
 		// increment i

@@ -34,7 +34,7 @@ sprite = -1;
 usableSpells = ds_list_create();
 
 // initialize ability
-ability = noone;
+ability = -1;
 
 // initialize base stats
 basePower			= -1;

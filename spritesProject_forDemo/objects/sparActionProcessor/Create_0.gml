@@ -2,13 +2,13 @@
 // You can write your code in this editor
 
 // initialize targetSprite
-targetSprite = noone;
+targetSprite = -1;
 
 // initialize activeSprite
-activeSprite = noone;
+activeSprite = -1;
 
 // initialize currentAction
-currentAction = noone;
+currentAction = -1;
 
 // initialize dodgeSuccess
 dodgeSuccess = false;
@@ -20,16 +20,16 @@ damageMultiplierIndex = 0;
 damage = 0;
 
 // initialize currentSpell
-currentSpell = noone;
+currentSpell = -1;
 
 // initialize spellParams
 spellName		= "";
-spellCost		= noone;
-spellType		= noone;
-spellPower		= noone;
-spellEffect		= noone;
-spellRange		= noone;
-spellDodgeable	= noone;
+spellCost		= -1;
+spellType		= -1;
+spellPower		= -1;
+spellEffect		= -1;
+spellRange		= -4;
+spellDodgeable	= -1;
 bypassDodge		= false;
 bypassFailure	= false;
 bypassRange		= false;

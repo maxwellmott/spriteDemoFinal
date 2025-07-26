@@ -23,11 +23,15 @@ facing = directions.south;
 drawX = -1;
 drawY = -1;
 depthY = -1;
+
 behaviorFunction = -1;
 respondFunction = -1;
+
 spriteWidth = -1;
 spriteHeight = -1;
+
 animationSpeed = -1;
+
 talkingSpeed = -1;
 voice = -1;
 vocalRange = -1;

@@ -8,7 +8,7 @@ if !(loaded) {
 if (loaded) {
 	if !(instance_exists(menu)) {
 		behaviorFunction();
-		overworld_sprite_state_machine();
+		overworld_character_state_machine();
 		overworld_sprite_manage_moving();
 		overworld_sprite_animate();
 		overworld_sprite_get_draw_position();

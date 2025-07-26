@@ -29,7 +29,7 @@ humY	= guiHeight - 8;
 rustY	= guiHeight - 8;
 
 // initialize enemy
-enemy = noone;
+enemy = -1;
 
 ready = false;
 

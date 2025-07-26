@@ -16,12 +16,12 @@ function teambuilder_stat_coverage_calculate_score() {
 	var i = 0;	repeat (ds_list_size(teamList)) {
 		var sid = teamList[| i];
 		
-		var p = real(spriteGrid[# SPRITE_PARAMS.POWER,		sid]);
-		var r = real(spriteGrid[# SPRITE_PARAMS.RESISTANCE,	sid]);
-		var f = real(spriteGrid[# SPRITE_PARAMS.FIRE,		sid]);
-		var w = real(spriteGrid[# SPRITE_PARAMS.WATER,		sid]);
-		var s = real(spriteGrid[# SPRITE_PARAMS.STORM,		sid]);
-		var e = real(spriteGrid[# SPRITE_PARAMS.EARTH,		sid]);
+		var p = correct_string_after_decode(spriteGrid[# SPRITE_PARAMS.POWER,		sid]);
+		var r = correct_string_after_decode(spriteGrid[# SPRITE_PARAMS.RESISTANCE,	sid]);
+		var f = correct_string_after_decode(spriteGrid[# SPRITE_PARAMS.FIRE,		sid]);
+		var w = correct_string_after_decode(spriteGrid[# SPRITE_PARAMS.WATER,		sid]);
+		var s = correct_string_after_decode(spriteGrid[# SPRITE_PARAMS.STORM,		sid]);
+		var e = correct_string_after_decode(spriteGrid[# SPRITE_PARAMS.EARTH,		sid]);
 		
 		totalPower		+= p;
 		totalResistance += r;
@@ -81,7 +81,7 @@ function teambuilder_spellbook_usage_calculate_score() {
 		
 		// for each spell in spellbook
 		var j = 0;	repeat (ds_list_size(sb)) {
-			var spl = real(sb[| j]);
+			var spl = correct_string_after_decode(sb[| j]);
 			
 			if (ds_list_find_index(usbl, spl) != -1) {
 				points++;	

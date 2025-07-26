@@ -71,9 +71,9 @@ function stop_swimming() {
 // add all overworldAlerts to the master grid
 master_grid_add_overworld_alert(overworldAlerts.swimStart,		textGrid[# 1, overworldAlerts.swimStart],		true,	start_swimming);
 master_grid_add_overworld_alert(overworldAlerts.swimStop,		textGrid[# 1, overworldAlerts.swimStop],		true,	stop_swimming);
-master_grid_add_overworld_alert(overworldAlerts.doorLocked,		textGrid[# 1, overworldAlerts.doorLocked],		false,	noone);
-master_grid_add_overworld_alert(overworldAlerts.doorUnlocked,	textGrid[# 1, overworldAlerts.doorUnlocked],	false,	noone);
-master_grid_add_overworld_alert(overworldAlerts.noRoom,			textGrid[# 1, overworldAlerts.noRoom],			false,	noone);
+master_grid_add_overworld_alert(overworldAlerts.doorLocked,		textGrid[# 1, overworldAlerts.doorLocked],		false,	-1);
+master_grid_add_overworld_alert(overworldAlerts.doorUnlocked,	textGrid[# 1, overworldAlerts.doorUnlocked],	false,	-1);
+master_grid_add_overworld_alert(overworldAlerts.noRoom,			textGrid[# 1, overworldAlerts.noRoom],			false,	-1);
 
 // encode master grid
 global.allOverworldAlerts = encode_grid(global.overworldAlertsGrid);

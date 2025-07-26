@@ -290,8 +290,8 @@ function get_interactable() {
 		return interactions.swimStop;
 	}
 
-	// if nothing, return noone
-	return noone;
+	// if nothing, return -1
+	return -1;
 }
 
 ///@desc This function is called whenever a human indicates that they want to interact
