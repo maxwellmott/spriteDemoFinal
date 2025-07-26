@@ -5,3 +5,11 @@
 stay the sole author of the pre-existing notes so that they don't get hard to read.
 
 	Can't wait to chat on Monday!
+	
+7/25
+	Hey pal! 
+	
+	I added ruburs grapple and the updated animation for psychic impact!
+	
+	I haven't yet implemented the code to stop drawing sprites during certain spell animations, but
+	will get to it before our meeting on Monday!

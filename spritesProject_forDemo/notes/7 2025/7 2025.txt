@@ -62,3 +62,21 @@ CUTSCENES:
 	-create first cutscene spreadsheet
 	-create function to create cutscenes on room change
 	
+7/25/2025
+	DID
+	-got the new NPC placement function working (it is called on room entry)
+	-copied the OW sprites placement system:
+		-new overworld room loading
+			-check all NPC location lists
+			-if current locationID is on NPC's list, run NPC location check function
+				-each NPC location check function is a list of heuristics ordered from most to least specific
+				-if conditions are satisfied for the given room, load that NPC
+				
+	-added the updated spell artwork
+	
+	NEXT
+	-copy path following system from OW sprites to NPCs
+	-use the OVERWORLD SPRITES STATE MACHINE function for NPCs and OW sprites (do whatever you need to do to rework it this way)
+	
+	-create a list of "non visible target spells" and "non visible attacker spells"
+	-fade out the attacker and target for non visible attacker and target spells respectively

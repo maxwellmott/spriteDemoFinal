@@ -111,22 +111,32 @@ if (bedString != "<>")			place_beds(bedString);
 // create the overworld alerts stack
 alertStack = ds_list_create();
 
+// decode npc grid
+var npcg = ds_grid_create(NPC_PARAMS.height, npcs.height);
+decode_grid(global.allNPCs, npcg);
+
+var i = 0;	repeat (npcs.height) {
+	var locationList = npcg[# NPC_PARAMS.LOCATION_LIST, i];
+	
+	var locationFunc = correct_string_after_decode(npcg[# NPC_PARAMS.LOCATION_CHECK_FUNCTION, i]);
+	
+	if (locationList != "-4")
+	&& (locationList != "-1") 
+	&& (locationList != "0") {
+		var ll = ds_list_create();
+		decode_list(locationList, ll);
+		
+		if (ds_list_find_index(ll, string(locationID)) != -1) {
+			locationFunc();
+		}
+	}
+	
+	// increment i
+	i++;
+}
+
 // get location's npc list
 npcList	= ds_list_create();
-
-if (locationGrid[# locationParams.npcList, locationID] != "-4")
-&& (locationGrid[# locationParams.npcList, locationID] != "-1")
-&& (locationGrid[# locationParams.npcList, locationID] != "0") {
-	decode_list(locationGrid[# locationParams.npcList,	locationID], npcList);
-	
-	var i = 0; repeat (ds_list_size(npcList)) {
-		var _npc = instance_create_depth(32, 276, LAYER.sprites, npc);
-		
-		_npc.ID = string_digits(npcList[| i]);
-		
-		i++;
-	}
-}
 
 // decode overworld sprite grid
 var osg = ds_grid_create(OVERWORLD_SPRITE_PARAMS.HEIGHT, SPRITES.HEIGHT);

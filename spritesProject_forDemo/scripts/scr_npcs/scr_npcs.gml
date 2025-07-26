@@ -47,7 +47,8 @@ enum NPC_PARAMS {
 	TALISMANS,
 	SPELLS,
 	RESPONSE_MAP,
-	LOCATIONS,
+	LOCATION_LIST,
+	LOCATION_CHECK_FUNCTION,
 	RESPOND_FUNCTION,
 	TALKING_SPEED,
 	VOICE,
@@ -117,10 +118,7 @@ var mercurioLocations	= ds_list_create();
 
 // populate all location lists
 //			list name				
-ds_list_add(mercurioLocations,	"<`"+string(locations.miriabramExt) + ">",													//hyggsun
-								"<`"+string(locations.miriabramLibrary) + ">",												//plughsun
-								"<`"+string(locations.miriabramLibrary) + "`"	+ string(locations.miriabramDojo) + ">",	//rumnsun
-								"<`"+string(locations.miriabramExt) + ">");													//famelsun
+ds_list_add(mercurioLocations,	locations.miriabramExt);
 								
 #endregion
 
@@ -225,6 +223,36 @@ function npc_get_response(_npcID) {
 
 #endregion
 
+#region BUILD ALL LOCATION CHECK FUNCTIONS
+// REMEMBER-- WITH ALL OF THESE FUNCTIONS, START WITH THE MOST SPECIFIC HEURISTIC
+// AND END WITH THE MOST VAGUE. FOR EXAMPLE, ONE OF THE CONDITIONALS NEAR THE TOP MIGHT
+// CHECK IF ONE PIECE OF DIALOGUE HAS BEEN PERFORMED WHILE ANOTHER HASN'T WHILE A CERTAIN
+// QUEST STEP IS ACTIVE. THIS WOULD BE A REALLY SPECIFIC SET OF CONDITIONS FOR SOMETHING LIKE
+// PUTTING AN NPC IN A SPECIFIC ROOM FOR ONE PIECE OF DIALOGUE FOR ONE QUEST STEP. ONE OF THE
+// CONDITIONALS NEAR THE BOTTOM, HOWEVER, WOULD BE SOMETHING LIKE CHECKING THE DAY OF THE WEEK
+// TO SEE IF THE NPC SHOULD BE AT THE BEACH OR AT SCHOOL.
+
+// THIS SHOULD BE THE CASE FOR EVERY LOCATION IN THE FUNCTION.
+
+function mercurio_location_check() {
+	// get the weekday
+	var wd = player.weekday;
+	
+	switch (locationID) {
+		case locations.miriabramExt:
+			// check if this is the first day of the demo
+			if (wd == weekdays.hyggsun) {
+				var inst = instance_create_depth(32, 276, 0, npc);
+				
+				inst.ID = npcs.mercurioGallant;
+			}
+		
+		break;
+	}
+}
+
+#endregion
+
 // load csv file to textGrid
 var textGrid = load_csv("npcs_english.csv");
 
@@ -239,8 +267,8 @@ function master_grid_add_npc(_ID) {
 	}
 }
 
-// add all npcs to npcGrid		ID							NAME									WALKING SPRITE			SWIMMING SPRITE			MEDITATING SPRITE			EATING SPRITE			DRINKING SPRITE			WAVEPHONE SPRITE				TALISMANS							SPELLS								RESPONSES									LOCATIONS							RESPONSE FUNCTION	TALKING SPEED	VOICE				VOCAL RANGE
-master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",								spr_mercurioWalking,	spr_mercurioWalking,	spr_mercurioMeditating,		spr_mercurioEating,		spr_mercurioDrinking,	spr_mercurioWavephone,			encode_list(mercurioTalismans),		encode_list(mercurioSpells),		encode_map(mercurioResponseMap),			encode_list(mercurioLocations),		mercurio_respond,	2,				sfx_mercurioVoice,	0.5);
+// add all npcs to npcGrid		ID							NAME			WALKING SPRITE			SWIMMING SPRITE			MEDITATING SPRITE			EATING SPRITE			DRINKING SPRITE			WAVEPHONE SPRITE			TALISMANS							SPELLS								RESPONSES									LOCATION LIST					LOCATION CHECK FUNCTION		RESPONSE FUNCTION	TALKING SPEED	VOICE				VOCAL RANGE
+master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",		spr_mercurioWalking,	spr_mercurioWalking,	spr_mercurioMeditating,		spr_mercurioEating,		spr_mercurioDrinking,	spr_mercurioWavephone,		encode_list(mercurioTalismans),		encode_list(mercurioSpells),		encode_map(mercurioResponseMap),			encode_list(mercurioLocations), mercurio_location_check,	mercurio_respond,	2,				sfx_mercurioVoice,	0.5);
 
 // encode the grid
 global.allNPCs = encode_grid(global.npcGrid);
@@ -286,8 +314,6 @@ function npc_load_parameters(_id) {
 	parametersLoaded = true;
 }
 
-
-
 ///@desc This function is called when an NPC collides with one of the offscreen gates. 
 /// The function moves them to the next location in that direction if there is one.
 function gate_check_npc() {
@@ -316,50 +342,6 @@ function gate_check_npc() {
 	}
 }	
 
-// this function returns a list of each NPC's chosen location for the next day in order of NPC ID
-// the list is then used to edit the npc lists stored for each location
-function build_npc_location_list() {
-	var grid = ds_grid_create(NPC_PARAMS.height, npcs.height);
-	decode_grid(global.allNPCs, grid);
-	
-	var i = 0;	repeat (npcs.height) {		
-		// get encoded list of locations for all weekdays from npc grid
-		var encList		= grid[# NPC_PARAMS.LOCATIONS, i];
-		
-		// break if no locations
-		if (encList == "-4")
-		|| (encList == "-1")
-		|| (encList == "0") {
-			break;
-		}
-		else {
-		
-			//@TODO THIS IS NOT FINISHED. THE ONLY REASON THIS WORKS IS THAT
-			// WE ARE BREAKING THE LOOP RIGHT AFTER DECODING MERCURIO'S LOCATIONS
-			// TO THE LOCATION LIST. IDEALLY, THE END OF EACH LOOP SHOULD SELECT
-			// A SINGLE LOCATION (IF THERE ARE MULTIPLE) AND THEN PLACE IT ON
-			// THE NPC LOCATION LIST AT POSITION i.
-			
-			// I'M NOT SURE IF I'LL KEEP THIS LOGIC ANYWAY AFTER SUBMITTING FOR PAX.
-		
-			// create two dummy lists
-			var weekList	= ds_list_create();
-			var dayList		= ds_list_create();
-			
-			// decode the first encoded list to the full week dummy list
-			decode_list(encList, weekList);
-			
-			// get encoded list of locations for the current weekday from weekList
-			encList = weekList[| player.weekday];
-			
-			global.npcLocationList[| i] = dayList[| 0];
-		}
-		
-		// increment i
-		i++;
-	}
-}
-
 ///@desc This function is called in the human draw event if the human in question is
 /// an NPC. The function simply takes the NPCs current sprite--set by the npc_set_sprite
 /// function--and draws that sprite to the app surface
@@ -367,38 +349,4 @@ function draw_npc() {
 	if (sprite >= 0) {
 		draw_sprite(sprite, frame, x, y);
 	}
-}
-
-///@desc This function takes the list of npc locations and uses it to change each location's list of 
-// present NPCs for the following day
-function edit_npc_location_lists() {	
-	var grid = ds_grid_create(locationParams.height, locations.height);
-	decode_grid(global.allLocations, grid);		
-	
-	var _location = 0;	repeat (locations.height) {
-		var encList = grid[# locationParams.npcList, _location];
-		var npcList	= ds_list_create();
-		
-		// break if no locations
-		if (encList != "-4")
-		&& (encList != "-1")
-		&& (encList != "0") {
-		
-			decode_list(encList, npcList);
-		
-			var _npc = 0;		repeat (npcs.height) {
-				if global.npcLocationList[| _npc] == _location {
-					ds_list_add(npcList, _npc);
-				}
-				
-				_npc++;
-			}
-		
-			grid[# locationParams.npcList, _location] = encode_list(npcList);
-		}
-		
-		_location++;
-	}
-	
-	global.allLocations = encode_grid(grid);
 }
