@@ -115,7 +115,7 @@ switch (sparPhase) {
 			
 			case PROCESS_PHASES.SWAP:
 				// check if any sprites are swapping
-				if (ds_grid_value_exists(turnGrid, TURN_GRID.ACTION, 0, TURN_GRID.ACTION, h, sparActions.swap)) {
+				if (ds_grid_value_exists(turnGrid, TURN_GRID.ACTION, 0, TURN_GRID.ACTION, h, SPAR_ACTIONS.SWAP)) {
 					// set these built-ins so that the gms2 animation works
 					sprite_index = spr_sparSwapCloud;
 					image_speed = 1;
@@ -131,7 +131,7 @@ switch (sparPhase) {
 			
 			case PROCESS_PHASES.REST:
 				// check if any sprites are resting
-				if (ds_grid_value_exists(turnGrid, TURN_GRID.ACTION, 0, TURN_GRID.ACTION, h, sparActions.rest)) {
+				if (ds_grid_value_exists(turnGrid, TURN_GRID.ACTION, 0, TURN_GRID.ACTION, h, SPAR_ACTIONS.REST)) {
 					// set these built-ins so that the gms2 animation works
 					sprite_index = spr_sparRestEye;
 					image_speed = 1;
@@ -153,7 +153,7 @@ switch (sparPhase) {
 			
 			case PROCESS_PHASES.DODGE:
 				// check if any sprites are dodging
-				if (ds_grid_value_exists(turnGrid, TURN_GRID.ACTION, 0, TURN_GRID.ACTION, h, sparActions.dodge)) {
+				if (ds_grid_value_exists(turnGrid, TURN_GRID.ACTION, 0, TURN_GRID.ACTION, h, SPAR_ACTIONS.DODGE)) {
 					// set these built_ins so that the gms2 animation works
 					sprite_index = spr_sparDodge;
 					image_speed = 1;
@@ -688,7 +688,7 @@ switch (sparPhase) {
 						var st = inst.selectedTarget;
 						
 						// check if this sprite has selected to swap
-						if (sa == sparActions.swap) {
+						if (sa == SPAR_ACTIONS.SWAP) {
 							// get the swap partner
 							var sp = allyList[| st];
 							
@@ -697,13 +697,13 @@ switch (sparPhase) {
 						}
 						
 						// check if this sprite has selected to cast a spell
-						if (sa >= sparActions.height) {
+						if (sa >= SPAR_ACTIONS.HEIGHT) {
 							// add the cost of the spell to the totalSpellCost
-							totalSpellCost += spell_get_cost(sa - sparActions.height);
+							totalSpellCost += spell_get_cost(sa - SPAR_ACTIONS.HEIGHT);
 						}
 						
 						// check if this sprite has selected to rest
-						if (sa >= sparActions.rest) {
+						if (sa >= SPAR_ACTIONS.REST) {
 							// add the minimum rest amount to the minRestRegen
 							minRestRegen += REST_BASE_MP_REGEN;
 						}
@@ -754,7 +754,7 @@ switch (sparPhase) {
 							if (immobilized) {
 								// set their selected target and action
 								selectedTarget = -1;
-								selectedAction = sparActions.rest;
+								selectedAction = SPAR_ACTIONS.REST;
 								
 								// ensure that this sprite will not be forced to repeat their last turn
 								turnRepeat = false;
@@ -773,7 +773,7 @@ switch (sparPhase) {
 								selectedAction = lastAction;
 							
 								// check if the action in question was a swap
-								if (selectedAction == sparActions.swap) {
+								if (selectedAction == SPAR_ACTIONS.SWAP) {
 									// get their swap partner's instance ID
 									var spid = spar.spriteList[| selectedTarget];
 									
@@ -781,11 +781,11 @@ switch (sparPhase) {
 									if (spid.immobilized) {
 										// set this sprite's selected target and action
 										selectedTarget = -1;
-										selectedAction = sparActions.rest;
+										selectedAction = SPAR_ACTIONS.REST;
 										
 										// set this sprite's last target and action
 										selectedTarget = -1;
-										selectedAction = sparActions.rest;
+										selectedAction = SPAR_ACTIONS.REST;
 									}
 									// if their swap partner is not immobilized
 									else {
@@ -815,7 +815,7 @@ switch (sparPhase) {
 						if (immobilized) {
 							// set their selected target and action
 							selectedTarget = -1;
-							selectedAction = sparActions.rest;
+							selectedAction = SPAR_ACTIONS.REST;
 							
 							// ensure that this sprite will not be forced to repeat their last turn
 							turnRepeat = false;
@@ -833,7 +833,7 @@ switch (sparPhase) {
 								selectedAction = lastAction;
 							
 								// check if the action in question was a swap
-								if (selectedAction == sparActions.swap) {
+								if (selectedAction == SPAR_ACTIONS.SWAP) {
 									// get their swap partner's instance ID
 									var spid = spar.spriteList[| selectedTarget];
 									
@@ -841,11 +841,11 @@ switch (sparPhase) {
 									if (spid.immobilized) {
 										// set this sprite's selected target and action
 										selectedTarget = -1;
-										selectedAction = sparActions.rest;
+										selectedAction = SPAR_ACTIONS.REST;
 										
 										// set this sprite's last target and action
 										lastTarget = -1;
-										lastAction = sparActions.rest;
+										lastAction = SPAR_ACTIONS.REST;
 									}
 									// if their swap partner is not immobilized
 									else {
@@ -913,16 +913,16 @@ switch (sparPhase) {
 					
 					// switch statement to set selectionMsg text
 					switch(a) {
-						case sparActions.attack:
+						case SPAR_ACTIONS.ATTACK:
 							selectionMsg = "Select a target!";
 						break;
 						
-						case sparActions.swap:
+						case SPAR_ACTIONS.SWAP:
 							selectionMsg = "Select a target!";
 						break;
 					}
 					
-					if (a >= sparActions.height)	selectionMsg = "Select a target!";
+					if (a >= SPAR_ACTIONS.HEIGHT)	selectionMsg = "Select a target!";
 					
 					// handle backspace input
 					if (global.back) {

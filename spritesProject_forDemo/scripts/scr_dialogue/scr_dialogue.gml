@@ -46,7 +46,7 @@ enum emotions {
 	nervous,
 	eyeroll,
 	stunned,
-	height
+	HEIGHT
 }
 
 var nameList = ds_list_create();
@@ -225,7 +225,7 @@ function dialogue_perform_action(_encodedList) {
 				var char = correct_string_after_decode(charList[| i]);
 				
 				// if emotion is valid, add it to the grid
-				if (emo < emotions.height) 
+				if (emo < emotions.HEIGHT) 
 				&& (emo >= 0) {
 					// resize overworld.dialogueEmotes
 					ds_grid_resize(dialogueEmotes, 2, ds_list_size(charList));

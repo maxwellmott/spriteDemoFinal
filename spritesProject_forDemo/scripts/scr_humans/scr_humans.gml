@@ -5,11 +5,11 @@
 #macro int_rect_breadth		4
 #macro int_rect_length		12 
 
-enum genders {
-	female,
-	nonbinary,
-	male,
-	height
+enum GENDERS {
+	FEMALE,
+	NONBINARY,
+	MALE,
+	HEIGHT
 }
 
 enum pronoun_types {
@@ -19,15 +19,15 @@ enum pronoun_types {
 	present_conjunctive,		// HE'S/SHE'S/THEY'RE
 	past_conjunctive,			// HE'S/SHE'S/THEY'VE
 	passive_conjunctive,		// HE'D/SHE'D/THEY'D
-	height
+	HEIGHT
 }
 
 // enumerator to store the four cardinal directions
-enum directions {
-	south,
-	east,
-	north,
-	west
+enum DIRECTIONS {
+	SOUTH,
+	EAST,
+	NORTH,
+	WEST,
 }
 
 // these macros store the width and height of each frame on the
@@ -44,7 +44,7 @@ enum humanStates {
 	playingWavephone,
 	meditating,
 	wandering,
-	height
+	HEIGHT
 }
 
 ///@desc This function uses the humans hmove and vmove variables
@@ -124,26 +124,26 @@ function human_check_moving() {
 	if abs(hmove) + abs(vmove) == 0		moving = false;
 }
 
-///@desc This function gets the direction that the human is facing (north,
-/// east, south, west--according to their respective IDs in the directions enum)
+///@desc This function gets the direction that the human is facing (NORTH,
+/// EAST, SOUTH, west--according to their respective IDs in the directions enum)
 function human_set_facing() {
 	var dir	= point_direction(0, 0, hmove, vmove);
 	
 	switch(dir) {
 		case 0:
-			facing = directions.east;
+			facing = DIRECTIONS.EAST;
 		break;
 		
 		case 90:
-			facing = directions.north;
+			facing = DIRECTIONS.NORTH;
 		break;
 		
 		case 180:
-			facing = directions.west;
+			facing = DIRECTIONS.WEST;
 		break;
 		
 		case 270:
-			facing = directions.south;
+			facing = DIRECTIONS.SOUTH;
 		break;
 		}	
 }
@@ -168,28 +168,28 @@ function get_interactable() {
 
 	// set position depending on whic direction the character is facing
 	switch (facing) {		
-		case directions.east:
+		case DIRECTIONS.EAST:
 			x1 = x;
 			x2 = x + 20;
 			y1 = bbox_bottom - 8;
 			y2 = bbox_bottom;
 		break;
 		
-		case directions.south:
+		case DIRECTIONS.SOUTH:
 			x1 = x - 4;
 			x2 = x + 4;
 			y1 = y;
 			y2 = bbox_bottom + 8;
 		break;
 		
-		case directions.west:
+		case DIRECTIONS.WEST:
 			x1 = x - 20;
 			x2 = x;
 			y1 = bbox_bottom - 8;
 			y2 = bbox_bottom;
 		break;
 		
-		case directions.north:
+		case DIRECTIONS.NORTH:
 			x1 = x - 4;
 			x2 = x + 4;
 			y1 = bbox_bottom - 32;

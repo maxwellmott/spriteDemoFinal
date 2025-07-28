@@ -131,7 +131,7 @@ if (pnMenuPresent) {
 			audio_push_success_haptic();
 
 			// set selectedPronouns
-			selectedPronouns = genders.female;
+			selectedPronouns = GENDERS.FEMALE;
 			
 			// accept name and pronouns
 			keyboard_accept_name_and_pronouns();
@@ -143,7 +143,7 @@ if (pnMenuPresent) {
 			audio_push_success_haptic();
 			
 			// set selectedPronouns
-			selectedPronouns = genders.nonbinary;
+			selectedPronouns = GENDERS.NONBINARY;
 			
 			// accept name and pronouns
 			keyboard_accept_name_and_pronouns();
@@ -155,7 +155,7 @@ if (pnMenuPresent) {
 			audio_push_success_haptic();
 			
 			// set selectedPronouns
-			selectedPronouns = genders.male;
+			selectedPronouns = GENDERS.MALE;
 			
 			// accept name and pronouns
 			keyboard_accept_name_and_pronouns();
@@ -183,7 +183,7 @@ if (pnMenuPresent) {
 		selectedPronouns--;
 		
 		// clamp selectedPronouns
-		selectedPronouns = clamp(selectedPronouns, 0, genders.height - 1);
+		selectedPronouns = clamp(selectedPronouns, 0, GENDERS.HEIGHT - 1);
 	}
 	
 	if (global.menuRight) {
@@ -193,7 +193,7 @@ if (pnMenuPresent) {
 		selectedPronouns++;	
 		
 		// clamp selectedPronouns
-		selectedPronouns = clamp(selectedPronouns, 0, genders.height - 1);
+		selectedPronouns = clamp(selectedPronouns, 0, GENDERS.HEIGHT - 1);
 	}
 	
 	// check if select is being pressed

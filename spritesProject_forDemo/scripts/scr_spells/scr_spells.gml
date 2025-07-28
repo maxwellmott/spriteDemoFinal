@@ -1114,5 +1114,5 @@ function spell_type_get_string(_spellType) {
 }
 
 function action_get_spell_id(_action) {
-	return _action - sparActions.height;
+	return _action - SPAR_ACTIONS.HEIGHT;
 }

@@ -4,7 +4,7 @@ enum seasons {
 	mothersMoon,
 	gamnsWalk,
 	spherasRest,
-	height
+	HEIGHT
 }
 
 //  enumerator containing weekday IDs
@@ -13,7 +13,7 @@ enum weekdays {
 	plughsun,
 	rumnsun,
 	famelsun,
-	height
+	HEIGHT
 }
 
 ///@desc This function fades a layer of darkness in/out
@@ -85,8 +85,8 @@ function dc_next_day() {
 		weekday++;
 	
 		// increment week
-		if (weekday = weekdays.height) {
-			weekday -= weekdays.height;	
+		if (weekday = weekdays.HEIGHT) {
+			weekday -= weekdays.HEIGHT;	
 		}
 		
 		// increment season
@@ -96,9 +96,9 @@ function dc_next_day() {
 		}
 		
 		// increment year
-		if (season == seasons.height) {
+		if (season == seasons.HEIGHT) {
 			year++;
-			season -= seasons.height;
+			season -= seasons.HEIGHT;
 		}
 	}
 }

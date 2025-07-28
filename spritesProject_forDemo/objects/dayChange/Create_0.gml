@@ -54,7 +54,7 @@ enum dcDisplay {
 	SPELLS,
 	conversations,
 	spars,
-	height
+	HEIGHT
 }
 
 displaying = dcDisplay.day;

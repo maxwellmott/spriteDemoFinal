@@ -116,7 +116,7 @@ function overworld_character_state_machine() {
 			if (global.gameTime mod 8 == 0) {
 				facing++;
 				if (facing < 0) {
-					facing = directions.west;	
+					facing = DIRECTIONS.WEST;	
 				}
 			}
 		break;
@@ -124,7 +124,7 @@ function overworld_character_state_machine() {
 		case OVERWORLD_CHARACTER_STATES.SPINNING_COUNTERCLOCKWISE:
 			if (global.gameTime mod 8 == 0) {
 				facing++;
-				if (facing > directions.west) {
+				if (facing > DIRECTIONS.WEST) {
 					facing = 0;	
 				}
 			}
@@ -153,10 +153,10 @@ function overworld_character_state_machine() {
 							x += (diff / abs(diff));
 							
 							if (diff > 0)	{
-								facing = directions.east;
+								facing = DIRECTIONS.EAST;
 							}
 							else {			
-								facing = directions.west;
+								facing = DIRECTIONS.WEST;
 							}
 						}
 					}
@@ -178,10 +178,10 @@ function overworld_character_state_machine() {
 							y += (diff / abs(diff));
 							
 							if (diff > 0) {
-								facing = directions.south;
+								facing = DIRECTIONS.SOUTH;
 							}
 							else {
-								facing = directions.north;
+								facing = DIRECTIONS.NORTH;
 							}
 						}
 					}

@@ -99,7 +99,7 @@ function ai_mercurio_day_one() {
 									}
 									// if the mpSpellScore does NOT warrant using this spell
 									else {
-										inst.selectedAction = sparActions.attack;
+										inst.selectedAction = SPAR_ACTIONS.ATTACK;
 										inst.selectedTarget = bestBasicAttackTarget;
 									}
 								}
@@ -110,12 +110,12 @@ function ai_mercurio_day_one() {
 								var safest = enemy_ai_get_least_endangered_sprite(osl);
 								
 								// check that the safest sprite is NOT swapping
-								if (safest.selectedAction != sparActions.swap) {
-									safest.selectedAction = sparActions.rest;
+								if (safest.selectedAction != SPAR_ACTIONS.SWAP) {
+									safest.selectedAction = SPAR_ACTIONS.REST;
 									safest.selectedTarget = -1;
 									
 									// set this sprite to cast the best spell
-									inst.selectedAction = bestSpell + sparActions.height;
+									inst.selectedAction = bestSpell + SPAR_ACTIONS.HEIGHT;
 									inst.selectedTarget = bestTarget;
 								}
 								else {
@@ -136,7 +136,7 @@ function ai_mercurio_day_one() {
 											inst.selectedTarget = mpSpellTarget;
 										}
 										else {
-											inst.selectedAction = sparActions.attack;
+											inst.selectedAction = SPAR_ACTIONS.ATTACK;
 											inst.selectedTarget = bestBasicAttackTarget;
 										}
 									}
@@ -145,7 +145,7 @@ function ai_mercurio_day_one() {
 						}	
 						else {
 							// set this sprite to use bestSpell
-							inst.selectedAction = bestSpell + sparActions.height;
+							inst.selectedAction = bestSpell + SPAR_ACTIONS.HEIGHT;
 							inst.selectedTarget = bestTarget;
 						}
 					}
@@ -155,13 +155,13 @@ function ai_mercurio_day_one() {
 						var bestSwapper = enemy_ai_get_best_swap_partner(inst);
 						
 						// check to make sure this sprite is not already swapping
-						if (bestSwapper.selectedAction != sparActions.swap) {
+						if (bestSwapper.selectedAction != SPAR_ACTIONS.SWAP) {
 							// set this sprite to swap
-							inst.selectedAction = sparActions.swap;
+							inst.selectedAction = SPAR_ACTIONS.SWAP;
 							inst.selectedTarget = bestSwapper.spotNum;
 							
 							// set the swap partner to swap
-							bestSwapper.selectedAction = sparActions.swap;
+							bestSwapper.selectedAction = SPAR_ACTIONS.SWAP;
 							bestSwapper.selectedTarget = inst.spotNum;
 						}
 						// if this sprite is already swapping

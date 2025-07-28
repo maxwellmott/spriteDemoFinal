@@ -17,7 +17,7 @@ function game_start() {
 	create_once(128,	160, LAYER.sprites, player);
 	
 	// set the player's location to the starting area
-	player.location = locations.miriabramExt;	
+	player.location = locations.miriabramDorm1;	
 
 	// check if there is a save file on this machine
 	if (file_exists(SAVE_FILE_NAME)) {
@@ -25,7 +25,7 @@ function game_start() {
 		load_save_file();
 		
 		// set the player's location to the starting area
-		player.location = locations.miriabramExt;
+		player.location = locations.miriabramDorm1;
 		
 		// @TODO replace this with a full blown function that also appears at 
 		// the end of dayChange
@@ -36,12 +36,12 @@ function game_start() {
 			var s = bgm_magicIsInTheAir;	
 		}
 		
-		room_transition(128, 160, directions.south, rm_overworld, s);
+		room_transition(128, 160, DIRECTIONS.SOUTH, rm_overworld, s);
 	}
 	// if there is not already a save file
 	else {		
 		// transition to the character creator
-		room_transition(128, 160, directions.south, rm_characterCreator, bgm_createYourCharacter);
+		room_transition(128, 160, DIRECTIONS.SOUTH, rm_characterCreator, bgm_createYourCharacter);
 	}
 }
 

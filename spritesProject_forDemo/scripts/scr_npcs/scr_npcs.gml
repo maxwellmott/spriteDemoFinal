@@ -31,7 +31,7 @@ enum npcs {
 	salvadorSenut,			// wealthy politician who is trying to get a seat in the High Council (probably never will since he isn't of one of the main houses)
 	eoghanStonesword,		// current headmaster of miriabram. He was the first man to sit as the headmaster at miriabram school. He is over 100 years old and is not interested in immortality. He's a real sweetie.
 	dianaSenut,				// current practicing master of miriabram. She will someday take Eoghan's place as headmaster, until then she is training under him. Her brother, Salvador, does not approve of this.
-	height
+	HEIGHT
 }
 
 // enumerator containing NPC_PARAMS
@@ -53,7 +53,7 @@ enum NPC_PARAMS {
 	TALKING_SPEED,
 	VOICE,
 	VOCAL_RANGE,
-	height
+	HEIGHT
 }
 
 #region BUILD ALL RESPONSE GRIDS
@@ -257,11 +257,11 @@ function mercurio_location_check() {
 var textGrid = load_csv("npcs_english.csv");
 
 // create npcGrid
-global.npcGrid = ds_grid_create(NPC_PARAMS.height, npcs.height);
+global.npcGrid = ds_grid_create(NPC_PARAMS.HEIGHT, npcs.HEIGHT);
 
 // create function to add to master grid
 function master_grid_add_npc(_ID) {
-	var i = 0; repeat (NPC_PARAMS.height) {
+	var i = 0; repeat (NPC_PARAMS.HEIGHT) {
 		global.npcGrid[# i, _ID] = argument[i];
 		i++;
 	}
@@ -273,7 +273,7 @@ master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",		spr_mercurioWalking,	
 // encode the grid
 global.allNPCs = encode_grid(global.npcGrid);
 
-var ggg = ds_grid_create(NPC_PARAMS.height, npcs.height);
+var ggg = ds_grid_create(NPC_PARAMS.HEIGHT, npcs.HEIGHT);
 decode_grid(global.allNPCs, ggg);
 
 // delete the grid
@@ -287,7 +287,7 @@ function npc_load_parameters(_id) {
 	var ID = correct_string_after_decode(_id);
 	
 	// decode npc grid
-	var grid = ds_grid_create(NPC_PARAMS.height, npcs.height);
+	var grid = ds_grid_create(NPC_PARAMS.HEIGHT, npcs.HEIGHT);
 	decode_grid(global.allNPCs, grid);
 	
 	// get all parameters

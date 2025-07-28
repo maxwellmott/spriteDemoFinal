@@ -112,14 +112,14 @@ winner = -1;
 // initialize loser
 loser = -1;
 
-// create sparActions enum
-enum sparActions {
-	attack,
-	spell,
-	dodge,
-	swap,
-	rest,
-	height
+// create SPAR_ACTIONS enum
+enum SPAR_ACTIONS {
+	ATTACK,
+	SPELL,
+	DODGE,
+	SWAP,
+	REST,
+	HEIGHT
 }
 
 // initialize selectionMsgX and selectionMsgY

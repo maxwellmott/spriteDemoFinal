@@ -26,7 +26,7 @@ roster = ds_list_create();
 team = ds_list_create();
 
 // initialize facing
-facing = directions.south;
+facing = DIRECTIONS.SOUTH;
 
 // initialize swimming
 swimming = false;

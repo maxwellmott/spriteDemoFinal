@@ -8,7 +8,7 @@ selectedButton = -1;
 
 actionButtons = ds_list_create();
 
-repeat (sparActions.height) {
+repeat (SPAR_ACTIONS.HEIGHT) {
 	instance_create_depth(x, y, get_layer_depth(LAYER.meta), sparActionButton);
 }
 

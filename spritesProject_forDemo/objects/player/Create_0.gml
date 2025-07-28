@@ -168,7 +168,7 @@ unlockAlertList = ds_list_create();
 	currentLiterature = -1;
 
 	// initialize facing
-	facing = directions.south;
+	facing = DIRECTIONS.SOUTH;
 
 	// initialize location
 	location = -1;
@@ -292,7 +292,7 @@ unlockAlertList = ds_list_create();
 	lastMatchResultsList	= "";
 	
 	// populate lastMatchResultsList
-	var i = 0;	repeat (npcs.height) {
+	var i = 0;	repeat (npcs.HEIGHT) {
 		ds_list_add(lmrList, -1);
 		
 		i++;	
@@ -309,7 +309,7 @@ unlockAlertList = ds_list_create();
 // initialize a dummy wardrobe list
 var wl = ds_list_create();
 
-var i = 0;	repeat (APPEARANCE_PARAMS.height) {
+var i = 0;	repeat (APPEARANCE_PARAMS.HEIGHT) {
 	// initialize n
 	var n = -1;
 	
@@ -319,23 +319,23 @@ var i = 0;	repeat (APPEARANCE_PARAMS.height) {
 	// get the number of items for the current appearance parameter
 	switch (i) {
 		case APPEARANCE_PARAMS.outfit:
-			n = outfits.height;
+			n = outfits.HEIGHT;
 		break;
 	
 		case APPEARANCE_PARAMS.eyewear:
-			n = spectacles.height;
+			n = spectacles.HEIGHT;
 		break;
 		
 		case APPEARANCE_PARAMS.hat:
-			n = hats.height;
+			n = hats.HEIGHT;
 		break;
 		
 		case APPEARANCE_PARAMS.shoes:
-			n = footwear.height;
+			n = footwear.HEIGHT;
 		break;
 		
 		case APPEARANCE_PARAMS.accessory:
-			n = accessories.height;
+			n = accessories.HEIGHT;
 		break;
 	}
 	

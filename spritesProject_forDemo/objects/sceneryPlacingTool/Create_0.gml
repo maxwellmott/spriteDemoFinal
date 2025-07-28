@@ -8,7 +8,7 @@ currentID		= 0;
 objList		= ds_list_create();
 paramList	= ds_list_create();
 
-grid		= ds_grid_create(sceneryParams.height, sceneryIDs.height);
+grid		= ds_grid_create(SCENERY_PARAMS.HEIGHT, SCENERY.HEIGHT);
 decode_grid(global.allScenery, grid);
 
 currentObjName	= "";

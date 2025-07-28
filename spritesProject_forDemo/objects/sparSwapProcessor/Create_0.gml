@@ -13,7 +13,7 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 	var a = spar.turnGrid[# TURN_GRID.ACTION, i];
 	
 	// check if the action is a swap
-	if (a == sparActions.swap) {
+	if (a == SPAR_ACTIONS.SWAP) {
 		// get their swap partner's ID
 		var t = spar.turnGrid[# TURN_GRID.TARGET, i];
 		var pid = spar.spriteList[| t];

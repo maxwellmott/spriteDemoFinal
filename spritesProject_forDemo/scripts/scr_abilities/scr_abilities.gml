@@ -1070,9 +1070,9 @@ function all_seeing_eyes(_inst) {
 		// check if this sprite is the selectedAlly
 		if (inst == player.selectedAlly) {
 			// check if it is using a trick or elemental spell
-			if (global.action >= sparActions.height) {
+			if (global.action >= SPAR_ACTIONS.HEIGHT) {
 				// get spell type
-				var st = correct_string_after_decode(sg[# SPELL_PARAMS.TYPE, global.action - sparActions.height]);		
+				var st = correct_string_after_decode(sg[# SPELL_PARAMS.TYPE, global.action - SPAR_ACTIONS.HEIGHT]);		
 				
 				// check if spell is elemental or trick spell
 				if (st != SPELL_TYPES.PHYSICAL) {
@@ -1579,7 +1579,7 @@ function spring_loaded(_inst) {
 		// check if this sprite is the selectedAlly
 		if (inst == player.selectedAlly) {
 			// check if it is using a trick or elemental spell
-			if (global.action >= sparActions.attack) {
+			if (global.action >= SPAR_ACTIONS.ATTACK) {
 				// improve range
 				improve_range();
 				

@@ -13,7 +13,7 @@ function place_bookcases(_encodedList) {
 	var size = ds_list_size(list);
 	
 	// decode the sceneryGrid to a temp grid
-	var grid = ds_grid_create(sceneryParams.height, sceneryIDs.height);
+	var grid = ds_grid_create(SCENERY_PARAMS.HEIGHT, SCENERY.HEIGHT);
 	decode_grid(global.allScenery, grid);
 	
 	// use a repeat loop to get the parameters of each token and then create it
@@ -30,9 +30,9 @@ function place_bookcases(_encodedList) {
 		var bn = correct_string_after_decode(params[|3]);
 		
 		// get params from grid using ID
-		var type		= grid[# sceneryParams.type,			ID];
-		var spr			= grid[# sceneryParams.sprite,			ID];
-		var mask		= grid[# sceneryParams.mask,			ID];
+		var type		= grid[# SCENERY_PARAMS.TYPE,			ID];
+		var spr			= grid[# SCENERY_PARAMS.SPRITE,			ID];
+		var mask		= grid[# SCENERY_PARAMS.MASK,			ID];
 		
 		// correct all values after decoding
 		type		= correct_string_after_decode(type);

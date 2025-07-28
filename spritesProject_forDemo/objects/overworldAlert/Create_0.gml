@@ -4,7 +4,7 @@ y = guiHeight - sprite_get_height(spr_talkBubble);
 
 alertID = overworld.alertStack[|0];
 
-alertGrid = ds_grid_create(overworldAlertParams.height, overworldAlerts.height);
+alertGrid = ds_grid_create(overworldAlertParams.HEIGHT, overworldAlerts.HEIGHT);
 
 decode_grid(global.allOverworldAlerts, alertGrid);
 

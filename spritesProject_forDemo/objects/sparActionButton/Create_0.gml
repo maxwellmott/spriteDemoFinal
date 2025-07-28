@@ -12,27 +12,27 @@ name = "";
 
 // get name and x position using action ID
 switch (action) {
-	case sparActions.attack:	
+	case SPAR_ACTIONS.ATTACK:	
 		name = "ATTACK";
 		x = 32;
 	break;
 	
-	case sparActions.spell:		
+	case SPAR_ACTIONS.SPELL:		
 		name = "SPELL";	
 		x = 80;
 	break;
 	
-	case sparActions.dodge:	
+	case SPAR_ACTIONS.DODGE:	
 		name = "DODGE";
 		x = 128;
 	break;
 	
-	case sparActions.swap:
+	case SPAR_ACTIONS.SWAP:
 		name = "SWAP";
 		x = 176;
 	break;
 	
-	case sparActions.rest:
+	case SPAR_ACTIONS.REST:
 		name = "REST";
 		x = 224;
 	break;

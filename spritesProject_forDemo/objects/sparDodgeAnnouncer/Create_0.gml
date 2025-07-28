@@ -17,7 +17,7 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 	var a = spar.turnGrid[# TURN_GRID.ACTION, i];
 	
 	// check if the action is a swap
-	if (a == sparActions.dodge) {
+	if (a == SPAR_ACTIONS.DODGE) {
 		// if so, set the sprite's swapping var to true
 		inst.dodging = true;
 		

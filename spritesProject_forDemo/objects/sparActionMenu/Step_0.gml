@@ -5,7 +5,7 @@
 if (global.menuRight) {
 	index++;
 	
-	if (index >= sparActions.height) index = 0;
+	if (index >= SPAR_ACTIONS.HEIGHT) index = 0;
 	
 	selectedButton = actionButtons[| index];
 }
@@ -14,7 +14,7 @@ if (global.menuRight) {
 if (global.menuLeft) {
 	index--;
 	
-	if (index < 0) index = sparActions.height - 1;
+	if (index < 0) index = SPAR_ACTIONS.HEIGHT - 1;
 	
 	selectedButton = actionButtons[| index];
 }

@@ -18,7 +18,7 @@ var i = 0;	repeat (ds_grid_height(spar.turnGrid)) {
 	var a = spar.turnGrid[# TURN_GRID.ACTION, i];
 	
 	// check if the action is a swap
-	if (a == sparActions.rest) {		
+	if (a == SPAR_ACTIONS.REST) {		
 		// add the instance id to the restList
 		ds_list_add(restList, inst);
 		

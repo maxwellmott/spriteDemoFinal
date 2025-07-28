@@ -10,14 +10,14 @@ enum APPEARANCE_PARAMS {
 	shoes,
 	shoeColor,
 	accessory,
-	height
+	HEIGHT
 }
 
 enum spectacles {
 	none,
 	readers,
 	coolShades,
-	height
+	HEIGHT
 }
 
 enum outfits {
@@ -30,7 +30,7 @@ enum outfits {
 	smartFancyDress,
 	tradFancyGown,
 	modestGown,
-	height
+	HEIGHT
 }
 
 enum hairstyles {
@@ -41,7 +41,7 @@ enum hairstyles {
 	shortMessy,
 	libertyHawk,
 	fadedBuzz,
-	height
+	HEIGHT
 }
 
 enum hats {
@@ -49,7 +49,7 @@ enum hats {
 	cowboy,
 	beret,
 	fancyWideBrim,
-	height	
+	HEIGHT	
 }
 
 enum footwear {
@@ -57,14 +57,14 @@ enum footwear {
 	sandals,
 	trainers,
 	cuteClogs,
-	height	
+	HEIGHT	
 }
 
 enum accessories {
 	none,
 	legendaryBroadsword,
 	mythicalMedallion,
-	height
+	HEIGHT
 }
 
 // load eyewearTextGrid from csv file
@@ -104,7 +104,7 @@ global.hairstyleNameList	= ds_list_create();
 global.footwearNameList		= ds_list_create();
 
 // populate outfitNameList
-var i = 0;	repeat (outfits.height) {
+var i = 0;	repeat (outfits.HEIGHT) {
 	// add the proper text to the list
 	global.outfitNameList[| i] = outfitTextGrid[# 1, i];
 	
@@ -113,7 +113,7 @@ var i = 0;	repeat (outfits.height) {
 }
 
 // populate hatNameList
-var i = 0;	repeat (hats.height) {
+var i = 0;	repeat (hats.HEIGHT) {
 	// add the proper text to the list
 	global.hatNameList[| i] = hatTextGrid[# 1, i];
 	
@@ -122,7 +122,7 @@ var i = 0;	repeat (hats.height) {
 }
 
 // populate accessoryNameList
-var i = 0;	repeat (accessories.height) {
+var i = 0;	repeat (accessories.HEIGHT) {
 	// add the proper text to the list
 	global.accessoryNameList[| i] = accessoryTextGrid[# 1, i];
 	
@@ -131,7 +131,7 @@ var i = 0;	repeat (accessories.height) {
 }
 
 // populate hairstyleNameList
-var i = 0;	repeat (hairstyles.height) {
+var i = 0;	repeat (hairstyles.HEIGHT) {
 	// add the proper text to the list
 	global.hairstyleNameList[| i] = hairstyleTextGrid[# 1, i];
 	
@@ -140,7 +140,7 @@ var i = 0;	repeat (hairstyles.height) {
 }
 
 // populate footwearNameList
-var i = 0;	repeat (footwear.height) {
+var i = 0;	repeat (footwear.HEIGHT) {
 	// add the proper text to the list
 	global.footwearNameList[| i] = footwearTextGrid[# 1, i];
 	
@@ -149,7 +149,7 @@ var i = 0;	repeat (footwear.height) {
 }
 
 // populate eyewearNameList
-var i = 0;	repeat (spectacles.height) {
+var i = 0;	repeat (spectacles.HEIGHT) {
 	// add the proper text to the list
 	global.eyewearNameList[| i] = eyewearTextGrid[# 1, i];
 	

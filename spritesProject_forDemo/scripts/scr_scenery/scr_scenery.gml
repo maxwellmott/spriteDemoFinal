@@ -1,99 +1,99 @@
-// enumerator containing sceneryIDs
-enum sceneryIDs {
-	firmrootTree,
-	farseedTree,
-	graywoodTree,
-	boulder,
-	subBoulder,
-	firmrootCluster,
-	farseedCluster,
-	graywoodCluster,
-	boulderCluster,
-	subBoulderCluster,
-	cityStreetlight,
-	cityShortLamp,
-	crystalLampPost,
-	retroSendport,
-	modernCoffeeTable,
-	postIndustrialCountertop,
-	postIndustrialCupboard,
-	lavishDiningTable,
-	ruggedDiningTable,
-	ruggedSleepingPad,
-	traditionalWindowIndoorUpstairs,
-	traditionalWindowIndoorNormal,
-	traditionalWindowOutdoor,
-	traditionalWoodenBookcase,
-	traditionalWoodenBedframe,
-	height
+// enumerator containing SCENERY
+enum SCENERY {
+	FIRMROOT_TREE,
+	FARSEED_TREE,
+	GRAYWOOD_TREE,
+	BOULDER,
+	SUB_BOULDER,
+	FIRMROOT_CLUSTER,
+	FARSEED_CLUSTER,
+	GRAYWOOD_CLUSTER,
+	BOULDER_CLUSTER,
+	SUB_BOULDER_CLUSTER,
+	CITY_STREET_LIGHT,
+	CITY_SHORT_LAMP,
+	CRYSTAL_LAMP_POST,
+	RETRO_SENDPORT,
+	MODERN_COFFEE_TABLE,
+	POST_INDUSTRIAL_COUNTERTOP,
+	POST_INDUSTRIAL_CUPBOARD,
+	LAVISH_DINING_TABLE,
+	RUGGED_DINING_TABLE,
+	RUGGED_SLEEPING_PAD,
+	TRADITIONAL_WINDOW_INDOOR_UPSTAIRS,
+	TRADITIONAL_WINDOW_INDOOR_NORMAL,
+	TRADITIONAL_WINDOW_OUTDOOR,
+	TRADITIONAL_WOODEN_BOOKCASE,
+	TRADITIONAL_WOODEN_BEDFRAME,
+	HEIGHT
 }
 
-// enumerator containing sceneryParams
-enum sceneryParams {
+// enumerator containing SCENERY_PARAMS
+enum SCENERY_PARAMS {
 	ID,
-	type,
-	sprite,
-	mask,
-	name,
-	height
+	TYPE,
+	SPRITE,
+	MASK,
+	NAME,
+	HEIGHT
 }
 
-// enumerator containing sceneryTypes
-enum sceneryTypes {
-	cluster,
-	flower,
-	lamppost,
-	window,
-	bookcase,
-	boulder,
-	fence,
-	largeSign,
-	neonSign,
-	smallSign,
-	tree,
-	sendport,
-	table,
-	bed,
-	height
+// enumerator containing SCENERY_TYPES
+enum SCENERY_TYPES {
+	CLUSTER,
+	FLOWER,
+	LAMPPOST,
+	WINDOW,
+	BOOKCASE,
+	BOULDER,
+	FENCE,
+	LARGE_SIGN,
+	NEON_SIGN,
+	SMALL_SIGN,
+	TREE,
+	SENDPORT,
+	TABLE,
+	BED,
+	HEIGHT
 }
 
 // create overworld object grid
-global.sceneryGrid = ds_grid_create(sceneryParams.height, sceneryIDs.height);
+global.sceneryGrid = ds_grid_create(SCENERY_PARAMS.HEIGHT, SCENERY.HEIGHT);
 
 // create add to master grid function
 function master_grid_add_scenery(_ID) {
-	var i = 0; repeat(sceneryParams.height) {
+	var i = 0; repeat(SCENERY_PARAMS.HEIGHT) {
 		ds_grid_set(global.sceneryGrid, i, _ID, argument[i]);
 		i++;
 	}
 }
 
 // add all objects to master grid	ID											TYPE					SPRITE									MASK									NAME
-master_grid_add_scenery(			sceneryIDs.firmrootTree,					sceneryTypes.tree,		spr_firmrootTree,						spr_firmrootMask,						"FIRMROOT TREE");
-master_grid_add_scenery(			sceneryIDs.farseedTree,						sceneryTypes.tree,		spr_farseedTree,						spr_farseedMask,						"FARSEED TREE");
-master_grid_add_scenery(			sceneryIDs.graywoodTree,					sceneryTypes.tree,		spr_graywoodTree,						spr_graywoodMask,						"GRAYWOOD TREE");
-master_grid_add_scenery(			sceneryIDs.firmrootCluster,					sceneryTypes.cluster,	spr_firmrootCluster,					spr_firmrootClusterMask,				"FIRMROOT CLUSTER");
-master_grid_add_scenery(			sceneryIDs.farseedCluster,					sceneryTypes.cluster,	spr_farseedCluster,						spr_farseedClusterMask,					"FARSEED CLUSTER");
-master_grid_add_scenery(			sceneryIDs.graywoodCluster,					sceneryTypes.cluster,	spr_graywoodCluster,					spr_graywoodClusterMask,				"GRAYWOOD CLUSTER");
-master_grid_add_scenery(			sceneryIDs.boulderCluster,					sceneryTypes.cluster,	spr_boulderCluster,						spr_boulderClusterMask,					"BOULDER CLUSTER");
-master_grid_add_scenery(			sceneryIDs.subBoulderCluster,				sceneryTypes.cluster,	spr_subBoulderCluster,					spr_subBoulderClusterMask,				"SUBBOULDER CLUSTER");
-master_grid_add_scenery(			sceneryIDs.cityStreetlight,					sceneryTypes.lamppost,	spr_cityStreetlight,					spr_cityStreetlightMask,				"CITY STREETLIGHT");
-master_grid_add_scenery(			sceneryIDs.cityShortLamp,					sceneryTypes.lamppost,	spr_cityShortlamp,						spr_cityShortlampMask,					"CITY SHORT LAMP");
-master_grid_add_scenery(			sceneryIDs.crystalLampPost,					sceneryTypes.lamppost,	spr_crystalStreetlight,					spr_crystalStreetlightMask,				"CRYSTAL STREETLIGHT");
-master_grid_add_scenery(			sceneryIDs.boulder,							sceneryTypes.boulder,	spr_boulder,							spr_boulderMask,						"BOULDER");
-master_grid_add_scenery(			sceneryIDs.subBoulder,						sceneryTypes.boulder,	spr_subBoulder,							spr_subBoulderMask,						"SUBMERGED BOULDER");
-master_grid_add_scenery(			sceneryIDs.retroSendport,					sceneryTypes.sendport,	spr_sendport,							spr_sendportMask,						"RETRO SENDPORT");
-master_grid_add_scenery(			sceneryIDs.modernCoffeeTable,				sceneryTypes.table,		spr_modernCoffeeTable,					spr_modernCoffeeTableMask,				"MODERN COFFEE TABLE");
-master_grid_add_scenery(			sceneryIDs.postIndustrialCountertop,		sceneryTypes.table,		spr_postIndustrialCountertop,			spr_postIndustrialCountertopMask,		"POST INDUSTRIAL COUNTERTOP");
-master_grid_add_scenery(			sceneryIDs.postIndustrialCupboard,			sceneryTypes.table,		spr_postIndustrialCupboard,				spr_postIndustrialCupboardMask,			"POST INDUSTRIAL CUPBOARD");
-master_grid_add_scenery(			sceneryIDs.lavishDiningTable,				sceneryTypes.table,		spr_lavishDiningTable,					spr_lavishDiningTableMask,				"LAVISH DINING TABLE");
-master_grid_add_scenery(			sceneryIDs.ruggedDiningTable,				sceneryTypes.table,		spr_ruggedDiningTable,					spr_ruggedDiningTableMask,				"RUGGED DINING TABLE");
-master_grid_add_scenery(			sceneryIDs.ruggedSleepingPad,				sceneryTypes.bed,		spr_ruggedSleepingPad,					spr_ruggedSleepingPad,					"RUGGED SLEEPING PAD");
-master_grid_add_scenery(			sceneryIDs.traditionalWindowOutdoor,		sceneryTypes.window,	spr_traditionalWindowOutdoor,			spr_traditionalWindowOutdoor,			"TRADITIONAL WINDOW");
-master_grid_add_scenery(			sceneryIDs.traditionalWindowIndoorNormal,	sceneryTypes.window,	spr_traditionalWindowIndoor,			spr_traditionalWindowIndoor,			"TRADITIONAL WINDOW");
-master_grid_add_scenery(			sceneryIDs.traditionalWindowIndoorUpstairs, sceneryTypes.window,	spr_traditionalWindowIndoorUpstairs,	spr_traditionalWindowIndoorUpstairs,	"TRADITIONAL WINDOW");
-master_grid_add_scenery(			sceneryIDs.traditionalWoodenBookcase,		sceneryTypes.bookcase,	spr_traditionalWoodenBookcase,			spr_traditionalWoodenBookcaseMask,		"TRADITIONAL WOODEN BOOKCASE");
-master_grid_add_scenery(			sceneryIDs.traditionalWoodenBedframe,		sceneryTypes.bed,		spr_traditionalWoodenBedframe,			spr_traditionalWoodenBedframeMask,		"TRADITIONAL WOODEN BEDFRAME");
+master_grid_add_scenery(			SCENERY.FIRMROOT_TREE,					SCENERY_TYPES.TREE,		spr_firmrootTree,						spr_firmrootMask,						"FIRMROOT TREE");
+master_grid_add_scenery(			SCENERY.FARSEED_TREE,						SCENERY_TYPES.TREE,		spr_farseedTree,						spr_farseedMask,						"FARSEED TREE");
+master_grid_add_scenery(			SCENERY.GRAYWOOD_TREE,					SCENERY_TYPES.TREE,		spr_graywoodTree,						spr_graywoodMask,						"GRAYWOOD TREE");
+master_grid_add_scenery(			SCENERY.FIRMROOT_CLUSTER,					SCENERY_TYPES.CLUSTER,	spr_firmrootCluster,					spr_firmrootClusterMask,				"FIRMROOT CLUSTER");
+master_grid_add_scenery(			SCENERY.FARSEED_CLUSTER,					SCENERY_TYPES.CLUSTER,	spr_farseedCluster,						spr_farseedClusterMask,					"FARSEED CLUSTER");
+master_grid_add_scenery(			SCENERY.GRAYWOOD_CLUSTER,					SCENERY_TYPES.CLUSTER,	spr_graywoodCluster,					spr_graywoodClusterMask,				"GRAYWOOD CLUSTER");
+master_grid_add_scenery(			SCENERY.BOULDER_CLUSTER,					SCENERY_TYPES.CLUSTER,	spr_boulderCluster,						spr_boulderClusterMask,					"BOULDER CLUSTER");
+master_grid_add_scenery(			SCENERY.SUB_BOULDER_CLUSTER,				SCENERY_TYPES.CLUSTER,	spr_subBoulderCluster,					spr_subBoulderClusterMask,				"SUBBOULDER CLUSTER");
+master_grid_add_scenery(			SCENERY.CITY_STREET_LIGHT,					SCENERY_TYPES.LAMPPOST,	spr_cityStreetlight,					spr_cityStreetlightMask,				"CITY STREETLIGHT");
+master_grid_add_scenery(			SCENERY.CITY_SHORT_LAMP,					SCENERY_TYPES.LAMPPOST,	spr_cityShortlamp,						spr_cityShortlampMask,					"CITY SHORT LAMP");
+master_grid_add_scenery(			SCENERY.CRYSTAL_LAMP_POST,					SCENERY_TYPES.LAMPPOST,	spr_crystalStreetlight,					spr_crystalStreetlightMask,				"CRYSTAL STREETLIGHT");
+master_grid_add_scenery(			SCENERY.BOULDER,							SCENERY_TYPES.BOULDER,	spr_boulder,							spr_boulderMask,						"BOULDER");
+master_grid_add_scenery(			SCENERY.SUB_BOULDER,						SCENERY_TYPES.BOULDER,	spr_subBoulder,							spr_subBoulderMask,						"SUBMERGED BOULDER");
+master_grid_add_scenery(			SCENERY.RETRO_SENDPORT,					SCENERY_TYPES.SENDPORT,	spr_sendport,							spr_sendportMask,						"RETRO SENDPORT");
+master_grid_add_scenery(			SCENERY.MODERN_COFFEE_TABLE,				SCENERY_TYPES.TABLE,		spr_modernCoffeeTable,					spr_modernCoffeeTableMask,				"MODERN COFFEE TABLE");
+master_grid_add_scenery(			SCENERY.POST_INDUSTRIAL_COUNTERTOP,		SCENERY_TYPES.TABLE,		spr_postIndustrialCountertop,			spr_postIndustrialCountertopMask,		"POST INDUSTRIAL COUNTERTOP");
+master_grid_add_scenery(			SCENERY.POST_INDUSTRIAL_CUPBOARD,			SCENERY_TYPES.TABLE,		spr_postIndustrialCupboard,				spr_postIndustrialCupboardMask,			"POST INDUSTRIAL CUPBOARD");
+master_grid_add_scenery(			SCENERY.LAVISH_DINING_TABLE,				SCENERY_TYPES.TABLE,		spr_lavishDiningTable,					spr_lavishDiningTableMask,				"LAVISH DINING TABLE");
+master_grid_add_scenery(			SCENERY.RUGGED_DINING_TABLE,				SCENERY_TYPES.TABLE,		spr_ruggedDiningTable,					spr_ruggedDiningTableMask,				"RUGGED DINING TABLE");
+master_grid_add_scenery(			SCENERY.RUGGED_SLEEPING_PAD,				SCENERY_TYPES.BED,		spr_ruggedSleepingPad,					spr_ruggedSleepingPad,					"RUGGED SLEEPING PAD");
+master_grid_add_scenery(			SCENERY.TRADITIONAL_WINDOW_OUTDOOR,		SCENERY_TYPES.WINDOW,	spr_traditionalWindowOutdoor,			spr_traditionalWindowOutdoor,			"TRADITIONAL WINDOW");
+master_grid_add_scenery(			SCENERY.TRADITIONAL_WINDOW_INDOOR_NORMAL,	SCENERY_TYPES.WINDOW,	spr_traditionalWindowIndoor,			spr_traditionalWindowIndoor,			"TRADITIONAL WINDOW");
+master_grid_add_scenery(			SCENERY.TRADITIONAL_WINDOW_INDOOR_UPSTAIRS, SCENERY_TYPES.WINDOW,	spr_traditionalWindowIndoorUpstairs,	spr_traditionalWindowIndoorUpstairs,	"TRADITIONAL WINDOW");
+master_grid_add_scenery(			SCENERY.TRADITIONAL_WOODEN_BOOKCASE,		SCENERY_TYPES.BOOKCASE,	spr_traditionalWoodenBookcase,			spr_traditionalWoodenBookcaseMask,		"TRADITIONAL WOODEN BOOKCASE");
+master_grid_add_scenery(			SCENERY.TRADITIONAL_WOODEN_BEDFRAME,		SCENERY_TYPES.BED,		spr_traditionalWoodenBedframe,			spr_traditionalWoodenBedframeMask,		"TRADITIONAL WOODEN BEDFRAME");
 
 // convert grid to an encoded string
 global.allScenery = encode_grid(global.sceneryGrid);
@@ -118,7 +118,7 @@ function place_scenery(_encodedList) {
 	var size = ds_list_size(list);
 	
 	// decode the sceneryGrid to a temp grid
-	var grid = ds_grid_create(sceneryParams.height, sceneryIDs.height);
+	var grid = ds_grid_create(SCENERY_PARAMS.HEIGHT, SCENERY.HEIGHT);
 	decode_grid(global.allScenery, grid);
 	
 	// use a repeat loop to get the parameters of each token and then create it
@@ -133,9 +133,9 @@ function place_scenery(_encodedList) {
 		var ID = correct_string_after_decode(params[|2]);
 
 		// get params from grid using ID
-		var type		= grid[# sceneryParams.type,			ID];
-		var spr			= grid[# sceneryParams.sprite,			ID];
-		var mask		= grid[# sceneryParams.mask,			ID];
+		var type		= grid[# SCENERY_PARAMS.TYPE,			ID];
+		var spr			= grid[# SCENERY_PARAMS.SPRITE,			ID];
+		var mask		= grid[# SCENERY_PARAMS.MASK,			ID];
 		
 		type		= correct_string_after_decode(type);
 		spr			= correct_string_after_decode(spr);
@@ -156,19 +156,19 @@ function place_scenery(_encodedList) {
 		inst.depth			= scenery_get_depth(_y);
 		
 		// set lightY if lamppost
-		if (type == sceneryTypes.lamppost) {
+		if (type == SCENERY_TYPES.LAMPPOST) {
 			switch (ID) {
-				case sceneryIDs.cityStreetlight:	inst.lightY = _y - 46;	inst.lightScale = 2;	break;
-				case sceneryIDs.cityShortLamp:		inst.lightY = _y - 27;	inst.lightScale = 2;	break;
-				case sceneryIDs.crystalLampPost:	inst.lightY = _y - 30;	inst.lightScale = 3;	break;
+				case SCENERY.CITY_STREET_LIGHT:	inst.lightY = _y - 46;	inst.lightScale = 2;	break;
+				case SCENERY.CITY_SHORT_LAMP:		inst.lightY = _y - 27;	inst.lightScale = 2;	break;
+				case SCENERY.CRYSTAL_LAMP_POST:	inst.lightY = _y - 30;	inst.lightScale = 3;	break;
 			}
 		}
 		
 		// set tabletop params
-		if (type == sceneryTypes.table) {
+		if (type == SCENERY_TYPES.TABLE) {
 			switch (ID) {
-				case sceneryIDs.postIndustrialCountertop:	inst.tabletopLeft = _x - 29;	inst.tabletopRight = _x + 28;	inst.tabletopTop = _y - 30;	inst.tabletopBottom = _y - 20;	break;
-				case sceneryIDs.postIndustrialCupboard:		inst.tabletopLeft = _x - 30;	inst.tabletopRight = _x + 30;	inst.tabletopTop = _y - 25; inst.tabletopBottom = _y - 19;	break;
+				case SCENERY.POST_INDUSTRIAL_COUNTERTOP:	inst.tabletopLeft = _x - 29;	inst.tabletopRight = _x + 28;	inst.tabletopTop = _y - 30;	inst.tabletopBottom = _y - 20;	break;
+				case SCENERY.POST_INDUSTRIAL_CUPBOARD:		inst.tabletopLeft = _x - 30;	inst.tabletopRight = _x + 30;	inst.tabletopTop = _y - 25; inst.tabletopBottom = _y - 19;	break;
 			}
 		}
 		
@@ -255,55 +255,55 @@ function scenery_get_object_index(_type) {
 	
 	switch (t) {
 		
-		case sceneryTypes.cluster:
+		case SCENERY_TYPES.CLUSTER:
 			return cluster;
 		break;
 		
-		case sceneryTypes.flower:
+		case SCENERY_TYPES.FLOWER:
 			return flower;
 		break;
 		
-		case sceneryTypes.lamppost:
+		case SCENERY_TYPES.LAMPPOST:
 			return lamppost;
 		break;
 		
-		case sceneryTypes.window:
+		case SCENERY_TYPES.WINDOW:
 			return window;
 		break;
 		
-		case sceneryTypes.boulder:
+		case SCENERY_TYPES.BOULDER:
 			return boulder;
 		break;
 		
-		case sceneryTypes.fence:
+		case SCENERY_TYPES.FENCE:
 			return fence;
 		break;
 		
-		case sceneryTypes.largeSign:
+		case SCENERY_TYPES.LARGE_SIGN:
 			return largeSign;
 		break;
 		
-		case sceneryTypes.neonSign:
+		case SCENERY_TYPES.NEON_SIGN:
 			return neonSign;
 		break;
 		
-		case sceneryTypes.smallSign:
+		case SCENERY_TYPES.SMALL_SIGN:
 			return smallSign;
 		break;
 		
-		case sceneryTypes.tree:
+		case SCENERY_TYPES.TREE:
 			return tree;
 		break;
 		
-		case sceneryTypes.sendport:
+		case SCENERY_TYPES.SENDPORT:
 			return sendport;
 		break;
 		
-		case sceneryTypes.table:
+		case SCENERY_TYPES.TABLE:
 			return table;
 		break;
 		
-		case sceneryTypes.bed:
+		case SCENERY_TYPES.BED:
 			return bed;
 		break;
 	}

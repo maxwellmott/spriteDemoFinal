@@ -9,7 +9,7 @@ playerDisplayX		= 115;
 playerDisplayY		= 160;
 
 // initialize playerFacing
-playerFacing = directions.south;
+playerFacing = DIRECTIONS.SOUTH;
 
 // initialize all color IDs
 outfitColorID		= -1;

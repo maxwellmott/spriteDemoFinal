@@ -18,7 +18,7 @@ if !(global.roomBuilt) && (starsPlaced == starCount) {
 	global.roomBuilt = true;
 }
 
-if (displaying == dcDisplay.height) {
+if (displaying == dcDisplay.HEIGHT) {
 		if (global.select) {
 			room_transition(player.x, player.y, player.facing, rm_overworld, bgm_magicIsInTheAir);
 		}

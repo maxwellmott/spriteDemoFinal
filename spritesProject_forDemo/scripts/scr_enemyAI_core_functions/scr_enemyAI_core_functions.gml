@@ -5,7 +5,7 @@ global.bestDamage	= -1;
 
 function enemyAI_get_params() {
 	// create temporary grid
-	var grid = ds_grid_create(NPC_PARAMS.height, npcs.height);
+	var grid = ds_grid_create(NPC_PARAMS.HEIGHT, npcs.HEIGHT);
 	
 	// decode npcGrid
 	decode_grid(global.allNPCs, grid);

@@ -39,7 +39,7 @@ else if (speaker.object_index == bookcase) {
 	ds_list_copy(bookList, speaker.bookList);
 	
 	// decode the literature grid
-	var lg = ds_grid_create(literatureParams.height, literatureIDs.height);
+	var lg = ds_grid_create(literatureParams.HEIGHT, literatureIDs.HEIGHT);
 	decode_grid(global.allLiterature, lg);
 	
 	// get the height of the bookList

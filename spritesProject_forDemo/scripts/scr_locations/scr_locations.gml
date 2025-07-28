@@ -8,7 +8,7 @@ enum locations {
 	miriabramHMQuarters,
 	miriabramPMQuarters,
 	miriabramExt,
-	height
+	HEIGHT
 }
 
 // enumerator containing location params
@@ -35,7 +35,7 @@ enum locationParams {
 	bedList,
 	literatureList,
 	bookcaseList,
-	height	
+	HEIGHT	
 }
 
 #region PREPARE ALL OBJECT STRINGS
@@ -53,21 +53,21 @@ var miriabramExtList				= ds_list_create();
 // populate all object lists with arguments for structs
 
 //			list name				x				y				ID
-ds_list_add(miriabramFoyerList,		"<`128"+		"`408"+		"`"+string(sceneryIDs.traditionalWindowIndoorUpstairs)+">",	
-									"<`212"+		"`408"+		"`"+string(sceneryIDs.traditionalWindowIndoorUpstairs)+">",	
-									"<`296"+		"`408"+		"`"+string(sceneryIDs.traditionalWindowIndoorUpstairs)+">",	
-									"<`376"+		"`408"+		"`"+string(sceneryIDs.traditionalWindowIndoorUpstairs)+">",	
-									"<`460"+		"`408"+		"`"+string(sceneryIDs.traditionalWindowIndoorUpstairs)+">",	
-									"<`544"+		"`408"+		"`"+string(sceneryIDs.traditionalWindowIndoorUpstairs)+">");
+ds_list_add(miriabramFoyerList,		"<`128"+		"`408"+		"`"+string(SCENERY.TRADITIONAL_WINDOW_INDOOR_UPSTAIRS)+">",	
+									"<`212"+		"`408"+		"`"+string(SCENERY.TRADITIONAL_WINDOW_INDOOR_UPSTAIRS)+">",	
+									"<`296"+		"`408"+		"`"+string(SCENERY.TRADITIONAL_WINDOW_INDOOR_UPSTAIRS)+">",	
+									"<`376"+		"`408"+		"`"+string(SCENERY.TRADITIONAL_WINDOW_INDOOR_UPSTAIRS)+">",	
+									"<`460"+		"`408"+		"`"+string(SCENERY.TRADITIONAL_WINDOW_INDOOR_UPSTAIRS)+">",	
+									"<`544"+		"`408"+		"`"+string(SCENERY.TRADITIONAL_WINDOW_INDOOR_UPSTAIRS)+">");
 									
 //			list name				x			y			ID
 //ds_list_add(miriabramHallwayList,	);
 							
 //			list name				x				y			ID
-ds_list_add(miriabramDorm1List,		"<`209"+		"`104"+	"`"+string(sceneryIDs.retroSendport)+">",
-									"<`162"+		"`104"+	"`"+string(sceneryIDs.postIndustrialCupboard)+">",	
-									"<`128"+		"`96"+		"`"+string(sceneryIDs.traditionalWindowIndoorNormal)+">",
-									"<`192"+		"`96"+		"`"+string(sceneryIDs.traditionalWindowIndoorNormal)+">");
+ds_list_add(miriabramDorm1List,		"<`209"+		"`104"+	"`"+string(SCENERY.RETRO_SENDPORT)+">",
+									"<`162"+		"`104"+	"`"+string(SCENERY.POST_INDUSTRIAL_CUPBOARD)+">",	
+									"<`128"+		"`96"+		"`"+string(SCENERY.TRADITIONAL_WINDOW_INDOOR_NORMAL)+">",
+									"<`192"+		"`96"+		"`"+string(SCENERY.TRADITIONAL_WINDOW_INDOOR_NORMAL)+">");
 
 //			list name				x			y			ID
 //ds_list_add(miriabramDojoList,	);
@@ -82,10 +82,10 @@ ds_list_add(miriabramDorm1List,		"<`209"+		"`104"+	"`"+string(sceneryIDs.retroSe
 //ds_list_add(miriabramPMQuartersList,	);
 
 //			list name				x				y				ID										
-ds_list_add(miriabramExtList,		"<`368"+		"`344"+		"`"+string(sceneryIDs.crystalLampPost)+">",
-									"<`368"+		"`472"+		"`"+string(sceneryIDs.crystalLampPost)+">",
-									"<`432"+		"`344"+		"`"+string(sceneryIDs.crystalLampPost)+">",
-									"<`432"+		"`472"+		"`"+string(sceneryIDs.crystalLampPost)+">");
+ds_list_add(miriabramExtList,		"<`368"+		"`344"+		"`"+string(SCENERY.CRYSTAL_LAMP_POST)+">",
+									"<`368"+		"`472"+		"`"+string(SCENERY.CRYSTAL_LAMP_POST)+">",
+									"<`432"+		"`344"+		"`"+string(SCENERY.CRYSTAL_LAMP_POST)+">",
+									"<`432"+		"`472"+		"`"+string(SCENERY.CRYSTAL_LAMP_POST)+">");
 							
 #endregion
 
@@ -772,29 +772,29 @@ var miriabramPMQuartersBookcases	= ds_list_create();
 var miriabramExtBookcases			= ds_list_create();
 
 //			list name					x				y			ID														BOOKCASE NUM
-ds_list_add(miriabramDorm1Bookcases,	"<`113"+		"`200"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`0>");
+ds_list_add(miriabramDorm1Bookcases,	"<`113"+		"`200"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`0>");
 
 //			list name					x				y			ID														BOOKCASE NUM
-ds_list_add(miriabramLibraryBookcases,	"<`81"+			"`200"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`0>",
-										"<`113"+		"`200"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`1>",
-										"<`145"+		"`200"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`2>",
-										"<`273"+		"`200"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`3>",
-										"<`305"+		"`200"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`4>",
-										"<`401"+		"`200"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`5>",
-										"<`433"+		"`200"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`6>",
-										"<`561"+		"`200"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`7>",
-										"<`593"+		"`200"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`8>",
-										"<`625"+		"`200"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`9>",
-										"<`81"+			"`312"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`10>",
-										"<`113"+		"`312"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`11>",
-										"<`145"+		"`312"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`12>",
-										"<`273"+		"`312"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`13>",
-										"<`305"+		"`312"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`14>",
-										"<`401"+		"`312"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`15>",
-										"<`433"+		"`312"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`16>",
-										"<`561"+		"`312"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`17>",
-										"<`593"+		"`312"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`18>",
-										"<`625"+		"`312"+		"`"+string(sceneryIDs.traditionalWoodenBookcase)+		"`19>");
+ds_list_add(miriabramLibraryBookcases,	"<`81"+			"`200"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`0>",
+										"<`113"+		"`200"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`1>",
+										"<`145"+		"`200"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`2>",
+										"<`273"+		"`200"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`3>",
+										"<`305"+		"`200"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`4>",
+										"<`401"+		"`200"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`5>",
+										"<`433"+		"`200"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`6>",
+										"<`561"+		"`200"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`7>",
+										"<`593"+		"`200"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`8>",
+										"<`625"+		"`200"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`9>",
+										"<`81"+			"`312"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`10>",
+										"<`113"+		"`312"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`11>",
+										"<`145"+		"`312"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`12>",
+										"<`273"+		"`312"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`13>",
+										"<`305"+		"`312"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`14>",
+										"<`401"+		"`312"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`15>",
+										"<`433"+		"`312"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`16>",
+										"<`561"+		"`312"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`17>",
+										"<`593"+		"`312"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`18>",
+										"<`625"+		"`312"+		"`"+string(SCENERY.TRADITIONAL_WOODEN_BOOKCASE)+		"`19>");
 
 #endregion
 
@@ -810,7 +810,7 @@ var miriabramPMQuartersBeds		= ds_list_create();
 var miriabramExtBeds			= ds_list_create();
 
 //			list name					x						y					ID														COMFORTER ID
-ds_list_add(miriabramDorm1Beds,			"<`113"+				"`120"+				"`"+string(sceneryIDs.traditionalWoodenBedframe)+""+	"`"+string(COMFORTERS.AFFORDABLE_MODERN)+">");
+ds_list_add(miriabramDorm1Beds,			"<`113"+				"`120"+				"`"+string(SCENERY.TRADITIONAL_WOODEN_BEDFRAME)+""+	"`"+string(COMFORTERS.AFFORDABLE_MODERN)+">");
 
 #endregion
 
@@ -819,25 +819,25 @@ ds_list_add(miriabramDorm1Beds,			"<`113"+				"`120"+				"`"+string(sceneryIDs.t
 var textGrid = load_csv("locations_english.csv");
 
 // create room grid
-global.locationGrid	= ds_grid_create(locationParams.height, locations.height);
+global.locationGrid	= ds_grid_create(locationParams.HEIGHT, locations.HEIGHT);
 
 // create function to add to master list
 function master_grid_add_location(_ID) {
-	var i = 0; repeat (locationParams.height) {
+	var i = 0; repeat (locationParams.HEIGHT) {
 		ds_grid_set(global.locationGrid, i, _ID, argument[i]);
 		i++;
 	}
 }
 
 // add all locations		ID								NAME											DESCRIPTION										TILE COL COUNT	TILE ROW COUNT	OBJECT STRING							COLLIDABLE TILESET				GROUND TILESET				WATER TILESET				UPPER STORY TILESET				COLLISION MAP									GROUND TILEMAP									WATER TILEMAP								UPPER STORY TILES								TO NORTH		TO EAST		TO SOUTH		TO WEST			NPCS							LITERATURE									LITERATURE									BOOKCASES
-master_grid_add_location(	locations.miriabramFoyer,		textGrid[# 1, locations.miriabramFoyer],		textGrid[# 2, locations.miriabramFoyer],		22,				15,				encode_list(miriabramFoyerList),		tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramFoyer_collidables),		encode_list(miriabramFoyer_groundTiles),		encode_list(miriabramFoyer_water),			encode_list(miriabramFoyer_upperStory),			-1,			-1,		-1,			-1,			-1,							encode_list(miriabramFoyerBeds),			encode_list(miriabramFoyerLiterature),		encode_list(miriabramFoyerBookcases));
-master_grid_add_location(	locations.miriabramLibrary,		textGrid[# 1, locations.miriabramLibrary],		textGrid[# 2, locations.miriabramLibrary],		22,				15,				encode_list(miriabramLibraryList),		tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramLibrary_collidables),		encode_list(miriabramLibrary_groundTiles),		encode_list(miriabramLibrary_water),		encode_list(miriabramLibrary_upperStory),		-1,			-1,		-1,			-1,			-1,							encode_list(miriabramLibraryBeds),			encode_list(miriabramLibraryLiterature),	encode_list(miriabramLibraryBookcases));
-master_grid_add_location(	locations.miriabramDojo,		textGrid[# 1, locations.miriabramDojo],			textGrid[# 2, locations.miriabramDojo],			22,				15,				encode_list(miriabramDojoList),			tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramDojo_collidables),			encode_list(miriabramDojo_groundTiles),			encode_list(miriabramDojo_water),			encode_list(miriabramDojo_upperStory),			-1,			-1,		-1,			-1,			-1,							encode_list(miriabramDojoBeds),				encode_list(miriabramDojoLiterature),		encode_list(miriabramDojoBookcases));
-master_grid_add_location(	locations.miriabramHallway,		textGrid[# 1, locations.miriabramHallway],		textGrid[# 2, locations.miriabramHallway],		22,				12,				encode_list(miriabramHallwayList),		tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramHallway_collidables),		encode_list(miriabramHallway_groundTiles),		encode_list(miriabramHallway_water),		encode_list(miriabramHallway_upperStory),		-1,			-1,		-1,			-1,			-1,							encode_list(miriabramHallwayBeds),			encode_list(miriabramHallwayLiterature),	encode_list(miriabramHallwayBookcases));
-master_grid_add_location(	locations.miriabramDorm1,		textGrid[# 1, locations.miriabramDorm1],		textGrid[# 2, locations.miriabramDorm1],		10,				12,				encode_list(miriabramDorm1List),		tlst_collidablesInt,			tlst_groundInt,				tlst_waterExt,				tlst_upstairsInt,				encode_list(miriabramDorm1_collidables),		encode_list(miriabramDorm1_groundTiles),		encode_list(miriabramDorm1_water),			encode_list(miriabramDorm1_upperStory),			-1,			-1,		-1,			-1,			-1,							encode_list(miriabramDorm1Beds),			encode_list(miriabramDorm1Literature),		encode_list(miriabramDorm1Bookcases));				
-master_grid_add_location(	locations.miriabramHMQuarters,	textGrid[# 1, locations.miriabramHMQuarters],	textGrid[# 2, locations.miriabramHMQuarters],	10,				15,				encode_list(miriabramHMQuartersList),	tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramHMQuarters_collidables),	encode_list(miriabramHMQuarters_groundTiles),	encode_list(miriabramHMQuarters_water),		encode_list(miriabramHMQuarters_upperStory),	-1,			-1,		-1,			-1,			-1,							encode_list(miriabramHMQuartersBeds),		encode_list(miriabramHMQuartersLiterature),	encode_list(miriabramHMQuartersBookcases));
-master_grid_add_location(	locations.miriabramHMQuarters,	textGrid[# 1, locations.miriabramHMQuarters],	textGrid[# 2, locations.miriabramHMQuarters],	10,				15,				encode_list(miriabramPMQuartersList),	tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramPMQuarters_collidables),	encode_list(miriabramPMQuarters_groundTiles),	encode_list(miriabramPMQuarters_water),		encode_list(miriabramPMQuarters_upperStory),	-1,			-1,		-1,			-1,			-1,							encode_list(miriabramPMQuartersBeds),		encode_list(miriabramPMQuartersLiterature),	encode_list(miriabramPMQuartersBookcases));
-master_grid_add_location(	locations.miriabramExt,			textGrid[# 1, locations.miriabramExt],			textGrid[# 2, locations.miriabramExt],			25,				25,				encode_list(miriabramExtList),			tlst_collidablesExt,			tlst_groundExt,				tlst_waterExt,				tlst_upstairsExt,				encode_list(miriabramExt_collidables),			encode_list(miriabramExt_groundTiles),			encode_list(miriabramExt_water),			encode_list(miriabramExt_upperStory),			-1,			-1,		-1,			-1,			encode_list(miriabramExtNPCs),	encode_list(miriabramExtBeds),				encode_list(miriabramExtLiterature),		encode_list(miriabramExtBookcases));
+master_grid_add_location(	locations.miriabramFoyer,		textGrid[# 1, locations.miriabramFoyer],		textGrid[# 2, locations.miriabramFoyer],		22,				15,				encode_list(miriabramFoyerList),		tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramFoyer_collidables),		encode_list(miriabramFoyer_groundTiles),		encode_list(miriabramFoyer_water),			encode_list(miriabramFoyer_upperStory),			-1,			-1,		-1,			-1,			-1,				encode_list(miriabramFoyerBeds),			encode_list(miriabramFoyerLiterature),		encode_list(miriabramFoyerBookcases));
+master_grid_add_location(	locations.miriabramLibrary,		textGrid[# 1, locations.miriabramLibrary],		textGrid[# 2, locations.miriabramLibrary],		22,				15,				encode_list(miriabramLibraryList),		tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramLibrary_collidables),		encode_list(miriabramLibrary_groundTiles),		encode_list(miriabramLibrary_water),		encode_list(miriabramLibrary_upperStory),		-1,			-1,		-1,			-1,			-1,				encode_list(miriabramLibraryBeds),			encode_list(miriabramLibraryLiterature),	encode_list(miriabramLibraryBookcases));
+master_grid_add_location(	locations.miriabramDojo,		textGrid[# 1, locations.miriabramDojo],			textGrid[# 2, locations.miriabramDojo],			22,				15,				encode_list(miriabramDojoList),			tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramDojo_collidables),			encode_list(miriabramDojo_groundTiles),			encode_list(miriabramDojo_water),			encode_list(miriabramDojo_upperStory),			-1,			-1,		-1,			-1,			-1,				encode_list(miriabramDojoBeds),				encode_list(miriabramDojoLiterature),		encode_list(miriabramDojoBookcases));
+master_grid_add_location(	locations.miriabramHallway,		textGrid[# 1, locations.miriabramHallway],		textGrid[# 2, locations.miriabramHallway],		22,				12,				encode_list(miriabramHallwayList),		tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramHallway_collidables),		encode_list(miriabramHallway_groundTiles),		encode_list(miriabramHallway_water),		encode_list(miriabramHallway_upperStory),		-1,			-1,		-1,			-1,			-1,				encode_list(miriabramHallwayBeds),			encode_list(miriabramHallwayLiterature),	encode_list(miriabramHallwayBookcases));
+master_grid_add_location(	locations.miriabramDorm1,		textGrid[# 1, locations.miriabramDorm1],		textGrid[# 2, locations.miriabramDorm1],		10,				12,				encode_list(miriabramDorm1List),		tlst_collidablesInt,			tlst_groundInt,				tlst_waterExt,				tlst_upstairsInt,				encode_list(miriabramDorm1_collidables),		encode_list(miriabramDorm1_groundTiles),		encode_list(miriabramDorm1_water),			encode_list(miriabramDorm1_upperStory),			-1,			-1,		-1,			-1,			-1,				encode_list(miriabramDorm1Beds),			encode_list(miriabramDorm1Literature),		encode_list(miriabramDorm1Bookcases));				
+master_grid_add_location(	locations.miriabramHMQuarters,	textGrid[# 1, locations.miriabramHMQuarters],	textGrid[# 2, locations.miriabramHMQuarters],	10,				15,				encode_list(miriabramHMQuartersList),	tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramHMQuarters_collidables),	encode_list(miriabramHMQuarters_groundTiles),	encode_list(miriabramHMQuarters_water),		encode_list(miriabramHMQuarters_upperStory),	-1,			-1,		-1,			-1,			-1,				encode_list(miriabramHMQuartersBeds),		encode_list(miriabramHMQuartersLiterature),	encode_list(miriabramHMQuartersBookcases));
+master_grid_add_location(	locations.miriabramHMQuarters,	textGrid[# 1, locations.miriabramHMQuarters],	textGrid[# 2, locations.miriabramHMQuarters],	10,				15,				encode_list(miriabramPMQuartersList),	tlst_collidablesInt,			tlst_groundInt,				tlst_waterInt,				tlst_upstairsInt,				encode_list(miriabramPMQuarters_collidables),	encode_list(miriabramPMQuarters_groundTiles),	encode_list(miriabramPMQuarters_water),		encode_list(miriabramPMQuarters_upperStory),	-1,			-1,		-1,			-1,			-1,				encode_list(miriabramPMQuartersBeds),		encode_list(miriabramPMQuartersLiterature),	encode_list(miriabramPMQuartersBookcases));
+master_grid_add_location(	locations.miriabramExt,			textGrid[# 1, locations.miriabramExt],			textGrid[# 2, locations.miriabramExt],			25,				25,				encode_list(miriabramExtList),			tlst_collidablesExt,			tlst_groundExt,				tlst_waterExt,				tlst_upstairsExt,				encode_list(miriabramExt_collidables),			encode_list(miriabramExt_groundTiles),			encode_list(miriabramExt_water),			encode_list(miriabramExt_upperStory),			-1,			-1,		-1,			-1,			-1,				encode_list(miriabramExtBeds),				encode_list(miriabramExtLiterature),		encode_list(miriabramExtBookcases));
 
 #endregion
 

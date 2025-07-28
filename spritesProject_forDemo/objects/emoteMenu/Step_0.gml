@@ -15,7 +15,7 @@ if (introFinished)
 	image_index = image_number - 1;
 	
 	// use a repeat loop to check for any button collisions
-	var i = 0;	repeat (emotions.height) {
+	var i = 0;	repeat (emotions.HEIGHT) {
 		// get all bbox vars
 		var left	= leftList[| i];
 		var right	= rightList[| i];
@@ -47,7 +47,7 @@ if (introFinished)
 	// check for right directional input
 	if (global.menuRight) {
 		// check if the selectedButton is higher than 0
-		if (selectedButton < emotions.height - 1) {
+		if (selectedButton < emotions.HEIGHT - 1) {
 			selectedButton++;	
 		}
 	}
@@ -71,8 +71,8 @@ if (introFinished)
 	// check for down directional input
 	if (global.menuDown) {
 		// check if the selectedButton is on the bottom row
-		if (selectedButton div 2 < (emotions.height div 2) - 1) 
-		|| (selectedButton == emotions.height - 3) {
+		if (selectedButton div 2 < (emotions.HEIGHT div 2) - 1) 
+		|| (selectedButton == emotions.HEIGHT - 3) {
 			selectedButton += 2;	
 		}
 	}

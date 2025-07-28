@@ -39,7 +39,7 @@ sprite_check_mindset();
 if (spar.sparPhase == SPAR_PHASES.SELECT) {
 	// check that it is the target phase
 	if (spar.selectionPhase == SELECTION_PHASES.TARGET)
-	&& (global.action != sparActions.swap) {
+	&& (global.action != SPAR_ACTIONS.SWAP) {
 		// if player clicks on sprite, set sprite as target
 		if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {
 			if (global.click) {

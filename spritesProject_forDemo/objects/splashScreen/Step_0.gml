@@ -18,11 +18,11 @@ switch (splashScreenState) {
 	case splashScreenStates.fadingOut:
 		
 		if (alpha < 1.0) alpha += 0.01;
-		else splashScreenState = splashScreenStates.height;
+		else splashScreenState = splashScreenStates.HEIGHT;
 		
 	break;
 	
-	case splashScreenStates.height:
+	case splashScreenStates.HEIGHT:
 		
 		instance_destroy(id);
 		

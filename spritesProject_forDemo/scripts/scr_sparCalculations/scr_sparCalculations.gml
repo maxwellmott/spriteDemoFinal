@@ -11,7 +11,7 @@ enum elements {
 	water,
 	storm,
 	earth,
-	height
+	HEIGHT
 }
 
 ///@desc This function can be called to process the actual increase to current HP

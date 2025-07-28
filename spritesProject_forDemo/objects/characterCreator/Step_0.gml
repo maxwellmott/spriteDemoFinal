@@ -543,7 +543,7 @@ if !(global.gameTime mod 24) {
 }
 
 // check if playerFacing is greater than west (last direction on the enum)
-if (playerFacing > directions.west) {
-	// subtract directions.west from playerFacing
-	playerFacing -= (directions.west + 1);
+if (playerFacing > DIRECTIONS.WEST) {
+	// subtract DIRECTIONS.WEST from playerFacing
+	playerFacing -= (DIRECTIONS.WEST + 1);
 }

@@ -28,7 +28,7 @@ enum tilemaps {
 	water,
 	collidables,
 	upperStory,
-	height
+	HEIGHT
 }
 
 locationID = player.location;
@@ -36,7 +36,7 @@ locationID = player.location;
 if locationID < locations.miriabramExt outdoorLocation = false;
 if locationID >= locations.miriabramExt outdoorLocation = true;
 
-locationGrid = ds_grid_create(locationParams.height, locations.height);
+locationGrid = ds_grid_create(locationParams.HEIGHT, locations.HEIGHT);
 
 decode_grid(global.allLocations, locationGrid);
 
@@ -88,7 +88,7 @@ var layerNum = 1; repeat(4) {
 			break;
 	}
 	
-	if (tSet != string(-1)) tSet = correct_string_after_decode(tSet);
+	tSet = correct_string_after_decode(tSet);
 	
 	if (tSet != -1) {tilemapList[| layerNum - 1] = place_all_tiles(layerName, tSet, encGrid, tileRowCount, tileColumnCount)};
 	
@@ -126,10 +126,10 @@ if (bedString != "<>")
 alertStack = ds_list_create();
 
 // decode npc grid
-var npcg = ds_grid_create(NPC_PARAMS.height, npcs.height);
+var npcg = ds_grid_create(NPC_PARAMS.HEIGHT, npcs.HEIGHT);
 decode_grid(global.allNPCs, npcg);
 
-var i = 0;	repeat (npcs.height) {
+var i = 0;	repeat (npcs.HEIGHT) {
 	var locationList = npcg[# NPC_PARAMS.LOCATION_LIST, i];
 	
 	var locationFunc = correct_string_after_decode(npcg[# NPC_PARAMS.LOCATION_CHECK_FUNCTION, i]);

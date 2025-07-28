@@ -16,21 +16,21 @@ if (instance_exists(sparActionMenu)) {
 		
 		// if the mouse is clicked, set the action
 		if (global.click) {
-			if (action == sparActions.swap) {
+			if (action == SPAR_ACTIONS.SWAP) {
 				if !(spar_check_bound(player.selectedAlly)) 
 				&& !(spar_check_berserk(player.selectedAlly)) {
 					spar_set_action();
 				}
 			}
 			
-			else if (action == sparActions.spell) {
+			else if (action == SPAR_ACTIONS.SPELL) {
 				if !(spar_check_hexed(player.selectedAlly)) 
 				&& !(spar_check_berserk(player.selectedAlly)) {
 					spar_set_action();	
 				}
 			}
 			
-			else if (action == sparActions.dodge) {
+			else if (action == SPAR_ACTIONS.DODGE) {
 				if !(spar_check_berserk(player.selectedAlly)) {
 					spar_set_action();	
 				}
@@ -50,21 +50,21 @@ if (instance_exists(sparActionMenu)) {
 		
 		// check if enter is clicked
 		if (global.select) {
-			if (action == sparActions.swap) {
+			if (action == SPAR_ACTIONS.SWAP) {
 				if !(spar_check_bound(player.selectedAlly)) 
 				&& !(spar_check_berserk(player.selectedAlly)) {
 					spar_set_action();
 				}
 			}
 			
-			else if (action == sparActions.spell) {
+			else if (action == SPAR_ACTIONS.SPELL) {
 				if !(spar_check_hexed(player.selectedAlly)) 
 				&& !(spar_check_berserk(player.selectedAlly)) {
 					spar_set_action();	
 				}
 			}
 			
-			else if (action == sparActions.dodge) {
+			else if (action == SPAR_ACTIONS.DODGE) {
 				if !(spar_check_berserk(player.selectedAlly)) {
 					spar_set_action();
 				}

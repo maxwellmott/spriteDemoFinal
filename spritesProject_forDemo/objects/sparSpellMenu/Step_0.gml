@@ -21,7 +21,7 @@ if (x == targetX)
 			// check if the current spell is on the usable spells list
 			if (ds_list_find_index(usableSpells, currentSpell) != -1) {
 				// set global.action
-				global.action = currentSpell + sparActions.height;
+				global.action = currentSpell + SPAR_ACTIONS.HEIGHT;
 				
 				// check if range is self
 				if (spellRange == ranges.onlySelf) {

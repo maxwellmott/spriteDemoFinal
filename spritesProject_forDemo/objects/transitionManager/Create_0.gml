@@ -14,7 +14,7 @@ enum transitionStates {
 	fadingIn,
 	transitioning,
 	fadingOut,
-	height
+	HEIGHT
 }
 
 state = transitionStates.fadingIn;

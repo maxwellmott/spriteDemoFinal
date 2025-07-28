@@ -2,7 +2,7 @@
 enum controllerTypes {
 	keyboard,
 	gamepad,
-	height
+	HEIGHT
 }
 
 #region INITIALIZE GLOBAL VARS

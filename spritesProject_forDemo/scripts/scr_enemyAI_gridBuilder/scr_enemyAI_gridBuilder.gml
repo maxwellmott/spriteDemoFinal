@@ -20,7 +20,7 @@ enum ENEMY_AI_PARAMS {
 	*/ 
 
 // create the enemy ai grid
-global.enemyAiGrid = ds_grid_create(ENEMY_AI_PARAMS.HEIGHT, npcs.height);
+global.enemyAiGrid = ds_grid_create(ENEMY_AI_PARAMS.HEIGHT, npcs.HEIGHT);
 
 // create a function to add to the enemy ai grid
 function master_grid_add_enemy_ai(_ID) {

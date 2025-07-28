@@ -9,10 +9,10 @@ if !(instance_exists(overworld))
 if keyboard_check_released(ord("W")) currentID += 1;
 if keyboard_check_released(ord("S")) currentID -= 1;
 
-if currentID >= sceneryIDs.height	currentID -= sceneryIDs.height;
-if currentID < 0					currentID += sceneryIDs.height;
+if currentID >= SCENERY.HEIGHT	currentID -= SCENERY.HEIGHT;
+if currentID < 0					currentID += SCENERY.HEIGHT;
 
-currentObjName	= grid[# sceneryParams.name, currentID];
+currentObjName	= grid[# SCENERY_PARAMS.NAME, currentID];
 
 if (device_mouse_check_button_released(0, mb_left)) {
 	
@@ -23,9 +23,9 @@ if (device_mouse_check_button_released(0, mb_left)) {
 		var _name	= currentObjName;
 		
 		// get params from grid using ID
-		var type		= string_digits(grid[# sceneryParams.type,			ID]);
-		var spr			= string_digits(grid[# sceneryParams.sprite,		ID]);
-		var mask		= string_digits(grid[# sceneryParams.mask,			ID]);
+		var type		= string_digits(grid[# SCENERY_PARAMS.TYPE,			ID]);
+		var spr			= string_digits(grid[# SCENERY_PARAMS.SPRITE,		ID]);
+		var mask		= string_digits(grid[# SCENERY_PARAMS.MASK,			ID]);
 
 		// get the proper object and create it
 		var obj		= scenery_get_object_index(type);
@@ -47,11 +47,11 @@ if (device_mouse_check_button_released(0, mb_left)) {
 		inst.depth			= scenery_get_depth(_y);
 
 		// set lightY if lamppost
-		if type == sceneryTypes.lamppost {
+		if type == SCENERY_TYPES.LAMPPOST {
 			switch (ID) {
-				case sceneryIDs.cityStreetlight:	inst.lightY = _y - 46;	inst.lightScale = 2;	break;
-				case sceneryIDs.cityShortLamp:		inst.lightY = _y - 27;	inst.lightScale = 2;	break;
-				case sceneryIDs.crystalLampPost:	inst.lightY = _y - 30;	inst.lightScale = 3;	break;
+				case SCENERY.CITY_STREET_LIGHT:	inst.lightY = _y - 46;	inst.lightScale = 2;	break;
+				case SCENERY.CITY_SHORT_LAMP:		inst.lightY = _y - 27;	inst.lightScale = 2;	break;
+				case SCENERY.CRYSTAL_LAMP_POST:	inst.lightY = _y - 30;	inst.lightScale = 3;	break;
 			}
 		}
 	

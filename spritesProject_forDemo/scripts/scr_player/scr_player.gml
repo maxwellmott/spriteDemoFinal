@@ -1,6 +1,6 @@
 #macro playerStartX			128
 #macro playerStartY			128
-#macro playerStartFacing	directions.south
+#macro playerStartFacing	DIRECTIONS.SOUTH
 
 global.currentFootstepSound = sfx_footstep_woodenFloor;
 
@@ -13,7 +13,7 @@ enum interactions {
 	read,
 	sendport,
 	bookcase,
-	height
+	HEIGHT
 }
 
 ///@desc This function is called whenever the player is loaded or changes outfit.
@@ -257,7 +257,7 @@ function gate_check_player() {
 	// check north gate
 	if (player.bbox_top < 0) {
 		if (northExit >= 0) {
-			overworld_transition(player.x, 772, directions.north, northExit);
+			overworld_transition(player.x, 772, DIRECTIONS.NORTH, northExit);
 		}	else {
 			player.y = 2;
 		}
@@ -266,7 +266,7 @@ function gate_check_player() {
 	// check east gate
 	if (player.bbox_right > locationWidth) {
 		if (eastExit >= 0) {
-			overworld_transition(16, player.y, directions.east, eastExit);	
+			overworld_transition(16, player.y, DIRECTIONS.EAST, eastExit);	
 		}	else {
 			player.x = locationWidth - 9;
 		}
@@ -275,7 +275,7 @@ function gate_check_player() {
 	// check south gate
 	if (player.bbox_bottom >= locationHeight) {
 		if (southExit >= 0) {
-			overworld_transition(player.x, 16, directions.south, southExit);	
+			overworld_transition(player.x, 16, DIRECTIONS.SOUTH, southExit);	
 		}	else {
 			player.y = locationHeight - 2;
 		}
@@ -284,7 +284,7 @@ function gate_check_player() {
 	// check west gate
 	if (player.bbox_left < 0) {
 		if (westExit >= 0) {
-			overworld_transition(784, player.y, directions.west, westExit);	
+			overworld_transition(784, player.y, DIRECTIONS.WEST, westExit);	
 		}	else {
 			player.x = 9;
 		}
@@ -296,7 +296,7 @@ function gate_check_player() {
 /// a transition.
 function spar_begin_ingame() {
 	global.sparType = sparTypes.inGame;
-	room_transition(200, 400, directions.south, rm_battleScene, bgm_theCanyonBetween);
+	room_transition(200, 400, DIRECTIONS.SOUTH, rm_battleScene, bgm_theCanyonBetween);
 }
 
 ///@desc This function is called when the player is in the overworld and presses start

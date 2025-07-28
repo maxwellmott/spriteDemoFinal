@@ -32,7 +32,7 @@ enum literatureIDs {
 	aBookOnSprites1,					//ethnographies written by a woodsman who loved sprites--volume on appearances
 	aBookOnSprites2,					//volume on abilities and behaviors
 	aBookOnSprites3,					//volume on their general nature and role in the surrounding ecosystems--including social and industrial ecosystems!
-	height
+	HEIGHT
 }
 
 // enumerator containing literature params
@@ -45,13 +45,13 @@ enum literatureParams {
 	text,
 	font,
 	images,
-	height
+	HEIGHT
 }
 
 // enumerator containing bookcase types
 enum bookcaseTypes {
 	standardWood1,
-	height
+	HEIGHT
 }
 
 // enumerator containing bookcase params
@@ -62,7 +62,7 @@ enum bookcaseParams {
 	_x,
 	_y,
 	bookList,
-	height
+	HEIGHT
 }
 
 // get all of the text from the csv file containing literature names
@@ -81,11 +81,11 @@ var textGrid = load_csv("LITERATURE_ENGLISH.csv");
 #endregion
 
 // initialize the literature grid
-global.literatureGrid = ds_grid_create(literatureParams.height, literatureIDs.height);
+global.literatureGrid = ds_grid_create(literatureParams.HEIGHT, literatureIDs.HEIGHT);
 
 // create master grid add function
 function master_grid_add_literature(_ID) {
-	var i = 0; repeat (literatureParams.height) {
+	var i = 0; repeat (literatureParams.HEIGHT) {
 		global.literatureGrid[# i, _ID] = argument[i];
 		
 		i++;
@@ -101,7 +101,7 @@ global.allLiterature = encode_grid(global.literatureGrid);
 ///@desc This function gets all of the parameters for a piece of literature when
 /// it's being loaded into a new location
 function literature_get_params() {
-	var tempGrid = ds_grid_create(literatureParams.height, literatureIDs.height);
+	var tempGrid = ds_grid_create(literatureParams.HEIGHT, literatureIDs.HEIGHT);
 	
 	decode_grid(global.allLiterature, tempGrid);
 	
@@ -350,7 +350,7 @@ function place_literature(_encodedList) {
 	var size = ds_list_size(list);
 	
 	// decode the literatureGrid to a temp grid
-	var grid = ds_grid_create(literatureParams.height, literatureIDs.height);
+	var grid = ds_grid_create(literatureParams.HEIGHT, literatureIDs.HEIGHT);
 	decode_grid(global.allLiterature, grid);
 	
 	// use a repeat loop to get the parameters of each token and then create it

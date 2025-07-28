@@ -138,7 +138,7 @@ if (spar.sparPhase == SPAR_PHASES.SELECT) {
 		// check that this sprite is not the selectedAlly
 		if (player.selectedAlly != id) {
 			// select for a swap
-			if (global.action == sparActions.swap)	{
+			if (global.action == SPAR_ACTIONS.SWAP)	{
 				if !(turnRepeat) 
 				&& !(immobilized) {
 					if collision_rectangle(bbLeft, bbTop, bbRight, bbBottom, mouse, false, true) {

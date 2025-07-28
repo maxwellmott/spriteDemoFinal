@@ -93,7 +93,7 @@ enum ranges {
 	anyEnemy,
 	anyAlly,
 	anySprite,
-	height
+	HEIGHT
 }
 
 enum ARENAS {
@@ -108,7 +108,7 @@ enum sparTypes {
 	inGame,
 	localMulti,
 	onlineMulti,
-	height
+	HEIGHT
 }
 
 function reset_all_stats(_spriteInstance) {
@@ -156,18 +156,18 @@ function spar_set_action() {
 	var sa = player.selectedAlly;
 	
 	switch (action) {
-		case sparActions.attack:
+		case SPAR_ACTIONS.ATTACK:
 			global.targetRange = ranges.nearestFiveSprites;
 			spar.selectionPhase = SELECTION_PHASES.TARGET;
 		break;
 		
-		case sparActions.spell:
+		case SPAR_ACTIONS.SPELL:
 			instance_create_depth(x, y, get_layer_depth(LAYER.meta), sparSpellMenu);
 			instance_destroy(sparActionMenu);
 		break;
 		
-		case sparActions.dodge:
-			if (sprite.selectedAction == sparActions.swap) {
+		case SPAR_ACTIONS.DODGE:
+			if (sprite.selectedAction == SPAR_ACTIONS.SWAP) {
 				var t = spar.spriteList[| sprite.selectedTarget];
 				
 				with (t) {
@@ -188,13 +188,13 @@ function spar_set_action() {
 			player.selectedAlly = -1			
 		break;
 		
-		case sparActions.swap:		
+		case SPAR_ACTIONS.SWAP:		
 			global.targetRange = ranges.anyAlly;
 			spar.selectionPhase = SELECTION_PHASES.TARGET;
 		break;
 		
-		case sparActions.rest:
-			if (sprite.selectedAction == sparActions.swap) {
+		case SPAR_ACTIONS.REST:
+			if (sprite.selectedAction == SPAR_ACTIONS.SWAP) {
 				var t = spar.spriteList[| sprite.selectedTarget];
 				with (t) {
 					readyDisplay = "";
@@ -225,7 +225,7 @@ function spar_set_action() {
 
 function spar_set_spell() {
 	// set selectedAction to currentSpell
-	global.action = currentSpell + sparActions.height;
+	global.action = currentSpell + SPAR_ACTIONS.HEIGHT;
 	
 	// set spellRange for target selection
 	global.targetRange = spellRange;
@@ -641,7 +641,7 @@ function sprite_build_ready_display() {
 	var spriteWidth = sprite_get_width(spr_readyDisplayBox);
 	
 	switch (selectedAction) {
-		case sparActions.attack:
+		case SPAR_ACTIONS.ATTACK:
 			if (selectedTarget > 3) {
 				readyDisplay = "attacking enemy " + numString;
 			}
@@ -650,21 +650,21 @@ function sprite_build_ready_display() {
 			}
 		break;
 		
-		case sparActions.dodge:
+		case SPAR_ACTIONS.DODGE:
 			readyDisplay = "dodging";
 		break;
 		
-		case sparActions.swap:
+		case SPAR_ACTIONS.SWAP:
 			readyDisplay = "swapping with ally " + numString;
 		break;
 		
-		case sparActions.rest:
+		case SPAR_ACTIONS.REST:
 			readyDisplay = "resting";
 		break;
 	}
 	
-	if (selectedAction >= sparActions.height) {
-		readyDisplay = "casting " + player.spellBookGrid[# SPELL_PARAMS.NAME, ds_list_find_index(player.spellBookList, selectedAction - sparActions.height)];
+	if (selectedAction >= SPAR_ACTIONS.HEIGHT) {
+		readyDisplay = "casting " + player.spellBookGrid[# SPELL_PARAMS.NAME, ds_list_find_index(player.spellBookList, selectedAction - SPAR_ACTIONS.HEIGHT)];
 	}
 	
 	readyDisplayBuilt = true;
@@ -679,9 +679,9 @@ function sprite_build_ready_display() {
 /// be called by a sprite being clicked during target selection).
 function spar_set_target() {
 	// check if target selection is for a swap
-	if (global.action == sparActions.swap) {
+	if (global.action == SPAR_ACTIONS.SWAP) {
 		// check if the sprite being selected as a swap target has already selected a swap
-		if (selectedAction == sparActions.swap) {
+		if (selectedAction == SPAR_ACTIONS.SWAP) {
 			// get the instance id of the previously selected swap partner
 			var pid = spar.allyList[| selectedTarget];
 			
@@ -700,7 +700,7 @@ function spar_set_target() {
 	}
 	
 	// check if the selected ally has already selected a swap
-	if (player.selectedAlly.selectedAction == sparActions.swap) {
+	if (player.selectedAlly.selectedAction == SPAR_ACTIONS.SWAP) {
 		// get the instance id of the selected ally
 		var sid = player.selectedAlly;
 		
@@ -722,8 +722,8 @@ function spar_set_target() {
 	player.selectedAlly.selectedTarget = spotNum;
 	player.selectedAlly.turnReady = true;
 	
-	if (global.action == sparActions.swap) {
-		if (selectedAction == sparActions.swap) {
+	if (global.action == SPAR_ACTIONS.SWAP) {
+		if (selectedAction == SPAR_ACTIONS.SWAP) {
 			var t = spar.spriteList[| selectedTarget];
 			
 			with (t) {
@@ -749,7 +749,7 @@ function spar_set_target() {
 /// you are ready to do this as it doesn't make any local references.
 function self_target_set() {
 	// check if the selected ally previously selected a swap
-	if (player.selectedAlly.selectedAction == sparActions.swap) {
+	if (player.selectedAlly.selectedAction == SPAR_ACTIONS.SWAP) {
 		// get their swap partner
 		var t = spar.spriteList[| player.selectedAlly.selectedTarget];	
 		
@@ -912,7 +912,7 @@ function sprite_reload_sprite() {
 function action_check_spell(_action) {
 	var spellBool = false;
 	
-	if (_action >= sparActions.height)	spellBool = true;
+	if (_action >= SPAR_ACTIONS.HEIGHT)	spellBool = true;
 	
 	return spellBool;
 }
@@ -984,12 +984,12 @@ function swap_set_potential_cost(_inst1, _inst2) {
 	global.mpCostDiff = 0;
 	
 	// check if selected sprite has already selected a spell this turn
-	if (player.selectedAlly.selectedAction >= sparActions.height) {
-		global.mpCostDiff = spell_get_cost(player.selectedAlly.selectedAction - sparActions.height);
+	if (player.selectedAlly.selectedAction >= SPAR_ACTIONS.HEIGHT) {
+		global.mpCostDiff = spell_get_cost(player.selectedAlly.selectedAction - SPAR_ACTIONS.HEIGHT);
 	}
 
 	// check if selected sprite has already selected a swap this turn
-	if (player.selectedAlly.selectedAction == sparActions.swap) {
+	if (player.selectedAlly.selectedAction == SPAR_ACTIONS.SWAP) {
 		global.mpCostDiff = swap_get_cost(player.selectedAlly, spar.allyList[| player.selectedAlly.selectedTarget]);	
 	}	
 	
@@ -998,22 +998,22 @@ function swap_set_potential_cost(_inst1, _inst2) {
 	var i2 = _inst2;
 
 	// check if inst1 is using a spell
-	if (i1.selectedAction >= sparActions.height) {
-		global.mpCostDiff += spell_get_cost(i1.selectedAction - sparActions.height);	
+	if (i1.selectedAction >= SPAR_ACTIONS.HEIGHT) {
+		global.mpCostDiff += spell_get_cost(i1.selectedAction - SPAR_ACTIONS.HEIGHT);	
 	}
 
 	// check if inst1 is already swapping
-	if (i1.selectedAction == sparActions.swap) {
+	if (i1.selectedAction == SPAR_ACTIONS.SWAP) {
 		global.mpCostDiff += swap_get_cost(i1, spar.spriteList[| i1.selectedTarget]);
 	}
 	
 	// check if inst2 is using a spell
-	if (i2.selectedAction >= sparActions.height) {
-		global.mpCostDiff += spell_get_cost(i2.selectedAction - sparActions.height);
+	if (i2.selectedAction >= SPAR_ACTIONS.HEIGHT) {
+		global.mpCostDiff += spell_get_cost(i2.selectedAction - SPAR_ACTIONS.HEIGHT);
 	}
 	
 	// check if inst2 is already swapping
-	if (i2.selectedAction == sparActions.swap) {
+	if (i2.selectedAction == SPAR_ACTIONS.SWAP) {
 		global.mpCostDiff += swap_get_cost(i2, spar.spriteList[| i2.selectedTarget]);	
 	}
 
@@ -1030,12 +1030,12 @@ function spell_set_potential_cost(_spellCost) {
 	global.mpCostDiff = 0;
 	
 	// check if selected sprite has already selected a spell this turn
-	if (player.selectedAlly.selectedAction >= sparActions.height) {
-		global.mpCostDiff = spell_get_cost(player.selectedAlly.selectedAction - sparActions.height);
+	if (player.selectedAlly.selectedAction >= SPAR_ACTIONS.HEIGHT) {
+		global.mpCostDiff = spell_get_cost(player.selectedAlly.selectedAction - SPAR_ACTIONS.HEIGHT);
 	}
 	
 	// check if selected sprite has already selected a swap this turn
-	if (player.selectedAlly.selectedAction == sparActions.swap) {
+	if (player.selectedAlly.selectedAction == SPAR_ACTIONS.SWAP) {
 		global.mpCostDiff = swap_get_cost(player.selectedAlly, spar.allyList[| player.selectedAlly.selectedTarget]);
 	}	
 	

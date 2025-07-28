@@ -19,7 +19,8 @@ state = -1;
 loaded = false;
 responseMap = -1;
 loopingPath = false;
-facing = directions.south;
+
+facing = DIRECTIONS.SOUTH;
 drawX = -1;
 drawY = -1;
 depthY = -1;

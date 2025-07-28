@@ -46,7 +46,7 @@ topList = ds_list_create();
 bottomList = ds_list_create();
 
 // use a repeat loop to populate all bbox lists
-var i = 0;	repeat (emotions.height) {
+var i = 0;	repeat (emotions.HEIGHT) {
 	// get rowNum
 	var rowNum = i div 2;
 	

@@ -2,7 +2,7 @@ enum splashScreenStates {
 	fadingIn,
 	pausing,
 	fadingOut,
-	height
+	HEIGHT
 }
 
 splashScreenState = splashScreenStates.fadingIn;

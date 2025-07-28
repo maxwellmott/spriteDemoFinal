@@ -60,7 +60,7 @@ if (sx < roomWidth / 2) {
 		textY = sy + 11;
 		
 		// check if the speaker is facing south (this means the player is below the speaker)
-		if (speaker.facing == directions.south) {
+		if (speaker.facing == DIRECTIONS.SOUTH) {
 			// reset the bubbleFrame to avoid the player
 			bubbleFrame = TALK_BUBBLE_TYPES.TOP_LEFT_FIXED;
 			
@@ -83,7 +83,7 @@ if (sx < roomWidth / 2) {
 		textY = sy - 46;
 		
 		// check if the speaker is facing south (this means the player is above the speaker)
-		if (speaker.facing == directions.north) {
+		if (speaker.facing == DIRECTIONS.NORTH) {
 			// reset the bubbleFrame to avoid the player
 			bubbleFrame = TALK_BUBBLE_TYPES.BOTTOM_LEFT_FIXED;
 			
@@ -112,7 +112,7 @@ if (sx >= roomWidth / 2) {
 		textY = sy + 11;
 		
 		// check if the speaker is facing south (this means the player is below the speaker)
-		if (speaker.facing == directions.south) {
+		if (speaker.facing == DIRECTIONS.SOUTH) {
 			// reset the bubbleFrame to avoid the player
 			bubbleFrame = TALK_BUBBLE_TYPES.TOP_RIGHT_FIXED;
 			
@@ -135,7 +135,7 @@ if (sx >= roomWidth / 2) {
 		textY = sy - 46;
 		
 		// check if the speaker is facing north (this means the player is above the speaker)
-		if (speaker.facing == directions.north) {
+		if (speaker.facing == DIRECTIONS.NORTH) {
 			// reset the bubbleFrame to avoid the player
 			bubbleFrame = TALK_BUBBLE_TYPES.BOTTOM_RIGHT_FIXED;
 			

@@ -2,6 +2,6 @@
 
 displaying++;
 
-if (displaying = dcDisplay.height) exit;
+if (displaying = dcDisplay.HEIGHT) exit;
 
 alarm[1] = 80;

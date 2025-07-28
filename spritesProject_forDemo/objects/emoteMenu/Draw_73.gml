@@ -19,7 +19,7 @@ if !(outroStarted) {
 		}
 		
 		// draw all emotion names
-		var i = 0;	repeat (emotions.height) {
+		var i = 0;	repeat (emotions.HEIGHT) {
 			draw_set(fa_center, fa_middle, 1.0, COL_BLACK);
 			draw_set_font(emoteMenuFont);
 			

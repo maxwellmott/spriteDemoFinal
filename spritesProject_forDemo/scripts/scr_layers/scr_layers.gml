@@ -12,7 +12,7 @@ enum LAYER {
 	groundTiles,
 	background,
 	meta,
-	height
+	HEIGHT
 }
 
 ///@desc This function is NOT the built-in function. This is the correct function to call.
