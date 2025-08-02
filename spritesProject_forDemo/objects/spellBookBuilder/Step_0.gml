@@ -34,7 +34,7 @@ if (spellBookX == spellBookTargetX)
 					
 					// check for a collision
 					if (collision_rectangle(left, top, right, bottom, mouse, false, false)) {
-						selectedSpellSlot = i;	
+						selectedSpellSlot = i;
 						break;
 					}
 					
@@ -47,7 +47,7 @@ if (spellBookX == spellBookTargetX)
 			if !(categoryChanging) {
 				// check for a click on the category button
 				if (collision_rectangle(cFlash_bbLeft, cFlash_bbTop, cFlash_bbRight, cFlash_bbBottom, mouse, false, false)) {
-					if (global.click) 
+					if (global.click)
 					&& !(global.shiftPressed) {
 						// start category alarm
 						alarm[0] = 24;
@@ -250,15 +250,15 @@ if pageFlip {
 if !drawFlip {
 	if pageFlip {
 		if !(global.gameTime mod modVar) {
-			drawFlip = true;	
+			drawFlip = true;
 		}
 	}
 }
 
-if !(onlineWaiting) {	
+if !(onlineWaiting) {
 	if (global.start) {
 		player.currentSpellBook = "";
-		player.currentSpellBook = encode_list(spellBookList);	
+		player.currentSpellBook = encode_list(spellBookList);
 		
 		spellBookTargetX = 0 - (spriteWidth / 2);
 	}

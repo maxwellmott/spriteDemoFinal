@@ -1,6 +1,6 @@
 // this macro currently returns the shared IP of the azure web app I had been working on. Eventually
 // it will have to change to the shared IP of the VM that Brendan set up.
-#macro	SERVER_ADDRESS		"20.120.169.102"
+#macro	SERVER_ADDRESS		"20.253.222.246"
 #macro	PORT_NUM			3000
 // this is an enumerator with an identical twin on the server-side. These values are used
 // to indicate whether a player is a host or a guest. this value is initially determined
@@ -600,7 +600,10 @@ function create_private_room_begin() {
 	
 	buffer_write(onlineBuffer, buffer_text, dataJson);
 	
-	network_send_udp_raw(client, SERVER_ADDRESS, PORT_NUM, onlineBuffer, buffer_tell(onlineBuffer));
+	show_debug_message("SENDING:");
+	
+	var r = network_send_udp_raw(client, SERVER_ADDRESS, PORT_NUM, onlineBuffer, buffer_tell(onlineBuffer));
+	show_debug_message(string(r));
 }
 
 ///@desc This function is called when the user has entered a viable roomID into the dialogue box after selecting
