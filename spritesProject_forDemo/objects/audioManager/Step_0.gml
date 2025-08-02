@@ -60,36 +60,6 @@ if (currentSFX != -1) {
 	}
 }
 
-// check if any emitters have been added to the emitterQueue
-if (ds_list_size(global.emitterQueue) > 0) {	
-	// load the paramList stored on the queue
-	var pl = ds_list_create();
-	decode_list(global.emitterQueue[| 0], pl);
-	
-	// get parameters from paramList
-	var senderID		= pl[| EMITTER_PARAMS.SENDER_ID];
-	var emitterX		= pl[| EMITTER_PARAMS.X];
-	var emitterY		= pl[| EMITTER_PARAMS.Y];
-	var emitterSongID	= pl[| EMITTER_PARAMS.SONG_ID];
-	
-	// create an emitter
-	var emitter = audio_emitter_create();
-	
-	// set all params for the new emitter
-	audio_emitter_position(emitter, emitterX, emitterY, 0);
-	audio_emitter_falloff(emitter, 150, 150, 1)
-	
-	// add that emitter to currentEmitters
-	ds_list_add(currentEmitters, emitter);
-	
-	// set emitterActive and emitterNum for the sender
-	senderID.emitterActive = true;
-	senderID.emitterNum = ds_list_size(currentEmitters) - 1;
-	
-	// remove it from the emitterQueue
-	ds_list_delete(global.emitterQueue, 0);
-}
-
 // loop background music
 if (currentBGM != -1) {
 	var l = audio_sound_length(currentBGM);
@@ -97,26 +67,5 @@ if (currentBGM != -1) {
 	
 	if (p > (l / 2)) {
 		audio_sound_set_track_position(currentBGM, p - (l / 2));	
-	}
-}
-
-// check if there are any emitters currently
-if (ds_list_size(currentEmitters) > 0) {	
-	// use a repeat loop to check the state of all emitters
-	var i = 0;	repeat (ds_list_size(currentEmitters)) {
-		// get the current emitter
-		var e = currentEmitters[| i];
-		
-		// get the length and position
-		var l = audio_sound_length(e);
-		var p = audio_sound_get_track_position(e);
-		
-		// check if the first loop has been completed
-		if (p > (l / 2)) {
-			// subtract the length of one loop (two loops per sound file)
-			audio_sound_set_track_position(e, p - (l / 2));	
-		}
-		
-		i++;
 	}
 }

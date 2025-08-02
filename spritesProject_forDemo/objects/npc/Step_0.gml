@@ -16,21 +16,14 @@ if (parametersLoaded) {
 	if (instance_exists(overworld)) {
 		npc_set_sprite();
 		
-		// manage animation
-		if (state = humanStates.standard)	{
-			
-			if moving {
-				animate_human();
-			}	
-			else {frame = minFrame;}
+		if !(instance_exists(menu)) {
+			behaviorFunction();
+			overworld_character_state_machine();
+			npc_animate();
+			overworld_character_get_draw_position();
+			overworld_character_set_depthY();
+			overworld_character_set_depth();
 		}
-		else {animate_human();}		
-		
-		human_check_moving();
-		if moving human_set_facing();
-		
-		if swimming human_swim();
-		if !swimming human_walk();
 	}
 }
 

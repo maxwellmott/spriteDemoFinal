@@ -4,6 +4,7 @@ enum OVERWORLD_SPRITE_PARAMS {
 	COLLISION_MASK,
 	WALKING_ANIMATION,
 	SWIMMING_ANIMATION,
+	MUSIC_ANIMATION,
 	IDLE_ANIMATION,
 	SPECIAL_ANIMATIONS_LIST,
 	ANIMATION_SPEED,
@@ -22,7 +23,7 @@ enum OVERWORLD_SPRITE_PARAMS {
 
 // create an enumerator of owSprite states
 enum OVERWORLD_CHARACTER_STATES {
-	PLACEHOLDER,
+	PLACEHOLDER,						// this is just here because I can't use 0. each state needs to have a negative version as well)
 	FOLLOWING_PATH,
 	IDLE,
 	ERRATIC_LOOKING,
@@ -31,11 +32,12 @@ enum OVERWORLD_CHARACTER_STATES {
 	HORIZONTAL_DISTANCE_FROM_TARGET,
 	VERTICAL_DISTANCE_FROM_TARGET,
 	TENDING_SHOP,
-	SPECIAL_ANIMATION,
+	SPECIAL_ANIMATION,					// takes an ID for the animation to play, as well as the number of loops intended
+	PLAYING_MUSIC,						// takes an ID for the song to play, as well as the number of loops intended
 	HEIGHT	
 }
 
-function overworld_sprite_load_parameters() {
+function overworld_character_load_parameters() {
 	var g = ds_grid_create(OVERWORLD_SPRITE_PARAMS.HEIGHT, SPRITES.HEIGHT);
 	decode_grid(global.allOverworldSprites, g);
 	
@@ -64,7 +66,7 @@ function overworld_sprite_load_parameters() {
 	loaded = true;
 }
 
-function overworld_sprite_get_draw_position() {
+function overworld_character_get_draw_position() {
 	drawX = x - (spriteWidth / 2);
 	drawY = y - (spriteHeight / 2);
 }
@@ -106,13 +108,17 @@ function overworld_character_state_machine() {
 		break;
 		
 		case OVERWORLD_CHARACTER_STATES.ERRATIC_LOOKING:
-			if (global.gameTime mod 8 == 0) {
+			moving = false;
+		
+			if (global.gameTime mod 16 == 0) {
 				randomize();
 				facing = irandom_range(0, 3);
 			}
 		break;
 		
 		case OVERWORLD_CHARACTER_STATES.SPINNING_CLOCKWISE:
+			moving = false;
+			
 			if (global.gameTime mod 8 == 0) {
 				facing++;
 				if (facing < 0) {
@@ -122,6 +128,8 @@ function overworld_character_state_machine() {
 		break;
 		
 		case OVERWORLD_CHARACTER_STATES.SPINNING_COUNTERCLOCKWISE:
+			moving = false;
+			
 			if (global.gameTime mod 8 == 0) {
 				facing++;
 				if (facing > DIRECTIONS.WEST) {
@@ -360,30 +368,64 @@ function overworld_character_state_machine() {
 		break;
 		
 		case OVERWORLD_CHARACTER_STATES.HORIZONTAL_DISTANCE_FROM_TARGET:
-		
+			// moving = target.moving;
 		break;
 		
 		case OVERWORLD_CHARACTER_STATES.VERTICAL_DISTANCE_FROM_TARGET:
-		
+			// moving = target.moving
 		break;
 		
 		case OVERWORLD_CHARACTER_STATES.TENDING_SHOP:
-		
+			moving = false
 		break;
 		
 		case OVERWORLD_CHARACTER_STATES.SPECIAL_ANIMATION:
-			if (frame >= sprite_get_number(sprite) - 1) {
-				state = -1;
+			moving = false;
+		
+			// make sure we are not infinitely looping
+			if (loopCount != -1) {
+				// check if we have completed the intended number of loops
+				if (loopsCompleted == loopCount) {
+					if (frame >= sprite_get_number(sprite) - 1) {
+						loopCount = 0;
+						loopsCompleted = 0;
+						state = -1;
+					}
+				}
+				// if we have NOT completed the intended number of loops
+				else {
+					loopsCompleted++;
+				}
+			}
+		break;
+		
+		case OVERWORLD_CHARACTER_STATES.PLAYING_MUSIC:
+			moving = false;
+		
+			// make sure we are not infinitely looping
+			if (loopCount != -1) {
+				// check if we have completed the intended number of loops
+				if (loopsCompleted == loopCount) {
+					if (frame >= sprite_get_number(sprite) - 1) {
+						loopCount = 0;
+						loopsCompleted = 0;
+						state = -1;
+					}
+				}
+				// if we have NOT completed the intended number of loops
+				else {
+					loopsCompleted++;
+				}
 			}
 		break;
 	}
 }
 	
-function overworld_sprite_set_depthY() {
+function overworld_character_set_depthY() {
 	depthY = y + (spriteHeight / 2);	
 }
 
-function overworld_sprite_set_depth() {
+function overworld_character_set_depth() {
 	depth = get_layer_depth(LAYER.collidableTiles) - depthY;
 }
 
@@ -552,9 +594,9 @@ function master_grid_add_overworld_sprite(_ID) {
 	}
 }
 
-// add all overworld sprites to the master grid		COLLISION MASK				WALKING ANIMATION				SWIMMING ANIMATION		IDLE ANIMATION		SPECIAL ANIMATIONS LIST					ANIMATION SPEED		WIDTH	HEIGHT		BEHAVIOR FUNCITON	RESPOND FUNCTION	RESPONSE MAP						LOCATIONS LIST						LOCATION CHECK FUNCTION		TALK SPEED		VOICE				VOCAL RANGE
-master_grid_add_overworld_sprite(SPRITES.BOOKISH,	spr_bookishCollisionMask,	spr_bookishWalk,				spr_bookishWalk,		spr_bookishIdle,	encode_list(bookishSpecialAnimations),	8,					24,		42,			bookish_behavior,	bookish_respond,	encode_map(bookishResponseMap),		encode_list(bookishLocationList),	bookish_location_check,		2,				sfx_bookishVoice,	0.65);
-master_grid_add_overworld_sprite(SPRITES.SPARMATE,	spr_spartnerCollisionMask,	spr_spartnerWalk,				spr_spartnerWalk,		spr_sparmateIdle,	encode_list(sparmateSpecialAnimations),	20,					24,		42,			sparmate_behavior,	sparmate_respond,	encode_map(sparmateResponseMap),	encode_list(sparmateLocationList),	sparmate_location_check,	4,				sfx_spartnerVoice,	0.15);
+// add all overworld sprites to the master grid		COLLISION MASK				WALKING ANIMATION				SWIMMING ANIMATION		MUSIC ANIMATION		IDLE ANIMATION		SPECIAL ANIMATIONS LIST					ANIMATION SPEED		WIDTH	HEIGHT		BEHAVIOR FUNCITON	RESPOND FUNCTION	RESPONSE MAP						LOCATIONS LIST						LOCATION CHECK FUNCTION		TALK SPEED		VOICE				VOCAL RANGE
+master_grid_add_overworld_sprite(SPRITES.BOOKISH,	spr_bookishCollisionMask,	spr_bookishWalk,				spr_bookishWalk,		spr_bookishWalk,	spr_bookishIdle,	encode_list(bookishSpecialAnimations),	8,					24,		42,			bookish_behavior,	bookish_respond,	encode_map(bookishResponseMap),		encode_list(bookishLocationList),	bookish_location_check,		2,				sfx_bookishVoice,	0.65);
+master_grid_add_overworld_sprite(SPRITES.SPARMATE,	spr_spartnerCollisionMask,	spr_spartnerWalk,				spr_spartnerWalk,		spr_spartnerWalk,	spr_sparmateIdle,	encode_list(sparmateSpecialAnimations),	20,					24,		42,			sparmate_behavior,	sparmate_respond,	encode_map(sparmateResponseMap),	encode_list(sparmateLocationList),	sparmate_location_check,	4,				sfx_spartnerVoice,	0.15);
 
 // encode grid
 global.allOverworldSprites = encode_grid(global.overworldSpritesGrid);

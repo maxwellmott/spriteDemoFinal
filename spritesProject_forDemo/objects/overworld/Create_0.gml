@@ -53,10 +53,11 @@ locationHeight	= tileRowCount * TILEHEIGHT;
 
 locationName	= locationGrid[# locationParams.name, locationID];
 
-var objectString		= ds_grid_get(locationGrid,	locationParams.objectString,	locationID);
-var literatureString	= ds_grid_get(locationGrid, locationParams.literatureList,	locationID);
-var bookcaseString		= ds_grid_get(locationGrid, locationParams.bookcaseList,	locationID);
-var bedString			= ds_grid_get(locationGrid, locationParams.bedList,			locationID);
+var objectString		= locationGrid[# locationParams.objectString,	locationID];
+var literatureString	= locationGrid[# locationParams.literatureList,	locationID];
+var bookcaseString		= locationGrid[# locationParams.bookcaseList,	locationID];
+var bedString			= locationGrid[# locationParams.bedList,		locationID];
+
 tilemapList = ds_list_create();
 
 // PLACE ALL TILES
@@ -148,9 +149,6 @@ var i = 0;	repeat (npcs.HEIGHT) {
 	// increment i
 	i++;
 }
-
-// get location's npc list
-npcList	= ds_list_create();
 
 // decode overworld sprite grid
 var osg = ds_grid_create(OVERWORLD_SPRITE_PARAMS.HEIGHT, SPRITES.HEIGHT);

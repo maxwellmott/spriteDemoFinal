@@ -22,8 +22,5 @@ selectedGain = 8;
 // application surface of audio
 bus = audio_bus_main;
 
-// initialize currentEmitters
-currentEmitters = ds_list_create();
-
 // initialize newSFX
 newSFX = -1;

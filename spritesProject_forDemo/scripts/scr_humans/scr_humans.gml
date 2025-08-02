@@ -458,19 +458,9 @@ function check_water_get_in(_x, _y) {
 /// depending on the NPC's current state
 function npc_set_sprite() {
 	
-	
-	// use the state to set the sprite
-	switch (state) {
-		case humanStates.standard:	
-			if !swimming	sprite = walkingSprite;
-			if swimming		sprite = swimmingSprite;
-		break;
-		case humanStates.eating:			sprite = eatingSprite;		break;
-		case humanStates.drinking:			sprite = drinkingSprite;	break;
-		case humanStates.playingWavephone:	sprite = wavephoneSprite;	break;
-		case humanStates.meditating:		sprite = meditatingSprite;	break;
-	}
-	
+	if !swimming	sprite = walkingSprite;
+	if swimming		sprite = swimmingSprite;
+			
 	// get frameCount
 	frameCount = sprite_get_number(sprite) / 4;
 	
@@ -492,15 +482,13 @@ function npc_set_frames() {
 }
 
 ///@desc This function is called to increment the frame variable for humans and npcs
-function animate_human() {
+function animate_player() {
 	// increment frame when appropriate
 	if !(global.gameTime mod 8) {
 		frame++;
 		
-		if (object_index == player) {
-			if (frame mod 2 == 0) {
-				audio_push_sfx(global.currentFootstepSound);	
-			}
+		if (frame mod 2 == 0) {
+			audio_push_sfx(global.currentFootstepSound);	
 		}
 	}
 	

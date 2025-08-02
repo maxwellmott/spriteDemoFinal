@@ -40,15 +40,14 @@ enum NPC_PARAMS {
 	NAME,
 	WALKING_SPRITE,
 	SWIMMING_SPRITE,
-	MEDITATING_SPRITE,
-	EATING_SPRITE,
-	DRINKING_SPRITE,
-	WAVEPHONE_SPRITE,
+	MUSIC_SPRITE,
+	SPECIAL_ANIMATIONS,
 	TALISMANS,
 	SPELLS,
 	RESPONSE_MAP,
 	LOCATION_LIST,
 	LOCATION_CHECK_FUNCTION,
+	BEHAVIOR_FUNCTION,
 	RESPOND_FUNCTION,
 	TALKING_SPEED,
 	VOICE,
@@ -120,6 +119,51 @@ var mercurioLocations	= ds_list_create();
 //			list name				
 ds_list_add(mercurioLocations,	locations.miriabramExt);
 								
+#endregion
+
+#region BUILD ALL BEHAVIOR FUNCTIONS
+
+	function mercurio_behavior() {
+		switch (overworld.locationID) {
+			case locations.miriabramExt:
+				switch(player.weekday) {
+					case weekdays.hyggsun:
+						state = OVERWORLD_CHARACTER_STATES.ERRATIC_LOOKING;
+					break;
+					
+					case weekdays.plughsun:
+						state = OVERWORLD_CHARACTER_STATES.ERRATIC_LOOKING;
+					break;
+					
+					case weekdays.rumnsun:
+						state = OVERWORLD_CHARACTER_STATES.ERRATIC_LOOKING;
+					break;
+					
+					case weekdays.famelsun:
+						state = OVERWORLD_CHARACTER_STATES.ERRATIC_LOOKING;
+					break;
+				}
+			break;
+			
+			case locations.miriabramFoyer:
+				switch(player.weekday) {
+					case weekdays.hyggsun:
+					break;
+					
+					case weekdays.plughsun:
+					break;
+					
+					case weekdays.rumnsun:
+					break;
+					
+					case weekdays.famelsun:
+					break;
+				}
+			break;
+		}
+	}
+
+
 #endregion
 
 #region BUILD ALL RESPONSE FUNCTIONS
@@ -242,15 +286,25 @@ function mercurio_location_check() {
 		case locations.miriabramExt:
 			// check if this is the first day of the demo
 			if (wd == weekdays.hyggsun) {
-				var inst = instance_create_depth(32, 276, 0, npc);
 				
-				inst.ID = npcs.mercurioGallant;
+				// check if we are in the overworld
+				if (instance_exists(overworld)) {
+					var inst = instance_create_depth(32, 276, 0, npc);
+				
+					inst.ID = npcs.mercurioGallant;
+				}
 			}
 		
 		break;
 	}
 }
 
+#endregion
+
+#region BUILD ALL SPECIAL ANIMATION LISTS
+	var mercurioSpecialAnimations = ds_list_create();
+	
+	//ds_list_add(mercurioSpecialAnimations, spr_mercurioPanicking);
 #endregion
 
 // load csv file to textGrid
@@ -267,8 +321,8 @@ function master_grid_add_npc(_ID) {
 	}
 }
 
-// add all npcs to npcGrid		ID							NAME			WALKING SPRITE			SWIMMING SPRITE			MEDITATING SPRITE			EATING SPRITE			DRINKING SPRITE			WAVEPHONE SPRITE			TALISMANS							SPELLS								RESPONSES									LOCATION LIST					LOCATION CHECK FUNCTION		RESPONSE FUNCTION	TALKING SPEED	VOICE				VOCAL RANGE
-master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",		spr_mercurioWalking,	spr_mercurioWalking,	spr_mercurioMeditating,		spr_mercurioEating,		spr_mercurioDrinking,	spr_mercurioWavephone,		encode_list(mercurioTalismans),		encode_list(mercurioSpells),		encode_map(mercurioResponseMap),			encode_list(mercurioLocations), mercurio_location_check,	mercurio_respond,	2,				sfx_mercurioVoice,	0.5);
+// add all npcs to npcGrid		ID							NAME			WALKING SPRITE			SWIMMING SPRITE			MUSIC SPRITE			SPECIAL ANIMATIONS			TALISMANS							SPELLS								RESPONSES									LOCATION LIST					LOCATION CHECK FUNCTION		BEHAVIOR FUNCTION	RESPONSE FUNCTION	TALKING SPEED	VOICE				VOCAL RANGE
+master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",		spr_mercurioWalking,	spr_mercurioWalking,	spr_mercurioWalking,	mercurioSpecialAnimations,	encode_list(mercurioTalismans),		encode_list(mercurioSpells),		encode_map(mercurioResponseMap),			encode_list(mercurioLocations), mercurio_location_check,	mercurio_behavior,	mercurio_respond,	2,				sfx_mercurioVoice,	0.5);
 
 // encode the grid
 global.allNPCs = encode_grid(global.npcGrid);
@@ -295,23 +349,37 @@ function npc_load_parameters(_id) {
 	
 	walkingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.WALKING_SPRITE,		ID]);
 	swimmingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.SWIMMING_SPRITE,	ID]);
-	meditatingSprite	= correct_string_after_decode(grid[# NPC_PARAMS.MEDITATING_SPRITE,	ID]);
-	eatingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.EATING_SPRITE,		ID]);
-	drinkingSprite		= correct_string_after_decode(grid[# NPC_PARAMS.DRINKING_SPRITE,	ID]);
-	wavephoneSprite		= correct_string_after_decode(grid[# NPC_PARAMS.WAVEPHONE_SPRITE,	ID]);
-	respondFunction	= correct_string_after_decode(grid[# NPC_PARAMS.RESPOND_FUNCTION,	ID]);
+	musicSprite			= correct_string_after_decode(grid[# NPC_PARAMS.MUSIC_SPRITE,		ID]);
+	respondFunction		= correct_string_after_decode(grid[# NPC_PARAMS.RESPOND_FUNCTION,	ID]);
 	talkingSpeed		= correct_string_after_decode(grid[# NPC_PARAMS.TALKING_SPEED,		ID]);
 	voice				= correct_string_after_decode(grid[# NPC_PARAMS.VOICE,				ID]);
 	vocalRange			= correct_string_after_decode(grid[# NPC_PARAMS.VOCAL_RANGE,		ID]);
+	behaviorFunction	= correct_string_after_decode(grid[# NPC_PARAMS.BEHAVIOR_FUNCTION,	ID]);
 	
-	//decode_list(grid[# NPC_PARAMS.talismans,		ID],		TALISMANS);
-	//decode_list(grid[# NPC_PARAMS.spells,			ID],		SPELLS);
-	decode_map(grid[# NPC_PARAMS.RESPONSE_MAP,		ID],		responseMap);
+	//decode_list(grid[# NPC_PARAMS.talismans,			ID],		TALISMANS);
+	//decode_list(grid[# NPC_PARAMS.spells,				ID],		SPELLS);
 	
-	// get npcListIndex using npcID
-	npcListIndex = ds_list_find_index(overworld.npcList, ID);
+	responseMap = ds_map_create();
+	decode_map(grid[# NPC_PARAMS.RESPONSE_MAP,			ID],		responseMap);
+	
+	specialAnimations = ds_list_create();
+	decode_list(grid[# NPC_PARAMS.SPECIAL_ANIMATIONS,	ID],		specialAnimations);
 	
 	parametersLoaded = true;
+}
+
+function npc_animate() {
+	
+	if !(global.gameTime mod 8) {
+		if (moving) {
+			if (frame >= frameCount) {
+				frame = 0;	
+			}
+			else {
+				frame++;	
+			}
+		}
+	}
 }
 
 ///@desc This function is called when an NPC collides with one of the offscreen gates. 

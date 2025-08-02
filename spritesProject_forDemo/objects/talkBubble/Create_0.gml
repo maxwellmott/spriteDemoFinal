@@ -24,6 +24,24 @@ dialogueColumn	= global.dialogueColumn;
 
 dialogueKey		= global.dialogueKey;
 
+// create a temporary list to create an entry for the spokenDialogue list
+var spokenDialogueEntryList = ds_list_create();
+
+// add all necessary info to the entry list
+ds_list_add(spokenDialogueEntryList, dialogueKey, dialogueRow, dialogueColumn);
+
+// encode the entry
+var spokenDialogueEntry = encode_list(spokenDialogueEntryList);
+
+// destroy the temporary list
+ds_list_destroy(spokenDialogueEntryList);
+
+// check that this is NOT already on the list of spokenDialogue
+if (ds_list_find_index(speaker.spokenDialogue,	spokenDialogueEntry) == -1) {
+	// add this entry to the spokenDialogue list
+	ds_list_add(speaker.spokenDialogue, spokenDialogueEntry);
+}
+
 global.dialogueGrid		= -1;
 global.dialogueRow		= -1;
 global.dialogueColumn	= -1;

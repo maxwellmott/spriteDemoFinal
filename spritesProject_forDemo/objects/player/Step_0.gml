@@ -27,11 +27,11 @@ if (instance_exists(overworld))
 	
 	if (state == humanStates.standard)	{
 		if moving {
-			animate_human();
+			animate_player();
 		}	
 		else {frame = minFrame;}
 	}
-	else {animate_human();}	
+	else {animate_player();}	
 	
 	if (swimming)	human_swim();
 	if !(swimming)	human_walk();		

@@ -36,3 +36,8 @@ animationSpeed = -1;
 talkingSpeed = -1;
 voice = -1;
 vocalRange = -1;
+
+loopCount = 0;		// 0 indicates a single cycle, -1 indicates infinite looping
+loopsCompleted = 0;
+
+spokenDialogue = ds_list_create();

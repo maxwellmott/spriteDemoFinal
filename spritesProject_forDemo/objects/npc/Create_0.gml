@@ -39,7 +39,7 @@ hmove = 0;
 vmove = 0;
 
 // response map
-responseMap = ds_map_create();
+responseMap = -1;
 
 // response function
 respondFunction = -1;
@@ -47,16 +47,10 @@ respondFunction = -1;
 // behavior function
 behaviorFunction = -1;
 
-
-
-npcListIndex = -1;
-
 walkingSprite		= -1;
-eatingSprite		= -1;
-drinkingSprite		= -1;
-wavephoneSprite		= -1;
-meditatingSprite	= -1;
 swimmingSprite		= -1;
+musicSprite			= -1;
+specialAnimations	= -1
 
 sprite = -1;
 frame = 0;
@@ -84,14 +78,11 @@ human_set_depth();
 
 #endregion
 
-parametersLoaded	= false;
-
-emitterActive = false;
-emitterNum = -1;
-
 // tracks all dialogue spoken by this NPC since the player has been in this room
 spokenDialogue = ds_list_create();
 
 talkingSpeed		= -1;
 voice				= -1;
 vocalRange			= -1;
+
+parametersLoaded	= false;
