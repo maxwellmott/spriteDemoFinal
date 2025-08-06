@@ -94,3 +94,21 @@ CUTSCENES:
 
 	Did some cleaning and realized that bookcases and beds aren't being created properly.
 	There's a 0 stored where the encoded list of bookcases should be on the location grid
+	
+8/5/2025
+
+	misc updates:
+		-fixed bug noted above (still not sure what the problem was, it was solved by placing the bookcase/bed/literature lists closer to the top of the grid)
+		-finished NPC placement issues--there is a thorough note on this under NPC LOCATIONS AND MOVEMENT
+		-laid the groundwork for all NPC states to be performable by owSprites and NPCs alike
+		-set up the room rebuild logic on server-side: need to add roomID, hostID, and guestID to all messages and reception functions
+	
+	For now, I'm going to work on getting the overworld character state machine to handle music playing. For this I need to:
+		-finish building the new system for emitters
+		-add the playing of the song to the music playing case in the overworld character state machine function
+		-create animations for music playing humans and sprites
+		-add wavephone songs for testable music playing humans and sprites
+	
+	For the system that checks if the player is performing a "special" song:
+		-lists of intervals--not notes. That way the player isn't bound to one key.
+		-use the same sort of autocompletion logic used by suggested word features

@@ -596,7 +596,6 @@
     {"name":"spr_spellFX_flash_freeze","order":38,"path":"sprites/spr_spellFX_flash_freeze/spr_spellFX_flash_freeze.yy",},
     {"name":"spr_spellFX_full_thrust","order":69,"path":"sprites/spr_spellFX_full_thrust/spr_spellFX_full_thrust.yy",},
     {"name":"spr_spellFX_hailSphera","order":79,"path":"sprites/spr_spellFX_hailSphera/spr_spellFX_hailSphera.yy",},
-    {"name":"spr_spellFX_harvest","order":3,"path":"sprites/spr_spellFX_harvest/spr_spellFX_harvest.yy",},
     {"name":"spr_spellFX_healing_light","order":4,"path":"sprites/spr_spellFX_healing_light/spr_spellFX_healing_light.yy",},
     {"name":"spr_spellFX_hellfire","order":29,"path":"sprites/spr_spellFX_hellfire/spr_spellFX_hellfire.yy",},
     {"name":"spr_spellFX_hikams_winter_spell","order":36,"path":"sprites/spr_spellFX_hikams_winter_spell/spr_spellFX_hikams_winter_spell.yy",},

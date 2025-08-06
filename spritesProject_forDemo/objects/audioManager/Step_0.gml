@@ -45,7 +45,6 @@ if (newSFX != -1) {
 
 	// start playing the given sfx
 	currentSFX = audio_play_sound(newSFX, 1, 0, sfxGain, 0, pmv);
-
 	
 	// reset newSFX
 	newSFX = -1;
@@ -66,6 +65,13 @@ if (currentBGM != -1) {
 	var p = audio_sound_get_track_position(currentBGM);
 	
 	if (p > (l / 2)) {
-		audio_sound_set_track_position(currentBGM, p - (l / 2));	
+		audio_sound_set_track_position(currentBGM, p - (l / 2));
 	}
 }
+
+// check if there are any emitters in the room
+	// adjust the volume of the background music relative to the distance from any emitters
+		// for each emitter
+			// check if the emitter is NOT yet playing
+				// start playing the emitter
+			// increment i

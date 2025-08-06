@@ -262,8 +262,11 @@ function get_interactable() {
 				// decode the dialogue grid from the given encoded grid
 				decode_grid(eg, global.dialogueGrid);
 				
-				// return the proper interaction ID
-				return interactions.talk;
+				// check that this character is not playing music
+				if (oi.state != OVERWORLD_CHARACTER_STATES.PLAYING_MUSIC) {
+					// return the proper interaction ID
+					return interactions.talk;
+				}
 			}
 			
 			// increment i
