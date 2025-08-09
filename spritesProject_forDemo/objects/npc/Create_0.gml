@@ -76,6 +76,14 @@ finalDestY	= -1;
 // initialize depth
 human_set_depth();
 
+loopCount = 0;		// 0 indicates a single cycle, -1 indicates infinite looping
+loopsCompleted = 0;
+
+// initialize currentSong
+currentSong = -1;
+songLoops = 0;		// 0 indicates a single cycle, -1 indicates infinite looping
+songLoopsCompleted = 0;
+
 #endregion
 
 // tracks all dialogue spoken by this NPC since the player has been in this room

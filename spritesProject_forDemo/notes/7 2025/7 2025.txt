@@ -87,7 +87,7 @@ CUTSCENES:
 	knew that there was one use of it that was necessary
 	debugged until I found that spellRange in the sparActionProcessor create phase NEEDS to be initialized as -4
 	
-	I also fixed the "correct_string_after_decode" function and replaced all use of the "real(" function 
+	I also fixed the "correct_string_after_decode" function and replaced all use of the "real(" function
 	NEED TO FIND ANY TIMES THAT YOU ARE CHECKING FOR "-1" AND "-4" OUTSIDE OF THE CORRECT STRING AFTER DECODE FUNCTION
 	
 7/27/2025
@@ -112,3 +112,12 @@ CUTSCENES:
 	For the system that checks if the player is performing a "special" song:
 		-lists of intervals--not notes. That way the player isn't bound to one key.
 		-use the same sort of autocompletion logic used by suggested word features
+		
+8/9/2025
+
+	npc music playing:
+		I finished the logic for looping the song. This finishes the music playing case on the 
+		state machine function
+		
+		Next, you'll need to add a music playing animation and a test song. The call to begin playing music
+		is where the song will be indicated and the emitter (or just the listener mask) will be set up.

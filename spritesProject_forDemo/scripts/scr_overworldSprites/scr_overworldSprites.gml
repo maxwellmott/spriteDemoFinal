@@ -417,6 +417,27 @@ function overworld_character_state_machine() {
 					loopsCompleted++;
 				}
 			}
+			
+			// make sure the song is infinitely looping (or that target loop count hasn't been hit)
+			if (songLoops == -1) 
+			|| (songLoopsCompleted < songLoops) {
+				// get the current track position
+				var pos = audio_sound_get_track_position(currentSong);
+				
+				// get the length of the song
+				var l = audio_sound_length(currentSong);
+				
+				// check that the song is past halfway (this means it's time to loop)
+				if (pos >= (l / 2)) {
+					// reset the loop
+					audio_sound_set_track_position(currentSong, audio_sound_get_track_position(currentSong) - (l / 2));
+					
+					// check that the song is NOT infinitely looping
+					if (songLoops != -1) {
+						songLoopsCompleted++;
+					}
+				}
+			}
 		break;
 	}
 }

@@ -40,4 +40,8 @@ vocalRange = -1;
 loopCount = 0;		// 0 indicates a single cycle, -1 indicates infinite looping
 loopsCompleted = 0;
 
+currentSong = -1;
+songLoops = 0;		// 0 indicates a single cycle, -1 indicates infinite looping
+songLoopsCompleted = 0;
+
 spokenDialogue = ds_list_create();
