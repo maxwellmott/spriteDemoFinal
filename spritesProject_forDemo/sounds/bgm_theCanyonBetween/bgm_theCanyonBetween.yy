@@ -9,7 +9,7 @@
   "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":186.83337,
+  "duration":191.41672,
   "name":"bgm_theCanyonBetween",
   "parent":{
     "name":"BGM",
@@ -20,6 +20,6 @@
   "resourceVersion":"2.0",
   "sampleRate":44100,
   "soundFile":"bgm_theCanyonBetween.wav",
-  "type":0,
+  "type":1,
   "volume":1.0,
 }

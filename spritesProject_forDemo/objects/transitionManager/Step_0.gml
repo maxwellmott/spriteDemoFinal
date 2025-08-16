@@ -39,7 +39,12 @@ switch (state) {
 					create_once(0, 0, LAYER.ui, mouse);
 					state = transitionStates.fadingOut;
 				break;
-
+				
+				case rm_dayChange:
+					create_once(0, 0, LAYER.meta, dayChange);
+					state = transitionStates.fadingOut;
+				break;
+				
 				case rm_keyboardMenu:
 					create_once(0, 0, LAYER.meta, keyboardMenu);
 					create_once(0, 0, LAYER.ui, mouse);

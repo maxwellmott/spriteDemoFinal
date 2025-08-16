@@ -121,3 +121,12 @@ CUTSCENES:
 		
 		Next, you'll need to add a music playing animation and a test song. The call to begin playing music
 		is where the song will be indicated and the emitter (or just the listener mask) will be set up.
+		
+8/15/2025
+
+	-today I recorded and imported all of the sfx for spar effects that have animations. I realized that there are some animations
+	we still need.
+	-I found a bug when using spyotis on my team. For some reason (although this doesn't happen with other "turn_begin" abilities
+	such as bookish's) the message declaring the effect stays indefinitely.
+	-next, get back to the note from 8/9/2025
+	-then, do all of the spell sfx
