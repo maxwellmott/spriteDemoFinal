@@ -59,6 +59,8 @@ if (introFinished)
 				// set filter phase to attack
 				filterPhase = FILTER_PHASES.ATTACK;
 			}
+			
+			
 		}
 	}
 	
@@ -71,7 +73,6 @@ if (introFinished)
 	// 
 	pitchVal = (currentTone / CENTRAL_TONE);		
 
-	
 	if (playing) {
 		// use a state machine to control the filter
 		switch (filterPhase) {

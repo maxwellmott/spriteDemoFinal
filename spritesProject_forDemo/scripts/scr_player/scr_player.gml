@@ -140,11 +140,11 @@ function draw_standard_player() {
 
 function player_draw_appearance_surface() {
 		// check if playerAppearanceSurface was deleted
-		if !(surface_exists(playerAppearanceSurface)) {
-			playerAppearanceSurface = surface_create(24, 42);
+		if !(surface_exists(player.playerAppearanceSurface)) {
+			player.playerAppearanceSurface = surface_create(24, 42);
 		}
 	
-		draw_surface(playerAppearanceSurface, drawX, drawY);
+		draw_surface(player.playerAppearanceSurface, player.drawX, player.drawY);
 }
 
 ///@desc This function is called by the player_draw_from_state function when drawing
@@ -163,14 +163,31 @@ function draw_drinking_player() {
 /// the player in the human draw event, while in the overworld. The function draws the
 /// player's wavephone animation
 function draw_wavephone_player() {	
-	draw_sprite_part_ext(wavephoneHumanBody,	frame,	0,									facing * humanSpriteHeight,		24,	42, drawX, drawY, 1, 1, skintone,		1.0);
-	draw_sprite_part_ext(outfitSheet,			0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * outfit,		24, 42, drawX, drawY, 1, 1, outfitColor,	1.0);
-	draw_sprite_part_ext(hairSheet,				0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * hairstyle,	24, 42, drawX, drawY, 1, 1, hairColor,		1.0);
-	draw_sprite_part_ext(hatSheet,				0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * hat,			24, 42, drawX, drawY, 1, 1, hatColor,		1.0);
-	draw_sprite_part_ext(shoeSheet,				0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * shoes,		24, 42, drawX, drawY, 1, 1, shoeColor,		1.0);
-	draw_sprite_part_ext(accessorySheet,		0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * accessory,	24, 42, drawX, drawY, 1, 1, c_white,		1.0);
-	draw_sprite_part_ext(wavephoneSheet,		frame,	0,									facing * humanSpriteHeight,		24, 42, drawX, drawY, 1, 1, c_white,		1.0);
-	draw_sprite_part_ext(wavephoneHands,		frame,	0,									facing * humanSpriteHeight,		24, 42, drawX, drawY, 1, 1, skintone,		1.0);
+	surface_set_target(playerAppearanceSurface);
+	
+		draw_sprite_part_ext(wavephoneHumanBody,	0,		0,									facing * humanSpriteHeight,		24,	42, 0, 0, 1, 1, skintone,		1.0);
+		draw_sprite_part_ext(outfitSheet,			0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * outfit,		24, 42, 0, 0, 1, 1, outfitColor,	1.0);
+		draw_sprite_part_ext(hairSheet,				0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * hairstyle,	24, 42, 0, 0, 1, 1, hairColor,		1.0);
+		
+		// check if the player is wearing a hat
+		if (hat != hats.nothing) {
+			// set blend mode to subtractive
+			gpu_set_blendmode(bm_subtract);
+		
+				// draw rectangle
+				draw_rectangle_color(0, 0, 24, 11, c_black, c_black, c_black, c_black, false);
+			
+			// reset blendmode
+			gpu_set_blendmode(bm_normal);
+		}
+		
+		draw_sprite_part_ext(hatSheet,				0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * hat,			24, 42, 0, 0, 1, 1, hatColor,		1.0);
+		draw_sprite_part_ext(shoeSheet,				0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * shoes,		24, 42, 0, 0, 1, 1, shoeColor,		1.0);
+		draw_sprite_part_ext(accessorySheet,		0,		facing * (humanSpriteWidth * 4),	humanSheetHeight * accessory,	24, 42, 0, 0, 1, 1, c_white,		1.0);
+		draw_sprite_part_ext(wavephoneSheet,		frame,	0,									facing * humanSpriteHeight,		24, 42, 0, 0, 1, 1, c_white,		1.0);
+		draw_sprite_part_ext(wavephoneHands,		0,		0,									facing * humanSpriteHeight,		24, 42, 0, 0, 1, 1, skintone,		1.0);
+
+	surface_reset_target();
 }
 
 ///@desc This function is called by the player_draw_from_state function when drawing
@@ -192,6 +209,11 @@ function draw_swimming_player() {
 ///@desc This function is called in the human draw event, while in the overworld. The
 /// function checks the player's current state and then draws the appropriate animation
 function player_draw_from_state() {
+	// make sure the surface exists
+	if !(surface_exists(playerAppearanceSurface)) {
+		playerAppearanceSurface = surface_create(24, 42);
+	}
+	
 	// clear playerAppearanceSurface
 	surface_set_target(playerAppearanceSurface);
 	
@@ -215,7 +237,7 @@ function player_draw_from_state() {
 		break;
 		
 		case humanStates.meditating:
-			draw_meditating_player();
+			//draw_meditating_player();
 		break;
 		
 		case humanStates.playingWavephone:
@@ -266,7 +288,7 @@ function gate_check_player() {
 	// check east gate
 	if (player.bbox_right > locationWidth) {
 		if (eastExit >= 0) {
-			overworld_transition(16, player.y, DIRECTIONS.EAST, eastExit);	
+			overworld_transition(16, player.y, DIRECTIONS.EAST, eastExit);
 		}	else {
 			player.x = locationWidth - 9;
 		}
@@ -275,7 +297,7 @@ function gate_check_player() {
 	// check south gate
 	if (player.bbox_bottom >= locationHeight) {
 		if (southExit >= 0) {
-			overworld_transition(player.x, 16, DIRECTIONS.SOUTH, southExit);	
+			overworld_transition(player.x, 16, DIRECTIONS.SOUTH, southExit);
 		}	else {
 			player.y = locationHeight - 2;
 		}

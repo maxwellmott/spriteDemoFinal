@@ -236,111 +236,79 @@ function wavephone_get_note_frequency(_noteNum) {
 	// use a switch statement to return the proper frequency
 	switch (n) {
 		case 0:
-			return 207.65;
-		break;
-		
-		case 1:
-			return 220;
-		break;
-		
-		case 2:
-			return 233.08;
-		break;
-		
-		case 3:
-			return 246.94;
-		break;
-		
-		case 4:
 			return 261.63;
 		break;
 		
-		case 5:
+		case 1:
 			return 277.18;
 		break;
 		
-		case 6:
+		case 2:
 			return 293.66;
 		break;
 		
-		case 7:
+		case 3:
 			return 311.13;
 		break;
 		
-		case 8:
+		case 4:
 			return 329.63;
 		break;
 		
-		case 9:
+		case 5:
 			return 349.23;
 		break;
 		
-		case 10:
+		case 6:
 			return 369.99;
 		break;
 		
-		case 11:
+		case 7:
 			return 392;
 		break;
 		
-		case 12:
+		case 8:
 			return 415.3;
 		break;
 		
-		case 13:
+		case 9:
 			return 440;
 		break;
 		
-		case 14:
+		case 10:
 			return 466.16;
 		break;
 		
-		case 15:
+		case 11:
 			return 493.88;
 		break;
 		
-		case 16:
+		case 12:
 			return 523.25;
 		break;
 		
-		case 17:
+		case 13:
 			return 554.37;
 		break;
 		
-		case 18:
+		case 14:
 			return 587.33;
 		break;
 		
-		case 19:
+		case 15:
 			return 622.25;
 		break;
 		
-		case 20:
+		case 16:
 			return 659.25;
 		break;
 		
-		case 21:
+		case 17:
 			return 698.46;
 		break;
 		
-		case 22:
+		case 18:
 			return 739.99;
-		break;
-		
-		case 23:
-			return 783.99;
-		break;
-		
-		case 24:
-			return 830.61;
-		break;
-		
-		case 25:
-			return 880;
-		break;
-		
-		case 26:
-			return 932.33;
 		break;
 	}
 }
@@ -349,18 +317,14 @@ function wavephone_get_note_frequency(_noteNum) {
 global.accidentalsList = ds_list_create();
 
 // build accidentals list
-ds_list_add(global.accidentalsList,	0,
-									2,
-									5,
-									7,
+ds_list_add(global.accidentalsList,	1,
+									3,
+									6,
+									8,
 									10,
-									12,
-									14,
-									17,
-									19,
-									22,
-									24,
-									26);
+									13,
+									15,
+									18);
 									
 // encode accidentals list
 global.allAccidentals = encode_list(global.accidentalsList);

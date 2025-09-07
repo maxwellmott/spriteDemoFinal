@@ -316,7 +316,7 @@ function draw_scenery() {
 	// check if any beds exist
 	if (object_index == bed) {
 		draw_sprite_part(comforterSheet, 0, 0, spriteTop, spriteWidth, spriteHeight, x - (spriteWidth / 2), y - spriteHeight);
-	}	
+	}
 }
 
 ///@desc This function can be called to set the depth of a scenery object

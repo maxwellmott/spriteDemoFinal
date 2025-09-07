@@ -30,7 +30,7 @@ sound = -1;
 
 pitchVal = 0;
 
-pitchRange = 27;
+pitchRange = 19;
 
 currentTone = -1;
 
@@ -88,7 +88,7 @@ var wl = 0.125;
 // use a repeat loop to write every sample in the waveform to the buffer
 var i = 0;	repeat ((r / n) + 1) {
 	var j = 0;	repeat (n) {
-		var val = (h * (v * 255)) / 2;
+		var val = (h * (v * 255));
 		
 		// write the current value of the waveform to the buffer using j
 		buffer_write(audioBuffer, buffer_s16, val);
@@ -100,5 +100,27 @@ var i = 0;	repeat ((r / n) + 1) {
 	// increment i
 	i++;
 }
+
+kbButtonList = ds_list_create();
+
+kbButtonList[| 18] = "]";
+kbButtonList[| 17] = "'";
+kbButtonList[| 16] = ";";
+kbButtonList[| 15] = "P";
+kbButtonList[| 14] = "L";
+kbButtonList[| 13] = "O";
+kbButtonList[| 12] = "K";
+kbButtonList[| 11] = "J";
+kbButtonList[| 10] = "U";
+kbButtonList[| 9] = "H";
+kbButtonList[| 8] = "Y";
+kbButtonList[| 7] = "G";
+kbButtonList[| 6] = "T";
+kbButtonList[| 5] = "F";
+kbButtonList[| 4] = "D";
+kbButtonList[| 3] = "E";
+kbButtonList[| 2] = "S";
+kbButtonList[| 1] = "W";
+kbButtonList[| 0] = "A";
 
 wavephone_build_note_boxes();

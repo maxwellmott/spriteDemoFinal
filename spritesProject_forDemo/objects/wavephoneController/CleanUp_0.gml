@@ -18,4 +18,6 @@ if !(instance_exists(transitionManager)) {
 	}
 }
 
+ds_list_destroy(kbButtonList);
+
 destroy_if_possible(mouse);

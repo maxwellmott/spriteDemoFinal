@@ -301,23 +301,32 @@ var i = 0;	repeat (ds_list_size(overworld.tilemapList) - 1) {
 				draw_set_alpha(1.0);
 			}
 		}
-		
-		// set circle radius
-		var r = 10 + (sin(global.gameTime / 40) * 1.5);
-	
-		// draw a circle over the player
-		draw_circle(player.x - 1, player.y - 7, r, false);
-	
-		if (instance_exists(window)) {
-			with (window) {
-					draw_sprite(spriteID, frame, x, y);
-					draw_sprite(spriteID, frame, x, y);
-					draw_sprite(spriteID, frame, x, y);
-			}
-		}
-		
 	
 		// change blendmode back to normal
 		gpu_set_blendmode(bm_normal);
+		
+		// change blendmode to multiplicative
+		gpu_set_blendmode_ext(bm_dest_color, bm_zero);
+		
+		// turn on alphatestenable
+		gpu_set_alphatestenable(true);
+		gpu_set_alphatestref(127);
+		
+		// set total black fog
+		gpu_set_fog(true, c_dkgray, 0, 1);
+		
+		// draw player surface
+		player_draw_appearance_surface();
+		
+		// reset fog
+		gpu_set_fog(false, c_white, 0, 0);
+		
+		// change blendmode back to normal
+		gpu_set_blendmode(bm_normal);
+		
+		// turn off
+		gpu_set_alphatestenable(false);
+		gpu_set_alphatestref(0);
+		
 	surface_reset_target();
 #endregion

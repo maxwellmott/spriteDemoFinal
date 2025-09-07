@@ -130,3 +130,34 @@ CUTSCENES:
 	such as bookish's) the message declaring the effect stays indefinitely.
 	-next, get back to the note from 8/9/2025
 	-then, do all of the spell sfx
+	
+9/5/2025
+	
+	-taking another stab at the wavephone before I give up and do something sample based
+	-change the controls to use the keyboard (add a legato effect where the note stays in sustain until the key is released, if a new key is pressed while in sustain, just change the note and stay in sustain)
+	-make sure that only one note can be played at a time with the new controls (if in the resonance phase, the note should stop playing immediately when a new one is played)
+	-fuck with the wave until you get it right!
+	
+9/6/2025
+
+	-finished the new artwork for the new wavephone controls
+	-just need to make the button labels for the keyboard version
+	-fixed a lot of stuff, including the new "behind something" effect
+	-finished and added the artwork for naia playing wavephone
+	
+	NEXT:
+	
+		WAVEPHONE
+		-finish the synthesizer and the wavephone controls
+		-add the lastNotesPlayed list, and the logic to maintain it
+		-make a function that checks the last given number of notes to see if the intervals match a song
+		-create a song to test
+		-add a wavephone_song_played option for the unlock alerts
+	
+		NPC MUSIC
+		-finish the listener/emitter logic
+		-add Naia to the overworld
+		-give Naia a behavior function that occasionally results in music
+		
+		SPAR SETS
+		-create the spar sets menu and the ability save/name new sets

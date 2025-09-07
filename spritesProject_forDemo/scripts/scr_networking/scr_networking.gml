@@ -1,6 +1,6 @@
 // this macro currently returns the shared IP of the azure web app I had been working on. Eventually
 // it will have to change to the shared IP of the VM that Brendan set up.
-#macro	SERVER_ADDRESS		"20.253.222.246"
+#macro	SERVER_ADDRESS		"172.184.156.174"
 #macro	PORT_NUM			3000
 // this is an enumerator with an identical twin on the server-side. These values are used
 // to indicate whether a player is a host or a guest. this value is initially determined
