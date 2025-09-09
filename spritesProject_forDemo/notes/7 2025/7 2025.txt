@@ -147,9 +147,9 @@ CUTSCENES:
 	
 	NEXT:
 
-		NPCS
-		-finish the new npc_get_response function
-		-finish each npcs special respond functions (check for quest dialogue)
+		OW SPRITES
+		-fix the response functions to work like the NPCs personal respond functions
+		-replace the call to respondFunction with a call to npc_get_response or whatever
 	
 		WAVEPHONE
 		-finish the synthesizer and the wavephone controls
@@ -160,8 +160,6 @@ CUTSCENES:
 	
 		NPC MUSIC
 		-finish the listener/emitter logic
-		-add Naia to the overworld
-		-give Naia a behavior function that occasionally results in music
 		
 		SPAR SETS
 		-create the spar sets menu and the ability save/name new sets

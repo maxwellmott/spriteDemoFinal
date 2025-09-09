@@ -116,6 +116,7 @@ ds_list_add(naiaTalismans,
 #region BUILD ALL KNOWN SPELLS LISTS
 
 var mercurioSpells = ds_list_create();
+var naiaSpells = ds_list_create();
 
 ds_list_add(mercurioSpells,
 				SPELLS.FIREBALL,
@@ -124,8 +125,17 @@ ds_list_add(mercurioSpells,
 				SPELLS.DECAY,
 				SPELLS.EXPEL_FORCE,
 				SPELLS.HEALING_LIGHT,
-				SPELLS.JABULS_FIGHT_SONG,
 				SPELLS.CRECIAS_CRYSTAL_SPIKES
+			);
+			
+ds_list_add(naiaSpells,
+				SPELLS.FIREBALL,
+				SPELLS.HOLY_WATER,
+				SPELLS.SHOCK,
+				SPELLS.DECAY,
+				SPELLS.EXPEL_FORCE,
+				SPELLS.HEALING_LIGHT,
+				SPELLS.CHANNEL_ESSENCE
 			);
 #endregion
 
@@ -183,7 +193,65 @@ ds_list_add(naiaLocations,		locations.miriabramFoyer);
 		}
 	}
 
-
+	function naia_behavior() {
+		switch (overworld.locationID) {
+			case locations.miriabramFoyer:
+				switch(player.weekday) {
+					case weekdays.hyggsun:
+						if (state < 0) {
+							state = OVERWORLD_CHARACTER_STATES.PLAYING_MUSIC;
+							currentSong = wps_test;
+							songLoops = 0;
+						}
+						
+						if (state != OVERWORLD_CHARACTER_STATES.PLAYING_MUSIC) {
+							if (global.gameTime mod 800 == 0) {
+								randomize();
+								var r = irandom_range(0, 1);
+								
+								if (r) {
+									state = OVERWORLD_CHARACTER_STATES.ERRATIC_LOOKING;	
+								}
+								else {
+									state = OVERWORLD_CHARACTER_STATES;
+									currentSong = wps_test;
+									songLoops = 0;
+								}
+							}
+						}
+					break;
+					
+					case weekdays.plughsun:
+						state = OVERWORLD_CHARACTER_STATES.ERRATIC_LOOKING;
+					break;
+					
+					case weekdays.rumnsun:
+						state = OVERWORLD_CHARACTER_STATES.ERRATIC_LOOKING;
+					break;
+					
+					case weekdays.famelsun:
+						state = OVERWORLD_CHARACTER_STATES.ERRATIC_LOOKING;
+					break;
+				}
+			break;
+			
+			case locations.miriabramFoyer:
+				switch(player.weekday) {
+					case weekdays.hyggsun:
+					break;
+					
+					case weekdays.plughsun:
+					break;
+					
+					case weekdays.rumnsun:
+					break;
+					
+					case weekdays.famelsun:
+					break;
+				}
+			break;
+		}	
+	}
 #endregion
 
 #region BUILD ALL RESPONSE FUNCTIONS
@@ -211,25 +279,14 @@ ds_list_add(naiaLocations,		locations.miriabramFoyer);
 ///@desc Mercurio's response function. Determines the proper dialogue
 /// response upon being interacted with.
 function mercurio_respond() {
-	var wd	= player.weekday;
-	var h	= player.hours;
-
-	switch (wd) {
-		case weekdays.hyggsun:
-			if h >= 20	global.dialogueKey = "mercurioDayOnePostFest";
-		break;
-		
-		case weekdays.plughsun:
-			if h < 4	global.dialogueKey = "mercurioDayOnePostFest";
-		break;
-		
-		case weekdays.rumnsun:
-			if h < 17	global.dialogueKey = "mercurioDayThreeProsArrive";
-		break;
-	}
+	// decode the player's todo list
+	var tdList = ds_list_create();
+	decode_list(player.todoList, tdList);
 	
-	// FOR TESTING ONLY
-	global.dialogueKey = "mercurioQuestDialogue1";
+	// check if "Pre-festival Jitters" is on Step 2
+	if (tdList[| TASKS.PREFESTIVAL_JITTERS] == 1) {
+		global.dialogueKey = "mercurioQuestDialogue1";
+	}
 	
 	// set the encoded grid as the value stored at the dialogueKey
 	var eg = ds_map_find_value(global.speaker.responseMap, global.dialogueKey);
@@ -238,24 +295,14 @@ function mercurio_respond() {
 }
 
 function naia_respond() {
-var wd	= player.weekday;
-	var h	= player.hours;
-
-	switch (wd) {
-		case weekdays.hyggsun:
-			if h >= 20	global.dialogueKey = "naiaDayOnePostFest";
-		break;
-		
-		case weekdays.plughsun:
-			if h >= 20	global.dialogueKey = "naiaDayTwoPostFest";
-			
-			if h < 4	global.dialogueKey = "naiaDayOnePostFest";
-		break;
-		
-		case weekdays.rumnsun:
-			if h < 17	global.dialogueKey = "naiaDayThreeProsArrive";
-		break;
-	}
+	// decode the player's todo list
+	var tdList = ds_list_create();
+	decode_list(player.todoList, tdList);
+	
+	// check that "Silver Linings" has not yet been started
+	// and the festival has not yet started
+	
+	//check if "Silver Linings" is on Step 3
 	
 	// FOR TESTING ONLY
 	global.dialogueKey = "naiaQuestDialogue1";
@@ -284,18 +331,18 @@ function npc_get_response(_inst) {
 		case weekdays.hyggsun:
 			// morning
 			if (h <= 12) {
-				ds_map_find_value(inst.responseMap, name + "DayOneMorningHello");
+				global.dialogueKey = name + "DayOneMorningHello";
 			}
 			
 			// afternoon
 			if (h <= 18) {
-				ds_map_find_value(inst.responseMap, name + "DayOneAfternoonHello");
+				global.dialogueKey = name + "DayOneAfternoonHello";
 			}
 			
 			// evening
 			if (h <= 5)
 			|| (h <= 24) {
-				ds_map_find_value(inst.responseMap, name + "DayOneEveningHello");
+				global.dialogueKey = name + "DayOneEveningHello";
 			}
 		break;
 		
@@ -312,15 +359,8 @@ function npc_get_response(_inst) {
 		break;
 	}
 	
-	// use a conditional statement to get the NPC's general "small talk" response
-		// each conditional should return an ID from an enumerator containing names 
-		// of different archetypal dialogues shared by all NPCs (rainySummerNight, sunnyFallMorning, etc)
-		// NOTE maybe also take the moon and the NPC's current routine into consideration
-	
-	// use one long if else, else, else, etc statement to determine if there is a piece of
-	// special dialogue that should be used to replace the dialogue selecetd above. 
-	// NOTE the if/else for each special dialogue should be listed in order of most conditions
-	// to least conditions.
+	// run the NPCs personal response function to check for any special dialogue that they should be doing
+	inst.respondFunction();
 	
 	// set the encoded grid as the value stored at the dialogueKey
 	var eg = ds_map_find_value(global.speaker.responseMap, global.dialogueKey);

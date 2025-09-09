@@ -282,6 +282,7 @@
     {"name":"sfx_hum","order":3,"path":"sounds/sfx_hum/sfx_hum.yy",},
     {"name":"sfx_invulnerable","order":4,"path":"sounds/sfx_invulnerable/sfx_invulnerable.yy",},
     {"name":"sfx_miasma","order":5,"path":"sounds/sfx_miasma/sfx_miasma.yy",},
+    {"name":"sfx_naiaVoice","order":1,"path":"sounds/sfx_naiaVoice/sfx_naiaVoice.yy",},
     {"name":"sfx_openSoulStone","order":5,"path":"sounds/sfx_openSoulStone/sfx_openSoulStone.yy",},
     {"name":"sfx_receiveBlessing","order":6,"path":"sounds/sfx_receiveBlessing/sfx_receiveBlessing.yy",},
     {"name":"sfx_receiveCurse","order":7,"path":"sounds/sfx_receiveCurse/sfx_receiveCurse.yy",},

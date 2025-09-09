@@ -359,6 +359,7 @@
     {"id":{"name":"sfx_invulnerable","path":"sounds/sfx_invulnerable/sfx_invulnerable.yy",},},
     {"id":{"name":"sfx_mercurioVoice","path":"sounds/sfx_mercurioVoice/sfx_mercurioVoice.yy",},},
     {"id":{"name":"sfx_miasma","path":"sounds/sfx_miasma/sfx_miasma.yy",},},
+    {"id":{"name":"sfx_naiaVoice","path":"sounds/sfx_naiaVoice/sfx_naiaVoice.yy",},},
     {"id":{"name":"sfx_openSoulStone","path":"sounds/sfx_openSoulStone/sfx_openSoulStone.yy",},},
     {"id":{"name":"sfx_receiveBlessing","path":"sounds/sfx_receiveBlessing/sfx_receiveBlessing.yy",},},
     {"id":{"name":"sfx_receiveCurse","path":"sounds/sfx_receiveCurse/sfx_receiveCurse.yy",},},

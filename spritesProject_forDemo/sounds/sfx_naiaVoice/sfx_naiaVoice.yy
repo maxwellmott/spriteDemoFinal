@@ -1,6 +1,6 @@
 {
   "$GMSound":"",
-  "%Name":"wps_test",
+  "%Name":"sfx_naiaVoice",
   "audioGroupId":{
     "name":"audiogroup_default",
     "path":"audiogroups/audiogroup_default",
@@ -9,17 +9,17 @@
   "bitRate":128,
   "compression":3,
   "conversionMode":0,
-  "duration":51.200047,
-  "name":"wps_test",
+  "duration":0.40004537,
+  "name":"sfx_naiaVoice",
   "parent":{
-    "name":"Sounds",
-    "path":"folders/Sounds.yy",
+    "name":"NPC VOICES",
+    "path":"folders/Sounds/SFX/NPC VOICES.yy",
   },
   "preload":false,
   "resourceType":"GMSound",
   "resourceVersion":"2.0",
   "sampleRate":44100,
-  "soundFile":"wps_test.wav",
-  "type":1,
+  "soundFile":"sfx_naiaVoice.wav",
+  "type":0,
   "volume":1.0,
 }
