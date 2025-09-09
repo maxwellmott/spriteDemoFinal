@@ -146,6 +146,10 @@ CUTSCENES:
 	-finished and added the artwork for naia playing wavephone
 	
 	NEXT:
+
+		NPCS
+		-finish the new npc_get_response function
+		-finish each npcs special respond functions (check for quest dialogue)
 	
 		WAVEPHONE
 		-finish the synthesizer and the wavephone controls

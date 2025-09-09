@@ -1,35 +1,7 @@
-placeholder,mercurioPreMatch1,{([*<`DISPLAY EMOJIS`<`0>`<`12>>* I'm so nervous. I'm not sure if this is sweat or if I unlocked some powerful water spell. . . ])}
-placeholder,mercurioPreMatch2,{([ The headmaster gave me the pep talk of a lifetime. Today I'm just gonna focus on doing better than yesterday. ])}
-placeholder,mercurioPreMatch3,{([ Apparently you and I are facing each other today! I can't wait to see what you throw at me! ])}
-placeholder,mercurioPreMatch4,{([ I'm feeling so fired up after our match yesterday! This wasn't so bad after all. ])}
-placeholder,mercurioPostMatch1,{([*<`DISPLAY EMOJIS`<`0>`<`4>>* I barely lasted 5 minutes out there. . . I knew I'd choke if there were people here. Even Mr Domino came. God I'm so embarrassed. . . ])}
-placeholder,mercurioPostMatch2,"{([*<`DISPLAY EMOJIS`<`0>`<`0>>* Well, I still lost, but I had a lot of fun. I feel like I'm starting to get how swapping works. ])}"
-placeholder,mercurioPostMatch3,{([*<`DISPLAY EMOJIS`<`0>`<`0>>* I had a great time sparring with you. I learn so much from you guys. It's crazy how clearly I can see your thoughts when we're sparring. ])}
-placeholder,mercurioPostMatch4,{([*<`DISPLAY EMOJIS`<`0>`<`0>>* I wish you could've seen my spar against Marco! I almost had him. He even admitted he was nervous the whole second half of our match! ])}
-placeholder,mercurioOpponentPreMatch,"{([Alright *<`INSERT PLAYER NAME>*, it's finally our turn. Don't go easy on me! ])}"
-placeholder,mercurioOpponentWon,{([I can't believe it! You'd better not have been going easy on me! ])}
-placeholder,mercurioOpponentLost,{([Ahhhh man! I thought I had you! ])}
-placeholder,mercurioCutsceneOneDialogueOne,{([Wait--w-why would we do that? I don't want random people from the island to come watch me spar. ])}
-placeholder,mercurioByeMatch1,{([I wonder if we'll have some time to practice after the festival. I want to use the training fields to work on my spellcasting. ])}
-placeholder,mercurioDayOnePostFest,"{([I admit, today ended up being a lot of fun. I get so nervous before sparring, but once I get in the groove it feels great! Especially when I'm with my friends. ])}"
-placeholder,mercurioDayTwoPostFest,{([I'm sorta sad this is all over. It's been a while since anyone has come to visit Miriabram. This really made me feel more connected to the rest of the island. ])}
-placeholder,mercurioDayThreePostFest,{([TODO])}
-placeholder,mercurioDayFourPostFest,{([TODO])}
-placeholder,mercurioPreBye1,"{([ Haha, to think that earlier I was trying to get the Headmaster to cancel the festival. Now I'm mad that I don't have another match till tomorrow! ])}"
-placeholder,mercurioPreBye2,{([TODO])}
-placeholder,mercurioDayOnePreFest,{([ Gosh I'm so nervous. I tried convincing the Headmaster to cancel this thing. . . or at least push it back to tomorrow. . . I just know I'm gonna do terribly. . . ])}
-placeholder,mercurioDayTwoPreFest,{([TODO])}
-placeholder,mercurioDayThreePreFest,{([TODO])}
-placeholder,mercurioDayFourPreFest,{([TODO])}
-placeholder,mercurioByeMatch2,{([TODO])}
-placeholder,mercurioSparPrompt1,{([ I can't sleep quite yet. I keep thinking of my match earlier and I feel like my mind is on fire with new ideas. So what do you say? Wanna have a spar with me and help me prepare for tomorrow? ])([*<`DISPLAY EMOJIS`<`0>`<`4>>* That's okay. . . I get it. . . ][*<`BEGIN SPAR>* Alright! Don't underestimate me just because I'm new to this! ])}
-placeholder,mercurioSparPrompt2,{([TODO])}
-placeholder,mercurioSparPrompt3,{([TODO])}
-placeholder,mercurioSparPrompt4,{([TODO])}
-placeholder,mercurioDayThreeProsArrive,"{([ I'm so excited that we're going to get the opportunity to spar with real monks who already graduated and got their beginner's licenses! . . . . . . . . . . . . . . . . Okay I'm also REALLY nervous, but I know that even if I lose, I'm going to learn so much from these matches! ])}"
-placeholder,mercurioDayThreePreMatch,"{([Oh boy, my blood is really pumping! Who do you think you'll spar against first? ])([That's what I figured! You both have a fiery energy, it should be an awesome match! ][Hmm, I wonder what the outcome of that match will be. . . ][That's no surprise! She's got a fierce vibe! ][Eughh. . . something about them gives me the creeps! ])}"
-placeholder,mercurioDayThreeMatchOne,{([TODO])}
-placeholder,mercurioDayThreeMatchTwo,{([TODO])}
-placeholder,mercurioDayThreeMatchThree,{([TODO])}
-placeholder,mercurioDayThreeMatchFour,{([TODO])}
-placeholder,mercurioDayThreeWaiting,{([It's hard to decide who to spar with next! I never realized how much fun this could be! ])}
+placeholder,mercurioDayOneMorningHello,{([ Ahhhh! I just know that I'm going to do terribly in this tournament. I feel like Headmaster Eoghan never thinks about me or how I feel. . . . ])}
+placeholder,mercurioDayOneMorningFollowUp,{([ Ugh. . . . I guess we'll just have to see how this goes. . . . ])}
+placeholder,mercurioDayOneAfternoonHello,"{([ Well, here we go. . . Jade tried to pay Eoghan to stop the festival. . . She said I'm just not ready for something like this, and that it's better if the whole town get that on full display. . . curse this, man. This sucks. . . ])}"
+placeholder,mercurioDayOneAfternoonFollowUp,"{([ Curse this, man. This sucks. . . "
+placeholder,mercurioDayOneEveningHello,"{([*<`DISPLAY EMOJIS`<`0`><`0>>* I knew I would just embarrass myself out there, and everyone just went and let me do it. Jade didn't even say goodbye to me, oh my oneness. . . I feel so worthless. . . ])}"
+placeholder,mercurioDayOneEveningFollowUp,"{([*<`DISPLAY EMOJIS`<`0>`<`0>>* Well, I still lost, but I had a lot of fun. I feel like I'm starting to figure out what Thornton told us that one time about good swaps and bad swaps. . . . )}"
+placeholder,mercurioQuestDialogue1,{([ I can't sleep quite yet. I keep thinking of my match earlier and I feel like my mind is on fire with new ideas. So what do you say? Wanna have a spar with me and help me prepare for tomorrow? ])([*<`DISPLAY EMOJIS`<`0>`<`4>>* That's okay. . . I get it. . . ][*<`BEGIN SPAR>* Alright! Don't underestimate me just because I'm new to this! ])}

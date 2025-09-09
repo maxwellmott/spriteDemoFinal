@@ -10,7 +10,7 @@ enum npcs {
 	mercurioGallant,		// 2 years older than you--lives with aunt and uncle in big house off campus
 	indigoMyst,				// your same age--lives in the school with you
 	dynoBladesman,			// 1 year older than you--lives in the school with you
-	naimaHeartseer,			// 4 years older than you--lives with mentors at the Wavist Academy
+	naiaSeaspear,			// 4 years older than you--lives with mentors at the Wavist Academy
 	thorntonVerdman,		// 9 years older than you--graduated from miriabram school in the past, hangs around and helps out sometimes
 	graciaVerdman,			// thornton's aunt, gay as hell, very nice and insightful, fought to keep her farmland when food synthesis was invented
 	martinFoamhyde,			// locklan's father--used to be pretty cool. He's caved in a lot to make room for Locklan's beliefs. Used to volunteer at the library when bookish was still young and needed help :')
@@ -19,6 +19,7 @@ enum npcs {
 	cyrilSenut,				// 16 years older than you. wants desperately to fit into both worlds--the world of his parents, and the world of his friends
 	cianaBeachfoot,			// 10 years older than you. miriabram grad. born Ciana Foamhyde--locklan's cousin. She is giving Paris Hilton Enlightenment tm. Totally nihilistic because her experiences showed her the truth of humanity at an early age.
 	jadeStonegrasp,			// Mercurio's aunt and foster mother--she and her husband want mercurio to grow into a young man who makes their charity worthwhile...yeh
+	grantStonegrasp,		// Mercurio's cousin/adopted brother (Jade's son). He graduated 3 years prior, so now he's like 23. He's a total douchebag. He's basically the Gary Oak of the situation. He thinks Mercurio and his friends are losers
 	marigoldBushward,		// 7 years older than you, graduated from miriabram school (and both of the other academies on stackrock) she takes herself very seriously and doesn't want to be seen as a silly hippy like her relatives
 	violetBushward,			// 7 years older than you, studied at miriabram school but never graduated, indefinitely studying at Wavist Academy (basically has a residency but no degree), she's good but didn't learn properly
 	yvesFennet,				// 13 years older than you, graduated early from miriabram school. Keeps to herself these days. She lives with her family in Soulsprig, but it's clear that she is totally focused on her magical practices.
@@ -81,6 +82,12 @@ fix_response_grid(mercurioResponseGrid);
 var mercurioResponseMap = ds_map_create();
 convert_grid_to_map(mercurioResponseGrid, mercurioResponseMap);
 
+var naiaResponseGrid = load_csv("DEMO_NAIA_ENGLISH.csv");
+
+fix_response_grid(naiaResponseGrid);
+var naiaResponseMap = ds_map_create();
+convert_grid_to_map(naiaResponseGrid, naiaResponseMap);
+
 #endregion
 
 #region BUILD ALL TALISMAN LISTS
@@ -93,6 +100,17 @@ ds_list_add(mercurioTalismans,
 				SPRITES.FISHMONGER,
 				SPRITES.UPROOTER
 			);
+			
+var naiaTalismans = ds_list_create();
+
+ds_list_add(naiaTalismans,
+				SPRITES.FLOOPWALKER,
+				SPRITES.SONGBIRD,
+				SPRITES.DECIDRUID,
+				SPRITES.FISHMONGER,
+				SPRITES.GEMBO
+			);
+			
 #endregion
 
 #region BUILD ALL KNOWN SPELLS LISTS
@@ -114,11 +132,13 @@ ds_list_add(mercurioSpells,
 #region BUILD ALL LOCATION LISTS
 // create all location lists
 var mercurioLocations	= ds_list_create();
+var naiaLocations		= ds_list_create();
 
 // populate all location lists
 //			list name				
 ds_list_add(mercurioLocations,	locations.miriabramExt);
-								
+ds_list_add(naiaLocations,		locations.miriabramFoyer);
+
 #endregion
 
 #region BUILD ALL BEHAVIOR FUNCTIONS
@@ -196,39 +216,20 @@ function mercurio_respond() {
 
 	switch (wd) {
 		case weekdays.hyggsun:
-			if h < 20	global.dialogueKey = "mercurioByeMatch1";
-			if h < 17	global.dialogueKey = "mercurioPreBye1";
-			if h < 16	global.dialogueKey = "mercurioPostMatch2";
-			if h < 15	global.dialogueKey = "mercurioPreMatch2";
-			if h < 14	global.dialogueKey = "mercurioPostMatch1";
-			if h < 12	global.dialogueKey = "mercurioPreMatch1";
-			if h < 10	global.dialogueKey = "mercurioDayOnePreFest";
-			
 			if h >= 20	global.dialogueKey = "mercurioDayOnePostFest";
 		break;
 		
 		case weekdays.plughsun:
-			if h < 20	global.dialogueKey = "mercurioByeMatch2";
-			if h < 17	global.dialogueKey = "mercurioPreBye2";
-			if h < 16	global.dialogueKey = "mercurioPostMatch4";
-			if h < 15	global.dialogueKey = "mercurioPreMatch4";
-			if h < 14	global.dialogueKey = "mercurioPostMatch3";
-			if h < 12	global.dialogueKey = "mercurioPreMatch3";
-			if h < 10	global.dialogueKey = "mercurioDayTwoPreFest";
-			
-			if h >= 20	global.dialogueKey = "mercurioDayTwoPostFest";
-			
 			if h < 4	global.dialogueKey = "mercurioDayOnePostFest";
 		break;
 		
 		case weekdays.rumnsun:
-			if h < 20	global.dialogueKey = "mercurioDayThreeMatchesEnsue";
 			if h < 17	global.dialogueKey = "mercurioDayThreeProsArrive";
 		break;
 	}
 	
 	// FOR TESTING ONLY
-	global.dialogueKey = "mercurioSparPrompt1";
+	global.dialogueKey = "mercurioQuestDialogue1";
 	
 	// set the encoded grid as the value stored at the dialogueKey
 	var eg = ds_map_find_value(global.speaker.responseMap, global.dialogueKey);
@@ -236,9 +237,41 @@ function mercurio_respond() {
 	return eg;	
 }
 
-function npc_get_response(_npcID) {
+function naia_respond() {
+var wd	= player.weekday;
+	var h	= player.hours;
+
+	switch (wd) {
+		case weekdays.hyggsun:
+			if h >= 20	global.dialogueKey = "naiaDayOnePostFest";
+		break;
+		
+		case weekdays.plughsun:
+			if h >= 20	global.dialogueKey = "naiaDayTwoPostFest";
+			
+			if h < 4	global.dialogueKey = "naiaDayOnePostFest";
+		break;
+		
+		case weekdays.rumnsun:
+			if h < 17	global.dialogueKey = "naiaDayThreeProsArrive";
+		break;
+	}
+	
+	// FOR TESTING ONLY
+	global.dialogueKey = "naiaQuestDialogue1";
+	
+	// set the encoded grid as the value stored at the dialogueKey
+	var eg = ds_map_find_value(global.speaker.responseMap, global.dialogueKey);
+	
+	return eg;		
+}
+
+function npc_get_response(_inst) {
 	// store args in locals
-	var npcID = _npcID;
+	var inst = _inst;
+	
+	// get npc name
+	var name = inst.name;
 	
 	// get factors for response selection
 	var wd	= player.weekday;
@@ -246,6 +279,38 @@ function npc_get_response(_npcID) {
 	var s	= player.season;
 	var l	= overworld.locationID;
 	var r	= global.rainActive;
+	
+	switch (wd) {
+		case weekdays.hyggsun:
+			// morning
+			if (h <= 12) {
+				ds_map_find_value(inst.responseMap, name + "DayOneMorningHello");
+			}
+			
+			// afternoon
+			if (h <= 18) {
+				ds_map_find_value(inst.responseMap, name + "DayOneAfternoonHello");
+			}
+			
+			// evening
+			if (h <= 5)
+			|| (h <= 24) {
+				ds_map_find_value(inst.responseMap, name + "DayOneEveningHello");
+			}
+		break;
+		
+		case weekdays.plughsun:
+		
+		break;
+		
+		case weekdays.rumnsun:
+		
+		break;
+		
+		case weekdays.famelsun:
+		
+		break;
+	}
 	
 	// use a conditional statement to get the NPC's general "small talk" response
 		// each conditional should return an ID from an enumerator containing names 
@@ -256,8 +321,6 @@ function npc_get_response(_npcID) {
 	// special dialogue that should be used to replace the dialogue selecetd above. 
 	// NOTE the if/else for each special dialogue should be listed in order of most conditions
 	// to least conditions.
-	
-	global.dialogueKey = "mercurioSparPrompt1";
 	
 	// set the encoded grid as the value stored at the dialogueKey
 	var eg = ds_map_find_value(global.speaker.responseMap, global.dialogueKey);
@@ -299,12 +362,33 @@ function mercurio_location_check() {
 	}
 }
 
+function naia_location_check() {
+	// get the weekday
+	var wd = player.weekday;
+	
+	switch (locationID) {
+		case locations.miriabramFoyer:
+			// check if this is the first day of the demo
+			if (wd == weekdays.hyggsun) {
+				// check if we are in the overworld
+				if (instance_exists(overworld)) {
+					var inst = instance_create_depth(32, 276, 0, npc);
+					
+					inst.ID = npcs.naiaSeaspear;
+				}
+			}
+	}
+}
+
 #endregion
 
 #region BUILD ALL SPECIAL ANIMATION LISTS
 	var mercurioSpecialAnimations = ds_list_create();
+	var naiaSpecialAnimations = ds_list_create();
 	
 	//ds_list_add(mercurioSpecialAnimations, spr_mercurioPanicking);
+	//ds_list_add(naiaSpecialAnimations, spr_naiaStudying);
+
 #endregion
 
 // load csv file to textGrid
@@ -323,6 +407,7 @@ function master_grid_add_npc(_ID) {
 
 // add all npcs to npcGrid		ID							NAME			WALKING SPRITE			SWIMMING SPRITE			MUSIC SPRITE			SPECIAL ANIMATIONS			TALISMANS							SPELLS								RESPONSES									LOCATION LIST					LOCATION CHECK FUNCTION		BEHAVIOR FUNCTION	RESPONSE FUNCTION	TALKING SPEED	VOICE				VOCAL RANGE
 master_grid_add_npc(			npcs.mercurioGallant,		"MERCURIO",		spr_mercurioWalking,	spr_mercurioWalking,	spr_mercurioWalking,	mercurioSpecialAnimations,	encode_list(mercurioTalismans),		encode_list(mercurioSpells),		encode_map(mercurioResponseMap),			encode_list(mercurioLocations), mercurio_location_check,	mercurio_behavior,	mercurio_respond,	2,				sfx_mercurioVoice,	0.5);
+master_grid_add_npc(			npcs.naiaSeaspear,			"NAIA",			spr_naiaWalking,		spr_naiaWalking,		spr_naiaWavephone,		naiaSpecialAnimations,		encode_list(naiaTalismans),			encode_list(naiaSpells),			encode_map(naiaResponseMap),				encode_list(naiaLocations),		naia_location_check,		naia_behavior,		naia_respond,		3,				sfx_naiaVoice,		0.8);
 
 // encode the grid
 global.allNPCs = encode_grid(global.npcGrid);
